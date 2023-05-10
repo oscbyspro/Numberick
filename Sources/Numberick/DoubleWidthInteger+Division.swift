@@ -8,46 +8,48 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer
+// MARK: * NBK x Double Width Integer x Division
 //*============================================================================*
 
-@frozen public struct DoubleWidthInteger<High>: FixedWidthInteger where High: FixedWidthInteger {
-    
-    public typealias High = High
-    
-    public typealias Low  = High.Magnitude
-    
-    public typealias Magnitude = DoubleWidthInteger<High.Magnitude>
+extension DoubleWidthInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static var isSigned: Bool {
-        High.isSigned
+    @inlinable public static func /=(lhs: inout Self, rhs: Self) {
+        fatalError()
+    }
+    
+    @inlinable public static func /(lhs: Self, rhs: Self) -> Self {
+        fatalError()
+    }
+    
+    @inlinable public static func %=(lhs: inout Self, rhs: Self) {
+        fatalError()
+    }
+    
+    @inlinable public static func %(lhs: Self, rhs: Self) -> Self {
+        fatalError()
+    }
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func dividedReportingOverflow(by rhs: Self) -> (partialValue: Self, overflow: Bool) {
+        fatalError()
+    }
+    
+    @inlinable public func remainderReportingOverflow(dividingBy rhs: Self) -> (partialValue: Self, overflow: Bool) {
+        fatalError()
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: State
+    // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    public var low:  Low
-    public var high: High
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(high: High, low: Low) {
-        self.low  = low
-        self.high = high
+    @inlinable public func dividingFullWidth(_ dividend: (high: Self, low: Magnitude)) -> (quotient: Self, remainder: Self) {
+        fatalError()
     }
 }
-
-
-//*============================================================================*
-// MARK: * NBK x Double Width Integer x Conditional Conformances
-//*============================================================================*
-
-extension DoubleWidthInteger:   SignedInteger, SignedNumeric where High:   SignedInteger { }
-extension DoubleWidthInteger: UnsignedInteger  /*---------*/ where High: UnsignedInteger { }
