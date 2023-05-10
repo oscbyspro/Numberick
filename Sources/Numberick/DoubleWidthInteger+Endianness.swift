@@ -8,36 +8,48 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Bits
+// MARK: * NBK x Double Width Integer x Endianness
 //*============================================================================*
 
 extension DoubleWidthInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public static var bitWidth: Int {
-        Low.bitWidth + High.bitWidth
+    @_transparent public init(bigEndian value: Self) {
+        #if _endian(big)
+        self = value
+        #else
+        self = value.byteSwapped
+        #endif
+    }
+    
+    @_transparent public init(littleEndian value: Self) {
+        #if _endian(big)
+        self = value.byteSwapped
+        #else
+        self = value
+        #endif
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var nonzeroBitCount: Int {
-        self.low.nonzeroBitCount &+ self.high.nonzeroBitCount
+    @_transparent public var bigEndian: Self {
+        #if _endian(big)
+        return self
+        #else
+        return self.byteSwapped
+        #endif
     }
     
-    @inlinable public var leadingZeroBitCount: Int {
-        let count  = self.high.leadingZeroBitCount
-        if  count != High.bitWidth { return count }
-        return count &+ self.low.leadingZeroBitCount
-    }
-    
-    @inlinable public var trailingZeroBitCount: Int {
-        let count  = self.low.trailingZeroBitCount
-        if  count != Low.bitWidth { return count }
-        return count &+ self.high.trailingZeroBitCount
+    @_transparent public var littleEndian: Self {
+        #if _endian(big)
+        return self.byteSwapped
+        #else
+        return self
+        #endif
     }
 }

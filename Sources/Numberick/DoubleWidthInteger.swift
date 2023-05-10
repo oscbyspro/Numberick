@@ -32,8 +32,17 @@ where High: FixedWidthInteger & WholeMachineWords, High.Magnitude:  WholeMachine
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    public var low:  Low
+    #if _endian(big)
+    /// The most  significant part of this value.
     public var high: High
+    /// The least significant part of this value.
+    public var low:  Low
+    #else
+    /// The least significant part of this value.
+    public var low:  Low
+    /// The most  significant part of this value.
+    public var high: High
+    #endif
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
