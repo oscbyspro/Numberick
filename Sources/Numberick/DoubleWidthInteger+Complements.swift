@@ -26,6 +26,20 @@ extension DoubleWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public var magnitude: Magnitude {
-        fatalError()
+        Magnitude(bitPattern: self.isLessThanZero ? self.twosComplement() : self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        self = ~self &+ (1 as Self) // TODO
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        var newValue = self
+        newValue.formTwosComplement()
+        return newValue
     }
 }

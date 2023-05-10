@@ -44,4 +44,16 @@ extension Swift.FixedWidthInteger {
     @inlinable public func matches(repeating bit: Bool) -> Bool {
         bit ? self.isFull : self.isZero
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Complements
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating public func formTwosComplement() {
+        self = self.twosComplement()
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        ~self &+ (1 as Self)
+    }
 }

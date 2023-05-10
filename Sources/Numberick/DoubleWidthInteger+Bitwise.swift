@@ -18,15 +18,18 @@ extension DoubleWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        fatalError()
+        lhs.low  &= rhs.low
+        lhs.high &= rhs.high
     }
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        fatalError()
+        lhs.low  |= rhs.low
+        lhs.high |= rhs.high
     }
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        fatalError()
+        lhs.low  |= rhs.low
+        lhs.high |= rhs.high
     }
     
     //=------------------------------------------------------------------------=
@@ -34,6 +37,6 @@ extension DoubleWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public var byteSwapped: Self {
-        fatalError()
+        Self(high: High(truncatingIfNeeded: self.low.byteSwapped), low: Low(truncatingIfNeeded: self.high.byteSwapped))
     }
 }
