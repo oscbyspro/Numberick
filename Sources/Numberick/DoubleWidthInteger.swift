@@ -11,7 +11,8 @@
 // MARK: * NBK x Double Width Integer
 //*============================================================================*
 
-@frozen public struct DoubleWidthInteger<High>: FixedWidthInteger where High: FixedWidthInteger {
+@frozen public struct DoubleWidthInteger<High>: FixedWidthInteger & WholeMachineWords
+where High: FixedWidthInteger & WholeMachineWords, High.Magnitude:  WholeMachineWords {
     
     public typealias High = High
     

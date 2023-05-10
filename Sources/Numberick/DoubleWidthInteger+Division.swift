@@ -37,11 +37,11 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public func dividedReportingOverflow(by rhs: Self) -> (partialValue: Self, overflow: Bool) {
+    @inlinable public func dividedReportingOverflow(by rhs: Self) -> PVO<Self> {
         fatalError()
     }
     
-    @inlinable public func remainderReportingOverflow(dividingBy rhs: Self) -> (partialValue: Self, overflow: Bool) {
+    @inlinable public func remainderReportingOverflow(dividingBy rhs: Self) -> PVO<Self> {
         fatalError()
     }
     
@@ -49,7 +49,7 @@ extension DoubleWidthInteger {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    @inlinable public func dividingFullWidth(_ dividend: (high: Self, low: Magnitude)) -> (quotient: Self, remainder: Self) {
+    @inlinable public func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self> {
         fatalError()
     }
 }

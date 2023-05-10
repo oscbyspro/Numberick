@@ -17,7 +17,6 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    
     @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
         fatalError()
     }
@@ -30,11 +29,11 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public func addingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
+    @inlinable public func addingReportingOverflow(_ rhs: Self) -> PVO<Self> {
         fatalError()
     }
     
-    @inlinable public func subtractingReportingOverflow(_ rhs: Self) -> (partialValue: Self, overflow: Bool) {
+    @inlinable public func subtractingReportingOverflow(_ rhs: Self) -> PVO<Self> {
         fatalError()
     }
 }

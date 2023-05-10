@@ -29,7 +29,7 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public func multipliedReportingOverflow(by rhs: Self) -> (partialValue: Self, overflow: Bool) {
+    @inlinable public func multipliedReportingOverflow(by rhs: Self) -> PVO<Self> {
         fatalError()
     }
 }
