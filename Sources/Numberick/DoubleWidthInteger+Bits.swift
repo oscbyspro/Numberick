@@ -40,4 +40,16 @@ extension DoubleWidthInteger {
         if  count != Low.bitWidth { return count }
         return count &+ self.high.trailingZeroBitCount
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors x Shadows
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var mostSignificantBit: Bool {
+        self.high.mostSignificantBit
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        self.low.leastSignificantBit
+    }
 }
