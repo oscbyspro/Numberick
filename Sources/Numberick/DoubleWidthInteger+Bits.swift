@@ -22,8 +22,28 @@ extension DoubleWidthInteger {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(bit: Bool) {
+        self.init(high: High.zero, low: Low(bit: bit))
+    }
+    
+    @inlinable public init(repeating bit: Bool) {
+        self.init(bitPattern: bit ? Magnitude.max : Magnitude.min)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
+    
+    @inlinable public var mostSignificantBit: Bool {
+        self.high.mostSignificantBit
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        self.low.leastSignificantBit
+    }
     
     @inlinable public var nonzeroBitCount: Int {
         self.low.nonzeroBitCount &+ self.high.nonzeroBitCount
@@ -42,14 +62,10 @@ extension DoubleWidthInteger {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors x Shadows
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public var mostSignificantBit: Bool {
-        self.high.mostSignificantBit
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self.low.leastSignificantBit
+    @inlinable public func matches(repeating bit: Bool) -> Bool {
+        bit ? self.isFull : self.isZero
     }
 }

@@ -14,7 +14,15 @@
 extension DoubleWidthInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Bit Pattern
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init<T>(bitPattern: DoubleWidthInteger<T>) where T.Magnitude == High.Magnitude {
+        self = unsafeBitCast(bitPattern, to: Self.self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Magnitude
     //=------------------------------------------------------------------------=
     
     @inlinable public var magnitude: Magnitude {

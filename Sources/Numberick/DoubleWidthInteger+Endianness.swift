@@ -17,7 +17,7 @@ extension DoubleWidthInteger {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @_transparent public init(bigEndian value: Self) {
+    @inlinable public init(bigEndian value: Self) {
         #if _endian(big)
         self = value
         #else
@@ -25,7 +25,7 @@ extension DoubleWidthInteger {
         #endif
     }
     
-    @_transparent public init(littleEndian value: Self) {
+    @inlinable public init(littleEndian value: Self) {
         #if _endian(big)
         self = value.byteSwapped
         #else
@@ -37,7 +37,7 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public var bigEndian: Self {
+    @inlinable public var bigEndian: Self {
         #if _endian(big)
         return self
         #else
@@ -45,7 +45,7 @@ extension DoubleWidthInteger {
         #endif
     }
     
-    @_transparent public var littleEndian: Self {
+    @inlinable public var littleEndian: Self {
         #if _endian(big)
         return self.byteSwapped
         #else

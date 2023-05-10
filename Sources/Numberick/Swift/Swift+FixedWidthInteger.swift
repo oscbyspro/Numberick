@@ -17,6 +17,14 @@ extension Swift.FixedWidthInteger {
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
+    @inlinable public init(bit: Bool) {
+        self = bit ?  (1 as Self) : (0 as Self)
+    }
+    
+    @inlinable public init(repeating bit: Bool) {
+        self = bit ? ~(0 as Self) : (0 as Self)
+    }
+    
     @inlinable public var isFull: Bool {
         self == ~(0 as Self)
     }
@@ -31,5 +39,9 @@ extension Swift.FixedWidthInteger {
     
     @inlinable public var leastSignificantBit: Bool {
         self & ((1 as Self)) != (0 as Self)
+    }
+    
+    @inlinable public func matches(repeating bit: Bool) -> Bool {
+        bit ? self.isFull : self.isZero
     }
 }
