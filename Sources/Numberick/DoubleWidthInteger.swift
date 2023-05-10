@@ -45,10 +45,65 @@ where High: FixedWidthInteger & WholeMachineWords, High.Magnitude:  WholeMachine
     }
 }
 
-
 //*============================================================================*
 // MARK: * NBK x Double Width Integer x Conditional Conformances
 //*============================================================================*
 
-extension DoubleWidthInteger:   SignedInteger, SignedNumeric where High:   SignedInteger { }
-extension DoubleWidthInteger: UnsignedInteger  /*---------*/ where High: UnsignedInteger { }
+extension DoubleWidthInteger:   SignedNumeric where High:   SignedInteger { }
+extension DoubleWidthInteger:   SignedInteger where High:   SignedInteger { }
+extension DoubleWidthInteger: UnsignedInteger where High: UnsignedInteger { }
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 128
+//*============================================================================*
+
+#if arch(i386) || arch(arm) || arch(arm64_32) || arch(wasm32) || arch(powerpc)
+
+public typealias  Int128 = DoubleWidthInteger<DoubleWidthInteger< Int>>
+public typealias UInt128 = DoubleWidthInteger<DoubleWidthInteger<UInt>>
+
+#elseif arch(x86_64) || arch(arm64) || arch(powerpc64) || arch(powerpc64le) || arch(s390x)
+
+public typealias  Int128 = DoubleWidthInteger< Int>
+public typealias UInt128 = DoubleWidthInteger<UInt>
+
+#else
+
+#error("DoubleWidthInteger can only be used on a 32-bit or 64-bit platform.")
+
+#endif
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 256
+//*============================================================================*
+
+public typealias  Int256 = DoubleWidthInteger< Int128>
+public typealias UInt256 = DoubleWidthInteger<UInt128>
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 512
+//*============================================================================*
+
+public typealias  Int512 = DoubleWidthInteger< Int256>
+public typealias UInt512 = DoubleWidthInteger<UInt256>
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 1024
+//*============================================================================*
+
+public typealias  Int1024 = DoubleWidthInteger< Int512>
+public typealias UInt1024 = DoubleWidthInteger<UInt512>
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 2048
+//*============================================================================*
+
+public typealias  Int2048 = DoubleWidthInteger< Int1024>
+public typealias UInt2048 = DoubleWidthInteger<UInt1024>
+
+//*============================================================================*
+// MARK: * NBK x Double Width Integer x 4096
+//*============================================================================*
+
+public typealias  Int4096 = DoubleWidthInteger< Int2048>
+public typealias UInt4096 = DoubleWidthInteger<UInt2048>

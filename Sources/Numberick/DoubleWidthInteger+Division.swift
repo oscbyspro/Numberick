@@ -45,6 +45,10 @@ extension DoubleWidthInteger {
         fatalError()
     }
     
+    @inlinable public func quotientAndRemainder(dividingBy rhs: Self) -> QR<Self, Self> {
+        fatalError()
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
