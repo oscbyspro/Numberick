@@ -17,7 +17,7 @@ extension NBKDoubleWidth {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// The absolute remainder of dividing this value by its bit width.
+    /// The modulus of dividing this value by its bit width.
     ///
     /// - Returns: `abs(self % Self.bitWidth)`
     ///

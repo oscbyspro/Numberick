@@ -21,8 +21,8 @@ extension NBKDoubleWidth {
         self = unsafeBitCast(source.bitPattern, to: Self.self)
     }
     
-    @inlinable public var bitPattern: NBKDoubleWidth<High.Magnitude> {
-        unsafeBitCast(self, to: NBKDoubleWidth<High.Magnitude>.self)
+    @inlinable public var bitPattern: BitPattern {
+        unsafeBitCast(self, to: BitPattern.self)
     }
     
     //=------------------------------------------------------------------------=

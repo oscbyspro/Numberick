@@ -24,7 +24,7 @@ extension NBKDoubleWidth {
     @inlinable public func multipliedReportingOverflow(by rhs: Self) -> PVO<Self> {
         fatalError()
     }
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=

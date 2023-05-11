@@ -18,18 +18,28 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
-        fatalError()
+        let a: Bool = self.low .addReportingOverflow(amount.low )
+        let b: Bool = a && self.high.addReportingOverflow(1)
+        let c: Bool = self.high.addReportingOverflow(amount.high)
+        return b || c
     }
     
-    @inlinable public func addingReportingOverflow(_ rhs: Self) -> PVO<Self> {
-        fatalError()
+    @inlinable public func addingReportingOverflow(_ amount: Self) -> PVO<Self> {
+        var partialValue = self
+        let overflow: Bool = partialValue.addReportingOverflow(amount)
+        return PVO(partialValue, overflow)
     }
     
     @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
-        fatalError()
+        let a: Bool = self.low .subtractReportingOverflow(amount.low )
+        let b: Bool = a && self.high.subtractReportingOverflow(1)
+        let c: Bool = self.high.subtractReportingOverflow(amount.high)
+        return b || c
     }
     
-    @inlinable public func subtractingReportingOverflow(_ rhs: Self) -> PVO<Self> {
-        fatalError()
+    @inlinable public func subtractingReportingOverflow(_ amount: Self) -> PVO<Self> {
+        var partialValue = self
+        let overflow: Bool = partialValue.subtractReportingOverflow(amount)
+        return PVO(partialValue, overflow)
     }
 }
