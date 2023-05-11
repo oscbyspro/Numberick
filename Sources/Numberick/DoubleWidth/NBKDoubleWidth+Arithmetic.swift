@@ -8,28 +8,20 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Multiplication
+// MARK: * NBK x Double Width x Arithmetic
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        fatalError()
-    }
-    
-    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        fatalError()
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func multipliedReportingOverflow(by rhs: Self) -> PVO<Self> {
-        fatalError()
+    /// The absolute remainder of dividing this value by its bit width.
+    ///
+    /// - Returns: `abs(self % Self.bitWidth)`
+    ///
+    @inlinable public var moduloBitWidth: Int {
+        Int(bitPattern: self._lowWord) & (Self.bitWidth &- 1)
     }
 }

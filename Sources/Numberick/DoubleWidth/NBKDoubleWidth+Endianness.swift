@@ -8,38 +8,48 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Complements
+// MARK: * NBK x Double Width x Endianness
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Bit Pattern
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init<T>(bitPattern: DoubleWidthInteger<T>) where T.Magnitude == High.Magnitude {
-        self = unsafeBitCast(bitPattern, to: Self.self)
+    @inlinable public init(bigEndian value: Self) {
+        #if _endian(big)
+        self = value
+        #else
+        self = value.byteSwapped
+        #endif
+    }
+    
+    @inlinable public init(littleEndian value: Self) {
+        #if _endian(big)
+        self = value.byteSwapped
+        #else
+        self = value
+        #endif
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Magnitude
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var magnitude: Magnitude {
-        Magnitude(bitPattern: self.isLessThanZero ? self.twosComplement() : self)
+    @inlinable public var bigEndian: Self {
+        #if _endian(big)
+        return self
+        #else
+        return self.byteSwapped
+        #endif
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Two's Complement
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func formTwosComplement() {
-        self = ~self &+ (1 as Self) // TODO
-    }
-    
-    @inlinable public func twosComplement() -> Self {
-        var newValue = self
-        newValue.formTwosComplement()
-        return newValue
+    @inlinable public var littleEndian: Self {
+        #if _endian(big)
+        return self.byteSwapped
+        #else
+        return self
+        #endif
     }
 }

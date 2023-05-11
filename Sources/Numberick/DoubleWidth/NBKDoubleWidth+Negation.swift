@@ -8,16 +8,25 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Words
+// MARK: * NBK x Double Width x Negation
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth where High: NBKSignedInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: [UInt] {
-        fatalError()
+    @inlinable public mutating func negateReportingOverflow() -> Bool {
+        let msb0: Bool = self.isLessThanZero
+        self.formTwosComplement()
+        let msb1: Bool = self.isLessThanZero
+        return msb0 && msb1
+    }
+    
+    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
+        var partialValue = self
+        let overflow: Bool = partialValue.negateReportingOverflow()
+        return PVO(partialValue, overflow)
     }
 }

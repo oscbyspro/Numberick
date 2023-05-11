@@ -8,48 +8,35 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Endianness
+// MARK: * NBK x Double Width x Bitwise
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(bigEndian value: Self) {
-        #if _endian(big)
-        self = value
-        #else
-        self = value.byteSwapped
-        #endif
+    @inlinable public static func &=(lhs: inout Self, rhs: Self) {
+        lhs.low  &= rhs.low
+        lhs.high &= rhs.high
     }
     
-    @inlinable public init(littleEndian value: Self) {
-        #if _endian(big)
-        self = value.byteSwapped
-        #else
-        self = value
-        #endif
+    @inlinable public static func |=(lhs: inout Self, rhs: Self) {
+        lhs.low  |= rhs.low
+        lhs.high |= rhs.high
+    }
+    
+    @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
+        lhs.low  |= rhs.low
+        lhs.high |= rhs.high
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var bigEndian: Self {
-        #if _endian(big)
-        return self
-        #else
-        return self.byteSwapped
-        #endif
-    }
-    
-    @inlinable public var littleEndian: Self {
-        #if _endian(big)
-        return self.byteSwapped
-        #else
-        return self
-        #endif
+    @inlinable public var byteSwapped: Self {
+        Self(high: High(truncatingIfNeeded: self.low.byteSwapped), low: Low(truncatingIfNeeded: self.high.byteSwapped))
     }
 }

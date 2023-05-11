@@ -8,35 +8,48 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Bitwise
+// MARK: * NBK x Double Width x Shifts
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        lhs.low  &= rhs.low
-        lhs.high &= rhs.high
+    @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
     }
     
-    @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        lhs.low  |= rhs.low
-        lhs.high |= rhs.high
+    @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
     
-    @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        lhs.low  |= rhs.low
-        lhs.high |= rhs.high
+    @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
+    }
+    
+    @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var byteSwapped: Self {
-        Self(high: High(truncatingIfNeeded: self.low.byteSwapped), low: Low(truncatingIfNeeded: self.high.byteSwapped))
+    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
+    }
+    
+    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
+    }
+    
+    @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
+    }
+    
+    @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
 }

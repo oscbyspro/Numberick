@@ -8,28 +8,20 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Shifts
+// MARK: * NBK x Double Width x Multiplication
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
+    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
         fatalError()
     }
     
-    @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
-        fatalError()
-    }
-    
-    @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
-        fatalError()
-    }
-    
-    @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
+    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
         fatalError()
     }
     
@@ -37,19 +29,7 @@ extension DoubleWidthInteger {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        fatalError()
-    }
-    
-    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
-        fatalError()
-    }
-    
-    @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        fatalError()
-    }
-    
-    @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
+    @inlinable public func multipliedReportingOverflow(by rhs: Self) -> PVO<Self> {
         fatalError()
     }
 }

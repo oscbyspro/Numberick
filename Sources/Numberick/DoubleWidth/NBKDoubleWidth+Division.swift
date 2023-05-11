@@ -8,32 +8,52 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Addition
+// MARK: * NBK x Double Width x Division
 //*============================================================================*
 
-extension DoubleWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
+    @inlinable public static func /=(lhs: inout Self, rhs: Self) {
         fatalError()
     }
     
-    @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
+    @inlinable public static func /(lhs: Self, rhs: Self) -> Self {
         fatalError()
     }
     
+    @inlinable public static func %=(lhs: inout Self, rhs: Self) {
+        fatalError()
+    }
+    
+    @inlinable public static func %(lhs: Self, rhs: Self) -> Self {
+        fatalError()
+    }
+        
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public func addingReportingOverflow(_ rhs: Self) -> PVO<Self> {
+    @inlinable public func dividedReportingOverflow(by rhs: Self) -> PVO<Self> {
         fatalError()
     }
     
-    @inlinable public func subtractingReportingOverflow(_ rhs: Self) -> PVO<Self> {
+    @inlinable public func remainderReportingOverflow(dividingBy rhs: Self) -> PVO<Self> {
+        fatalError()
+    }
+    
+    @inlinable public func quotientAndRemainder(dividingBy rhs: Self) -> QR<Self, Self> {
+        fatalError()
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Full Width
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self> {
         fatalError()
     }
 }

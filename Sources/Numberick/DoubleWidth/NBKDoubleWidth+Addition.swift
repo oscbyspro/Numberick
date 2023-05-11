@@ -8,24 +8,32 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Binary Integer
+// MARK: * NBK x Double Width x Addition
 //*============================================================================*
 
-extension Swift.BinaryInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Comparisons
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var isLessThanZero: Bool {
-        Self.isSigned && self < (0 as Self)
+    @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
+        fatalError()
     }
     
-    @inlinable public var isMoreThanZero: Bool {
-        self > (0 as Self)
+    @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
+        fatalError()
     }
     
-    @inlinable public func compared(to other: Self) -> Int {
-        self < other ? -1 : self == other ? 0 : 1
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func addingReportingOverflow(_ rhs: Self) -> PVO<Self> {
+        fatalError()
+    }
+    
+    @inlinable public func subtractingReportingOverflow(_ rhs: Self) -> PVO<Self> {
+        fatalError()
     }
 }

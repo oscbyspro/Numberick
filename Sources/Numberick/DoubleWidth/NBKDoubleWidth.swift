@@ -8,17 +8,57 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer
+// MARK: * NBK x Double Width
 //*============================================================================*
 
-@frozen public struct DoubleWidthInteger<High>: FixedWidthInteger & WholeMachineWords
-where High: FixedWidthInteger & WholeMachineWords, High.Magnitude:  WholeMachineWords {
+@frozen public struct NBKDoubleWidth<High>: NBKFixedWidthInteger where High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {    
     
+    /// The most significant part of this type.
     public typealias High = High
     
-    public typealias Low  = High.Magnitude
+    /// The least significant part of this type.
+    public typealias Low = High.Magnitude
     
-    public typealias Magnitude = DoubleWidthInteger<High.Magnitude>
+    /// The digit of this type.
+    public typealias Digit = High.Digit
+    
+    /// The magnitude of this type.
+    public typealias Magnitude = NBKDoubleWidth<High.Magnitude>
+    
+    /// The bit pattern of this type.
+    public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
+    
+    /// An integer type with double the width of this type.
+    public typealias DoubleWidth = NBKDoubleWidth<Self>
+    
+    
+    public mutating func addReportingOverflow(_ amount: NBKDoubleWidth<High>) -> Bool {
+        fatalError()
+    }
+    
+    public mutating func subtractReportingOverflow(_ amount: NBKDoubleWidth<High>) -> Bool {
+        fatalError()
+    }
+    
+    public mutating func multiplyReportingOverflow(by amount: NBKDoubleWidth<High>) -> Bool {
+        fatalError()
+    }
+    
+    public mutating func multiplyFullWidth(by amount: NBKDoubleWidth<High>) -> NBKDoubleWidth<High> {
+        fatalError()
+    }
+    
+    public mutating func divideReportingOverflow(by divisor: NBKDoubleWidth<High>) -> Bool {
+        fatalError()
+    }
+    
+    public mutating func formRemainderReportingOverflow(dividingBy divisor: NBKDoubleWidth<High>) -> Bool {
+        fatalError()
+    }
+    
+    public func quotientAndRemainderReportingOverflow(dividingBy divisor: NBKDoubleWidth<High>) -> PVO<QR<NBKDoubleWidth<High>, NBKDoubleWidth<High>>> {
+        fatalError()
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -55,26 +95,25 @@ where High: FixedWidthInteger & WholeMachineWords, High.Magnitude:  WholeMachine
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x Conditional Conformances
+// MARK: * NBK x Double Width x Conditional Conformances
 //*============================================================================*
 
-extension DoubleWidthInteger:   SignedNumeric where High:   SignedInteger { }
-extension DoubleWidthInteger:   SignedInteger where High:   SignedInteger { }
-extension DoubleWidthInteger: UnsignedInteger where High: UnsignedInteger { }
+extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
+extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 128
+// MARK: * NBK x Double Width x 128
 //*============================================================================*
 
 #if arch(i386) || arch(arm) || arch(arm64_32) || arch(wasm32) || arch(powerpc)
 
-public typealias  Int128 = DoubleWidthInteger<DoubleWidthInteger< Int>>
-public typealias UInt128 = DoubleWidthInteger<DoubleWidthInteger<UInt>>
+public typealias  Int128 = NBKDoubleWidth<NBKDoubleWidth< Int>>
+public typealias UInt128 = NBKDoubleWidth<NBKDoubleWidth<UInt>>
 
 #elseif arch(x86_64) || arch(arm64) || arch(powerpc64) || arch(powerpc64le) || arch(s390x)
 
-public typealias  Int128 = DoubleWidthInteger< Int>
-public typealias UInt128 = DoubleWidthInteger<UInt>
+public typealias  Int128 = NBKDoubleWidth< Int>
+public typealias UInt128 = NBKDoubleWidth<UInt>
 
 #else
 
@@ -83,36 +122,36 @@ public typealias UInt128 = DoubleWidthInteger<UInt>
 #endif
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 256
+// MARK: * NBK x Double Width x 256
 //*============================================================================*
 
-public typealias  Int256 = DoubleWidthInteger< Int128>
-public typealias UInt256 = DoubleWidthInteger<UInt128>
+public typealias  Int256 = NBKDoubleWidth< Int128>
+public typealias UInt256 = NBKDoubleWidth<UInt128>
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 512
+// MARK: * NBK x Double Width x 512
 //*============================================================================*
 
-public typealias  Int512 = DoubleWidthInteger< Int256>
-public typealias UInt512 = DoubleWidthInteger<UInt256>
+public typealias  Int512 = NBKDoubleWidth< Int256>
+public typealias UInt512 = NBKDoubleWidth<UInt256>
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 1024
+// MARK: * NBK x Double Width x 1024
 //*============================================================================*
 
-public typealias  Int1024 = DoubleWidthInteger< Int512>
-public typealias UInt1024 = DoubleWidthInteger<UInt512>
+public typealias  Int1024 = NBKDoubleWidth< Int512>
+public typealias UInt1024 = NBKDoubleWidth<UInt512>
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 2048
+// MARK: * NBK x Double Width x 2048
 //*============================================================================*
 
-public typealias  Int2048 = DoubleWidthInteger< Int1024>
-public typealias UInt2048 = DoubleWidthInteger<UInt1024>
+public typealias  Int2048 = NBKDoubleWidth< Int1024>
+public typealias UInt2048 = NBKDoubleWidth<UInt1024>
 
 //*============================================================================*
-// MARK: * NBK x Double Width Integer x 4096
+// MARK: * NBK x Double Width x 4096
 //*============================================================================*
 
-public typealias  Int4096 = DoubleWidthInteger< Int2048>
-public typealias UInt4096 = DoubleWidthInteger<UInt2048>
+public typealias  Int4096 = NBKDoubleWidth< Int2048>
+public typealias UInt4096 = NBKDoubleWidth<UInt2048>

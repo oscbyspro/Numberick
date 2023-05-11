@@ -8,52 +8,42 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Fixed Width Integer
+// MARK: * NBK x Double Width x Complements
 //*============================================================================*
 
-extension Swift.FixedWidthInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Bits
+    // MARK: Details x Bit Pattern
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(bit: Bool) {
-        self = bit ?  (1 as Self) : (0 as Self)
+    @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
+        self = unsafeBitCast(source.bitPattern, to: Self.self)
     }
     
-    @inlinable public init(repeating bit: Bool) {
-        self = bit ? ~(0 as Self) : (0 as Self)
-    }
-    
-    @inlinable public var isFull: Bool {
-        self == ~(0 as Self)
-    }
-    
-    @inlinable public var isZero: Bool {
-        self ==  (0 as Self)
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        self & ((1 as Self) &<< (Self.bitWidth &- 1)) != (0 as Self)
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self & ((1 as Self)) != (0 as Self)
-    }
-    
-    @inlinable public func matches(repeating bit: Bool) -> Bool {
-        bit ? self.isFull : self.isZero
+    @inlinable public var bitPattern: NBKDoubleWidth<High.Magnitude> {
+        unsafeBitCast(self, to: NBKDoubleWidth<High.Magnitude>.self)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Complements
+    // MARK: Details x Magnitude
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating public func formTwosComplement() {
-        self = self.twosComplement()
+    @inlinable public var magnitude: Magnitude {
+        Magnitude(bitPattern: self.isLessThanZero ? self.twosComplement() : self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        self = ~self &+ (1 as Self) // TODO
     }
     
     @inlinable public func twosComplement() -> Self {
-        ~self &+ (1 as Self)
+        var newValue = self
+        newValue.formTwosComplement()
+        return newValue
     }
 }
