@@ -12,5 +12,7 @@
 //*============================================================================*
 
 typealias NBK128X64 = (UInt64, UInt64)
+typealias NBK128X32 = (UInt32, UInt32, UInt32, UInt32)
 
 typealias NBK256X64 = (UInt64, UInt64, UInt64, UInt64)
+typealias NBK256X32 = (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)

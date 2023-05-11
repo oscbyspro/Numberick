@@ -1,5 +1,5 @@
 //=----------------------------------------------------------------------------=
-// This source file is part of the AwesomeNumbersKit open source project.
+// This source file is part of the Numberick open source project.
 //
 // Copyright (c) 2022 Oscar Byström Ericsson
 // Licensed under Apache License, Version 2.0
@@ -14,6 +14,7 @@ import NBKDoubleWidthKit
 import XCTest
 
 private typealias X = NBK256X64
+private typealias Y = NBK256X32
 
 //*============================================================================*
 // MARK: * Int256 x Complements
