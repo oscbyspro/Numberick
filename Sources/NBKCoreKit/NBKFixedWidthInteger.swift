@@ -24,12 +24,6 @@
 ///
 public protocol NBKFixedWidthInteger: NBKBinaryInteger, FixedWidthInteger where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
-        
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Arithmetic
-    //=------------------------------------------------------------------------=
-    
-    @inlinable var moduloBitWidth: Int { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits

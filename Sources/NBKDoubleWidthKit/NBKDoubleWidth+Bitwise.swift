@@ -43,4 +43,14 @@ extension NBKDoubleWidth {
         let newLow  = Low (bitPattern: self.high.byteSwapped)
         return Self(descending: HL(newHigh, newLow))
     }
+    
+    @inlinable var _wordSwapped: Self {
+        self.withUnsafeWords { this in
+            Self.fromUnsafeMutableWords { next in
+                for index in this.indices {
+                    next[next.lastIndex &- index] = this[index]
+                }
+            }
+        }
+    }
 }

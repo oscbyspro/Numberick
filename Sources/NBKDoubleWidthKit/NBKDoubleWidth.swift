@@ -15,7 +15,7 @@ import NBKCoreKit
 
 @frozen public struct NBKDoubleWidth<High>:
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
-High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
+High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {    
     
     /// The most significant part of this type.
     public typealias High = High
