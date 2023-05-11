@@ -32,3 +32,22 @@ extension NBKDoubleWidth {
         return PVO(partialValue, overflow)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Subtraction x Digit
+//*============================================================================*
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ amount: Digit) -> Bool {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self> {
+        fatalError("TODO")
+    }
+}

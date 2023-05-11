@@ -94,3 +94,30 @@ extension NBKDoubleWidth where High == Low {
         return HL(high: r1, low: r0)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Multiplication x Digit
+//*============================================================================*
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func multiplyReportingOverflow(by amount: Digit) -> Bool {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by amount: Digit) -> Digit {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
+        fatalError("TODO")
+    }
+}

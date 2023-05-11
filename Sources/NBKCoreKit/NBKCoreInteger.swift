@@ -76,13 +76,19 @@ extension NBKCoreInteger {
         return pvo.overflow as Bool
     }
     
+    @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+        precondition(!qro.overflow, "overflow in division")
+        return qro.partialValue as QR<Self, Self>
+    }
+    
     @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
         let quotient:  PVO<Self> = self.dividedReportingOverflow(by: divisor)
         let remainder: PVO<Self> = self.remainderReportingOverflow(dividingBy: divisor)
         assert(quotient.overflow == remainder.overflow)
         return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
     }
-    
+
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=

@@ -43,11 +43,19 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     
     @inlinable mutating func addReportingOverflow(_ amount: Self) -> Bool
     
+    @_disfavoredOverload @inlinable mutating func addReportingOverflow(_ amount: Digit) -> Bool
+    
     @inlinable func addingReportingOverflow(_ amount: Self) -> PVO<Self>
+    
+    @_disfavoredOverload @inlinable func addingReportingOverflow(_ amount: Digit) -> PVO<Self>
     
     @inlinable mutating func subtractReportingOverflow(_ amount: Self) -> Bool
     
+    @_disfavoredOverload @inlinable mutating func subtractReportingOverflow(_ amount: Digit) -> Bool
+    
     @inlinable func subtractingReportingOverflow(_ amount: Self) -> PVO<Self>
+    
+    @_disfavoredOverload @inlinable func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self>
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Multiplication
@@ -55,11 +63,19 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     
     @inlinable mutating func multiplyReportingOverflow(by amount: Self) -> Bool
     
+    @_disfavoredOverload @inlinable mutating func multiplyReportingOverflow(by amount: Digit) -> Bool
+    
     @inlinable func multipliedReportingOverflow(by amount: Self) -> PVO<Self>
+    
+    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by amount: Digit) -> PVO<Self>
     
     @inlinable mutating func multiplyFullWidth(by amount: Self) -> Self
     
+    @_disfavoredOverload @inlinable mutating func multiplyFullWidth(by amount: Digit) -> Digit
+    
     @inlinable func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude>
+    
+    @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude>
 }
 
 //=----------------------------------------------------------------------------=
@@ -93,7 +109,18 @@ extension NBKFixedWidthInteger {
         precondition(!overflow, "overflow in +=")
     }
     
+    @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: Digit) {
+        let overflow: Bool = lhs.addReportingOverflow(rhs)
+        precondition(!overflow, "overflow in +=")
+    }
+    
     @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
+        let pvo: PVO<Self> = lhs.addingReportingOverflow(rhs)
+        precondition(!pvo.overflow, "overflow in +")
+        return pvo.partialValue as Self
+    }
+    
+    @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.addingReportingOverflow(rhs)
         precondition(!pvo.overflow, "overflow in +")
         return pvo.partialValue as Self
@@ -103,11 +130,24 @@ extension NBKFixedWidthInteger {
         _ = lhs.addReportingOverflow(rhs)
     }
     
+    @_disfavoredOverload @inlinable public static func &+=(lhs: inout Self, rhs: Digit) {
+        _ = lhs.addReportingOverflow(rhs)
+    }
+    
     @inlinable public static func &+(lhs: Self, rhs: Self) -> Self {
         lhs.addingReportingOverflow(rhs).partialValue
     }
     
+    @_disfavoredOverload @inlinable public static func &+(lhs: Self, rhs: Digit) -> Self {
+        lhs.addingReportingOverflow(rhs).partialValue
+    }
+    
     @inlinable public static func -=(lhs: inout Self, rhs: Self) {
+        let overflow: Bool = lhs.subtractReportingOverflow(rhs)
+        precondition(!overflow, "overflow in -=")
+    }
+    
+    @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.subtractReportingOverflow(rhs)
         precondition(!overflow, "overflow in -=")
     }
@@ -118,11 +158,25 @@ extension NBKFixedWidthInteger {
         return pvo.partialValue as Self
     }
     
+    @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: Digit) -> Self {
+        let pvo: PVO<Self> = lhs.subtractingReportingOverflow(rhs)
+        precondition(!pvo.overflow, "overflow in -")
+        return pvo.partialValue as Self
+    }
+    
     @inlinable public static func &-=(lhs: inout Self, rhs: Self) {
         _ = lhs.subtractReportingOverflow(rhs)
     }
     
+    @_disfavoredOverload @inlinable public static func &-=(lhs: inout Self, rhs: Digit) {
+        _ = lhs.subtractReportingOverflow(rhs)
+    }
+    
     @inlinable public static func &-(lhs: Self, rhs: Self) -> Self {
+        lhs.subtractingReportingOverflow(rhs).partialValue
+    }
+    
+    @_disfavoredOverload @inlinable public static func &-(lhs: Self, rhs: Digit) -> Self {
         lhs.subtractingReportingOverflow(rhs).partialValue
     }
     
@@ -135,7 +189,18 @@ extension NBKFixedWidthInteger {
         precondition(!overflow, "overflow in *=")
     }
     
+    @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Digit) {
+        let overflow: Bool = lhs.multiplyReportingOverflow(by: rhs)
+        precondition(!overflow, "overflow in *=")
+    }
+    
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
+        let pvo: PVO<Self> = lhs.multipliedReportingOverflow(by: rhs)
+        precondition(!pvo.overflow, "overflow in *")
+        return pvo.partialValue as Self
+    }
+    
+    @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.multipliedReportingOverflow(by: rhs)
         precondition(!pvo.overflow, "overflow in *")
         return pvo.partialValue as Self
@@ -145,7 +210,15 @@ extension NBKFixedWidthInteger {
         _ = lhs.multiplyReportingOverflow(by: rhs)
     }
     
+    @_disfavoredOverload @inlinable public static func &*=(lhs: inout Self, rhs: Digit) {
+        _ = lhs.multiplyReportingOverflow(by: rhs)
+    }
+    
     @inlinable public static func &*(lhs: Self, rhs: Self) -> Self {
+        lhs.multipliedReportingOverflow(by: rhs).partialValue
+    }
+    
+    @_disfavoredOverload @inlinable public static func &*(lhs: Self, rhs: Digit) -> Self {
         lhs.multipliedReportingOverflow(by: rhs).partialValue
     }
 }

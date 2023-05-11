@@ -238,3 +238,34 @@ extension NBKDoubleWidth where High == Low {
         return PVO(remainder, false)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Division x Digit
+//*============================================================================*
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by divisor: Digit) -> Bool {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func dividedReportingOverflow(by divisor: Digit) -> PVO<Self> {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public mutating func formRemainderReportingOverflow(dividingBy divisor: Digit) -> Bool {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func remainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
+        fatalError("TODO")
+    }
+}

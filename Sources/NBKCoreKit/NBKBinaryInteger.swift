@@ -73,15 +73,19 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     @inlinable static func +=(lhs: inout Self, rhs: Self)
     
-    @inlinable static func +(lhs: Self, rhs: Self) -> Self
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Subtraction
-    //=------------------------------------------------------------------------=
+    @_disfavoredOverload @inlinable static func +=(lhs: inout Self, rhs: Digit)
     
     @inlinable static func -=(lhs: inout Self, rhs: Self)
     
+    @_disfavoredOverload @inlinable static func -=(lhs: inout Self, rhs: Digit)
+    
+    @inlinable static func +(lhs: Self, rhs: Self) -> Self
+    
+    @_disfavoredOverload @inlinable static func +(lhs: Self, rhs: Digit) -> Self
+        
     @inlinable static func -(lhs: Self, rhs: Self) -> Self
+    
+    @_disfavoredOverload @inlinable static func -(lhs: Self, rhs: Digit) -> Self
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Multiplication
@@ -89,7 +93,11 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     @inlinable static func *=(lhs: inout Self, rhs: Self)
     
+    @_disfavoredOverload @inlinable static func *=(lhs: inout Self, rhs: Digit)
+    
     @inlinable static func *(lhs: Self, rhs: Self) -> Self
+    
+    @_disfavoredOverload @inlinable static func *(lhs: Self, rhs: Digit) -> Self
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Division
@@ -97,23 +105,43 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     @inlinable static func /=(lhs: inout Self, rhs: Self)
     
+    @_disfavoredOverload @inlinable static func /=(lhs: inout Self, rhs: Digit)
+    
     @inlinable static func /(lhs: Self, rhs: Self) -> Self
+    
+    @_disfavoredOverload @inlinable static func /(lhs: Self, rhs: Digit) -> Self
     
     @inlinable static func %=(lhs: inout Self, rhs: Self)
     
+    @_disfavoredOverload @inlinable static func %=(lhs: inout Self, rhs: Digit)
+    
     @inlinable static func %(lhs: Self, rhs: Self) -> Self
+    
+    @_disfavoredOverload @inlinable static func %(lhs: Self, rhs: Digit) -> Digit
     
     @inlinable mutating func divideReportingOverflow(by divisor: Self) -> Bool
     
+    @_disfavoredOverload @inlinable mutating func divideReportingOverflow(by divisor: Digit) -> Bool
+    
     @inlinable func dividedReportingOverflow(by divisor: Self) -> PVO<Self>
+    
+    @_disfavoredOverload @inlinable func dividedReportingOverflow(by divisor: Digit) -> PVO<Self>
     
     @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Self) -> Bool
     
+    @_disfavoredOverload @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Digit) -> Bool
+    
     @inlinable func remainderReportingOverflow(dividingBy divisor: Self) -> PVO<Self>
+    
+    @_disfavoredOverload @inlinable func remainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit>
     
     @inlinable func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self>
     
+    @_disfavoredOverload @inlinable func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit>
+    
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>>
+    
+    @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>>
 }
 
 //=----------------------------------------------------------------------------=
@@ -159,7 +187,18 @@ extension NBKBinaryInteger {
         precondition(!overflow, "overflow in /=")
     }
     
+    @_disfavoredOverload @inlinable public static func /=(lhs: inout Self, rhs: Digit) {
+        let overflow: Bool = lhs.divideReportingOverflow(by: rhs)
+        precondition(!overflow, "overflow in /=")
+    }
+    
     @inlinable public static func /(lhs: Self, rhs: Self) -> Self {
+        let pvo: PVO<Self> = lhs.dividedReportingOverflow(by: rhs)
+        precondition(!pvo.overflow, "overflow in /")
+        return pvo.partialValue as Self
+    }
+    
+    @_disfavoredOverload @inlinable public static func /(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.dividedReportingOverflow(by: rhs)
         precondition(!pvo.overflow, "overflow in /")
         return pvo.partialValue as Self
@@ -170,16 +209,33 @@ extension NBKBinaryInteger {
         precondition(!overflow, "overflow in %=")
     }
     
+    @_disfavoredOverload @inlinable public static func %=(lhs: inout Self, rhs: Digit) {
+        let overflow: Bool = lhs.formRemainderReportingOverflow(dividingBy: rhs)
+        precondition(!overflow, "overflow in %=")
+    }
+    
     @inlinable public static func %(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.remainderReportingOverflow(dividingBy: rhs)
         precondition(!pvo.overflow, "overflow in %")
         return pvo.partialValue as Self
     }
     
+    @_disfavoredOverload @inlinable public static func %(lhs: Self, rhs: Digit) -> Digit {
+        let pvo: PVO<Digit> = lhs.remainderReportingOverflow(dividingBy: rhs)
+        precondition(!pvo.overflow, "overflow in %")
+        return pvo.partialValue as Digit
+    }
+    
     @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         precondition(!qro.overflow, "overflow in division")
         return qro.partialValue as QR<Self, Self>
+    }
+    
+    @_disfavoredOverload @inlinable public func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit> {
+        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+        precondition(!qro.overflow, "overflow in division")
+        return qro.partialValue as QR<Self, Digit>
     }
 }
 
