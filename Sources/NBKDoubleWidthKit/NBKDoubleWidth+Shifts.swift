@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Shifts
+// MARK: * NBK x Double Width x Shifts x L
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -34,34 +34,6 @@ extension NBKDoubleWidth {
     @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
         var lhs = lhs; lhs &<<= rhs; return lhs
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs._bitshiftRightSmart(by: Int(clamping: rhs))
-    }
-
-    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
-        var lhs = lhs; lhs >>= rhs; return lhs
-    }
-    
-    @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs._bitshiftRight(by: Int(bitPattern: rhs._lowWord) & (Self.bitWidth &- 1))
-    }
-    
-    @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
-        var lhs = lhs; lhs &>>= rhs; return lhs
-    }
-}
-
-
-//*============================================================================*
-// MARK: * NBK x Double Width x Shifts x L
-//*============================================================================*
-
-extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int
@@ -146,6 +118,26 @@ extension NBKDoubleWidth {
 //*============================================================================*
 
 extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
+        lhs._bitshiftRightSmart(by: Int(clamping: rhs))
+    }
+
+    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        var lhs = lhs; lhs >>= rhs; return lhs
+    }
+    
+    @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
+        lhs._bitshiftRight(by: Int(bitPattern: rhs._lowWord) & (Self.bitWidth &- 1))
+    }
+    
+    @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        var lhs = lhs; lhs &>>= rhs; return lhs
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int
