@@ -30,4 +30,19 @@ extension NBKDoubleWidth {
         let signedness = !Self.isSigned ? "U" : ""
         return "\(signedness)Int\(Self.bitWidth)"
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var description: String {
+        String(self, radix: 10)
+    }
+    
+    @inlinable public var debugDescription: String {
+        self.withUnsafeWords { words in
+            let body = words.lazy.map(String.init).joined(separator: ", ")
+            return "\(Self.description)(\(body))"
+        }
+    }
 }

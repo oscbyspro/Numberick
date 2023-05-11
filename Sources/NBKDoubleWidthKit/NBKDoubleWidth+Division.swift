@@ -151,20 +151,20 @@ extension NBKDoubleWidth where High == Low {
         //=--------------------------------------=
         // Division
         //=--------------------------------------=
-        let quotient = Self.fromUnsafeMutableWords { QUOTIENT in
-            for quotientIndex in QUOTIENT.indices  {
-                QUOTIENT[quotientIndex] = UInt()
+        let quotient = Self.fromUnsafeMutableWords { quotient in
+            for quotientIndex in quotient.indices  {
+                quotient[quotientIndex] = UInt()
             }
             //=----------------------------------=
-            for quotientIndex in QUOTIENT.indices[...minLastIndexGapSize].reversed() {
+            for quotientIndex in quotient.indices[...minLastIndexGapSize].reversed() {
                 //=------------------------------=
                 // Approximate Quotient Digit
                 //=------------------------------=
-                var digit: UInt = remainder.withUnsafeWords { REMAINDER in
+                var digit: UInt = remainder.withUnsafeWords { remainder in
                     let  remainderIndex  = divisor_.minLastIndex &+ quotientIndex
-                    let  remainderLast0  = REMAINDER[remainderIndex &+ 1]
+                    let  remainderLast0  = remainder[remainderIndex &+ 1]
                     if   remainderLast0 >= discriminant { return UInt.max }
-                    let  remainderLast1  = REMAINDER[remainderIndex /**/]
+                    let  remainderLast1  = remainder[remainderIndex /**/]
                     return discriminant.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 }
                 //=------------------------------=
@@ -179,7 +179,7 @@ extension NBKDoubleWidth where High == Low {
                 //=------------------------------=
                 assert(approximation <= remainder)
                 remainder &-= approximation
-                QUOTIENT[quotientIndex] = digit
+                quotient[quotientIndex] = digit
                 increment.low._bitshiftRight(words: 1, bits: Int())
             }
         }
@@ -227,11 +227,11 @@ extension NBKDoubleWidth where High == Low {
         //=--------------------------------------=
         var remainder = UInt()
         
-        self.withUnsafeMutableWords { SELF in
-            var index: Int = SELF.endIndex
-            backwards: while index != SELF.startIndex {
-                (SELF.formIndex(before: &index))
-                (SELF[index], remainder) = divisor.dividingFullWidth(HL(remainder, SELF[index]))
+        self.withUnsafeMutableWords { words in
+            var index: Int = words.endIndex
+            backwards: while index != words.startIndex {
+                (words.formIndex(before: &index))
+                (words[index], remainder) = divisor.dividingFullWidth(HL(remainder, words[index]))
             }
         }
         

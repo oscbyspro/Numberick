@@ -202,13 +202,13 @@ extension NBKDoubleWidth {
     ///
     @inlinable public static func fromUnsafeMutableWords(
     _ body: (NBKUnsafeMutableWordsPointer<BitPattern>) throws -> Void) rethrows -> Self {
-        try Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { alloc in
-            let SELF = alloc.baseAddress.unsafelyUnwrapped
-            try SELF.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
+        try Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
+            let start = buffer.baseAddress.unsafelyUnwrapped
+            try start.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
                 try body(NBKUnsafeMutableWordsPointer(words))
             }
             
-            return SELF.pointee
+            return start.pointee
         }
     }
     
@@ -278,8 +278,8 @@ extension NBKDoubleWidth {
     ///
     @inlinable mutating func _withUnsafeMutableUIntBufferPointer<T>(
     _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
-        try self._withUnsafeMutableUIntPointer { START in
-            var BUFFER = UnsafeMutableBufferPointer<UInt>(start: START, count: Self.count)
+        try self._withUnsafeMutableUIntPointer { start in
+            var BUFFER = UnsafeMutableBufferPointer<UInt>(start: start, count: Self.count)
             return try body(&BUFFER)
         }
     }

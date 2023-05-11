@@ -80,26 +80,26 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @inlinable mutating func _bitshiftLeft(words: Int, bits: Int) {
-        assert(0 ..< Self.endIndex ~= words, "invalid shift amount")
-        assert(0 ..< UInt.bitWidth ~= bits,  "invalid shift amount")
+    @inlinable mutating func _bitshiftLeft(words major: Int, bits minor: Int) {
+        assert(0 ..< Self.endIndex ~= major, "invalid shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor,  "invalid shift amount")
         //=--------------------------------------=
-        let a = UInt(bitPattern: bits)
-        let b = UInt(bitPattern: UInt.bitWidth &- bits)
-        let x = bits.isZero  as  Bool
+        let a = UInt(bitPattern: minor)
+        let b = UInt(bitPattern: UInt.bitWidth &- minor)
+        let x = minor.isZero as  Bool
         //=--------------------------------------=
-        self.withUnsafeMutableWords { SELF in
-            var i: Int = SELF.endIndex
-            backwards: while i > SELF.startIndex {
-                SELF.formIndex(before: &i)
+        self.withUnsafeMutableWords { words in
+            var i: Int = words.endIndex
+            backwards: while i > words.startIndex {
+                words.formIndex(before: &i)
                 
-                let j:  Int = i &- words
+                let j:  Int = i &- major
                 let k:  Int = j &- 1
                 
-                let p: UInt =         (j >= SELF.startIndex ? SELF[j] : 0) &<< a
-                let q: UInt = x ? 0 : (k >= SELF.startIndex ? SELF[k] : 0) &>> b
+                let p: UInt =         (j >= words.startIndex ? words[j] : 0) &<< a
+                let q: UInt = x ? 0 : (k >= words.startIndex ? words[k] : 0) &>> b
                 
-                SELF[i] = p | q
+                words[i] = p | q
             }
         }
     }
@@ -184,27 +184,27 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @inlinable mutating func _bitshiftRight(words: Int, bits: Int) {
-        assert(0 ..< Self.endIndex ~= words, "invalid shift amount")
-        assert(0 ..< UInt.bitWidth ~= bits,  "invalid shift amount")
+    @inlinable mutating func _bitshiftRight(words major: Int, bits minor: Int) {
+        assert(0 ..< Self.endIndex ~= major, "invalid shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor,  "invalid shift amount")
         //=--------------------------------------=
-        let a = UInt(bitPattern: bits)
-        let b = UInt(bitPattern: UInt.bitWidth &- bits)
+        let a = UInt(bitPattern: minor)
+        let b = UInt(bitPattern: UInt.bitWidth &- minor)
         let c = UInt(repeating:  self.isLessThanZero)
-        let x = bits.isZero  as  Bool
+        let x = minor.isZero as  Bool
         //=--------------------------------------=
-        self.withUnsafeMutableWords { SELF in
-            var i: Int = SELF.startIndex
-            forwards: while i < SELF.endIndex {
-                let j:  Int = i &+ words
+        self.withUnsafeMutableWords { words in
+            var i: Int = words.startIndex
+            forwards: while i < words.endIndex {
+                let j:  Int = i &+ major
                 let k:  Int = j &+ 1
                 
-                let p: UInt =         (j < SELF.endIndex ? SELF[j] : c) &>> a
-                let q: UInt = x ? 0 : (k < SELF.endIndex ? SELF[k] : c) &<< b
+                let p: UInt =         (j < words.endIndex ? words[j] : c) &>> a
+                let q: UInt = x ? 0 : (k < words.endIndex ? words[k] : c) &<< b
                 
-                SELF[i] = p | q
+                words[i] = p | q
                 
-                SELF.formIndex(after: &i)
+                words.formIndex(after: &i)
             }
         }
     }

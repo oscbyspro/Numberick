@@ -13,8 +13,9 @@ import NBKCoreKit
 // MARK: * NBK x Double Width
 //*============================================================================*
 
-@frozen public struct NBKDoubleWidth<High>:
-NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
+@frozen public struct NBKDoubleWidth<High>: NBKFixedWidthInteger,
+CustomDebugStringConvertible, CustomStringConvertible,
+MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {    
     
     /// The most significant part of this type.
