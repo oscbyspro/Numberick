@@ -7,7 +7,7 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
+#if !DEBUG
 
 import NBKCoreKit
 import NBKDoubleWidthKit
@@ -20,7 +20,7 @@ private typealias Y = NBK256X32
 // MARK: * Int256 x Complements
 //*============================================================================*
 
-final class Int256TestsOnComplements: XCTestCase {
+final class Int256BenchmarksOnComplements: XCTestCase {
     
     typealias T =  Int256
     typealias M = UInt256
@@ -30,19 +30,21 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitBitPattern() {
-        XCTAssertEqual(T(bitPattern: M.min), T( 0))
-        XCTAssertEqual(T(bitPattern: M.max), T(-1))
-        
-        XCTAssertEqual(T(bitPattern:  (M(1) << (M.bitWidth - 1))), T.min)
-        XCTAssertEqual(T(bitPattern: ~(M(1) << (M.bitWidth - 1))), T.max)
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T(bitPattern: abc))
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     func testValueAsBitPattern() {
-        XCTAssertEqual(T( 0).bitPattern, M.min)
-        XCTAssertEqual(T(-1).bitPattern, M.max)
-        
-        XCTAssertEqual(T.min.bitPattern,  (M(1) << (M.bitWidth - 1)))
-        XCTAssertEqual(T.max.bitPattern, ~(M(1) << (M.bitWidth - 1)))
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.bitPattern)
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -50,12 +52,12 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        XCTAssertEqual(T(-1).magnitude, M(1))
-        XCTAssertEqual(T( 0).magnitude, M(0))
-        XCTAssertEqual(T( 1).magnitude, M(1))
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
-        XCTAssertEqual(T.min.magnitude,  (M(1) << (M.bitWidth - 1)))
-        XCTAssertEqual(T.max.magnitude, ~(M(1) << (M.bitWidth - 1)))
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.magnitude)
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -63,8 +65,12 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        XCTAssertEqual(T.min.twosComplement(), T.min)
-        XCTAssertEqual(T.max.twosComplement(), T.min + T(1))
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.twosComplement())
+            _blackHoleInoutIdentity(&abc)
+        }
     }
 }
 
@@ -72,7 +78,7 @@ final class Int256TestsOnComplements: XCTestCase {
 // MARK: * UInt256 x Complements
 //*============================================================================*
 
-final class UInt256TestsOnComplements: XCTestCase {
+final class UInt256BenchmarksOnComplements: XCTestCase {
     
     typealias T = UInt256
     typealias M = UInt256
@@ -80,15 +86,23 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Bit Pattern
     //=------------------------------------------------------------------------=
-    
+        
     func testInitBitPattern() {
-        XCTAssertEqual(T(bitPattern: M.min), T.min)
-        XCTAssertEqual(T(bitPattern: M.max), T.max)
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T(bitPattern: abc))
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     func testValueAsBitPattern() {
-        XCTAssertEqual(T.min.bitPattern, M.min)
-        XCTAssertEqual(T.max.bitPattern, M.max)
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.bitPattern)
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -96,11 +110,12 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        XCTAssertEqual(T( 0).magnitude, M( 0))
-        XCTAssertEqual(T( 1).magnitude, M( 1))
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
-        XCTAssertEqual(T.min.magnitude, M.min)
-        XCTAssertEqual(T.max.magnitude, M.max)
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.magnitude)
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -108,8 +123,12 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        XCTAssertEqual(T.min.twosComplement(), T.min)
-        XCTAssertEqual(T.max.twosComplement(), T.min + T(1))
+        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.twosComplement())
+            _blackHoleInoutIdentity(&abc)
+        }
     }
 }
 

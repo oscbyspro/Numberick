@@ -7,28 +7,44 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+#if !DEBUG
+
 import NBKCoreKit
+import NBKDoubleWidthKit
+import XCTest
+
+private typealias X = NBK256X64
+private typealias Y = NBK256X32
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Subtraction
+// MARK: * Int256 x Negation
 //*============================================================================*
 
-extension NBKDoubleWidth {
+final class Int256BenchmarksOnNegation: XCTestCase {
+    
+    typealias T = Int256
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
-        let a: Bool = self.low .subtractReportingOverflow(amount.low )
-        let b: Bool = self.high.subtractReportingOverflow(amount.high)
-        let c: Bool = a && self.high.subtractReportingOverflow(1)
-        return b || c
+    func testNegated() {
+        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(-abc)
+            _blackHoleInoutIdentity(&abc)
+        }
     }
     
-    @inlinable public func subtractingReportingOverflow(_ amount: Self) -> PVO<Self> {
-        var partialValue = self
-        let overflow: Bool = partialValue.subtractReportingOverflow(amount)
-        return PVO(partialValue, overflow)
+    func testNegatedReportingOverflow() {
+        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(abc.negatedReportingOverflow())
+            _blackHoleInoutIdentity(&abc)
+        }
     }
 }
+
+#endif
