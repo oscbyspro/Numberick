@@ -7,25 +7,35 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import Numberick
+
 //*============================================================================*
-// MARK: * NBK x Double Width x Text
+// MARK: * NBK x 256 x Utilities
 //*============================================================================*
 
 extension NBKDoubleWidth {
     
+    typealias NBK128X64 = (UInt64, UInt64)
+    
+    typealias NBK256X64 = (UInt64, UInt64, UInt64, UInt64)
+    
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// The description of this type.
-    ///
-    /// ```swift
-    /// DoubleWidth< Int128>.description //  "Int256"
-    /// DoubleWidth<UInt256>.description // "UInt512"
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        let signedness = !Self.isSigned ? "U" : ""
-        return "\(signedness)Int\(Self.bitWidth)"
+    init(x64: NBK256X64) where BitPattern == UInt128 {
+        #if _endian(big)
+        self = unsafeBitCast((x64.1, x64.0), to: Self.self)
+        #else
+        self = unsafeBitCast((x64), to: Self.self)
+        #endif
+    }
+    
+    init(x64: NBK256X64) where BitPattern == UInt256 {
+        #if _endian(big)
+        self = unsafeBitCast((x64.3, x64.2, x64.1, x64.0), to: Self.self)
+        #else
+        self = unsafeBitCast((x64), to: Self.self)
+        #endif
     }
 }

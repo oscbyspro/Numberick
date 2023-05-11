@@ -30,6 +30,18 @@ let package = Package(
         .library(
         name: "Numberick",
         targets: ["Numberick"]),
+        //=--------------------------------------=
+        // NBK x Core Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKCoreKit",
+        targets: ["NBKCoreKit"]),
+        //=--------------------------------------=
+        // NBK x Double Width Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKDoubleWidthKit",
+        targets: ["NBKDoubleWidthKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -37,14 +49,34 @@ let package = Package(
         //=--------------------------------------=
         .target(
         name: "Numberick",
+        dependencies: ["NBKCoreKit", "NBKDoubleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Core Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKCoreKit",
         dependencies: []),
         
         .testTarget(
-        name: "NumberickBenchmarks",
-        dependencies: ["Numberick"]),
+        name: "NBKCoreKitBenchmarks",
+        dependencies: ["NBKCoreKit"]),
         
         .testTarget(
-        name: "NumberickTests",
-        dependencies: ["Numberick"]),
+        name: "NBKCoreKitTests",
+        dependencies: ["NBKCoreKit"]),
+        //=--------------------------------------=
+        // NBK x Double Width Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKDoubleWidthKit",
+        dependencies: ["NBKCoreKit"]),
+        
+        .testTarget(
+        name: "NBKDoubleWidthKitBenchmarks",
+        dependencies: ["NBKDoubleWidthKit"]),
+        
+        .testTarget(
+        name: "NBKDoubleWidthKitTests",
+        dependencies: ["NBKDoubleWidthKit"]),
     ]
 )

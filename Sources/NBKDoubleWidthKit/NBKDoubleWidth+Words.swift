@@ -7,8 +7,35 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
 // MARK: * NBK x Double Width x Words
+//*============================================================================*
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var words: BitPattern {
+        self.bitPattern
+    }
+    
+    /// The least significant word of this value.
+    ///
+    /// This is a top-secret™ requirement of [BinaryInteger][].
+    ///
+    /// []: https://github.com/apple/swift/blob/main/stdlib/public/core/Integers.swift
+    ///
+    @inlinable public var _lowWord: UInt {
+        self.low._lowWord
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Words x Collection
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -67,24 +94,6 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: BitPattern {
-        self.bitPattern
-    }
-    
-    /// The least significant word of this value.
-    ///
-    /// This is a top-secret™ requirement of [BinaryInteger][].
-    ///
-    /// []: https://github.com/apple/swift/blob/main/stdlib/public/core/Integers.swift
-    ///
-    @inlinable public var _lowWord: UInt {
-        self.low._lowWord
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
     @inlinable public var first: UInt {
         @inlinable _read {
             yield  self[unchecked: self.startIndex]
@@ -128,7 +137,7 @@ extension NBKDoubleWidth {
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Words x Pointers
+// MARK: * NBK x Double Width x Words x Collection x Pointers
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -255,7 +264,7 @@ extension NBKDoubleWidth {
 }
 
 //*============================================================================*
-// MARK: * NBK x Full Width x Words x Pointers x Custom
+// MARK: * NBK x Full Width x Words x Collection x Pointers x Custom
 //*============================================================================*
 
 /// A double-width, unsafe words pointer.
@@ -370,7 +379,7 @@ extension NBKDoubleWidthUnsafeWordsPointer {
 }
 
 //*============================================================================*
-// MARK: * NBK x Full Width x Words x Pointers x Custom x Read
+// MARK: * NBK x Full Width x Words  x Collection x Pointers x Read
 //*============================================================================*
 
 /// An unsafe words pointer.
@@ -419,7 +428,7 @@ extension NBKDoubleWidthUnsafeWordsPointer {
 }
 
 //*============================================================================*
-// MARK: * NBK x Full Width x Words x Pointers x Custom x Read & Write
+// MARK: * NBK x Full Width x Words x Collection x Pointers x Read & Write
 //*============================================================================*
 
 /// An unsafe, mutable, words pointer.

@@ -7,26 +7,27 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x Double Width x Negation
+// MARK: * NBK x Double Width x Text
 //*============================================================================*
 
-extension NBKDoubleWidth where High: NBKSignedInteger {
+extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func negateReportingOverflow() -> Bool {
-        let msb0: Bool = self.isLessThanZero
-        self.formTwosComplement()
-        let msb1: Bool = self.isLessThanZero
-        return msb0 && msb1
-    }
-    
-    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
-        var partialValue = self
-        let overflow: Bool = partialValue.negateReportingOverflow()
-        return PVO(partialValue, overflow)
+    /// The description of this type.
+    ///
+    /// ```swift
+    /// DoubleWidth< Int128>.description //  "Int256"
+    /// DoubleWidth<UInt256>.description // "UInt512"
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        let signedness = !Self.isSigned ? "U" : ""
+        return "\(signedness)Int\(Self.bitWidth)"
     }
 }

@@ -7,43 +7,51 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x Double Width x Complements
+// MARK: * NBK x Double Width x Shifts
 //*============================================================================*
 
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Bit Pattern
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
-        self = unsafeBitCast(source.bitPattern, to: Self.self)
+    @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
     }
     
-    @inlinable public var bitPattern: BitPattern {
-        unsafeBitCast(self, to: BitPattern.self)
+    @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
+    }
+    
+    @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
+    }
+    
+    @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Magnitude
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var magnitude: Magnitude {
-        Magnitude(bitPattern: self.isLessThanZero ? self.twosComplement() : self)
+    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Two's Complement
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func formTwosComplement() {
-        self = ~self &+ (1 as Self)
+    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
     
-    @inlinable public func twosComplement() -> Self {
-        var newValue = self
-        newValue.formTwosComplement()
-        return newValue
+    @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError()
+    }
+    
+    @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        fatalError()
     }
 }
