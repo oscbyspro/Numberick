@@ -20,7 +20,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs._bitshiftRightSmart(by: Int(clamping: rhs))
+        lhs._bitshiftLeftSmart(by: Int(clamping: rhs))
     }
     
     @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -83,7 +83,7 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @_transparent @usableFromInline func _bitshiftedLeftSmart(by amount: Int) -> Self {
+    @inlinable func _bitshiftedLeftSmart(by amount: Int) -> Self {
         var x = self; x._bitshiftLeftSmart(by: amount); return x
     }
     
@@ -100,7 +100,7 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
-    @_transparent @usableFromInline func _bitshiftedLeft(by amount: Int) -> Self {
+    @inlinable func _bitshiftedLeft(by amount: Int) -> Self {
         var x = self; x._bitshiftLeft(by: amount); return x
     }
     
@@ -136,7 +136,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @_transparent @usableFromInline func _bitshiftedLeft(words: Int, bits: Int) -> Self {
+    @inlinable func _bitshiftedLeft(words: Int, bits: Int) -> Self {
         var x = self; x._bitshiftLeft(words: words, bits: bits); return x
     }
 }
@@ -167,7 +167,7 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @_transparent @usableFromInline func _bitshiftedRightSmart(by amount: Int) -> Self {
+    @inlinable func _bitshiftedRightSmart(by amount: Int) -> Self {
         var x = self; x._bitshiftRightSmart(by: amount); return x
     }
     
@@ -184,7 +184,7 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
-    @_transparent @usableFromInline func _bitshiftedRight(by amount: Int) -> Self {
+    @inlinable func _bitshiftedRight(by amount: Int) -> Self {
         var x = self; x._bitshiftRight(by: amount); return x
     }
     
@@ -221,7 +221,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @_transparent @usableFromInline func _bitshiftedRight(words: Int, bits: Int) -> Self {
+    @inlinable func _bitshiftedRight(words: Int, bits: Int) -> Self {
         var x = self; x._bitshiftRight(words: words, bits: bits); return x
     }
 }

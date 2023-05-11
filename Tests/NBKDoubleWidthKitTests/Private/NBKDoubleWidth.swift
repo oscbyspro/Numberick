@@ -7,7 +7,7 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import Numberick
+import NBKDoubleWidthKit
 
 //*============================================================================*
 // MARK: * NBK x 256 x Utilities
@@ -15,15 +15,11 @@ import Numberick
 
 extension NBKDoubleWidth {
     
-    typealias NBK128X64 = (UInt64, UInt64)
-    
-    typealias NBK256X64 = (UInt64, UInt64, UInt64, UInt64)
-    
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    init(x64: NBK256X64) where BitPattern == UInt128 {
+    init(x64: NBK128X64) where BitPattern == UInt128 {
         #if _endian(big)
         self = unsafeBitCast((x64.1, x64.0), to: Self.self)
         #else

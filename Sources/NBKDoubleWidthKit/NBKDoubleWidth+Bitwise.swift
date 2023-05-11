@@ -19,6 +19,10 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    @inlinable public static prefix func ~(x: Self) -> Self {
+        Self(descending: HL(~x.high, ~x.low))
+    }
+    
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
         lhs.low  &= rhs.low
         lhs.high &= rhs.high

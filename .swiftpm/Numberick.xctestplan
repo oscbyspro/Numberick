@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "6FC9897F-2BF3-4836-8372-787CE5195F87",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKCoreKitTests",
+        "name" : "NBKCoreKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKDoubleWidthKitTests",
+        "name" : "NBKDoubleWidthKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
