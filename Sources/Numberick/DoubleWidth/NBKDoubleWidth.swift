@@ -11,7 +11,9 @@
 // MARK: * NBK x Double Width
 //*============================================================================*
 
-@frozen public struct NBKDoubleWidth<High>: NBKFixedWidthInteger where High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {    
+@frozen public struct NBKDoubleWidth<High>:
+NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
+High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
     
     /// The most significant part of this type.
     public typealias High = High

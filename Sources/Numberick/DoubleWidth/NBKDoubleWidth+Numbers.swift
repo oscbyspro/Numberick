@@ -46,15 +46,48 @@ extension NBKDoubleWidth {
         self.init(descending: HL(high, low))
     }
     
-    @inlinable public init(integerLiteral value: StaticBigInt) {
-        fatalError()
-    }
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
     
     @inlinable public init<T>(_ source: T) where T: BinaryInteger {
-        fatalError()
+        guard let result = Self(exactly: source) else {
+            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
+        }
+        
+        self = result
+    }
+
+    @inlinable public init?<T>(exactly source: T) where T: BinaryInteger {
+        //=--------------------------------------=
+        if !Self.isSigned, source < 0 { return nil }
+        //=--------------------------------------=
+        if  let low = Low(exactly: source.magnitude) {
+            self.init(descending: HL(source < (0 as T) ? (~0, ~low &+ 1) : (0, low)))
+        }   else {
+            let low = Low(source & T(~0 as Low))
+            guard let high = High(exactly: source >> Low.bitWidth) else { return nil }
+            self.init(descending: HL(high, low))
+        }
     }
     
-    @inlinable public init?<T>(exactly source: T) where T: BinaryInteger {
-        fatalError()
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        guard let value = Self(_exactlyIntegerLiteral: source) else {
+            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
+        }
+        
+        self = value
+    }
+    
+    @inlinable public init?(_exactlyIntegerLiteral source: StaticBigInt) {
+        guard  Self.isSigned
+        ? source.bitWidth <= Self.bitWidth
+        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
+        else { return nil  }
+        self = Self.fromUnsafeMutableWords({ for i in $0.indices { $0[i] = source[i] } })
     }
 }
