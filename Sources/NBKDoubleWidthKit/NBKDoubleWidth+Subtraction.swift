@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Addition
+// MARK: * NBK x Double Width x Subtraction
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -19,16 +19,16 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
-        let a: Bool = self.low .addReportingOverflow(amount.low )
-        let b: Bool = self.high.addReportingOverflow(amount.high)
-        let c: Bool = a && self.high.addReportingOverflow(1)
+    @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
+        let a: Bool = self.low .subtractReportingOverflow(amount.low )
+        let b: Bool = self.high.subtractReportingOverflow(amount.high)
+        let c: Bool = a && self.high.subtractReportingOverflow(1)
         return b || c
     }
     
-    @inlinable public func addingReportingOverflow(_ amount: Self) -> PVO<Self> {
+    @inlinable public func subtractingReportingOverflow(_ amount: Self) -> PVO<Self> {
         var partialValue = self
-        let overflow: Bool = partialValue.addReportingOverflow(amount)
+        let overflow: Bool = partialValue.subtractReportingOverflow(amount)
         return PVO(partialValue, overflow)
     }
 }

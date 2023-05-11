@@ -90,7 +90,7 @@ final class Int256TestsOnBits: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * UInt256
+// MARK: * UInt256 x Bits
 //*============================================================================*
 
 final class UInt256TestsOnBits: XCTestCase {
