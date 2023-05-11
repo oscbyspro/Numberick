@@ -39,14 +39,6 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var mostSignificantBit: Bool {
-        self.high.mostSignificantBit
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self.low.leastSignificantBit
-    }
-    
     @inlinable public var nonzeroBitCount: Int {
         self.low.nonzeroBitCount &+ self.high.nonzeroBitCount
     }
@@ -61,6 +53,14 @@ extension NBKDoubleWidth {
         let count  = self.low.trailingZeroBitCount
         if  count != Low.bitWidth { return count }
         return count &+ self.high.trailingZeroBitCount
+    }
+    
+    @inlinable public var mostSignificantBit: Bool {
+        self.high.mostSignificantBit
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        self.low.leastSignificantBit
     }
     
     //=------------------------------------------------------------------------=

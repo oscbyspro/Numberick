@@ -7,7 +7,7 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
+#if !DEBUG
 
 import NBKCoreKit
 import NBKDoubleWidthKit
@@ -20,7 +20,7 @@ private typealias Y = NBK256X32
 // MARK: * Int256
 //*============================================================================*
 
-final class Int256Tests: XCTestCase {
+final class Int256Benchmarks: XCTestCase {
     
     typealias T =  Int256
     typealias M = UInt256
@@ -29,26 +29,31 @@ final class Int256Tests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInitX64() {
-        XCTAssertEqual(T(x64: X(1, 0, 0, 0)), T(1) <<   0)
-        XCTAssertEqual(T(x64: X(0, 1, 0, 0)), T(1) <<  64)
-        XCTAssertEqual(T(x64: X(0, 0, 1, 0)), T(1) << 128)
-        XCTAssertEqual(T(x64: X(0, 0, 0, 1)), T(1) << 192)
-    }
-        
     func testInitZero() {
-        XCTAssertEqual(T(   ), T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.zero, T(x64: X(0, 0, 0, 0)))
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T())
+            _blackHole(T.zero)
+        }
     }
     
     func testInitEdges() {
-        XCTAssertEqual(T.min,  T(x64: X(0, 0, 0, 1 << 63)))
-        XCTAssertEqual(T.max, ~T(x64: X(0, 0, 0, 1 << 63)))
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T.min )
+            _blackHole(T.max )
+        }
     }
     
     func testInitComponents() {
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)), T(ascending:  LH(T.Low (x64:(1, 2)), T.High(x64:(3, 4)))))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)), T(descending: HL(T.High(x64:(3, 4)), T.Low (x64:(1, 2)))))
+        var abc = _blackHoleIdentity(LH( T.Low(), T.High() ))
+        var xyz = _blackHoleIdentity(HL( T.High(), T.Low() ))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T(ascending:  abc))
+            _blackHole(T(descending: xyz))
+            
+            _blackHoleInoutIdentity(&abc)
+            _blackHoleInoutIdentity(&xyz)
+        }
     }
 }
 
@@ -56,35 +61,40 @@ final class Int256Tests: XCTestCase {
 // MARK: * UInt256
 //*============================================================================*
 
-final class UInt256Tests: XCTestCase {
+final class UInt256Benchmarks: XCTestCase {
     
     typealias T = UInt256
     typealias M = UInt256
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInitX64() {
-        XCTAssertEqual(T(x64: X(1, 0, 0, 0)), T(1) <<   0)
-        XCTAssertEqual(T(x64: X(0, 1, 0, 0)), T(1) <<  64)
-        XCTAssertEqual(T(x64: X(0, 0, 1, 0)), T(1) << 128)
-        XCTAssertEqual(T(x64: X(0, 0, 0, 1)), T(1) << 192)
-    }
-    
     func testInitZero() {
-        XCTAssertEqual(T(   ), T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.zero, T(x64: X(0, 0, 0, 0)))
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T())
+            _blackHole(T.zero)
+        }
     }
     
     func testInitEdges() {
-        XCTAssertEqual(T.min,  T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.max, ~T(x64: X(0, 0, 0, 0)))
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T.min )
+            _blackHole(T.max )
+        }
     }
     
     func testInitComponents() {
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)), T(ascending:  LH(T.Low (x64:(1, 2)), T.High(x64:(3, 4)))))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)), T(descending: HL(T.High(x64:(3, 4)), T.Low (x64:(1, 2)))))
+        var abc = _blackHoleIdentity(LH( T.Low(), T.High() ))
+        var xyz = _blackHoleIdentity(HL( T.High(), T.Low() ))
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(T(ascending:  abc))
+            _blackHole(T(descending: xyz))
+            
+            _blackHoleInoutIdentity(&abc)
+            _blackHoleInoutIdentity(&xyz)
+        }
     }
 }
 

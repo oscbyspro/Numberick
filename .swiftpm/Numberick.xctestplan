@@ -15,15 +15,15 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NBKCoreKitTests",
-        "name" : "NBKCoreKitTests"
+        "identifier" : "NBKCoreKitBenchmarks",
+        "name" : "NBKCoreKitBenchmarks"
       }
     },
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NBKDoubleWidthKitTests",
-        "name" : "NBKDoubleWidthKitTests"
+        "identifier" : "NBKDoubleWidthKitBenchmarks",
+        "name" : "NBKDoubleWidthKitBenchmarks"
       }
     }
   ],
