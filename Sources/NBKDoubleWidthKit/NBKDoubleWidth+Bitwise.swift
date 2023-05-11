@@ -34,8 +34,8 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        lhs.low  |= rhs.low
-        lhs.high |= rhs.high
+        lhs.low  ^= rhs.low
+        lhs.high ^= rhs.high
     }
     
     //=------------------------------------------------------------------------=
