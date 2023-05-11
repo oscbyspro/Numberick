@@ -37,6 +37,8 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var byteSwapped: Self {
-        Self(high: High(truncatingIfNeeded: self.low.byteSwapped), low: Low(truncatingIfNeeded: self.high.byteSwapped))
+        let newHigh = High(bitPattern: self.low .byteSwapped)
+        let newLow  = Low (bitPattern: self.high.byteSwapped)
+        return Self(descending: HL(newHigh, newLow))
     }
 }

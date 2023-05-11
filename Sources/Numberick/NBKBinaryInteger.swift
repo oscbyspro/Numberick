@@ -33,11 +33,13 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(bit: Bool)
-        
+    @inlinable init(digit: Digit)
+    
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
+    
+    @inlinable init(bit: Bool)
     
     @inlinable var mostSignificantBit: Bool { get }
     
@@ -119,6 +121,14 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
 //=----------------------------------------------------------------------------=
 
 extension NBKBinaryInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(digit: Digit) where Digit == Self {
+        self = digit
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons

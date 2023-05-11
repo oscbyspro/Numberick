@@ -18,34 +18,43 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static var min: Self {
-        Self(high: High.min,  low: Low.min)
+        Self(descending: HL(High.min, Low.min))
     }
     
     @inlinable public static var max: Self {
-        Self(high: High.max,  low: Low.max)
+        Self(descending: HL(High.max, Low.max))
     }
     
     @inlinable public static var zero: Self {
-        Self(high: High.zero, low: Low.zero)
+        Self(descending: HL(High.zero, Low.zero))
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    public init(integerLiteral value: StaticBigInt) {
+    @inlinable public init(digit: Digit) {
+        let bit  = digit.isLessThanZero
+        let high = High(repeating: bit)
+        let low  = Low(truncatingIfNeeded: digit)
+        self.init(descending: HL(high, low))
+    }
+    
+    @inlinable public init(_truncatingBits source: UInt) {
+        let high = High.zero
+        let low  = Low(_truncatingBits: source)
+        self.init(descending: HL(high, low))
+    }
+    
+    @inlinable public init(integerLiteral value: StaticBigInt) {
         fatalError()
     }
     
-    public init(_truncatingBits source: UInt) {
+    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
         fatalError()
     }
     
-    public init<T>(_ source: T) where T: BinaryInteger {
-        fatalError()
-    }
-    
-    public init?<T>(exactly source: T) where T: BinaryInteger {
+    @inlinable public init?<T>(exactly source: T) where T: BinaryInteger {
         fatalError()
     }
 }

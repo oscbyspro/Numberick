@@ -59,9 +59,26 @@
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(high: High, low: Low) {
-        self.low  = low
-        self.high = high
+    @inlinable public init(ascending  partition: LH<Low, High>) {
+        self.low  = partition.low
+        self.high = partition.high
+    }
+    
+    @inlinable public init(descending partition: HL<High, Low>) {
+        self.low  = partition.low
+        self.high = partition.high
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var ascending:  LH<Low, High> {
+        LH(self.low, self.high)
+    }
+    
+    @inlinable public var descending: HL<High, Low> {
+        HL(self.high, self.low)
     }
 }
 

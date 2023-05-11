@@ -38,7 +38,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        self = ~self &+ (1 as Self) // TODO
+        self = ~self &+ (1 as Self)
     }
     
     @inlinable public func twosComplement() -> Self {
