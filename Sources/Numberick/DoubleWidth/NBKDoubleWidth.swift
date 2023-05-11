@@ -31,35 +31,6 @@
     /// An integer type with double the width of this type.
     public typealias DoubleWidth = NBKDoubleWidth<Self>
     
-    
-    public mutating func addReportingOverflow(_ amount: NBKDoubleWidth<High>) -> Bool {
-        fatalError()
-    }
-    
-    public mutating func subtractReportingOverflow(_ amount: NBKDoubleWidth<High>) -> Bool {
-        fatalError()
-    }
-    
-    public mutating func multiplyReportingOverflow(by amount: NBKDoubleWidth<High>) -> Bool {
-        fatalError()
-    }
-    
-    public mutating func multiplyFullWidth(by amount: NBKDoubleWidth<High>) -> NBKDoubleWidth<High> {
-        fatalError()
-    }
-    
-    public mutating func divideReportingOverflow(by divisor: NBKDoubleWidth<High>) -> Bool {
-        fatalError()
-    }
-    
-    public mutating func formRemainderReportingOverflow(dividingBy divisor: NBKDoubleWidth<High>) -> Bool {
-        fatalError()
-    }
-    
-    public func quotientAndRemainderReportingOverflow(dividingBy divisor: NBKDoubleWidth<High>) -> PVO<QR<NBKDoubleWidth<High>, NBKDoubleWidth<High>>> {
-        fatalError()
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=

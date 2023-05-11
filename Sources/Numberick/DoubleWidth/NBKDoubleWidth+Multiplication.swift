@@ -17,19 +17,23 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
+    @inlinable public mutating func multiplyReportingOverflow(by amount: Self) -> Bool {
         fatalError()
     }
-    
-    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        fatalError()
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
     
     @inlinable public func multipliedReportingOverflow(by rhs: Self) -> PVO<Self> {
+        fatalError()
+    }
+
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Full Width
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func multiplyFullWidth(by amount: Self) -> Self {
+        fatalError()
+    }
+    
+    @inlinable public func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude> {
         fatalError()
     }
 }

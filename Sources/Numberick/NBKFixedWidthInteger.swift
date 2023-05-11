@@ -24,12 +24,22 @@
 ///
 public protocol NBKFixedWidthInteger: NBKBinaryInteger, FixedWidthInteger where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Arithmetic
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var moduloBitWidth: Int { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
     @inlinable init(repeating bit: Bool)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Comparisons
+    //=------------------------------------------------------------------------=
     
     @inlinable var isFull: Bool { get }
     
@@ -65,7 +75,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
 extension NBKFixedWidthInteger {
         
     //=------------------------------------------------------------------------=
-    // MARK: Details x Bits
+    // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
     @inlinable public var isFull: Bool {

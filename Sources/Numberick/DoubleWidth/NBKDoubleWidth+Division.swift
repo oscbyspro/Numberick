@@ -17,27 +17,15 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func /=(lhs: inout Self, rhs: Self) {
+    @inlinable public mutating func divideReportingOverflow(by divisor: Self) -> Bool {
         fatalError()
     }
-    
-    @inlinable public static func /(lhs: Self, rhs: Self) -> Self {
-        fatalError()
-    }
-    
-    @inlinable public static func %=(lhs: inout Self, rhs: Self) {
-        fatalError()
-    }
-    
-    @inlinable public static func %(lhs: Self, rhs: Self) -> Self {
-        fatalError()
-    }
-        
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
     
     @inlinable public func dividedReportingOverflow(by rhs: Self) -> PVO<Self> {
+        fatalError()
+    }
+    
+    @inlinable public mutating func formRemainderReportingOverflow(dividingBy divisor: Self) -> Bool {
         fatalError()
     }
     
@@ -45,7 +33,7 @@ extension NBKDoubleWidth {
         fatalError()
     }
     
-    @inlinable public func quotientAndRemainder(dividingBy rhs: Self) -> QR<Self, Self> {
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
         fatalError()
     }
     
