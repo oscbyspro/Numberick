@@ -39,7 +39,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick.xctestplan"
+            reference = "container:.swiftpm/Numberick-Benchmarks.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

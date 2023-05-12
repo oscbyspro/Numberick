@@ -21,7 +21,7 @@ Models, protocols, and extensions underpinning this package.
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 
-## NBKDoubleWidthKit ([Sources][DOU/S], [Tests][DOU/T], [Benchmarks][DOU/B])
+## NBKDoubleWidthKit ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
 A composable, large, fixed-width, two's complement, binary integer.
 
@@ -41,10 +41,10 @@ typealias UInt256 = NBKDoubleWidth<UInt128>
 <!-- Links -->
 
 [COR/S]: Sources/NBKCoreKit
-[DOU/S]: Sources/NBKDoubleWidthKit
+[DBL/S]: Sources/NBKDoubleWidthKit
 
 [COR/T]: Tests/NBKCoreKitTests
-[DOU/T]: Tests/NBKDoubleWidthKitTests
+[DBL/T]: Tests/NBKDoubleWidthKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
-[DOU/B]: Tests/NBKDoubleWidthKitBenchmarks
+[DBL/B]: Tests/NBKDoubleWidthKitBenchmarks

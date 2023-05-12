@@ -79,6 +79,44 @@ final class Int256TestsOnSubtraction: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testSubtractingDigit() {
+        NBKAssertSubtractionByDigit(T( 1), Int( 2), T(-1))
+        NBKAssertSubtractionByDigit(T( 1), Int( 1), T( 0))
+        NBKAssertSubtractionByDigit(T( 1), Int( 0), T( 1))
+        NBKAssertSubtractionByDigit(T( 1), Int(-1), T( 2))
+        NBKAssertSubtractionByDigit(T( 1), Int(-2), T( 3))
+        
+        NBKAssertSubtractionByDigit(T( 0), Int( 2), T(-2))
+        NBKAssertSubtractionByDigit(T( 0), Int( 1), T(-1))
+        NBKAssertSubtractionByDigit(T( 0), Int( 0), T( 0))
+        NBKAssertSubtractionByDigit(T( 0), Int(-1), T( 1))
+        NBKAssertSubtractionByDigit(T( 0), Int(-2), T( 2))
+        
+        NBKAssertSubtractionByDigit(T(-1), Int( 2), T(-3))
+        NBKAssertSubtractionByDigit(T(-1), Int( 1), T(-2))
+        NBKAssertSubtractionByDigit(T(-1), Int( 0), T(-1))
+        NBKAssertSubtractionByDigit(T(-1), Int(-1), T( 0))
+        NBKAssertSubtractionByDigit(T(-1), Int(-2), T( 1))
+    }
+    
+    func testSubtractingDigitUsingLargeValues() {
+        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X( 2,  0,  0,  1)))
+        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X(~3, ~0, ~0,  0)))
+        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X( 3,  0,  0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X(~2, ~0, ~0, ~1)))
+    }
+    
+    func testSubtractingDigitReportingOverflow() {
+        NBKAssertSubtractionByDigit(T.min, Int( 2), T.max - T(1), true )
+        NBKAssertSubtractionByDigit(T.min, Int(-2), T.min + T(2), false)
+        NBKAssertSubtractionByDigit(T.max, Int( 2), T.max - T(2), false)
+        NBKAssertSubtractionByDigit(T.max, Int(-2), T.min + T(1), true )
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
@@ -124,6 +162,29 @@ final class UInt256TestsOnSubtraction: XCTestCase {
     func testSubtractingReportingOverflow() {
         NBKAssertSubtraction(T.min, T(2), T.max - T(1), true )
         NBKAssertSubtraction(T.max, T(2), T.max - T(2), false)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testSubtractingDigit() {
+        NBKAssertSubtractionByDigit(T(3), UInt(0), T(3))
+        NBKAssertSubtractionByDigit(T(3), UInt(1), T(2))
+        NBKAssertSubtractionByDigit(T(3), UInt(2), T(1))
+        NBKAssertSubtractionByDigit(T(3), UInt(3), T(0))
+    }
+    
+    func testSubtractingDigitUsingLargeValues() {
+        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0, ~0)), UInt(3), T(x64: X(~3, ~0, ~0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X( 0, ~0, ~0, ~0)), UInt(3), T(x64: X(~2, ~1, ~0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X( 0,  0, ~0, ~0)), UInt(3), T(x64: X(~2, ~0, ~1, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), UInt(3), T(x64: X(~2, ~0, ~0, ~1)))
+    }
+    
+    func testSubtractingDigitReportingOverflow() {
+        NBKAssertSubtractionByDigit(T.min, UInt(2), T.max - T(1), true )
+        NBKAssertSubtractionByDigit(T.max, UInt(2), T.max - T(2), false)
     }
     
     //=------------------------------------------------------------------------=

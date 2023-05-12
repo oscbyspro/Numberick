@@ -79,6 +79,44 @@ final class Int256TestsOnAddition: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testAddingDigit() {
+        NBKAssertAdditionByDigit(T( 1), Int( 2), T( 3))
+        NBKAssertAdditionByDigit(T( 1), Int( 1), T( 2))
+        NBKAssertAdditionByDigit(T( 1), Int( 0), T( 1))
+        NBKAssertAdditionByDigit(T( 1), Int(-1), T( 0))
+        NBKAssertAdditionByDigit(T( 1), Int(-2), T(-1))
+        
+        NBKAssertAdditionByDigit(T( 0), Int( 2), T( 2))
+        NBKAssertAdditionByDigit(T( 0), Int( 1), T( 1))
+        NBKAssertAdditionByDigit(T( 0), Int( 0), T( 0))
+        NBKAssertAdditionByDigit(T( 0), Int(-1), T(-1))
+        NBKAssertAdditionByDigit(T( 0), Int(-2), T(-2))
+        
+        NBKAssertAdditionByDigit(T(-1), Int( 2), T( 1))
+        NBKAssertAdditionByDigit(T(-1), Int( 1), T( 0))
+        NBKAssertAdditionByDigit(T(-1), Int( 0), T(-1))
+        NBKAssertAdditionByDigit(T(-1), Int(-1), T(-2))
+        NBKAssertAdditionByDigit(T(-1), Int(-2), T(-3))
+    }
+    
+    func testAddingDigitUsingLargeValues() {
+        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X( 2,  0,  0,  1)))
+        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X(~3, ~0, ~0,  0)))
+        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X( 3,  0,  0, ~0)))
+        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X(~2, ~0, ~0, ~1)))
+    }
+    
+    func testAddingDigitReportingOverflow() {
+        NBKAssertAdditionByDigit(T.min, Int( 1), T.min + T(1))
+        NBKAssertAdditionByDigit(T.min, Int(-1), T.max,  true)
+        NBKAssertAdditionByDigit(T.max, Int( 1), T.min,  true)
+        NBKAssertAdditionByDigit(T.max, Int(-1), T.max - T(1))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
@@ -127,6 +165,32 @@ final class UInt256TestsOnAddition: XCTestCase {
     func testAddingReportingOverflow() {
         NBKAssertAddition(T.min, T(1), T.min + T(1))
         NBKAssertAddition(T.max, T(1), T.min,  true)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+
+    func testAddingDigit() {
+        NBKAssertAdditionByDigit(T(0), UInt(0), T(0))
+        NBKAssertAdditionByDigit(T(0), UInt(1), T(1))
+        NBKAssertAdditionByDigit(T(0), UInt(2), T(2))
+        
+        NBKAssertAdditionByDigit(T(1), UInt(0), T(1))
+        NBKAssertAdditionByDigit(T(1), UInt(1), T(2))
+        NBKAssertAdditionByDigit(T(1), UInt(2), T(3))
+    }
+    
+    func testAddingDigitUsingLargeValues() {
+        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0,  0)), UInt(3), T(x64: X(3, 0, 0, 0)))
+        NBKAssertAdditionByDigit(T(x64: X(~0,  0,  0,  0)), UInt(3), T(x64: X(2, 1, 0, 0)))
+        NBKAssertAdditionByDigit(T(x64: X(~0, ~0,  0,  0)), UInt(3), T(x64: X(2, 0, 1, 0)))
+        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), UInt(3), T(x64: X(2, 0, 0, 1)))
+    }
+    
+    func testAddingDigitReportingOverflow() {
+        NBKAssertAdditionByDigit(T.min, UInt(1), T.min + T(1))
+        NBKAssertAdditionByDigit(T.max, UInt(1), T.min,  true)
     }
     
     //=------------------------------------------------------------------------=

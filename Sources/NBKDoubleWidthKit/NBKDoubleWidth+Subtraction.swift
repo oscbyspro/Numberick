@@ -44,10 +44,27 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ amount: Digit) -> Bool {
-        fatalError("TODO")
+        self.withUnsafeMutableWords { SELF in
+            let amountIsLessThanZero: Bool = amount.isLessThanZero
+            var carry: Bool = SELF.first.subtractReportingOverflow(UInt(bitPattern: amount))
+            //=----------------------------------=
+            if  carry == amountIsLessThanZero { return false }
+            let extra =  UInt(bitPattern: amountIsLessThanZero ? -1 : 1)
+            //=----------------------------------=
+            for index in 1 ..< SELF.lastIndex {
+                carry =  SELF[index].subtractReportingOverflow(extra)
+                if carry == amountIsLessThanZero { return false }
+            }
+            //=----------------------------------=
+            let pvo: PVO<Digit> = Digit(bitPattern: SELF.last).subtractingReportingOverflow(Digit(bitPattern: extra))
+            SELF.last = UInt(bitPattern: pvo.partialValue)
+            return pvo.overflow as Bool
+        }
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self> {
-        fatalError("TODO")
+        var partialValue = self
+        let overflow: Bool = partialValue.subtractReportingOverflow(amount)
+        return PVO(partialValue, overflow)
     }
 }

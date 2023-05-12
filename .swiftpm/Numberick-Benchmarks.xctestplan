@@ -1,29 +1,29 @@
 {
   "configurations" : [
     {
-      "id" : "6FC9897F-2BF3-4836-8372-787CE5195F87",
-      "name" : "Test Scheme Action",
+      "id" : "2BBD9A51-D890-4B97-AED4-B9962867DF57",
+      "name" : "Configuration 1",
       "options" : {
 
       }
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false
+
   },
   "testTargets" : [
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NBKCoreKitTests",
-        "name" : "NBKCoreKitTests"
+        "identifier" : "NBKCoreKitBenchmarks",
+        "name" : "NBKCoreKitBenchmarks"
       }
     },
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NBKDoubleWidthKitTests",
-        "name" : "NBKDoubleWidthKitTests"
+        "identifier" : "NBKDoubleWidthKitBenchmarks",
+        "name" : "NBKDoubleWidthKitBenchmarks"
       }
     }
   ],
