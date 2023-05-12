@@ -63,6 +63,43 @@ final class Int256BenchmarksOnDivision: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testQuotientAndRemainderDividingByDigit() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(Int.max)
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testQuotientDividingByDigitReportingOverflow() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(Int.max)
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.dividedReportingOverflow(by: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testRemainderDividingByDigitReportingOverflow() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(Int.max)
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Full Width
     //=------------------------------------------------------------------------=
     
@@ -117,6 +154,43 @@ final class UInt256BenchmarksOnDivision: XCTestCase {
         var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testQuotientAndRemainderDividingByDigit() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(UInt.max)
+        
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testQuotientDividingByDigitReportingOverflow() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(UInt.max)
+
+        for _ in 0 ..< 1_000_000 {
+            _blackHole(lhs.dividedReportingOverflow(by: rhs))
+            _blackHoleInoutIdentity(&lhs)
+            _blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testRemainderDividingByDigitReportingOverflow() {
+        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = _blackHoleIdentity(UInt.max)
+
         for _ in 0 ..< 1_000_000 {
             _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
             _blackHoleInoutIdentity(&lhs)

@@ -69,9 +69,19 @@ High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
         self.high = partition.high
     }
     
+    @_disfavoredOverload @inlinable public init(ascending  partition: LH<Low, Digit>) {
+        self.low  = partition.low
+        self.high = High(digit: partition.high)
+    }
+    
     @inlinable public init(descending partition: HL<High, Low>) {
         self.low  = partition.low
         self.high = partition.high
+    }
+    
+    @_disfavoredOverload @inlinable public init(descending partition: HL<Digit, Low>) {
+        self.low  = partition.low
+        self.high = High(digit: partition.high)
     }
     
     //=------------------------------------------------------------------------=

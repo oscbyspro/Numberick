@@ -22,7 +22,7 @@ extension NBKDoubleWidth {
     @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
         let a: Bool = self.low .addReportingOverflow(amount.low )
         let b: Bool = self.high.addReportingOverflow(amount.high)
-        let c: Bool = a && self.high.addReportingOverflow(1)
+        let c: Bool = a && self.high.addReportingOverflow(1 as Digit)
         return b || c
     }
     

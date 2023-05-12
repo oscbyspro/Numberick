@@ -82,7 +82,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable mutating func _bitshiftLeft(words major: Int, bits minor: Int) {
         assert(0 ..< Self.endIndex ~= major, "invalid shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor,  "invalid shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor, "invalid shift amount")
         //=--------------------------------------=
         let a = UInt(bitPattern: minor)
         let b = UInt(bitPattern: UInt.bitWidth &- minor)
@@ -186,7 +186,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable mutating func _bitshiftRight(words major: Int, bits minor: Int) {
         assert(0 ..< Self.endIndex ~= major, "invalid shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor,  "invalid shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor, "invalid shift amount")
         //=--------------------------------------=
         let a = UInt(bitPattern: minor)
         let b = UInt(bitPattern: UInt.bitWidth &- minor)

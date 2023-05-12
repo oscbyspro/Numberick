@@ -43,9 +43,8 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public init(_truncatingBits source: UInt) {
-        let high = High.zero
         let low  = Low(_truncatingBits: source)
-        self.init(descending: HL(high, low))
+        self.init(descending: HL(High.zero, low))
     }
     
     //=------------------------------------------------------------------------=

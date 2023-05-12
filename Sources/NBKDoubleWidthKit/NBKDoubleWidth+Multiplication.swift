@@ -106,18 +106,63 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiplyReportingOverflow(by amount: Digit) -> Bool {
-        fatalError("TODO")
+        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
     }
     
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
-        fatalError("TODO")
+        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
+        //=--------------------------------------=
+        let overflow: Bool
+        if !Self.isSigned {
+            overflow = !(product.high.isZero)
+        }   else if self.isLessThanZero == amount.isLessThanZero {
+            // overflow = product > Self.max, but more efficient
+            overflow = !(product.high.isZero && !product.low.mostSignificantBit)
+        }   else {
+            // overflow = product < Self.min, but more efficient
+            overflow = !(product.high.isFull &&  product.low.mostSignificantBit) && product.high.mostSignificantBit
+        }
+        //=--------------------------------------=
+        return PVO(Self(bitPattern: product.low), overflow)
     }
     
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by amount: Digit) -> Digit {
-        fatalError("TODO")
+        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
+        self = Self(bitPattern: product.low)
+        return product.high as  Digit
     }
     
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
-        fatalError("TODO")
+        //=--------------------------------------=
+        if  amount.isZero {
+            return HL(Digit(), Magnitude())
+        }
+        //=--------------------------------------=
+        let lhsIsLessThanZero: Bool =   self.isLessThanZero
+        let rhsIsLessThanZero: Bool = amount.isLessThanZero
+        //=--------------------------------------=
+        var high = UInt()
+        let low  = Magnitude.fromUnsafeMutableWords { LOW in
+            self.withUnsafeWords { LHS in
+                //=------------------------------=
+                let rhsWord = UInt(bitPattern: amount)
+                var rhsIsLessThanZeroCarry = rhsIsLessThanZero
+                //=------------------------------=
+                for index: Int in LHS.indices {
+                    let lhsWord: UInt  = LHS[index]
+                    (high, LOW[index]) = high.addingFullWidth(multiplicands:(lhsWord, rhsWord))
+                    
+                    if  rhsIsLessThanZero {
+                        rhsIsLessThanZeroCarry = high.addReportingOverflow(~lhsWord, rhsIsLessThanZeroCarry)
+                    }
+                }
+                //=------------------------------=
+                high = lhsIsLessThanZero ? high &+ rhsWord.twosComplement() : high
+            }
+        }
+        //=--------------------------------------=
+        return HL(Digit(bitPattern: high), low)
     }
 }
