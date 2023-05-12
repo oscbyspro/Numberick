@@ -51,31 +51,6 @@ extension NBKDoubleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
-        guard let result = Self(exactly: source) else {
-            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
-        }
-        
-        self = result
-    }
-
-    @inlinable public init?<T>(exactly source: T) where T: BinaryInteger {
-        //=--------------------------------------=
-        if !Self.isSigned, source < 0 { return nil }
-        //=--------------------------------------=
-        if  let low = Low(exactly: source.magnitude) {
-            self.init(descending: HL(source < (0 as T) ? (~0, ~low &+ 1) : (0, low)))
-        }   else {
-            let low = Low(source & T(~0 as Low))
-            guard let high = High(exactly: source >> Low.bitWidth) else { return nil }
-            self.init(descending: HL(high, low))
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
     @inlinable public init(integerLiteral source: StaticBigInt) {
         guard let value = Self(_exactlyIntegerLiteral: source) else {
             preconditionFailure("\(source) is not in \(Self.description)'s representable range")
@@ -90,5 +65,48 @@ extension NBKDoubleWidth {
         : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
         else { return nil  }
         self = Self.fromUnsafeMutableWords({ for i in $0.indices { $0[i] = source[i] } })
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
+        guard let result = Self(exactly: source) else {
+            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
+        }
+        
+        self = result
+    }
+    
+    @inlinable public init?(exactly source: some BinaryInteger) {
+        let (value, sign, words, index) = Self.copy(source)
+        let isOK = value.isLessThanZero == sign.isFull && words[index...].allSatisfy({ $0 == sign })
+        if  isOK { self = value } else { return nil }
+    }
+
+    @inlinable public init(clamping source: some BinaryInteger) {
+        let (value, sign, words, index) = Self.copy(source)
+        let isOK = value.isLessThanZero == sign.isFull && words[index...].allSatisfy({ $0 == sign })
+        self = isOK ? value : sign.isFull ? Self.min : Self.max
+    }
+
+    @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
+        self = Self.copy(source).value
+    }
+    
+    @inlinable static func copy<T>(_ source: T) -> (value: Self, sign: UInt, words: T.Words, index: Int) where T: BinaryInteger {
+        let words: T.Words = source.words
+        var wordsIndex = words.startIndex
+        let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
+        let value = Self.fromUnsafeMutableWords { value in
+            for valueIndex in value.indices {
+                value[valueIndex] = wordsIndex < words.endIndex ? words[wordsIndex] : sign
+                words.formIndex(after: &wordsIndex)
+            }
+        }
+
+        let index = Swift.min(wordsIndex, words.endIndex)
+        return (value: value, sign: sign, words: words, index: index)
     }
 }

@@ -40,12 +40,15 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        self = ~self &+ (1 as Self)
+        self.withUnsafeMutableWords { words in
+            var carry: Bool = true
+            for index: Int in words.indices {
+                (words[index], carry) = (~words[index]).addingReportingOverflow(UInt(bit: carry))
+            }
+        }
     }
     
     @inlinable public func twosComplement() -> Self {
-        var newValue = self
-        newValue.formTwosComplement()
-        return newValue
+        var newValue = self; newValue.formTwosComplement(); return newValue
     }
 }

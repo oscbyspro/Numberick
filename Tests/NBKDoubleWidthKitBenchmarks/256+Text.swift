@@ -29,7 +29,7 @@ final class Int256BenchmarksOnText: XCTestCase {
     //=------------------------------------------------------------------------=
     
     static var number = _blackHoleIdentity(T(source, radix: 16)!)
-    static var source = _blackHoleIdentity(String(repeating: "1", count: 64) )
+    static var source = _blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -109,7 +109,7 @@ final class UInt256BenchmarksOnText: XCTestCase {
     //=------------------------------------------------------------------------=
     
     static var number = _blackHoleIdentity(T(source, radix: 16)!)
-    static var source = _blackHoleIdentity(String(repeating: "1", count: 64) )
+    static var source = _blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
