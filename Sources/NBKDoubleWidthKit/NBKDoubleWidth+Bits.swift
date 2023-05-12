@@ -62,12 +62,4 @@ extension NBKDoubleWidth {
     @inlinable public var leastSignificantBit: Bool {
         self.low.leastSignificantBit
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func matches(repeating bit: Bool) -> Bool {
-        bit ? self.isFull : self.isZero
-    }
 }

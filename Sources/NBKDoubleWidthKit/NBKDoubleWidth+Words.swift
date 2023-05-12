@@ -67,9 +67,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static var count: Int {
-        assert(Self.bitWidth / UInt.bitWidth >= 2, "invalid memory layout")
-        assert(Self.bitWidth % UInt.bitWidth == 0, "invalid memory layout")
-        return Self.bitWidth / UInt.bitWidth
+        assert(MemoryLayout<Self>.size /   MemoryLayout<UInt>.size >= 2, "invalid memory layout")
+        assert(MemoryLayout<Self>.size %   MemoryLayout<UInt>.size == 0, "invalid memory layout")
+        return MemoryLayout<Self>.size &>> MemoryLayout<UInt>.size.trailingZeroBitCount
     }
     
     @inlinable public static var startIndex: Int {
@@ -169,118 +169,32 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     /// Grants unsafe access to the integer's words, from least significant to most.
-    ///
-    /// - Warning: In addition to being unsafe, this collection also provides
-    ///   unchecked subscript access and wrapping index arithmetic. So, don't
-    ///   do stupid stuff. Understood? Cool. Let's go!
-    ///
-    @inlinable public func withUnsafeWords<T>(
-    _ body: (NBKUnsafeWordsPointer<BitPattern>) throws -> T) rethrows -> T {
-        try self._withUnsafeUIntPointer { start in
-            try body(NBKUnsafeWordsPointer(start))
+    @inlinable public func withUnsafeWords<T>(_ body: (NBKUnsafeWordsPointer<BitPattern>) throws -> T) rethrows -> T {
+        try withUnsafePointer(to: self) { pointer in
+            try pointer.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
+                try body(NBKUnsafeWordsPointer(words))
+            }
         }
     }
     
     /// Grants unsafe access to the integer's words, from least significant to most.
-    ///
-    /// - Warning: In addition to being unsafe, this collection also provides
-    ///   unchecked subscript access and wrapping index arithmetic. So, don't
-    ///   do stupid stuff. Understood? Cool. Let's go!
-    ///
-    @inlinable public mutating func withUnsafeMutableWords<T>(
-    _ body: (NBKUnsafeMutableWordsPointer<BitPattern>) throws -> T) rethrows -> T {
-        try self._withUnsafeMutableUIntPointer { start in
-            try body(NBKUnsafeMutableWordsPointer(start))
+    @inlinable public mutating func withUnsafeMutableWords<T>(_ body: (NBKUnsafeMutableWordsPointer<BitPattern>) throws -> T) rethrows -> T {
+        try withUnsafeMutablePointer(to: &self) { pointer in
+            try pointer.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
+                try body(NBKUnsafeMutableWordsPointer(words))
+            }
         }
     }
     
     /// Grants unsafe access to the integer's words, from least significant to most.
-    ///
-    /// - Warning: In addition to being unsafe, this collection also provides
-    ///   unchecked subscript access and wrapping index arithmetic. So, don't
-    ///   do stupid stuff. Understood? Cool. Let's go!
-    ///
-    @inlinable public static func fromUnsafeMutableWords(
-    _ body: (NBKUnsafeMutableWordsPointer<BitPattern>) throws -> Void) rethrows -> Self {
+    @inlinable public static func fromUnsafeMutableWords(_ body: (NBKUnsafeMutableWordsPointer<BitPattern>) throws -> Void) rethrows -> Self {
         try Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
-            let start = buffer.baseAddress.unsafelyUnwrapped
-            try start.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
+            let pointer = buffer.baseAddress!
+            try pointer.withMemoryRebound(to: UInt.self, capacity: Self.count) { words in
                 try body(NBKUnsafeMutableWordsPointer(words))
             }
             
-            return start.pointee
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Contiguous UInt Sequence
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func withContiguousStorageIfAvailable<T>(
-    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T? {
-        #if _endian(big)
-        var base: Self { self._wordSwapped }
-        #else
-        var base: Self { self }
-        #endif
-        return try base._withUnsafeUIntBufferPointer(body)
-    }
-    
-    @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(
-    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T? {
-        #if _endian(big)
-        do    { self = self._wordSwapped }
-        defer { self = self._wordSwapped }
-        #endif
-        return try self._withUnsafeMutableUIntBufferPointer(body)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Trivial UInt Collection
-    //=------------------------------------------------------------------------=
-    
-    /// Grants unsafe access to the integer's in-memory representation.
-    ///
-    /// - Note: The order of the integer's words depends on the platform's endianness.
-    ///
-    @inlinable func _withUnsafeUIntPointer<T>(
-    _ body: (UnsafePointer<UInt>) throws -> T) rethrows -> T {
-        try Swift.withUnsafePointer(to: self) { start in
-            try start.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
-        }
-    }
-    
-    /// Grants unsafe access to the integer's in-memory representation.
-    ///
-    /// - Note: The order of the integer's words depends on the platform's endianness.
-    ///
-    @inlinable func _withUnsafeUIntBufferPointer<T>(
-    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
-        try self._withUnsafeUIntPointer { start in
-            try body(UnsafeBufferPointer(start: start, count: Self.count))
-        }
-    }
-    
-    /// Grants unsafe access to the integer's in-memory representation.
-    ///
-    /// - Note: The order of the integer's words depends on the platform's endianness.
-    ///
-    @inlinable mutating func _withUnsafeMutableUIntPointer<T>(
-    _ body: (UnsafeMutablePointer<UInt>) throws -> T) rethrows -> T {
-        try Swift.withUnsafeMutablePointer(to: &self) { start in
-            try start.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
-        }
-    }
-    
-    /// Grants unsafe access to the integer's in-memory representation.
-    ///
-    /// - Note: The order of the integer's words depends on the platform's endianness.
-    ///
-    @inlinable mutating func _withUnsafeMutableUIntBufferPointer<T>(
-    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
-        try self._withUnsafeMutableUIntPointer { start in
-            var BUFFER = UnsafeMutableBufferPointer<UInt>(start: start, count: Self.count)
-            return try body(&BUFFER)
+            return pointer.pointee
         }
     }
 }
@@ -313,50 +227,26 @@ extension NBKDoubleWidthUnsafeWordsPointer {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable static var count: Int {
-        assert(MemoryLayout<Layout>.size / MemoryLayout<UInt>.size >= 2, "invalid memory layout")
-        assert(MemoryLayout<Layout>.size % MemoryLayout<UInt>.size == 0, "invalid memory layout")
-        return MemoryLayout<Layout>.size / MemoryLayout<UInt>.size
-    }
-    
-    @inlinable static var startIndex: Int {
-        0
-    }
-    
-    @inlinable static var endIndex: Int {
-        self.count
-    }
-    
-    @inlinable static var lastIndex: Int {
-        self.count &- 1
-    }
-    
-    @inlinable static var indices: Range<Int> {
-        0 ..< self.count
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
     @inlinable public var count: Int {
-        Self.count
+        assert(MemoryLayout<Layout>.size /   MemoryLayout<UInt>.size >= 2, "invalid memory layout")
+        assert(MemoryLayout<Layout>.size %   MemoryLayout<UInt>.size == 0, "invalid memory layout")
+        return MemoryLayout<Layout>.size &>> MemoryLayout<UInt>.size.trailingZeroBitCount
     }
     
     @inlinable public var startIndex: Int {
-        Self.startIndex
+        0
     }
     
     @inlinable public var endIndex: Int {
-        Self.endIndex
+        self.count
     }
     
     @inlinable public var lastIndex: Int {
-        Self.lastIndex
+        self.count &- 1
     }
     
     @inlinable public var indices: Range<Int> {
-        Self.indices
+        0 ..< self.count
     }
     
     //=------------------------------------------------------------------------=
@@ -401,7 +291,7 @@ extension NBKDoubleWidthUnsafeWordsPointer {
 }
 
 //*============================================================================*
-// MARK: * NBK x Full Width x Words  x Collection x Pointers x Read
+// MARK: * NBK x Double Width x Words x Collection x Pointers x Read
 //*============================================================================*
 
 /// An unsafe words pointer.
@@ -431,26 +321,20 @@ extension NBKDoubleWidthUnsafeWordsPointer {
     //=------------------------------------------------------------------------=
     
     @inlinable public var first: UInt {
-        @inlinable get {
-            self[self.startIndex]
-        }
+        self[self.startIndex]
     }
     
     @inlinable public var last: UInt {
-        @inlinable get {
-            self[self.lastIndex]
-        }
+        self[self.lastIndex]
     }
     
     @inlinable public subscript(index: Int) -> UInt {
-        @inlinable get {
-            self.base[self.endianSensitiveIndex(index)]
-        }
+        self.base[self.endianSensitiveIndex(index)]
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Full Width x Words x Collection x Pointers x Read & Write
+// MARK: * NBK x Double Width x Words x Collection x Pointers x Read & Write
 //*============================================================================*
 
 /// An unsafe, mutable, words pointer.

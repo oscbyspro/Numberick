@@ -76,6 +76,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable public func multipliedFullWidth(by  amount: Self) -> HL<Self, Magnitude> {
+        //=--------------------------------------=
         let m0 = self.low .multipliedFullWidth(by: amount.low  ) as HL<Low, Low>
         let m1 = self.low .multipliedFullWidth(by: amount.high ) as HL<Low, Low>
         let m2 = self.high.multipliedFullWidth(by: amount.low  ) as HL<Low, Low>
@@ -83,12 +84,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         let s0 = Low.sum(m0.high, m1.low,  m2.low) as HL<UInt, Low>
         let s1 = Low.sum(m1.high, m2.high, m3.low) as HL<UInt, Low>
-        assert(s1.high < 3)
         //=--------------------------------------=
         let r0 = Magnitude(descending: HL(s0.low,  m0.low))
         var r1 = Magnitude(descending: HL(m3.high, Low(digit: s0.high)))
         let o0 = r1.low .addReportingOverflow(s1.low) as Bool
-        let o1 = r1.high.addReportingOverflow(High(digit: s1.high &+ UInt(bit: o0))) as Bool
+        let o1 = r1.high.addReportingOverflow(s1.high &+ UInt(bit:  o0)) as Bool
+        //=--------------------------------------=
+        assert(s0.high < 3)
+        assert(s1.high < 3)
         assert(o1 == false)
         //=--------------------------------------=
         return HL(high: r1, low: r0)
@@ -144,24 +147,23 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = amount.isLessThanZero
         //=--------------------------------------=
         var high = UInt()
-        let low  = Magnitude.fromUnsafeMutableWords { LOW in
-            self.withUnsafeWords { LHS in
-                //=------------------------------=
-                let rhsWord = UInt(bitPattern: amount)
-                var rhsIsLessThanZeroCarry = rhsIsLessThanZero
-                //=------------------------------=
-                for index: Int in LHS.indices {
-                    let lhsWord: UInt  = LHS[index]
-                    (high, LOW[index]) = high.addingFullWidth(multiplicands:(lhsWord, rhsWord))
-                    
-                    if  rhsIsLessThanZero {
-                        rhsIsLessThanZeroCarry = high.addReportingOverflow(~lhsWord, rhsIsLessThanZeroCarry)
-                    }
+        let low  = Magnitude.fromUnsafeMutableWords { low in
+        self.withUnsafeWords { lhs in
+            //=------------------------------=
+            let rhsWord = UInt(bitPattern: amount)
+            var rhsIsLessThanZeroCarry = rhsIsLessThanZero
+            //=------------------------------=
+            for index: Int in lhs.indices {
+                let lhsWord: UInt  = lhs[index]
+                (high, low[index]) = high.addingFullWidth(multiplicands:(lhsWord, rhsWord))
+                
+                if  rhsIsLessThanZero {
+                    rhsIsLessThanZeroCarry = high.addReportingOverflow(~lhsWord, rhsIsLessThanZeroCarry)
                 }
-                //=------------------------------=
-                high = lhsIsLessThanZero ? high &+ rhsWord.twosComplement() : high
             }
-        }
+            //=------------------------------=
+            high = lhsIsLessThanZero ? high &+ rhsWord.twosComplement() : high
+        }}
         //=--------------------------------------=
         return HL(Digit(bitPattern: high), low)
     }

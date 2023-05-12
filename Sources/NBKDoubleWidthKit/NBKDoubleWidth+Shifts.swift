@@ -56,7 +56,7 @@ extension NBKDoubleWidth {
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
     @inlinable func _bitshiftedLeftSmart(by amount: Int) -> Self {
-        var x = self; x._bitshiftLeftSmart(by: amount); return x
+        var newValue = self; newValue._bitshiftLeftSmart(by: amount); return newValue
     }
     
     /// - Parameters:
@@ -109,7 +109,7 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable func _bitshiftedLeft(words: Int, bits: Int) -> Self {
-        var x = self; x._bitshiftLeft(words: words, bits: bits); return x
+        var newValue = self; newValue._bitshiftLeft(words: words, bits: bits); return newValue
     }
 }
 

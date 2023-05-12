@@ -19,10 +19,6 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public func signum() -> Int {
-        self.isLessThanZero ? -1 : self.isZero ? 0 : 1
-    }
-    
     @inlinable public var isFull: Bool {
         self.low.isFull && self.high.isFull
     }
@@ -39,6 +35,10 @@ extension NBKDoubleWidth {
         !self.isLessThanZero && !self.isZero
     }
     
+    @inlinable public func signum() -> Int {
+        self.isLessThanZero ? -1 : self.isZero ? 0 : 1
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
@@ -48,7 +48,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
-        lhs.compared(to: rhs).isLessThanZero as Bool
+        lhs.compared(to: rhs) == -1
     }
     
     //=------------------------------------------------------------------------=
@@ -61,8 +61,24 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        let x = self.high.compared(to: other.high)
-        if !x.isZero { return x }
-        return  self.low .compared(to: other.low )
+        self .withUnsafeWords { lhs in
+        other.withUnsafeWords { rhs in
+            var index = lhs.lastIndex
+            
+            backwards: do {
+                let lhsWord  = Digit(bitPattern: lhs[index])
+                let rhsWord  = Digit(bitPattern: rhs[index])
+                if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
+            }
+            
+            backwards: while !index.isZero {
+                lhs.formIndex(before: &index)
+                let lhsWord  = lhs[index]
+                let rhsWord  = rhs[index]
+                if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
+            }
+            
+            return Int.zero
+        }}
     }
 }
