@@ -20,6 +20,16 @@
       }
     },
     {
+      "skippedTests" : [
+        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
+        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
+        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()",
+        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
+        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
+        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "NBKDoubleWidthKitBenchmarks",

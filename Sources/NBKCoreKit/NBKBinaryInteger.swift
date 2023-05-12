@@ -22,8 +22,8 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-public protocol NBKBinaryInteger: NBKBitPatternConvertible, BinaryInteger, Sendable where
-Magnitude: NBKUnsignedInteger, Words: Sendable {
+public protocol NBKBinaryInteger: NBKBigEndianTextable, NBKBitPatternConvertible,
+BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
     associatedtype Digit: NBKBinaryInteger = Self where

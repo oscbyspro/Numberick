@@ -37,28 +37,28 @@ final class Int256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(Self.source, radix: 10)!)
+            _blackHole(T(decoding: Self.source, radix: 10)!)
             _blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(Self.source, radix: 16)!)
+            _blackHole(T(decoding: Self.source, radix: 16)!)
             _blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(Self.number, radix: 10))
+            _blackHole(String(encoding: Self.number, radix: 10))
             _blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(Self.number, radix: 16))
+            _blackHole(String(encoding: Self.number, radix: 16))
             _blackHoleInoutIdentity(&Self.number)
         }
     }
@@ -117,28 +117,28 @@ final class UInt256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(Self.source, radix: 10)!)
+            _blackHole(T(decoding: Self.source, radix: 10)!)
             _blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(Self.source, radix: 16)!)
+            _blackHole(T(decoding: Self.source, radix: 16)!)
             _blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(Self.number, radix: 10))
+            _blackHole(String(encoding: Self.number, radix: 10))
             _blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(Self.number, radix: 16))
+            _blackHole(String(encoding: Self.number, radix: 16))
             _blackHoleInoutIdentity(&Self.number)
         }
     }
