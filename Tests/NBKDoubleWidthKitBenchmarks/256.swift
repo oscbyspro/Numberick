@@ -31,7 +31,7 @@ final class Int256Benchmarks: XCTestCase {
     
     func testInitZero() {
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T())
+            _blackHole(T(   ))
             _blackHole(T.zero)
         }
     }
@@ -44,8 +44,8 @@ final class Int256Benchmarks: XCTestCase {
     }
     
     func testInitComponents() {
-        var abc = _blackHoleIdentity(LH( T.Low(), T.High() ))
-        var xyz = _blackHoleIdentity(HL( T.High(), T.Low() ))
+        var abc = _blackHoleIdentity(LH( T.Low (), T.High() ))
+        var xyz = _blackHoleIdentity(HL( T.High(), T.Low () ))
 
         for _ in 0 ..< 1_000_000 {
             _blackHole(T(ascending:  abc))
@@ -85,8 +85,8 @@ final class UInt256Benchmarks: XCTestCase {
     }
     
     func testInitComponents() {
-        var abc = _blackHoleIdentity(LH( T.Low(), T.High() ))
-        var xyz = _blackHoleIdentity(HL( T.High(), T.Low() ))
+        var abc = _blackHoleIdentity(LH( T.Low (), T.High() ))
+        var xyz = _blackHoleIdentity(HL( T.High(), T.Low () ))
 
         for _ in 0 ..< 1_000_000 {
             _blackHole(T(ascending:  abc))

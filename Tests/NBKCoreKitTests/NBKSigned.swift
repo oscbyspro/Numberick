@@ -26,34 +26,14 @@ final class NBKSignedTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInit() {
-        XCTAssertEqual(T().sign, NBKSign.plus)
-        XCTAssertEqual(T().magnitude, M())
-    }
-    
-    func testInitConstants() {
-        NBKAssertIdentical(T.zero, T(M.zero, as: NBKSign.plus ))
-        NBKAssertIdentical(T.max,  T(M.max,  as: NBKSign.plus ))
-        NBKAssertIdentical(T.min,  T(M.max,  as: NBKSign.minus))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Constants
-    //=------------------------------------------------------------------------=
-    
-    func testInitMin() {
-        XCTAssertEqual(T.min.sign, NBKSign.minus)
-        XCTAssertEqual(T.min.magnitude, M.max)
-    }
-    
-    func testInitMax() {
-        XCTAssertEqual(T.max.sign, NBKSign.plus)
-        XCTAssertEqual(T.max.magnitude, M.max)
-    }
-    
     func testInitZero() {
-        XCTAssertEqual(T.zero.sign, NBKSign.plus)
-        XCTAssertEqual(T.zero.magnitude, M())
+        NBKAssertIdentical(T(   ), T(M(  ), as: NBKSign.plus ))
+        NBKAssertIdentical(T.zero, T(M(  ), as: NBKSign.plus ))
+    }
+    
+    func testInitEdges() {
+        NBKAssertIdentical(T.max,  T(M.max, as: NBKSign.plus ))
+        NBKAssertIdentical(T.min,  T(M.max, as: NBKSign.minus))
     }
     
     //=------------------------------------------------------------------------=
