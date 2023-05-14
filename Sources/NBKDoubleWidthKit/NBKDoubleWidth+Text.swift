@@ -57,13 +57,12 @@ extension NBKDoubleWidth {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func decodeBigEndianText(_ source: some StringProtocol, radix: Int?) throws -> Self {
+    @inlinable public static func decodeBigEndianText(_ source: some StringProtocol, radix: Int?) -> Self? {
         let components = source._bigEndianTextComponents(radix: radix)
-        let magnitude  = try AnyRadixUIntRoot(components.radix).switch(
-          perfect: { try Magnitude._decodeBigEndianDigits(components.body, radix: $0) },
-        imperfect: { try Magnitude._decodeBigEndianDigits(components.body, radix: $0) })
-        guard let value = Self(sign: components.sign, magnitude: magnitude) else { throw NBKError() }
-        return    value
+        let magnitude  = AnyRadixUIntRoot(components.radix).switch(
+          perfect:{ Magnitude._decodeBigEndianDigits(components.body, radix: $0) },
+        imperfect:{ Magnitude._decodeBigEndianDigits(components.body, radix: $0) })
+        if let magnitude, let value = Self(sign: components.sign, magnitude: magnitude) { return value } else { return nil }
     }
 }
 
@@ -77,32 +76,33 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) throws -> Self {
-        try Self.fromUnsafeMutableWords { MAGNITUDE in
-            let utf8 = source.utf8.drop(while:{ $0 == 48 })
+    @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
+        Self.fromUnsafeMutableWordsAsOptional { magnitude in
+            for index in magnitude.indices {
+                magnitude[index] = UInt()
+            }
+            //=----------------------------------=
+            let utf8  = source.utf8.drop(while:{ $0 == 48 })
             let start = utf8.startIndex as String.Index
             var tail  = utf8.endIndex   as String.Index
-            var index = MAGNITUDE.startIndex as Int
+            var index = magnitude.startIndex as Int
             let step  = radix.exponent.twosComplement() as Int
             //=----------------------------------=
-            backwards: while tail != start {
-                guard index != MAGNITUDE.endIndex else { throw NBKError() }
+            backwards: while tail > start {
+                guard index < magnitude.endIndex else { return false }
                 let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
-                guard let word = UInt(source[head ..< tail], radix: radix.base) else { throw NBKError() }
-                
+                guard let word = UInt(source[head ..< tail], radix: radix.base) else { return false }
+
                 tail = head
-                MAGNITUDE[index] = word
-                MAGNITUDE.formIndex(after: &index)
+                magnitude[index] = word
+                magnitude.formIndex(after: &index)
             }
             //=----------------------------------=
-            uninitialized: while index != MAGNITUDE.endIndex {
-                MAGNITUDE[index] = UInt()
-                MAGNITUDE.formIndex(after: &index)
-            }
+            return true
         }
     }
     
-    @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) throws -> Self {
+    @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) -> Self? {
         let utf8 = source.utf8.drop(while:{ $0 == 48 })
         var head = utf8.startIndex as String.Index
         let alignment = utf8.count  % radix.exponent as Int
@@ -110,15 +110,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         forwards: if !alignment.isZero {
             let tail = utf8.index(head, offsetBy: alignment/*-*/); defer  { head = tail }
-            guard let word = UInt(source[head ..< tail], radix: radix.base) else { throw NBKError() }
+            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             magnitude.first = word
         }
         //=--------------------------------------=
-        forwards: while head != utf8.endIndex {
+        forwards: while head < utf8.endIndex {
             let tail = utf8.index(head, offsetBy: radix.exponent); defer  { head = tail }
-            guard let word = UInt(source[head ..< tail], radix: radix.base) else { throw NBKError() }
-            guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { throw NBKError() }
-            guard !magnitude.addReportingOverflow(word)/*----------------*/ else { throw NBKError() }
+            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
+            guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { return nil }
+            guard !magnitude.addReportingOverflow(word)/*----------------*/ else { return nil }
         }
         //=--------------------------------------=
         return magnitude
@@ -166,13 +166,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable static func _encodeBigEndianText(_ magnitude: inout Self, sign: Bool,
     radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(magnitude)
-        return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { CHUNKS in
-            var index = CHUNKS.startIndex
+        return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
+            var index = chunks.startIndex
             rebasing: repeat {
-                CHUNKS[index] = magnitude._formQuotientReportingRemainderAndOverflow(dividingBy: radix.power).partialValue
-                CHUNKS.formIndex(after: &index)
+                chunks[index] = magnitude._formQuotientReportingRemainderAndOverflow(dividingBy: radix.power).partialValue
+                chunks.formIndex(after: &index)
             }   while !magnitude.isZero
-            return String(chunks: CHUNKS[..<index], sign: sign, radix: radix, alphabet: alphabet)
+            
+            return String(chunks: chunks[..<index], sign: sign, radix: radix, alphabet: alphabet)
         }
     }
 }
@@ -227,22 +228,22 @@ extension String {
     
     @inlinable static func _withUTF8<T>(chunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabet, body: (UnsafeBufferPointer<UInt8>) throws -> T) rethrows -> T {
-        try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { UTF8 in
+        try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             assert(chunk < radix.power || radix.power.isZero)
             //=----------------------------------=
             var chunk = chunk as UInt
             var backtrack = radix.exponent as Int
             //=----------------------------------=
             backwards: repeat {
-                UTF8.formIndex(before: &backtrack)
+                utf8.formIndex(before: &backtrack)
                 
                 let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
                 let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                UTF8.initializeElement(at: backtrack, to: unit)
+                utf8.initializeElement(at: backtrack, to: unit)
             }   while !chunk.isZero
             //=----------------------------------=
-            let initialized = UTF8[backtrack...]
+            let initialized = utf8[backtrack...]
             defer { initialized.deinitialize() }
             //=----------------------------------=
             return try body(UnsafeBufferPointer(rebasing: initialized))

@@ -20,9 +20,9 @@ extension StringProtocol {
     /// Returns the sign and radix, along with any remaining characters.
     ///
     /// ```swift
-    /// "+0x???"._bigEndianTextComponents(radix: nil) // (sign: false,  radix: 16, body:    "???")
-    /// "??????"._bigEndianTextComponents(radix: nil) // (sign: false,  radix: 10, body: "??????")
-    /// "-0x???"._bigEndianTextComponents(radix:   2) // (sign: true, radix:  2, body:  "0x???")
+    /// "+0x???"._bigEndianTextComponents(radix: nil) // (sign: false, radix: 16, body:    "???")
+    /// "??????"._bigEndianTextComponents(radix: nil) // (sign: false, radix: 10, body: "??????")
+    /// "-0x???"._bigEndianTextComponents(radix:   2) // (sign: true,  radix:  2, body:  "0x???")
     /// ```
     ///
     @inlinable public func _bigEndianTextComponents(radix: Int?) -> (sign: Bool, radix: Int, body: SubSequence) {
