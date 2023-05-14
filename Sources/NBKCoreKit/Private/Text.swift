@@ -20,14 +20,14 @@ extension StringProtocol {
     /// Returns the sign and radix, along with any remaining characters.
     ///
     /// ```swift
-    /// "+0x???"._bigEndianTextComponents(radix: nil) // (sign: plus,  radix: 16, body:    "???")
-    /// "??????"._bigEndianTextComponents(radix: nil) // (sign: plus,  radix: 10, body: "??????")
-    /// "-0x???"._bigEndianTextComponents(radix:   2) // (sign: minus, radix:  2, body:  "0x???")
+    /// "+0x???"._bigEndianTextComponents(radix: nil) // (sign: false,  radix: 16, body:    "???")
+    /// "??????"._bigEndianTextComponents(radix: nil) // (sign: false,  radix: 10, body: "??????")
+    /// "-0x???"._bigEndianTextComponents(radix:   2) // (sign: true, radix:  2, body:  "0x???")
     /// ```
     ///
-    @inlinable public func _bigEndianTextComponents(radix: Int?) -> (sign: NBKSign, radix: Int, body: SubSequence) {
+    @inlinable public func _bigEndianTextComponents(radix: Int?) -> (sign: Bool, radix: Int, body: SubSequence) {
         var body  = self[...]
-        let sign  = body._removeSignPrefix() ?? .plus
+        let sign  = body._removeSignPrefix() ?? false
         let radix = radix ?? body._removeRadixLiteralPrefix() ?? 10
         return (sign: sign, radix: radix, body: body)
     }
@@ -46,15 +46,15 @@ extension StringProtocol where Self == SubSequence {
     /// Removes and returns a sign prefix, if it exists.
     ///
     /// ```swift
-    /// var a = "+?"[...]; a._removeSignPrefix() // a = "?"; -> plus
-    /// var b = "-?"[...]; b._removeSignPrefix() // b = "?"; -> minus
+    /// var a = "+?"[...]; a._removeSignPrefix() // a = "?"; -> false
+    /// var b = "-?"[...]; b._removeSignPrefix() // b = "?"; -> true
     /// var c = "??"[...]; c._removeSignPrefix() // nil
     /// ```
     ///
-    @inlinable public mutating func _removeSignPrefix() -> NBKSign? {
+    @inlinable public mutating func _removeSignPrefix() -> Bool? {
         switch true {
-        case hasPrefix("+"): removeFirst(); return .plus
-        case hasPrefix("-"): removeFirst(); return .minus
+        case hasPrefix("-"): removeFirst(); return true
+        case hasPrefix("+"): removeFirst(); return false
         default: return nil }
     }
     
@@ -70,8 +70,8 @@ extension StringProtocol where Self == SubSequence {
     @inlinable public mutating func _removeRadixLiteralPrefix() -> Int? {
         switch true {
         case hasPrefix("0x"): removeFirst(2); return 0x10
-        case hasPrefix("0o"): removeFirst(2); return 0o10
         case hasPrefix("0b"): removeFirst(2); return 0b10
+        case hasPrefix("0o"): removeFirst(2); return 0o10
         default: return nil }
     }
 }

@@ -229,7 +229,7 @@ extension NBKFixedWidthInteger {
     @inlinable public static func decodeBigEndianText(_ source: some StringProtocol, radix: Int?) throws -> Self {
         let components = source._bigEndianTextComponents(radix: radix)
         guard let magnitude = Magnitude(components.body, radix: components.radix) else { throw NBKError() }
-        guard let value = Self(exactly: NBKSigned(magnitude,as: components.sign)) else { throw NBKError() }
+        guard let value = Self(sign:    components.sign, magnitude:    magnitude) else { throw NBKError() }
         return    value
     }
     
@@ -241,39 +241,9 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(_ source: NBKSigned<Magnitude>) {
-        guard let value = Self(exactly: source) else {
-            preconditionFailure("\(source) is not in \(Self.self)'s representable range")
-        }
-        
-        self = value
-    }
-    
-    @inlinable public init?(exactly source: NBKSigned<Magnitude>) {
-        let isLessThanZero = source.isLessThanZero
-        if  Self.isSigned  {
-            self.init(bitPattern: source.magnitude)
-            if  isLessThanZero {  self.formTwosComplement()  }
-            if  isLessThanZero != self.isLessThanZero { return nil }
-        }   else {
-            if  isLessThanZero {  return nil  }
-            self.init(bitPattern: source.magnitude)
-        }
-    }
-    
-    @inlinable public init(clamping source: NBKSigned<Magnitude>) {
-        if  Self.isSigned {
-            let isLessThanZero =  source.isLessThanZero
-            self.init(bitPattern: source.magnitude)
-            if  isLessThanZero {  self.formTwosComplement()  }
-            if  isLessThanZero != self.isLessThanZero { self = isLessThanZero ? Self.min : Self.max }
-        }   else {
-            self.init(bitPattern: source.sign.bit ? Magnitude() : source.magnitude)
-        }
-    }
-    
-    @inlinable public init(truncatingIfNeeded source: NBKSigned<Magnitude>) {
-        self.init(bitPattern: source.magnitude)
-        if  source.sign.bit { self.formTwosComplement() }
+    @inlinable public init?(sign: Bool, magnitude: Magnitude) {
+        let sourceIsLessThanZero: Bool = sign && !magnitude.isZero
+        self.init(bitPattern: sourceIsLessThanZero ? magnitude.twosComplement() : magnitude)
+        guard self.isLessThanZero == sourceIsLessThanZero else { return nil }
     }
 }
