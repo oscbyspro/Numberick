@@ -229,8 +229,8 @@ extension NBKFixedWidthInteger {
     @inlinable public static func decodeBigEndianText(_ source: some StringProtocol, radix: Int?) -> Self? {
         let components = source._bigEndianTextComponents(radix: radix)
         guard let magnitude = Magnitude(components.body, radix: components.radix) else { return nil }
-        guard let value = Self(sign:    components.sign, magnitude:    magnitude) else { return nil }
-        return    value
+        guard let value = Self(sign:/**/components.sign, magnitude:/**/magnitude) else { return nil }
+        return/**/value
     }
     
     @inlinable public static func encodeBigEndianText(_ source: Self, radix: Int, uppercase: Bool) -> String {

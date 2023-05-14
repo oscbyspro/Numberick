@@ -182,11 +182,11 @@ extension NBKDoubleWidth {
     }
     
     /// Grants unsafe access to the integer's words, from least significant to most.
-    @inlinable public static func fromUnsafeMutableWordsAsOptional(_ body: (UnsafeMutableWords) -> Bool) -> Optional<Self> {
+    @inlinable public static func fromUnsafeMutableWordsAsOptional(_ body: (UnsafeMutableWords) -> Void?) -> Optional<Self> {
          Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
             let pointer = buffer.baseAddress!
-            let success = body(UnsafeMutableWords(pointer))
-            return success ? pointer.pointee : nil
+            guard let _ = body(UnsafeMutableWords(pointer)) else { return nil }
+            return pointer.pointee
         }
     }
 }

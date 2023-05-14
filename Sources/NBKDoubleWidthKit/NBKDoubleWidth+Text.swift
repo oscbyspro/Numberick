@@ -88,17 +88,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
             var index = magnitude.startIndex as Int
             let step  = radix.exponent.twosComplement() as Int
             //=----------------------------------=
-            backwards: while tail > start {
-                guard index < magnitude.endIndex else { return false }
+            backwards: while tail != start {
+                guard index != magnitude.endIndex else { return nil }
                 let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
-                guard let word = UInt(source[head ..< tail], radix: radix.base) else { return false }
+                guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
 
                 tail = head
                 magnitude[index] = word
                 magnitude.formIndex(after: &index)
             }
-            //=----------------------------------=
-            return true
         }
     }
     
@@ -114,7 +112,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             magnitude.first = word
         }
         //=--------------------------------------=
-        forwards: while head < utf8.endIndex {
+        forwards: while head != utf8.endIndex {
             let tail = utf8.index(head, offsetBy: radix.exponent); defer  { head = tail }
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { return nil }
@@ -140,8 +138,8 @@ extension NBKDoubleWidth {
         var magnitude: Magnitude = source.magnitude
         let alphabet = MaxRadixAlphabet(uppercase: uppercase)
         return AnyRadixUIntRoot(radix).switch(
-          perfect: { Magnitude._encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) },
-        imperfect: { Magnitude._encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) })
+          perfect:{ Magnitude._encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) },
+        imperfect:{ Magnitude._encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) })
     }
 }
 
