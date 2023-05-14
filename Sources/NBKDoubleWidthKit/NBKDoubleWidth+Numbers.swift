@@ -77,13 +77,13 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(exactly source: some BinaryInteger) {
         let (value, remainders, sign) = Self.copy(source)
-        let isOK = value.isLessThanZero == sign.isFull && remainders.allSatisfy({ $0 == sign })
+        let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
 
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.copy(source)
-        let isOK = value.isLessThanZero == sign.isFull && remainders.allSatisfy({ $0 == sign })
+        let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
         self = isOK ? value : sign.isFull ? Self.min : Self.max
     }
 
@@ -93,7 +93,7 @@ extension NBKDoubleWidth {
     
     @inlinable static func copy<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        assert(words.startIndex ==  Int() && words.endIndex == words.count)
+        assert(words.startIndex.isZero && words.endIndex == words.count)
         let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
         let value = Self.fromUnsafeMutableWords { value in
             for index in value.indices {

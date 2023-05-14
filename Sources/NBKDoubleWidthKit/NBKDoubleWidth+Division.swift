@@ -116,34 +116,37 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @_specialize(where Self == UInt512)
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
         let divisor_ = divisor.minLastIndexReportingIsZeroOrMinusOne()
+        //=--------------------------------------=
+        // Divisor Is Zero
+        //=--------------------------------------=
         if  divisor_.isZeroOrMinusOne {
             return PVO(QR(self, self), true)
         }
         //=--------------------------------------=
-        // Fast: Dividend <= Divisor
-        //=--------------------------------------=
-        if  self <= divisor {
-            return self == divisor ? PVO(QR(1, Self()), false) : PVO(QR(Self(), self), false)
-        }
-        //=--------------------------------------=
-        // Fast: Divisor Is One Word
+        // Divisor Is Small
         //=--------------------------------------=
         if  divisor_.minLastIndex.isZero {
             let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor.first)
             return   PVO(QR(qro.partialValue.quotient, Self(digit: qro.partialValue.remainder)), qro.overflow)
         }
         //=--------------------------------------=
+        // Divisor Is Large
+        //=--------------------------------------=
+        if  divisor >= self {
+            return self == divisor ? PVO(QR(1, Self()), false) : PVO(QR(Self(), self), false)
+        }
+        //=--------------------------------------=
         let dividend_  = self.minLastIndexReportingIsZeroOrMinusOne()
-        let minLastIndexGapSize: Int = dividend_.minLastIndex &- divisor_.minLastIndex
+        let gap:   Int = dividend_.minLastIndex &- divisor_.minLastIndex
         let shift: Int = divisor[unchecked: divisor_.minLastIndex].leadingZeroBitCount
         //=--------------------------------------=
         // Shift To Clamp Approximation
         //=--------------------------------------=
         var remainder = DoubleWidth(descending: HL(Self(), self))
-        remainder._bitshiftLeft(words: Int(), bits:  shift)
+        remainder._bitshiftLeft(words: Int(), bits: shift)
         
         var increment = DoubleWidth(descending: HL(Self(), divisor))
-        increment.low._bitshiftLeft(words: minLastIndexGapSize, bits: shift)
+        increment.low._bitshiftLeft(words: gap, bits: shift)
         assert(increment.high.isZero)
         
         let discriminant: UInt = increment.low[unchecked: dividend_.minLastIndex]
@@ -156,7 +159,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
                 quotient[quotientIndex] = UInt()
             }
             //=----------------------------------=
-            for quotientIndex in quotient.indices[...minLastIndexGapSize].reversed() {
+            for quotientIndex in quotient.indices[...gap].reversed() {
                 //=------------------------------=
                 // Approximate Quotient Digit
                 //=------------------------------=
@@ -167,17 +170,18 @@ extension NBKDoubleWidth where High == High.Magnitude {
                     let  remainderLast1  = remainder[remainderIndex /**/]
                     return discriminant.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 }
-                //=------------------------------=
+                
                 var approximation = DoubleWidth(descending: increment.low.multipliedFullWidth(by: digit))
                 //=------------------------------=
                 // Decrement If Overestimated
                 //=------------------------------=
-                if  approximation > remainder {
+                if  remainder < approximation {
                     brrrrrrrrrrrrrrrrrrrrrrr: do { digit &-= 1; approximation &-= increment }
-                    if approximation > remainder { digit &-= 1; approximation &-= increment }
+                    if remainder < approximation { digit &-= 1; approximation &-= increment }
                 }
+                
+                assert(remainder >= approximation)
                 //=------------------------------=
-                assert(approximation <= remainder)
                 remainder &-= approximation
                 quotient[quotientIndex] = digit
                 increment.low._bitshiftRight(words: 1, bits: Int())
@@ -200,107 +204,5 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let qro: PVO<QR<DoubleWidth, DoubleWidth>> = dividend.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         precondition(!qro.overflow, "overflow in division")
         return QR(qro.partialValue.quotient.low, qro.partialValue.remainder.low)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Double Width x Division x Digit
-//*============================================================================*
-
-extension NBKDoubleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @_transparent public mutating func divideReportingOverflow(by divisor: Digit) -> Bool {
-        let pvo: PVO<Self> = self.dividedReportingOverflow(by: divisor)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @_disfavoredOverload @_transparent public func dividedReportingOverflow(by divisor: Digit) -> PVO<Self> {
-        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        return   PVO(qro.partialValue.quotient, qro.overflow)
-    }
-    
-    @_disfavoredOverload @_transparent public mutating func formRemainderReportingOverflow(dividingBy divisor: Digit) -> Bool {
-        let pvo: PVO<Digit> = self.remainderReportingOverflow(dividingBy: divisor)
-        self = Self(digit: pvo.partialValue)
-        return pvo.overflow as Bool
-    }
-    
-    @_disfavoredOverload @_transparent public func remainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
-        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        return   PVO(qro.partialValue.remainder, qro.overflow)
-    }
-    
-    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
-        let dividendIsLessThanZero: Bool =    self.isLessThanZero
-        let  divisorIsLessThanZero: Bool = divisor.isLessThanZero
-        //=--------------------------------------=
-        let qro_ = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: divisor.magnitude)
-        var qro  = PVO(QR(Self(bitPattern: qro_.partialValue.quotient), Digit(bitPattern: qro_.partialValue.remainder)), qro_.overflow)
-        //=--------------------------------------=
-        if  qro.overflow {
-            assert(divisor.isZero)
-            assert(qro.partialValue.quotient  == self)
-            assert(qro.partialValue.remainder == Digit())
-            return qro
-        }
-
-        if  dividendIsLessThanZero != divisorIsLessThanZero {
-            qro.partialValue.quotient.formTwosComplement()
-        }
-        
-        if  dividendIsLessThanZero && divisorIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
-            assert(Self.isSigned && self == Self.min && divisor == -1)
-            assert(qro.partialValue.quotient  == self)
-            assert(qro.partialValue.remainder == Digit())
-            qro.overflow = true
-            return qro
-        }
-        
-        if  dividendIsLessThanZero {
-            qro.partialValue.remainder.formTwosComplement()
-        }
-        //=--------------------------------------=
-        return qro as PVO<QR<Self, Digit>>
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth where High == High.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
-        var quotient  = self
-        let remainder = quotient._formQuotientReportingRemainderAndOverflow(dividingBy: divisor)
-        return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
-    }
-    
-    @inlinable mutating func _formQuotientReportingRemainderAndOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
-        //=--------------------------------------=
-        if  divisor.isZero {
-            return PVO(UInt(), true)
-        }
-        //=--------------------------------------=
-        var remainder = UInt()
-        
-        self.withUnsafeMutableWords { words in
-            var index: Int = words.endIndex
-            backwards: while index != words.startIndex {
-                (words.formIndex(before: &index))
-                (words[index], remainder) = divisor.dividingFullWidth(HL(remainder, words[index]))
-            }
-        }
-        
-        return PVO(remainder, false)
     }
 }

@@ -83,18 +83,6 @@ High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
         self.low  = partition.low
         self.high = High(digit: partition.high)
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var ascending:  LH<Low, High> {
-        LH(self.low, self.high)
-    }
-    
-    @inlinable public var descending: HL<High, Low> {
-        HL(self.high, self.low)
-    }
 }
 
 //*============================================================================*

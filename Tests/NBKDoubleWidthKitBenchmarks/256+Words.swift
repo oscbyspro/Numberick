@@ -40,19 +40,6 @@ final class Int256BenchmarksOnWords: XCTestCase {
             _blackHoleInoutIdentity(&xyz)
         }
     }
-    
-    func testMinWordCountReportingIsZeroOrMinusOne() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
-        
-        for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.minWordCountReportingIsZeroOrMinusOne())
-            _blackHole(xyz.minWordCountReportingIsZeroOrMinusOne())
-            
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
-        }
-    }
 }
 
 //*============================================================================*
@@ -74,19 +61,6 @@ final class UInt256BenchmarksOnWords: XCTestCase {
         for _ in 0 ..< 1_000_000 {
             _blackHole(abc.minLastIndexReportingIsZeroOrMinusOne())
             _blackHole(xyz.minLastIndexReportingIsZeroOrMinusOne())
-            
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    func testMinWordCountReportingIsZeroOrMinusOne() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
-        
-        for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.minWordCountReportingIsZeroOrMinusOne())
-            _blackHole(xyz.minWordCountReportingIsZeroOrMinusOne())
             
             _blackHoleInoutIdentity(&abc)
             _blackHoleInoutIdentity(&xyz)
