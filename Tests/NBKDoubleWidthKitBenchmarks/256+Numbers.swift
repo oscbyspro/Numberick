@@ -175,7 +175,7 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Complements
     //=------------------------------------------------------------------------=
     
     func testDigit() {
@@ -186,10 +186,6 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
             _blackHoleInoutIdentity(&abc)
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Complements
-    //=------------------------------------------------------------------------=
     
     func testSignitude() {
         var abc = _blackHoleIdentity(S(x64: X(0, 1, 2, 3)))
@@ -375,7 +371,7 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Complements
     //=------------------------------------------------------------------------=
     
     func testDigit() {
@@ -386,10 +382,6 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
             _blackHoleInoutIdentity(&abc)
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Complements
-    //=------------------------------------------------------------------------=
     
     func testSignitude() {
         var abc = _blackHoleIdentity(S(x64: X(0, 1, 2, 3)))

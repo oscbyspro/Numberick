@@ -27,10 +27,6 @@ extension NBKDoubleWidth {
         Self(descending: HL(High.max, Low.max))
     }
     
-    @inlinable public static var zero: Self {
-        Self(descending: HL(High.zero, Low.zero))
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
@@ -97,16 +93,14 @@ extension NBKDoubleWidth {
     
     @inlinable static func copy<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        var wordsIndex = words.startIndex
+        assert(words.startIndex ==  Int() && words.endIndex == words.count)
         let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
         let value = Self.fromUnsafeMutableWords { value in
-            for valueIndex in value.indices {
-                value[valueIndex] = wordsIndex < words.endIndex ? words[wordsIndex] : sign
-                words.formIndex(after: &wordsIndex)
+            for index in value.indices {
+                value[index] = index < words.endIndex ? words[index] : sign
             }
         }
-
-        let index = Swift.min(wordsIndex, words.endIndex)
-        return (value: value, remainders: words[index...], sign: sign)
+        
+        return (value: value, remainders: words.dropFirst(Self.count), sign: sign)
     }
 }
