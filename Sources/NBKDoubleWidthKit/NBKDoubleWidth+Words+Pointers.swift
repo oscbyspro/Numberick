@@ -25,19 +25,17 @@ extension NBKDoubleWidth {
     
     /// Grants unsafe access to the integer's words, from least significant to most.
     @inlinable public static func fromUnsafeMutableWords(_ body: (UnsafeMutableWords) throws -> Void) rethrows -> Self {
-        try Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
-            let pointer = buffer.baseAddress!
-            try body(UnsafeMutableWords(pointer))
-            return pointer.pointee
+        try withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) {
+            try body(UnsafeMutableWords($0.baseAddress.unsafelyUnwrapped))
+            return $0.baseAddress.unsafelyUnwrapped.pointee as Self
         }
     }
     
     /// Grants unsafe access to the integer's words, from least significant to most.
-    @inlinable public static func fromUnsafeMutableWordsAsOptional(_ body: (UnsafeMutableWords) -> Void?) -> Self? {
-         Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
-            let pointer = buffer.baseAddress!
-            guard let _ = body(UnsafeMutableWords(pointer)) else { return nil }
-            return pointer.pointee
+    @inlinable public static func fromUnsafeMutableWordsAsOptional(_ body: (UnsafeMutableWords) throws -> Void?) rethrows -> Self? {
+        try withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) {
+            let x: Void? = try body(UnsafeMutableWords($0.baseAddress.unsafelyUnwrapped))
+            return x == nil ? nil : $0.baseAddress.unsafelyUnwrapped.pointee as Self
         }
     }
     
@@ -47,16 +45,12 @@ extension NBKDoubleWidth {
     
     /// Grants unsafe access to the integer's words, from least significant to most.
     @inlinable public func withUnsafeWords<T>(_ body: (UnsafeWords) throws -> T) rethrows -> T {
-        try withUnsafePointer(to: self) { pointer in
-            try body(UnsafeWords(pointer))
-        }
+        try withUnsafePointer(to: self) { try body(UnsafeWords($0)) }
     }
     
     /// Grants unsafe access to the integer's words, from least significant to most.
     @inlinable public mutating func withUnsafeMutableWords<T>(_ body: (UnsafeMutableWords) throws -> T) rethrows -> T {
-        try withUnsafeMutablePointer(to: &self) { pointer in
-            try body(UnsafeMutableWords(pointer))
-        }
+        try withUnsafeMutablePointer(to: &self) { try body(UnsafeMutableWords($0)) }
     }
 }
 
@@ -100,9 +94,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(_ base: UnsafeRawPointer) {
-            self.base = base
-        }
+        @inlinable init(_ base: UnsafeRawPointer) { self.base = base }
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
@@ -163,9 +155,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(_ base: UnsafeMutableRawPointer) {
-            self.base = base
-        }
+        @inlinable init(_ base: UnsafeMutableRawPointer) { self.base = base }
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
@@ -206,7 +196,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
         
         @inlinable public subscript(index: Int) -> UInt {
-            get {
+            nonmutating get {
                 let offset: Int = NBKDoubleWidth.endianSensitiveByteOffset(index)
                 return self.base.load(fromByteOffset: offset, as: UInt.self)
             }

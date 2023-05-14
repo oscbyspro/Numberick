@@ -170,8 +170,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
                     let  remainderLast1  = remainder[remainderIndex /**/]
                     return discriminant.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 }
-                
-                var approximation = DoubleWidth(descending: increment.low.multipliedFullWidth(by: digit))
+                //=------------------------------=
+                let approximation_ = increment.low.multipliedFullWidth(by: digit)
+                var approximation  = DoubleWidth(descending: HL(Self(digit: approximation_.high), approximation_.low))
                 //=------------------------------=
                 // Decrement If Overestimated
                 //=------------------------------=

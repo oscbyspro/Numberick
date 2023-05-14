@@ -36,7 +36,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var description: String {
-        String(self, radix: 10)
+        String(encoding: self, radix: 10)
     }
     
     @inlinable public var debugDescription: String {
@@ -58,11 +58,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func decodeBigEndianText(_ source: some StringProtocol, radix: Int?) -> Self? {
-        let components = source._bigEndianTextComponents(radix: radix)
-        let magnitude  = AnyRadixUIntRoot(components.radix).switch(
-          perfect:{ Magnitude._decodeBigEndianDigits(components.body, radix: $0) },
-        imperfect:{ Magnitude._decodeBigEndianDigits(components.body, radix: $0) })
-        if let magnitude, let value = Self(sign: components.sign, magnitude: magnitude) { return value } else { return nil }
+        let (sign, radix, body) = source._bigEndianTextComponents(radix: radix)
+        guard  let magnitude =  Magnitude._decodeBigEndianDigits(body, radix: radix) else { return nil }
+        return Self(sign: sign, magnitude: magnitude)
     }
 }
 
@@ -75,6 +73,12 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
+    
+    @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: Int) -> Self? {
+        AnyRadixUIntRoot(radix).switch(
+          perfect:{ Self._decodeBigEndianDigits(source, radix: $0) },
+        imperfect:{ Self._decodeBigEndianDigits(source, radix: $0) })
+    }
     
     @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
         Self.fromUnsafeMutableWordsAsOptional { magnitude in
