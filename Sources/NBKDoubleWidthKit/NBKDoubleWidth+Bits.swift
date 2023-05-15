@@ -40,19 +40,19 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var nonzeroBitCount: Int {
-        self.low.nonzeroBitCount &+ self.high.nonzeroBitCount
+        self.low.nonzeroBitCount + self.high.nonzeroBitCount
     }
     
     @inlinable public var leadingZeroBitCount: Int {
         let count  = self.high.leadingZeroBitCount
         if  count != High.bitWidth { return count }
-        return count &+ self.low.leadingZeroBitCount
+        return count + self.low.leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
         let count  = self.low.trailingZeroBitCount
         if  count != Low.bitWidth { return count }
-        return count &+ self.high.trailingZeroBitCount
+        return count + self.high.trailingZeroBitCount
     }
     
     @inlinable public var mostSignificantBit: Bool {

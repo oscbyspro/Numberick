@@ -10,6 +10,21 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Arithmetic x Int
+//*============================================================================*
+
+extension Int {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable internal func dividedByBitWidth() -> QR<Self, Self> {
+        QR(self &>> Self.bitWidth.trailingZeroBitCount, self & (Self.bitWidth &- 1))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Arithmetic x UInt
 //*============================================================================*
 
@@ -31,7 +46,7 @@ extension UInt {
     ///
     /// - Returns: A truncated value in the range: `(high: 0, low: 0) ... (high: 1, low: ~0)`.
     ///
-    @inlinable mutating func addReportingOverflow(_ amount: Self, _ bit: Bool) -> Bool {
+    @inlinable internal mutating func addReportingOverflow(_ amount: Self, _ bit: Bool) -> Bool {
         let a: Bool = self.addReportingOverflow(amount)
         let b: Bool = self.addReportingOverflow(Self(bit: bit))
         return a || b
@@ -49,7 +64,7 @@ extension UInt {
     ///
     /// - Returns: A truncated value in the range: `(high: 0, low: 0) ... (high: 1, low: ~0)`.
     ///
-    @inlinable func addingReportingOverflow(_ amount: Self, _ bit: Bool) -> PVO<Self> {
+    @inlinable internal func addingReportingOverflow(_ amount: Self, _ bit: Bool) -> PVO<Self> {
         var partialValue = self
         let overflow: Bool = partialValue.addReportingOverflow(amount, bit)
         return PVO(partialValue, overflow)
@@ -82,7 +97,7 @@ extension UInt {
     ///
     /// - Returns: A value in the range: `(high: 0, low: 0) ... (high: ~0, low: 0)`.
     ///
-    @inlinable func addingFullWidth(multiplicands: (Self, Self)) -> HL<Self, Magnitude> {
+    @inlinable internal func addingFullWidth(multiplicands: (Self, Self)) -> HL<Self, Magnitude> {
         var low = self
         let high: Self = low.addFullWidth(multiplicands: multiplicands)
         return HL(high,  low)
@@ -101,7 +116,7 @@ extension UInt {
     ///
     /// - Returns: A value in the range: `(high: 0, low: 0) ... (high: ~0, low: ~0)`.
     ///
-    @inlinable mutating func addFullWidth(_ addend: Self, multiplicands: (Self, Self)) -> Self {
+    @inlinable internal mutating func addFullWidth(_ addend: Self, multiplicands: (Self, Self)) -> Self {
         let high: Self = self.addFullWidth(multiplicands: multiplicands)
         return Self(bit: self.addReportingOverflow(addend)) &+ high
     }
@@ -115,7 +130,7 @@ extension UInt {
     ///
     /// - Returns: A value in the range: `(high: 0, low: 0) ... (high: ~0, low: ~0)`.
     ///
-    @inlinable func addingFullWidth(_ addend: Self, multiplicands: (Self, Self)) -> HL<Self, Magnitude> {
+    @inlinable internal func addingFullWidth(_ addend: Self, multiplicands: (Self, Self)) -> HL<Self, Magnitude> {
         var low = self
         let high: Self = low.addFullWidth(addend, multiplicands: multiplicands)
         return HL(high,  low)
@@ -141,7 +156,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     ///
     /// - Returns: A value in the range: `(high: 0, low: 0) ... (high: 2, low: ~2)`.
     ///
-    @inlinable static func sum(_ x0: Self, _ x1: Self, _ x2: Self) -> HL<UInt, Self> {
+    @inlinable internal static func sum(_ x0: Self, _ x1: Self, _ x2: Self) -> HL<UInt, Self> {
         var xx = x0
         let o3 = xx.addReportingOverflow(x1)
         let o4 = xx.addReportingOverflow(x2)
