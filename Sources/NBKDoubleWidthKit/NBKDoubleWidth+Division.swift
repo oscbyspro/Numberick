@@ -55,12 +55,12 @@ extension NBKDoubleWidth {
             qro.partialValue.quotient.formTwosComplement()
         }
         
-        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.mostSignificantBit {
-            return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), true)
-        }
-        
         if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
+        }
+        
+        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.mostSignificantBit {
+            qro.overflow = true
         }
         //=--------------------------------------=
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
@@ -110,7 +110,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
+    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
+    @_specialize(where Self == UInt128)
+    @_specialize(where Self == UInt256)
+    @_specialize(where Self == UInt512)
     @inlinable internal static func divide22(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         // divisor is zero
@@ -144,19 +147,22 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 2 by 2
         //=--------------------------------------=
         let shift: Int = rhs.leadingZeroBitCount
+        let overshift: Int = Low.bitWidth &- shift
         assert(shift < Low.bitWidth)
-                
-        let lhs = DoubleWidth(0, lhs)._bitshiftedLeft(by: shift)
-        assert(lhs.high.high.isZero)
         
-        let rhs = rhs._bitshiftedLeft(by: shift) as Self
+        let lhs: Self = lhs._bitshiftedLeft(by: shift)
+        let high: Low = lhs.high &>> overshift
+        let rhs: Self = rhs._bitshiftedLeft(by: shift)
         assert(rhs.mostSignificantBit)
-        
-        let (x, a) = Self.divide32(unchecked:(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+
+        let (x, a) = Self.divide32(unchecked: X3(high, lhs.high, lhs.low), by: rhs)
         return PVO(QR(Self(0, x), a._bitshiftedRight(by: shift)), false)
     }
     
-    /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
+    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
+    @_specialize(where Self == UInt128)
+    @_specialize(where Self == UInt256)
+    @_specialize(where Self == UInt512)
     @inlinable internal static func divide42(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         // divisor is zero
@@ -194,14 +200,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
         if  lhs.high.high.isZero, Self(lhs.high.low, lhs.low.high) < rhs {
-            let (x, a) = Self.divide32(unchecked:(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+            let (x, a) = Self.divide32(unchecked: X3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return PVO(QR(Self(0, x), a._bitshiftedRight(by: shift)), overflow)
         }
         //=--------------------------------------=
         // division: 4 by 2 (normalized)
         //=--------------------------------------=
-        let (x, a) = Self.divide32(unchecked:(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
-        let (y, b) = Self.divide32(unchecked:(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
+        let (x, a) = Self.divide32(unchecked: X3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
+        let (y, b) = Self.divide32(unchecked: X3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return PVO(QR(Self(x, y), b._bitshiftedRight(by: shift)), overflow)
     }
     
@@ -209,8 +215,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
-    @inlinable internal static func divide32(unchecked lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
+    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
+    @_specialize(where Self == UInt128)
+    @_specialize(where Self == UInt256)
+    @_specialize(where Self == UInt512)
+    @inlinable internal static func divide32(unchecked lhs: X3<Low>, by rhs: Self) -> QR<Low, Self> {
         //=--------------------------------------=
         assert(rhs.mostSignificantBit)
         assert(Self(lhs.high, lhs.mid) < rhs)
@@ -231,9 +240,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
             }
         }
         //=--------------------------------------=
-        var remainder = lhs as Wide3<Low>
+        var remainder = lhs as X3<Low>
         let _ = Low.decrement33(&remainder, by: approximation)
         return QR(quotient, Self(remainder.mid, remainder.low))
     }
 }
-

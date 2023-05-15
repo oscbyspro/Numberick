@@ -13,9 +13,9 @@ import NBKCoreKit
 // MARK: * NBK x Asymmetric
 //*============================================================================*
 
-@usableFromInline internal typealias Wide2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
+@usableFromInline internal typealias X2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
 
-@usableFromInline internal typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
+@usableFromInline internal typealias X3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
 
 //*============================================================================*
 // MARK: * NBK x Asymmetric x Comparisons
@@ -27,7 +27,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func compare33(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
+    @_transparent @usableFromInline internal static func compare33(_ lhs: X3<Self>, to rhs: X3<Self>) -> Int {
         let a = lhs.high.compared(to: rhs.high); if !a.isZero { return a }
         let b = lhs.mid .compared(to: rhs.mid ); if !b.isZero { return b }
         return  lhs.low .compared(to: rhs.low )
@@ -44,7 +44,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
+    @_transparent @usableFromInline internal static func multiplying21(_ lhs: X2<Self>, by rhs: Self) -> X3<Self> {
         //=--------------------------------------=
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)
@@ -52,7 +52,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
         let x =      b.low .addReportingOverflow(a.high)
         let _ = x && b.high.addReportingOverflow(1 as UInt)
         //=--------------------------------------=
-        return  Wide3(high: b.high, mid: b.low, low: a.low)
+        return X3(high: b.high, mid: b.low, low: a.low)
     }
 }
 
@@ -67,7 +67,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
+    @_transparent @usableFromInline internal static func decrement32(_ lhs: inout X3<Self>, by rhs: X2<Self>) -> Bool {
         //=--------------------------------------=
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.high)
@@ -77,7 +77,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
         return  (y) as Bool
     }
     
-    @_transparent @usableFromInline internal static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
+    @_transparent @usableFromInline internal static func decrement33(_ lhs: inout X3<Self>, by rhs: X3<Self>) -> Bool {
         //=--------------------------------------=
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.mid )
