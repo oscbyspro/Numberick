@@ -88,6 +88,10 @@ extension NBKCoreInteger {
         assert(quotient.overflow == remainder.overflow)
         return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
     }
+    
+    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
+        fatalError("TODO")
+    }
 
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits

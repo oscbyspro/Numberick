@@ -76,6 +76,14 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     @inlinable func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude>
     
     @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Division
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self>
+    
+    @inlinable func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>>
 }
 
 //=----------------------------------------------------------------------------=

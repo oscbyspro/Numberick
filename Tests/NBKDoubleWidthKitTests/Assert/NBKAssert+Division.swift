@@ -19,8 +19,8 @@ _ lhs: T, _ rhs: T, _ quotient: T, _ remainder: T, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs /  rhs, quotient,  file: file, line: line)
-        XCTAssertEqual(lhs %  rhs, remainder, file: file, line: line)
+        XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
+        XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
         
         XCTAssertEqual({ var x = lhs; x /= rhs; return x }(), quotient,  file: file, line: line)
         XCTAssertEqual({ var x = lhs; x %= rhs; return x }(), remainder, file: file, line: line)
@@ -52,8 +52,8 @@ file: StaticString = #file, line: UInt = #line) {
     let remainder_ = T(digit: remainder)
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs /  rhs, quotient,  file: file, line: line)
-        XCTAssertEqual(lhs %  rhs, remainder, file: file, line: line)
+        XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
+        XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
         
         XCTAssertEqual({ var x = lhs; x /= rhs; return x }(), quotient,   file: file, line: line)
         XCTAssertEqual({ var x = lhs; x %= rhs; return x }(), remainder_, file: file, line: line)

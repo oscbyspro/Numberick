@@ -73,6 +73,22 @@ High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
         self.low  = partition.low
         self.high = partition.high
     }
+    
+    
+    // TODO: todo, or not
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ high: High, _ low: Low) {
+        self.low  = low
+        self.high = high
+    }
+    
+    @inlinable public init(_ partition: HL<High, Low>) {
+        self.low  = partition.low
+        self.high = partition.high
+    }
 }
 
 //*============================================================================*
