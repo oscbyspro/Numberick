@@ -111,9 +111,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
-    ///
-    /// [brrr]: https://pure.mpg.de/rest/items/item_1819444_4/component/file_2599480/content
-    ///
     @inlinable internal static func divide22(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         // divisor is zero
@@ -155,46 +152,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let rhs = rhs._bitshiftedLeft(by: shift) as Self
         assert(rhs.mostSignificantBit)
         
-        let (x, a) = Self.divide32(unchecked: (lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+        let (x, a) = Self.divide32(unchecked:(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
         return PVO(QR(Self(0, x), a._bitshiftedRight(by: shift)), false)
     }
     
     /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
-    ///
-    /// [brrr]: https://pure.mpg.de/rest/items/item_1819444_4/component/file_2599480/content
-    ///
-    @inlinable internal static func divide32(unchecked lhs: (high: Low, mid: Low, low: Low), by rhs: Self) -> QR<Low, Self> {
-        //=--------------------------------------=
-        // TODO: use triple-width arithmetic
-        //=--------------------------------------=
-        assert(rhs.mostSignificantBit)
-        assert(Self(lhs.high, lhs.mid) < rhs)
-        assert(Self(lhs.high, lhs.mid).leadingZeroBitCount <= Low.bitWidth)
-        //=--------------------------------------=
-        var quotient = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation = rhs.multipliedFullWidthByHalf(quotient) as DoubleWidth
-        //=--------------------------------------=
-        // decrement if overestimated
-        //=--------------------------------------=
-        var remainder = DoubleWidth(Self(0, lhs.high), Self(lhs.mid, lhs.low))
-        if  remainder < approximation {
-            _ = quotient.subtractReportingOverflow(UInt(1))
-            _ = approximation.subtractReportingOverflowByHalf(rhs)
-            
-            if  remainder < approximation {
-                _ = quotient.subtractReportingOverflow(UInt(1))
-                _ = approximation.subtractReportingOverflowByHalf(rhs)
-            }
-        }
-        //=--------------------------------------=
-        remainder &-= approximation
-        return QR(quotient, remainder.low)
-    }
-    
-    /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
-    ///
-    /// [brrr]: https://pure.mpg.de/rest/items/item_1819444_4/component/file_2599480/content
-    ///
     @inlinable internal static func divide42(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         // divisor is zero
@@ -218,8 +180,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         if  rhs.high.isZero {
             let (   a) = /*----*/   lhs.high.high % rhs.low
             let (   b) = a.isZero ? lhs.high.low  % rhs.low : rhs.low.dividingFullWidth((a, lhs.high.low)).remainder
-            let (x, c) = b.isZero ? lhs.low .high.quotientAndRemainder(dividingBy: rhs.low) : rhs.low.dividingFullWidth((b, lhs.low.high))
-            let (y, d) = c.isZero ? lhs.low .low .quotientAndRemainder(dividingBy: rhs.low) : rhs.low.dividingFullWidth((c, lhs.low.low ))
+            let (x, c) = b.isZero ? lhs.low .high.quotientAndRemainder(dividingBy: rhs.low) : rhs.low.dividingFullWidth(HL(b, lhs.low.high))
+            let (y, d) = c.isZero ? lhs.low .low .quotientAndRemainder(dividingBy: rhs.low) : rhs.low.dividingFullWidth(HL(c, lhs.low.low ))
             return PVO(QR(Self(x, y), Self(0, d)), overflow)
         }
         //=--------------------------------------=
@@ -242,4 +204,36 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let (y, b) = Self.divide32(unchecked:(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return PVO(QR(Self(x, y), b._bitshiftedRight(by: shift)), overflow)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// An adaptation of [Fast Recursive Division][brrr] by Christoph Burnikel and Joachim Ziegler.
+    @inlinable internal static func divide32(unchecked lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
+        //=--------------------------------------=
+        assert(rhs.mostSignificantBit)
+        assert(Self(lhs.high, lhs.mid) < rhs)
+        assert(Self(lhs.high, lhs.mid).leadingZeroBitCount <= Low.bitWidth)
+        //=--------------------------------------=
+        var quotient = lhs.high == rhs.high ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
+        var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient)
+        //=--------------------------------------=
+        // decrement if overestimated
+        //=--------------------------------------=
+        if  Low.compare33(lhs, to: approximation) == -1 {
+            _ = quotient.subtractReportingOverflow(1 as UInt)
+            _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
+            
+            if  Low.compare33(lhs, to: approximation) == -1 {
+                _ = quotient.subtractReportingOverflow(1 as UInt)
+                _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
+            }
+        }
+        //=--------------------------------------=
+        var remainder = lhs as Wide3<Low>
+        let _ = Low.decrement33(&remainder, by: approximation)
+        return QR(quotient, Self(remainder.mid, remainder.low))
+    }
 }
+
