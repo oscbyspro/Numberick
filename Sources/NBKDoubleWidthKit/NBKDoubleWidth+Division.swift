@@ -85,7 +85,6 @@ extension NBKDoubleWidth {
         self.dividingFullWidthReportingOverflow(DoubleWidth(descending: dividend))
     }
     
-    // TODO: test signed T.min.dividingFullWidthReportingOverflow(_:)
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)

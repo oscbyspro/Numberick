@@ -25,9 +25,9 @@ extension NBK {
     /// NBK.bigEndianTextComponents("-0x???", radix:   2) // (sign: true,  radix:  2, body:  "0x???")
     /// ```
     ///
-    @inlinable public static func bigEndianTextComponents<T>(_ body: T, radix: Int?)
+    @inlinable public static func bigEndianTextComponents<T>(_ text: T, radix: Int?)
     -> (sign: Bool, radix: Int, body: T.SubSequence) where T: StringProtocol {
-        var body  = body[...]
+        var body  = text[...]
         let sign  = body.removeSignPrefix() ?? false
         let radix = radix ?? body.removeRadixLiteralPrefix() ?? 10
         return (sign: sign, radix: radix, body: body)

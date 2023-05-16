@@ -30,6 +30,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         let overflow: Bool
         if !Self.isSigned {
+            // overflow = product > Self.max
             overflow = !(product.high.isZero)
         }   else if self.isLessThanZero == amount.isLessThanZero {
             // overflow = product > Self.max, but more efficient

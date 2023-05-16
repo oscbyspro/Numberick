@@ -18,7 +18,7 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func callsiteOverflowInfo(
-    function: StaticString = #function, file: StaticString = #file, line: Int = #line) -> String {
+    function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> String {
         "overflow in \(function) at \(file):\(line)"
     }
 }

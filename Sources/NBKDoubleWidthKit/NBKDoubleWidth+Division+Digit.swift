@@ -41,7 +41,6 @@ extension NBKDoubleWidth {
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
     
-    // TODO: test signed T.min.quotientAndRemainderReportingOverflow(dividingBy:)
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
         let lhsIsLessThanZero: Bool =    self.isLessThanZero
         let rhsIsLessThanZero: Bool = divisor.isLessThanZero
