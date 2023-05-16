@@ -64,30 +64,24 @@ High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(ascending  partition: LH<Low, High>) {
-        self.low  = partition.low
-        self.high = partition.high
+    @inlinable public init(ascending components: LH<Low, High>) {
+        (self.low, self.high) = components
     }
     
-    @inlinable public init(descending partition: HL<High, Low>) {
-        self.low  = partition.low
-        self.high = partition.high
+    @inlinable public init(descending components: HL<High, Low>) {
+        (self.high, self.low) = components
     }
     
-    
-    // TODO: todo, or not
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(_ high: High, _ low: Low) {
-        self.low  = low
-        self.high = high
+    @inlinable public var ascending: LH<Low, High> {
+        LH(self.low, self.high)
     }
     
-    @inlinable public init(_ partition: HL<High, Low>) {
-        self.low  = partition.low
-        self.high = partition.high
+    @inlinable public var descending: HL<High, Low> {
+        HL(self.high, self.low)
     }
 }
 

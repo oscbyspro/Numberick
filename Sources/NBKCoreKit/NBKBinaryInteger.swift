@@ -184,57 +184,57 @@ extension NBKBinaryInteger {
     
     @inlinable public static func /=(lhs: inout Self, rhs: Self) {
         let overflow: Bool = lhs.divideReportingOverflow(by: rhs)
-        precondition(!overflow, "overflow in /=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @_disfavoredOverload @inlinable public static func /=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.divideReportingOverflow(by: rhs)
-        precondition(!overflow, "overflow in /=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public static func /(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.dividedReportingOverflow(by: rhs)
-        precondition(!pvo.overflow, "overflow in /")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @_disfavoredOverload @inlinable public static func /(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.dividedReportingOverflow(by: rhs)
-        precondition(!pvo.overflow, "overflow in /")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @inlinable public static func %=(lhs: inout Self, rhs: Self) {
         let overflow: Bool = lhs.formRemainderReportingOverflow(dividingBy: rhs)
-        precondition(!overflow, "overflow in %=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @_disfavoredOverload @inlinable public static func %=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.formRemainderReportingOverflow(dividingBy: rhs)
-        precondition(!overflow, "overflow in %=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public static func %(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.remainderReportingOverflow(dividingBy: rhs)
-        precondition(!pvo.overflow, "overflow in %")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @_disfavoredOverload @inlinable public static func %(lhs: Self, rhs: Digit) -> Digit {
         let pvo: PVO<Digit> = lhs.remainderReportingOverflow(dividingBy: rhs)
-        precondition(!pvo.overflow, "overflow in %")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Digit
     }
     
     @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        precondition(!qro.overflow, "overflow in division")
+        precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Self>
     }
     
     @_disfavoredOverload @inlinable public func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit> {
         let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        precondition(!qro.overflow, "overflow in division")
+        precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Digit>
     }
 }
@@ -287,12 +287,12 @@ extension NBKSignedInteger {
     
     @inlinable public mutating func negate() {
         let overflow: Bool = self.negateReportingOverflow()
-        precondition(!overflow, "overflow in negation")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public func negated() -> Self {
         let pvo: PVO<Self> = self.negatedReportingOverflow()
-        precondition(!pvo.overflow, "overflow in negation")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
 }

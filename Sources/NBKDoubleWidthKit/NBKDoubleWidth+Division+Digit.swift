@@ -86,7 +86,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return PVO(0, true)
         }
         //=--------------------------------------=
-        var remainder = UInt.zero
+        var remainder = UInt()
         
         self.withUnsafeMutableWords { words in
             for index in words.indices.reversed() {

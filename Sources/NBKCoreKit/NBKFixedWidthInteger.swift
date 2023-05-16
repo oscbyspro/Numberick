@@ -112,23 +112,23 @@ extension NBKFixedWidthInteger {
     
     @inlinable public static func +=(lhs: inout Self, rhs: Self) {
         let overflow: Bool = lhs.addReportingOverflow(rhs)
-        precondition(!overflow, "overflow in +=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.addReportingOverflow(rhs)
-        precondition(!overflow, "overflow in +=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.addingReportingOverflow(rhs)
-        precondition(!pvo.overflow, "overflow in +")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.addingReportingOverflow(rhs)
-        precondition(!pvo.overflow, "overflow in +")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
@@ -150,23 +150,23 @@ extension NBKFixedWidthInteger {
     
     @inlinable public static func -=(lhs: inout Self, rhs: Self) {
         let overflow: Bool = lhs.subtractReportingOverflow(rhs)
-        precondition(!overflow, "overflow in -=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.subtractReportingOverflow(rhs)
-        precondition(!overflow, "overflow in -=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.subtractingReportingOverflow(rhs)
-        precondition(!pvo.overflow, "overflow in -")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.subtractingReportingOverflow(rhs)
-        precondition(!pvo.overflow, "overflow in -")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
@@ -192,23 +192,23 @@ extension NBKFixedWidthInteger {
     
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
         let overflow: Bool = lhs.multiplyReportingOverflow(by: rhs)
-        precondition(!overflow, "overflow in *=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Digit) {
         let overflow: Bool = lhs.multiplyReportingOverflow(by: rhs)
-        precondition(!overflow, "overflow in *=")
+        precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
         let pvo: PVO<Self> = lhs.multipliedReportingOverflow(by: rhs)
-        precondition(!pvo.overflow, "overflow in *")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Digit) -> Self {
         let pvo: PVO<Self> = lhs.multipliedReportingOverflow(by: rhs)
-        precondition(!pvo.overflow, "overflow in *")
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as Self
     }
     

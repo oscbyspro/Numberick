@@ -19,6 +19,15 @@ extension Int {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    /// Returns the quotient and remainder of dividing this value by its bit width.
+    ///
+    /// ```swift
+    /// Int8( 4).dividedByBitWidth() // (quotient: 0, remainder: 4)
+    /// Int8( 8).dividedByBitWidth() // (quotient: 1, remainder: 0)
+    /// Int8(12).dividedByBitWidth() // (quotient: 1, remainder: 4)
+    /// Int8(16).dividedByBitWidth() // (quotient: 2, remainder: 0)
+    /// ```
+    ///
     @inlinable internal func dividedByBitWidth() -> QR<Self, Self> {
         QR(self &>> Self.bitWidth.trailingZeroBitCount, self & (Self.bitWidth &- 1))
     }

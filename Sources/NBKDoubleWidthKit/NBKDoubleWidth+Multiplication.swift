@@ -25,7 +25,7 @@ extension NBKDoubleWidth {
         return pvo.overflow as Bool
     }
     
-    @inlinable public func multipliedReportingOverflow(by amount:  Self) -> PVO<Self> {
+    @inlinable public func multipliedReportingOverflow(by amount: Self) -> PVO<Self> {
         let product = DoubleWidth(descending: self.multipliedFullWidth(by: amount))
         //=--------------------------------------=
         let overflow: Bool
@@ -52,6 +52,7 @@ extension NBKDoubleWidth {
         return product.high as Self
     }
     
+    /// TODO: consider tuple arithmetic...
     @inlinable public func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude> {
         let minus = self.isLessThanZero != amount.isLessThanZero
         var product = DoubleWidth.Magnitude(descending: self.magnitude.multipliedFullWidth(by: amount.magnitude))
@@ -77,7 +78,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable public func multipliedFullWidth(by  amount: Self) -> HL<Self, Magnitude> {
-        //=--------------------------------------=
         let m0 = self.low .multipliedFullWidth(by: amount.low  ) as HL<Low, Low>
         let m1 = self.low .multipliedFullWidth(by: amount.high ) as HL<Low, Low>
         let m2 = self.high.multipliedFullWidth(by: amount.low  ) as HL<Low, Low>
@@ -86,15 +86,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let s0 = Low.sum(m0.high, m1.low,  m2.low) as HL<UInt, Low>
         let s1 = Low.sum(m1.high, m2.high, m3.low) as HL<UInt, Low>
         //=--------------------------------------=
-        let r0 = Magnitude(descending: HL(s0.low,  m0.low))
-        var r1 = Magnitude(descending: HL(m3.high, Low(digit: s0.high)))
-        let o0 = r1.low .addReportingOverflow(s1.low) as Bool
-        let o1 = r1.high.addReportingOverflow(s1.high &+ UInt(bit:  o0)) as Bool
-        //=--------------------------------------=
-        assert(s0.high < 3)
-        assert(s1.high < 3)
-        assert(o1 == false)
-        //=--------------------------------------=
-        return HL(high: r1, low: r0)
+        let p0 = Self(descending: HL(s0.low,  m0.low))
+        let p1 = Self(descending: HL(m3.high, Low(digit: s0.high)))
+        let p2 = Self(descending: HL(High(digit: s1.high), s1.low))
+        return HL(high: p2 &+ p1, low: p0)
     }
 }

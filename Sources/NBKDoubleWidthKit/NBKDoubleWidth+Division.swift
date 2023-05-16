@@ -82,7 +82,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
-        self.dividingFullWidthReportingOverflow(DoubleWidth(dividend))
+        self.dividingFullWidthReportingOverflow(DoubleWidth(descending: dividend))
     }
     
     // TODO: test signed T.min.dividingFullWidthReportingOverflow(_:)
@@ -138,14 +138,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         if  lhs.high.isZero {
             let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
-            return PVO(QR(Self(0, quotient), Self(0, remainder)), false)
+            return PVO(QR(Self(descending: HL(0, quotient)), Self(descending: HL(0, remainder))), false)
         }
         //=--------------------------------------=
         // division: 2 by 1
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
             let (quotient, remainder) = Self.divide21(lhs, by: rhs.low)
-            return PVO(QR(quotient, Self(0, remainder)), false)
+            return PVO(QR(quotient, Self(descending: HL(0, remainder))), false)
         }
         //=--------------------------------------=
         // division: 2 by 2
@@ -160,7 +160,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(rhs.mostSignificantBit)
         
         let (quotient, remainder) = Self.divide32(normalized: X3(high, lhs.high, lhs.low), by: rhs)
-        return PVO(QR(Self(0, quotient), remainder._bitshiftedRight(words: words, bits: bits)), false)
+        return PVO(QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits)), false)
     }
     
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
@@ -186,7 +186,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
             let (quotient, remainder) = Self.divide41(lhs, by: rhs.low)
-            return PVO(QR(quotient, Self(0, remainder)), overflow)
+            return PVO(QR(quotient, Self(descending: HL(0, remainder))), overflow)
         }
         //=--------------------------------------=
         // normalization
@@ -197,9 +197,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
-        if  UInt(bitPattern: trimmable) >= UInt(bitPattern: High.bitWidth), Self(lhs.high.low, lhs.low.high) < rhs {
+        if  UInt(bitPattern: trimmable) >= UInt(bitPattern: High.bitWidth), Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
             let (quotient, remainder) = Self.divide32(normalized: X3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return PVO(QR(Self(0, quotient), remainder._bitshiftedRight(words: words, bits: bits)), overflow)
+            return PVO(QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits)), overflow)
         }
         //=--------------------------------------=
         // division: 4 by 2 (normalized)
@@ -215,7 +215,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable internal static func divide21(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
-        return QR(Self(x, y), b)
+        return QR(Self(descending: HL(x, y)), b)
     }
     
     @inlinable internal static func divide41(_ lhs: DoubleWidth, by rhs: Low) -> QR<Self, Low> {
@@ -223,7 +223,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let (   b) = a.isZero ? lhs.high.low  % rhs : rhs.dividingFullWidth((a, lhs.high.low)).remainder
         let (x, c) = b.isZero ? lhs.low .high.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(b, lhs.low.high))
         let (y, d) = c.isZero ? lhs.low .low .quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(c, lhs.low.low ))
-        return QR(Self(x, y), d)
+        return QR(Self(descending: HL(x, y)), d)
     }
     
     //=------------------------------------------------------------------------=
@@ -232,8 +232,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     @inlinable internal static func divide32(normalized lhs: X3<Low>, by rhs: Self) -> QR<Low, Self> {
         assert(rhs.mostSignificantBit)
-        assert(Self(lhs.high, lhs.mid) < rhs)
-        assert(Self(lhs.high, lhs.mid).leadingZeroBitCount <= Low.bitWidth)
+        assert(Self(descending: HL(lhs.high, lhs.mid)) < rhs)
+        assert(Self(descending: HL(lhs.high, lhs.mid)).leadingZeroBitCount <= Low.bitWidth)
         //=--------------------------------------=
         var quotient = lhs.high == rhs.high ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
         var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient) as X3<Low>
@@ -251,13 +251,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
         //=--------------------------------------=
         var remainder = lhs as X3<Low>
-        let _ = Low.decrement33(&remainder, by: approximation)
-        return QR(quotient, Self(remainder.mid, remainder.low))
+        let _  = Low.decrement33(&remainder, by: approximation)
+        return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }
     
     @inlinable internal static func divide42(normalized lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
         let (x, a) = Self.divide32(normalized: X3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
         let (y, b) = Self.divide32(normalized: X3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
-        return QR(Self(x, y), b)
+        return QR(Self(descending: HL(x, y)), b)
     }
 }

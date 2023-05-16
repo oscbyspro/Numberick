@@ -142,7 +142,7 @@ extension NBKCoreInteger {
     
     @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        precondition(!qro.overflow, "overflow in division")
+        precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Self>
     }
     
