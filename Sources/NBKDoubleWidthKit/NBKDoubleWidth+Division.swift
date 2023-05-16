@@ -85,6 +85,7 @@ extension NBKDoubleWidth {
         self.dividingFullWidthReportingOverflow(DoubleWidth(dividend))
     }
     
+    // TODO: test signed T.min.dividingFullWidthReportingOverflow(_:)
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
@@ -136,15 +137,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 1 by 1
         //=--------------------------------------=
         if  lhs.high.isZero {
-            let (q, r) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
-            return PVO(QR(Self(0, q), Self(0, r)), false)
+            let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
+            return PVO(QR(Self(0, quotient), Self(0, remainder)), false)
         }
         //=--------------------------------------=
         // division: 2 by 1
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
-            let (q, r) = Self.divide21(lhs, by: rhs.low)
-            return PVO(QR(q, Self(0, r)), false)
+            let (quotient, remainder) = Self.divide21(lhs, by: rhs.low)
+            return PVO(QR(quotient, Self(0, remainder)), false)
         }
         //=--------------------------------------=
         // division: 2 by 2
@@ -152,14 +153,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(shift < Low.bitWidth)
         let overshift: Int = Low.bitWidth &- shift
         let (words,  bits) = shift.dividedByBitWidth()
-
+        
         let lhs: Self = lhs._bitshiftedLeft(words: words, bits: bits)
         let high: Low = lhs.high &>> overshift
         let rhs: Self = rhs._bitshiftedLeft(words: words, bits: bits)
         assert(rhs.mostSignificantBit)
-
-        let (q, r) = Self.divide32(normalized: X3(high, lhs.high, lhs.low), by: rhs)
-        return PVO(QR(Self(0, q), r._bitshiftedRight(words: words, bits: bits)), false)
+        
+        let (quotient, remainder) = Self.divide32(normalized: X3(high, lhs.high, lhs.low), by: rhs)
+        return PVO(QR(Self(0, quotient), remainder._bitshiftedRight(words: words, bits: bits)), false)
     }
     
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
@@ -184,27 +185,27 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 4 by 1
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
-            let (q, r) = Self.divide41(lhs, by: rhs.low)
-            return PVO(QR(q, Self(0, r)), overflow)
+            let (quotient, remainder) = Self.divide41(lhs, by: rhs.low)
+            return PVO(QR(quotient, Self(0, remainder)), overflow)
         }
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
         let (words, bits) = shift.dividedByBitWidth()
-        let lhs = lhs._bitshiftedLeft(words: words, bits: bits) as DoubleWidth
-        let rhs = rhs._bitshiftedLeft(words: words, bits: bits) as Self
+        let (lhs) = lhs._bitshiftedLeft(words: words, bits: bits) as DoubleWidth
+        let (rhs) = rhs._bitshiftedLeft(words: words, bits: bits) as Self
         //=--------------------------------------=
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
         if  UInt(bitPattern: trimmable) >= UInt(bitPattern: High.bitWidth), Self(lhs.high.low, lhs.low.high) < rhs {
-            let (q, r) = Self.divide32(normalized: X3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return PVO(QR(Self(0, q), r._bitshiftedRight(words: words, bits: bits)), overflow)
+            let (quotient, remainder) = Self.divide32(normalized: X3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+            return PVO(QR(Self(0, quotient), remainder._bitshiftedRight(words: words, bits: bits)), overflow)
         }
         //=--------------------------------------=
         // division: 4 by 2 (normalized)
         //=--------------------------------------=
-        let (q, r) = Self.divide42(normalized: lhs, by: rhs)
-        return PVO(QR(q, r._bitshiftedRight(words: words, bits: bits)), overflow)
+        let (quotient, remainder) = Self.divide42(normalized: lhs, by: rhs)
+        return PVO(QR(quotient, remainder._bitshiftedRight(words: words, bits: bits)), overflow)
     }
     
     //=------------------------------------------------------------------------=
@@ -218,7 +219,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable internal static func divide41(_ lhs: DoubleWidth, by rhs: Low) -> QR<Self, Low> {
-        let (   a) = /*----*/   lhs.high.high % rhs
+        let (   a) = /*------*/ lhs.high.high % rhs
         let (   b) = a.isZero ? lhs.high.low  % rhs : rhs.dividingFullWidth((a, lhs.high.low)).remainder
         let (x, c) = b.isZero ? lhs.low .high.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(b, lhs.low.high))
         let (y, d) = c.isZero ? lhs.low .low .quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(c, lhs.low.low ))
@@ -230,7 +231,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable internal static func divide32(normalized lhs: X3<Low>, by rhs: Self) -> QR<Low, Self> {
-        //=--------------------------------------=
         assert(rhs.mostSignificantBit)
         assert(Self(lhs.high, lhs.mid) < rhs)
         assert(Self(lhs.high, lhs.mid).leadingZeroBitCount <= Low.bitWidth)

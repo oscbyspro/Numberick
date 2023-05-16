@@ -82,8 +82,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     //=------------------------------------------------------------------------=
     
     @inlinable func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self>
-    
-    @inlinable func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>>
 }
 
 //=----------------------------------------------------------------------------=

@@ -41,37 +41,26 @@ extension NBKDoubleWidth {
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
     
+    // TODO: test signed T.min.quotientAndRemainderReportingOverflow(dividingBy:)
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
-        let dividendIsLessThanZero: Bool =    self.isLessThanZero
-        let  divisorIsLessThanZero: Bool = divisor.isLessThanZero
+        let lhsIsLessThanZero: Bool =    self.isLessThanZero
+        let rhsIsLessThanZero: Bool = divisor.isLessThanZero
         //=--------------------------------------=
-        let qro_ = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: divisor.magnitude)
-        var qro  = PVO(QR(Self(bitPattern: qro_.partialValue.quotient), Digit(bitPattern: qro_.partialValue.remainder)), qro_.overflow)
+        var qro = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: divisor.magnitude)
         //=--------------------------------------=
-        if  qro.overflow {
-            assert(divisor.isZero)
-            assert(qro.partialValue.quotient  == self)
-            assert(qro.partialValue.remainder == Digit())
-            return qro
-        }
-
-        if  dividendIsLessThanZero != divisorIsLessThanZero {
+        if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
         }
         
-        if  dividendIsLessThanZero && divisorIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
-            assert(Self.isSigned && self == Self.min && divisor == -1)
-            assert(qro.partialValue.quotient  == self)
-            assert(qro.partialValue.remainder == Digit())
-            qro.overflow = true
-            return qro
-        }
-        
-        if  dividendIsLessThanZero {
+        if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
         }
+        
+        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.mostSignificantBit {
+            qro.overflow = true
+        }
         //=--------------------------------------=
-        return qro as PVO<QR<Self, Digit>>
+        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Digit(bitPattern: qro.partialValue.remainder)), qro.overflow)
     }
 }
 
@@ -94,15 +83,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable mutating func _formQuotientReportingRemainderAndOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(UInt(), true)
+            return PVO(0, true)
         }
         //=--------------------------------------=
-        var remainder = UInt()
+        var remainder = UInt.zero
         
         self.withUnsafeMutableWords { words in
-            var index: Int = words.endIndex
-            backwards: while index != words.startIndex {
-                (words.formIndex(before: &index))
+            for index in words.indices.reversed() {
                 (words[index], remainder) = divisor.dividingFullWidth(HL(remainder, words[index]))
             }
         }

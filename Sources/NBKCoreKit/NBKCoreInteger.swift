@@ -37,63 +37,6 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.addingReportingOverflow(amount)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.subtractingReportingOverflow(amount)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public mutating func multiplyReportingOverflow(by amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: amount)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public mutating func multiplyFullWidth(by amount: Self) -> Self {
-        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: amount)
-        self = Self(bitPattern: product.low)
-        return product.high as Self
-    }
-    
-    @inlinable public mutating func divideReportingOverflow(by amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.dividedReportingOverflow(by: amount)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public mutating func formRemainderReportingOverflow(dividingBy amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: amount)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
-        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-        precondition(!qro.overflow, "overflow in division")
-        return qro.partialValue as QR<Self, Self>
-    }
-    
-    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
-        let quotient:  PVO<Self> = self.dividedReportingOverflow(by: divisor)
-        let remainder: PVO<Self> = self.remainderReportingOverflow(dividingBy: divisor)
-        assert(quotient.overflow == remainder.overflow)
-        return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
-    }
-    
-    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
-        fatalError("TODO")
-    }
-
-    //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
@@ -155,6 +98,59 @@ extension NBKCoreInteger {
     
     @inlinable public func twosComplement() -> Self {
         ~self &+ (1 as Self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Addition, Subtraction, Multiplication, Division
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
+        let pvo: PVO<Self> = self.addingReportingOverflow(amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
+        let pvo: PVO<Self> = self.subtractingReportingOverflow(amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public mutating func multiplyReportingOverflow(by amount: Self) -> Bool {
+        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public mutating func multiplyFullWidth(by amount: Self) -> Self {
+        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: amount)
+        self = Self(bitPattern: product.low)
+        return product.high as Self
+    }
+    
+    @inlinable public mutating func divideReportingOverflow(by amount: Self) -> Bool {
+        let pvo: PVO<Self> = self.dividedReportingOverflow(by: amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public mutating func formRemainderReportingOverflow(dividingBy amount: Self) -> Bool {
+        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: amount)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+        precondition(!qro.overflow, "overflow in division")
+        return qro.partialValue as QR<Self, Self>
+    }
+    
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
+        let quotient:  PVO<Self> = self.dividedReportingOverflow(by: divisor)
+        let remainder: PVO<Self> = self.remainderReportingOverflow(dividingBy: divisor)
+        assert(quotient.overflow == remainder.overflow)
+        return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
     }
 }
 

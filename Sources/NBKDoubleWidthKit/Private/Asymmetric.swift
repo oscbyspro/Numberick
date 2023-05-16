@@ -45,14 +45,12 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     //=------------------------------------------------------------------------=
     
     @_transparent @usableFromInline internal static func multiplying21(_ lhs: X2<Self>, by rhs: Self) -> X3<Self> {
-        //=--------------------------------------=
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)
-        //=--------------------------------------=
+        
         let x =      b.low .addReportingOverflow(a.high)
         let _ = x && b.high.addReportingOverflow(1 as UInt)
-        //=--------------------------------------=
-        return X3(high: b.high, mid: b.low, low: a.low)
+        return X3(high: b.high, mid: b.low, low: a.low )
     }
 }
 
@@ -68,21 +66,19 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     //=------------------------------------------------------------------------=
     
     @_transparent @usableFromInline internal static func decrement32(_ lhs: inout X3<Self>, by rhs: X2<Self>) -> Bool {
-        //=--------------------------------------=
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.high)
-        //=--------------------------------------=
+        
         let x = (a     ) && lhs.mid .subtractReportingOverflow(1 as UInt)
         let y = (b || x) && lhs.high.subtractReportingOverflow(1 as UInt)
         return  (y) as Bool
     }
     
     @_transparent @usableFromInline internal static func decrement33(_ lhs: inout X3<Self>, by rhs: X3<Self>) -> Bool {
-        //=--------------------------------------=
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.mid )
         let c = lhs.high.subtractReportingOverflow(rhs.high)
-        //=--------------------------------------=
+        
         let x = (a     ) && lhs.mid .subtractReportingOverflow(1 as UInt)
         let y = (b || x) && lhs.high.subtractReportingOverflow(1 as UInt)
         return  (c || y) as Bool
