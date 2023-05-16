@@ -87,19 +87,14 @@ extension NBKDoubleWidth {
         let b = UInt(bitPattern: UInt.bitWidth &- minor)
         let x = minor.isZero as  Bool
         //=--------------------------------------=
-        self.withUnsafeMutableWords { words in
-            var i: Int = words.endIndex
-            backwards: while i > words.startIndex {
-                words.formIndex(before: &i)
-                
-                let j:  Int = i &- major
-                let k:  Int = j &- 1
-                
-                let p: UInt =         (j >= words.startIndex ? words[j] : 0) &<< a
-                let q: UInt = x ? 0 : (k >= words.startIndex ? words[k] : 0) &>> b
-                
-                words[i] = p | q
-            }
+        for i: Int in self.indices.reversed() {
+            let j: Int = i &- major
+            let k: Int = j &- 1
+            
+            let p: UInt =         (j >= self.startIndex ? self[j] : 0) &<< a
+            let q: UInt = x ? 0 : (k >= self.startIndex ? self[k] : 0) &>> b
+            
+            self[i] = p | q
         }
     }
     
@@ -191,19 +186,14 @@ extension NBKDoubleWidth {
         let c = UInt(repeating:  self.isLessThanZero)
         let x = minor.isZero as  Bool
         //=--------------------------------------=
-        self.withUnsafeMutableWords { words in
-            var i: Int = words.startIndex
-            forwards: while i < words.endIndex {
-                let j:  Int = i &+ major
-                let k:  Int = j &+ 1
-                
-                let p: UInt =         (j < words.endIndex ? words[j] : c) &>> a
-                let q: UInt = x ? 0 : (k < words.endIndex ? words[k] : c) &<< b
-                
-                words[i] = p | q
-                
-                words.formIndex(after: &i)
-            }
+        for i: Int in self.indices {
+            let j: Int  = i &+ major
+            let k: Int  = j &+ 1
+            
+            let p: UInt =         (j < self.endIndex ? self[j] : c) &>> a
+            let q: UInt = x ? 0 : (k < self.endIndex ? self[k] : c) &<< b
+            
+            self[i] = p | q
         }
     }
     

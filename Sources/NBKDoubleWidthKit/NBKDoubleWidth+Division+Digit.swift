@@ -86,11 +86,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
         //=--------------------------------------=
         var remainder = UInt()
-        
-        self.withUnsafeMutableWords { words in
-            for index in words.indices.reversed() {
-                (words[index], remainder) = divisor.dividingFullWidth(HL(remainder, words[index]))
-            }
+        for index in self.indices.reversed() {
+            (self[index], remainder) = divisor.dividingFullWidth(HL(remainder, self[index]))
         }
         
         return PVO(remainder, false)

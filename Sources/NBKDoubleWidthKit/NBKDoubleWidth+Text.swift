@@ -40,10 +40,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public var debugDescription: String {
-        self.withUnsafeWords { words in
-            let body = words.lazy.map(String.init).joined(separator: ", ")
-            return "\(Self.description)(\(body))"
-        }
+        "\(Self.description)(\(self.lazy.map(String.init).joined(separator: ", ")))"
     }
 }
 
@@ -160,9 +157,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable static func _encodeBigEndianText(_ magnitude: inout Self, sign: Bool,
     radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
         let minLastIndex: Int = magnitude.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
-        return magnitude.withUnsafeWords {
-            String(chunks: $0[...minLastIndex], sign: sign, radix: radix, alphabet: alphabet)
-        }
+        return String(chunks: magnitude[...minLastIndex], sign: sign, radix: radix, alphabet: alphabet)
     }
     
     @inlinable static func _encodeBigEndianText(_ magnitude: inout Self, sign: Bool,

@@ -20,22 +20,20 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ amount: Digit) -> Bool {
-        self.withUnsafeMutableWords { words in
-            let amountIsLessThanZero: Bool = amount.isLessThanZero
-            var carry: Bool = words.first.subtractReportingOverflow(UInt(bitPattern: amount))
-            //=----------------------------------=
-            if  carry == amountIsLessThanZero { return false }
-            let extra =  UInt(bitPattern: amountIsLessThanZero ? -1 : 1)
-            //=----------------------------------=
-            for index in 1 ..< words.lastIndex {
-                carry =  words[index].subtractReportingOverflow(extra)
-                if carry == amountIsLessThanZero { return false }
-            }
-            //=----------------------------------=
-            let pvo: PVO<Digit> = Digit(bitPattern: words.last).subtractingReportingOverflow(Digit(bitPattern: extra))
-            words.last = UInt(bitPattern: pvo.partialValue)
-            return pvo.overflow as Bool
+        let amountIsLessThanZero: Bool = amount.isLessThanZero
+        var carry: Bool = self.first.subtractReportingOverflow(UInt(bitPattern: amount))
+        //=----------------------------------=
+        if  carry == amountIsLessThanZero { return false }
+        let extra =  UInt(bitPattern: amountIsLessThanZero ? -1 : 1)
+        //=----------------------------------=
+        for index in 1 ..< self.lastIndex {
+            carry =  self[index].subtractReportingOverflow(extra)
+            if carry == amountIsLessThanZero { return false }
         }
+        //=----------------------------------=
+        let pvo: PVO<Digit> = Digit(bitPattern: self.last).subtractingReportingOverflow(Digit(bitPattern: extra))
+        self.last = UInt(bitPattern: pvo.partialValue)
+        return pvo.overflow as Bool
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self> {

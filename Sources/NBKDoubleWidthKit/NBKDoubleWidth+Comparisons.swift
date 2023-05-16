@@ -60,22 +60,19 @@ extension NBKDoubleWidth {
         hasher.combine(self.high)
     }
     
-    @inlinable public func compared(to other: Self) -> Int {
-        self .withUnsafeWords { lhs in
-        other.withUnsafeWords { rhs in
-            backwards: do {
-                let lhsWord  = Digit(bitPattern: lhs.last)
-                let rhsWord  = Digit(bitPattern: rhs.last)
-                if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
-            }
-            
-            backwards: for index in lhs.indices.dropLast().reversed() {
-                let lhsWord  = lhs[index]
-                let rhsWord  = rhs[index]
-                if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
-            }
-            
-            return Int.zero
-        }}
+    @inlinable public func compared(to that: Self) -> Int {
+        backwards: do {
+            let lhsWord  = Digit(bitPattern: self.last)
+            let rhsWord  = Digit(bitPattern: that.last)
+            if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
+        }
+        
+        backwards: for index in self.indices.dropLast().reversed() {
+            let lhsWord  = self[index]
+            let rhsWord  = that[index]
+            if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
+        }
+
+        return Int.zero
     }
 }

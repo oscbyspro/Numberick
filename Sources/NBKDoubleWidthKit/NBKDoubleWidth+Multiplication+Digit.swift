@@ -60,22 +60,20 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         var high = UInt()
         let low  = Magnitude.fromUnsafeMutableWords { low in
-            self.withUnsafeWords { lhs in
-                //=------------------------------=
-                let rhsWord = UInt(bitPattern: amount)
-                var rhsIsLessThanZeroCarry = rhsIsLessThanZero
-                //=------------------------------=
-                for index: Int in lhs.indices {
-                    let lhsWord: UInt  = lhs[index]
-                    (high, low[index]) = high.addingFullWidth(multiplicands:(lhsWord, rhsWord))
-                    
-                    if  rhsIsLessThanZero {
-                        rhsIsLessThanZeroCarry = high.addReportingOverflow(~lhsWord, rhsIsLessThanZeroCarry)
-                    }
+            //=------------------------------=
+            let rhsWord = UInt(bitPattern: amount)
+            var rhsIsLessThanZeroCarry = rhsIsLessThanZero
+            //=------------------------------=
+            for index: Int in self.indices {
+                let lhsWord: UInt  = self[index]
+                (high, low[index]) = high.addingFullWidth(multiplicands:(lhsWord, rhsWord))
+                
+                if  rhsIsLessThanZero {
+                    rhsIsLessThanZeroCarry = high.addReportingOverflow(~lhsWord, rhsIsLessThanZeroCarry)
                 }
-                //=------------------------------=
-                high = lhsIsLessThanZero ? high &+ rhsWord.twosComplement() : high
             }
+            //=------------------------------=
+            high = lhsIsLessThanZero ? high &+ rhsWord.twosComplement() : high
         }
         //=--------------------------------------=
         return HL(Digit(bitPattern: high), low)
