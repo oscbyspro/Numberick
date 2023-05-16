@@ -29,24 +29,24 @@ final class Int256BenchmarksOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeft() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs << rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs << rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testBitshiftingLeftByMasking() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &<< rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &<< rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -55,24 +55,24 @@ final class Int256BenchmarksOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRight() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs >> rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs >> rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testBitshiftingRightByMasking() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
                 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &>> rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &>> rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }
@@ -90,24 +90,24 @@ final class UInt256BenchmarksOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeft() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs << rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs << rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testBitshiftingLeftByMasking() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &<< rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &<< rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -116,24 +116,24 @@ final class UInt256BenchmarksOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRight() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs >> rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs >> rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testBitshiftingRightByMasking() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.bitWidth * 3/2)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
                 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &>> rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &>> rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }

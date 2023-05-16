@@ -28,8 +28,8 @@ final class Int256BenchmarksOnText: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static var number = _blackHoleIdentity(T(source, radix: 16)!)
-    static var source = _blackHoleIdentity(String(repeating: "1", count: 64))
+    static var number = NBK.blackHoleIdentity(T(source, radix: 16)!)
+    static var source = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -37,29 +37,29 @@ final class Int256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(decoding: Self.source, radix: 10)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T(decoding: Self.source, radix: 10)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(decoding: Self.source, radix: 16)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T(decoding: Self.source, radix: 16)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(encoding: Self.number, radix: 10))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String(encoding: Self.number, radix: 10))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(encoding: Self.number, radix: 16))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String(encoding: Self.number, radix: 16))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
@@ -69,29 +69,29 @@ final class Int256BenchmarksOnText: XCTestCase {
     
     func testDecodingUsingSwiftStdlibRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T.stdlib(Self.source, radix: 10)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T.stdlib(Self.source, radix: 10)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T.stdlib(Self.source, radix: 16)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T.stdlib(Self.source, radix: 16)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingUsingSwiftStdlibRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String.stdlib(Self.number, radix: 10))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String.stdlib(Self.number, radix: 10))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingUsingSwiftStdlibRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String.stdlib(Self.number, radix: 16))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String.stdlib(Self.number, radix: 16))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
 }
@@ -108,8 +108,8 @@ final class UInt256BenchmarksOnText: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static var number = _blackHoleIdentity(T(source, radix: 16)!)
-    static var source = _blackHoleIdentity(String(repeating: "1", count: 64))
+    static var number = NBK.blackHoleIdentity(T(source, radix: 16)!)
+    static var source = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -117,29 +117,29 @@ final class UInt256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(decoding: Self.source, radix: 10)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T(decoding: Self.source, radix: 10)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T(decoding: Self.source, radix: 16)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T(decoding: Self.source, radix: 16)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(encoding: Self.number, radix: 10))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String(encoding: Self.number, radix: 10))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String(encoding: Self.number, radix: 16))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String(encoding: Self.number, radix: 16))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
@@ -149,29 +149,29 @@ final class UInt256BenchmarksOnText: XCTestCase {
     
     func testDecodingUsingSwiftStdlibRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T.stdlib(Self.source, radix: 10)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T.stdlib(Self.source, radix: 10)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(T.stdlib(Self.source, radix: 16)!)
-            _blackHoleInoutIdentity(&Self.source)
+            NBK.blackHole(T.stdlib(Self.source, radix: 16)!)
+            NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingUsingSwiftStdlibRadix10() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String.stdlib(Self.number, radix: 10))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String.stdlib(Self.number, radix: 10))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingUsingSwiftStdlibRadix16() {
         for _ in 0 ..< 50_000 {
-            _blackHole(String.stdlib(Self.number, radix: 16))
-            _blackHoleInoutIdentity(&Self.number)
+            NBK.blackHole(String.stdlib(Self.number, radix: 16))
+            NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
 }

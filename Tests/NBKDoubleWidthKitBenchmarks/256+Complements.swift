@@ -30,20 +30,20 @@ final class Int256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitBitPattern() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(bitPattern: abc))
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(T(bitPattern: abc))
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testValueAsBitPattern() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.bitPattern)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.bitPattern)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
@@ -52,11 +52,11 @@ final class Int256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.magnitude)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.magnitude)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
@@ -65,11 +65,11 @@ final class Int256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.twosComplement())
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.twosComplement())
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }
@@ -88,20 +88,20 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
         
     func testInitBitPattern() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(bitPattern: abc))
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(T(bitPattern: abc))
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testValueAsBitPattern() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.bitPattern)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.bitPattern)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
@@ -110,11 +110,11 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.magnitude)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.magnitude)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
@@ -123,11 +123,11 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.twosComplement())
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.twosComplement())
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }

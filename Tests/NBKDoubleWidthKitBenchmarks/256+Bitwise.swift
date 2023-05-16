@@ -29,53 +29,53 @@ final class Int256BenchmarksOnBitwise: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAnd() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs & rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs & rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testOr() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs | rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs | rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testXor() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs ^ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs ^ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testNot() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(~abc)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(~abc)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testByteSwapped() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.byteSwapped)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.byteSwapped)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }
@@ -93,53 +93,53 @@ final class UInt256BenchmarksOnBitwise: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAnd() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs & rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs & rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testOr() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs | rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs | rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testXor() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs ^ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs ^ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testNot() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(~abc)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(~abc)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testByteSwapped() {
-        var abc = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.byteSwapped)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.byteSwapped)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }

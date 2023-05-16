@@ -31,28 +31,28 @@ final class Int256Benchmarks: XCTestCase {
     
     func testInitZero() {
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(   ))
-            _blackHole(T.zero)
+            NBK.blackHole(T(   ))
+            NBK.blackHole(T.zero)
         }
     }
     
     func testInitEdges() {
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T.min )
-            _blackHole(T.max )
+            NBK.blackHole(T.min )
+            NBK.blackHole(T.max )
         }
     }
     
     func testInitComponents() {
-        var abc = _blackHoleIdentity(LH( T.Low (), T.High() ))
-        var xyz = _blackHoleIdentity(HL( T.High(), T.Low () ))
+        var abc = NBK.blackHoleIdentity(LH( T.Low (), T.High() ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High(), T.Low () ))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(ascending:  abc))
-            _blackHole(T(descending: xyz))
+            NBK.blackHole(T(ascending:  abc))
+            NBK.blackHole(T(descending: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }
@@ -72,28 +72,28 @@ final class UInt256Benchmarks: XCTestCase {
     
     func testInitZero() {
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T())
-            _blackHole(T.zero)
+            NBK.blackHole(T())
+            NBK.blackHole(T.zero)
         }
     }
     
     func testInitEdges() {
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T.min )
-            _blackHole(T.max )
+            NBK.blackHole(T.min )
+            NBK.blackHole(T.max )
         }
     }
     
     func testInitComponents() {
-        var abc = _blackHoleIdentity(LH( T.Low (), T.High() ))
-        var xyz = _blackHoleIdentity(HL( T.High(), T.Low () ))
+        var abc = NBK.blackHoleIdentity(LH( T.Low (), T.High() ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High(), T.Low () ))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(ascending:  abc))
-            _blackHole(T(descending: xyz))
+            NBK.blackHole(T(ascending:  abc))
+            NBK.blackHole(T(descending: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }

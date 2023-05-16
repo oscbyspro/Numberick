@@ -29,35 +29,35 @@ final class Int256BenchmarksOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsEqualTo() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs == rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs == rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testIsLessThan() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs < rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs < rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testComparedTo() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.compared(to: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.compared(to: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -66,58 +66,58 @@ final class Int256BenchmarksOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsFull() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isFull)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isFull)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsLessThanZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isLessThanZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isLessThanZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsMoreThanZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isMoreThanZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isMoreThanZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsPowerOf2() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isPowerOf2)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isPowerOf2)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testMatchesRepeatingBit() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var bit = _blackHoleIdentity(true)
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var bit = NBK.blackHoleIdentity(true)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.matches(repeating: bit))
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&bit)
+            NBK.blackHole(abc.matches(repeating: bit))
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&bit)
         }
     }
 }
@@ -135,35 +135,35 @@ final class UInt256BenchmarksOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsEqualTo() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs == rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs == rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testIsLessThan() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs < rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs < rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testComparedTo() {
-        var lhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var rhs = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.compared(to: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.compared(to: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -172,58 +172,58 @@ final class UInt256BenchmarksOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsFull() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isFull)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isFull)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsLessThanZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isLessThanZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isLessThanZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsMoreThanZero() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isMoreThanZero)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isMoreThanZero)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testIsPowerOf2() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.isPowerOf2)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.isPowerOf2)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testMatchesRepeatingBit() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var bit = _blackHoleIdentity(true)
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var bit = NBK.blackHoleIdentity(true)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.matches(repeating: bit))
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&bit)
+            NBK.blackHole(abc.matches(repeating: bit))
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&bit)
         }
     }
 }

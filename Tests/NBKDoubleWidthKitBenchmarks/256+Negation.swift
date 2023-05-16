@@ -29,20 +29,20 @@ final class Int256BenchmarksOnNegation: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNegated() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(-abc)
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(-abc)
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
     
     func testNegatedReportingOverflow() {
-        var abc = _blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.negatedReportingOverflow())
-            _blackHoleInoutIdentity(&abc)
+            NBK.blackHole(abc.negatedReportingOverflow())
+            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }

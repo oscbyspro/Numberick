@@ -30,35 +30,35 @@ final class Int256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testQuotientAndRemainder() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testQuotientReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividedReportingOverflow(by: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividedReportingOverflow(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testRemainderReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -67,35 +67,35 @@ final class Int256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testQuotientAndRemainderDividingByDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testQuotientDividingByDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividedReportingOverflow(by: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividedReportingOverflow(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testRemainderDividingByDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -104,13 +104,13 @@ final class Int256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        var lhs = _blackHoleIdentity((T.max))
-        var rhs = _blackHoleIdentity((T.max, M.max))
+        var lhs = NBK.blackHoleIdentity((T.max))
+        var rhs = NBK.blackHoleIdentity((T.max, M.max))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividingFullWidth(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividingFullWidth(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }
@@ -129,35 +129,35 @@ final class UInt256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testQuotientAndRemainder() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testQuotientReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividedReportingOverflow(by: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividedReportingOverflow(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testRemainderReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -166,35 +166,35 @@ final class UInt256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testQuotientAndRemainderDividingByDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testQuotientDividingByDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividedReportingOverflow(by: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividedReportingOverflow(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testRemainderDividingByDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.remainderReportingOverflow(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -203,13 +203,13 @@ final class UInt256BenchmarksOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        var lhs = _blackHoleIdentity((T.max))
-        var rhs = _blackHoleIdentity((T.max, M.max))
+        var lhs = NBK.blackHoleIdentity((T.max))
+        var rhs = NBK.blackHoleIdentity((T.max, M.max))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.dividingFullWidth(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.dividingFullWidth(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }

@@ -29,15 +29,15 @@ final class Int256BenchmarksOnWords: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOne() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.minLastIndexReportingIsZeroOrMinusOne())
-            _blackHole(xyz.minLastIndexReportingIsZeroOrMinusOne())
+            NBK.blackHole(abc.minLastIndexReportingIsZeroOrMinusOne())
+            NBK.blackHole(xyz.minLastIndexReportingIsZeroOrMinusOne())
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }
@@ -55,15 +55,15 @@ final class UInt256BenchmarksOnWords: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOne() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.minLastIndexReportingIsZeroOrMinusOne())
-            _blackHole(xyz.minLastIndexReportingIsZeroOrMinusOne())
+            NBK.blackHole(abc.minLastIndexReportingIsZeroOrMinusOne())
+            NBK.blackHole(xyz.minLastIndexReportingIsZeroOrMinusOne())
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }

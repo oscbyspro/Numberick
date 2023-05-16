@@ -29,106 +29,106 @@ final class Int256BenchmarksOnBits: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitBit() {
-        var abc = _blackHoleIdentity(true )
-        var xyz = _blackHoleIdentity(false)
+        var abc = NBK.blackHoleIdentity(true )
+        var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(bit: abc))
-            _blackHole(T(bit: xyz))
+            NBK.blackHole(T(bit: abc))
+            NBK.blackHole(T(bit: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testInitRepeatingBit() {
-        var abc = _blackHoleIdentity(true )
-        var xyz = _blackHoleIdentity(false)
+        var abc = NBK.blackHoleIdentity(true )
+        var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(repeating: abc))
-            _blackHole(T(repeating: xyz))
+            NBK.blackHole(T(repeating: abc))
+            NBK.blackHole(T(repeating: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testBitWidth() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.bitWidth)
-            _blackHole(xyz.bitWidth)
+            NBK.blackHole(abc.bitWidth)
+            NBK.blackHole(xyz.bitWidth)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testNonzeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.nonzeroBitCount)
-            _blackHole(xyz.nonzeroBitCount)
+            NBK.blackHole(abc.nonzeroBitCount)
+            NBK.blackHole(xyz.nonzeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testLeadingZeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.leadingZeroBitCount)
-            _blackHole(xyz.leadingZeroBitCount)
+            NBK.blackHole(abc.leadingZeroBitCount)
+            NBK.blackHole(xyz.leadingZeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testTrailingZeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.trailingZeroBitCount)
-            _blackHole(xyz.trailingZeroBitCount)
+            NBK.blackHole(abc.trailingZeroBitCount)
+            NBK.blackHole(xyz.trailingZeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testMostSignificantBit() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.mostSignificantBit)
-            _blackHole(xyz.mostSignificantBit)
+            NBK.blackHole(abc.mostSignificantBit)
+            NBK.blackHole(xyz.mostSignificantBit)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testLeastSignificantBit() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.leastSignificantBit)
-            _blackHole(xyz.leastSignificantBit)
+            NBK.blackHole(abc.leastSignificantBit)
+            NBK.blackHole(xyz.leastSignificantBit)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }
@@ -146,106 +146,106 @@ final class UInt256BenchmarksOnBits: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitBit() {
-        var abc = _blackHoleIdentity(true )
-        var xyz = _blackHoleIdentity(false)
+        var abc = NBK.blackHoleIdentity(true )
+        var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(bit: abc))
-            _blackHole(T(bit: xyz))
+            NBK.blackHole(T(bit: abc))
+            NBK.blackHole(T(bit: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testInitRepeatingBit() {
-        var abc = _blackHoleIdentity(true )
-        var xyz = _blackHoleIdentity(false)
+        var abc = NBK.blackHoleIdentity(true )
+        var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(T(repeating: abc))
-            _blackHole(T(repeating: xyz))
+            NBK.blackHole(T(repeating: abc))
+            NBK.blackHole(T(repeating: xyz))
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testBitWidth() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.bitWidth)
-            _blackHole(xyz.bitWidth)
+            NBK.blackHole(abc.bitWidth)
+            NBK.blackHole(xyz.bitWidth)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testNonzeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.nonzeroBitCount)
-            _blackHole(xyz.nonzeroBitCount)
+            NBK.blackHole(abc.nonzeroBitCount)
+            NBK.blackHole(xyz.nonzeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testLeadingZeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.leadingZeroBitCount)
-            _blackHole(xyz.leadingZeroBitCount)
+            NBK.blackHole(abc.leadingZeroBitCount)
+            NBK.blackHole(xyz.leadingZeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testTrailingZeroBitCount() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.trailingZeroBitCount)
-            _blackHole(xyz.trailingZeroBitCount)
+            NBK.blackHole(abc.trailingZeroBitCount)
+            NBK.blackHole(xyz.trailingZeroBitCount)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testMostSignificantBit() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.mostSignificantBit)
-            _blackHole(xyz.mostSignificantBit)
+            NBK.blackHole(abc.mostSignificantBit)
+            NBK.blackHole(xyz.mostSignificantBit)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
     func testLeastSignificantBit() {
-        var abc = _blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = _blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(abc.leastSignificantBit)
-            _blackHole(xyz.leastSignificantBit)
+            NBK.blackHole(abc.leastSignificantBit)
+            NBK.blackHole(xyz.leastSignificantBit)
             
-            _blackHoleInoutIdentity(&abc)
-            _blackHoleInoutIdentity(&xyz)
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }

@@ -29,35 +29,35 @@ final class Int256BenchmarksOnAddition: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdding() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs + rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &+ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &+ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.addingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.addingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -66,35 +66,35 @@ final class Int256BenchmarksOnAddition: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddingDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs + rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingDigitWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &+ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &+ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.addingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.addingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }
@@ -112,35 +112,35 @@ final class UInt256BenchmarksOnAddition: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdding() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs + rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &+ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &+ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.addingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.addingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -149,35 +149,35 @@ final class UInt256BenchmarksOnAddition: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddingDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs + rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingDigitWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &+ rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &+ rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testAddingDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.addingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.addingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }

@@ -29,35 +29,35 @@ final class Int256BenchmarksOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtracting() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs - rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs - rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &- rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &- rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.subtractingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -66,35 +66,35 @@ final class Int256BenchmarksOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs - rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs - rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingDigitWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &- rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &- rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.subtractingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }
@@ -112,35 +112,35 @@ final class UInt256BenchmarksOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtracting() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs - rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs - rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &- rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &- rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.subtractingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
@@ -149,35 +149,35 @@ final class UInt256BenchmarksOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingDigit() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs - rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs - rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingDigitWrappingAround() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs &- rhs)
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs &- rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
     func testSubtractingDigitReportingOverflow() {
-        var lhs = _blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = _blackHoleIdentity(UInt.max)
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 1_000_000 {
-            _blackHole(lhs.subtractingReportingOverflow(rhs))
-            _blackHoleInoutIdentity(&lhs)
-            _blackHoleInoutIdentity(&rhs)
+            NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }
