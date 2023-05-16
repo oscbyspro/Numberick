@@ -78,34 +78,31 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
-        Self.fromUnsafeMutableWordsAsOptional { magnitude in
-            for index in magnitude.indices {
-                magnitude[index] = UInt()
-            }
-            //=----------------------------------=
-            let utf8  = source.utf8.drop(while:{ $0 == 48 })
-            let start = utf8.startIndex as String.Index
-            var tail  = utf8.endIndex   as String.Index
-            var index = magnitude.startIndex as Int
-            let step  = radix.exponent.twosComplement() as Int
-            //=----------------------------------=
-            backwards: while tail != start {
-                guard index != magnitude.endIndex else { return nil }
-                let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
-                guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
+        var magnitude = Magnitude()
+        let utf8  = source.utf8.drop(while:{ $0 == 48 })
+        let start = utf8.startIndex as String.Index
+        var tail  = utf8.endIndex   as String.Index
+        var index = magnitude.startIndex as Int
+        let step  = radix.exponent.twosComplement() as Int
+        //=----------------------------------=
+        backwards: while tail != start {
+            guard index != magnitude.endIndex else { return nil }
+            let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
+            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
 
-                tail = head
-                magnitude[index] = word
-                magnitude.formIndex(after: &index)
-            }
+            tail = head
+            magnitude[index] = word
+            magnitude.formIndex(after: &index)
         }
+        //=----------------------------------=
+        return magnitude
     }
     
     @inlinable static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) -> Self? {
+        var magnitude = Magnitude()
         let utf8 = source.utf8.drop(while:{ $0 == 48 })
         var head = utf8.startIndex as String.Index
         let alignment = utf8.count  % radix.exponent as Int
-        var magnitude = Magnitude()
         //=--------------------------------------=
         forwards: if !alignment.isZero {
             let tail = utf8.index(head, offsetBy: alignment/*-*/); defer  { head = tail }
