@@ -63,16 +63,13 @@ extension NBKDoubleWidth {
     @inlinable public func compared(to other: Self) -> Int {
         self .withUnsafeWords { lhs in
         other.withUnsafeWords { rhs in
-            var index = lhs.lastIndex
-            
             backwards: do {
-                let lhsWord  = Digit(bitPattern: lhs[index])
-                let rhsWord  = Digit(bitPattern: rhs[index])
+                let lhsWord  = Digit(bitPattern: lhs.last)
+                let rhsWord  = Digit(bitPattern: rhs.last)
                 if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }
             }
             
-            backwards: while !index.isZero {
-                lhs.formIndex(before: &index)
+            backwards: for index in lhs.indices.dropLast().reversed() {
                 let lhsWord  = lhs[index]
                 let rhsWord  = rhs[index]
                 if  lhsWord != rhsWord { return  lhsWord < rhsWord ? -1 : 1 }

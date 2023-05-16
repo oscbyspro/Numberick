@@ -84,7 +84,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
     @inlinable public func multipliedFullWidth(by  amount: Self) -> HL<Self, Magnitude> {

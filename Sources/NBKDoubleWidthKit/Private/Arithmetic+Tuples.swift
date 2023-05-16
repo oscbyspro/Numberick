@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Asymmetric
+// MARK: * NBK x Arithmetic x Tuples
 //*============================================================================*
 
 @usableFromInline internal typealias X2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
@@ -18,7 +18,7 @@ import NBKCoreKit
 @usableFromInline internal typealias X3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
 
 //*============================================================================*
-// MARK: * NBK x Asymmetric x Comparisons
+// MARK: * NBK x Arithmetic x Tuples x Comparisons
 //*============================================================================*
 
 extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
@@ -35,7 +35,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
 }
 
 //*============================================================================*
-// MARK: * NBK x Asymmetric x Multiplication
+// MARK: * NBK x Arithmetic x Tuples x Multiplication
 //*============================================================================*
 
 extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
@@ -54,9 +54,8 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     }
 }
 
-
 //*============================================================================*
-// MARK: * NBK x Asymmetric x Subtraction
+// MARK: * NBK x Arithmetic x Tuples x Subtraction
 //*============================================================================*
 
 extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
