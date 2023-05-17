@@ -32,6 +32,16 @@ extension NBKDoubleWidth {
     @inlinable public var _lowWord: UInt {
         self.low._lowWord
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Min Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func minLastIndexReportingIsZeroOrMinusOne() -> (minLastIndex: Int, isZeroOrMinusOne: Bool) {
+        let sign  = UInt(repeating: self.isLessThanZero)
+        let index = self.lastIndex(where:{ $0 != sign })
+        return index.map({( $0, false )}) ?? (0, true)
+    }
 }
 
 //=----------------------------------------------------------------------------=
@@ -45,9 +55,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static var count: Int {
-        assert(MemoryLayout<Self>.size /   MemoryLayout<UInt>.size >= 2, "invalid memory layout")
-        assert(MemoryLayout<Self>.size %   MemoryLayout<UInt>.size == 0, "invalid memory layout")
-        return MemoryLayout<Self>.size &>> MemoryLayout<UInt>.size.trailingZeroBitCount
+        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.size >= 2, "invalid memory layout")
+        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.size == 0, "invalid memory layout")
+        return MemoryLayout<Self>.size / MemoryLayout<UInt>.size
     }
     
     @inlinable public static var startIndex: Int {
@@ -104,29 +114,58 @@ extension NBKDoubleWidth {
         _modify { yield &self[unchecked: self.lastIndex] }
     }
     
-    @inlinable subscript(unchecked index: Int) -> UInt {
-        _read { yield  self.withUnsafeWords({ $0[index]            }) }
-         set  { self.withUnsafeMutableWords({ $0[index] = newValue }) }
-    }
-
     @inlinable public subscript(index: Int) -> UInt {
         _read {
-            precondition(self.indices ~= index, "index out of range")
+            BitPattern.preconditionIndexIsValid(index)
             yield  self[unchecked: index]
         }
         _modify {
-            precondition(self.indices ~= index, "index out of range")
+            BitPattern.preconditionIndexIsValid(index)
             yield &self[unchecked: index]
         }
     }
     
+    @inlinable subscript(unchecked index: Int) -> UInt {
+        get {
+            withUnsafeBytes(of: self) {
+                let offset = BitPattern.endiannessSensitiveByteOffset(index)
+                return $0.load(fromByteOffset: offset, as: UInt.self)
+            }
+        }
+        
+        set {
+            withUnsafeMutableBytes(of: &self) {
+                let offset = BitPattern.endiannessSensitiveByteOffset(index)
+                $0.storeBytes(of: newValue, toByteOffset: offset, as: UInt.self)
+            }
+        }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Unsigned
+//=----------------------------------------------------------------------------=
+
+extension NBKDoubleWidth where High == High.Magnitude {
+    
     //=------------------------------------------------------------------------=
-    // MARK: Details x Min Two's Complement
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func minLastIndexReportingIsZeroOrMinusOne() -> (minLastIndex: Int, isZeroOrMinusOne: Bool) {
-        let sign  = UInt(repeating: self.isLessThanZero)
-        let index = self.lastIndex(where:{ $0 != sign })
-        return index.map({( $0, false )}) ?? (0, true)
+    @_transparent @usableFromInline internal static func preconditionIndexIsValid(_ index: Int) {
+        precondition(self.indices ~= index, "invalid binary integer word index")
+    }
+    
+    @_transparent @usableFromInline internal static func endiannessSensitiveIndex(_ index: Int) -> Int {
+        assert(self.indices ~= index)
+        #if _endian(big)
+        return self.lastIndex - index
+        #else
+        return index
+        #endif
+    }
+    
+    @_transparent @usableFromInline internal static func endiannessSensitiveByteOffset(_ index: Int) -> Int {
+        self.endiannessSensitiveIndex(index) * MemoryLayout<UInt>.size
     }
 }

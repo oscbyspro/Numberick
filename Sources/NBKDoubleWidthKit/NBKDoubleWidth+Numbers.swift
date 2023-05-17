@@ -56,11 +56,17 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public init?(_exactlyIntegerLiteral source: StaticBigInt) {
-        guard  Self.isSigned
+        //=--------------------------------------=
+        guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
         : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-        else { return nil  }
-        self = Self.fromUnsafeMutableWords({ for i in $0.indices { $0[i] = source[i] } })
+        else { return nil }
+        //=--------------------------------------=
+        self = Self.uninitialized { value in
+            for index in value.indices {
+                value[unchecked: index] = source[index]
+            }
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -76,31 +82,32 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
-        let (value, remainders, sign) = Self.copy(source)
+        let (value, remainders, sign) = Self.truncating(source)
         let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
 
     @inlinable public init(clamping source: some BinaryInteger) {
-        let (value, remainders, sign) = Self.copy(source)
+        let (value, remainders, sign) = Self.truncating(source)
         let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
         self = isOK ? value : sign.isFull ? Self.min : Self.max
     }
 
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
-        self = Self.copy(source).value
+        self = Self.truncating(source).value
     }
     
-    @inlinable static func copy<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
+    @inlinable internal static func truncating<T>(_ source: T)
+    -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        assert(words.startIndex.isZero && words.endIndex == words.count)
         let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
-        let value = Self.fromUnsafeMutableWords { value in
+        let value = Self.uninitialized { value in
             for index in value.indices {
-                value[index] = index < words.endIndex ? words[index] : sign
+                value[unchecked: index] = index < words.endIndex ? words[index] : sign
             }
         }
         
-        return (value: value, remainders: words.dropFirst(Self.count), sign: sign)
+        assert(words.startIndex == Int.zero && words.endIndex == words.count)
+        return(value: value, remainders: words.dropFirst(value.count), sign: sign)
     }
 }
