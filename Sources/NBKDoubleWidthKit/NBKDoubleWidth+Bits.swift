@@ -20,8 +20,8 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static var bitWidth: Int {
-        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.size >= 2, "invalid memory layout")
-        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.size == 0, "invalid memory layout")
+        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.size >= 2)
+        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.size == 0)
         return MemoryLayout<Self>.size * 8
     }
     

@@ -13,10 +13,10 @@ import NBKCoreKit
 // MARK: * NBK x Double Width
 //*============================================================================*
 
-@frozen public struct NBKDoubleWidth<High>: NBKFixedWidthInteger,
+@frozen public struct NBKDoubleWidth<High>: NBKMachineWordsInteger,
 CustomDebugStringConvertible, CustomStringConvertible,
-MutableCollection, RandomAccessCollection where
-High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
+MutableCollection, RandomAccessCollection
+where High: NBKMachineWordsInteger, High.Digit: NBKCoreInteger<UInt> {
     
     /// The most significant part of this type.
     public typealias High = High
@@ -89,8 +89,13 @@ High: NBKFixedWidthInteger, High.Digit: NBKCoreInteger<UInt> {
 // MARK: * NBK x Double Width x Conditional Conformances
 //*============================================================================*
 
-extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
-extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }
+extension NBKDoubleWidth:
+NBKSignedInteger, SignedInteger, SignedNumeric
+where High: NBKSignedInteger { }
+
+extension NBKDoubleWidth:
+NBKUnsignedInteger, UnsignedInteger
+where High: NBKUnsignedInteger { }
 
 //*============================================================================*
 // MARK: * NBK x Double Width x 128

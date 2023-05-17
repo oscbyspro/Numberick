@@ -11,4 +11,8 @@
 // MARK: * NBK x Namespace
 //*============================================================================*
 
+/// A namespace for Numberick's development.
+///
+/// - Warning: Do not use this namespace outside of Numberick's development.
+///
 @frozen public enum NBK { }

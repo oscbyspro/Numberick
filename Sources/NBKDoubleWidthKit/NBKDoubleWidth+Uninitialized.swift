@@ -23,5 +23,4 @@ extension NBKDoubleWidth {
             return($0.baseAddress.unsafelyUnwrapped.pointee)
         }
     }
-
 }
