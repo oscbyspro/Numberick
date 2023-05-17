@@ -26,22 +26,15 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
-        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
-        //=--------------------------------------=
-        let overflow: Bool
-        if !Self.isSigned {
-            // overflow = product > Self.max
-            overflow = !(product.high.isZero)
-        }   else if self.isLessThanZero == amount.isLessThanZero {
-            // overflow = product > Self.max, but more efficient
-            overflow = !(product.high.isZero && !product.low.mostSignificantBit)
-        }   else {
-            // overflow = product < Self.min, but more efficient
-            overflow = !(product.high.isFull &&  product.low.mostSignificantBit) && product.high.mostSignificantBit
-        }
-        //=--------------------------------------=
-        return PVO(Self(bitPattern: product.low), overflow)
+        let minus: Bool = self.isLessThanZero != amount.isLessThanZero
+        let unsigned: PVO<Magnitude> = self.magnitude.multipliedReportingOverflow(by: amount.magnitude)
+        let product = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
+        return PVO(product, unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero))
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Full Width
+    //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by amount: Digit) -> Digit {
         let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
@@ -52,20 +45,19 @@ extension NBKDoubleWidth {
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
         var product: HL<UInt, Magnitude> = self.bitPattern.multipliedFullWidth(by: amount.bitPattern)
         //=--------------------------------------=
+        if  self.isLessThanZero {
+            product.high &+= amount.bitPattern.twosComplement()
+        }
+        
         if  amount.isLessThanZero {
-            var high  = UInt()
-            var carry = true
+            var (high, carry) = (~self.first).addingReportingOverflow(1 as UInt)
             
-            for index in self.indices {
+            for index in self.indices.dropFirst() {
                 let bit = (product.low[index]).addReportingOverflow(high)
-                (high, carry) = (~self[index]).addingReportingOverflow(UInt(bit: bit) &+ UInt(bit: carry))
+                (high, carry) = (~self[index]).addingReportingOverflow(UInt(bit: carry) &+ UInt(bit: bit))
             }
             
             product.high &+= high
-        }
-        
-        if  self.isLessThanZero {
-            product.high &+= amount.bitPattern.twosComplement()
         }
         //=--------------------------------------=
         return HL(Digit(bitPattern: product.high), product.low)
@@ -79,10 +71,19 @@ extension NBKDoubleWidth {
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable internal func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
+        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
+        return PVO(partialValue: product.low, overflow: !product.high.isZero)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
+    @_disfavoredOverload @inlinable internal func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
         var product = HL(Digit(), Magnitude())
         for index in self.indices {
             (product.high, product.low[index]) = product.high.addingFullWidth(multiplicands:(self[index], amount))
