@@ -13,23 +13,17 @@ import NBKCoreKit
 // MARK: * NBK x Arithmetic x Int or UInt
 //*============================================================================*
 
-extension Int {
+extension NBKCoreInteger<UInt> {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
     /// Returns the quotient and remainder of dividing this value by its bit width.
-    ///
-    /// ```swift
-    /// Int8( 4).dividedByBitWidth() // (quotient: 0, remainder: 4)
-    /// Int8( 8).dividedByBitWidth() // (quotient: 1, remainder: 0)
-    /// Int8(12).dividedByBitWidth() // (quotient: 1, remainder: 4)
-    /// Int8(16).dividedByBitWidth() // (quotient: 2, remainder: 0)
-    /// ```
-    ///
     @inlinable internal func dividedByBitWidth() -> QR<Self, Self> {
-        QR(self &>> Self.bitWidth.trailingZeroBitCount, self & (Self.bitWidth &- 1))
+        let quotient  = self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
+        let remainder = self &   Self(bitPattern: Self.bitWidth &- 1)
+        return QR(quotient, remainder)
     }
 }
 
@@ -90,7 +84,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
         
         let x = (a     ) && lhs.mid .subtractReportingOverflow(1 as UInt)
         let y = (b || x) && lhs.high.subtractReportingOverflow(1 as UInt)
-        return  (y) as Bool
+        return  (     y) as Bool
     }
     
     @_transparent @usableFromInline internal static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {

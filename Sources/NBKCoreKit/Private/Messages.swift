@@ -17,6 +17,7 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
+    /// A message describing the source code location of an overflow.
     @inlinable public static func callsiteOverflowInfo(
     function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> String {
         "overflow in \(function) at \(file):\(line)"
