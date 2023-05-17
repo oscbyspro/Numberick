@@ -61,38 +61,31 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable internal func multipliedReportingOverflow(by amount: Self) -> PVO<Self> {
-        //=--------------------------------------=
-        var ax = self.low .multipliedFullWidth(by: amount.low)
+        var lo = self.low .multipliedFullWidth(by: amount.low)
         let ay = self.low .multipliedReportingOverflow(by: amount.high )
         let bx = self.high.multipliedReportingOverflow(by: amount.low  )
-        //=--------------------------------------=
-        let o0 = ax.high.addReportingOverflow(ay.partialValue)
-        let o1 = ax.high.addReportingOverflow(bx.partialValue)
-        //=--------------------------------------=
+        
+        let o0 = lo.high.addReportingOverflow(ay.partialValue)
+        let o1 = lo.high.addReportingOverflow(bx.partialValue)
+        
         let complete = !self.high.isZero && !amount.high.isZero
         let overflow =  complete || ay.overflow || bx.overflow || o0 || o1
-        return PVO(Self(descending: ax), overflow)
+        return PVO(Self(descending: lo), overflow)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
+    /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
     @inlinable internal func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude> {
-        //=--------------------------------------=
-        let m0 = self.low .multipliedFullWidth(by: amount.low ) as HL<Low, Low>
-        let m1 = self.low .multipliedFullWidth(by: amount.high) as HL<Low, Low>
-        let m2 = self.high.multipliedFullWidth(by: amount.low ) as HL<Low, Low>
-        let m3 = self.high.multipliedFullWidth(by: amount.high) as HL<Low, Low>
-        //=--------------------------------------=
-        let s0 = Low.sum(m0.high, m1.low,  m2.low) as HL<UInt, Low>
-        let s1 = Low.sum(m1.high, m2.high, m3.low) as HL<UInt, Low>
-        //=--------------------------------------=
-        let p0 = Self(descending: HL(s0.low,  m0.low))
-        var p1 = Self(descending: HL(m3.high, s1.low))
-        let _  = p1.addReportingOverflow(s0.high)
-        let _  = p1.high.addReportingOverflow(s1.high)
-        //=--------------------------------------=
-        return HL(high: p1, low: p0)
+        var lo = Self(descending: self.low .multipliedFullWidth(by: amount.low ))
+        let ay = Self(descending: self.low .multipliedFullWidth(by: amount.high))
+        let bx = Self(descending: self.high.multipliedFullWidth(by: amount.low ))
+        var hi = Self(descending: self.high.multipliedFullWidth(by: amount.high))
+        
+        let _  = hi/*-*/.addReportingOverflow(Low.increment12(&lo.high, by: Each2(ay.low,  bx.low )))
+        let _  = hi.high.addReportingOverflow(Low.increment12(&hi.low,  by: Each2(ay.high, bx.high)))
+        return HL(high: hi, low: lo)
     }
 }

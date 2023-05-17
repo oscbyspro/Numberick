@@ -30,7 +30,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
-    
+        
     @inlinable public init(digit: Digit) {
         let bit  = digit.isLessThanZero
         let high = High(repeating: bit)
@@ -39,8 +39,8 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public init(_truncatingBits source: UInt) {
-        let low  = Low(_truncatingBits: source)
-        self.init(descending: HL(High.zero, low))
+        let low = Low(_truncatingBits: source)
+        self.init(descending: HL(High(), low))
     }
     
     //=------------------------------------------------------------------------=
@@ -83,13 +83,13 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(exactly source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
+        let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
 
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero ==  sign.isFull) && remainders.allSatisfy({ $0 == sign })
+        let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
         self = isOK ? value : sign.isFull ? Self.min : Self.max
     }
 

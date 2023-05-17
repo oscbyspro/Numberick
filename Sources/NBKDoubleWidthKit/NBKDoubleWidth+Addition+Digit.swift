@@ -42,4 +42,3 @@ extension NBKDoubleWidth {
         return PVO(partialValue, overflow)
     }
 }
-

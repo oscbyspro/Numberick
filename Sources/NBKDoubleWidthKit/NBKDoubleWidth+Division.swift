@@ -158,7 +158,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let rhs: Self = rhs._bitshiftedLeft(words: words, bits: bits)
         assert(rhs.mostSignificantBit)
         
-        let (quotient, remainder) = Self.divide32(normalized: X3(high, lhs.high, lhs.low), by: rhs)
+        let (quotient, remainder) = Self.divide32(normalized: Wide3(high, lhs.high, lhs.low), by: rhs)
         return PVO(QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits)), false)
     }
     
@@ -197,7 +197,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
         if  UInt(bitPattern: trimmable) >= UInt(bitPattern: High.bitWidth), Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
-            let (quotient, remainder) = Self.divide32(normalized: X3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+            let (quotient, remainder) = Self.divide32(normalized: Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return PVO(QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits)), overflow)
         }
         //=--------------------------------------=
@@ -229,13 +229,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable internal static func divide32(normalized lhs: X3<Low>, by rhs: Self) -> QR<Low, Self> {
+    @inlinable internal static func divide32(normalized lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
         assert(rhs.mostSignificantBit)
         assert(Self(descending: HL(lhs.high, lhs.mid)) < rhs)
         assert(Self(descending: HL(lhs.high, lhs.mid)).leadingZeroBitCount <= Low.bitWidth)
         //=--------------------------------------=
         var quotient = lhs.high == rhs.high ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient) as X3<Low>
+        var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient) as Wide3<Low>
         //=--------------------------------------=
         // decrement if overestimated
         //=--------------------------------------=
@@ -249,14 +249,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
             }
         }
         //=--------------------------------------=
-        var remainder = lhs as X3<Low>
+        var remainder = lhs as Wide3<Low>
         let _  = Low.decrement33(&remainder, by: approximation)
         return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }
     
     @inlinable internal static func divide42(normalized lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
-        let (x, a) = Self.divide32(normalized: X3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
-        let (y, b) = Self.divide32(normalized: X3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
+        let (x, a) = Self.divide32(normalized: Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
+        let (y, b) = Self.divide32(normalized: Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return QR(Self(descending: HL(x, y)), b)
     }
 }
