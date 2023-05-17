@@ -17,7 +17,7 @@ import NBKCoreKit
 ///
 /// ``NBKDoubleWidth`` is a generic model for working with fixed-width integers larger
 /// than 64 bits. Its bit width is double the bit width of its ``NBKDoubleWidth/High-swift.typealias``
-/// component. In this way, you may construct any integer size that is a multiple of `UInt.bitWidth`.
+/// component. In this way, you may construct new integer types:
 ///
 /// ```swift
 /// typealias  Int256 = NBKDoubleWidth< Int128>

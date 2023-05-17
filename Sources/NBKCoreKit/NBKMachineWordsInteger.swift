@@ -11,6 +11,10 @@
 // MARK: * NBK x Machine Words Integer
 //*============================================================================*
 
+/// A fixed-width, binary, integer suitable for direct machine word access.
+///
+/// Conforming types must be trivial and whole integer multiples of `UInt.bitWidth`.
+///
 public protocol NBKMachineWordsInteger: NBKFixedWidthInteger where
 Digit: NBKMachineWordsInteger, Magnitude: NBKMachineWordsInteger { }
 

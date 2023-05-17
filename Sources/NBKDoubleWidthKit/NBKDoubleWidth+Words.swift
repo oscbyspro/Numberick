@@ -125,7 +125,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    @inlinable subscript(unchecked index: Int) -> UInt {
+    @inlinable public subscript(unchecked index: Int) -> UInt {
         get {
             withUnsafeBytes(of: self) {
                 let offset = BitPattern.endiannessSensitiveByteOffset(index)

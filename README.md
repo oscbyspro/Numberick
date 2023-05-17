@@ -14,10 +14,12 @@ Models, protocols, and extensions underpinning this package.
 
 ### Protocols
 
+- [NBKBigEndianTextable](Sources/NBKCoreKit/NBKBigEndianTextable.swift)
 - [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKBitPatternConvertible\<BitPattern\>](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
 - [NBKCoreInteger\<Magnitude\>](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
+- [NBKMachineWordsInteger](Sources/NBKCoreKit/NBKMachineWordsInteger.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 

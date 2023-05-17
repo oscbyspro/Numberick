@@ -29,54 +29,196 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
+    /// Creates a new instance repeating the given bit, in two's complement form.
+    ///
+    /// ```swift
+    /// Int8(repeating: false) // Int8( 0)
+    /// Int8(repeating: true ) // Int8(-1)
+    /// ```
+    ///
     @inlinable init(repeating bit: Bool)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
+    /// Returns whether all of its bits are set, in two's complement form.
+    ///
+    /// The return value can be viewed as the bitwise inverse of ``isZero``.
+    ///
+    /// ```swift
+    /// UInt8(0b00000000).isFull // false
+    /// UInt8(0b00001111).isFull // false
+    /// UInt8(0b11111111).isFull // true
+    /// ```
+    ///
     @inlinable var isFull: Bool { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     
+    /// Forms the sum of adding the given value to this value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a: Int8(126); a.addReportingOverflow(Int8(1)) // a = Int8( 127); -> false
+    /// var b: Int8(127); b.addReportingOverflow(Int8(1)) // b = Int8(-128); -> true
+    /// ```
+    ///
     @inlinable mutating func addReportingOverflow(_ amount: Self) -> Bool
     
+    /// Forms the sum of adding the given value to this value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a: Int8(126); a.addReportingOverflow(Int8(1)) // a = Int8( 127); -> false
+    /// var b: Int8(127); b.addReportingOverflow(Int8(1)) // b = Int8(-128); -> true
+    /// ```
+    ///
     @_disfavoredOverload @inlinable mutating func addReportingOverflow(_ amount: Digit) -> Bool
     
+    /// Returns the sum of adding the given value to this value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(32).addingReportingOverflow(Int8(1)) // (partialValue: Int8(33), overflow: false)
+    /// Int8.max.addingReportingOverflow(Int8(1)) // (partialValue: Int8.min, overflow: true )
+    /// ```
+    ///
     @inlinable func addingReportingOverflow(_ amount: Self) -> PVO<Self>
     
+    /// Returns the sum of adding the given value to this value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(32).addingReportingOverflow(Int8(1)) // (partialValue: Int8(33), overflow: false)
+    /// Int8.max.addingReportingOverflow(Int8(1)) // (partialValue: Int8.min, overflow: true )
+    /// ```
+    ///
     @_disfavoredOverload @inlinable func addingReportingOverflow(_ amount: Digit) -> PVO<Self>
     
+    /// Forms the difference of subtracting the given value from this value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a: Int8(-127); a.subtractReportingOverflow(1) // a = -128; -> false
+    /// var b: Int8(-128); b.subtractReportingOverflow(1) // b =  127; -> true
+    /// ```
+    ///
     @inlinable mutating func subtractReportingOverflow(_ amount: Self) -> Bool
     
+    /// Forms the difference of subtracting the given value from this value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a: Int8(-127); a.subtractReportingOverflow(1) // a = -128; -> false
+    /// var b: Int8(-128); b.subtractReportingOverflow(1) // b =  127; -> true
+    /// ```
+    ///
     @_disfavoredOverload @inlinable mutating func subtractReportingOverflow(_ amount: Digit) -> Bool
     
+    /// Returns the difference of subtracting the given value from this value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(33).subtractingReportingOverflow(Int8(1)) // (partialValue: Int8(32), overflow: false)
+    /// Int8.min.subtractingReportingOverflow(Int8(1)) // (partialValue: Int8.max, overflow: true )
+    /// ```
+    ///
     @inlinable func subtractingReportingOverflow(_ amount: Self) -> PVO<Self>
     
+    /// Returns the difference of subtracting the given value from this value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(33).subtractingReportingOverflow(Int8(1)) // (partialValue: Int8(32), overflow: false)
+    /// Int8.min.subtractingReportingOverflow(Int8(1)) // (partialValue: Int8.max, overflow: true )
+    /// ```
+    ///
     @_disfavoredOverload @inlinable func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self>
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Multiplication
     //=------------------------------------------------------------------------=
     
+    /// Forms the product of multiplying this value by the given value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a = Int8(11); a.multiplyReportingOverflow(by: Int8(4)) // a = Int8(44); -> false
+    /// var b = Int8.max; b.multiplyReportingOverflow(by: Int8(4)) // b = Int8(-4); -> true
+    /// ```
+    ///
     @inlinable mutating func multiplyReportingOverflow(by amount: Self) -> Bool
     
+    /// Forms the product of multiplying this value by the given value, and returns an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// var a = Int8(11); a.multiplyReportingOverflow(by: Int8(4)) // a = Int8(44); -> false
+    /// var b = Int8.max; b.multiplyReportingOverflow(by: Int8(4)) // b = Int8(-4); -> true
+    /// ```
+    ///
     @_disfavoredOverload @inlinable mutating func multiplyReportingOverflow(by amount: Digit) -> Bool
     
+    /// Returns the product of multiplying this value by the given value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(11).multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(44), overflow: false)
+    /// Int8.max.multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(-4), overflow: true )
+    /// ```
+    ///
     @inlinable func multipliedReportingOverflow(by amount: Self) -> PVO<Self>
     
+    /// Returns the product of multiplying this value by the given value, along with an overflow indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```swift
+    /// Int8(11).multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(44), overflow: false)
+    /// Int8.max.multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(-4), overflow: true )
+    /// ```
+    ///
     @_disfavoredOverload @inlinable func multipliedReportingOverflow(by amount: Digit) -> PVO<Self>
     
+    /// Forms the low part of multiplying this value by the given value, and returns the high.
+    ///
+    /// ```swift
+    /// var a = Int8(11); a.multiplyFullWidth(by: Int8(4)) // a = Int8(44); -> Int8(0)
+    /// var b = Int8.max; b.multiplyFullWidth(by: Int8(4)) // b = Int8(-4); -> Int8(1)
+    /// ```
+    ///
     @inlinable mutating func multiplyFullWidth(by amount: Self) -> Self
     
+    /// Forms the low part of multiplying this value by the given value, and returns the high.
+    ///
+    /// ```swift
+    /// var a = Int8(11); a.multiplyFullWidth(by: Int8(4)) // a = Int8(44); -> Int8(0)
+    /// var b = Int8.max; b.multiplyFullWidth(by: Int8(4)) // b = Int8(-4); -> Int8(1)
+    /// ```
+    ///
     @_disfavoredOverload @inlinable mutating func multiplyFullWidth(by amount: Digit) -> Digit
     
+    /// Returns the low and high part of multiplying this value by the given value.
+    ///
+    /// ```swift
+    /// Int8(11).multipliedFullWidth(by: Int8(4)) // (high: Int8(0), low:  UInt8(44))
+    /// Int8.max.multipliedFullWidth(by: Int8(4)) // (high: Int8(1), low: ~UInt8( 3))
+    /// ```
+    ///
     @inlinable func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude>
     
+    /// Returns the low and high part of multiplying this value by the given value.
+    ///
+    /// ```swift
+    /// Int8(11).multipliedFullWidth(by: Int8(4)) // (high: Int8(0), low:  UInt8(44))
+    /// Int8.max.multipliedFullWidth(by: Int8(4)) // (high: Int8(1), low: ~UInt8( 3))
+    /// ```
+    ///
     @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude>
     
+    // TODO: documentation
     //=------------------------------------------------------------------------=
     // MARK: Details x Division
     //=------------------------------------------------------------------------=
@@ -102,6 +244,19 @@ extension NBKFixedWidthInteger {
         self.nonzeroBitCount == 1
     }
     
+    /// Returns whether this value matches the given bit pattern, in two's complement form.
+    ///
+    /// ```swift
+    /// UInt8(0b00000000).matches(repeating: true ) // false
+    /// UInt8(0b00000000).matches(repeating: false) // true
+    ///
+    /// UInt8(0b00001111).matches(repeating: true ) // false
+    /// UInt8(0b00001111).matches(repeating: false) // false
+    ///
+    /// UInt8(0b11111111).matches(repeating: true ) // true
+    /// UInt8(0b11111111).matches(repeating: false) // false
+    /// ```
+    ///
     @inlinable public func matches(repeating bit: Bool) -> Bool {
         bit ? self.isFull : self.isZero
     }
@@ -246,6 +401,10 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
+    /// Creates a new instance from the given integer, if it is representable.
+    ///
+    /// If the value passed as source is not representable, the result is nil.
+    ///
     @inlinable public init?(sign: Bool, magnitude: Magnitude) {
         let isLessThanZero: Bool = sign && !magnitude.isZero
         self.init(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
