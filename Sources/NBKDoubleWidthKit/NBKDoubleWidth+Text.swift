@@ -89,7 +89,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             guard index != magnitude.endIndex else { return nil }
             let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
-
+            
             tail = head
             magnitude[index] = word
             magnitude.formIndex(after: &index)
@@ -105,16 +105,18 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let alignment = utf8.count  % radix.exponent as Int
         //=--------------------------------------=
         forwards: if !alignment.isZero {
-            let tail = utf8.index(head, offsetBy: alignment/*-*/); defer  { head = tail }
+            let tail = utf8.index(head, offsetBy: alignment)
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             magnitude.first = word
+            do  { head = tail }
         }
         //=--------------------------------------=
         forwards: while head != utf8.endIndex {
-            let tail = utf8.index(head, offsetBy: radix.exponent); defer  { head = tail }
+            let tail = utf8.index(head, offsetBy: radix.exponent)
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { return nil }
             guard !magnitude.addReportingOverflow(word)/*----------------*/ else { return nil }
+            do  { head = tail }
         }
         //=--------------------------------------=
         return magnitude

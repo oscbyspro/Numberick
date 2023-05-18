@@ -42,10 +42,6 @@
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable var uppercase: Bool {
-        self.map10To37 == 55
-    }
-    
     @inlinable subscript(_ value: UInt8) -> UInt8 {
         precondition(value < 37, "digit is not in alphabet")
         return self[unchecked: value]

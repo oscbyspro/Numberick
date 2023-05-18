@@ -24,20 +24,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Numberick"
-               BuildableName = "Numberick"
-               BlueprintName = "Numberick"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "NBKCoreKit"
                BuildableName = "NBKCoreKit"
                BlueprintName = "NBKCoreKit"
@@ -55,6 +41,48 @@
                BlueprintIdentifier = "NBKDoubleWidthKit"
                BuildableName = "NBKDoubleWidthKit"
                BlueprintName = "NBKDoubleWidthKit"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NBKCoreKitTests"
+               BuildableName = "NBKCoreKitTests"
+               BlueprintName = "NBKCoreKitTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NBKDoubleWidthKitTests"
+               BuildableName = "NBKDoubleWidthKitTests"
+               BlueprintName = "NBKDoubleWidthKitTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Numberick"
+               BuildableName = "Numberick"
+               BlueprintName = "Numberick"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -114,9 +142,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Numberick"
-            BuildableName = "Numberick"
-            BlueprintName = "Numberick"
+            BlueprintIdentifier = "NBKCoreKit"
+            BuildableName = "NBKCoreKit"
+            BlueprintName = "NBKCoreKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

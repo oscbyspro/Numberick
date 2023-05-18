@@ -74,7 +74,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self> {
-        self.dividingFullWidthReportingOverflow(dividend).partialValue
+        self.dividingFullWidth(DoubleWidth(descending: dividend))
     }
     
     @inlinable public func dividingFullWidth(_ dividend: DoubleWidth) -> QR<Self, Self> {
@@ -234,6 +234,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(Self(descending: HL(lhs.high, lhs.mid)) < rhs)
         assert(Self(descending: HL(lhs.high, lhs.mid)).leadingZeroBitCount <= Low.bitWidth)
         //=--------------------------------------=
+        //  TODO: code coverage (lhs.high == rhs.high)
         var quotient = lhs.high == rhs.high ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
         var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient) as Wide3<Low>
         //=--------------------------------------=
@@ -243,6 +244,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             _ = quotient.subtractReportingOverflow(1 as UInt)
             _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
             
+            //  TODO: code coverage
             if  Low.compare33(lhs, to: approximation) == -1 {
                 _ = quotient.subtractReportingOverflow(1 as UInt)
                 _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))

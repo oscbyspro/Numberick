@@ -30,6 +30,18 @@ let package = Package(
         .library(
         name: "Numberick",
         targets: ["Numberick"]),
+        //=--------------------------------------=
+        // NBK x Core Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKCoreKit",
+        targets: ["NBKCoreKit"]),
+        //=--------------------------------------=
+        // NBK x Double Width Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKDoubleWidthKit",
+        targets: ["NBKDoubleWidthKit"]),
     ],
     targets: [
         //=--------------------------------------=

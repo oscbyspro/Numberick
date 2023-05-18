@@ -25,6 +25,23 @@ final class Int256TestsOnText: XCTestCase {
     typealias T = Int256
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testMetaTypeDescriptionIsShort() {
+        XCTAssertEqual("Int256", T.description)
+        XCTAssertEqual("Int512", T.DoubleWidth.description)
+    }
+    
+    func testInstanceDescriptionUsesRadix10() {
+        XCTAssertEqual( "10", T( 10).description)
+        XCTAssertEqual("-10", T(-10).description)
+        
+        XCTAssertEqual( "10", String(describing: T( 10)))
+        XCTAssertEqual("-10", String(describing: T(-10)))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Decode
     //=------------------------------------------------------------------------=
     
@@ -90,6 +107,11 @@ final class Int256TestsOnText: XCTestCase {
         XCTAssertEqual(T(decoding:"-0b1010101010101010"), -0b1010101010101010)
     }
     
+    func testDecodingUnalignedStringsIsOK() {
+        XCTAssertEqual(T(decoding: "1", radix: 10), 1)
+        XCTAssertEqual(T(decoding: "1", radix: 16), 1)
+    }
+    
     func testDecodingPrefixingZerosHasNoEffect() {
         let zero = String(repeating: "0", count: T.bitWidth) + "0"
         let one  = String(repeating: "0", count: T.bitWidth) + "1"
@@ -100,6 +122,17 @@ final class Int256TestsOnText: XCTestCase {
         }
     }
     
+    func testDecodingInvalidCharactersReturnsNil() {
+        XCTAssertNil(T(decoding: "/", radix: 16))
+        XCTAssertNil(T(decoding: "G", radix: 16))
+
+        XCTAssertNil(T(decoding: "/", radix: 10))
+        XCTAssertNil(T(decoding: "A", radix: 10))
+
+        XCTAssertNil(T(decoding: String(repeating: "1", count: 19) + "/", radix: 10))
+        XCTAssertNil(T(decoding: String(repeating: "1", count: 19) + "A", radix: 10))
+    }
+    
     func testDecodingValueOutsideOfRepresentableRangeReturnsNil() {
         let positive = "+" + String(repeating: "1", count: T.bitWidth)
         let negative = "-" + String(repeating: "1", count: T.bitWidth)
@@ -108,6 +141,11 @@ final class Int256TestsOnText: XCTestCase {
             XCTAssertNil(T(decoding: positive, radix: radix))
             XCTAssertNil(T(decoding: negative, radix: radix))
         }
+        
+        XCTAssertNil(T(decoding: "-36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu9",  radix: 36)) // - 01
+        XCTAssertNil(T(decoding: "-36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu80", radix: 36)) // * 36
+        XCTAssertNil(T(decoding:  "36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu8",  radix: 36)) // + 01
+        XCTAssertNil(T(decoding:  "36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu70", radix: 36)) // * 36
     }
     
     //=------------------------------------------------------------------------=
@@ -163,6 +201,20 @@ final class Int256TestsOnText: XCTestCase {
 final class UInt256TestsOnText: XCTestCase {
     
     typealias T = UInt256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testMetaTypeDescriptionIsShort() {
+        XCTAssertEqual("UInt256", T.description)
+        XCTAssertEqual("UInt512", T.DoubleWidth.description)
+    }
+    
+    func testInstanceDescriptionUsesRadix10() {
+        XCTAssertEqual("10", T(10).description)
+        XCTAssertEqual("10", String(describing: T(10)))
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Decode
@@ -225,6 +277,11 @@ final class UInt256TestsOnText: XCTestCase {
         XCTAssertEqual(T(decoding:"+0b1010101010101010"), 0b1010101010101010)
     }
     
+    func testDecodingUnalignedStringsIsOK() {
+        XCTAssertEqual(T(decoding: "1", radix: 10), 1)
+        XCTAssertEqual(T(decoding: "1", radix: 16), 1)
+    }
+    
     func testDecodingPrefixingZerosHasNoEffect() {
         let zero = String(repeating: "0", count: T.bitWidth) + "0"
         let one  = String(repeating: "0", count: T.bitWidth) + "1"
@@ -235,6 +292,17 @@ final class UInt256TestsOnText: XCTestCase {
         }
     }
     
+    func testDecodingInvalidCharactersReturnsNil() {
+        XCTAssertNil(T(decoding: "/", radix: 16))
+        XCTAssertNil(T(decoding: "G", radix: 16))
+
+        XCTAssertNil(T(decoding: "/", radix: 10))
+        XCTAssertNil(T(decoding: "A", radix: 10))
+
+        XCTAssertNil(T(decoding: String(repeating: "1", count: 19) + "/", radix: 10))
+        XCTAssertNil(T(decoding: String(repeating: "1", count: 19) + "A", radix: 10))
+    }
+    
     func testDecodingValueOutsideOfRepresentableRangeReturnsNil() {
         let positive = "+" + String(repeating: "1", count: T.bitWidth + 1)
         let negative = "-" + String(repeating: "1", count: 1)
@@ -243,6 +311,9 @@ final class UInt256TestsOnText: XCTestCase {
             XCTAssertNil(T(decoding: positive, radix: radix))
             XCTAssertNil(T(decoding: negative, radix: radix))
         }
+        
+        XCTAssertNil(T(decoding: "6dp5qcb22im238nr3wvp0ic7q99w035jmy2iw7i6n43d37jtog",  radix: 36)) // + 01
+        XCTAssertNil(T(decoding: "6dp5qcb22im238nr3wvp0ic7q99w035jmy2iw7i6n43d37jtof0", radix: 36)) // * 36
     }
     
     //=------------------------------------------------------------------------=
