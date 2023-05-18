@@ -22,6 +22,12 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
+/// ### Division By Zero
+///
+/// The result of division by zero mirrors the standard library, when possible.
+/// Because the dividend may not fit in the remainder of single digit division,
+/// the divisor is returned instead.
+///
 public protocol NBKFixedWidthInteger: NBKBinaryInteger, FixedWidthInteger where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
     
@@ -32,8 +38,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Creates a new instance repeating the given bit, in two's complement form.
     ///
     /// ```swift
-    /// Int8(repeating: false) // Int8( 0)
-    /// Int8(repeating: true ) // Int8(-1)
+    /// Int256(repeating: false) // Int256( 0)
+    /// Int256(repeating: true ) // Int256(-1)
     /// ```
     ///
     @inlinable init(repeating bit: Bool)
@@ -47,9 +53,9 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// The return value can be viewed as the bitwise inverse of ``isZero``.
     ///
     /// ```swift
-    /// UInt8(0b00000000).isFull // false
-    /// UInt8(0b00001111).isFull // false
-    /// UInt8(0b11111111).isFull // true
+    /// Int256( 0).isFull // false
+    /// Int256( 1).isFull // false
+    /// Int256(-1).isFull // true
     /// ```
     ///
     @inlinable var isFull: Bool { get }
@@ -62,8 +68,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a: Int8(126); a.addReportingOverflow(Int8(1)) // a = Int8( 127); -> false
-    /// var b: Int8(127); b.addReportingOverflow(Int8(1)) // b = Int8(-128); -> true
+    /// var a: Int256(32); a.addReportingOverflow(Int256(1)) // a = Int256(33); -> false
+    /// var b: Int256.max; b.addReportingOverflow(Int256(1)) // b = Int256.min; -> true
     /// ```
     ///
     @inlinable mutating func addReportingOverflow(_ amount: Self) -> Bool
@@ -72,8 +78,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a: Int8(126); a.addReportingOverflow(Int8(1)) // a = Int8( 127); -> false
-    /// var b: Int8(127); b.addReportingOverflow(Int8(1)) // b = Int8(-128); -> true
+    /// var a: Int256(32); a.addReportingOverflow(Int(1)) // a = Int256(33); -> false
+    /// var b: Int256.max; b.addReportingOverflow(Int(1)) // b = Int256.min; -> true
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func addReportingOverflow(_ amount: Digit) -> Bool
@@ -82,8 +88,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(32).addingReportingOverflow(Int8(1)) // (partialValue: Int8(33), overflow: false)
-    /// Int8.max.addingReportingOverflow(Int8(1)) // (partialValue: Int8.min, overflow: true )
+    /// Int256(32).addingReportingOverflow(Int256(1)) // (partialValue: Int256(33), overflow: false)
+    /// Int256.max.addingReportingOverflow(Int256(1)) // (partialValue: Int256.min, overflow: true )
     /// ```
     ///
     @inlinable func addingReportingOverflow(_ amount: Self) -> PVO<Self>
@@ -92,8 +98,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(32).addingReportingOverflow(Int8(1)) // (partialValue: Int8(33), overflow: false)
-    /// Int8.max.addingReportingOverflow(Int8(1)) // (partialValue: Int8.min, overflow: true )
+    /// Int256(32).addingReportingOverflow(Int(1)) // (partialValue: Int256(33), overflow: false)
+    /// Int256.max.addingReportingOverflow(Int(1)) // (partialValue: Int256.min, overflow: true )
     /// ```
     ///
     @_disfavoredOverload @inlinable func addingReportingOverflow(_ amount: Digit) -> PVO<Self>
@@ -102,8 +108,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a: Int8(-127); a.subtractReportingOverflow(1) // a = -128; -> false
-    /// var b: Int8(-128); b.subtractReportingOverflow(1) // b =  127; -> true
+    /// var a: Int256(33); a.subtractReportingOverflow(Int256(1)) // a = Int256(32); -> false
+    /// var b: Int256.min; b.subtractReportingOverflow(Int256(1)) // b = Int256.max; -> true
     /// ```
     ///
     @inlinable mutating func subtractReportingOverflow(_ amount: Self) -> Bool
@@ -112,8 +118,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a: Int8(-127); a.subtractReportingOverflow(1) // a = -128; -> false
-    /// var b: Int8(-128); b.subtractReportingOverflow(1) // b =  127; -> true
+    /// var a: Int256(33); a.subtractReportingOverflow(Int(1)) // a = Int256(32); -> false
+    /// var b: Int256.min; b.subtractReportingOverflow(Int(1)) // b = Int256.max; -> true
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func subtractReportingOverflow(_ amount: Digit) -> Bool
@@ -122,8 +128,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(33).subtractingReportingOverflow(Int8(1)) // (partialValue: Int8(32), overflow: false)
-    /// Int8.min.subtractingReportingOverflow(Int8(1)) // (partialValue: Int8.max, overflow: true )
+    /// Int256(33).subtractingReportingOverflow(Int256(1)) // (partialValue: Int256(32), overflow: false)
+    /// Int256.min.subtractingReportingOverflow(Int256(1)) // (partialValue: Int256.max, overflow: true )
     /// ```
     ///
     @inlinable func subtractingReportingOverflow(_ amount: Self) -> PVO<Self>
@@ -132,8 +138,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(33).subtractingReportingOverflow(Int8(1)) // (partialValue: Int8(32), overflow: false)
-    /// Int8.min.subtractingReportingOverflow(Int8(1)) // (partialValue: Int8.max, overflow: true )
+    /// Int256(33).subtractingReportingOverflow(Int(1)) // (partialValue: Int256(32), overflow: false)
+    /// Int256.min.subtractingReportingOverflow(Int(1)) // (partialValue: Int256.max, overflow: true )
     /// ```
     ///
     @_disfavoredOverload @inlinable func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self>
@@ -146,8 +152,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a = Int8(11); a.multiplyReportingOverflow(by: Int8(4)) // a = Int8(44); -> false
-    /// var b = Int8.max; b.multiplyReportingOverflow(by: Int8(4)) // b = Int8(-4); -> true
+    /// var a = Int256(11); a.multiplyReportingOverflow(by: Int256(4)) // a = Int256(44); -> false
+    /// var b = Int256.max; b.multiplyReportingOverflow(by: Int256(4)) // b = Int256(-4); -> true
     /// ```
     ///
     @inlinable mutating func multiplyReportingOverflow(by amount: Self) -> Bool
@@ -156,8 +162,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a = Int8(11); a.multiplyReportingOverflow(by: Int8(4)) // a = Int8(44); -> false
-    /// var b = Int8.max; b.multiplyReportingOverflow(by: Int8(4)) // b = Int8(-4); -> true
+    /// var a = Int256(11); a.multiplyReportingOverflow(by: Int(4)) // a = Int256(44); -> false
+    /// var b = Int256.max; b.multiplyReportingOverflow(by: Int(4)) // b = Int256(-4); -> true
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func multiplyReportingOverflow(by amount: Digit) -> Bool
@@ -166,8 +172,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(11).multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(44), overflow: false)
-    /// Int8.max.multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(-4), overflow: true )
+    /// Int256(11).multipliedReportingOverflow(by: Int256(4)) // (partialValue: Int256(44), overflow: false)
+    /// Int256.max.multipliedReportingOverflow(by: Int256(4)) // (partialValue: Int256(-4), overflow: true )
     /// ```
     ///
     @inlinable func multipliedReportingOverflow(by amount: Self) -> PVO<Self>
@@ -176,8 +182,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(11).multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(44), overflow: false)
-    /// Int8.max.multipliedReportingOverflow(by: Int8(4)) // (partialValue: Int8(-4), overflow: true )
+    /// Int256(11).multipliedReportingOverflow(by: Int(4)) // (partialValue: Int256(44), overflow: false)
+    /// Int256.max.multipliedReportingOverflow(by: Int(4)) // (partialValue: Int256(-4), overflow: true )
     /// ```
     ///
     @_disfavoredOverload @inlinable func multipliedReportingOverflow(by amount: Digit) -> PVO<Self>
@@ -185,8 +191,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Forms the low part of multiplying this value by the given value, and returns the high.
     ///
     /// ```swift
-    /// var a = Int8(11); a.multiplyFullWidth(by: Int8(4)) // a = Int8(44); -> Int8(0)
-    /// var b = Int8.max; b.multiplyFullWidth(by: Int8(4)) // b = Int8(-4); -> Int8(1)
+    /// var a = Int256(11); a.multiplyFullWidth(by: Int256(4)) // a = Int256(44); -> Int256(0)
+    /// var b = Int256.max; b.multiplyFullWidth(by: Int256(4)) // b = Int256(-4); -> Int256(1)
     /// ```
     ///
     @inlinable mutating func multiplyFullWidth(by amount: Self) -> Self
@@ -194,8 +200,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Forms the low part of multiplying this value by the given value, and returns the high.
     ///
     /// ```swift
-    /// var a = Int8(11); a.multiplyFullWidth(by: Int8(4)) // a = Int8(44); -> Int8(0)
-    /// var b = Int8.max; b.multiplyFullWidth(by: Int8(4)) // b = Int8(-4); -> Int8(1)
+    /// var a = Int256(11); a.multiplyFullWidth(by: Int(4)) // a = Int256(44); -> Int(0)
+    /// var b = Int256.max; b.multiplyFullWidth(by: Int(4)) // b = Int256(-4); -> Int(1)
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func multiplyFullWidth(by amount: Digit) -> Digit
@@ -203,8 +209,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Returns the low and high part of multiplying this value by the given value.
     ///
     /// ```swift
-    /// Int8(11).multipliedFullWidth(by: Int8(4)) // (high: Int8(0), low:  UInt8(44))
-    /// Int8.max.multipliedFullWidth(by: Int8(4)) // (high: Int8(1), low: ~UInt8( 3))
+    /// Int256(11).multipliedFullWidth(by: Int256(4)) // (high: Int256(0), low:  UInt256(44))
+    /// Int256.max.multipliedFullWidth(by: Int256(4)) // (high: Int256(1), low: ~UInt256( 3))
     /// ```
     ///
     @inlinable func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude>
@@ -212,8 +218,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Returns the low and high part of multiplying this value by the given value.
     ///
     /// ```swift
-    /// Int8(11).multipliedFullWidth(by: Int8(4)) // (high: Int8(0), low:  UInt8(44))
-    /// Int8.max.multipliedFullWidth(by: Int8(4)) // (high: Int8(1), low: ~UInt8( 3))
+    /// Int256(11).multipliedFullWidth(by: Int(4)) // (high: Int(0), low:  UInt256(44))
+    /// Int256.max.multipliedFullWidth(by: Int(4)) // (high: Int(1), low: ~UInt256( 3))
     /// ```
     ///
     @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude>
@@ -247,14 +253,13 @@ extension NBKFixedWidthInteger {
     /// Returns whether this value matches the given bit pattern, in two's complement form.
     ///
     /// ```swift
-    /// UInt8(0b00000000).matches(repeating: true ) // false
-    /// UInt8(0b00000000).matches(repeating: false) // true
+    /// Int256( 0).matches(repeating: true ) // false
+    /// Int256( 1).matches(repeating: true ) // false
+    /// Int256(-1).matches(repeating: true ) // true
     ///
-    /// UInt8(0b00001111).matches(repeating: true ) // false
-    /// UInt8(0b00001111).matches(repeating: false) // false
-    ///
-    /// UInt8(0b11111111).matches(repeating: true ) // true
-    /// UInt8(0b11111111).matches(repeating: false) // false
+    /// Int256( 0).matches(repeating: false) // true
+    /// Int256( 1).matches(repeating: false) // false
+    /// Int256(-1).matches(repeating: false) // false
     /// ```
     ///
     @inlinable public func matches(repeating bit: Bool) -> Bool {

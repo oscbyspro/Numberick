@@ -30,9 +30,9 @@ public protocol NBKBitPatternConvertible<BitPattern> {
     /// Creates a new instance from the given bit pattern.
     ///
     /// ```swift
-    /// Int8(bitPattern: UInt8(255)) // Int8(-1)
-    /// Int8(bitPattern: UInt8(254)) // Int8(-2)
-    /// Int8(bitPattern: UInt8(253)) // Int8(-3)
+    /// Int256(bitPattern: UInt256( 0)) // Int256( 0)
+    /// Int256(bitPattern: UInt256( 1)) // Int256( 1)
+    /// Int256(bitPattern: UInt256.max) // Int256(-1)
     /// ```
     ///
     @inlinable init(bitPattern source: some NBKBitPatternConvertible<BitPattern>)
@@ -40,9 +40,9 @@ public protocol NBKBitPatternConvertible<BitPattern> {
     /// The bit pattern of this value.
     ///
     /// ```swift
-    /// Int8(-1).bitPattern // UInt8(255)
-    /// Int8(-2).bitPattern // UInt8(254)
-    /// Int8(-3).bitPattern // UInt8(253)
+    /// Int256( 0).bitPattern // UInt256( 0)
+    /// Int256( 1).bitPattern // UInt256( 1)
+    /// Int256(-1).bitPattern // UInt256.max
     /// ```
     ///
     @inlinable var bitPattern: BitPattern { get }
@@ -61,9 +61,9 @@ extension NBKBitPatternConvertible where BitPattern == Self {
     /// Creates a new instance from the given bit pattern.
     ///
     /// ```swift
-    /// Int8(bitPattern: UInt8(255)) // Int8(-1)
-    /// Int8(bitPattern: UInt8(254)) // Int8(-2)
-    /// Int8(bitPattern: UInt8(253)) // Int8(-3)
+    /// Int256(bitPattern: UInt256.min) // Int256( 0)
+    /// Int256(bitPattern: UInt256( 1)) // Int256( 1)
+    /// Int256(bitPattern: UInt256.max) // Int256(-1)
     /// ```
     ///
     @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
@@ -73,9 +73,9 @@ extension NBKBitPatternConvertible where BitPattern == Self {
     /// The bit pattern of this value.
     ///
     /// ```swift
-    /// Int8(-1).bitPattern // UInt8(255)
-    /// Int8(-2).bitPattern // UInt8(254)
-    /// Int8(-3).bitPattern // UInt8(253)
+    /// Int256( 0).bitPattern // UInt256( 0)
+    /// Int256( 1).bitPattern // UInt256( 1)
+    /// Int256(-1).bitPattern // UInt256.max
     /// ```
     ///
     @inlinable public var bitPattern: BitPattern {

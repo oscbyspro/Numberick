@@ -22,6 +22,12 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
+/// ### Division By Zero
+///
+/// The result of division by zero mirrors the standard library, when possible.
+/// Because the dividend may not fit in the remainder of single digit division,
+/// the divisor is returned instead.
+///
 public protocol NBKBinaryInteger: NBKBigEndianTextable, NBKBitPatternConvertible,
 BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
@@ -46,8 +52,8 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Creates a new instance from the given bit.
     ///
     /// ```swift
-    /// Int8(bit: false) // Int8(0)
-    /// Int8(bit: true ) // Int8(1)
+    /// Int256(bit: false) // Int256(0)
+    /// Int256(bit: true ) // Int256(1)
     /// ```
     ///
     @inlinable init(bit: Bool)
@@ -109,10 +115,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the sum of adding `rhs` to `lhs`.
     ///
     /// ```swift
-    /// var a = Int(1); a += Int(2) // a = Int(3)
-    /// var b = Int(2); b += Int(3) // b = Int(5)
-    /// var c = Int(3); c += Int(4) // c = Int(7)
-    /// var d = Int(4); d += Int(5) // d = Int(9)
+    /// var a = Int256(1); a += Int256(2) // a = Int256(3)
+    /// var b = Int256(2); b += Int256(3) // b = Int256(5)
+    /// var c = Int256(3); c += Int256(4) // c = Int256(7)
+    /// var d = Int256(4); d += Int256(5) // d = Int256(9)
     /// ```
     ///
     @inlinable static func +=(lhs: inout Self, rhs: Self)
@@ -120,10 +126,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the sum of adding `rhs` to `lhs`.
     ///
     /// ```swift
-    /// var a = Int(1); a += Int(2) // a = Int(3)
-    /// var b = Int(2); b += Int(3) // b = Int(5)
-    /// var c = Int(3); c += Int(4) // c = Int(7)
-    /// var d = Int(4); d += Int(5) // d = Int(9)
+    /// var a = Int256(1); a += Int(2) // a = Int256(3)
+    /// var b = Int256(2); b += Int(3) // b = Int256(5)
+    /// var c = Int256(3); c += Int(4) // c = Int256(7)
+    /// var d = Int256(4); d += Int(5) // d = Int256(9)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func +=(lhs: inout Self, rhs: Digit)
@@ -131,10 +137,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the sum of adding `rhs` to `lhs`.
     ///
     /// ```swift
-    /// Int(1) + Int(2) // Int(3)
-    /// Int(2) + Int(3) // Int(5)
-    /// Int(3) + Int(4) // Int(7)
-    /// Int(4) + Int(5) // Int(9)
+    /// Int256(1) + Int256(2) // Int256(3)
+    /// Int256(2) + Int256(3) // Int256(5)
+    /// Int256(3) + Int256(4) // Int256(7)
+    /// Int256(4) + Int256(5) // Int256(9)
     /// ```
     ///
     @inlinable static func +(lhs: Self, rhs: Self) -> Self
@@ -142,10 +148,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the sum of adding `rhs` to `lhs`.
     ///
     /// ```swift
-    /// Int(1) + Int(2) // Int(3)
-    /// Int(2) + Int(3) // Int(5)
-    /// Int(3) + Int(4) // Int(7)
-    /// Int(4) + Int(5) // Int(9)
+    /// Int256(1) + Int(2) // Int256(3)
+    /// Int256(2) + Int(3) // Int256(5)
+    /// Int256(3) + Int(4) // Int256(7)
+    /// Int256(4) + Int(5) // Int256(9)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func +(lhs: Self, rhs: Digit) -> Self
@@ -153,10 +159,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the difference of subtracting `rhs` from `lhs`.
     ///
     /// ```swift
-    /// var a = Int(3); a -= Int(2) // a = Int(1)
-    /// var b = Int(5); b -= Int(3) // b = Int(2)
-    /// var c = Int(7); c -= Int(4) // c = Int(3)
-    /// var d = Int(9); d -= Int(5) // d = Int(4)
+    /// var a = Int256(3); a -= Int256(2) // a = Int256(1)
+    /// var b = Int256(5); b -= Int256(3) // b = Int256(2)
+    /// var c = Int256(7); c -= Int256(4) // c = Int256(3)
+    /// var d = Int256(9); d -= Int256(5) // d = Int256(4)
     /// ```
     ///
     @inlinable static func -=(lhs: inout Self, rhs: Self)
@@ -164,10 +170,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the difference of subtracting `rhs` from `lhs`.
     ///
     /// ```swift
-    /// var a = Int(3); a -= Int(2) // a = Int(1)
-    /// var b = Int(5); b -= Int(3) // b = Int(2)
-    /// var c = Int(7); c -= Int(4) // c = Int(3)
-    /// var d = Int(9); d -= Int(5) // d = Int(4)
+    /// var a = Int256(3); a -= Int(2) // a = Int256(1)
+    /// var b = Int256(5); b -= Int(3) // b = Int256(2)
+    /// var c = Int256(7); c -= Int(4) // c = Int256(3)
+    /// var d = Int256(9); d -= Int(5) // d = Int256(4)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func -=(lhs: inout Self, rhs: Digit)
@@ -175,10 +181,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the difference of subtracting `rhs` from `lhs`.
     ///
     /// ```swift
-    /// Int(3) - Int(2) // Int(1)
-    /// Int(5) - Int(3) // Int(2)
-    /// Int(7) - Int(4) // Int(3)
-    /// Int(9) - Int(5) // Int(4)
+    /// Int256(3) - Int256(2) // Int256(1)
+    /// Int256(5) - Int256(3) // Int256(2)
+    /// Int256(7) - Int256(4) // Int256(3)
+    /// Int256(9) - Int256(5) // Int256(4)
     /// ```
     ///
     @inlinable static func -(lhs: Self, rhs: Self) -> Self
@@ -186,10 +192,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the difference of subtracting `rhs` from `lhs`.
     ///
     /// ```swift
-    /// Int(3) - Int(2) // Int(1)
-    /// Int(5) - Int(3) // Int(2)
-    /// Int(7) - Int(4) // Int(3)
-    /// Int(9) - Int(5) // Int(4)
+    /// Int256(3) - Int(2) // Int256(1)
+    /// Int256(5) - Int(3) // Int256(2)
+    /// Int256(7) - Int(4) // Int256(3)
+    /// Int256(9) - Int(5) // Int256(4)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func -(lhs: Self, rhs: Digit) -> Self
@@ -201,10 +207,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the product of multiplying `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int(1); a *= Int(2) // a = Int( 2)
-    /// var b = Int(2); b *= Int(3) // b = Int( 6)
-    /// var c = Int(3); c *= Int(4) // c = Int(12)
-    /// var d = Int(4); d *= Int(5) // d = Int(20)
+    /// var a = Int256(1); a *= Int256(2) // a = Int256( 2)
+    /// var b = Int256(2); b *= Int256(3) // b = Int256( 6)
+    /// var c = Int256(3); c *= Int256(4) // c = Int256(12)
+    /// var d = Int256(4); d *= Int256(5) // d = Int256(20)
     /// ```
     ///
     @inlinable static func *=(lhs: inout Self, rhs: Self)
@@ -212,10 +218,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the product of multiplying `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int(1); a *= Int(2) // a = Int( 2)
-    /// var b = Int(2); b *= Int(3) // b = Int( 6)
-    /// var c = Int(3); c *= Int(4) // c = Int(12)
-    /// var d = Int(4); d *= Int(5) // d = Int(20)
+    /// var a = Int256(1); a *= Int(2) // a = Int256( 2)
+    /// var b = Int256(2); b *= Int(3) // b = Int256( 6)
+    /// var c = Int256(3); c *= Int(4) // c = Int256(12)
+    /// var d = Int256(4); d *= Int(5) // d = Int256(20)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func *=(lhs: inout Self, rhs: Digit)
@@ -223,10 +229,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the product of multiplying `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int(1) * Int(2) // Int( 2)
-    /// Int(2) * Int(3) // Int( 6)
-    /// Int(3) * Int(4) // Int(12)
-    /// Int(4) * Int(5) // Int(20)
+    /// Int256(1) * Int256(2) // Int256( 2)
+    /// Int256(2) * Int256(3) // Int256( 6)
+    /// Int256(3) * Int256(4) // Int256(12)
+    /// Int256(4) * Int256(5) // Int256(20)
     /// ```
     ///
     @inlinable static func *(lhs: Self, rhs: Self) -> Self
@@ -234,10 +240,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the product of multiplying `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int(1) * Int(2) // Int( 2)
-    /// Int(2) * Int(3) // Int( 6)
-    /// Int(3) * Int(4) // Int(12)
-    /// Int(4) * Int(5) // Int(20)
+    /// Int256(1) * Int(2) // Int256( 2)
+    /// Int256(2) * Int(3) // Int256( 6)
+    /// Int256(3) * Int(4) // Int256(12)
+    /// Int256(4) * Int(5) // Int256(20)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func *(lhs: Self, rhs: Digit) -> Self
@@ -250,10 +256,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the quotient of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int( 7); a /= Int( 3) // a = Int( 2)
-    /// var b = Int( 7); b /= Int(-3) // b = Int(-2)
-    /// var c = Int(-7); c /= Int( 3) // c = Int(-2)
-    /// var d = Int(-7); d /= Int(-3) // d = Int( 2)
+    /// var a = Int256( 7); a /= Int256( 3) // a = Int256( 2)
+    /// var b = Int256( 7); b /= Int256(-3) // b = Int256(-2)
+    /// var c = Int256(-7); c /= Int256( 3) // c = Int256(-2)
+    /// var d = Int256(-7); d /= Int256(-3) // d = Int256( 2)
     /// ```
     ///
     @inlinable static func /=(lhs: inout Self, rhs: Self)
@@ -261,10 +267,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the quotient of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int( 7); a /= Int( 3) // a = Int( 2)
-    /// var b = Int( 7); b /= Int(-3) // b = Int(-2)
-    /// var c = Int(-7); c /= Int( 3) // c = Int(-2)
-    /// var d = Int(-7); d /= Int(-3) // d = Int( 2)
+    /// var a = Int256( 7); a /= Int( 3) // a = Int256( 2)
+    /// var b = Int256( 7); b /= Int(-3) // b = Int256(-2)
+    /// var c = Int256(-7); c /= Int( 3) // c = Int256(-2)
+    /// var d = Int256(-7); d /= Int(-3) // d = Int256( 2)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func /=(lhs: inout Self, rhs: Digit)
@@ -272,10 +278,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the quotient of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int( 7) / Int( 3) // Int( 2)
-    /// Int( 7) / Int(-3) // Int(-2)
-    /// Int(-7) / Int( 3) // Int(-2)
-    /// Int(-7) / Int(-3) // Int( 2)
+    /// Int256( 7) / Int256( 3) // Int256( 2)
+    /// Int256( 7) / Int256(-3) // Int256(-2)
+    /// Int256(-7) / Int256( 3) // Int256(-2)
+    /// Int256(-7) / Int256(-3) // Int256( 2)
     /// ```
     ///
     @inlinable static func /(lhs: Self, rhs: Self) -> Self
@@ -283,10 +289,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the quotient of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int( 7) / Int( 3) // Int( 2)
-    /// Int( 7) / Int(-3) // Int(-2)
-    /// Int(-7) / Int( 3) // Int(-2)
-    /// Int(-7) / Int(-3) // Int( 2)
+    /// Int256( 7) / Int( 3) // Int256( 2)
+    /// Int256( 7) / Int(-3) // Int256(-2)
+    /// Int256(-7) / Int( 3) // Int256(-2)
+    /// Int256(-7) / Int(-3) // Int256( 2)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func /(lhs: Self, rhs: Digit) -> Self
@@ -294,10 +300,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the remainder of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int( 7); a %= Int( 3) // a = Int( 1)
-    /// var b = Int( 7); b %= Int(-3) // b = Int( 1)
-    /// var c = Int(-7); c %= Int( 3) // c = Int(-1)
-    /// var d = Int(-7); d %= Int(-3) // d = Int(-1)
+    /// var a = Int256( 7); a %= Int256( 3) // a = Int256( 1)
+    /// var b = Int256( 7); b %= Int256(-3) // b = Int256( 1)
+    /// var c = Int256(-7); c %= Int256( 3) // c = Int256(-1)
+    /// var d = Int256(-7); d %= Int256(-3) // d = Int256(-1)
     /// ```
     ///
     @inlinable static func %=(lhs: inout Self, rhs: Self)
@@ -305,10 +311,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Forms the remainder of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// var a = Int( 7); a %= Int( 3) // a = Int( 1)
-    /// var b = Int( 7); b %= Int(-3) // b = Int( 1)
-    /// var c = Int(-7); c %= Int( 3) // c = Int(-1)
-    /// var d = Int(-7); d %= Int(-3) // d = Int(-1)
+    /// var a = Int256( 7); a %= Int( 3) // a = Int256( 1)
+    /// var b = Int256( 7); b %= Int(-3) // b = Int256( 1)
+    /// var c = Int256(-7); c %= Int( 3) // c = Int256(-1)
+    /// var d = Int256(-7); d %= Int(-3) // d = Int256(-1)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func %=(lhs: inout Self, rhs: Digit)
@@ -316,10 +322,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the remainder of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int( 7) % Int( 3) // Int( 1)
-    /// Int( 7) % Int(-3) // Int( 1)
-    /// Int(-7) % Int( 3) // Int(-1)
-    /// Int(-7) % Int(-3) // Int(-1)
+    /// Int256( 7) % Int256( 3) // Int256( 1)
+    /// Int256( 7) % Int256(-3) // Int256( 1)
+    /// Int256(-7) % Int256( 3) // Int256(-1)
+    /// Int256(-7) % Int256(-3) // Int256(-1)
     /// ```
     ///
     @inlinable static func %(lhs: Self, rhs: Self) -> Self
@@ -327,98 +333,98 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the remainder of dividing `lhs` by `rhs`.
     ///
     /// ```swift
-    /// Int( 7) % Int( 3) // Int( 1)
-    /// Int( 7) % Int(-3) // Int( 1)
-    /// Int(-7) % Int( 3) // Int(-1)
-    /// Int(-7) % Int(-3) // Int(-1)
+    /// Int256( 7) % Int( 3) // Int( 1)
+    /// Int256( 7) % Int(-3) // Int( 1)
+    /// Int256(-7) % Int( 3) // Int(-1)
+    /// Int256(-7) % Int(-3) // Int(-1)
     /// ```
     ///
     @_disfavoredOverload @inlinable static func %(lhs: Self, rhs: Digit) -> Digit
     
     /// Forms the quotient of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
     ///
     /// ```swift
-    /// var a = Int8(-128); a.divideReportingOverflow(by:  3)) // a = Int8( -42); -> false
-    /// var b = Int8(-128); b.divideReportingOverflow(by:  0)) // b = Int8(-128); -> true
-    /// var c = Int8(-128); c.divideReportingOverflow(by: -1)) // c = Int8(-128); -> true
+    /// var a = Int256( 7); a.divideReportingOverflow(by: Int256( 3)) // a = Int256( 2); -> false
+    /// var b = Int256.min; b.divideReportingOverflow(by: Int256( 0)) // b = Int256.min; -> true
+    /// var c = Int256.min; c.divideReportingOverflow(by: Int256(-1)) // c = Int256.min; -> true
     /// ```
     ///
     @inlinable mutating func divideReportingOverflow(by divisor: Self) -> Bool
     
     /// Forms the quotient of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
     ///
     /// ```swift
-    /// var a = Int8(-128); a.divideReportingOverflow(by:  3)) // a = Int8( -42); -> false
-    /// var b = Int8(-128); b.divideReportingOverflow(by:  0)) // b = Int8(-128); -> true
-    /// var c = Int8(-128); c.divideReportingOverflow(by: -1)) // c = Int8(-128); -> true
+    /// var a = Int256( 7); a.divideReportingOverflow(by: Int( 3)) // a = Int256( 2); -> false
+    /// var b = Int256.min; b.divideReportingOverflow(by: Int( 0)) // b = Int256.min; -> true
+    /// var c = Int256.min; c.divideReportingOverflow(by: Int(-1)) // c = Int256.min; -> true
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func divideReportingOverflow(by divisor: Digit) -> Bool
     
     /// Returns the quotient of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
     ///
     /// ```swift
-    /// Int8(-128).dividedReportingOverflow(by: Int8( 3)) // (partialValue: Int8( -42), overflow: false)
-    /// Int8(-128).dividedReportingOverflow(by: Int8( 0)) // (partialValue: Int8(-128), overflow: true )
-    /// Int8(-128).dividedReportingOverflow(by: Int8(-1)) // (partialValue: Int8(-128), overflow: true )
+    /// Int256( 7).dividedReportingOverflow(by: Int256( 3)) // (partialValue: Int256( 2), overflow: false)
+    /// Int256.min.dividedReportingOverflow(by: Int256( 0)) // (partialValue: Int256.min, overflow: true )
+    /// Int256.min.dividedReportingOverflow(by: Int256(-1)) // (partialValue: Int256.min, overflow: true )
     /// ```
     ///
     @inlinable func dividedReportingOverflow(by divisor: Self) -> PVO<Self>
     
     /// Returns the quotient of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
     ///
     /// ```swift
-    /// Int8(-128).dividedReportingOverflow(by: Int8( 3)) // (partialValue: Int8( -42), overflow: false)
-    /// Int8(-128).dividedReportingOverflow(by: Int8( 0)) // (partialValue: Int8(-128), overflow: true )
-    /// Int8(-128).dividedReportingOverflow(by: Int8(-1)) // (partialValue: Int8(-128), overflow: true )
+    /// Int256( 7).dividedReportingOverflow(by: Int( 3)) // (partialValue: Int256( 2), overflow: false)
+    /// Int256.min.dividedReportingOverflow(by: Int( 0)) // (partialValue: Int256.min, overflow: true )
+    /// Int256.min.dividedReportingOverflow(by: Int(-1)) // (partialValue: Int256.min, overflow: true )
     /// ```
     ///
     @_disfavoredOverload @inlinable func dividedReportingOverflow(by divisor: Digit) -> PVO<Self>
     
     /// Forms the remainder of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, this value.
+    /// In the case of overflow, the result is either the entire remainder or, if undefined, the dividend.
     ///
     /// ```swift
-    /// var a = Int8(-128); a.formRemainderReportingOverflow(dividingBy:  3) // a = Int8(   2); -> false
-    /// var b = Int8(-128); b.formRemainderReportingOverflow(dividingBy:  0) // b = Int8(-128); -> true
-    /// var c = Int8(-128); c.formRemainderReportingOverflow(dividingBy: -1) // c = Int8(   0); -> true
+    /// var a = Int256( 7); a.formRemainderReportingOverflow(dividingBy: Int256( 3)) // a = Int256( 1); -> false
+    /// var b = Int256.min; b.formRemainderReportingOverflow(dividingBy: Int256( 0)) // b = Int256.min; -> true
+    /// var c = Int256.min; c.formRemainderReportingOverflow(dividingBy: Int256(-1)) // c = Int256( 0); -> true
     /// ```
     ///
     @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Self) -> Bool
     
     /// Forms the remainder of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, this value.
+    /// In the case of overflow, the result is either the entire remainder or, if undefined, the divisor.
     ///
     /// ```swift
-    /// var a = Int8(-128); a.formRemainderReportingOverflow(dividingBy:  3) // a = Int8(   2); -> false
-    /// var b = Int8(-128); b.formRemainderReportingOverflow(dividingBy:  0) // b = Int8(-128); -> true
-    /// var c = Int8(-128); c.formRemainderReportingOverflow(dividingBy: -1) // c = Int8(   0); -> true
+    /// var a = Int256( 7); a.formRemainderReportingOverflow(dividingBy: Int( 3)) // a = Int256(1); -> false
+    /// var b = Int256.min; b.formRemainderReportingOverflow(dividingBy: Int( 0)) // b = Int256(0); -> true
+    /// var c = Int256.min; c.formRemainderReportingOverflow(dividingBy: Int(-1)) // c = Int256(0); -> true
     /// ```
     ///
     @_disfavoredOverload @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Digit) -> Bool
     
     /// Returns the remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, this value.
+    /// In the case of overflow, the result is either the entire remainder or, if undefined, the dividend.
     ///
     /// ```swift
-    /// Int8(-128).remainderReportingOverflow(dividingBy:  3) // (partialValue: Int8(   2), overflow: false)
-    /// Int8(-128).remainderReportingOverflow(dividingBy:  0) // (partialValue: Int8(-128), overflow: true )
-    /// Int8(-128).remainderReportingOverflow(dividingBy: -1) // (partialValue: Int8(   0), overflow: true )
+    /// Int( 7).remainderReportingOverflow(dividingBy: Int( 3)) // (partialValue: Int( 1), overflow: false)
+    /// Int.min.remainderReportingOverflow(dividingBy: Int( 0)) // (partialValue: Int.min, overflow: true )
+    /// Int.min.remainderReportingOverflow(dividingBy: Int(-1)) // (partialValue: Int( 0), overflow: true )
     /// ```
     ///
     @inlinable func remainderReportingOverflow(dividingBy divisor: Self) -> PVO<Self>
     
     /// Returns the remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, this value.
+    /// In the case of overflow, the result is either the entire remainder or, if undefined, the divisor.
     ///
     /// ```swift
-    /// Int8(-128).remainderReportingOverflow(dividingBy:  3) // (partialValue: Int8(   2), overflow: false)
-    /// Int8(-128).remainderReportingOverflow(dividingBy:  0) // (partialValue: Int8(-128), overflow: true )
-    /// Int8(-128).remainderReportingOverflow(dividingBy: -1) // (partialValue: Int8(   0), overflow: true )
+    /// Int256( 7).remainderReportingOverflow(dividingBy: Int( 3)) // (partialValue: Int(1), overflow: false)
+    /// Int256.min.remainderReportingOverflow(dividingBy: Int( 0)) // (partialValue: Int(0), overflow: true )
+    /// Int256.min.remainderReportingOverflow(dividingBy: Int(-1)) // (partialValue: Int(0), overflow: true )
     /// ```
     ///
     @_disfavoredOverload @inlinable func remainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit>
@@ -426,10 +432,10 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the quotient and remainder of this value divided by the given value.
     ///
     /// ```swift
-    /// Int8( 7).quotientAndRemainder(dividingBy: Int8( 3)) // (quotient: Int8( 2), remainder: Int8( 1))
-    /// Int8( 7).quotientAndRemainder(dividingBy: Int8(-3)) // (quotient: Int8(-2), remainder: Int8( 1))
-    /// Int8(-7).quotientAndRemainder(dividingBy: Int8( 3)) // (quotient: Int8(-2), remainder: Int8(-1))
-    /// Int8(-7).quotientAndRemainder(dividingBy: Int8(-3)) // (quotient: Int8( 2), remainder: Int8(-1))
+    /// Int256( 7).quotientAndRemainder(dividingBy: Int256( 3)) // (quotient: Int256( 2), remainder: Int256( 1))
+    /// Int256( 7).quotientAndRemainder(dividingBy: Int256(-3)) // (quotient: Int256(-2), remainder: Int256( 1))
+    /// Int256(-7).quotientAndRemainder(dividingBy: Int256( 3)) // (quotient: Int256(-2), remainder: Int256(-1))
+    /// Int256(-7).quotientAndRemainder(dividingBy: Int256(-3)) // (quotient: Int256( 2), remainder: Int256(-1))
     /// ```
     ///
     @inlinable func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self>
@@ -437,53 +443,53 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Returns the quotient and remainder of this value divided by the given value.
     ///
     /// ```swift
-    /// Int8( 7).quotientAndRemainder(dividingBy: Int8( 3)) // (quotient: Int8( 2), remainder: Int8( 1))
-    /// Int8( 7).quotientAndRemainder(dividingBy: Int8(-3)) // (quotient: Int8(-2), remainder: Int8( 1))
-    /// Int8(-7).quotientAndRemainder(dividingBy: Int8( 3)) // (quotient: Int8(-2), remainder: Int8(-1))
-    /// Int8(-7).quotientAndRemainder(dividingBy: Int8(-3)) // (quotient: Int8( 2), remainder: Int8(-1))
+    /// Int256( 7).quotientAndRemainder(dividingBy: Int( 3)) // (quotient: Int256( 2), remainder: Int( 1))
+    /// Int256( 7).quotientAndRemainder(dividingBy: Int(-3)) // (quotient: Int256(-2), remainder: Int( 1))
+    /// Int256(-7).quotientAndRemainder(dividingBy: Int( 3)) // (quotient: Int256(-2), remainder: Int(-1))
+    /// Int256(-7).quotientAndRemainder(dividingBy: Int(-3)) // (quotient: Int256( 2), remainder: Int(-1))
     /// ```
     ///
     @_disfavoredOverload @inlinable func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit>
     
     /// Returns the quotient and remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and zero.
     ///
     /// ```swift
-    /// let a = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8( 3))
-    /// a.partialValue.quotient  // Int8( -42)
-    /// a.partialValue.remainder // Int8(   2)
+    /// let a = Int256(-7).quotientAndRemainderReportingOverflow(dividingBy: Int256( 3))
+    /// a.partialValue.quotient  // Int256( 2)
+    /// a.partialValue.remainder // Int256(-1)
     /// a.overflow               // false
     ///
-    /// let b = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8( 0))
-    /// b.partialValue.quotient  // Int8(-128)
-    /// b.partialValue.remainder // Int8(-128)
+    /// let b = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256( 0))
+    /// b.partialValue.quotient  // Int256.min
+    /// b.partialValue.remainder // Int256.min
     /// b.overflow               // true
     ///
-    /// let c = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8(-1))
-    /// c.partialValue.quotient  // Int8(-128)
-    /// c.partialValue.remainder // Int8(   0)
+    /// let c = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256(-1))
+    /// c.partialValue.quotient  // Int256(-128)
+    /// c.partialValue.remainder // Int256(   0)
     /// c.overflow               // true
     /// ```
     ///
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>>
     
     /// Returns the quotient and remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, this value.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and the divisor.
     ///
     /// ```swift
-    /// let a = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8( 3))
-    /// a.partialValue.quotient  // Int8( -42)
-    /// a.partialValue.remainder // Int8(   2)
+    /// let a = Int256(-7).quotientAndRemainderReportingOverflow(dividingBy: Int( 3))
+    /// a.partialValue.quotient  // Int256(2)
+    /// a.partialValue.remainder // Int(-1)
     /// a.overflow               // false
     ///
-    /// let b = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8( 0))
-    /// b.partialValue.quotient  // Int8(-128)
-    /// b.partialValue.remainder // Int8(-128)
+    /// let b = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int( 0))
+    /// b.partialValue.quotient  // Int256.min
+    /// b.partialValue.remainder // Int(0)
     /// b.overflow               // true
     ///
-    /// let c = Int8(-128).quotientAndRemainderReportingOverflow(dividingBy: Int8(-1))
-    /// c.partialValue.quotient  // Int8(-128)
-    /// c.partialValue.remainder // Int8(   0)
+    /// let c = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int(-1))
+    /// c.partialValue.quotient  // Int256(-128)
+    /// c.partialValue.remainder // Int(0)
     /// c.overflow               // true
     /// ```
     ///
@@ -609,9 +615,9 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     /// Returns a value with equal magnitude but opposite sign.
     ///
     /// ```swift
-    /// -Int8( 1) // Int8(-1)
-    /// -Int8( 0) // Int8( 0)
-    /// -Int8(-1) // Int8( 1)
+    /// -Int256( 1) // Int256(-1)
+    /// -Int256( 0) // Int256( 0)
+    /// -Int256(-1) // Int256( 1)
     /// ```
     ///
     @inlinable static prefix func -(x: Self) -> Self
@@ -619,9 +625,9 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     /// Forms a value with equal magnitude but opposite sign.
     ///
     /// ```swift
-    /// var a = Int8( 1); a.negate() // a = Int8(-1)
-    /// var b = Int8( 0); b.negate() // b = Int8( 0)
-    /// var c = Int8(-1); c.negate() // c = Int8( 1)
+    /// var a = Int256( 1); a.negate() // a = Int256(-1)
+    /// var b = Int256( 0); b.negate() // b = Int256( 0)
+    /// var c = Int256(-1); c.negate() // c = Int256( 1)
     /// ```
     ///
     @inlinable mutating func negate()
@@ -629,9 +635,9 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     /// Returns a value with equal magnitude but opposite sign.
     ///
     /// ```swift
-    /// Int8( 1).negated() // Int8(-1)
-    /// Int8( 0).negated() // Int8( 0)
-    /// Int8(-1).negated() // Int8( 1)
+    /// Int256( 1).negated() // Int256(-1)
+    /// Int256( 0).negated() // Int256( 0)
+    /// Int256(-1).negated() // Int256( 1)
     /// ```
     ///
     @inlinable func negated() -> Self
@@ -640,8 +646,8 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// var a: Int8(-127); a.negateReportingOverflow() // a = Int8( 127); -> false
-    /// var b: Int8(-128); b.negateReportingOverflow() // b = Int8(-128); -> true
+    /// var a: Int256.min + 1; a.negateReportingOverflow() // a = Int256.max; -> false
+    /// var b: Int256.min + 0; b.negateReportingOverflow() // b = Int256.min; -> true
     /// ```
     ///
     @inlinable mutating func negateReportingOverflow() -> Bool
@@ -650,8 +656,8 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     /// In the case of overflow, the result is truncated.
     ///
     /// ```swift
-    /// Int8(-127).negatedReportingOverflow() // -> (partialValue: Int8( 127), overflow: false)
-    /// Int8(-128).negatedReportingOverflow() // -> (partialValue: Int8(-128), overflow: true )
+    /// (Int256.min + 1).negatedReportingOverflow() // -> (partialValue: Int256.max, overflow: false)
+    /// (Int256.min + 0).negatedReportingOverflow() // -> (partialValue: Int256.min, overflow: true )
     /// ```
     ///
     @inlinable func negatedReportingOverflow() -> PVO<Self>
