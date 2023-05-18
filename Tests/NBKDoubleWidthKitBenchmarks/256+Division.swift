@@ -105,8 +105,8 @@ final class Int256BenchmarksOnDivision: XCTestCase {
     
     func testDividingFullWidth() {
         var lhs = NBK.blackHoleIdentity((T.max))
-        var rhs = NBK.blackHoleIdentity((T.max, M.max))
-        
+        var rhs = NBK.blackHoleIdentity((T.max / 2, M(bitPattern: T.max)))
+                
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.dividingFullWidth(rhs))
             NBK.blackHoleInoutIdentity(&lhs)
@@ -204,7 +204,7 @@ final class UInt256BenchmarksOnDivision: XCTestCase {
     
     func testDividingFullWidth() {
         var lhs = NBK.blackHoleIdentity((T.max))
-        var rhs = NBK.blackHoleIdentity((T.max, M.max))
+        var rhs = NBK.blackHoleIdentity((T.max - 1, M.max))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.dividingFullWidth(rhs))

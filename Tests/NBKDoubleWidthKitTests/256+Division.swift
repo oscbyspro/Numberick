@@ -158,6 +158,7 @@ final class Int256TestsOnDivision: XCTestCase {
 final class UInt256TestsOnDivision: XCTestCase {
     
     typealias T = UInt256
+    typealias M = UInt256
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -264,6 +265,38 @@ final class UInt256TestsOnDivision: XCTestCase {
             XCTAssertNotNil(x.quotientAndRemainderReportingOverflow(dividingBy: 0))
             XCTAssertNotNil(x.dividingFullWidth((0, 0)))
         }
+    }
+}
+
+//*============================================================================*
+// MARK: * UInt256 x Division x Code Coverage
+//*============================================================================*
+
+final class UInt256TestsOnDivisionCodeCoverage: XCTestCase {
+    
+    typealias T = UInt256
+    typealias M = UInt256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    // TODO: more descriptive name
+    func testDividingFullWidthSpecialCases() {
+//        NBKAssertDivisionFullWidth(HL(T.max, M(  )), T.max, T(0), T(0), true)
+//        NBKAssertDivisionFullWidth(HL(T.max, M.max), T.max, T(1), T(0), true)
+//
+//        NBKAssertDivisionFullWidth(HL(T(1) << 255, T(  )), T(1) << 255, T(0),            T( 0),      true )
+//        NBKAssertDivisionFullWidth(HL(T(1) << 255, T.max), T(1) << 255, T(1),            T.max >> 1, true )
+//
+//        NBKAssertDivisionFullWidth(HL(T(1) << 254, T(  )), T(1) << 255, T(1) << 255,     T( 0),      false)
+//        NBKAssertDivisionFullWidth(HL(T(1) << 254, T.max), T(1) << 255, T(1) << 255 + 1, T.max >> 1, false)
+//
+//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T(  )), T(1) << 255, T(1) << 128,     T( 0),      false)
+//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T.max), T(1) << 255, T(1) << 128 + 1, T.max >> 1, false)
+//
+//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T(  )), T(1) << 255 + 1, T(1) << 128,     T( 0),      false)
+//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T.max), T(1) << 255 + 1, T(1) << 128 + 1, T.max >> 1, false)
     }
 }
 
