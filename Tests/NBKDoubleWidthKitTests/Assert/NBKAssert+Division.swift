@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
@@ -84,9 +85,17 @@ file: StaticString = #file, line: UInt = #line) {
 //*============================================================================*
 
 func NBKAssertDivisionFullWidth<T: NBKFixedWidthInteger>(
-_ lhs: HL<T, T.Magnitude>, _ rhs: T, _ quotient: T, _ remainder: T,
+_ lhs: HL<NBKDoubleWidth<T>, NBKDoubleWidth<T>.Magnitude>, _ rhs: NBKDoubleWidth<T>,
+_ quotient: NBKDoubleWidth<T>, _ remainder: NBKDoubleWidth<T>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    let qr: QR<T, T> = rhs.dividingFullWidth(lhs)
-    XCTAssertEqual(qr.quotient,  quotient,  file: file, line: line)
-    XCTAssertEqual(qr.remainder, remainder, file: file, line: line)
+    if !overflow {
+        let qr: QR<NBKDoubleWidth<T>, NBKDoubleWidth<T>> = rhs.dividingFullWidth(lhs)
+        XCTAssertEqual(qr.quotient,  quotient,  file: file, line: line)
+        XCTAssertEqual(qr.remainder, remainder, file: file, line: line)
+    }
+    
+    let qro: PVO<QR<NBKDoubleWidth<T>, NBKDoubleWidth<T>>> = rhs.dividingFullWidthReportingOverflow(lhs)
+    XCTAssertEqual(qro.partialValue.quotient,  quotient,  file: file, line: line)
+    XCTAssertEqual(qro.partialValue.remainder, remainder, file: file, line: line)
+    XCTAssertEqual(qro.overflow,               overflow,  file: file, line: line)
 }

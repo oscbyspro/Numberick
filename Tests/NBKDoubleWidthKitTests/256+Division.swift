@@ -46,6 +46,11 @@ final class Int256TestsOnDivision: XCTestCase {
         NBKAssertDivision( T(x64: X(1, 2, 3, 4)), -T(2), -T(x64: X(0, ~0/2 + 2, 1, 2)),  T(1))
         NBKAssertDivision(-T(x64: X(1, 2, 3, 4)),  T(2), -T(x64: X(0, ~0/2 + 2, 1, 2)), -T(1))
         NBKAssertDivision(-T(x64: X(1, 2, 3, 4)), -T(2),  T(x64: X(0, ~0/2 + 2, 1, 2)), -T(1))
+        
+        NBKAssertDivision( T(x64: X(1, 2, 3, 4)),  T(x64: X(0, ~0/2 + 2, 1, 2)),  T(2),  T(1))
+        NBKAssertDivision( T(x64: X(1, 2, 3, 4)), -T(x64: X(0, ~0/2 + 2, 1, 2)), -T(2),  T(1))
+        NBKAssertDivision(-T(x64: X(1, 2, 3, 4)), -T(x64: X(0, ~0/2 + 2, 1, 2)),  T(2), -T(1))
+        NBKAssertDivision(-T(x64: X(1, 2, 3, 4)),  T(x64: X(0, ~0/2 + 2, 1, 2)), -T(2), -T(1))
     }
     
     func testDividingReportingOverflow() {
@@ -111,16 +116,17 @@ final class Int256TestsOnDivision: XCTestCase {
         NBKAssertDivisionFullWidth(x, T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 2,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testDividingFullWidthTruncatesQuotient() {
+    func testDividingFullWidthReportingOverflow() {
         var x: (high: T, low: M)
         //=--------------------------------------=
         x.low  = M(x64: X( 0,  0,  0,  0))
         x.high = T(x64: X(~0, ~0, ~0, ~0))
         
-        NBKAssertDivisionFullWidth(x, T(1), ~T(0) << (T.bitWidth - 0), T(0))
-        NBKAssertDivisionFullWidth(x, T(2), ~T(0) << (T.bitWidth - 1), T(0))
-        NBKAssertDivisionFullWidth(x, T(4), ~T(0) << (T.bitWidth - 2), T(0))
-        NBKAssertDivisionFullWidth(x, T(8), ~T(0) << (T.bitWidth - 3), T(0))
+        NBKAssertDivisionFullWidth(x, T(0), ~T(0) << (T.bitWidth - 0), T(0), true )
+        NBKAssertDivisionFullWidth(x, T(1), ~T(0) << (T.bitWidth - 0), T(0), true )
+        NBKAssertDivisionFullWidth(x, T(2), ~T(0) << (T.bitWidth - 1), T(0), false)
+        NBKAssertDivisionFullWidth(x, T(4), ~T(0) << (T.bitWidth - 2), T(0), false)
+        NBKAssertDivisionFullWidth(x, T(8), ~T(0) << (T.bitWidth - 3), T(0), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -169,6 +175,11 @@ final class UInt256TestsOnDivision: XCTestCase {
         NBKAssertDivision(T(x64: X(~3,  ~6,  ~9, 14)), T(3), T(x64: X(~1, ~2, ~3, 4)), T(2))
         NBKAssertDivision(T(x64: X(~4,  ~8, ~12, 19)), T(4), T(x64: X(~1, ~2, ~3, 4)), T(3))
         NBKAssertDivision(T(x64: X(~5, ~10, ~15, 24)), T(5), T(x64: X(~1, ~2, ~3, 4)), T(4))
+        
+        NBKAssertDivision(T(x64: X(~2,  ~4,  ~6,  9)), T(x64: X(~1, ~2, ~3, 4)), T(2), T(1))
+        NBKAssertDivision(T(x64: X(~3,  ~6,  ~9, 14)), T(x64: X(~1, ~2, ~3, 4)), T(3), T(2))
+        NBKAssertDivision(T(x64: X(~4,  ~8, ~12, 19)), T(x64: X(~1, ~2, ~3, 4)), T(4), T(3))
+        NBKAssertDivision(T(x64: X(~5, ~10, ~15, 24)), T(x64: X(~1, ~2, ~3, 4)), T(5), T(4))
     }
     
     func testDividingReportingOverflow() {
@@ -221,16 +232,17 @@ final class UInt256TestsOnDivision: XCTestCase {
         NBKAssertDivisionFullWidth(x, T(x64: X(8, 7, 6, 5)), T(x64: X(4, 3, 2, 1)), T(x64: X( 2,  2,  2,  2)))
     }
     
-    func testDividingFullWidthTruncatesQuotient() {
+    func testDividingFullWidthReportingOverflow() {
         var x: (high: T, low: T)
         //=--------------------------------------=
         x.low  = T(x64: X( 0,  0,  0,  0))
         x.high = T(x64: X(~0, ~0, ~0, ~0))
         
-        NBKAssertDivisionFullWidth(x, T(1), ~T(0) << (T.bitWidth - 0), T(0))
-        NBKAssertDivisionFullWidth(x, T(2), ~T(0) << (T.bitWidth - 1), T(0))
-        NBKAssertDivisionFullWidth(x, T(4), ~T(0) << (T.bitWidth - 2), T(0))
-        NBKAssertDivisionFullWidth(x, T(8), ~T(0) << (T.bitWidth - 3), T(0))
+        NBKAssertDivisionFullWidth(x, T(0), ~T(0) << (T.bitWidth - 0), T(0), true)
+        NBKAssertDivisionFullWidth(x, T(1), ~T(0) << (T.bitWidth - 0), T(0), true)
+        NBKAssertDivisionFullWidth(x, T(2), ~T(0) << (T.bitWidth - 1), T(0), true)
+        NBKAssertDivisionFullWidth(x, T(4), ~T(0) << (T.bitWidth - 2), T(0), true)
+        NBKAssertDivisionFullWidth(x, T(8), ~T(0) << (T.bitWidth - 3), T(0), true)
     }
     
     //=------------------------------------------------------------------------=

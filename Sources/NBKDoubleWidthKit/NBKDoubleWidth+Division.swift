@@ -69,6 +69,7 @@ extension NBKDoubleWidth {
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
     }
     
+    // TODO: consider removing duplicates
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
@@ -153,8 +154,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let overshift: Int = Low.bitWidth &- shift
         let (words,  bits) = shift.dividedByBitWidth()
         
-        let lhs: Self = lhs._bitshiftedLeft(words: words, bits: bits)
         let high: Low = lhs.high &>> overshift
+        let lhs: Self = lhs._bitshiftedLeft(words: words, bits: bits)
         let rhs: Self = rhs._bitshiftedLeft(words: words, bits: bits)
         assert(rhs.mostSignificantBit)
         
