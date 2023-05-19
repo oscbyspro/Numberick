@@ -56,13 +56,13 @@ extension NBKCoreInteger {
         self & ((1 as Self)) != (0 as Self)
     }
     
-    @inlinable public var isFull: Bool {
-        self == ~(0 as Self)
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
+    
+    @inlinable public var isFull: Bool {
+        self == ~(0 as Self)
+    }
     
     @inlinable public var isZero: Bool {
         self ==  (0 as Self)

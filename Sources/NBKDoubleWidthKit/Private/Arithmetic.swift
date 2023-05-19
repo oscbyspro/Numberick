@@ -19,11 +19,19 @@ extension NBKCoreInteger<UInt> {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    /// Returns the quotient of dividing this value by its bit width.
+    @_transparent @usableFromInline internal func quotientDividingByBitWidth() -> Self {
+        self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
+    }
+    
+    /// Returns the remainder of dividing this value by its bit width.
+    @_transparent @usableFromInline internal func remainderDividingByBitWidth() -> Self {
+        self & Self(bitPattern: Self.bitWidth &- 1)
+    }
+    
     /// Returns the quotient and remainder of dividing this value by its bit width.
-    @inlinable internal func dividedByBitWidth() -> QR<Self, Self> {
-        let quotient  = self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
-        let remainder = self &   Self(bitPattern: Self.bitWidth &- 1)
-        return QR(quotient, remainder)
+    @_transparent @usableFromInline internal func dividedByBitWidth() -> QR<Self, Self> {
+        QR(self.quotientDividingByBitWidth(), self.remainderDividingByBitWidth())
     }
 }
 
