@@ -286,7 +286,7 @@ final class UInt256TestsOnDivisionCodeCoverage: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDividingFullWidthSpecialCases32Normalized() {
+    func testDividingFullWidth32Normalized() {
         NBKAssertDivisionFullWidth(HL(T.max << 64, M(  )), T.max, T.max << 64,     T.max << 64)
         NBKAssertDivisionFullWidth(HL(T.max << 64, M.max), T.max, T.max << 64 + 1, T.max << 64)
     }

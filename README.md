@@ -1,12 +1,10 @@
 # Numberick
 
-👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
-
 Large number arithmetic in Swift.
 
 | Package | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
 |:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
-| 0.0.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
+| 1.0.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
@@ -16,8 +14,8 @@ Models, protocols, and extensions underpinning this package.
 
 - [NBKBigEndianTextable](Sources/NBKCoreKit/NBKBigEndianTextable.swift)
 - [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
-- [NBKBitPatternConvertible\<BitPattern\>](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
-- [NBKCoreInteger\<Magnitude\>](Sources/NBKCoreKit/NBKCoreInteger.swift)
+- [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
+- [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
 - [NBKMachineWordsInteger](Sources/NBKCoreKit/NBKMachineWordsInteger.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)

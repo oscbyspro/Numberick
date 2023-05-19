@@ -132,8 +132,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
 
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
     @inlinable internal static func divide22Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
-        assert(shift <  Self.bitWidth, "must not divide by zero")
-        assert(shift == rhs.leadingZeroBitCount, "the shift amount should be cached")
+        assert(rhs.isMoreThanZero, "must not divide by zero")
+        assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
         // divisor is greater than or equal
         //=--------------------------------------=
@@ -195,9 +195,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
 
     @inlinable internal static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
-        assert(rhs > lhs.high) // quotient must fit in two halves
-        assert(rhs.isZero == false) // division by zero is not allowed
-        assert(rhs.leadingZeroBitCount == shift) // shift should be cached
+        assert(rhs > lhs.high, "quotient must fit in two halves")
+        assert(rhs.isMoreThanZero, "must not divide by zero")
+        assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
         let lhsIs0XXX: Bool = lhs.high.high.isZero
         let lhsIs00XX: Bool = lhsIs0XXX && lhs.high.low.isZero
@@ -208,10 +208,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return Self.divide22Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
-        // division: 4 by 1
+        // division: 3 by 1
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
-            let (quotient, remainder) = Self.divide41(lhs, by: rhs.low)
+            let (quotient, remainder) = Self.divide31Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
@@ -243,13 +243,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
         return QR(Self(descending: HL(x, y)), b)
     }
-
-    @inlinable internal static func divide41(_ lhs: DoubleWidth, by rhs: Low) -> QR<Self, Low> {
-        let (   a) = /*------*/ lhs.high.high % rhs
-        let (   b) = a.isZero ? lhs.high.low  % rhs : rhs.dividingFullWidth((a, lhs.high.low)).remainder
-        let (x, c) = b.isZero ? lhs.low .high.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(b, lhs.low.high))
-        let (y, d) = c.isZero ? lhs.low .low .quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(c, lhs.low.low ))
-        return QR(Self(descending: HL(x, y)), d)
+    
+    @inlinable internal static func divide31Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
+        assert(lhs.high < rhs, "quotient must fit in two halves")
+        //=--------------------------------------=
+        let (x, b) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
+        let (y, c) = b.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(b, lhs.low))
+        return QR(Self(descending: HL(x, y)), c)
     }
     
     //=------------------------------------------------------------------------=
@@ -263,8 +263,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// The approximation needs at most two adjustments, but the while loop was faster.
     ///
     @inlinable internal static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
-        assert(rhs.mostSignificantBit)
-        assert(rhs > Self(descending: HL(lhs.high, lhs.mid)))
+        assert(rhs.mostSignificantBit, "divisor must be normalized")
+        assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
         //=--------------------------------------=
         var quotient: Low = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
         var approximation: Wide3<Low> =  Low.multiplying21(HL(rhs.high, rhs.low), by: quotient)
