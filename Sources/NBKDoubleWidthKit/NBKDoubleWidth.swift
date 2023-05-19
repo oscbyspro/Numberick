@@ -44,8 +44,7 @@ import NBKCoreKit
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
 @frozen public struct NBKDoubleWidth<High>: NBKMachineWordsInteger,
-CustomDebugStringConvertible, CustomStringConvertible,
-MutableCollection, RandomAccessCollection
+CustomStringConvertible, MutableCollection, RandomAccessCollection
 where High: NBKMachineWordsInteger, High.Digit: NBKCoreInteger<UInt> {
     
     /// The most significant part of this type.

@@ -513,20 +513,14 @@ extension NBKBinaryInteger {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
+    /// Returns whether this value is odd.
     @inlinable public var isOdd: Bool {
         self.leastSignificantBit
     }
     
+    /// Returns whether this value is even.
     @inlinable public var isEven: Bool {
-        self.leastSignificantBit == false
-    }
-    
-    @inlinable public var isLessThanZero: Bool {
-        Self.isSigned && self.mostSignificantBit
-    }
-    
-    @inlinable public var isMoreThanZero: Bool {
-        !self.isLessThanZero && !self.isZero
+        !self.leastSignificantBit
     }
     
     //=------------------------------------------------------------------------=

@@ -1,41 +1,46 @@
 //=----------------------------------------------------------------------------=
 // This source file is part of the Numberick open source project.
 //
-// Copyright (c) 2023 Oscar Byström Ericsson
+// Copyright (c) 2022 Oscar Byström Ericsson
 // Licensed under Apache License, Version 2.0
 //
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+#if DEBUG
+
 import NBKCoreKit
+import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Text
+// MARK: * NBK x Core Integer x Addition
 //*============================================================================*
 
-extension NBKDoubleWidth {
+final class NBKCoreIntegerTestsOnAddition: XCTestCase {
+    
+    typealias T = any NBKCoreInteger.Type
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: State
     //=------------------------------------------------------------------------=
     
-    /// The description of this type.
-    ///
-    /// ```swift
-    /// DoubleWidth< Int128>.description //  "Int256"
-    /// DoubleWidth<UInt256>.description // "UInt512"
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        let signedness = !Self.isSigned ? "U" : ""
-        return "\(signedness)Int\(Self.bitWidth)"
-    }
+    let types: [T] = NBKCoreIntegerTests.types
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
-    @inlinable public var description: String {
-        String(encoding: self, radix: 10)
+    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
+        func becauseThisCompilesSuccessfully(_ x: inout some NBKCoreInteger) {
+            XCTAssertNotNil(x  += 0)
+            XCTAssertNotNil(x &+= 0)
+            XCTAssertNotNil(x.addReportingOverflow(0))
+            
+            XCTAssertNotNil(x  +  0)
+            XCTAssertNotNil(x &+  0)
+            XCTAssertNotNil(x.addingReportingOverflow(0))
+        }
     }
 }
+
+#endif

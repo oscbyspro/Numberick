@@ -72,20 +72,6 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Numberick"
-               BuildableName = "Numberick"
-               BlueprintName = "Numberick"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -95,32 +81,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick.xctestplan"
+            reference = "container:.swiftpm/Numberick.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:.swiftpm/Numberick-Tests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKCoreKitBenchmarks"
-               BuildableName = "NBKCoreKitBenchmarks"
-               BlueprintName = "NBKCoreKitBenchmarks"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKDoubleWidthKitBenchmarks"
-               BuildableName = "NBKDoubleWidthKitBenchmarks"
-               BlueprintName = "NBKDoubleWidthKitBenchmarks"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
