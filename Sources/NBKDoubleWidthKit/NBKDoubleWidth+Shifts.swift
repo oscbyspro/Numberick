@@ -20,7 +20,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeftUncheckedSmart(by: Int(clamping: rhs))
+        lhs.bitshiftLeftSmart(by: Int(clamping: rhs))
     }
     
     @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -40,10 +40,12 @@ extension NBKDoubleWidth {
     // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
+    /// Performs a smart left shift.
+    ///
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @inlinable public mutating func bitshiftLeftUncheckedSmart(by amount: Int) {
+    @inlinable public mutating func bitshiftLeftSmart(by amount: Int) {
         let amountAbsoluteValue = amount.magnitude  as UInt
         switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
         case (true,  true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: amountAbsoluteValue))
@@ -53,13 +55,17 @@ extension NBKDoubleWidth {
         }
     }
     
+    /// Performs a smart left shift.
+    ///
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @inlinable public func bitshiftedLeftUncheckedSmart(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftLeftUncheckedSmart(by: amount); return newValue
+    @inlinable public func bitshiftedLeftSmart(by amount: Int) -> Self {
+        var newValue = self; newValue.bitshiftLeftSmart(by: amount); return newValue
     }
     
+    /// Performs an unchecked left shift.
+    ///
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
@@ -69,6 +75,8 @@ extension NBKDoubleWidth {
         return self.bitshiftLeftUnchecked(words: words, bits: bits)
     }
     
+    /// Performs an unchecked left shift.
+    ///
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
@@ -76,6 +84,8 @@ extension NBKDoubleWidth {
         var newValue = self; newValue.bitshiftLeftUnchecked(by: amount); return newValue
     }
     
+    /// Performs an unchecked left shift.
+    ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
@@ -99,6 +109,8 @@ extension NBKDoubleWidth {
         }
     }
     
+    /// Performs an unchecked left shift.
+    ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
@@ -120,7 +132,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRightUncheckedSmart(by: Int(clamping: rhs))
+        lhs.bitshiftRightSmart(by: Int(clamping: rhs))
     }
 
     @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -139,10 +151,12 @@ extension NBKDoubleWidth {
     // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
+    /// Performs a smart, signed, right shift.
+    ///
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @inlinable public mutating func bitshiftRightUncheckedSmart(by amount: Int) {
+    @inlinable public mutating func bitshiftRightSmart(by amount: Int) {
         let amountAbsoluteValue = amount.magnitude  as UInt
         switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
         case (true,  true ): self.bitshiftRightUnchecked(by: Int(bitPattern: amountAbsoluteValue))
@@ -152,13 +166,17 @@ extension NBKDoubleWidth {
         }
     }
     
+    /// Performs a smart, signed, right shift.
+    ///
     /// - Parameters:
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
-    @inlinable public func bitshiftedRightUncheckedSmart(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftRightUncheckedSmart(by: amount); return newValue
+    @inlinable public func bitshiftedRightSmart(by amount: Int) -> Self {
+        var newValue = self; newValue.bitshiftRightSmart(by: amount); return newValue
     }
     
+    /// Performs an unchecked, signed, right shift.
+    ///
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
@@ -168,6 +186,8 @@ extension NBKDoubleWidth {
         return self.bitshiftRightUnchecked(words: words, bits: bits)
     }
     
+    /// Performs an unchecked, signed, right shift.
+    ///
     /// - Parameters:
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
@@ -175,6 +195,8 @@ extension NBKDoubleWidth {
         var newValue = self; newValue.bitshiftRightUnchecked(by: amount); return newValue
     }
     
+    /// Performs an unchecked, signed, right shift.
+    ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
@@ -198,6 +220,8 @@ extension NBKDoubleWidth {
         }
     }
     
+    /// Performs an unchecked, signed, right shift.
+    ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
