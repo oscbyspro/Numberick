@@ -283,20 +283,8 @@ final class UInt256TestsOnDivisionCodeCoverage: XCTestCase {
     
     // TODO: more descriptive name
     func testDividingFullWidthSpecialCases() {
-//        NBKAssertDivisionFullWidth(HL(T.max, M(  )), T.max, T(0), T(0), true)
-//        NBKAssertDivisionFullWidth(HL(T.max, M.max), T.max, T(1), T(0), true)
-//
-//        NBKAssertDivisionFullWidth(HL(T(1) << 255, T(  )), T(1) << 255, T(0),            T( 0),      true )
-//        NBKAssertDivisionFullWidth(HL(T(1) << 255, T.max), T(1) << 255, T(1),            T.max >> 1, true )
-//
-//        NBKAssertDivisionFullWidth(HL(T(1) << 254, T(  )), T(1) << 255, T(1) << 255,     T( 0),      false)
-//        NBKAssertDivisionFullWidth(HL(T(1) << 254, T.max), T(1) << 255, T(1) << 255 + 1, T.max >> 1, false)
-//
-//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T(  )), T(1) << 255, T(1) << 128,     T( 0),      false)
-//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T.max), T(1) << 255, T(1) << 128 + 1, T.max >> 1, false)
-//
-//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T(  )), T(1) << 255 + 1, T(1) << 128,     T( 0),      false)
-//        NBKAssertDivisionFullWidth(HL(T(1) << 127, T.max), T(1) << 255 + 1, T(1) << 128 + 1, T.max >> 1, false)
+        NBKAssertDivisionFullWidth(HL(T.max, M(  )), T.max, T(0), T(0), true)
+        NBKAssertDivisionFullWidth(HL(T.max, M.max), T.max, T(1), T(0), true)
     }
 }
 

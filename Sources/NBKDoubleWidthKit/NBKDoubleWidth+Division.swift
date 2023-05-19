@@ -137,39 +137,36 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // divisor is greater than or equal
         //=--------------------------------------=
-        let comparison: Int = lhs.compared(to: rhs)
-        if  comparison <= 0 {
-            return comparison.isZero ? QR(1, 0) : QR(0, lhs)
+        let comparison: Int = rhs.compared(to: lhs)
+        if  comparison >= 0 {
+            return comparison.isZero ? QR(1, Self.zero) : QR(Self.zero, lhs)
         }
         //=--------------------------------------=
         // division: 1 by 1
         //=--------------------------------------=
         if  lhs.high.isZero {
             let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
-            return QR(Self(descending: HL(0, quotient)), Self(descending: HL(0, remainder)))
+            return QR(Self(descending: HL(High.zero, quotient)), Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
         // division: 2 by 1
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
             let (quotient, remainder) = Self.divide21(lhs, by: rhs.low)
-            return QR(quotient, Self(descending: HL(0, remainder)))
+            return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let (words, bits) = shift.dividedByBitWidth()
-        assert(shift < Low.bitWidth)
-
-        let high = shift.isZero ? Low.zero : lhs.high &>> (Low.bitWidth &- shift)
-        let lhs: Self = lhs._bitshiftedLeft(words: words, bits: bits)
-        let rhs: Self = rhs._bitshiftedLeft(words: words, bits: bits)
-        assert(rhs.mostSignificantBit)
+        let (words,  bits) = shift.dividedByBitWidth()
+        let (high) = shift.isZero ? Low.zero : lhs.high &>> (Low.bitWidth &- shift)
+        let (lhs ) = lhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
+        let (rhs ) = rhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         //=--------------------------------------=
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide32Normalized(Wide3(high, lhs.high, lhs.low), by: rhs)
-        return QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits))
+        return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
     }
     
     //=------------------------------------------------------------------------=
@@ -188,9 +185,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // quotient will not fit in two halves
         //=--------------------------------------=
-        if  lhs.high >= rhs {
-            let remainder = Self.divide22(lhs.high, by: rhs).partialValue.remainder
-            let truncated = DoubleWidth(descending: HL(remainder, lhs.low))
+        if  rhs <= lhs.high {
+            let high = Self.divide22Unchecked(lhs.high,  by: rhs, shift: shift)
+            let truncated = DoubleWidth(descending: HL(high.remainder, lhs.low))
             return PVO(Self.divide42Unchecked(truncated, by: rhs, shift: shift), true)
         }
         //=--------------------------------------=
@@ -198,15 +195,16 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
 
     @inlinable internal static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
-        assert(lhs.high < rhs, "quotient must fit in two halves")
-        assert(shift <  Self.bitWidth, "must not divide by zero")
-        assert(shift == rhs.leadingZeroBitCount, "the shift amount should be cached")
+        assert(rhs > lhs.high) // quotient must fit in two halves
+        assert(rhs.isZero == false) // division by zero is not allowed
+        assert(rhs.leadingZeroBitCount == shift) // shift should be cached
         //=--------------------------------------=
-        var zeros: Int = lhs.high.leadingZeroBitCount
+        let lhsIs0XXX: Bool = lhs.high.high.isZero
+        let lhsIs00XX: Bool = lhsIs0XXX && lhs.high.low.isZero
         //=--------------------------------------=
         // division: 2 by 2
         //=--------------------------------------=
-        if  UInt(bitPattern: zeros) >= UInt(bitPattern: Self.bitWidth) {
+        if  lhsIs00XX {
             return Self.divide22Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
@@ -214,31 +212,26 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
             let (quotient, remainder) = Self.divide41(lhs, by: rhs.low)
-            return QR(quotient, Self(descending: HL(0, remainder)))
+            return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
         let (words, bits) = shift.dividedByBitWidth()
-        assert(shift < Low.bitWidth)
-
-        zeros &-= shift
-        let lhs = lhs._bitshiftedLeft(words: words, bits: bits) as DoubleWidth
-        let rhs = rhs._bitshiftedLeft(words: words, bits: bits) as Self
-        assert(rhs.mostSignificantBit)
-        assert(lhs.leadingZeroBitCount == zeros)
+        let (lhs) = lhs.bitshiftedLeftUnchecked(words: words, bits: bits) as DoubleWidth
+        let (rhs) = rhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         //=--------------------------------------=
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
-        if  UInt(bitPattern: zeros) >= UInt(bitPattern: High.bitWidth), Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
+        if  lhsIs0XXX, Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
             let (quotient, remainder) = Self.divide32Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return QR(Self(descending: HL(0, quotient)), remainder._bitshiftedRight(words: words, bits: bits))
+            return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
         }
         //=--------------------------------------=
         // division: 4 by 2 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide42Normalized(lhs, by: rhs)
-        return QR(quotient, remainder._bitshiftedRight(words: words, bits: bits))
+        return QR(quotient, remainder.bitshiftedRightUnchecked(words: words, bits: bits))
     }
     
     //=------------------------------------------------------------------------=
@@ -259,29 +252,29 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return QR(Self(descending: HL(x, y)), d)
     }
     
+    // TODO: code coverage (lhs.high == rhs.high)
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Normalized
     //=------------------------------------------------------------------------=
 
-    // TODO: code coverage (2nd decrement)
-    // TODO: code coverage (lhs.high == rhs.high)
+    /// Divides 3 halves by 2 normalized halves, where the quotient fits in one half.
+    ///
+    /// ### Approximation Adjustment
+    ///
+    /// The approximation needs at most two adjustments, but the while loop was faster.
+    ///
     @inlinable internal static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
-        assert(rhs.mostSignificantBit, "the divisor must be normalized")
-        assert(Self(descending: HL(lhs.high, lhs.mid)) < rhs, "the quotient must fit in one half")
+        assert(rhs.mostSignificantBit)
+        assert(rhs > Self(descending: HL(lhs.high, lhs.mid)))
         //=--------------------------------------=
-        var quotient = lhs.high == rhs.high ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation = Low.multiplying21(HL(rhs.high, rhs.low), by: quotient) as Wide3<Low>
+        var quotient: Low = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
+        var approximation: Wide3<Low> =  Low.multiplying21(HL(rhs.high, rhs.low), by: quotient)
         //=--------------------------------------=
-        // decrement if overestimated
+        // decrement if overestimated (max twice)
         //=--------------------------------------=
-        if  Low.compare33(lhs, to: approximation) == -1 {
+        while Low.compare33(lhs, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
             _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
-
-            if  Low.compare33(lhs, to: approximation) == -1 {
-                _ = quotient.subtractReportingOverflow(1 as UInt)
-                _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
-            }
         }
         //=--------------------------------------=
         var remainder = lhs as Wide3<Low>
@@ -289,6 +282,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }
 
+    /// Divides 4 halves by 2 normalized halves, where the quotient fits in two halves.
     @inlinable internal static func divide42Normalized(_ lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
         let (x, a) = Self.divide32Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
         let (y, b) = Self.divide32Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
