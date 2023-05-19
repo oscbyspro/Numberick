@@ -248,7 +248,6 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     ///
     @_disfavoredOverload @inlinable static func *(lhs: Self, rhs: Digit) -> Self
     
-    // TODO: correct documentation of overflow semantics
     //=------------------------------------------------------------------------=
     // MARK: Details x Division
     //=------------------------------------------------------------------------=

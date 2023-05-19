@@ -10,7 +10,7 @@
 #if DEBUG
 
 import NBKCoreKit
-import NBKDoubleWidthKit
+@testable import NBKDoubleWidthKit
 import XCTest
 
 private typealias X = NBK256X64
@@ -65,6 +65,11 @@ final class Int256TestsOnNumbers: XCTestCase {
         
         XCTAssertEqual(T(truncatingIfNeeded: UInt.min), T(x64: X(UInt64(truncatingIfNeeded: UInt.min), 0, 0, 0)))
         XCTAssertEqual(T(truncatingIfNeeded: UInt.max), T(x64: X(UInt64(truncatingIfNeeded: UInt.max), 0, 0, 0)))
+    }
+    
+    func testFromUIntAsBits() {
+        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(truncatingIfNeeded: UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(truncatingIfNeeded: UInt.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -491,6 +496,11 @@ final class UInt256TestsOnNumbers: XCTestCase {
     func testFromUIntAsDigit() {
         XCTAssertEqual(T(digit: UInt.min), T(x64: X(UInt64(truncatingIfNeeded: UInt.min), 0, 0, 0)))
         XCTAssertEqual(T(digit: UInt.max), T(x64: X(UInt64(truncatingIfNeeded: UInt.max), 0, 0, 0)))
+    }
+    
+    func testFromUIntAsBits() {
+        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(truncatingIfNeeded: UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(truncatingIfNeeded: UInt.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=

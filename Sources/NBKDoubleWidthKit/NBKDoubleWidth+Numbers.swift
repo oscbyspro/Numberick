@@ -55,7 +55,7 @@ extension NBKDoubleWidth {
         self = value
     }
     
-    @inlinable public init?(_exactlyIntegerLiteral source: StaticBigInt) {
+    @inlinable internal init?(_exactlyIntegerLiteral source: StaticBigInt) {
         //=--------------------------------------=
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth

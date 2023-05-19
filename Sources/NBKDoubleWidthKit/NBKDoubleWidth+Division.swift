@@ -252,7 +252,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return QR(Self(descending: HL(x, y)), d)
     }
     
-    // TODO: code coverage (lhs.high == rhs.high)
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Normalized
     //=------------------------------------------------------------------------=

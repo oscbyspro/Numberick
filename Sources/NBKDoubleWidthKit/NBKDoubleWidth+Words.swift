@@ -157,7 +157,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @_transparent @usableFromInline internal static func endiannessSensitiveIndex(_ index: Int) -> Int {
-        assert(self.indices ~= index)
+        assert(self.indices  ~= index)
         #if _endian(big)
         return self.lastIndex - index
         #else
