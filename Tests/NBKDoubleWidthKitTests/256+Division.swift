@@ -17,7 +17,7 @@ private typealias X = NBK256X64
 private typealias Y = NBK256X32
 
 //*============================================================================*
-// MARK: * Int256 x Division
+// MARK: * NBK x Int256 x Division
 //*============================================================================*
 
 final class Int256TestsOnDivision: XCTestCase {
@@ -198,7 +198,7 @@ final class Int256TestsOnDivision: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * UInt256 x Division
+// MARK: * NBK x UInt256 x Division
 //*============================================================================*
 
 final class UInt256TestsOnDivision: XCTestCase {
@@ -339,7 +339,7 @@ final class UInt256TestsOnDivision: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * UInt256 x Division x Code Coverage
+// MARK: * NBK x UInt256 x Division x Code Coverage
 //*============================================================================*
 
 final class UInt256TestsOnDivisionCodeCoverage: XCTestCase {

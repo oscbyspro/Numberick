@@ -17,7 +17,7 @@ private typealias X = NBK256X64
 private typealias Y = NBK256X32
 
 //*============================================================================*
-// MARK: * Int256 x Negation
+// MARK: * NBK x Int256 x Negation
 //*============================================================================*
 
 final class Int256TestsOnNegation: XCTestCase {

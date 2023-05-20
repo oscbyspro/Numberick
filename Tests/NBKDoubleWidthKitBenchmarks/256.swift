@@ -17,7 +17,7 @@ private typealias X = NBK256X64
 private typealias Y = NBK256X32
 
 //*============================================================================*
-// MARK: * Int256
+// MARK: * NBK x Int256
 //*============================================================================*
 
 final class Int256Benchmarks: XCTestCase {
@@ -58,7 +58,7 @@ final class Int256Benchmarks: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * UInt256
+// MARK: * NBK x UInt256
 //*============================================================================*
 
 final class UInt256Benchmarks: XCTestCase {

@@ -32,16 +32,23 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
     
     func testInitBitPattern() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(bitPattern: T.Magnitude.min), T( 0))
-            XCTAssertEqual(T(bitPattern: T.Magnitude.max), T(-1))
+            typealias M = T.Magnitude
             
-            XCTAssertEqual(T(bitPattern:  (T.Magnitude(1) << (T.bitWidth - 1))), T.min)
-            XCTAssertEqual(T(bitPattern: ~(T.Magnitude(1) << (T.bitWidth - 1))), T.max)
+            XCTAssertEqual(M(bitPattern: T( 0)), M.min)
+            XCTAssertEqual(M(bitPattern: T(-1)), M.max)
+            
+            XCTAssertEqual(T(bitPattern: M.min), T( 0))
+            XCTAssertEqual(T(bitPattern: M.max), T(-1))
+            
+            XCTAssertEqual(T(bitPattern:  (M(1) << (T.bitWidth - 1))), T.min)
+            XCTAssertEqual(T(bitPattern: ~(M(1) << (T.bitWidth - 1))), T.max)
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(bitPattern: T.Magnitude.min), T.min)
-            XCTAssertEqual(T(bitPattern: T.Magnitude.max), T.max)
+            typealias M = T.Magnitude
+            
+            XCTAssertEqual(T(bitPattern: M.min), T.min)
+            XCTAssertEqual(T(bitPattern: M.max), T.max)
         }
         
         for type: T in types {
@@ -51,16 +58,20 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
     
     func testValueAsBitPattern() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T( 0).bitPattern, T.Magnitude.min)
-            XCTAssertEqual(T(-1).bitPattern, T.Magnitude.max)
+            typealias M = T.Magnitude
             
-            XCTAssertEqual(T.min.bitPattern,  (T.Magnitude(1) << (T.bitWidth - 1)))
-            XCTAssertEqual(T.max.bitPattern, ~(T.Magnitude(1) << (T.bitWidth - 1)))
+            XCTAssertEqual(T( 0).bitPattern, M.min)
+            XCTAssertEqual(T(-1).bitPattern, M.max)
+            
+            XCTAssertEqual(T.min.bitPattern,  (M(1) << (T.bitWidth - 1)))
+            XCTAssertEqual(T.max.bitPattern, ~(M(1) << (T.bitWidth - 1)))
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T.min.bitPattern, T.Magnitude.min)
-            XCTAssertEqual(T.max.bitPattern, T.Magnitude.max)
+            typealias M = T.Magnitude
+            
+            XCTAssertEqual(T.min.bitPattern, M.min)
+            XCTAssertEqual(T.max.bitPattern, M.max)
         }
         
         for type: T in types {
