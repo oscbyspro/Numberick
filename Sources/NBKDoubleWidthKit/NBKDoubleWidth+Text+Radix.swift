@@ -20,8 +20,8 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func decodeBigEndianText(_ text: some StringProtocol, radix: Int?) -> Self? {
-        let (sign, radix, body) =    NBK.bigEndianTextComponents(text, radix: radix)
-        guard  let magnitude =  Magnitude.decodeBigEndianDigits(body, radix: radix) else { return nil }
+        let (sign, radix, body) = NBK.bigEndianTextComponents(text, radix: radix)
+        guard let magnitude = Magnitude.decodeBigEndianDigits(body, radix: radix) else { return nil }
         return Self(sign: sign, magnitude: magnitude)
     }
     

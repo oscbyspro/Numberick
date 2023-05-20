@@ -83,9 +83,9 @@ extension NBKCoreInteger {
     //=------------------------------------------------------------------------=
     // MARK: Details x Complements
     //=------------------------------------------------------------------------=
-        
-    @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
-        self = unsafeBitCast(source.bitPattern, to: Self.self)
+    
+    @inlinable public init(bitPattern: BitPattern) {
+        self = unsafeBitCast(bitPattern, to: Self.self)
     }
     
     @inlinable public var bitPattern: BitPattern {

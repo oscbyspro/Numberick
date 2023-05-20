@@ -28,8 +28,8 @@
 /// Because the dividend may not fit in the remainder of single digit division,
 /// the divisor is returned instead.
 ///
-public protocol NBKBinaryInteger: NBKBigEndianTextable, NBKBitPatternConvertible,
-BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
+public protocol NBKBinaryInteger: NBKBigEndianTextable, BinaryInteger, Sendable where
+Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
     associatedtype Digit: NBKBinaryInteger = Self where

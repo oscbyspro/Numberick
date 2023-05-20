@@ -19,12 +19,14 @@ extension NBKDoubleWidth {
     // MARK: Details x Bit Pattern
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
-        self = unsafeBitCast(source.bitPattern, to: Self.self)
+    @inlinable public init(bitPattern: BitPattern) {
+        let high = High(bitPattern: bitPattern.high)
+        self.init(descending: HL(high, bitPattern.low))
     }
     
     @inlinable public var bitPattern: BitPattern {
-        unsafeBitCast(self, to: BitPattern.self)
+        let high = BitPattern.High(bitPattern: self.high)
+        return BitPattern(descending: HL(high, self.low))
     }
     
     //=------------------------------------------------------------------------=

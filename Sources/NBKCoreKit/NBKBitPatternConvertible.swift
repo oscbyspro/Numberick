@@ -35,7 +35,7 @@ public protocol NBKBitPatternConvertible<BitPattern> {
     /// Int256(bitPattern: UInt256.max) // Int256(-1)
     /// ```
     ///
-    @inlinable init(bitPattern source: some NBKBitPatternConvertible<BitPattern>)
+    @inlinable init(bitPattern source: BitPattern)
     
     /// The bit pattern of this value.
     ///
@@ -46,4 +46,27 @@ public protocol NBKBitPatternConvertible<BitPattern> {
     /// ```
     ///
     @inlinable var bitPattern: BitPattern { get }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Details
+//=----------------------------------------------------------------------------=
+
+extension NBKBitPatternConvertible {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from the given bit pattern.
+    ///
+    /// ```swift
+    /// Int256(bitPattern: UInt256( 0)) // Int256( 0)
+    /// Int256(bitPattern: UInt256( 1)) // Int256( 1)
+    /// Int256(bitPattern: UInt256.max) // Int256(-1)
+    /// ```
+    ///
+    @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {
+        self.init(bitPattern: source.bitPattern)
+    }
 }

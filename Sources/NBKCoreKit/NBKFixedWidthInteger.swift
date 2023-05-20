@@ -28,7 +28,7 @@
 /// Because the dividend may not fit in the remainder of single digit division,
 /// the divisor is returned instead.
 ///
-public protocol NBKFixedWidthInteger: NBKBinaryInteger, FixedWidthInteger where
+public protocol NBKFixedWidthInteger: NBKBinaryInteger, NBKBitPatternConvertible, FixedWidthInteger where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
     
     //=------------------------------------------------------------------------=
