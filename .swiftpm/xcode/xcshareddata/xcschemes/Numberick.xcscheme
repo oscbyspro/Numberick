@@ -81,11 +81,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick.xctestplan">
+            reference = "container:.swiftpm/Numberick.xctestplan"
+            default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick-Tests.xctestplan"
-            default = "YES">
+            reference = "container:.swiftpm/Numberick-Tests.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

@@ -52,7 +52,7 @@ extension NBKDoubleWidth {
         let lhsIsLessThanZero: Bool =    self.isLessThanZero
         let rhsIsLessThanZero: Bool = divisor.isLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide22(self.magnitude, by: divisor.magnitude)
+        var qro = Magnitude.divide22(self.magnitude, by: divisor.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
@@ -69,7 +69,6 @@ extension NBKDoubleWidth {
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
     }
 
-    // TODO: consider removing duplicates
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
@@ -79,28 +78,35 @@ extension NBKDoubleWidth {
     }
 
     @inlinable public func dividingFullWidth(_ dividend: DoubleWidth) -> QR<Self, Self> {
-        self.dividingFullWidthReportingOverflow(dividend).partialValue
+        let pvo: PVO<QR<Self, Self>> = self.dividingFullWidthReportingOverflow(dividend)
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
+        return pvo.partialValue as  QR<Self, Self>
     }
 
     @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
         self.dividingFullWidthReportingOverflow(DoubleWidth(descending: dividend))
     }
-
+    
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
     @inlinable public func dividingFullWidthReportingOverflow(_ dividend: DoubleWidth) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = dividend.isLessThanZero
         let rhsIsLessThanZero: Bool = /**/self.isLessThanZero
+        let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide42(dividend.magnitude, by: self.magnitude)
+        var qro = Magnitude.divide42(dividend.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
-        if  lhsIsLessThanZero != rhsIsLessThanZero {
+        if  minus {
             qro.partialValue.quotient.formTwosComplement()
         }
 
         if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
+        }
+        
+        if  Self.isSigned && qro.partialValue.quotient.mostSignificantBit != minus {
+            qro.overflow = minus ? (qro.overflow || !qro.partialValue.quotient.isZero) : true
         }
         //=--------------------------------------=
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)

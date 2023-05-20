@@ -224,11 +224,28 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude>
     
-    // TODO: documentation
     //=------------------------------------------------------------------------=
     // MARK: Details x Division
     //=------------------------------------------------------------------------=
     
+    /// Returns a the quotient and remainder of dividing the given value by this value.
+    ///
+    /// The resulting quotient must be representable within the bounds of the type. If
+    /// the quotient is too large to represent in the type, a runtime error may occur.
+    ///
+    /// The following example divides a value that is too large to be represented
+    /// using a single `Int256` instance by another `Int256` value. Because the quotient
+    /// is representable as an `Int256`, the division succeeds.
+    ///
+    /// ```swift
+    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2)
+    /// let (quotient, remainder) =  (Int256.max).dividingFullWidth(dividend)
+    /// //  (quotient, remainder) == (Int256.max, Int256.max - 1)
+    /// ````
+    ///
+    /// - Parameter dividend: The high and low parts of a double-width integer.
+    /// - Returns: The quotient and remainder of dividing the given value by this value.
+    ///
     @inlinable func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self>
 }
 

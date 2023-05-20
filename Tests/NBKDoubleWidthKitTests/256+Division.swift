@@ -95,43 +95,62 @@ final class Int256TestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        var x: (high: T, low: M)
+        var dividend: (high: T, low: M)
         //=--------------------------------------=
-        x.low  = M(x64: X( 6, 17, 35, 61))
-        x.high = T(x64: X(61, 52, 32,  0))
+        dividend.high = T(x64: X(61, 52, 32,  0))
+        dividend.low  = M(x64: X( 6, 17, 35, 61))
         
-        NBKAssertDivisionFullWidth(x, T(x64: X( 1,  2,  3,  4)), T(x64: X( 5,  6,  7,  8)), T(x64: X( 1,  1,  1,  1)))
-        NBKAssertDivisionFullWidth(x, T(x64: X( 5,  6,  7,  8)), T(x64: X( 1,  2,  3,  4)), T(x64: X( 1,  1,  1,  1)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X( 1,  2,  3,  4)), T(x64: X( 5,  6,  7,  8)), T(x64: X( 1,  1,  1,  1)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X( 5,  6,  7,  8)), T(x64: X( 1,  2,  3,  4)), T(x64: X( 1,  1,  1,  1)))
         //=--------------------------------------=
-        x.low  = M(x64: X(34, 54, 63, 62))
-        x.high = T(x64: X(34, 16,  5,  0))
+        dividend.high = T(x64: X(34, 16,  5,  0))
+        dividend.low  = M(x64: X(34, 54, 63, 62))
         
-        NBKAssertDivisionFullWidth(x, T(x64: X( 4,  3,  2,  1)), T(x64: X( 9,  7,  6,  5)), T(x64: X(~1, ~1, ~0,  0)))
-        NBKAssertDivisionFullWidth(x, T(x64: X( 8,  7,  6,  5)), T(x64: X( 4,  3,  2,  1)), T(x64: X( 2,  2,  2,  2)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X( 4,  3,  2,  1)), T(x64: X( 9,  7,  6,  5)), T(x64: X(~1, ~1, ~0,  0)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X( 8,  7,  6,  5)), T(x64: X( 4,  3,  2,  1)), T(x64: X( 2,  2,  2,  2)))
         //=--------------------------------------=
-        x.low  = M(x64: X(~1, ~0, ~0, ~0))
-        x.high = T(x64: X(~0, ~0, ~0, ~0))
+        dividend.high = T(x64: X(~0, ~0, ~0, ~0))
+        dividend.low  = M(x64: X(~1, ~0, ~0, ~0))
         
-        NBKAssertDivisionFullWidth(x, T(x64: X( 1,  0,  0,  0)), T(x64: X(~1, ~0, ~0, ~0)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertDivisionFullWidth(x, T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 2,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X( 1,  0,  0,  0)), T(x64: X(~1, ~0, ~0, ~0)), T(x64: X( 0,  0,  0,  0)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 2,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
     }
     
     func testDividingFullWidthReportingOverflow() {
-        NBKAssertDivisionFullWidth(HL( 0,  0), T.max,  T(0), -T( 0), false)
-        NBKAssertDivisionFullWidth(HL( 0, ~0), T.max,  T(2),  T( 1), false)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T.max, -T(2), -T( 2), false)
-        NBKAssertDivisionFullWidth(HL(~0, ~0), T.max,  T(0), -T( 1), false)
-                
-        NBKAssertDivisionFullWidth(HL( 0,  0), T.min,  T(0),  T( 0), false)
-        NBKAssertDivisionFullWidth(HL( 0, ~0), T.min, -T(1),  T.max, false)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T.min,  T(2),  T( 0), false)
-        NBKAssertDivisionFullWidth(HL(~0, ~0), T.min,  T(0), -T( 1), false)
+        var dividend: (high: T, low: M)
+        //=--------------------------------------=
+        dividend.high = T.max >> 1 + T(0)
+        dividend.low  = M.max >> 1 + M(0)
         
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(0), ~T(0) << (T.bitWidth - 0), T(0), true )
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(1), ~T(0) << (T.bitWidth - 0), T(0), true )
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(2), ~T(0) << (T.bitWidth - 1), T(0), false)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(4), ~T(0) << (T.bitWidth - 2), T(0), false)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(8), ~T(0) << (T.bitWidth - 3), T(0), false)
+        NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
+        //=--------------------------------------=
+        dividend.high = T.max >> 1 + T(0)
+        dividend.low  = M.max >> 1 + M(1)
+        
+        NBKAssertDivisionFullWidth(dividend, T.max, T.min, T(  ) - T(0), true )
+        //=--------------------------------------=
+        dividend.high = T.max >> 1 + T(1)
+        dividend.low  = M.max >> 1 + M(0)
+        
+        NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max - T(0), false)
+        //=--------------------------------------=
+        dividend.high = T.max >> 1 + T(1)
+        dividend.low  = M.max >> 1 + M(1)
+        
+        NBKAssertDivisionFullWidth(dividend, T.min, T.max, T(  ) - T(0), true )
+    }
+    
+    func testDividingFullWidthReportingOverflowTruncatesQuotient() {
+        let dividend: (high: T, low: M)
+        //=--------------------------------------=
+        dividend.high = T(repeating: true )
+        dividend.low  = M(repeating: false)
+        
+        NBKAssertDivisionFullWidth(dividend, T(0), ~T(0) << (T.bitWidth - 0), T(0), true )
+        NBKAssertDivisionFullWidth(dividend, T(1), ~T(0) << (T.bitWidth - 0), T(0), true )
+        NBKAssertDivisionFullWidth(dividend, T(2), ~T(0) << (T.bitWidth - 1), T(0), false)
+        NBKAssertDivisionFullWidth(dividend, T(4), ~T(0) << (T.bitWidth - 2), T(0), false)
+        NBKAssertDivisionFullWidth(dividend, T(8), ~T(0) << (T.bitWidth - 3), T(0), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -223,32 +242,46 @@ final class UInt256TestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        var x: (high: T, low: T)
+        var dividend: (high: T, low: T)
         //=--------------------------------------=
-        x.low  = T(x64: X( 6, 17, 35, 61))
-        x.high = T(x64: X(61, 52, 32,  0))
+        dividend.high = T(x64: X(61, 52, 32,  0))
+        dividend.low  = T(x64: X( 6, 17, 35, 61))
         
-        NBKAssertDivisionFullWidth(x, T(x64: X(1, 2, 3, 4)), T(x64: X(5, 6, 7, 8)), T(x64: X( 1,  1,  1,  1)))
-        NBKAssertDivisionFullWidth(x, T(x64: X(5, 6, 7, 8)), T(x64: X(1, 2, 3, 4)), T(x64: X( 1,  1,  1,  1)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X(1, 2, 3, 4)), T(x64: X(5, 6, 7, 8)), T(x64: X( 1,  1,  1,  1)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X(5, 6, 7, 8)), T(x64: X(1, 2, 3, 4)), T(x64: X( 1,  1,  1,  1)))
         //=--------------------------------------=
-        x.low  = T(x64: X(34, 54, 63, 62))
-        x.high = T(x64: X(34, 16,  5,  0))
+        dividend.high = T(x64: X(34, 16,  5,  0))
+        dividend.low  = T(x64: X(34, 54, 63, 62))
         
-        NBKAssertDivisionFullWidth(x, T(x64: X(4, 3, 2, 1)), T(x64: X(9, 7, 6, 5)), T(x64: X(~1, ~1, ~0,  0)))
-        NBKAssertDivisionFullWidth(x, T(x64: X(8, 7, 6, 5)), T(x64: X(4, 3, 2, 1)), T(x64: X( 2,  2,  2,  2)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X(4, 3, 2, 1)), T(x64: X(9, 7, 6, 5)), T(x64: X(~1, ~1, ~0,  0)))
+        NBKAssertDivisionFullWidth(dividend, T(x64: X(8, 7, 6, 5)), T(x64: X(4, 3, 2, 1)), T(x64: X( 2,  2,  2,  2)))
     }
     
     func testDividingFullWidthReportingOverflow() {
-        NBKAssertDivisionFullWidth(HL( 0,  0), T.max, T(0), T(0), false)
-        NBKAssertDivisionFullWidth(HL( 0, ~0), T.max, T(1), T(0), false)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T.max, T(0), T(0), true )
-        NBKAssertDivisionFullWidth(HL(~0, ~0), T.max, T(1), T(0), true )
+        var dividend: (high: T, low: T)
+        //=--------------------------------------=
+        dividend.high = T.max - T(1)
+        dividend.low  = M.max
         
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(0), ~T(0) << (T.bitWidth - 0), T(0), true)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(1), ~T(0) << (T.bitWidth - 0), T(0), true)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(2), ~T(0) << (T.bitWidth - 1), T(0), true)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(4), ~T(0) << (T.bitWidth - 2), T(0), true)
-        NBKAssertDivisionFullWidth(HL(~0,  0), T(8), ~T(0) << (T.bitWidth - 3), T(0), true)
+        NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
+        //=--------------------------------------=
+        dividend.high = M.max - T(0)
+        dividend.low  = M.min
+        
+        NBKAssertDivisionFullWidth(dividend, T.max, T.min, T.min - T(0), true )
+    }
+    
+    func testDividingFullWidthReportingOverflowTruncatesQuotient() {
+        let dividend: (high: T, low: M)
+        //=--------------------------------------=
+        dividend.high = T(repeating: true )
+        dividend.low  = M(repeating: false)
+        
+        NBKAssertDivisionFullWidth(dividend, T(0), ~T(0) << (T.bitWidth - 0), T(0), true)
+        NBKAssertDivisionFullWidth(dividend, T(1), ~T(0) << (T.bitWidth - 0), T(0), true)
+        NBKAssertDivisionFullWidth(dividend, T(2), ~T(0) << (T.bitWidth - 1), T(0), true)
+        NBKAssertDivisionFullWidth(dividend, T(4), ~T(0) << (T.bitWidth - 2), T(0), true)
+        NBKAssertDivisionFullWidth(dividend, T(8), ~T(0) << (T.bitWidth - 3), T(0), true)
     }
     
     //=------------------------------------------------------------------------=

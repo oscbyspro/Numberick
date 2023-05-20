@@ -35,7 +35,6 @@ extension NBKDoubleWidth {
         var lhs = lhs; lhs &<<= rhs; return lhs
     }
     
-    // TODO: make these public
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int
     //=------------------------------------------------------------------------=

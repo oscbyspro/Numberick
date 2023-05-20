@@ -43,9 +43,9 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
-@frozen public struct NBKDoubleWidth<High>: NBKMachineWordsInteger,
-CustomStringConvertible, MutableCollection, RandomAccessCollection
-where High: NBKMachineWordsInteger, High.Digit: NBKCoreInteger<UInt> {
+@frozen public struct NBKDoubleWidth<High>:
+NBKMachineWordsInteger, MutableCollection, RandomAccessCollection where
+High: NBKMachineWordsInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// The most significant part of this type.
     public typealias High = High

@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Text x Radix x Decode
+// MARK: * NBK x Double Width x Text x Radix
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -21,8 +21,17 @@ extension NBKDoubleWidth {
     
     @inlinable public static func decodeBigEndianText(_ text: some StringProtocol, radix: Int?) -> Self? {
         let (sign, radix, body) =    NBK.bigEndianTextComponents(text, radix: radix)
-        guard  let magnitude =  Magnitude._decodeBigEndianDigits(body, radix: radix) else { return nil }
+        guard  let magnitude =  Magnitude.decodeBigEndianDigits(body, radix: radix) else { return nil }
         return Self(sign: sign, magnitude: magnitude)
+    }
+    
+    @inlinable public static func encodeBigEndianText(_ source: Self, radix: Int, uppercase: Bool) -> String {
+        let sign = Bool(source.isLessThanZero)
+        var magnitude: Magnitude = source.magnitude
+        let alphabet = MaxRadixAlphabet(uppercase: uppercase)
+        return AnyRadixUIntRoot(radix).switch(
+        perfect:  { Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) },
+        imperfect:{ Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) })
     }
 }
 
@@ -33,16 +42,16 @@ extension NBKDoubleWidth {
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable internal static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: Int) -> Self? {
+    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: Int) -> Self? {
         AnyRadixUIntRoot(radix).switch(
-          perfect:{ Self._decodeBigEndianDigits(source, radix: $0) },
-        imperfect:{ Self._decodeBigEndianDigits(source, radix: $0) })
+        perfect:  { Self.decodeBigEndianDigits(source, radix: $0) },
+        imperfect:{ Self.decodeBigEndianDigits(source, radix: $0) })
     }
     
-    @inlinable internal static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
+    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
         var magnitude = Magnitude()
         let utf8  = source.utf8.drop(while:{ $0 == 48 })
         let start = utf8.startIndex as String.Index
@@ -63,7 +72,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return magnitude
     }
     
-    @inlinable internal static func _decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) -> Self? {
+    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) -> Self? {
         var magnitude = Magnitude()
         let utf8 = source.utf8.drop(while:{ $0 == 48 })
         var head = utf8.startIndex as String.Index
@@ -73,7 +82,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             let tail = utf8.index(head, offsetBy: alignment)
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             magnitude.first = word
-            do  { head = tail }
+            head = tail
         }
         //=--------------------------------------=
         forwards: while head != utf8.endIndex {
@@ -81,41 +90,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
             guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
             guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { return nil }
             guard !magnitude.addReportingOverflow(word)/*----------------*/ else { return nil }
-            do  { head = tail }
+            head = tail
         }
         //=--------------------------------------=
         return magnitude
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Double Width x Text x Radix x Encode
-//*============================================================================*
-
-extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func encodeBigEndianText(_ source: Self, radix: Int, uppercase: Bool) -> String {
-        let sign = Bool(source.isLessThanZero)
-        var magnitude: Magnitude = source.magnitude
-        let alphabet = MaxRadixAlphabet(uppercase: uppercase)
-        return AnyRadixUIntRoot(radix).switch(
-          perfect:{ Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) },
-        imperfect:{ Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) })
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth where High == High.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
     @inlinable internal static func encodeBigEndianText(_ magnitude: inout Self, sign: Bool,
