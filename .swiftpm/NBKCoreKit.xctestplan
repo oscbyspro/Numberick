@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "1DC89388-5756-4D8F-B634-E1EB75FCCBF2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKCoreKit",
+          "name" : "NBKCoreKit"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKCoreKitTests",
+        "name" : "NBKCoreKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

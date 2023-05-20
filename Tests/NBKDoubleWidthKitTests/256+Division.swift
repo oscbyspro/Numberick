@@ -122,34 +122,44 @@ final class Int256TestsOnDivision: XCTestCase {
         var dividend: (high: T, low: M)
         //=--------------------------------------=
         dividend.high = T(  )
+        dividend.low  = M( 7)
+
+        NBKAssertDivisionFullWidth(dividend, T( 0),  T( 7), T( 7), true )
+        //=--------------------------------------=
+        dividend.high = T(-1)
+        dividend.low  = M( 7)
+        
+        NBKAssertDivisionFullWidth(dividend, T( 0),  T( 7), T( 7), true )
+        //=--------------------------------------=
+        dividend.high = T(  )
         dividend.low  = M(bitPattern: T.max)
 
-        NBKAssertDivisionFullWidth(dividend, -T(1), -T.max, T(0), false)
+        NBKAssertDivisionFullWidth(dividend, T(-1), -T.max, T( 0), false)
         //=--------------------------------------=
         dividend.high = T(-1)
         dividend.low  = M(bitPattern: T.min)
         
-        NBKAssertDivisionFullWidth(dividend, -T(1),  T.min, T(0), true )
+        NBKAssertDivisionFullWidth(dividend, T(-1),  T.min, T( 0), true )
         //=--------------------------------------=
         dividend.high = T.max >> 1 + T(0)
         dividend.low  = M.max >> 1 + M(0)
         
-        NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
+        NBKAssertDivisionFullWidth(dividend, T.max,  T.max, T.max - T(1), false)
         //=--------------------------------------=
         dividend.high = T.max >> 1 + T(0)
         dividend.low  = M.max >> 1 + M(1)
         
-        NBKAssertDivisionFullWidth(dividend, T.max, T.min, T(  ) - T(0), true )
+        NBKAssertDivisionFullWidth(dividend, T.max,  T.min, T(  ) - T(0), true )
         //=--------------------------------------=
         dividend.high = T.max >> 1 + T(1)
         dividend.low  = M.max >> 1 + M(0)
         
-        NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max - T(0), false)
+        NBKAssertDivisionFullWidth(dividend, T.min,  T.min, T.max - T(0), false)
         //=--------------------------------------=
         dividend.high = T.max >> 1 + T(1)
         dividend.low  = M.max >> 1 + M(1)
         
-        NBKAssertDivisionFullWidth(dividend, T.min, T.max, T(  ) - T(0), true )
+        NBKAssertDivisionFullWidth(dividend, T.min,  T.max, T(  ) - T(0), true )
     }
     
     func testDividingFullWidthReportingOverflowTruncatesQuotient() {
@@ -254,30 +264,40 @@ final class UInt256TestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        var dividend: (high: T, low: T)
+        var dividend: (high: T, low: M)
         //=--------------------------------------=
         dividend.high = T(x64: X(61, 52, 32,  0))
-        dividend.low  = T(x64: X( 6, 17, 35, 61))
+        dividend.low  = M(x64: X( 6, 17, 35, 61))
         
         NBKAssertDivisionFullWidth(dividend, T(x64: X(1, 2, 3, 4)), T(x64: X(5, 6, 7, 8)), T(x64: X( 1,  1,  1,  1)))
         NBKAssertDivisionFullWidth(dividend, T(x64: X(5, 6, 7, 8)), T(x64: X(1, 2, 3, 4)), T(x64: X( 1,  1,  1,  1)))
         //=--------------------------------------=
         dividend.high = T(x64: X(34, 16,  5,  0))
-        dividend.low  = T(x64: X(34, 54, 63, 62))
+        dividend.low  = M(x64: X(34, 54, 63, 62))
         
         NBKAssertDivisionFullWidth(dividend, T(x64: X(4, 3, 2, 1)), T(x64: X(9, 7, 6, 5)), T(x64: X(~1, ~1, ~0,  0)))
         NBKAssertDivisionFullWidth(dividend, T(x64: X(8, 7, 6, 5)), T(x64: X(4, 3, 2, 1)), T(x64: X( 2,  2,  2,  2)))
     }
     
     func testDividingFullWidthReportingOverflow() {
-        var dividend: (high: T, low: T)
+        var dividend: (high: T, low: M)
+        //=--------------------------------------=
+        dividend.high = T(  )
+        dividend.low  = M( 7)
+        
+        NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true)
+        //=--------------------------------------=
+        dividend.high = T.max
+        dividend.low  = M( 7)
+        
+        NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true)
         //=--------------------------------------=
         dividend.high = T.max - T(1)
         dividend.low  = M.max
         
         NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
         //=--------------------------------------=
-        dividend.high = M.max - T(0)
+        dividend.high = T.max - T(0)
         dividend.low  = M.min
         
         NBKAssertDivisionFullWidth(dividend, T.max, T.min, T.min - T(0), true )

@@ -62,7 +62,7 @@ extension NBKDoubleWidth {
             qro.partialValue.remainder.formTwosComplement()
         }
 
-        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.mostSignificantBit {
+        if  lhsIsLessThanZero, rhsIsLessThanZero, qro.partialValue.quotient.mostSignificantBit {
             qro.overflow = true
         }
         //=--------------------------------------=
@@ -93,19 +93,19 @@ extension NBKDoubleWidth {
     @inlinable public func dividingFullWidthReportingOverflow(_ dividend: DoubleWidth) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = dividend.isLessThanZero
         let rhsIsLessThanZero: Bool = /**/self.isLessThanZero
-        let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
+        let minus: Bool = (lhsIsLessThanZero != rhsIsLessThanZero)
         //=--------------------------------------=
         var qro = Magnitude.divide42(dividend.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
         }
-
+        
         if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
         }
         
-        if  Self.isSigned && qro.partialValue.quotient.mostSignificantBit != minus {
+        if  Self.isSigned, qro.partialValue.quotient.mostSignificantBit != minus {
             qro.overflow = minus ? (qro.overflow || !qro.partialValue.quotient.isZero) : true
         }
         //=--------------------------------------=

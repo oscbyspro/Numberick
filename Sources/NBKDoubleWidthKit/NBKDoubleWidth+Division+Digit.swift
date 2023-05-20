@@ -55,7 +55,7 @@ extension NBKDoubleWidth {
             qro.partialValue.remainder.formTwosComplement()
         }
         
-        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.mostSignificantBit {
+        if  lhsIsLessThanZero, rhsIsLessThanZero, qro.partialValue.quotient.mostSignificantBit {
             qro.overflow = true
         }
         //=--------------------------------------=
