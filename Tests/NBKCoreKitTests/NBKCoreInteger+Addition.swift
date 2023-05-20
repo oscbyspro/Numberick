@@ -27,6 +27,65 @@ final class NBKCoreIntegerTestsOnAddition: XCTestCase {
     let types: [T] = NBKCoreIntegerTests.types
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testAdding() {
+        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+            NBKAssertAddition(T( 1), T( 2), T( 3))
+            NBKAssertAddition(T( 1), T( 1), T( 2))
+            NBKAssertAddition(T( 1), T( 0), T( 1))
+            NBKAssertAddition(T( 1), T(-1), T( 0))
+            NBKAssertAddition(T( 1), T(-2), T(-1))
+            
+            NBKAssertAddition(T( 0), T( 2), T( 2))
+            NBKAssertAddition(T( 0), T( 1), T( 1))
+            NBKAssertAddition(T( 0), T( 0), T( 0))
+            NBKAssertAddition(T( 0), T(-1), T(-1))
+            NBKAssertAddition(T( 0), T(-2), T(-2))
+            
+            NBKAssertAddition(T(-1), T( 2), T( 1))
+            NBKAssertAddition(T(-1), T( 1), T( 0))
+            NBKAssertAddition(T(-1), T( 0), T(-1))
+            NBKAssertAddition(T(-1), T(-1), T(-2))
+            NBKAssertAddition(T(-1), T(-2), T(-3))
+        }
+
+        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+            NBKAssertAddition(T(0), T(0), T(0))
+            NBKAssertAddition(T(0), T(1), T(1))
+            NBKAssertAddition(T(0), T(2), T(2))
+            
+            NBKAssertAddition(T(1), T(0), T(1))
+            NBKAssertAddition(T(1), T(1), T(2))
+            NBKAssertAddition(T(1), T(2), T(3))
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    func testAddingReportingOverflow() {
+        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+            NBKAssertAddition(T.min, T( 1), T.min + T(1))
+            NBKAssertAddition(T.min, T(-1), T.max,  true)
+            
+            NBKAssertAddition(T.max, T( 1), T.min,  true)
+            NBKAssertAddition(T.max, T(-1), T.max - T(1))
+        }
+
+        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+            NBKAssertAddition(T.min, T(1), T.min + T(1))
+            NBKAssertAddition(T.max, T(1), T.min,  true)
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
