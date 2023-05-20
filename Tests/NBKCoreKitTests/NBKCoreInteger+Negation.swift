@@ -31,10 +31,26 @@ final class NBKCoreIntegerTestsOnNegation: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testNegatedReportingOverflow() {
+    func testNegating() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+            NBKAssertNegation( T(1), -T(1))
+            NBKAssertNegation( T(0),  T(0))
+            NBKAssertNegation(-T(1),  T(1))
+        }
+        
         for case let type as S in types {
-            XCTAssertEqual(type.min.negatedReportingOverflow().overflow, true )
-            XCTAssertEqual(type.max.negatedReportingOverflow().overflow, false)
+            whereIsSigned(type)
+        }
+    }
+    
+    func testNegatingReportingOverflow() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+            NBKAssertNegation(T.min, T.min,  true)
+            NBKAssertNegation(T.max, T.min + T(1))
+        }
+        
+        for case let type as S in types {
+            whereIsSigned(type)
         }
     }
     

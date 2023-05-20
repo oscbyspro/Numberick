@@ -31,7 +31,7 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromDigit() {
-        func whereIs<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(digit: T.min ), T.min )
             XCTAssertEqual(T(digit: T.max ), T.max )
             XCTAssertEqual(T(digit: T.zero), T.zero)
@@ -47,7 +47,7 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testsFromSignMagnitude() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(sign: false, magnitude:   T.Magnitude.zero), T.zero)
             XCTAssertEqual(T(sign: true,  magnitude:   T.Magnitude.zero), T.zero)
             
@@ -58,7 +58,7 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
             XCTAssertEqual(T(sign: true,  magnitude: ~(T.Magnitude.max >> 1) + 1),   nil)
         }
         
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(sign: false, magnitude: T.Magnitude.zero), T.zero)
             XCTAssertEqual(T(sign: true,  magnitude: T.Magnitude.zero), T.zero)
             

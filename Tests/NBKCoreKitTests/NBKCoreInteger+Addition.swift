@@ -31,7 +31,7 @@ final class NBKCoreIntegerTestsOnAddition: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdding() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertAddition(T( 1), T( 2), T( 3))
             NBKAssertAddition(T( 1), T( 1), T( 2))
             NBKAssertAddition(T( 1), T( 0), T( 1))
@@ -51,7 +51,7 @@ final class NBKCoreIntegerTestsOnAddition: XCTestCase {
             NBKAssertAddition(T(-1), T(-2), T(-3))
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertAddition(T(0), T(0), T(0))
             NBKAssertAddition(T(0), T(1), T(1))
             NBKAssertAddition(T(0), T(2), T(2))
@@ -67,7 +67,7 @@ final class NBKCoreIntegerTestsOnAddition: XCTestCase {
     }
     
     func testAddingReportingOverflow() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertAddition(T.min, T( 1), T.min + T(1))
             NBKAssertAddition(T.min, T(-1), T.max,  true)
             
@@ -75,7 +75,7 @@ final class NBKCoreIntegerTestsOnAddition: XCTestCase {
             NBKAssertAddition(T.max, T(-1), T.max - T(1))
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertAddition(T.min, T(1), T.min + T(1))
             NBKAssertAddition(T.max, T(1), T.min,  true)
         }

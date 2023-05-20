@@ -31,7 +31,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividing() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDivision(T( 0), T( 1), T( 0), T( 0))
             NBKAssertDivision(T( 0), T( 2), T( 0), T( 0))
             NBKAssertDivision(T( 7), T( 1), T( 7), T( 0))
@@ -43,7 +43,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivision(T(-7), T(-3), T( 2), T(-1))
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDivision(T( 0), T( 1), T( 0), T( 0))
             NBKAssertDivision(T( 0), T( 2), T( 0), T( 0))
             NBKAssertDivision(T( 7), T( 1), T( 7), T( 0))
@@ -56,7 +56,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     }
 
     func testDividingReportingOverflow() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDivision(T( 0), T( 0), T( 0),     T( 0), true )
             NBKAssertDivision(T( 1), T( 0), T( 1),     T( 1), true )
             NBKAssertDivision(T( 2), T( 0), T( 2),     T( 2), true )
@@ -64,7 +64,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivision(T.max, T(-1), T.min + 1, T( 0), false)
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDivision(T( 0), T( 0), T( 0),     T( 0), true)
             NBKAssertDivision(T( 1), T( 0), T( 1),     T( 1), true)
             NBKAssertDivision(T( 2), T( 0), T( 2),     T( 2), true)
@@ -80,7 +80,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingFullWidth() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             var dividend: (high: T, low: M)
@@ -106,7 +106,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max - T( ))
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             var dividend: (high: T, low: M)
@@ -128,7 +128,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     }
     
     func testDividingFullWidthReportingOverflow() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             var dividend: (high: T, low: M)
@@ -174,7 +174,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivisionFullWidth(dividend, T.min, T.max, T(  ) - T(0), true )
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             var dividend: (high: T, low: M)
@@ -206,7 +206,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     }
     
     func testDividingFullWidthReportingOverflowTruncatesQuotient() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             let dividend: (high: T, low: M)
@@ -221,7 +221,7 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivisionFullWidth(dividend, T(8), ~T(0) << (T.bitWidth - 3), T(0), false)
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             //=----------------------------------=
             let dividend: (high: T, low: M)

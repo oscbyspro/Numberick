@@ -31,7 +31,7 @@ final class NBKCoreIntegerTestsOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtracting() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertSubtraction(T( 1), T( 2), T(-1))
             NBKAssertSubtraction(T( 1), T( 1), T( 0))
             NBKAssertSubtraction(T( 1), T( 0), T( 1))
@@ -51,7 +51,7 @@ final class NBKCoreIntegerTestsOnSubtraction: XCTestCase {
             NBKAssertSubtraction(T(-1), T(-2), T( 1))
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertSubtraction(T(3), T(0), T(3))
             NBKAssertSubtraction(T(3), T(1), T(2))
             NBKAssertSubtraction(T(3), T(2), T(1))
@@ -64,7 +64,7 @@ final class NBKCoreIntegerTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingReportingOverflow() {
-        func whereIsSigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertSubtraction(T.min, T( 2), T.max - T(1), true )
             NBKAssertSubtraction(T.max, T( 2), T.max - T(2), false)
             
@@ -72,7 +72,7 @@ final class NBKCoreIntegerTestsOnSubtraction: XCTestCase {
             NBKAssertSubtraction(T.max, T(-2), T.min + T(1), true )
         }
 
-        func whereIsUnsigned<T: NBKCoreInteger>(_ type: T.Type) {
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertSubtraction(T.min, T(2), T.max - T(1), true )
             NBKAssertSubtraction(T.max, T(2), T.max - T(2), false)
         }
