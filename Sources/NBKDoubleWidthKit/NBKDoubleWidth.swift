@@ -93,24 +93,20 @@ High: NBKMachineWordsInteger,  High.Digit: NBKCoreInteger<UInt> {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
+    /// Creates a new instance from the given partition.
+    ///
+    /// - Parameter ascending: An integer split into two parts, from least significant to most.
+    ///
     @inlinable public init(ascending components: LH<Low, High>) {
         (self.low, self.high) = components
     }
     
+    /// Creates a new instance from the given partition.
+    ///
+    /// - Parameter descending: An integer split into two parts, from most significant to least.
+    ///
     @inlinable public init(descending components: HL<High, Low>) {
         (self.high, self.low) = components
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var ascending: LH<Low, High> {
-        LH(self.low, self.high)
-    }
-    
-    @inlinable public var descending: HL<High, Low> {
-        HL(self.high, self.low)
     }
 }
 

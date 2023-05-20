@@ -43,10 +43,10 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
-        var product: HL<UInt, Magnitude> = self.bitPattern.multipliedFullWidth(by: amount.bitPattern)
+        var product: HL<UInt, Magnitude> = Magnitude(bitPattern: self).multipliedFullWidth(by: UInt(bitPattern: amount))
         //=--------------------------------------=
         if  self.isLessThanZero {
-            product.high &+= amount.bitPattern.twosComplement()
+            product.high &+= UInt(bitPattern: amount).twosComplement()
         }
         
         if  amount.isLessThanZero {
