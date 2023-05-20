@@ -9,7 +9,20 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKCoreKit",
+          "name" : "NBKCoreKit"
+        },
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKDoubleWidthKit",
+          "name" : "NBKDoubleWidthKit"
+        }
+      ]
+    }
   },
   "testTargets" : [
     {

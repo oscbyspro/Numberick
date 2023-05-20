@@ -28,9 +28,11 @@ final class Int256TestsOnText: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMetaTypeDescriptionIsShort() {
-        XCTAssertEqual("Int256", T.description)
-        XCTAssertEqual("Int512", T.DoubleWidth.description)
+    func testInitDescription() {
+        XCTAssertEqual(T(   "10"),  10)
+        XCTAssertEqual(T(  "-10"), -10)
+        XCTAssertEqual(T( "0x10"), nil)
+        XCTAssertEqual(T("-0x10"), nil)
     }
     
     func testInstanceDescriptionUsesRadix10() {
@@ -39,6 +41,11 @@ final class Int256TestsOnText: XCTestCase {
         
         XCTAssertEqual( "10", String(describing: T( 10)))
         XCTAssertEqual("-10", String(describing: T(-10)))
+    }
+    
+    func testMetaTypeDescriptionIsSimple() {
+        XCTAssertEqual("Int256", T.description)
+        XCTAssertEqual("Int512", T.DoubleWidth.description)
     }
     
     //=------------------------------------------------------------------------=
@@ -206,14 +213,21 @@ final class UInt256TestsOnText: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMetaTypeDescriptionIsShort() {
-        XCTAssertEqual("UInt256", T.description)
-        XCTAssertEqual("UInt512", T.DoubleWidth.description)
+    func testInitDescription() {
+        XCTAssertEqual(T(   "10"),  10)
+        XCTAssertEqual(T(  "-10"), nil)
+        XCTAssertEqual(T( "0x10"), nil)
+        XCTAssertEqual(T("-0x10"), nil)
     }
     
     func testInstanceDescriptionUsesRadix10() {
         XCTAssertEqual("10", T(10).description)
         XCTAssertEqual("10", String(describing: T(10)))
+    }
+    
+    func testMetaTypeDescriptionIsSimple() {
+        XCTAssertEqual("UInt256", T.description)
+        XCTAssertEqual("UInt512", T.DoubleWidth.description)
     }
     
     //=------------------------------------------------------------------------=

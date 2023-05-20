@@ -152,6 +152,42 @@ extension NBKCoreInteger {
         assert(quotient.overflow == remainder.overflow)
         return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
     }
+    
+    // TODO: test coverage
+    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
+        //=--------------------------------------=
+        if  self.isZero {
+            return PVO(QR(Self(bitPattern: dividend.low), Self(bitPattern: dividend.low)), true)
+        }
+        //=--------------------------------------=
+        let lhsIsLessThanZero: Bool = dividend.high.isLessThanZero
+        let rhsIsLessThanZero: Bool = /*-----*/self.isLessThanZero
+        let minus: Bool  = (lhsIsLessThanZero != rhsIsLessThanZero)
+        //=--------------------------------------=
+        let rhsMagnitude = self.magnitude as Magnitude
+        var lhsMagnitude = HL(Magnitude(bitPattern: dividend.high), dividend.low)
+        if  lhsIsLessThanZero {
+            var carry: Bool
+            (lhsMagnitude.low,  carry) = (~lhsMagnitude.low ).addingReportingOverflow(1 as Magnitude)
+            (lhsMagnitude.high, carry) = (~lhsMagnitude.high).addingReportingOverflow(Magnitude(bit: carry))
+        }
+        //=--------------------------------------=
+        var qro = PVO(rhsMagnitude.dividingFullWidth(lhsMagnitude), lhsMagnitude.high >= rhsMagnitude)
+        //=--------------------------------------=
+        if  minus {
+            qro.partialValue.quotient.formTwosComplement()
+        }
+
+        if  lhsIsLessThanZero {
+            qro.partialValue.remainder.formTwosComplement()
+        }
+        
+        if  Self.isSigned && qro.partialValue.quotient.mostSignificantBit != minus {
+            qro.overflow = minus ? (qro.overflow || !qro.partialValue.quotient.isZero) : true
+        }
+        //=--------------------------------------=
+        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
+    }
 }
 
 //=----------------------------------------------------------------------------=

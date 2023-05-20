@@ -451,44 +451,44 @@ BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     @_disfavoredOverload @inlinable func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit>
     
     /// Returns the quotient and remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and zero.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and dividend.
     ///
     /// ```swift
     /// let a = Int256(-7).quotientAndRemainderReportingOverflow(dividingBy: Int256( 3))
-    /// a.partialValue.quotient  // Int256( 2)
-    /// a.partialValue.remainder // Int256(-1)
+    /// a.partialValue.quotient  // Int256( 2) == Int256(-7).dividedReportingOverflow(by: Int256( 3)).partialValue
+    /// a.partialValue.remainder // Int256(-1) == Int256(-7).remainderReportingOverflow(dividingBy: Int256( 3)).partialValue
     /// a.overflow               // false
     ///
     /// let b = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256( 0))
-    /// b.partialValue.quotient  // Int256.min
-    /// b.partialValue.remainder // Int256.min
+    /// b.partialValue.quotient  // Int256.min == Int256.min.dividedReportingOverflow(by: Int256( 0)).partialValue
+    /// b.partialValue.remainder // Int256.min == Int256.min.remainderReportingOverflow(dividingBy: Int256( 0)).partialValue
     /// b.overflow               // true
     ///
     /// let c = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256(-1))
-    /// c.partialValue.quotient  // Int256(-128)
-    /// c.partialValue.remainder // Int256(   0)
+    /// c.partialValue.quotient  // Int256.min == Int256.min.dividedReportingOverflow(by: Int256(-1)).partialValue
+    /// c.partialValue.remainder // Int256( 0) == Int256.min.remainderReportingOverflow(dividingBy: Int256(-1)).partialValue
     /// c.overflow               // true
     /// ```
     ///
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>>
     
     /// Returns the quotient and remainder of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and the divisor.
+    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and divisor.
     ///
     /// ```swift
-    /// let a = Int256(-7).quotientAndRemainderReportingOverflow(dividingBy: Int( 3))
-    /// a.partialValue.quotient  // Int256(2)
-    /// a.partialValue.remainder // Int(-1)
+    /// let a = Int256(-7).quotientAndRemainderReportingOverflow(dividingBy: Int256( 3))
+    /// a.partialValue.quotient  // Int256( 2) == Int256(-7).dividedReportingOverflow(by: Int( 3)).partialValue
+    /// a.partialValue.remainder // Int(   -1) == Int256(-7).remainderReportingOverflow(dividingBy: Int( 3)).partialValue
     /// a.overflow               // false
     ///
-    /// let b = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int( 0))
-    /// b.partialValue.quotient  // Int256.min
-    /// b.partialValue.remainder // Int(0)
+    /// let b = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256( 0))
+    /// b.partialValue.quotient  // Int256.min == Int256.min.dividedReportingOverflow(by: Int( 0)).partialValue
+    /// b.partialValue.remainder // Int(    0) == Int256.min.remainderReportingOverflow(dividingBy: Int( 0)).partialValue
     /// b.overflow               // true
     ///
-    /// let c = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int(-1))
-    /// c.partialValue.quotient  // Int256(-128)
-    /// c.partialValue.remainder // Int(0)
+    /// let c = Int256.min.quotientAndRemainderReportingOverflow(dividingBy: Int256(-1))
+    /// c.partialValue.quotient  // Int256.min == Int256.min.dividedReportingOverflow(by: Int(-1)).partialValue
+    /// c.partialValue.remainder // Int(    0) == Int256.min.remainderReportingOverflow(dividingBy: Int(-1)).partialValue
     /// c.overflow               // true
     /// ```
     ///

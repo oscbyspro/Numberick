@@ -84,9 +84,6 @@
             reference = "container:.swiftpm/Numberick.xctestplan"
             default = "YES">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/Numberick-Tests.xctestplan">
-         </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction

@@ -233,20 +233,37 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// The resulting quotient must be representable within the bounds of the type. If
     /// the quotient is too large to represent in the type, a runtime error may occur.
     ///
-    /// The following example divides a value that is too large to be represented
-    /// using a single `Int256` instance by another `Int256` value. Because the quotient
-    /// is representable as an `Int256`, the division succeeds.
-    ///
     /// ```swift
     /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2)
     /// let (quotient, remainder) =  (Int256.max).dividingFullWidth(dividend)
     /// //  (quotient, remainder) == (Int256.max, Int256.max - 1)
     /// ````
     ///
-    /// - Parameter dividend: The high and low parts of a double-width integer.
-    /// - Returns: The quotient and remainder of dividing the given value by this value.
-    ///
     @inlinable func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self>
+    
+    /// Returns the quotient and remainder of this value divided by the given value,
+    /// along with an overflow indicator. In the case of overflow, the result is either
+    /// truncated or, if undefined, the dividend and dividend.
+    ///
+    /// ```swift
+    /// let ((dividend)) = (high: Int256.max / 2, low: UInt256.max / 2)
+    /// let ((quotient, remainder), overflow) =  ((Int256.max)).dividingFullWidthReportingOverflow(dividend)
+    /// //  ((quotient, remainder), overflow) == ((Int256.max, Int256.max - 1), false)
+    /// ````
+    ///
+    /// ```swift
+    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2 + 1)
+    /// let ((quotient, remainder), overflow) =  ((Int256.max)).dividingFullWidthReportingOverflow(dividend)
+    /// //  ((quotient, remainder), overflow) == ((Int256.max, Int256.max - 1), true)
+    /// ````
+    ///
+    /// ```swift
+    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2 + 1)
+    /// let ((quotient, remainder), overflow) =  ((Int256( 0))).dividingFullWidthReportingOverflow(dividend)
+    /// //  ((quotient, remainder), overflow) == ((Int256.max / 2, Int256.max / 2), true)
+    /// ````
+    ///
+    @inlinable func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>>
 }
 
 //=----------------------------------------------------------------------------=
