@@ -27,6 +27,24 @@ final class Int256TestsOnNumbers: XCTestCase {
     typealias M = UInt256
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Literal
+    //=------------------------------------------------------------------------=
+    
+    func testFromLiteral() {
+        XCTAssertEqual(T(x64:( 0,  0,  0,  0)),  0)
+        XCTAssertEqual(T(x64:(~0,  0,  0,  0)),  18446744073709551615)
+        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)),  340282366920938463463374607431768211455)
+        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)),  6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), -1)
+        
+        XCTAssertEqual(T.min, -57896044618658097711785492504343953926634992332820282019728792003956564819968)
+        XCTAssertEqual(T.max,  57896044618658097711785492504343953926634992332820282019728792003956564819967)
+        
+        XCTAssertNil(T(_exactlyIntegerLiteral: -57896044618658097711785492504343953926634992332820282019728792003956564819969))
+        XCTAssertNil(T(_exactlyIntegerLiteral:  57896044618658097711785492504343953926634992332820282019728792003956564819968))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Int, Digit
     //=------------------------------------------------------------------------=
     
@@ -343,6 +361,24 @@ final class Int256TestsOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testsFromSignAndMagnitude() {
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
+        XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
+        
+        XCTAssertEqual(T(sign: .plus,  magnitude: M( 1)), T( 1))
+        XCTAssertEqual(T(sign: .minus, magnitude: M( 1)), T(-1))
+        
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(bitPattern: T.max) + M(0)), T.max)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(bitPattern: T.min) + M(0)), T.min)
+
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(bitPattern: T.max) + M(1)),   nil)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(bitPattern: T.min) + M(1)),   nil)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Float32
     //=------------------------------------------------------------------------=
     
@@ -427,24 +463,6 @@ final class Int256TestsOnNumbers: XCTestCase {
         XCTAssertNil(T(exactly: Float64.leastNormalMagnitude))
         XCTAssertNil(T(exactly: Float64.leastNonzeroMagnitude))
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Literal
-    //=------------------------------------------------------------------------=
-    
-    func testFromLiteral() {
-        XCTAssertEqual(T(x64:( 0,  0,  0,  0)),  0)
-        XCTAssertEqual(T(x64:(~0,  0,  0,  0)),  18446744073709551615)
-        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)),  340282366920938463463374607431768211455)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)),  6277101735386680763835789423207666416102355444464034512895)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), -1)
-        
-        XCTAssertEqual(T.min, -57896044618658097711785492504343953926634992332820282019728792003956564819968)
-        XCTAssertEqual(T.max,  57896044618658097711785492504343953926634992332820282019728792003956564819967)
-        
-        XCTAssertNil(T(_exactlyIntegerLiteral: -57896044618658097711785492504343953926634992332820282019728792003956564819969))
-        XCTAssertNil(T(_exactlyIntegerLiteral:  57896044618658097711785492504343953926634992332820282019728792003956564819968))
-    }
 }
 
 //*============================================================================*
@@ -456,6 +474,21 @@ final class UInt256TestsOnNumbers: XCTestCase {
     typealias S =  Int256
     typealias T = UInt256
     typealias M = UInt256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Literal
+    //=------------------------------------------------------------------------=
+    
+    func testFromLiteral() {
+        XCTAssertEqual(T(x64:( 0,  0,  0,  0)), 0)
+        XCTAssertEqual(T(x64:(~0,  0,  0,  0)), 18446744073709551615)
+        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)), 340282366920938463463374607431768211455)
+        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)), 6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), 115792089237316195423570985008687907853269984665640564039457584007913129639935)
+        
+        XCTAssertNil(T(_exactlyIntegerLiteral: -1))
+        XCTAssertNil(T(_exactlyIntegerLiteral:  115792089237316195423570985008687907853269984665640564039457584007913129639936))
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Int
@@ -774,6 +807,21 @@ final class UInt256TestsOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testsFromSignAndMagnitude() {
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
+        XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
+        
+        XCTAssertEqual(T(sign: .plus,  magnitude: M( 1)), T( 1))
+        XCTAssertEqual(T(sign: .minus, magnitude: M( 1)),   nil)
+        
+        XCTAssertEqual(T(sign: .plus,  magnitude: M.max), T.max)
+        XCTAssertEqual(T(sign: .minus, magnitude: M.max),   nil)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Float32
     //=------------------------------------------------------------------------=
     
@@ -845,21 +893,6 @@ final class UInt256TestsOnNumbers: XCTestCase {
         XCTAssertNil(T(exactly: Float64.signalingNaN))
         XCTAssertNil(T(exactly: Float64.leastNormalMagnitude))
         XCTAssertNil(T(exactly: Float64.leastNonzeroMagnitude))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Literal
-    //=------------------------------------------------------------------------=
-    
-    func testFromLiteral() {
-        XCTAssertEqual(T(x64:( 0,  0,  0,  0)), 0)
-        XCTAssertEqual(T(x64:(~0,  0,  0,  0)), 18446744073709551615)
-        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)), 340282366920938463463374607431768211455)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)), 6277101735386680763835789423207666416102355444464034512895)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), 115792089237316195423570985008687907853269984665640564039457584007913129639935)
-        
-        XCTAssertNil(T(_exactlyIntegerLiteral: -1))
-        XCTAssertNil(T(_exactlyIntegerLiteral:  115792089237316195423570985008687907853269984665640564039457584007913129639936))
     }
 }
 

@@ -210,6 +210,23 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
             NBK.blackHoleInoutIdentity(&abc)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testSignAndMagnitude() {
+        var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
+        var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
 }
 
 //*============================================================================*
@@ -223,7 +240,7 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     typealias M = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x [U]Int
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testInt() {
@@ -404,6 +421,23 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
             NBK.blackHole(T(clamping: abc))
             NBK.blackHole(T(truncatingIfNeeded: abc))
             NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testSignAndMagnitude() {
+        var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
+        var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
         }
     }
 }

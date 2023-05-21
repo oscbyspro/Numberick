@@ -20,15 +20,15 @@ extension NBK {
     /// Returns the sign and radix, along with any remaining characters.
     ///
     /// ```swift
-    /// NBK.bigEndianTextComponents("+0x???", radix: nil) // (sign: false, radix: 16, body:    "???")
-    /// NBK.bigEndianTextComponents("??????", radix: nil) // (sign: false, radix: 10, body: "??????")
-    /// NBK.bigEndianTextComponents("-0x???", radix:   2) // (sign: true,  radix:  2, body:  "0x???")
+    /// NBK.bigEndianTextComponents("+0x???", radix: nil) // (sign: plus,  radix: 16, body:    "???")
+    /// NBK.bigEndianTextComponents("??????", radix: nil) // (sign: plus,  radix: 10, body: "??????")
+    /// NBK.bigEndianTextComponents("-0x???", radix:   2) // (sign: minus, radix:  2, body:  "0x???")
     /// ```
     ///
     @inlinable public static func bigEndianTextComponents<T>(_ text: T, radix: Int?)
-    -> (sign: Bool, radix: Int, body: T.SubSequence) where T: StringProtocol {
+    -> (sign: FloatingPointSign, radix: Int, body: T.SubSequence) where T: StringProtocol {
         var body  = text[...]
-        let sign  = body.removeSignPrefix() ?? false
+        let sign  = body.removeSignPrefix() ?? .plus
         let radix = radix ?? body.removeRadixLiteralPrefix() ?? 10
         return (sign: sign, radix: radix, body: body)
     }
@@ -47,15 +47,15 @@ extension StringProtocol where Self == SubSequence {
     /// Removes and returns a sign prefix, if it exists.
     ///
     /// ```swift
-    /// var a = "+?"[...]; a.removeSignPrefix() // a = "?"; -> false
-    /// var b = "-?"[...]; b.removeSignPrefix() // b = "?"; -> true
+    /// var a = "+?"[...]; a.removeSignPrefix() // a = "?"; -> plus
+    /// var b = "-?"[...]; b.removeSignPrefix() // b = "?"; -> minus
     /// var c = "??"[...]; c.removeSignPrefix() // nil
     /// ```
     ///
-    @inlinable internal mutating func removeSignPrefix() -> Bool? {
+    @inlinable internal mutating func removeSignPrefix() -> FloatingPointSign? {
         switch true {
-        case hasPrefix("-"): removeFirst(); return true
-        case hasPrefix("+"): removeFirst(); return false
+        case hasPrefix("-"): removeFirst(); return .minus
+        case hasPrefix("+"): removeFirst(); return .plus
         default: return nil }
     }
     

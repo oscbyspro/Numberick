@@ -444,8 +444,8 @@ extension NBKFixedWidthInteger {
     ///
     /// If the value passed as source is not representable, the result is nil.
     ///
-    @inlinable public init?(sign: Bool, magnitude: Magnitude) {
-        let isLessThanZero: Bool = sign && !magnitude.isZero
+    @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
+        let isLessThanZero: Bool = (sign == .minus) && !magnitude.isZero
         self.init(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
         guard self.isLessThanZero == isLessThanZero else { return nil }
     }

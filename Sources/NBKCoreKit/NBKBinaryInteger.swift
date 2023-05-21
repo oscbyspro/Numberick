@@ -40,9 +40,6 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance from the given digit.
-    ///
-    /// This conversion always succeeds and ensures optimal performance.
-    ///
     @inlinable init(digit: Digit)
     
     //=------------------------------------------------------------------------=

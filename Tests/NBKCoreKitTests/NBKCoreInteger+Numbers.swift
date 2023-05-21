@@ -48,25 +48,25 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     
     func testsFromSignMagnitude() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(sign: false, magnitude:   T.Magnitude.zero), T.zero)
-            XCTAssertEqual(T(sign: true,  magnitude:   T.Magnitude.zero), T.zero)
+            XCTAssertEqual(T(sign: .plus,  magnitude:   T.Magnitude.zero), T.zero)
+            XCTAssertEqual(T(sign: .minus, magnitude:   T.Magnitude.zero), T.zero)
             
-            XCTAssertEqual(T(sign: false, magnitude:  (T.Magnitude.max >> 1) + 0), T.max)
-            XCTAssertEqual(T(sign: true,  magnitude: ~(T.Magnitude.max >> 1) - 0), T.min)
+            XCTAssertEqual(T(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 0), T.max)
+            XCTAssertEqual(T(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) - 0), T.min)
             
-            XCTAssertEqual(T(sign: false, magnitude:  (T.Magnitude.max >> 1) + 1),   nil)
-            XCTAssertEqual(T(sign: true,  magnitude: ~(T.Magnitude.max >> 1) + 1),   nil)
+            XCTAssertEqual(T(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 1),   nil)
+            XCTAssertEqual(T(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) + 1),   nil)
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(sign: false, magnitude: T.Magnitude.zero), T.zero)
-            XCTAssertEqual(T(sign: true,  magnitude: T.Magnitude.zero), T.zero)
+            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude.zero), T.zero)
+            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude.zero), T.zero)
             
-            XCTAssertEqual(T(sign: false, magnitude: T.Magnitude( 1)),  T( 1))
-            XCTAssertEqual(T(sign: true,  magnitude: T.Magnitude( 1)),    nil)
+            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude( 1)),  T( 1))
+            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude( 1)),    nil)
             
-            XCTAssertEqual(T(sign: false, magnitude: T.Magnitude.max),  T.max)
-            XCTAssertEqual(T(sign: true,  magnitude: T.Magnitude.max),    nil)
+            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude.max),  T.max)
+            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude.max),    nil)
         }
         
         for type: T in types {
