@@ -199,7 +199,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         return PVO(Self.divide42Unchecked(lhs, by: rhs, shift: shift), false)
     }
-
+    
     @inlinable internal static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
         assert(rhs.isMoreThanZero, "must not divide by zero")
