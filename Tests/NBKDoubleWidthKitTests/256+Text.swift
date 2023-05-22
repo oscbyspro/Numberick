@@ -97,21 +97,10 @@ final class Int256TestsOnText: XCTestCase {
         XCTAssertEqual(T(decoding:"-0b", radix: 36), -11)
     }
     
-    func testDecodingStringsWithOrWithoutSignAndRadixLiteral() throws {
-        XCTAssertEqual(T(decoding: "1234567890",         radix: nil),  1234567890)
-        XCTAssertEqual(T(decoding: "0x123456789abcdef0", radix: nil),  0x123456789abcdef0)
-        XCTAssertEqual(T(decoding: "0o1234567012345670", radix: nil),  0o1234567012345670)
-        XCTAssertEqual(T(decoding: "0b1010101010101010", radix: nil),  0b1010101010101010)
-
-        XCTAssertEqual(T(decoding:"+1234567890",         radix: nil),  1234567890)
-        XCTAssertEqual(T(decoding:"+0x123456789abcdef0", radix: nil),  0x123456789abcdef0)
-        XCTAssertEqual(T(decoding:"+0o1234567012345670", radix: nil),  0o1234567012345670)
-        XCTAssertEqual(T(decoding:"+0b1010101010101010", radix: nil),  0b1010101010101010)
-
-        XCTAssertEqual(T(decoding:"-1234567890",         radix: nil), -1234567890)
-        XCTAssertEqual(T(decoding:"-0x123456789abcdef0", radix: nil), -0x123456789abcdef0)
-        XCTAssertEqual(T(decoding:"-0o1234567012345670", radix: nil), -0o1234567012345670)
-        XCTAssertEqual(T(decoding:"-0b1010101010101010", radix: nil), -0b1010101010101010)
+    func testDecodingStringsWithOrWithoutSign() {
+        XCTAssertEqual(T(decoding: "1234567890", radix: 10),  1234567890)
+        XCTAssertEqual(T(decoding:"+1234567890", radix: 10),  1234567890)
+        XCTAssertEqual(T(decoding:"-1234567890", radix: 10), -1234567890)
     }
     
     func testDecodingUnalignedStringsIsOK() {
@@ -279,16 +268,9 @@ final class UInt256TestsOnText: XCTestCase {
         XCTAssertEqual(T(decoding:"+0b", radix: 36), 11)
     }
     
-    func testDecodingStringsWithOrWithoutSignAndRadixLiteral() {
-        XCTAssertEqual(T(decoding: "1234567890",         radix: nil), 1234567890)
-        XCTAssertEqual(T(decoding: "0x123456789abcdef0", radix: nil), 0x123456789abcdef0)
-        XCTAssertEqual(T(decoding: "0o1234567012345670", radix: nil), 0o1234567012345670)
-        XCTAssertEqual(T(decoding: "0b1010101010101010", radix: nil), 0b1010101010101010)
-
-        XCTAssertEqual(T(decoding:"+1234567890",         radix: nil), 1234567890)
-        XCTAssertEqual(T(decoding:"+0x123456789abcdef0", radix: nil), 0x123456789abcdef0)
-        XCTAssertEqual(T(decoding:"+0o1234567012345670", radix: nil), 0o1234567012345670)
-        XCTAssertEqual(T(decoding:"+0b1010101010101010", radix: nil), 0b1010101010101010)
+    func testDecodingStringsWithOrWithoutSign() {
+        XCTAssertEqual(T(decoding: "1234567890", radix: 10), 1234567890)
+        XCTAssertEqual(T(decoding:"+1234567890", radix: 10), 1234567890)
     }
     
     func testDecodingUnalignedStringsIsOK() {

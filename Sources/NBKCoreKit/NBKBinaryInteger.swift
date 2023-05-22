@@ -501,7 +501,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// ```swift
     /// Int256(sign: .plus,  magnitude: 1 << 255 - 1) // Int256.max
     /// Int256(sign: .plus,  magnitude: 1 << 255 - 0) // nil
-    /// Int256(sign: .minus, magnitude: 1 << 255 - 1) // Int256.min - 1
+    /// Int256(sign: .minus, magnitude: 1 << 255 - 1) // Int256.min + 1
     /// Int256(sign: .minus, magnitude: 1 << 255 - 0) // Int256.min
     /// ```
     ///
@@ -594,6 +594,22 @@ extension NBKBinaryInteger {
         let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Digit>
+    }
+    
+    #warning("WIP")
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
+        var description = String(description)
+        let value = description.withUTF8 { utf8 in
+            let (sign, radix, body) = NBK.components(ascii: utf8, radix: radix)
+            let magnitude = Magnitude(digits: body, radix: radix)
+            return magnitude.flatMap({ Self(sign: sign, magnitude: $0) })
+        }
+        
+        if let value { self = value } else { return nil }
     }
 }
 
@@ -710,4 +726,12 @@ extension NBKSignedInteger {
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-public protocol NBKUnsignedInteger: NBKBinaryInteger, UnsignedInteger where Digit: NBKUnsignedInteger, Magnitude == Self { }
+public protocol NBKUnsignedInteger: NBKBinaryInteger, UnsignedInteger where Digit: NBKUnsignedInteger, Magnitude == Self {
+    
+    // TODO: comment
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int)
+}

@@ -432,3 +432,29 @@ extension NBKFixedWidthInteger {
         guard self.isLessThanZero == isLessThanZero else { return nil }        
     }
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + Details x Unsigned
+//=----------------------------------------------------------------------------=
+
+extension NBKFixedWidthInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+        guard !digits.isEmpty else { return nil }
+        //=------------------------------------------=
+        let multiplier =/**/Self(truncatingIfNeeded: radix)
+        let decoder = AnyRadixAlphabetDecoder(radix: radix)
+        //=------------------------------------------=
+        self.init()
+        
+        for digit in digits {
+            guard let value = decoder.decode(digit)/*----------------------*/ else { return nil }
+            guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
+            guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
+        }
+    }
+}

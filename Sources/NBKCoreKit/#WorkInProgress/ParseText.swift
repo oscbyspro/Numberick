@@ -43,42 +43,25 @@ extension UnsafeBufferPointer<UInt8>.SubSequence {
     @inlinable internal mutating func removeSignPrefix() -> FloatingPointSign? {
         guard self.count >= 1 else { return nil }
         //=--------------------------------------=
-        var index = self.startIndex
+        var subsequence = self[...]
         //=--------------------------------------=
-        switch self[self.startIndex] {
-        case UInt8(ascii: "-"):
-            self.formIndex(after: &index)
-            self = self[index...]
-            return FloatingPointSign.minus
-        case UInt8(ascii: "+"):
-            self.formIndex(after: &index)
-            self = self[index...]
-            return FloatingPointSign.plus
-        default: return nil }
+        switch subsequence.removeFirst() {
+        case UInt8(ascii: "+"): self = subsequence; return .plus
+        case UInt8(ascii: "-"): self = subsequence; return .minus
+        default:   return nil }
     }
     
     /// Removes and returns a radix literal prefix, if it exists.
     @inlinable internal mutating func removeRadixLiteralPrefix() -> Int? {
         guard self.count >= 2 else { return nil }
         //=--------------------------------------=
-        var index = self.startIndex
+        var subsequence = self[...]
         //=--------------------------------------=
-        guard self[index] == UInt8(ascii: "0") else { return nil }
-        self.formIndex(after: &index)
-        //=--------------------------------------=
-        switch self[index] {
-        case UInt8(ascii: "x"):
-            self.formIndex(after: &index)
-            self = self[index...]
-            return 0x10
-        case UInt8(ascii: "b"):
-            self.formIndex(after: &index)
-            self = self[index...]
-            return 0b10
-        case UInt8(ascii: "o"):
-            self.formIndex(after: &index)
-            self = self[index...]
-            return 0o10
-        default: return nil }
+        guard  subsequence.removeFirst() == UInt8(ascii: "0") else { return nil }
+        switch subsequence.removeFirst() {
+        case UInt8(ascii: "b"): self = subsequence; return 0b10
+        case UInt8(ascii: "o"): self = subsequence; return 0o10
+        case UInt8(ascii: "x"): self = subsequence; return 0x10
+        default:   return nil }
     }
 }

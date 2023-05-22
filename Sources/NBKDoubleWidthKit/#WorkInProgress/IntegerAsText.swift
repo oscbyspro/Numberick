@@ -15,25 +15,13 @@ import NBKCoreKit
 
 extension NBKDoubleWidth {
     
+    #warning("WIP")
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(decoding description: some StringProtocol, radix: Int?) {
-        var description = String(description)
-        //=--------------------------------------=
-        let value = description.withUTF8 { utf8 in
-            let (sign, radix, body) = NBK.components(ascii: utf8, radix: radix)
-            let magnitude = Magnitude(digits: body, radix: AnyRadixUIntRoot(radix))
-            return magnitude.flatMap({ Self(sign: sign, magnitude: $0) })
-        }
-        //=--------------------------------------=
-        if let value { self = value } else { return nil }
-    }
-    
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        let sign = self.isLessThanZero ? FloatingPointSign.minus : FloatingPointSign.plus
-        return self.magnitude.description(sign: sign, radix: radix, uppercase: uppercase)
+        self.magnitude.description(radix: radix, uppercase: uppercase, minus: self.isLessThanZero)
     }
 }
 

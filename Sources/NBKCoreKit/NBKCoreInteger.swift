@@ -216,7 +216,7 @@ extension NBKCoreInteger where Self: NBKSignedInteger {
 // MARK: * NBK x Core Integer x Swift
 //*============================================================================*
 
-extension Int: NBKCoreInteger, NBKSignedInteger {
+extension Int: NBKCoreInteger, NBKSignedInteger {    
     public typealias BitPattern = Magnitude
 }
 

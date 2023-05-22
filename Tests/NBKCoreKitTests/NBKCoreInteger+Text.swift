@@ -60,21 +60,12 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
         }
     }
     
-    func testDecodingStringsWithOrWithoutSignAndRadixLiteral() {
+    func testDecodingStringsWithOrWithoutSign() {
         for type: T in types {
-            XCTAssertEqual(Int(type.init(decoding:    "10", radix: nil)!),    10)
-            XCTAssertEqual(Int(type.init(decoding:  "0b10", radix: nil)!),  0b10)
-            XCTAssertEqual(Int(type.init(decoding:  "0o10", radix: nil)!),  0o10)
-            XCTAssertEqual(Int(type.init(decoding:  "0x10", radix: nil)!),  0x10)
-            XCTAssertEqual(Int(type.init(decoding:   "+10", radix: nil)!),    10)
-            XCTAssertEqual(Int(type.init(decoding: "+0b10", radix: nil)!),  0b10)
-            XCTAssertEqual(Int(type.init(decoding: "+0o10", radix: nil)!),  0o10)
-            XCTAssertEqual(Int(type.init(decoding: "+0x10", radix: nil)!),  0x10)
+            XCTAssertEqual(Int(type.init(decoding:  "10", radix: 10)!),  10)
+            XCTAssertEqual(Int(type.init(decoding: "+10", radix: 10)!),  10)
             guard type.isSigned else { continue }
-            XCTAssertEqual(Int(type.init(decoding:   "-10", radix: nil)!),   -10)
-            XCTAssertEqual(Int(type.init(decoding: "-0b10", radix: nil)!), -0b10)
-            XCTAssertEqual(Int(type.init(decoding: "-0o10", radix: nil)!), -0o10)
-            XCTAssertEqual(Int(type.init(decoding: "-0x10", radix: nil)!), -0x10)
+            XCTAssertEqual(Int(type.init(decoding: "-10", radix: 10)!), -10)
         }
     }
     

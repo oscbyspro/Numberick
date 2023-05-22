@@ -8,23 +8,6 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Integer As Text x Decode
-//*============================================================================*
-
-extension NBKFixedWidthInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init?(decoding text: some StringProtocol, radix: Int?) {
-        let (sign, radix, body) = NBK.components(text, radix: radix)
-        guard let magnitude = Magnitude(body, radix: radix) else { return nil }
-        self.init(sign: sign, magnitude: magnitude)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Integer As Text x Encode
 //*============================================================================*
 
