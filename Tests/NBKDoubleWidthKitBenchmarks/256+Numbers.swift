@@ -220,8 +220,8 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
-            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(NBK.exactly(sign: abc.sign, magnitude: abc.magnitude) as T?)
+            NBK.blackHole(NBK.exactly(sign: xyz.sign, magnitude: xyz.magnitude) as T?)
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -433,8 +433,8 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
-            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(NBK.exactly(sign: abc.sign, magnitude: abc.magnitude) as T?)
+            NBK.blackHole(NBK.exactly(sign: xyz.sign, magnitude: xyz.magnitude) as T?)
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)

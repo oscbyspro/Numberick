@@ -8,16 +8,18 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Integer As Text x Encode
+// MARK: * NBK x Numberx
 //*============================================================================*
 
-extension String {
+extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(encoding integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
-        self.init(integer, radix: radix, uppercase: uppercase)
+    @inlinable public static func exactly<T>(sign: FloatingPointSign, magnitude: T.Magnitude) -> T? where T: NBKFixedWidthInteger {
+        let isLessThanZero: Bool = (sign == .minus) && !magnitude.isZero
+        let value = T(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
+        if  value.isLessThanZero  == isLessThanZero { return value } else { return nil }
     }
 }

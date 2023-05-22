@@ -365,17 +365,17 @@ final class Int256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testsFromSignAndMagnitude() {
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
-        XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M(  )) as T?, T(  ))
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M(  )) as T?, T(  ))
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M( 1)), T( 1))
-        XCTAssertEqual(T(sign: .minus, magnitude: M( 1)), T(-1))
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M( 1)) as T?, T( 1))
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M( 1)) as T?, T(-1))
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(bitPattern: T.max) + M(0)), T.max)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(bitPattern: T.min) + M(0)), T.min)
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M(bitPattern: T.max) + M(0)) as T?, T.max)
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M(bitPattern: T.min) + M(0)) as T?, T.min)
 
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(bitPattern: T.max) + M(1)),   nil)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(bitPattern: T.min) + M(1)),   nil)
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M(bitPattern: T.max) + M(1)) as T?,   nil)
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M(bitPattern: T.min) + M(1)) as T?,   nil)
     }
     
     //=------------------------------------------------------------------------=
@@ -811,14 +811,14 @@ final class UInt256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testsFromSignAndMagnitude() {
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
-        XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M(  )) as T?, T(  ))
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M(  )) as T?, T(  ))
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M( 1)), T( 1))
-        XCTAssertEqual(T(sign: .minus, magnitude: M( 1)),   nil)
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M( 1)) as T?, T( 1))
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M( 1)) as T?,   nil)
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M.max), T.max)
-        XCTAssertEqual(T(sign: .minus, magnitude: M.max),   nil)
+        XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude: M.max) as T?, T.max)
+        XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: M.max) as T?,   nil)
     }
     
     //=------------------------------------------------------------------------=

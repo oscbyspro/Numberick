@@ -12,6 +12,36 @@ import NBKCoreKit
 //*============================================================================*
 // MARK: * NBK x Double Width x Text x Radix
 //*============================================================================*
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Decode
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
+        var description = String(description)
+        let value: Optional<Self> = description.withUTF8 {
+            let (sign, body) =  NBK.components(ascii: $0)
+            guard let magnitude = Magnitude(digits: body, radix: radix) else { return nil }
+            return NBK.exactly(sign: sign, magnitude: magnitude) as Optional<Self>
+        }
+        
+        if let value { self = value } else { return nil }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
+        withUnsafePointer(to: UInt8(ascii: "-")) {   minus in
+            let prefix = UnsafeBufferPointer(start:  minus, count: Int(bit: self.isLessThanZero))
+            return self.magnitude.description(radix: radix, uppercase: uppercase, prefix: prefix)
+        }
+    }
+}
+
 //=----------------------------------------------------------------------------=
 // MARK: + Unsigned
 //=----------------------------------------------------------------------------=
@@ -22,7 +52,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         self.init(digits: digits, radix: AnyRadixUIntRoot(radix))
     }
     
@@ -80,22 +110,22 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable public func description(radix: Int, uppercase: Bool, minus: Bool) -> String {
-        self.description(radix: AnyRadixUIntRoot(radix), alphabet: MaxRadixAlphabet(uppercase: uppercase), minus: minus)
+    @inlinable internal func description(radix: Int, uppercase: Bool, prefix: UnsafeBufferPointer<UInt8>) -> String {
+        self.description(radix: AnyRadixUIntRoot(radix), alphabet: MaxRadixAlphabetEncoder(uppercase: uppercase), prefix: prefix)
     }
-    
-    @inlinable internal func description(radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabet, minus: Bool) -> String {
+
+    @inlinable internal func description(radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         switch radix.power.isZero {
-        case  true: return self.description(radix:   PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, minus: minus)
-        case false: return self.description(radix: ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, minus: minus) }
+        case  true: return self.description(radix:   PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix)
+        case false: return self.description(radix: ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix) }
     }
-    
-    @inlinable internal func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabet, minus: Bool) -> String {
+
+    @inlinable internal func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
-        return String(chunks: self[...minLastIndex], radix: radix, alphabet: alphabet, minus: minus)
+        return String(chunks: self[...minLastIndex], radix: radix, alphabet: alphabet, prefix: prefix)
     }
-    
-    @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabet, minus: Bool) -> String {
+
+    @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
             var magnitude = self
@@ -108,7 +138,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
                 assert(!overflow)
             }   while !magnitude.isZero
             
-            return String(chunks: chunks[..<index], radix: radix, alphabet: alphabet, minus: minus)
+            return String(chunks: UnsafeBufferPointer(rebasing: chunks[..<index]), radix: radix, alphabet: alphabet, prefix: prefix)
         }
     }
 }
@@ -123,21 +153,18 @@ extension String {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable internal init(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot, alphabet: MaxRadixAlphabet, minus: Bool) {
+    @inlinable internal init(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
+    alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) {
         assert(chunks.last! != 0 || chunks.count == 1)
         assert(chunks.allSatisfy({ $0 < radix.power }) || radix.power.isZero)
         //=--------------------------------------=
-        self = Self.withUTF8(chunk: chunks.last!, radix: radix, alphabet: alphabet) { first in
-            let count = Int(bit: minus) &+ first.count + radix.exponent * (chunks.count &- 1)
+        self = Self.withUTF8(chunk: chunks.last!, radix: radix, alphabet: alphabet) { leader in
+            let count = prefix.count + leader.count + radix.exponent * (chunks.count - 1)
             return Self(unsafeUninitializedCapacity: count) { utf8 in
                 var index = utf8.startIndex
                 //=------------------------------=
-                if  minus {
-                    utf8.initializeElement(at: index, to: 45)
-                    index =  utf8.index(after: index)
-                }
-                //=------------------------------=
-                index = utf8[index...].initialize(fromContentsOf: first)
+                index = utf8[index...].initialize(fromContentsOf: prefix)
+                index = utf8[index...].initialize(fromContentsOf: leader)
                 //=------------------------------=
                 for var chunk in chunks.dropLast().reversed() {
                     let destination = utf8.index(index, offsetBy: radix.exponent)
@@ -160,9 +187,8 @@ extension String {
         }
     }
     
-    @inlinable internal static func withUTF8<T>(chunk: UInt, radix: some RadixUIntRoot, alphabet: MaxRadixAlphabet,
-    body: (UnsafeBufferPointer<UInt8>) throws -> T) rethrows -> T {
-        try withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
+    @inlinable internal static func withUTF8<T>(chunk: UInt, radix: some RadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
+        withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             assert(chunk < radix.power || radix.power.isZero)
             //=----------------------------------=
             var chunk = chunk as UInt
@@ -180,7 +206,7 @@ extension String {
             let initialized = utf8[backtrack...]
             defer { initialized.deinitialize() }
             //=----------------------------------=
-            return try body(UnsafeBufferPointer(rebasing: initialized))
+            return body(UnsafeBufferPointer(rebasing: initialized))
         }
     }
 }

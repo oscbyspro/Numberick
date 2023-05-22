@@ -7,35 +7,40 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
+// TODO: intuitive overloads
 //*============================================================================*
-// MARK: * NBK x Double With x Integer As Text
+// MARK: * NBK x Fixed Width Integer x Swift
 //*============================================================================*
 
-extension NBKDoubleWidth {
+extension Swift.BinaryInteger {
     
-    #warning("WIP")
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        self.magnitude.description(radix: radix, uppercase: uppercase, minus: self.isLessThanZero)
+        String(self, radix: radix, uppercase: uppercase)
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Double With x Integer As Text x String
-//*============================================================================*
+extension Swift.FixedWidthInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
+        self.init(description, radix: radix)
+    }
+}
 
-extension String {
+extension Swift.String {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    @inlinable public init<T>(encoding integer: NBKDoubleWidth<T>, radix: Int = 10, uppercase: Bool = false) {
+    @inlinable public init(encoding integer: some BinaryInteger, radix: Int = 10, uppercase: Bool = false) {
         self = integer.description(radix: radix, uppercase: uppercase)
     }
 }

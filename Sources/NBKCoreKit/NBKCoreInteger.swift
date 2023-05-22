@@ -192,7 +192,7 @@ extension NBKCoreInteger {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Details where Signed
+// MARK: + Details x Signed
 //=----------------------------------------------------------------------------=
 
 extension NBKCoreInteger where Self: NBKSignedInteger {

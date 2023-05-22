@@ -7,33 +7,31 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x ???
+// MARK: * NBK x Text x UInt
 //*============================================================================*
 
-extension NBK {
+extension UInt {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func parseUnsignedCoreIntegerDigits<T>(ascii: UnsafeBufferPointer<UInt8>, radix: Int) -> T?
-    where T: NBKFixedWidthInteger & NBKUnsignedInteger {
+    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+        guard !digits.isEmpty else { return nil }
         //=------------------------------------------=
-        guard !ascii.isEmpty else { return nil }
-        //=------------------------------------------=
-        var result: T = 0
+        let multiplier =/**/Self(truncatingIfNeeded: radix)
         let decoder = AnyRadixAlphabetDecoder(radix: radix)
-        let multiplicand = T(truncatingIfNeeded: radix)
+        //=------------------------------------------=
+        self.init()
         
-        for digit in ascii {
-            guard let value = decoder.decode(digit) else { return nil }
-            let addend = T(truncatingIfNeeded: value)
-            
-            guard !result.multiplyReportingOverflow(by: multiplicand) else { return nil }
-            guard !result.addReportingOverflow(addend)/*-----------*/ else { return nil }
+        for digit in digits {
+            guard let value = decoder.decode(digit)/*----------------------*/ else { return nil }
+            guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
+            guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
         }
-        
-        return result
     }
 }
+

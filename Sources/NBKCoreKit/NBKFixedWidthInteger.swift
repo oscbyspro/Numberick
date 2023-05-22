@@ -421,40 +421,4 @@ extension NBKFixedWidthInteger {
     @_disfavoredOverload @inlinable public static func &*(lhs: Self, rhs: Digit) -> Self {
         lhs.multipliedReportingOverflow(by: rhs).partialValue
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Sign & Magnitude
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
-        let isLessThanZero: Bool = (sign == .minus) && !magnitude.isZero
-        self.init(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
-        guard self.isLessThanZero == isLessThanZero else { return nil }        
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Details x Unsigned
-//=----------------------------------------------------------------------------=
-
-extension NBKFixedWidthInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Text
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
-        guard !digits.isEmpty else { return nil }
-        //=------------------------------------------=
-        let multiplier =/**/Self(truncatingIfNeeded: radix)
-        let decoder = AnyRadixAlphabetDecoder(radix: radix)
-        //=------------------------------------------=
-        self.init()
-        
-        for digit in digits {
-            guard let value = decoder.decode(digit)/*----------------------*/ else { return nil }
-            guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
-            guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
-        }
-    }
 }

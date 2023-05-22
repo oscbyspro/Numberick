@@ -48,25 +48,25 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     
     func testsFromSignMagnitude() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(sign: .plus,  magnitude:   T.Magnitude.zero), T.zero)
-            XCTAssertEqual(T(sign: .minus, magnitude:   T.Magnitude.zero), T.zero)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:   T.Magnitude.zero) as T?, T.zero)
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude:   T.Magnitude.zero) as T?, T.zero)
             
-            XCTAssertEqual(T(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 0), T.max)
-            XCTAssertEqual(T(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) - 0), T.min)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 0) as T?, T.max)
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) - 0) as T?, T.min)
             
-            XCTAssertEqual(T(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 1),   nil)
-            XCTAssertEqual(T(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) + 1),   nil)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:  (T.Magnitude.max >> 1) + 1) as T?, nil)
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude: ~(T.Magnitude.max >> 1) + 1) as T?, nil)
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude.zero), T.zero)
-            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude.zero), T.zero)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:   T.Magnitude.zero) as T?, T.zero)
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude:   T.Magnitude.zero) as T?, T.zero)
             
-            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude( 1)),  T( 1))
-            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude( 1)),    nil)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:   T.Magnitude( 1)) as T?,  T( 1))
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude:   T.Magnitude( 1)) as T?,    nil)
             
-            XCTAssertEqual(T(sign: .plus,  magnitude: T.Magnitude.max),  T.max)
-            XCTAssertEqual(T(sign: .minus, magnitude: T.Magnitude.max),    nil)
+            XCTAssertEqual(NBK.exactly(sign: .plus,  magnitude:   T.Magnitude.max) as T?,  T.max)
+            XCTAssertEqual(NBK.exactly(sign: .minus, magnitude:   T.Magnitude.max) as T?,    nil)
         }
         
         for type: T in types {

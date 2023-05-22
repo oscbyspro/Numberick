@@ -491,21 +491,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>>
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Sign & Magnitude
+    // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Tries to create a new instance equal to the given sign and magnitude.
-    ///
-    /// If the sign and magnitude cannot be represented exactly, the result is nil.
-    ///
-    /// ```swift
-    /// Int256(sign: .plus,  magnitude: 1 << 255 - 1) // Int256.max
-    /// Int256(sign: .plus,  magnitude: 1 << 255 - 0) // nil
-    /// Int256(sign: .minus, magnitude: 1 << 255 - 1) // Int256.min + 1
-    /// Int256(sign: .minus, magnitude: 1 << 255 - 0) // Int256.min
-    /// ```
-    ///
-    @inlinable init?(sign: FloatingPointSign, magnitude: Magnitude)
+    @inlinable init?(decoding description: some StringProtocol, radix: Int)
+    
+    @inlinable func description(radix: Int, uppercase: Bool) -> String
 }
 
 //=----------------------------------------------------------------------------=
@@ -595,21 +586,20 @@ extension NBKBinaryInteger {
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Digit>
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Details x Text x String
+//=----------------------------------------------------------------------------=
+
+extension String {
     
-    #warning("WIP")
     //=------------------------------------------------------------------------=
-    // MARK: Details x Text
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
-        var description = String(description)
-        let value = description.withUTF8 { utf8 in
-            let (sign, radix, body) = NBK.components(ascii: utf8, radix: radix)
-            let magnitude = Magnitude(digits: body, radix: radix)
-            return magnitude.flatMap({ Self(sign: sign, magnitude: $0) })
-        }
-        
-        if let value { self = value } else { return nil }
+    @inlinable public init(encoding integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
+        self = integer.description(radix: radix, uppercase: uppercase)
     }
 }
 
@@ -726,12 +716,4 @@ extension NBKSignedInteger {
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-public protocol NBKUnsignedInteger: NBKBinaryInteger, UnsignedInteger where Digit: NBKUnsignedInteger, Magnitude == Self {
-    
-    // TODO: comment
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Text
-    //=------------------------------------------------------------------------=
-    
-    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int)
-}
+public protocol NBKUnsignedInteger: NBKBinaryInteger, UnsignedInteger where Digit: NBKUnsignedInteger, Magnitude == Self { }
