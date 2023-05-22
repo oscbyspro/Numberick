@@ -423,30 +423,12 @@ extension NBKFixedWidthInteger {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Text
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func decodeBigEndianText(_ text: some StringProtocol, radix: Int?) -> Self? {
-        let (sign, radix, body) = NBK.bigEndianTextComponents(text, radix: radix)
-        guard  let magnitude =  Magnitude(body, radix: radix) else { return nil }
-        return Self(sign: sign, magnitude: magnitude)
-    }
-    
-    @inlinable public static func encodeBigEndianText(_ source: Self, radix: Int, uppercase: Bool) -> String {
-        String(source, radix: radix, uppercase: uppercase)
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given integer, if it is representable.
-    ///
-    /// If the value passed as source is not representable, the result is nil.
-    ///
     @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
         let isLessThanZero: Bool = (sign == .minus) && !magnitude.isZero
         self.init(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
-        guard self.isLessThanZero == isLessThanZero else { return nil }
+        guard self.isLessThanZero == isLessThanZero else { return nil }        
     }
 }

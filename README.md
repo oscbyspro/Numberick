@@ -12,12 +12,12 @@ Models, protocols, and extensions underpinning this package.
 
 ### Protocols
 
-- [NBKBigEndianTextable](Sources/NBKCoreKit/NBKBigEndianTextable.swift)
 - [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
 - [NBKMachineWordsInteger](Sources/NBKCoreKit/NBKMachineWordsInteger.swift)
+- [NBKRadixStringConvertible](Sources/NBKCoreKit/NBKRadixStringConvertible.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 

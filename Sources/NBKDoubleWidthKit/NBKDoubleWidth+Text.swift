@@ -44,7 +44,7 @@ extension NBKDoubleWidth {
     /// ```
     ///
     @inlinable public var description: String {
-        String(encoding: self, radix: 10)
+        String.init(encoding: self, radix: 10, uppercase: false)
     }
     
     /// The description of this type.

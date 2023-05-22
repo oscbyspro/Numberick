@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
@@ -15,7 +16,7 @@ import XCTest
 //*============================================================================*
 
 func NBKAssertNegation<T: NBKFixedWidthInteger & NBKSignedInteger>(
-_ operand: T, _ partialValue: T, _ overflow: Bool = false,
+_ operand: NBKDoubleWidth<T>, _ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {

@@ -12,29 +12,6 @@ import NBKCoreKit
 //*============================================================================*
 // MARK: * NBK x Double Width x Text x Radix
 //*============================================================================*
-
-extension NBKDoubleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func decodeBigEndianText(_ text: some StringProtocol, radix: Int?) -> Self? {
-        let (sign, radix, body) = NBK.bigEndianTextComponents(text, radix: radix)
-        guard let magnitude = Magnitude.decodeBigEndianDigits(body, radix: radix) else { return nil }
-        return Self(sign: sign, magnitude: magnitude)
-    }
-    
-    @inlinable public static func encodeBigEndianText(_ source: Self, radix: Int, uppercase: Bool) -> String {
-        let sign = Bool(source.isLessThanZero)
-        var magnitude: Magnitude = source.magnitude
-        let alphabet = MaxRadixAlphabet(uppercase: uppercase)
-        return AnyRadixUIntRoot(radix).switch(
-        perfect:  { Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) },
-        imperfect:{ Magnitude.encodeBigEndianText(&magnitude, sign: sign, radix: $0, alphabet: alphabet) })
-    }
-}
-
 //=----------------------------------------------------------------------------=
 // MARK: + Unsigned
 //=----------------------------------------------------------------------------=
@@ -45,75 +22,91 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: Int) -> Self? {
-        AnyRadixUIntRoot(radix).switch(
-        perfect:  { Self.decodeBigEndianDigits(source, radix: $0) },
-        imperfect:{ Self.decodeBigEndianDigits(source, radix: $0) })
+    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: AnyRadixUIntRoot) {
+        switch radix.power.isZero {
+        case  true: self.init(digits: digits, radix:   PerfectRadixUIntRoot(unchecked: radix))
+        case false: self.init(digits: digits, radix: ImperfectRadixUIntRoot(unchecked: radix)) }
     }
     
-    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: PerfectRadixUIntRoot) -> Self? {
-        var magnitude = Magnitude()
-        let utf8  = source.utf8.drop(while:{ $0 == 48 })
-        let start = utf8.startIndex as String.Index
-        var tail  = utf8.endIndex   as String.Index
-        var index = magnitude.startIndex as Int
-        let step  = radix.exponent.twosComplement() as Int
-        //=----------------------------------=
-        backwards: while tail != start {
-            guard index != magnitude.endIndex else { return nil }
-            let head = utf8.index(tail, offsetBy: step,  limitedBy:  start) ?? start
-            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
-            
-            tail = head
-            magnitude[index] = word
-            magnitude.formIndex(after: &index)
-        }
-        //=----------------------------------=
-        return magnitude
-    }
-    
-    @inlinable internal static func decodeBigEndianDigits(_ source: some StringProtocol, radix: ImperfectRadixUIntRoot) -> Self? {
-        var magnitude = Magnitude()
-        let utf8 = source.utf8.drop(while:{ $0 == 48 })
-        var head = utf8.startIndex as String.Index
-        let alignment = utf8.count  % radix.exponent as Int
+    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixUIntRoot) {
+        var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
+        self.init()
+        var index: Int = self.startIndex
+        
+        backwards: while !digits.isEmpty {
+            guard index < self.endIndex else { return nil }
+            let chunk = digits.suffix(radix.exponent)
+            digits    = digits.prefix(upTo: chunk.startIndex)
+
+            let ascii = UnsafeBufferPointer(rebasing: chunk)
+            guard let word: UInt = NBK.parseCoreIntegerDigits(ascii: ascii, radix: radix.base, minus: false) else { return nil }
+
+            self[index] = word
+            self.formIndex(after: &index)
+        }
+    }
+    
+    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixUIntRoot) {
+        var digits = digits.drop(while:{ $0 == 48 })
+        let alignment = digits.count % radix.exponent
+        //=--------------------------------------=
+        self.init()
+        
         forwards: if !alignment.isZero {
-            let tail = utf8.index(head, offsetBy: alignment)
-            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
-            magnitude.first = word
-            head = tail
+            let chunkEndIndex = digits.startIndex &+ alignment
+            let chunk = digits.prefix(upTo: chunkEndIndex)
+            digits    = digits.suffix(from: chunkEndIndex)
+            
+            let ascii = UnsafeBufferPointer(rebasing: chunk)
+            guard let word: UInt = NBK.parseCoreIntegerDigits(ascii: ascii, radix: radix.base, minus: false) else { return nil }
+            
+            self.first = word
         }
-        //=--------------------------------------=
-        forwards: while head != utf8.endIndex {
-            let tail = utf8.index(head, offsetBy: radix.exponent)
-            guard let word = UInt(source[head ..< tail], radix: radix.base) else { return nil }
-            guard !magnitude.multiplyReportingOverflow(by: radix.power)/**/ else { return nil }
-            guard !magnitude.addReportingOverflow(word)/*----------------*/ else { return nil }
-            head = tail
+        
+        forwards: while !digits.isEmpty {
+            let chunkEndIndex = digits.startIndex &+ radix.exponent
+            let chunk = digits.prefix(upTo: chunkEndIndex)
+            digits    = digits.suffix(from: chunkEndIndex)
+
+            let ascii = UnsafeBufferPointer(rebasing: chunk)
+            guard let word: UInt = NBK.parseCoreIntegerDigits(ascii: ascii, radix: radix.base, minus: false) else { return nil }
+            
+            guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
+            guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
         }
-        //=--------------------------------------=
-        return magnitude
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable internal static func encodeBigEndianText(_ magnitude: inout Self, sign: Bool,
-    radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
-        let minLastIndex: Int = magnitude.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
-        return String(chunks: magnitude[...minLastIndex], sign: sign, radix: radix, alphabet: alphabet)
+    @inlinable public func description(sign: FloatingPointSign, radix: Int, uppercase: Bool) -> String {
+        self.description(sign: sign, radix: AnyRadixUIntRoot(radix), alphabet: MaxRadixAlphabet(uppercase: uppercase))
     }
     
-    @inlinable internal static func encodeBigEndianText(_ magnitude: inout Self, sign: Bool,
-    radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
-        let capacity: Int = radix.divisibilityByPowerUpperBound(magnitude)
+    @inlinable internal func description(sign: FloatingPointSign, radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
+        switch radix.power.isZero {
+        case  true: return self.description(sign: sign, radix:   PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet)
+        case false: return self.description(sign: sign, radix: ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet) }
+    }
+    
+    @inlinable internal func description(sign: FloatingPointSign, radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
+        let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
+        return String(chunks: self[...minLastIndex], sign: sign, radix: radix, alphabet: alphabet)
+    }
+    
+    @inlinable internal func description(sign: FloatingPointSign, radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabet) -> String {
+        let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
+            var magnitude = self
             var index = chunks.startIndex
+            
             rebasing: repeat {
-                chunks[index] = magnitude.formQuotientReportingRemainderAndOverflow(dividingBy: radix.power).partialValue
+                let (remainder, overflow) = magnitude.formQuotientReportingRemainderAndOverflow(dividingBy: radix.power)
+                chunks[index] = remainder
                 chunks.formIndex(after: &index)
+                assert(!overflow, "must not divide by zero")
             }   while !magnitude.isZero
             
             return String(chunks: chunks[..<index], sign: sign, radix: radix, alphabet: alphabet)
@@ -131,39 +124,39 @@ extension String {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable internal init(chunks: some BidirectionalCollection<UInt>,
-    sign: Bool, radix: some RadixUIntRoot, alphabet: MaxRadixAlphabet) {
+    @inlinable internal init(chunks: some RandomAccessCollection<UInt>, sign: FloatingPointSign,
+    radix: some RadixUIntRoot, alphabet: MaxRadixAlphabet) {
         assert(chunks.last! != 0 || chunks.count == 1)
         assert(chunks.allSatisfy({ $0 < radix.power }) || radix.power.isZero)
         //=--------------------------------------=
         self = Self.withUTF8(chunk: chunks.last!, radix: radix, alphabet: alphabet) { first in
-            let count = Int(bit: sign) &+ first.count + radix.exponent * (chunks.count &- 1)
-            return Self(unsafeUninitializedCapacity: count) { UTF8 in
-                var index = UTF8.startIndex
+            let count = Int(bit: sign == .minus) &+ first.count + radix.exponent * (chunks.count &- 1)
+            return Self(unsafeUninitializedCapacity: count) { utf8 in
+                var index = utf8.startIndex
                 //=------------------------------=
-                if  sign {
-                    UTF8.initializeElement(at: index, to: 45)
-                    UTF8.formIndex(after: &index)
+                if  sign == .minus {
+                    utf8.initializeElement(at: index, to: 45)
+                    index =  utf8.index(after: index)
                 }
                 //=------------------------------=
-                index = UTF8[index...].initialize(fromContentsOf: first)
+                index = utf8[index...].initialize(fromContentsOf: first)
                 //=------------------------------=
                 for var chunk in chunks.dropLast().reversed() {
-                    let destination = UTF8.index(index, offsetBy: radix.exponent)
+                    let destination = utf8.index(index, offsetBy: radix.exponent)
                     var backtrack = destination
                     defer { index = destination }
                     
-                    backwards: while backtrack != index {
-                        UTF8.formIndex(before: &backtrack)
+                    backwards: while backtrack > index {
+                        utf8.formIndex(before: &backtrack)
                         
                         let digit: UInt
                         (chunk,  digit) = radix.dividing(chunk)
                         let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                        UTF8.initializeElement(at: backtrack, to: unit)
+                        utf8.initializeElement(at: backtrack, to: unit)
                     }
                 }
                 //=------------------------------=
-                assert(UTF8[..<index].count == count)
+                assert(utf8[..<index].count == count)
                 return count
             }
         }

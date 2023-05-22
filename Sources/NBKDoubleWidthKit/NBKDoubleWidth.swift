@@ -114,13 +114,8 @@ High: NBKMachineWordsInteger,  High.Digit: NBKCoreInteger<UInt> {
 // MARK: * NBK x Double Width x Conditional Conformances
 //*============================================================================*
 
-extension NBKDoubleWidth:
-NBKSignedInteger, SignedInteger, SignedNumeric
-where High: NBKSignedInteger { }
-
-extension NBKDoubleWidth:
-NBKUnsignedInteger, UnsignedInteger
-where High: NBKUnsignedInteger { }
+extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
+extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }
 
 //*============================================================================*
 // MARK: * NBK x Double Width x [U]128

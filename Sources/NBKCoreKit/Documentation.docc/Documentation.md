@@ -6,12 +6,12 @@ Models, protocols, extensions and utilities underpinning this package.
 
 ### Protocols
 
-- ``NBKBigEndianTextable``
 - ``NBKBinaryInteger``
 - ``NBKBitPatternConvertible``
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
 - ``NBKMachineWordsInteger``
+- ``NBKRadixStringConvertible``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 

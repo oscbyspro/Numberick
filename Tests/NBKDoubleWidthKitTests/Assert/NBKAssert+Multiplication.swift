@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
@@ -15,9 +16,10 @@ import XCTest
 //*============================================================================*
 
 func NBKAssertMultiplication<T: NBKFixedWidthInteger>(
-_ lhs: T, _ rhs: T, _ low: T, _ high: T? = nil, _ overflow: Bool = false,
+_ lhs: NBKDoubleWidth<T>, _ rhs:  NBKDoubleWidth<T>,
+_ low: NBKDoubleWidth<T>, _ high: NBKDoubleWidth<T>? = nil, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    let high = high ?? T(repeating: low.isLessThanZero)
+    let high = high ?? NBKDoubleWidth<T>(repeating: low.isLessThanZero)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(                 lhs *  rhs,                 low, file: file, line: line)
@@ -33,7 +35,7 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyReportingOverflow(by: rhs); return x }(), low,      file: file, line: line)
     XCTAssertEqual({ var x = lhs; let o = x.multiplyReportingOverflow(by: rhs); return o }(), overflow, file: file, line: line)
     
-    XCTAssertEqual(T(bitPattern: lhs.multipliedFullWidth(by: rhs).low), low,  file: file, line: line)
+    XCTAssertEqual(NBKDoubleWidth<T>(bitPattern: lhs.multipliedFullWidth(by: rhs).low), low,  file: file, line: line)
     XCTAssertEqual(/*---------*/ lhs.multipliedFullWidth(by: rhs).high, high, file: file, line: line)
 
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyFullWidth(by: rhs); return x }(), low,  file: file, line: line)
@@ -41,9 +43,10 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 func NBKAssertMultiplicationByDigit<T: NBKFixedWidthInteger>(
-_ lhs: T, _ rhs: T.Digit, _ low: T, _ high: T.Digit? = nil, _ overflow: Bool = false,
+_ lhs: NBKDoubleWidth<T>, _ rhs:  NBKDoubleWidth<T>.Digit,
+_ low: NBKDoubleWidth<T>, _ high: NBKDoubleWidth<T>.Digit? = nil, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    let high = high ?? T.Digit(repeating: low.isLessThanZero)
+    let high = high ?? NBKDoubleWidth<T>.Digit(repeating: low.isLessThanZero)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(                 lhs *  rhs,                 low, file: file, line: line)
@@ -59,7 +62,7 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyReportingOverflow(by: rhs); return x }(), low,      file: file, line: line)
     XCTAssertEqual({ var x = lhs; let o = x.multiplyReportingOverflow(by: rhs); return o }(), overflow, file: file, line: line)
     
-    XCTAssertEqual(T(bitPattern: lhs.multipliedFullWidth(by: rhs).low), low,  file: file, line: line)
+    XCTAssertEqual(NBKDoubleWidth<T>(bitPattern: lhs.multipliedFullWidth(by: rhs).low), low,  file: file, line: line)
     XCTAssertEqual(/*---------*/ lhs.multipliedFullWidth(by: rhs).high, high, file: file, line: line)
     
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyFullWidth(by: rhs); return x }(), low,  file: file, line: line)

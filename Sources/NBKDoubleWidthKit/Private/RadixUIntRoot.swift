@@ -100,15 +100,6 @@ extension RadixUIntRoot {
         ? Self._rootWhereRadixIsPowerOf2(self.base)
         : Self._rootWhereRadixIsWhatever(self.base)
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// Branches based on whether its power is zero or not.
-    @inlinable func `switch`<T>(perfect: (PerfectRadixUIntRoot) throws -> T, imperfect: (ImperfectRadixUIntRoot) throws -> T) rethrows -> T {
-        try self.power.isZero ? perfect(.init(unchecked: self)) : imperfect(.init(unchecked: self))
-    }
         
     //=------------------------------------------------------------------------=
     // MARK: Utilities

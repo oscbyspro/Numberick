@@ -28,8 +28,7 @@
 /// Because the dividend may not fit in the remainder of single digit division,
 /// the divisor is returned instead.
 ///
-public protocol NBKBinaryInteger: NBKBigEndianTextable, BinaryInteger, Sendable where
-Magnitude: NBKUnsignedInteger, Words: Sendable {
+public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
     associatedtype Digit: NBKBinaryInteger = Self where
@@ -490,6 +489,23 @@ Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// ```
     ///
     @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    /// Tries to create a new instance equal to the given sign and magnitude.
+    ///
+    /// If the sign and magnitude cannot be represented exactly, the result is nil.
+    ///
+    /// ```swift
+    /// Int256(sign: .plus,  magnitude: 1 << 255 - 1) // Int256.max
+    /// Int256(sign: .plus,  magnitude: 1 << 255 - 0) // nil
+    /// Int256(sign: .minus, magnitude: 1 << 255 - 1) // Int256.min - 1
+    /// Int256(sign: .minus, magnitude: 1 << 255 - 0) // Int256.min
+    /// ```
+    ///
+    @inlinable init?(sign: FloatingPointSign, magnitude: Magnitude)
 }
 
 //=----------------------------------------------------------------------------=

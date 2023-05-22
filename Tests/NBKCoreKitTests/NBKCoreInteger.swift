@@ -38,10 +38,6 @@ final class NBKCoreIntegerTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testNBKBigEndianTextCodable() {
-        XCTAssertEqual(10, types.compactMap({ $0 as  any NBKBigEndianTextable.Type }).count)
-    }
-    
     func testNBKBinaryInteger() {
         XCTAssertEqual(10, types.compactMap({ $0 as  any NBKBinaryInteger.Type }).count)
     }

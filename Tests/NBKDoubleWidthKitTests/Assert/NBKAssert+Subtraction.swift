@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
@@ -15,7 +16,8 @@ import XCTest
 //*============================================================================*
 
 func NBKAssertSubtraction<T: NBKFixedWidthInteger>(
-_ lhs: T, _ rhs: T, _ partialValue: T, _ overflow: Bool = false,
+_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>,
+_ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
@@ -34,7 +36,8 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 func NBKAssertSubtractionByDigit<T: NBKFixedWidthInteger>(
-_ lhs: T, _ rhs: T.Digit, _ partialValue: T, _ overflow: Bool = false,
+_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>.Digit,
+_ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {

@@ -80,8 +80,8 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingPrefixingZerosHasNoEffect() {
         for type: T in types {
-            XCTAssertEqual(Int(type.init(decoding: String(repeating: "0", count: 99) + "0")!), 0)
-            XCTAssertEqual(Int(type.init(decoding: String(repeating: "0", count: 99) + "1")!), 1)
+            XCTAssertEqual(Int(type.init(decoding: String(repeating: "0", count: 99) + "0", radix: 10)!), 0)
+            XCTAssertEqual(Int(type.init(decoding: String(repeating: "0", count: 99) + "1", radix: 10)!), 1)
         }
     }
     

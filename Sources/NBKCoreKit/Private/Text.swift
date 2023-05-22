@@ -20,12 +20,12 @@ extension NBK {
     /// Returns the sign and radix, along with any remaining characters.
     ///
     /// ```swift
-    /// NBK.bigEndianTextComponents("+0x???", radix: nil) // (sign: plus,  radix: 16, body:    "???")
-    /// NBK.bigEndianTextComponents("??????", radix: nil) // (sign: plus,  radix: 10, body: "??????")
-    /// NBK.bigEndianTextComponents("-0x???", radix:   2) // (sign: minus, radix:  2, body:  "0x???")
+    /// NBK.components("+0x???", radix: nil) // (sign: plus,  radix: 16, body:    "???")
+    /// NBK.components("??????", radix: nil) // (sign: plus,  radix: 10, body: "??????")
+    /// NBK.components("-0x???", radix:   2) // (sign: minus, radix:  2, body:  "0x???")
     /// ```
     ///
-    @inlinable public static func bigEndianTextComponents<T>(_ text: T, radix: Int?)
+    @inlinable public static func components<T>(_ text: T, radix: Int?)
     -> (sign: FloatingPointSign, radix: Int, body: T.SubSequence) where T: StringProtocol {
         var body  = text[...]
         let sign  = body.removeSignPrefix() ?? .plus
