@@ -37,28 +37,28 @@ final class Int256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T(decoding: Self.source, radix: 10)!)
+            NBK.blackHole(T(Self.source, radix: 10)!)
             NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T(decoding: Self.source, radix: 16)!)
+            NBK.blackHole(T(Self.source, radix: 16)!)
             NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(String(encoding: Self.number, radix: 10))
+            NBK.blackHole(String(Self.number, radix: 10))
             NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(String(encoding: Self.number, radix: 16))
+            NBK.blackHole(String(Self.number, radix: 16))
             NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
@@ -117,28 +117,28 @@ final class UInt256BenchmarksOnText: XCTestCase {
     
     func testDecodingRadix10() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T(decoding: Self.source, radix: 10)!)
+            NBK.blackHole(T(Self.source, radix: 10)!)
             NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testDecodingRadix16() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T(decoding: Self.source, radix: 16)!)
+            NBK.blackHole(T(Self.source, radix: 16)!)
             NBK.blackHoleInoutIdentity(&Self.source)
         }
     }
     
     func testEncodingRadix10() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(String(encoding: Self.number, radix: 10))
+            NBK.blackHole(String(Self.number, radix: 10))
             NBK.blackHoleInoutIdentity(&Self.number)
         }
     }
     
     func testEncodingRadix16() {
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(String(encoding: Self.number, radix: 16))
+            NBK.blackHole(String(Self.number, radix: 16))
             NBK.blackHoleInoutIdentity(&Self.number)
         }
     }

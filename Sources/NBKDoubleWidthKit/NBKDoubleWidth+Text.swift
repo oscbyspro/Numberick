@@ -33,7 +33,7 @@ extension NBKDoubleWidth {
     /// ```
     ///
     @inlinable public init?(_ description: String) {
-        self.init(decoding: description, radix: 10)
+        self.init(description, radix: 10)
     }
     
     /// The description of this value.
@@ -44,7 +44,7 @@ extension NBKDoubleWidth {
     /// ```
     ///
     @inlinable public var description: String {
-        String.init(encoding: self, radix: 10, uppercase: false)
+        String.init(self, radix: 10, uppercase: false)
     }
     
     /// The description of this type.

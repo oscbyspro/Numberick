@@ -32,10 +32,10 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingRadix16() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(Int(T(decoding:  "7b", radix: 16)!),  123)
-            XCTAssertEqual(Int(T(decoding: "+7b", radix: 16)!),  123)
+            XCTAssertEqual(Int(T( "7b", radix: 16)!),  123)
+            XCTAssertEqual(Int(T("+7b", radix: 16)!),  123)
             guard type.isSigned else { return }
-            XCTAssertEqual(Int(T(decoding: "-7b", radix: 16)!), -123)
+            XCTAssertEqual(Int(T("-7b", radix: 16)!), -123)
         }
         
         for type: T in types {
@@ -45,10 +45,10 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingRadix10() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(Int(T(decoding:  "123", radix: 10)!),  123)
-            XCTAssertEqual(Int(T(decoding: "+123", radix: 10)!),  123)
+            XCTAssertEqual(Int(T( "123", radix: 10)!),  123)
+            XCTAssertEqual(Int(T("+123", radix: 10)!),  123)
             guard type.isSigned else { return }
-            XCTAssertEqual(Int(T(decoding: "-123", radix: 10)!), -123)
+            XCTAssertEqual(Int(T("-123", radix: 10)!), -123)
         }
         
         for type: T in types {
@@ -58,13 +58,13 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingRadixLiteralAsNumber() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(Int(T(decoding:  "0x", radix: 36)!),  33)
-            XCTAssertEqual(Int(T(decoding:  "0o", radix: 36)!),  24)
-            XCTAssertEqual(Int(T(decoding:  "0b", radix: 36)!),  11)
+            XCTAssertEqual(Int(T( "0x", radix: 36)!),  33)
+            XCTAssertEqual(Int(T( "0o", radix: 36)!),  24)
+            XCTAssertEqual(Int(T( "0b", radix: 36)!),  11)
             guard type.isSigned else { return }
-            XCTAssertEqual(Int(T(decoding: "-0x", radix: 36)!), -33)
-            XCTAssertEqual(Int(T(decoding: "-0o", radix: 36)!), -24)
-            XCTAssertEqual(Int(T(decoding: "-0b", radix: 36)!), -11)
+            XCTAssertEqual(Int(T("-0x", radix: 36)!), -33)
+            XCTAssertEqual(Int(T("-0o", radix: 36)!), -24)
+            XCTAssertEqual(Int(T("-0b", radix: 36)!), -11)
         }
         
         for type: T in types {
@@ -74,10 +74,10 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingStringsWithOrWithoutSign() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(Int(T(decoding:  "10", radix: 10)!),  10)
-            XCTAssertEqual(Int(T(decoding: "+10", radix: 10)!),  10)
+            XCTAssertEqual(Int(T( "10", radix: 10)!),  10)
+            XCTAssertEqual(Int(T("+10", radix: 10)!),  10)
             guard type.isSigned else { return }
-            XCTAssertEqual(Int(T(decoding: "-10", radix: 10)!), -10)
+            XCTAssertEqual(Int(T("-10", radix: 10)!), -10)
         }
         
         for type: T in types {
@@ -87,8 +87,8 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     
     func testDecodingPrefixingZerosHasNoEffect() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(Int(T(decoding: String(repeating: "0", count: 99) + "0", radix: 10)!), 0)
-            XCTAssertEqual(Int(T(decoding: String(repeating: "0", count: 99) + "1", radix: 10)!), 1)
+            XCTAssertEqual(Int(T(String(repeating: "0", count: 99) + "0", radix: 10)!), 0)
+            XCTAssertEqual(Int(T(String(repeating: "0", count: 99) + "1", radix: 10)!), 1)
         }
         
         for type: T in types {
@@ -102,8 +102,8 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
         
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             for radix in 2 ... 36 {
-                XCTAssertNil(T(decoding: positive, radix: radix))
-                XCTAssertNil(T(decoding: negative, radix: radix))
+                XCTAssertNil(T(positive, radix: radix))
+                XCTAssertNil(T(negative, radix: radix))
             }
         }
         
@@ -119,11 +119,11 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     func testEncodingRadix16() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             let max = T(123), min = T(exactly: -123)
-            XCTAssertEqual(String(encoding: max, radix: 16, uppercase: false),   "7b")
-            XCTAssertEqual(String(encoding: max, radix: 16, uppercase: true ),   "7B")
+            XCTAssertEqual(String(max, radix: 16, uppercase: false),   "7b")
+            XCTAssertEqual(String(max, radix: 16, uppercase: true ),   "7B")
             guard let min else { return }
-            XCTAssertEqual(String(encoding: min, radix: 16, uppercase: false),  "-7b")
-            XCTAssertEqual(String(encoding: min, radix: 16, uppercase: true ),  "-7B")
+            XCTAssertEqual(String(min, radix: 16, uppercase: false),  "-7b")
+            XCTAssertEqual(String(min, radix: 16, uppercase: true ),  "-7B")
         }
         
         for type: T in types {
@@ -134,11 +134,11 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     func testEncodingRadix10() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             let max = T(123), min = T(exactly: -123)
-            XCTAssertEqual(String(encoding: max, radix: 10, uppercase: false),  "123")
-            XCTAssertEqual(String(encoding: max, radix: 10, uppercase: true ),  "123")
+            XCTAssertEqual(String(max, radix: 10, uppercase: false),  "123")
+            XCTAssertEqual(String(max, radix: 10, uppercase: true ),  "123")
             guard let min else { return }
-            XCTAssertEqual(String(encoding: min, radix: 10, uppercase: false), "-123")
-            XCTAssertEqual(String(encoding: min, radix: 10, uppercase: true ), "-123")
+            XCTAssertEqual(String(min, radix: 10, uppercase: false), "-123")
+            XCTAssertEqual(String(min, radix: 10, uppercase: true ), "-123")
         }
         
         for type: T in types {

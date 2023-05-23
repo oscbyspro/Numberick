@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
+    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
         var description = String(description)
         let value: Optional<Self> = description.withUTF8 {
             let (sign, body) =  NBK.components(ascii: $0)

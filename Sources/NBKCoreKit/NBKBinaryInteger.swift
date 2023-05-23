@@ -495,7 +495,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     //=------------------------------------------------------------------------=
     
     // TODO: documentation
-    @inlinable init?(decoding description: some StringProtocol, radix: Int)
+    @inlinable init?(_ description: some StringProtocol, radix: Int)
     
     // TODO: documentation
     @inlinable func description(radix: Int, uppercase: Bool) -> String
@@ -590,7 +590,6 @@ extension NBKBinaryInteger {
     }
 }
 
-#warning("TODO")
 //=----------------------------------------------------------------------------=
 // MARK: + Details x Text x String
 //=----------------------------------------------------------------------------=
@@ -601,7 +600,8 @@ extension String {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(encoding integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
+    // TODO: documentation
+    @inlinable public init(_ integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
         self = integer.description(radix: radix, uppercase: uppercase)
     }
 }

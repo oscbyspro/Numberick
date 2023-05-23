@@ -69,7 +69,7 @@ extension String {
     @inlinable internal static func fromUTF8(uncheckedChunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         //=--------------------------------------=
-        radix.assertChunkCollectionIsValid(uncheckedChunks)
+        radix.assertChunksAreValid(uncheckedChunks)
         //=--------------------------------------=
         return String.withUTF8(uncheckedChunk: uncheckedChunks.last!, radix: radix, alphabet: alphabet) { leader in
             let count = prefix.count &+ leader.count + radix.exponent * (uncheckedChunks.count &- 1)
@@ -80,17 +80,15 @@ extension String {
                 index = utf8[index...].initialize(fromContentsOf: leader)
                 //=------------------------------=
                 for var chunk in uncheckedChunks.dropLast().reversed() {
-                    let destination = utf8.index(index, offsetBy: radix.exponent)
-                    var backtrack = destination
-                    defer { index = destination }
+                    var digit: UInt
                     
-                    backwards: while backtrack > index {
-                        utf8.formIndex(before: &backtrack)
-                        
-                        let digit: UInt
-                        (chunk,  digit) = radix.dividing(chunk)
+                    let nextIndex = utf8.index(index, offsetBy: radix.exponent)
+                    defer { index = nextIndex }
+                    
+                    for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
+                        (chunk, digit) = radix.dividing(chunk)
                         let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                        utf8.initializeElement(at: backtrack, to: unit)
+                        utf8.initializeElement(at: backtrackIndex, to: unit)
                     }
                 }
                 //=------------------------------=
@@ -104,22 +102,22 @@ extension String {
     @inlinable internal static func withUTF8<T>(uncheckedChunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
         //=--------------------------------------=
-        radix.assertChunkCollectionIsValid(CollectionOfOne(uncheckedChunk))
+        radix.assertChunksAreValid(CollectionOfOne(uncheckedChunk))
         //=--------------------------------------=
         return withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
-            var chunk = uncheckedChunk as UInt
-            var backtrack = radix.exponent as Int
+            var digit: UInt
+            var chunk: UInt = uncheckedChunk
+            var backtrackIndex = radix.exponent as Int
             //=----------------------------------=
             backwards: repeat {
-                utf8.formIndex(before: &backtrack)
+                utf8.formIndex(before: &backtrackIndex)
                 
-                let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
                 let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                utf8.initializeElement(at: backtrack, to: unit)
+                utf8.initializeElement(at: backtrackIndex, to: unit)
             }   while !chunk.isZero
             //=----------------------------------=
-            let initialized = utf8[backtrack...]
+            let initialized = utf8[backtrackIndex...]
             defer { initialized.deinitialize() }
             //=----------------------------------=
             return body(UnsafeBufferPointer(rebasing: initialized))

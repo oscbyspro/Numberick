@@ -44,7 +44,7 @@
     //=------------------------------------------------------------------------=
     
     @inlinable func decode(_ digit: UInt8) -> UInt8? {
-        if  digit >= UInt8(ascii: "0") && digit < self.numericalUpperBound {
+        if  /*---*/ digit >= UInt8(ascii: "0") && digit < self.numericalUpperBound {
             return  digit &- UInt8(ascii: "0")
         }   else if digit >= UInt8(ascii: "A") && digit < self.uppercaseUpperBound {
             return  digit &- UInt8(ascii: "A") &+ 10
@@ -82,8 +82,8 @@
     //=------------------------------------------------------------------------=
     
     @inlinable init(uppercase: Bool) {
-        self.map00To10 = 48
-        self.map10To37 = uppercase ? 55 : 87
+        self.map00To10 = UInt8(ascii: "0")
+        self.map10To37 = UInt8(ascii: uppercase ? "A" : "a") &- 10
     }
     
     //=------------------------------------------------------------------------=

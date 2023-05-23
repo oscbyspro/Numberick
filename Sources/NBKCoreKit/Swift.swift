@@ -18,29 +18,8 @@ extension Swift.BinaryInteger {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
+    // TODO: documentation
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         String(self, radix: radix, uppercase: uppercase)
-    }
-}
-
-extension Swift.FixedWidthInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Text
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init?(decoding description: some StringProtocol, radix: Int) {
-        self.init(description, radix: radix)
-    }
-}
-
-extension Swift.String {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Text
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(encoding integer: some BinaryInteger, radix: Int = 10, uppercase: Bool = false) {
-        self = integer.description(radix: radix, uppercase: uppercase)
     }
 }
