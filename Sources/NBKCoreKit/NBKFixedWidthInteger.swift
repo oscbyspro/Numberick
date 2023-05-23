@@ -276,10 +276,6 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
-    @inlinable public var isFull: Bool {
-        self.nonzeroBitCount == self.bitWidth
-    }
-    
     @inlinable public var isPowerOf2: Bool {
         self.nonzeroBitCount == 1
     }

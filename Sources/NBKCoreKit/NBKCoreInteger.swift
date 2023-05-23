@@ -140,7 +140,6 @@ extension NBKCoreInteger {
         return pvo.overflow as Bool
     }
     
-    // TODO: this method is never called
     @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())

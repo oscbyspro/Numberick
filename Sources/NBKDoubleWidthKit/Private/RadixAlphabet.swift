@@ -11,6 +11,7 @@
 // MARK: * NBK x Radix Alphabet x Any x Decoder
 //*============================================================================*
 
+/// Decodes values in `0` through `36` from ASCII.
 @frozen @usableFromInline struct AnyRadixAlphabetDecoder {
     
     //=------------------------------------------------------------------------=
@@ -60,14 +61,7 @@
 // MARK: * NBK x Radix Alphabet x Max x Encoder
 //*============================================================================*
 
-/// Maps values from `0` through `36` to ASCII.
-///
-/// ```swift
-/// let map =  MaxRadixAlphabetEncoder(uppercase: true)
-/// map[00] // UInt8(ascii: "0")
-/// map[20] // UInt8(ascii: "K")
-/// ```
-///
+/// Encodes values in `0` through `36` to ASCII.
 @frozen @usableFromInline struct MaxRadixAlphabetEncoder {
     
     //=------------------------------------------------------------------------=
@@ -90,12 +84,12 @@
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable subscript(_ value: UInt8) -> UInt8 {
+    @inlinable func encode(_ value: UInt8) -> UInt8 {
         precondition(value < 37, "digit is not in alphabet")
-        return self[unchecked: value]
+        return self.encode(unchecked: value)
     }
     
-    @inlinable subscript(unchecked value: UInt8) -> UInt8 {
+    @inlinable func encode(unchecked value: UInt8) -> UInt8 {
         Swift.assert(value < 37, "digit is not in alphabet")
         let offset = value < 10 ? self.map00To10 : self.map10To37
         return value &+  offset

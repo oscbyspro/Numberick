@@ -494,10 +494,10 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    // TODO: documentation
+    /// Creates a new instance from the given string and radix.
     @inlinable init?(_ description: some StringProtocol, radix: Int)
     
-    // TODO: documentation
+    /// Creates a string representing this value, in the given format.
     @inlinable func description(radix: Int, uppercase: Bool) -> String
 }
 
@@ -600,7 +600,7 @@ extension String {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    // TODO: documentation
+    /// Creates a string representing the given value, in the given format.
     @inlinable public init(_ integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
         self = integer.description(radix: radix, uppercase: uppercase)
     }

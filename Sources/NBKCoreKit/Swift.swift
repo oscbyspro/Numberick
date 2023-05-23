@@ -7,9 +7,8 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-// TODO: intuitive overloads
 //*============================================================================*
-// MARK: * NBK x Fixed Width Integer x Swift
+// MARK: * NBK x Binary Integer x Swift
 //*============================================================================*
 
 extension Swift.BinaryInteger {
@@ -18,7 +17,7 @@ extension Swift.BinaryInteger {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    // TODO: documentation
+    /// Creates a string representing the this value, int the given format.
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         String(self, radix: radix, uppercase: uppercase)
     }

@@ -42,13 +42,13 @@ extension UInt {
     @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         guard !digits.isEmpty else { return nil }
         //=------------------------------------------=
-        let multiplier =/**/Self(truncatingIfNeeded: radix)
-        let decoder = AnyRadixAlphabetDecoder(radix: radix)
+        let multiplier = Self(bitPattern: radix)
+        let alphabet = AnyRadixAlphabetDecoder(radix: radix)
         //=------------------------------------------=
         self.init()
         
         for digit in digits {
-            guard let value = decoder.decode(digit)/*----------------------*/ else { return nil }
+            guard let value = alphabet.decode(digit)/*---------------------*/ else { return nil }
             guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
             guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
         }
@@ -87,7 +87,7 @@ extension String {
                     
                     for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
                         (chunk, digit) = radix.dividing(chunk)
-                        let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
+                        let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
                         utf8.initializeElement(at: backtrackIndex, to: unit)
                     }
                 }
@@ -113,7 +113,7 @@ extension String {
                 utf8.formIndex(before: &backtrackIndex)
                 
                 (chunk,  digit) = radix.dividing(chunk)
-                let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
+                let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
                 utf8.initializeElement(at: backtrackIndex, to: unit)
             }   while !chunk.isZero
             //=----------------------------------=
