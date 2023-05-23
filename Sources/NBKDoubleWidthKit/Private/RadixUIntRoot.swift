@@ -66,6 +66,12 @@ extension RadixUIntRoot {
     @inlinable func dividing(_ dividend: UInt) -> QR<UInt, UInt> {
         dividend.quotientAndRemainder(dividingBy: self.base)
     }
+    
+    @inlinable func assertChunkCollectionIsValid(_ chunks: @autoclosure () -> some RandomAccessCollection<UInt>) {
+        assert(!chunks().isEmpty, "chunks must not be empty")
+        assert(!chunks().last!.isZero || chunks().count == 1, "chunks must not have redundant zeros")
+        assert(self.power.isZero || chunks().allSatisfy({ $0 < self.power }), "chunks much be power based")
+    }
 }
 
 //*============================================================================*

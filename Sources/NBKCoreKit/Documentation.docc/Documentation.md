@@ -11,7 +11,6 @@ Models, protocols, extensions and utilities underpinning this package.
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
 - ``NBKMachineWordsInteger``
-- ``NBKRadixStringConvertible``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 

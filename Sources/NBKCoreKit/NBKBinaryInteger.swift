@@ -494,8 +494,10 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
+    // TODO: documentation
     @inlinable init?(decoding description: some StringProtocol, radix: Int)
     
+    // TODO: documentation
     @inlinable func description(radix: Int, uppercase: Bool) -> String
 }
 
@@ -588,6 +590,7 @@ extension NBKBinaryInteger {
     }
 }
 
+#warning("TODO")
 //=----------------------------------------------------------------------------=
 // MARK: + Details x Text x String
 //=----------------------------------------------------------------------------=

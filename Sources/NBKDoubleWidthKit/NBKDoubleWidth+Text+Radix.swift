@@ -122,91 +122,25 @@ extension NBKDoubleWidth where High == High.Magnitude {
 
     @inlinable internal func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
-        return String(chunks: self[...minLastIndex], radix: radix, alphabet: alphabet, prefix: prefix)
+        let chunks: Words.SubSequence = self[...minLastIndex]
+        return String.fromUTF8(uncheckedChunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
     }
 
     @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
-        return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
+        return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             var magnitude = self
-            var index = chunks.startIndex
+            var index = buffer.startIndex
             
             rebasing: repeat {
                 let (remainder, overflow) = magnitude.formQuotientReportingRemainderAndOverflow(dividingBy: radix.power)
-                chunks[index] = remainder
-                chunks.formIndex(after: &index)
+                buffer[index] = remainder
+                buffer.formIndex(after: &index)
                 assert(!overflow)
             }   while !magnitude.isZero
             
-            return String(chunks: UnsafeBufferPointer(rebasing: chunks[..<index]), radix: radix, alphabet: alphabet, prefix: prefix)
-        }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + String
-//=----------------------------------------------------------------------------=
-
-extension String {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable internal init(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) {
-        assert(chunks.last! != 0 || chunks.count == 1)
-        assert(chunks.allSatisfy({ $0 < radix.power }) || radix.power.isZero)
-        //=--------------------------------------=
-        self = Self.withUTF8(chunk: chunks.last!, radix: radix, alphabet: alphabet) { leader in
-            let count = prefix.count + leader.count + radix.exponent * (chunks.count - 1)
-            return Self(unsafeUninitializedCapacity: count) { utf8 in
-                var index = utf8.startIndex
-                //=------------------------------=
-                index = utf8[index...].initialize(fromContentsOf: prefix)
-                index = utf8[index...].initialize(fromContentsOf: leader)
-                //=------------------------------=
-                for var chunk in chunks.dropLast().reversed() {
-                    let destination = utf8.index(index, offsetBy: radix.exponent)
-                    var backtrack = destination
-                    defer { index = destination }
-                    
-                    backwards: while backtrack > index {
-                        utf8.formIndex(before: &backtrack)
-                        
-                        let digit: UInt
-                        (chunk,  digit) = radix.dividing(chunk)
-                        let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                        utf8.initializeElement(at: backtrack, to: unit)
-                    }
-                }
-                //=------------------------------=
-                assert(utf8[..<index].count == count)
-                return count
-            }
-        }
-    }
-    
-    @inlinable internal static func withUTF8<T>(chunk: UInt, radix: some RadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
-        withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
-            assert(chunk < radix.power || radix.power.isZero)
-            //=----------------------------------=
-            var chunk = chunk as UInt
-            var backtrack = radix.exponent as Int
-            //=----------------------------------=
-            backwards: repeat {
-                utf8.formIndex(before: &backtrack)
-                
-                let digit: UInt
-                (chunk,  digit) = radix.dividing(chunk)
-                let unit: UInt8 = alphabet[unchecked: UInt8(_truncatingBits: digit)]
-                utf8.initializeElement(at: backtrack, to: unit)
-            }   while !chunk.isZero
-            //=----------------------------------=
-            let initialized = utf8[backtrack...]
-            defer { initialized.deinitialize() }
-            //=----------------------------------=
-            return body(UnsafeBufferPointer(rebasing: initialized))
+            let chunks = UnsafeBufferPointer(rebasing: buffer[..<index])
+            return String.fromUTF8(uncheckedChunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
         }
     }
 }
