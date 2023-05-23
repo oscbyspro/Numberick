@@ -31,69 +31,69 @@ final class Int256TestsOnWords: XCTestCase {
     func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        XCTAssertEqual(T(x64: X(0, 0, 0, 0)).words.map({ $0 }), [0, 0, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 0, 0, 0)).words.map({ $0 }), [1, 0, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 0, 0)).words.map({ $0 }), [1, 2, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 3, 0)).words.map({ $0 }), [1, 2, 3, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)).words.map({ $0 }), [1, 2, 3, 4])
+        NBKAssertWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
+        NBKAssertWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
+        NBKAssertWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
+        NBKAssertWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
+        NBKAssertWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
     }
     
     func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        XCTAssertEqual(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [0, 0, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 0, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 7, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 7, 8])
+        NBKAssertWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement Form
+    // MARK: Tests x Min Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOneX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        XCTAssert(( T(x64: X(0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert(( T(x64: X(1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(1, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 1, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 1, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 0, 1)), 3, false)
         
-        XCTAssert((~T(x64: X(0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert((~T(x64: X(1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(1, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 1, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 1, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 0, 1)), 3, false)
     }
     
     func testMinLastIndexReportingIsZeroOrMinusOneX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert(( T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (4, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (5, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (6, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0)), 4, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0)), 5, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0)), 6, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1)), 7, false)
         
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert((~T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (4, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (5, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (6, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0)), 4, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0)), 5, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0)), 6, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1)), 7, false)
     }
 }
 
@@ -112,69 +112,69 @@ final class UInt256TestsOnWords: XCTestCase {
     func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        XCTAssertEqual(T(x64: X(0, 0, 0, 0)).words.map({ $0 }), [0, 0, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 0, 0, 0)).words.map({ $0 }), [1, 0, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 0, 0)).words.map({ $0 }), [1, 2, 0, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 3, 0)).words.map({ $0 }), [1, 2, 3, 0])
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)).words.map({ $0 }), [1, 2, 3, 4])
+        NBKAssertWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
+        NBKAssertWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
+        NBKAssertWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
+        NBKAssertWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
+        NBKAssertWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
     }
     
     func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        XCTAssertEqual(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [0, 0, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 0, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 0, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 0, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 0, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 0, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 7, 0])
-        XCTAssertEqual(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)).words.map({ $0 }), [1, 2, 3, 4, 5, 6, 7, 8])
+        NBKAssertWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
+        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement Form
+    // MARK: Tests x Min Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOneX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        XCTAssert(( T(x64: X(0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert(( T(x64: X(1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert(( T(x64: X(0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(1, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 1, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 1, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x64: X(0, 0, 0, 1)), 3, false)
         
-        XCTAssert((~T(x64: X(0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert((~T(x64: X(0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(1, 0, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 1, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 1, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x64: X(0, 0, 0, 1)), 3, false)
     }
     
     func testMinLastIndexReportingIsZeroOrMinusOneX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, true ) as (Int, Bool))
-        XCTAssert(( T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (0, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (1, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (2, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (3, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (4, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (5, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (6, false) as (Int, Bool))
-        XCTAssert(( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), 0, true )
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), 0, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0)), 1, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0)), 2, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0)), 3, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0)), 4, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0)), 5, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0)), 6, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne( T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1)), 7, false)
         
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
-        XCTAssert((~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1))).minLastIndexReportingIsZeroOrMinusOne() == (7, false) as (Int, Bool))
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 1, 0, 0, 0, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 1, 0, 0, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 1, 0, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 1, 0, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 1, 0, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 1, 0)), 7, false)
+        NBKAssertMinLastIndexReportingIsZeroOrMinusOne(~T(x32: Y(0, 0, 0, 0, 0, 0, 0, 1)), 7, false)
     }
 }
 
