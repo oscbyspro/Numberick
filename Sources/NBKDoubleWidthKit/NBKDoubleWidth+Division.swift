@@ -266,7 +266,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     ///
     /// ### Approximation Adjustment
     ///
-    /// The approximation needs at most two adjustments, but the while loop was faster.
+    /// The approximation needs at most two adjustments, but the while loop is faster.
     ///
     @inlinable internal static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")

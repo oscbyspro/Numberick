@@ -27,7 +27,7 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
     typealias M = UInt256
         
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Small
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testToInt() {
@@ -439,7 +439,7 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     typealias M = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Small
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testToInt() {

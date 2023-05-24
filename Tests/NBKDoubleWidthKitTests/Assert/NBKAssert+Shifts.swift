@@ -12,7 +12,7 @@ import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Assert x Shifts x L
+// MARK: * NBK x Assert x Shifts x Left
 //*============================================================================*
 
 func NBKAssertShiftLeft<T: NBKFixedWidthInteger>(
@@ -36,9 +36,6 @@ file: StaticString = #file, line: UInt = #line) {
     if (0 ..< lhs.bitWidth) ~= rhs {
         XCTAssertEqual(                 lhs &<<  rhs,                 result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs &<<= rhs; return lhs }(), result, file: file, line: line)
-        
-        XCTAssertEqual(lhs.bitshiftedLeftUnchecked(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftUnchecked(by: rhs); return lhs }(), result, file: file, line: line)
     }
     //=--------------------------------------=
     if (0 ..< lhs.bitWidth) ~= rhs {
@@ -51,7 +48,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //*============================================================================*
-// MARK: * NBK x Assert x Shifts x R
+// MARK: * NBK x Assert x Shifts x Right
 //*============================================================================*
 
 func NBKAssertShiftRight<T: NBKFixedWidthInteger>(
@@ -75,9 +72,6 @@ file: StaticString = #file, line: UInt = #line) {
     if (0 ..< lhs.bitWidth) ~= rhs {
         XCTAssertEqual(                 lhs &>>  rhs,                 result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs &>>= rhs; return lhs }(), result, file: file, line: line)
-        
-        XCTAssertEqual(lhs.bitshiftedRightUnchecked(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightUnchecked(by: rhs); return lhs }(), result, file: file, line: line)
     }
     //=--------------------------------------=
     if (0 ..< lhs.bitWidth) ~= rhs {

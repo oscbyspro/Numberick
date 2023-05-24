@@ -25,7 +25,7 @@ final class Int256BenchmarksOnShifts: XCTestCase {
     typealias T = Int256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x L
+    // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeft() {
@@ -51,7 +51,7 @@ final class Int256BenchmarksOnShifts: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x R
+    // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRight() {
@@ -86,7 +86,7 @@ final class UInt256BenchmarksOnShifts: XCTestCase {
     typealias T = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x L
+    // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeft() {
@@ -112,7 +112,7 @@ final class UInt256BenchmarksOnShifts: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x R
+    // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRight() {

@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Shifts x L
+// MARK: * NBK x Double Width x Shifts x Left
 //*============================================================================*
 
 extension NBKDoubleWidth {
@@ -120,7 +120,7 @@ extension NBKDoubleWidth {
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Shifts x R
+// MARK: * NBK x Double Width x Shifts x Right
 //*============================================================================*
 
 extension NBKDoubleWidth {

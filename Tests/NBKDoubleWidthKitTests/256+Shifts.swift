@@ -25,7 +25,7 @@ final class Int256TestsOnShifts: XCTestCase {
     typealias T = Int256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x L
+    // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeftByBits() {
@@ -59,7 +59,7 @@ final class Int256TestsOnShifts: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x R
+    // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRightByBits() {
@@ -105,17 +105,11 @@ final class Int256TestsOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingIsSmart() {
-        for _ in 0 ..< 100 {
-            let x0 = UInt64.random(in: 0 ..< UInt64.max)
-            let x1 = UInt64.random(in: 0 ..< UInt64.max)
-            let x2 = UInt64.random(in: 0 ..< UInt64.max)
-            let x3 = UInt64.random(in: 0 ..< UInt64.max)
-            let shift = Int.random(in: 0 ..< T.bitWidth)
-            let value = T(x64:(x0, x1, x2, x3))
-            
-            XCTAssertEqual(value << shift, value >> (-shift))
-            XCTAssertEqual(value >> shift, value << (-shift))
-        }
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<   1, T(x64: X(2, 4, 6, 8)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >>  -1, T(x64: X(2, 4, 6, 8)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<  64, T(x64: X(0, 1, 2, 3)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
     func testBitshiftingByMinAmountDoesNotTrap() {
@@ -124,17 +118,17 @@ final class Int256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
-        for _ in 0 ..< 100 {
-            let x0 = UInt64.random(in: 0 ..< UInt64.max)
-            let x1 = UInt64.random(in: 0 ..< UInt64.max)
-            let x2 = UInt64.random(in: 0 ..< UInt64.max)
-            let x3 = UInt64.random(in: 0 ..< UInt64.max)
-            let shift = Int.random(in: 0 ..< Int.max)
-            let value = T(x64:(x0, x1, x2, x3))
-            
-            XCTAssertEqual(value &<< shift, value << abs(shift % T.bitWidth))
-            XCTAssertEqual(value &>> shift, value >> abs(shift % T.bitWidth))
-        }
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  257, T(x64: X(2, 4, 6, 8)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -255, T(x64: X(2, 4, 6, 8)))
+        
+        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>>  257, T(x64: X(1, 2, 3, 4)))
+        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>> -255, T(x64: X(1, 2, 3, 4)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  320, T(x64: X(0, 1, 2, 3)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -192, T(x64: X(0, 1, 2, 3)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>>  320, T(x64: X(2, 3, 4, 0)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>> -192, T(x64: X(2, 3, 4, 0)))
     }
 }
 
@@ -147,7 +141,7 @@ final class UInt256TestsOnShifts: XCTestCase {
     typealias T = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x L
+    // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
     func testBitshiftingLeftByBits() {
@@ -181,7 +175,7 @@ final class UInt256TestsOnShifts: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x R
+    // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
     func testBitshiftingRightByBits() {
@@ -227,17 +221,11 @@ final class UInt256TestsOnShifts: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitshiftingIsSmart() {
-        for _ in 0 ..< 100 {
-            let x0 = UInt64.random(in: 0 ..< UInt64.max)
-            let x1 = UInt64.random(in: 0 ..< UInt64.max)
-            let x2 = UInt64.random(in: 0 ..< UInt64.max)
-            let x3 = UInt64.random(in: 0 ..< UInt64.max)
-            let shift = Int.random(in: 0 ..< T.bitWidth)
-            let value = T(x64:(x0, x1, x2, x3))
-            
-            XCTAssertEqual(value << shift, value >> (-shift))
-            XCTAssertEqual(value >> shift, value << (-shift))
-        }
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<   1, T(x64: X(2, 4, 6, 8)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >>  -1, T(x64: X(2, 4, 6, 8)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<  64, T(x64: X(0, 1, 2, 3)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
     func testBitshiftingByMinAmountDoesNotTrap() {
@@ -246,17 +234,17 @@ final class UInt256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
-        for _ in 0 ..< 100 {
-            let x0 = UInt64.random(in: 0 ..< UInt64.max)
-            let x1 = UInt64.random(in: 0 ..< UInt64.max)
-            let x2 = UInt64.random(in: 0 ..< UInt64.max)
-            let x3 = UInt64.random(in: 0 ..< UInt64.max)
-            let shift = Int.random(in: 0 ..< Int.max)
-            let value = T(x64:(x0, x1, x2, x3))
-            
-            XCTAssertEqual(value &<< shift, value << abs(shift % T.bitWidth))
-            XCTAssertEqual(value &>> shift, value >> abs(shift % T.bitWidth))
-        }
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  257, T(x64: X(2, 4, 6, 8)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -255, T(x64: X(2, 4, 6, 8)))
+        
+        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>>  257, T(x64: X(1, 2, 3, 4)))
+        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>> -255, T(x64: X(1, 2, 3, 4)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  320, T(x64: X(0, 1, 2, 3)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -192, T(x64: X(0, 1, 2, 3)))
+        
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>>  320, T(x64: X(2, 3, 4, 0)))
+        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>> -192, T(x64: X(2, 3, 4, 0)))
     }
 }
 
