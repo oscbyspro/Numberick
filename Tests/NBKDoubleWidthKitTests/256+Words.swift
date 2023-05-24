@@ -53,7 +53,7 @@ final class Int256TestsOnWords: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement
+    // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOneX64() throws {
@@ -134,7 +134,7 @@ final class UInt256TestsOnWords: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement
+    // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOneX64() throws {

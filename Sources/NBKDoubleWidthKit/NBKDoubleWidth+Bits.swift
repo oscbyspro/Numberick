@@ -46,15 +46,15 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        let count  = self.high.leadingZeroBitCount
-        if  count != High.bitWidth { return count }
-        return count &+ self.low.leadingZeroBitCount
+        let    result  = self.high.leadingZeroBitCount
+        guard  result == High.bitWidth else { return result }
+        return result &+ self.low .leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        let count  = self.low.trailingZeroBitCount
-        if  count != Low.bitWidth { return count }
-        return count &+ self.high.trailingZeroBitCount
+        let    result  = self.low .trailingZeroBitCount
+        guard  result == Low .bitWidth else { return result }
+        return result &+ self.high.trailingZeroBitCount
     }
     
     @inlinable public var mostSignificantBit: Bool {

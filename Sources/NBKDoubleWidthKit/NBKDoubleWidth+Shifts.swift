@@ -48,9 +48,9 @@ extension NBKDoubleWidth {
         let amountAbsoluteValue = amount.magnitude  as UInt
         switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
         case (true,  true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: amountAbsoluteValue))
-        case (true,  false): self = Self(repeating:  false)
+        case (true,  false): self = Self(repeating: false)
         case (false, true ): self.bitshiftRightUnchecked(by: Int(bitPattern: amountAbsoluteValue))
-        case (false, false): self = Self(repeating:  self.isLessThanZero)
+        case (false, false): self = Self(repeating: self.isLessThanZero)
         }
     }
     
@@ -60,7 +60,7 @@ extension NBKDoubleWidth {
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
     @inlinable public func bitshiftedLeftSmart(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftLeftSmart(by: amount); return newValue
+        var result = self; result.bitshiftLeftSmart(by: amount); return result
     }
     
     /// Performs an unchecked left shift.
@@ -69,7 +69,7 @@ extension NBKDoubleWidth {
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeftUnchecked(by amount: Int) {
-        assert(0 ..< Self.bitWidth ~= amount, "invalid total shift amount")
+        assert(0 ..< Self.bitWidth ~= amount, "invalid total left shift amount")
         let (words, bits) = amount.dividedByBitWidth()
         return self.bitshiftLeftUnchecked(words: words, bits: bits)
     }
@@ -80,7 +80,7 @@ extension NBKDoubleWidth {
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
     @inlinable public func bitshiftedLeftUnchecked(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftLeftUnchecked(by: amount); return newValue
+        var result = self; result.bitshiftLeftUnchecked(by: amount); return result
     }
     
     /// Performs an unchecked left shift.
@@ -90,8 +90,8 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeftUnchecked(words major: Int, bits minor: Int) {
-        assert(0 ..< Self.endIndex ~= major, "invalid major shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor shift amount")
+        assert(0 ..< Self.endIndex ~= major, "invalid major left shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor left shift amount")
         //=--------------------------------------=
         let a = UInt(bitPattern: minor)
         let b = UInt(bitPattern: UInt.bitWidth &- minor)
@@ -115,7 +115,7 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedLeftUnchecked(words: Int, bits: Int) -> Self {
-        var newValue = self; newValue.bitshiftLeftUnchecked(words: words, bits: bits); return newValue
+        var result = self; result.bitshiftLeftUnchecked(words: words, bits: bits); return result
     }
 }
 
@@ -158,9 +158,9 @@ extension NBKDoubleWidth {
         let amountAbsoluteValue = amount.magnitude  as UInt
         switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
         case (true,  true ): self.bitshiftRightUnchecked(by: Int(bitPattern: amountAbsoluteValue))
-        case (true,  false): self = Self(repeating:  self.isLessThanZero)
+        case (true,  false): self = Self(repeating: self.isLessThanZero)
         case (false, true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: amountAbsoluteValue))
-        case (false, false): self = Self(repeating:  false)
+        case (false, false): self = Self(repeating: false)
         }
     }
     
@@ -170,7 +170,7 @@ extension NBKDoubleWidth {
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
     @inlinable public func bitshiftedRightSmart(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftRightSmart(by: amount); return newValue
+        var result = self; result.bitshiftRightSmart(by: amount); return result
     }
     
     /// Performs an unchecked, signed, right shift.
@@ -179,7 +179,7 @@ extension NBKDoubleWidth {
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
     @inlinable public mutating func bitshiftRightUnchecked(by amount: Int) {
-        assert(0 ..< Self.bitWidth ~= amount, "invalid total shift amount")
+        assert(0 ..< Self.bitWidth ~= amount, "invalid total right shift amount")
         let (words, bits) = amount.dividedByBitWidth()
         return self.bitshiftRightUnchecked(words: words, bits: bits)
     }
@@ -190,7 +190,7 @@ extension NBKDoubleWidth {
     ///   - amount: `0 <= amount < Self.bitWidth`
     ///
     @inlinable public func bitshiftedRightUnchecked(by amount: Int) -> Self {
-        var newValue = self; newValue.bitshiftRightUnchecked(by: amount); return newValue
+        var result = self; result.bitshiftRightUnchecked(by: amount); return result
     }
     
     /// Performs an unchecked, signed, right shift.
@@ -200,8 +200,8 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftRightUnchecked(words major: Int, bits minor: Int) {
-        assert(0 ..< Self.endIndex ~= major, "invalid major shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor shift amount")
+        assert(0 ..< Self.endIndex ~= major, "invalid major right shift amount")
+        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor right shift amount")
         //=--------------------------------------=
         let a = UInt(bitPattern: minor)
         let b = UInt(bitPattern: UInt.bitWidth &- minor)
@@ -214,6 +214,7 @@ extension NBKDoubleWidth {
             
             let p: UInt =         (j < self.endIndex ? self[j] : c) &>> a
             let q: UInt = x ? 0 : (k < self.endIndex ? self[k] : c) &<< b
+            
             self[i] = p | q
         }
     }
@@ -225,6 +226,6 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedRightUnchecked(words: Int, bits: Int) -> Self {
-        var newValue = self; newValue.bitshiftRightUnchecked(words: words, bits: bits); return newValue
+        var result = self; result.bitshiftRightUnchecked(words: words, bits: bits); return result
     }
 }

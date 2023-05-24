@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
+    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
         let value: Optional<Self> = description.withUTF8 {
             let (sign, body) =  NBK.components(ascii: $0)
@@ -34,9 +34,9 @@ extension NBKDoubleWidth {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        withUnsafePointer(to: UInt8(ascii: "-")) {   minus in
-            let prefix = UnsafeBufferPointer(start:  minus, count: Int(bit: self.isLessThanZero))
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
+            let prefix =  UnsafeBufferPointer(start: minus, count: Int(bit: self.isLessThanZero))
             return self.magnitude.description(radix: radix, uppercase: uppercase, prefix: prefix)
         }
     }
@@ -128,7 +128,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
 
     @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
-        return withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
+        return  Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             var magnitude = self
             var index = buffer.startIndex
             

@@ -85,11 +85,11 @@ extension NBKCoreInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(bitPattern: BitPattern) {
-        self = unsafeBitCast(bitPattern, to: Self.self)
+        self = Swift.unsafeBitCast(bitPattern, to: Self.self)
     }
     
     @inlinable public var bitPattern: BitPattern {
-        unsafeBitCast(self, to: BitPattern.self)
+        Swift.unsafeBitCast(self, to: BitPattern.self)
     }
     
     @inlinable public mutating func formTwosComplement() {

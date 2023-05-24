@@ -104,7 +104,7 @@ extension String {
         //=--------------------------------------=
         radix.assertChunksAreValid(CollectionOfOne(uncheckedChunk))
         //=--------------------------------------=
-        return withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
+        return  Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             var digit: UInt
             var chunk: UInt = uncheckedChunk
             var backtrackIndex = radix.exponent as Int

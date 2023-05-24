@@ -30,9 +30,14 @@ final class Int256TestsOnText: XCTestCase {
     
     func testInitDescription() {
         XCTAssertEqual(T(   "10"),  10)
+        XCTAssertEqual(T(  "+10"),  10)
         XCTAssertEqual(T(  "-10"), -10)
+        XCTAssertEqual(T(  " 10"), nil)
+        
         XCTAssertEqual(T( "0x10"), nil)
+        XCTAssertEqual(T("+0x10"), nil)
         XCTAssertEqual(T("-0x10"), nil)
+        XCTAssertEqual(T(" 0x10"), nil)
     }
     
     func testInstanceDescriptionUsesRadix10() {
@@ -64,7 +69,7 @@ final class Int256TestsOnText: XCTestCase {
 
     func testDecodingRadix08() {
         XCTAssertEqual(T.min, T("-1" + String(repeating: "0", count: 85), radix: 8))
-        XCTAssertEqual(T.max, T(      String(repeating: "7", count: 85), radix: 8))
+        XCTAssertEqual(T.max, T(       String(repeating: "7", count: 85), radix: 8))
     }
     
     func testDecodingRadix10() {
@@ -74,12 +79,12 @@ final class Int256TestsOnText: XCTestCase {
     
     func testDecodingRadix16() {
         XCTAssertEqual(T.min, T("-8" + String(repeating: "0", count: T.bitWidth / 4 - 1), radix: 16))
-        XCTAssertEqual(T.max, T("7" + String(repeating: "f", count: T.bitWidth / 4 - 1), radix: 16))
+        XCTAssertEqual(T.max, T( "7" + String(repeating: "f", count: T.bitWidth / 4 - 1), radix: 16))
     }
     
     func testDecodingRadix32() {
         XCTAssertEqual(T.min, T("-1" + String(repeating: "0", count: 51), radix: 32))
-        XCTAssertEqual(T.max, T(      String(repeating: "v", count: 51), radix: 32))
+        XCTAssertEqual(T.max, T(       String(repeating: "v", count: 51), radix: 32))
     }
     
     func testDecodingRadix36() {
@@ -204,9 +209,14 @@ final class UInt256TestsOnText: XCTestCase {
     
     func testInitDescription() {
         XCTAssertEqual(T(   "10"),  10)
+        XCTAssertEqual(T(  "+10"),  10)
         XCTAssertEqual(T(  "-10"), nil)
+        XCTAssertEqual(T(  " 10"), nil)
+        
         XCTAssertEqual(T( "0x10"), nil)
+        XCTAssertEqual(T("+0x10"), nil)
         XCTAssertEqual(T("-0x10"), nil)
+        XCTAssertEqual(T(" 0x10"), nil)
     }
     
     func testInstanceDescriptionUsesRadix10() {

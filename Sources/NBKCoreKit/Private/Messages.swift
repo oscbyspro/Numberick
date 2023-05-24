@@ -22,4 +22,9 @@ extension NBK {
     function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> String {
         "overflow in \(function) at \(file):\(line)"
     }
+    
+    @inlinable public static func callsiteIndexOutOfBoundsInfo(
+    function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> String {
+        "index out of bounds in \(function) at \(file):\(line)"
+    }
 }

@@ -18,7 +18,7 @@ extension Swift.BinaryInteger {
     //=------------------------------------------------------------------------=
     
     /// Creates a string representing the this value, int the given format.
-    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
         String(self, radix: radix, uppercase: uppercase)
     }
 }

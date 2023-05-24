@@ -19,8 +19,8 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: BitPattern {
-        self.bitPattern
+    @inlinable public var words: Self {
+        _read { yield self }
     }
     
     /// The least significant word of this value.
@@ -34,7 +34,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Min Two's Complement
+    // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
     @inlinable public func minLastIndexReportingIsZeroOrMinusOne() -> (minLastIndex: Int, isZeroOrMinusOne: Bool) {
@@ -116,26 +116,28 @@ extension NBKDoubleWidth {
     
     @inlinable public subscript(index: Int) -> UInt {
         _read {
-            BitPattern.preconditionIndexIsValid(index)
+            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
             yield  self[unchecked: index]
         }
         _modify {
-            BitPattern.preconditionIndexIsValid(index)
+            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
             yield &self[unchecked: index]
         }
     }
     
     @inlinable public subscript(unchecked index: Int) -> UInt {
         get {
-            withUnsafeBytes(of: self) {
-                let offset = BitPattern.endiannessSensitiveByteOffset(index)
+            Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
+            return Swift.withUnsafeBytes(of: self) {
                 return $0.load(fromByteOffset: offset, as: UInt.self)
             }
         }
         
         set {
-            withUnsafeMutableBytes(of: &self) {
-                let offset = BitPattern.endiannessSensitiveByteOffset(index)
+            Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
+            Swift.withUnsafeMutableBytes(of: &self) {
                 $0.storeBytes(of: newValue, toByteOffset: offset, as: UInt.self)
             }
         }
@@ -152,12 +154,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func preconditionIndexIsValid(_ index: Int) {
-        precondition(self.indices ~= index, "invalid binary integer word index")
-    }
-    
-    @_transparent @usableFromInline internal static func endiannessSensitiveIndex(_ index: Int) -> Int {
-        assert(self.indices  ~= index)
+    @_transparent @usableFromInline internal static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
+        assert(self.indices  ~= index, NBK.callsiteIndexOutOfBoundsInfo())
         #if _endian(big)
         return self.lastIndex - index
         #else
@@ -165,7 +163,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         #endif
     }
     
-    @_transparent @usableFromInline internal static func endiannessSensitiveByteOffset(_ index: Int) -> Int {
-        self.endiannessSensitiveIndex(index) * MemoryLayout<UInt>.size
+    @_transparent @usableFromInline internal static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
+        self.endiannessSensitiveIndex(unchecked: index) * MemoryLayout<UInt>.size
     }
 }

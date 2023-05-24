@@ -20,13 +20,11 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(bitPattern: BitPattern) {
-        let high = High(bitPattern: bitPattern.high)
-        self.init(descending: HL(high, bitPattern.low))
+        self = Swift.unsafeBitCast(bitPattern, to: Self.self)
     }
     
     @inlinable public var bitPattern: BitPattern {
-        let high = BitPattern.High(bitPattern: self.high)
-        return BitPattern(descending: HL(high, self.low))
+        Swift.unsafeBitCast(self, to: BitPattern.self)
     }
     
     //=------------------------------------------------------------------------=
@@ -49,6 +47,6 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func twosComplement() -> Self {
-        var newValue = self; newValue.formTwosComplement(); return newValue
+        var result = self; result.formTwosComplement(); return result
     }
 }

@@ -32,6 +32,8 @@ extension NBKDoubleWidth {
     /// Int256(" 123") //  nil
     /// ```
     ///
+    /// - Note: This method is required by `Swift.LosslessStringConvertible`.
+    ///
     @inlinable public init?(_ description: String) {
         self.init(description, radix: 10)
     }

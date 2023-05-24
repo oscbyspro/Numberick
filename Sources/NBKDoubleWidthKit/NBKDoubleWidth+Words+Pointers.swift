@@ -45,7 +45,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable internal func withUnsafeUIntPointer<T>(
     _ body: (UnsafePointer<UInt>) throws -> T) rethrows -> T {
-        try withUnsafePointer(to: self) { start in
+        try Swift.withUnsafePointer(to: self) { start in
             try start.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
         }
     }
@@ -67,7 +67,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable internal mutating func withUnsafeMutableUIntPointer<T>(
     _ body: (UnsafeMutablePointer<UInt>) throws -> T) rethrows -> T {
-        try withUnsafeMutablePointer(to: &self) { start in
+        try Swift.withUnsafeMutablePointer(to: &self) { start in
             try start.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
         }
     }

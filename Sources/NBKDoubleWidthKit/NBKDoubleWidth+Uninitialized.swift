@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     
     /// Creates a new instance by applying the given closure on a temporary allocation.
     @inlinable public static func uninitialized(_ body: (inout Self) -> Void) -> Self {
-         withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) {
+        Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) {
             body( &$0.baseAddress.unsafelyUnwrapped.pointee)
             return($0.baseAddress.unsafelyUnwrapped.pointee)
         }

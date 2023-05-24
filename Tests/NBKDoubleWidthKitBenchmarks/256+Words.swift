@@ -25,7 +25,7 @@ final class Int256BenchmarksOnWords: XCTestCase {
     typealias T = Int256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement
+    // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOne() {
@@ -51,7 +51,7 @@ final class UInt256BenchmarksOnWords: XCTestCase {
     typealias T = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Min Two's Complement
+    // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
     func testMinLastIndexReportingIsZeroOrMinusOne() {
