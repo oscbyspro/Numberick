@@ -75,11 +75,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     @_disfavoredOverload @inlinable internal func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>> {
         var quotient  = self
-        let remainder = quotient.formQuotientReportingRemainderAndOverflow(dividingBy: divisor)
+        let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: divisor)
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
     }
     
-    @_disfavoredOverload @inlinable internal mutating func formQuotientReportingRemainderAndOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
+    @_disfavoredOverload @inlinable internal mutating func formQuotientWithRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit> {
         //=--------------------------------------=
         if  divisor.isZero {
             return PVO(0, true)

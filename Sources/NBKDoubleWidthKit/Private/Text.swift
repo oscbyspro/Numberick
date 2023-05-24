@@ -36,8 +36,8 @@ extension UInt {
     /// ```
     ///
     /// - Parameters:
-    ///   - digits: An unsigned ASCII sequence of a number in the radix passed as `radix`.
-    ///   - radix: The decoding radix. Its value must be in 2 through 36. The default is 10.
+    ///   - digits: An unsigned ASCII sequence of a number in the given `radix`.
+    ///   - radix: The radix of `digits`. It must be in 2 through 36. The default is 10.
     ///
     @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         guard !digits.isEmpty else { return nil }
@@ -66,20 +66,25 @@ extension String {
     //=------------------------------------------------------------------------=
     
     /// Encodes unchecked chunks, using the given format.
-    @inlinable internal static func fromUTF8(uncheckedChunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
+    ///
+    /// A chunk is in this context a digit in the base of the given radix's UInt power.
+    /// It can also be viewed as a collection of digits in the base of the given radix.
+    ///
+    @inlinable internal static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+        assert(!chunks.isEmpty, "chunks must not be empty")
+        assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
+        assert(  radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
-        radix.assertChunksAreValid(uncheckedChunks)
-        //=--------------------------------------=
-        return String.withUTF8(uncheckedChunk: uncheckedChunks.last!, radix: radix, alphabet: alphabet) { leader in
-            let count = prefix.count &+ leader.count + radix.exponent * (uncheckedChunks.count &- 1)
+        return String.withUTF8Unchecked(chunk: chunks.last!, radix: radix, alphabet: alphabet) { leader in
+            let count = prefix.count &+ leader.count + radix.exponent * (chunks.count &- 1)
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 var index = utf8.startIndex
                 //=------------------------------=
                 index = utf8[index...].initialize(fromContentsOf: prefix)
                 index = utf8[index...].initialize(fromContentsOf: leader)
                 //=------------------------------=
-                for var chunk in uncheckedChunks.dropLast().reversed() {
+                for var chunk in chunks.dropLast().reversed() {
                     var digit: UInt
                     
                     let nextIndex = utf8.index(index, offsetBy: radix.exponent)
@@ -99,14 +104,17 @@ extension String {
     }
     
     /// Encodes an unchecked chunk, using the given format.
-    @inlinable internal static func withUTF8<T>(uncheckedChunk: UInt, radix: some RadixUIntRoot,
+    ///
+    /// A chunk is in this context a digit in the base of the given radix's UInt power.
+    /// It can also be viewed as a collection of digits in the base of the given radix.
+    ///
+    @inlinable internal static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
-        //=--------------------------------------=
-        radix.assertChunksAreValid(CollectionOfOne(uncheckedChunk))
+        assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
         return  Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             var digit: UInt
-            var chunk: UInt = uncheckedChunk
+            var chunk: UInt = chunk
             var backtrackIndex = radix.exponent as Int
             //=----------------------------------=
             backwards: repeat {

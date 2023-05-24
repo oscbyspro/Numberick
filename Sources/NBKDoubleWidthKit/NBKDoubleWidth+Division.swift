@@ -150,14 +150,17 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 1 by 1
         //=--------------------------------------=
-        if  lhs.high.isZero {
+        let lhsIs0X = lhs.high.isZero as Bool
+        if  lhsIs0X {
+            assert(rhs.high.isZero, "divisors greater than or equal should go fast path")
             let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
             return QR(Self(descending: HL(High.zero, quotient)), Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
         // division: 2 by 1
         //=--------------------------------------=
-        if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
+        let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
+        if  rhsIs0X {
             let (quotient, remainder) = Self.divide21(lhs, by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
@@ -205,8 +208,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(rhs.isMoreThanZero, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
-        let lhsIs0XXX: Bool = lhs.high.high.isZero
-        let lhsIs00XX: Bool = lhsIs0XXX && lhs.high.low.isZero
+        let lhsIs0XXX = lhs.high.high.isZero as Bool
+        let lhsIs00XX = lhsIs0XXX && lhs.high.low.isZero as Bool
         //=--------------------------------------=
         // division: 2 by 2
         //=--------------------------------------=
@@ -216,7 +219,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3 by 1
         //=--------------------------------------=
-        if  UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth) {
+        let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
+        if  rhsIs0X {
+            assert(lhsIs0XXX,  "quotient must fit in two halves")
             let (quotient, remainder) = Self.divide31Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
@@ -277,7 +282,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // decrement if overestimated (max twice)
         //=--------------------------------------=
-        while Low.compare33(lhs, to: approximation) == -1 {
+        while Low.compare33(lhs, to: approximation)  == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
             _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
         }

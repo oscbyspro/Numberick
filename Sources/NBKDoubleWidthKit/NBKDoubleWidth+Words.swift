@@ -154,7 +154,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
+    @inlinable internal static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
         assert(self.indices  ~= index, NBK.callsiteIndexOutOfBoundsInfo())
         #if _endian(big)
         return self.lastIndex - index
@@ -163,7 +163,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         #endif
     }
     
-    @_transparent @usableFromInline internal static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
+    @inlinable internal static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
         self.endiannessSensitiveIndex(unchecked: index) * MemoryLayout<UInt>.size
     }
 }

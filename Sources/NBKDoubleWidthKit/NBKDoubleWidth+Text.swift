@@ -52,12 +52,12 @@ extension NBKDoubleWidth {
     /// The description of this type.
     ///
     /// ```swift
-    /// NBKDoubleWidth< Int128>.description //  "Int256"
-    /// NBKDoubleWidth<UInt256>.description // "UInt512"
+    ///  Int256.description //  "Int256"
+    /// UInt512.description // "UInt512"
     /// ```
     ///
     @inlinable public static var description: String {
-        let signedness = !Self.isSigned ? "U" : ""
+        let signedness = Self.isSigned ? "" : "U"
         return "\(signedness)Int\(Self.bitWidth)"
     }
 }

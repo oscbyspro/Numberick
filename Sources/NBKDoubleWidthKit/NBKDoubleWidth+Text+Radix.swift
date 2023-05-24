@@ -123,7 +123,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable internal func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
         let chunks: Words.SubSequence = self[...minLastIndex]
-        return String.fromUTF8(uncheckedChunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
+        return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
     }
 
     @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
@@ -133,14 +133,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
             var index = buffer.startIndex
             
             rebasing: repeat {
-                let (remainder, overflow) = magnitude.formQuotientReportingRemainderAndOverflow(dividingBy: radix.power)
+                let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)
                 buffer[index] = remainder
                 buffer.formIndex(after: &index)
                 assert(!overflow)
             }   while !magnitude.isZero
             
             let chunks = UnsafeBufferPointer(rebasing: buffer[..<index])
-            return String.fromUTF8(uncheckedChunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
+            return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
         }
     }
 }
