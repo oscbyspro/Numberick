@@ -102,24 +102,36 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The least significant word in this integer.
     @inlinable public var first: UInt {
-        _read   { yield  self[unchecked: self.startIndex] }
-        _modify { yield &self[unchecked: self.startIndex] }
+        get { self[unchecked: self.startIndex] }
+        set { self[unchecked: self.startIndex] = newValue }
     }
     
+    /// The most significant word in this integer.
     @inlinable public var last: UInt {
-        _read   { yield  self[unchecked: self.lastIndex] }
-        _modify { yield &self[unchecked: self.lastIndex] }
+        get { self[unchecked: self.lastIndex] }
+        set { self[unchecked: self.lastIndex] = newValue }
     }
+    
+    /// The most significant word in this integer, reinterpreted as a ``Digit``.
+    @inlinable public var tail: Digit {
+        get { Digit(bitPattern: self.last) }
+        set { self.last = UInt(bitPattern: newValue) }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
     
     @inlinable public subscript(index: Int) -> UInt {
-        _read {
+        get {
             precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield  self[unchecked: index]
+            return self[unchecked: index]
         }
-        _modify {
+        set {
             precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield &self[unchecked: index]
+            self[unchecked: index] = newValue
         }
     }
     

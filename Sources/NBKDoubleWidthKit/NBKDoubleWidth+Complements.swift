@@ -39,14 +39,19 @@ extension NBKDoubleWidth {
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func formTwosComplement() {
-        var carry: Bool = true
-        for index: Int in self.indices {
-            (self[index], carry) = (~self[index]).addingReportingOverflow(UInt(bit: carry))
+    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        var carry = carry as Bool
+        //=--------------------------------------=
+        for index in self.indices.dropLast() {
+            carry =  self[index].formTwosComplementSubsequence(carry)
         }
+        //=--------------------------------------=
+        return self.tail.formTwosComplementSubsequence(carry) as Bool
     }
     
-    @inlinable public func twosComplement() -> Self {
-        var result = self; result.formTwosComplement(); return result
+    @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
+        var partialValue = self
+        let overflow: Bool = partialValue.formTwosComplementSubsequence(carry)
+        return PVO(partialValue, overflow)
     }
 }

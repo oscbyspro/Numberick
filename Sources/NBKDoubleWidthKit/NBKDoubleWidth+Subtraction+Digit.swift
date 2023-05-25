@@ -31,9 +31,7 @@ extension NBKDoubleWidth {
             if carry == amountIsLessThanZero { return false }
         }
         //=----------------------------------=
-        let pvo: PVO<Digit> = Digit(bitPattern: self.last).subtractingReportingOverflow(Digit(bitPattern: extra))
-        self.last = UInt(bitPattern: pvo.partialValue)
-        return pvo.overflow as Bool
+        return self.tail.subtractReportingOverflow(Digit(bitPattern: extra))
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ amount: Digit) -> PVO<Self> {
