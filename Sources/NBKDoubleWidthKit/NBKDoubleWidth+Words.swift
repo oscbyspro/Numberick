@@ -104,14 +104,14 @@ extension NBKDoubleWidth {
     
     /// The least significant word in this integer.
     @inlinable public var first: UInt {
-        get { self[unchecked: self.startIndex] }
-        set { self[unchecked: self.startIndex] = newValue }
+        _read   { yield  self[unchecked: self.startIndex] }
+        _modify { yield &self[unchecked: self.startIndex] }
     }
     
     /// The most significant word in this integer.
     @inlinable public var last: UInt {
-        get { self[unchecked: self.lastIndex] }
-        set { self[unchecked: self.lastIndex] = newValue }
+        _read   { yield  self[unchecked: self.lastIndex] }
+        _modify { yield &self[unchecked: self.lastIndex] }
     }
     
     /// The most significant word in this integer, reinterpreted as a ``Digit``.
@@ -125,13 +125,13 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public subscript(index: Int) -> UInt {
-        get {
+        _read {
             precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            return self[unchecked: index]
+            yield  self[unchecked: index]
         }
-        set {
+        _modify {
             precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            self[unchecked: index] = newValue
+            yield &self[unchecked: index]
         }
     }
     
@@ -139,17 +139,13 @@ extension NBKDoubleWidth {
         get {
             Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
             let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            return Swift.withUnsafeBytes(of: self) {
-                return $0.load(fromByteOffset: offset, as: UInt.self)
-            }
+            return Swift.withUnsafeBytes(of: self) { $0.load(fromByteOffset: offset, as: UInt.self) }
         }
         
         set {
             Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
             let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            Swift.withUnsafeMutableBytes(of: &self) {
-                $0.storeBytes(of: newValue, toByteOffset: offset, as: UInt.self)
-            }
+            Swift.withUnsafeMutableBytes(of: &self) { $0.storeBytes(of: newValue, toByteOffset: offset, as: UInt.self) }
         }
     }
 }

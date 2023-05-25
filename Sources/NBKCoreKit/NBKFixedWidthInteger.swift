@@ -70,35 +70,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     @inlinable var isFull: Bool { get }
     
-    // TODO: tests
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Complements
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the two's complement subsequence of this value.
-    ///
-    /// This example shows the two's complement of a composite integer:
-    ///
-    /// ```swift
-    /// var carry = true
-    /// carry = low .formTwosComplementSubsequence(carry)
-    /// carry = high.formTwosComplementSubsequence(carry)
-    /// ```
-    ///
-    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool
-    
-    /// Forms the two's complement subsequence of this value.
-    ///
-    /// This example shows the two's complement of a composite integer:
-    ///
-    /// ```swift
-    /// var carry = true
-    /// (low,  carry) = low .twosComplementSubsequence(carry)
-    /// (high, carry) = high.twosComplementSubsequence(carry)
-    /// ```
-    ///
-    @inlinable func twosComplementSubsequence(_ carry: Bool) -> PVO<Self>
-    
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
@@ -382,11 +353,11 @@ extension NBKFixedWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        _ = self.formTwosComplementSubsequence(true)
+        self = self.twosComplement()
     }
     
     @inlinable public func twosComplement() -> Self {
-        self.twosComplementSubsequence(true).partialValue
+        ~self &+ (1 as Self)
     }
     
     //=------------------------------------------------------------------------=
@@ -509,24 +480,5 @@ extension NBKFixedWidthInteger {
     
     @_disfavoredOverload @inlinable public static func &*(lhs: Self, rhs: Digit) -> Self {
         lhs.multipliedReportingOverflow(by: rhs).partialValue
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Details x Signed
-//=----------------------------------------------------------------------------=
-
-extension NBKFixedWidthInteger where Self: NBKSignedInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func negateReportingOverflow() -> Bool {
-        self.formTwosComplementSubsequence(true)
-    }
-    
-    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
-        self.twosComplementSubsequence(true)
     }
 }
