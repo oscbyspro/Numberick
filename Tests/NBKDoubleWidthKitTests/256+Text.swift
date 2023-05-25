@@ -112,6 +112,13 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T(-1234567890), 10, "-1234567890")
     }
     
+    func testDecodingStrategyIsCaseInsensitive() {
+        NBKAssertDecodeText(T(0xabcdef), 16, "abcdef")
+        NBKAssertDecodeText(T(0xABCDEF), 16, "ABCDEF")
+        NBKAssertDecodeText(T(0xaBcDeF), 16, "aBcDeF")
+        NBKAssertDecodeText(T(0xAbCdEf), 16, "AbCdEf")
+    }
+    
     func testDecodingUnalignedStringsIsOK() {
         NBKAssertDecodeText(T(1), 10, "1")
         NBKAssertDecodeText(T(1), 16, "1")
@@ -285,6 +292,13 @@ final class UInt256TestsOnText: XCTestCase {
     func testDecodingStringsWithOrWithoutSign() {
         NBKAssertDecodeText(T(1234567890), 10,  "1234567890")
         NBKAssertDecodeText(T(1234567890), 10, "+1234567890")
+    }
+    
+    func testDecodingStrategyIsCaseInsensitive() {
+        NBKAssertDecodeText(T(0xabcdef), 16, "abcdef")
+        NBKAssertDecodeText(T(0xABCDEF), 16, "ABCDEF")
+        NBKAssertDecodeText(T(0xaBcDeF), 16, "aBcDeF")
+        NBKAssertDecodeText(T(0xAbCdEf), 16, "AbCdEf")
     }
     
     func testDecodingUnalignedStringsIsOK() {

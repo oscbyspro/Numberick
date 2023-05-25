@@ -39,7 +39,7 @@ extension UInt {
     ///   - digits: An unsigned ASCII sequence of a number in the given `radix`.
     ///   - radix: The radix of `digits`. It must be in 2 through 36. The default is 10.
     ///
-    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         guard !digits.isEmpty else { return nil }
         //=------------------------------------------=
         let multiplier = Self(bitPattern: radix)
@@ -67,10 +67,9 @@ extension String {
     
     /// Encodes unchecked chunks, using the given format.
     ///
-    /// A chunk is in this context a digit in the base of the given radix's UInt power.
-    /// It can also be viewed as a collection of digits in the base of the given radix.
+    /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable internal static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
+    @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         assert(!chunks.isEmpty, "chunks must not be empty")
         assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
@@ -105,10 +104,9 @@ extension String {
     
     /// Encodes an unchecked chunk, using the given format.
     ///
-    /// A chunk is in this context a digit in the base of the given radix's UInt power.
-    /// It can also be viewed as a collection of digits in the base of the given radix.
+    /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable internal static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
+    @inlinable static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=

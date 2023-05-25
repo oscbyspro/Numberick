@@ -100,7 +100,7 @@ extension RadixUIntRoot {
         ? Self.rootWhereRadixIsPowerOf2(self.base)
         : Self.rootWhereRadixIsWhatever(self.base)
     }
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=

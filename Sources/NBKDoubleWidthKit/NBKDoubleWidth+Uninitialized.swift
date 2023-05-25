@@ -21,7 +21,7 @@ extension NBKDoubleWidth {
     @inlinable public static func uninitialized(_ body: (inout Self) -> Void) -> Self {
         Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) {
             body( &$0.baseAddress.unsafelyUnwrapped.pointee)
-            return($0.baseAddress.unsafelyUnwrapped.pointee)
+            return $0.baseAddress.unsafelyUnwrapped.pointee
         }
     }
 }

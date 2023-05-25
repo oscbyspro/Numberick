@@ -70,83 +70,130 @@ final class NBKCoreIntegerTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsFull() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isFull, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isFull, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isFull, false)
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isFull, false)
+            XCTAssertEqual(( T(1)).isFull, false)
+            XCTAssertEqual(( T(2)).isFull, false)
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isFull, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isFull, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isFull, false)
+            XCTAssertEqual((~T(0)).isFull, true )
+            XCTAssertEqual((~T(1)).isFull, false)
+            XCTAssertEqual((~T(2)).isFull, false)
+        }
+
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testIsZero() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isZero, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isZero, false)
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isZero, true )
+            XCTAssertEqual(( T(1)).isZero, false)
+            XCTAssertEqual(( T(2)).isZero, false)
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isZero, false)
+            XCTAssertEqual((~T(0)).isZero, false)
+            XCTAssertEqual((~T(1)).isZero, false)
+            XCTAssertEqual((~T(2)).isZero, false)
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testIsLessThanZero() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isLessThanZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isLessThanZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isLessThanZero, false)
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isLessThanZero, false)
+            XCTAssertEqual(( T(1)).isLessThanZero, false)
+            XCTAssertEqual(( T(2)).isLessThanZero, false)
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isLessThanZero, type.isSigned)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isLessThanZero, type.isSigned)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isLessThanZero, type.isSigned)
+            XCTAssertEqual((~T(0)).isLessThanZero, type.isSigned)
+            XCTAssertEqual((~T(1)).isLessThanZero, type.isSigned)
+            XCTAssertEqual((~T(2)).isLessThanZero, type.isSigned)
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testIsMoreThanZero() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isMoreThanZero, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isMoreThanZero, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isMoreThanZero, true )
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isMoreThanZero, false)
+            XCTAssertEqual(( T(1)).isMoreThanZero, true )
+            XCTAssertEqual(( T(2)).isMoreThanZero, true )
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isMoreThanZero, !type.isSigned)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isMoreThanZero, !type.isSigned)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isMoreThanZero, !type.isSigned)
+            XCTAssertEqual((~T(0)).isMoreThanZero, !type.isSigned)
+            XCTAssertEqual((~T(1)).isMoreThanZero, !type.isSigned)
+            XCTAssertEqual((~T(2)).isMoreThanZero, !type.isSigned)
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testIsOdd() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isOdd, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isOdd, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isOdd, false)
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isOdd, false)
+            XCTAssertEqual(( T(1)).isOdd, true )
+            XCTAssertEqual(( T(2)).isOdd, false)
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isOdd, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isOdd, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isOdd, true )
+            XCTAssertEqual((~T(0)).isOdd, true )
+            XCTAssertEqual((~T(1)).isOdd, false)
+            XCTAssertEqual((~T(2)).isOdd, true )
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testIsEven() {
-        for type: T in types {
-            XCTAssertEqual(type.init(truncatingIfNeeded:  0).isEven, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded:  1).isEven, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded:  2).isEven, true )
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).isEven, true )
+            XCTAssertEqual(( T(1)).isEven, false)
+            XCTAssertEqual(( T(2)).isEven, true )
             
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~0).isEven, false)
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~1).isEven, true )
-            XCTAssertEqual(type.init(truncatingIfNeeded: ~2).isEven, false)
+            XCTAssertEqual((~T(0)).isEven, false)
+            XCTAssertEqual((~T(1)).isEven, true )
+            XCTAssertEqual((~T(2)).isEven, false)
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
     
     func testMatchesRepeatingBit() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(( T(0)).matches(repeating: true ), false)
+            XCTAssertEqual(( T(0)).matches(repeating: false), true )
+            XCTAssertEqual((~T(0)).matches(repeating: true ), true )
+            XCTAssertEqual((~T(0)).matches(repeating: false), false)
+        }
+        
         for type: T in types {
-            XCTAssertEqual((type.init(truncatingIfNeeded:  0)).matches(repeating: true ), false)
-            XCTAssertEqual((type.init(truncatingIfNeeded:  0)).matches(repeating: false), true )
-            XCTAssertEqual((type.init(truncatingIfNeeded: ~0)).matches(repeating: true ), true )
-            XCTAssertEqual((type.init(truncatingIfNeeded: ~0)).matches(repeating: false), false)
+            whereIs(type)
+        }
+    }
+    
+    func testIsPowerOf2() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertFalse(T(0).isPowerOf2)
+            XCTAssertTrue (T(1).isPowerOf2)
+            XCTAssertTrue (T(2).isPowerOf2)
+            XCTAssertFalse(T(3).isPowerOf2)
+            XCTAssertTrue (T(4).isPowerOf2)
+            XCTAssertFalse(T(5).isPowerOf2)
+            XCTAssertFalse(T(6).isPowerOf2)
+            XCTAssertFalse(T(7).isPowerOf2)
+            XCTAssertTrue (T(8).isPowerOf2)
+            XCTAssertFalse(T(9).isPowerOf2)
+        }
+        
+        for type: T in types {
+            whereIs(type)
         }
     }
 }

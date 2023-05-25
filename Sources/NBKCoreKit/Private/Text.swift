@@ -60,7 +60,7 @@ extension UnsafeBufferPointer<UInt8>.SubSequence {
     /// │ "x123" │ .plus  │ "x123" │
     /// ```
     ///
-    @inlinable internal mutating func removeSignPrefix() -> FloatingPointSign? {
+    @inlinable mutating func removeSignPrefix() -> FloatingPointSign? {
         guard !self.isEmpty else { return nil }
         //=--------------------------------------=
         var slice = self[...] as SubSequence

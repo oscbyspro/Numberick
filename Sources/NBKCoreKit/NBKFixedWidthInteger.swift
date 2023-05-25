@@ -50,7 +50,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     
     /// Returns whether all of its bits are set, in two's complement form.
     ///
-    /// The return value can be viewed as the bitwise inverse of ``isZero``.
+    /// It can be viewed as the bitwise inverse of ``isZero``.
     ///
     /// ```swift
     /// Int256( 0).isFull // false
@@ -295,7 +295,7 @@ extension NBKFixedWidthInteger {
     @inlinable public func matches(repeating bit: Bool) -> Bool {
         bit ? self.isFull : self.isZero
     }
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=

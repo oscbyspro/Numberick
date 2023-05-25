@@ -20,17 +20,17 @@ extension NBKCoreInteger<UInt> {
     //=------------------------------------------------------------------------=
     
     /// Returns the quotient of dividing this value by its bit width.
-    @_transparent @usableFromInline internal func quotientDividingByBitWidth() -> Self {
+    @_transparent @usableFromInline func quotientDividingByBitWidth() -> Self {
         self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
     }
     
     /// Returns the remainder of dividing this value by its bit width.
-    @_transparent @usableFromInline internal func remainderDividingByBitWidth() -> Self {
+    @_transparent @usableFromInline func remainderDividingByBitWidth() -> Self {
         self & Self(bitPattern: Self.bitWidth &- 1)
     }
     
     /// Returns the quotient and remainder of dividing this value by its bit width.
-    @_transparent @usableFromInline internal func dividedByBitWidth() -> QR<Self, Self> {
+    @_transparent @usableFromInline func dividedByBitWidth() -> QR<Self, Self> {
         QR(self.quotientDividingByBitWidth(), self.remainderDividingByBitWidth())
     }
 }
@@ -39,13 +39,13 @@ extension NBKCoreInteger<UInt> {
 // MARK: * NBK x Arithmetic x Tuples
 //*============================================================================*
 
-@usableFromInline internal typealias Each2<T> = (first: T, second: T) where T: NBKFixedWidthInteger
+@usableFromInline typealias Each2<T> = (first: T, second: T) where T: NBKFixedWidthInteger
 
-@usableFromInline internal typealias Each3<T> = (first: T, second: T, third: T) where T: NBKFixedWidthInteger
+@usableFromInline typealias Each3<T> = (first: T, second: T, third: T) where T: NBKFixedWidthInteger
 
-@usableFromInline internal typealias Wide2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
+@usableFromInline typealias Wide2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
 
-@usableFromInline internal typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
+@usableFromInline typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
 
 extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     
@@ -53,7 +53,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func increment12(_ lhs: inout Self, by rhs: Each2<Self>) -> UInt {
+    @_transparent @usableFromInline static func increment12(_ lhs: inout Self, by rhs: Each2<Self>) -> UInt {
         let o0 = lhs.addReportingOverflow(rhs.first )
         let o1 = lhs.addReportingOverflow(rhs.second)
         return UInt(bit: o0) &+ UInt(bit: o1)
@@ -63,7 +63,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func compare33(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
+    @_transparent @usableFromInline static func compare33(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
         let a = lhs.high.compared(to: rhs.high); if !a.isZero { return a }
         let b = lhs.mid .compared(to: rhs.mid ); if !b.isZero { return b }
         return  lhs.low .compared(to: rhs.low )
@@ -73,7 +73,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Details x Multiplication
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
+    @_transparent @usableFromInline static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)
         
@@ -86,7 +86,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Details x Subtraction
     //=------------------------------------------------------------------------=
     
-    @_transparent @usableFromInline internal static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
+    @_transparent @usableFromInline static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.high)
         
@@ -95,7 +95,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
         return  (     y) as Bool
     }
     
-    @_transparent @usableFromInline internal static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
+    @_transparent @usableFromInline static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.mid )
         let c = lhs.high.subtractReportingOverflow(rhs.high)

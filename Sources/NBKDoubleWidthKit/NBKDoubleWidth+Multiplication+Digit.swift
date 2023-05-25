@@ -74,7 +74,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable internal func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
+    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by amount: Digit) -> PVO<Self> {
         let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: amount)
         return PVO(partialValue: product.low, overflow: !product.high.isZero)
     }
@@ -83,7 +83,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable internal func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
+    @_disfavoredOverload @inlinable func multipliedFullWidth(by amount: Digit) -> HL<Digit, Magnitude> {
         var product = HL(Digit(), Magnitude())
         for index in self.indices {
             let xy = self[index].multipliedFullWidth(by: amount)

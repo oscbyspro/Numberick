@@ -124,7 +124,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
 
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable internal static func divide22(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
+    @inlinable static func divide22(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
         let shift: Int = rhs.leadingZeroBitCount
         //=--------------------------------------=
         // divisor is zero
@@ -137,7 +137,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
 
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable internal static func divide22Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
+    @inlinable static func divide22Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs.isMoreThanZero, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
@@ -183,7 +183,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable internal static func divide42(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
+    @inlinable static func divide42(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
         let shift: Int = rhs.leadingZeroBitCount
         //=--------------------------------------=
         // divisor is zero
@@ -203,7 +203,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return PVO(Self.divide42Unchecked(lhs, by: rhs, shift: shift), false)
     }
     
-    @inlinable internal static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
+    @inlinable static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
         assert(rhs.isMoreThanZero, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
@@ -249,13 +249,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    @inlinable internal static func divide21(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide21(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
         return QR(Self(descending: HL(x, y)), b)
     }
     
-    @inlinable internal static func divide31Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide31Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
         assert(lhs.high < rhs, "quotient must fit in two halves")
         //=--------------------------------------=
         let (x, b) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
@@ -273,14 +273,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
     ///
     /// The approximation needs at most two adjustments, but the while loop is faster.
     ///
-    @inlinable internal static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
+    @inlinable static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
         assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
         //=--------------------------------------=
         var quotient: Low = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
         var approximation: Wide3<Low> =  Low.multiplying21(HL(rhs.high, rhs.low), by: quotient)
         //=--------------------------------------=
-        // decrement if overestimated (max twice)
+        // decrement if overestimated (max 2)
         //=--------------------------------------=
         while Low.compare33(lhs, to: approximation)  == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
@@ -293,7 +293,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
 
     /// Divides 4 halves by 2 normalized halves, where the quotient fits in two halves.
-    @inlinable internal static func divide42Normalized(_ lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
+    @inlinable static func divide42Normalized(_ lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
         let (x, a) = Self.divide32Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
         let (y, b) = Self.divide32Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return QR(Self(descending: HL(x, y)), b)

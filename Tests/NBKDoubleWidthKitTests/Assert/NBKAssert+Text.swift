@@ -33,8 +33,8 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10, uppercase == false {
         XCTAssertEqual(String(integer),       text, file: file, line: line)
-        XCTAssertEqual(integer.description(), text, file: file, line: line)
         XCTAssertEqual(integer.description,   text, file: file, line: line)
+        XCTAssertEqual(integer.description(), text, file: file, line: line)
     }
     //=------------------------------------------=
     XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)

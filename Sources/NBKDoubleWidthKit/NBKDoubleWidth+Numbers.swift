@@ -48,14 +48,14 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(_exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
+        guard let value = Self(exactlyIntegerLiteral: source) else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
         }
         
         self = value
     }
     
-    @inlinable internal init?(_exactlyIntegerLiteral source: StaticBigInt) {
+    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
         //=--------------------------------------=
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
@@ -75,7 +75,7 @@ extension NBKDoubleWidth {
     
     @inlinable public init<T>(_ source: T) where T: BinaryInteger {
         guard let result = Self(exactly: source) else {
-            preconditionFailure("\(source) is not in \(Self.description)'s representable range")
+            preconditionFailure("\(Self.description) cannot represent \(source)")
         }
         
         self = result
@@ -92,13 +92,13 @@ extension NBKDoubleWidth {
         let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
         self = isOK ? value : sign.isFull ? Self.min : Self.max
     }
-
+    
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
         self = Self.truncating(source).value
     }
     
-    @inlinable internal static func truncating<T>(_ source: T)
-    -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
+    @inlinable static func truncating<T: BinaryInteger>(_ source: T)
+    -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) {
         let words: T.Words = source.words
         let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
         let value = Self.uninitialized { value in

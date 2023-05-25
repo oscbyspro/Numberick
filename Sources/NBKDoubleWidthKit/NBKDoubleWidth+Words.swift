@@ -25,7 +25,9 @@ extension NBKDoubleWidth {
     
     /// The least significant word of this value.
     ///
-    /// This is a top-secret™ requirement of [BinaryInteger][].
+    /// ### Swift
+    ///
+    /// This top-secret™ member is required by [Swift.BinaryInteger][].
     ///
     /// []: https://github.com/apple/swift/blob/main/stdlib/public/core/Integers.swift
     ///
@@ -154,7 +156,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable internal static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
+    @inlinable static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
         assert(self.indices  ~= index, NBK.callsiteIndexOutOfBoundsInfo())
         #if _endian(big)
         return self.lastIndex - index
@@ -163,7 +165,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         #endif
     }
     
-    @inlinable internal static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
+    @inlinable static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
         self.endiannessSensitiveIndex(unchecked: index) * MemoryLayout<UInt>.size
     }
 }

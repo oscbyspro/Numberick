@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Description
+    // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance from the given string.
@@ -32,11 +32,17 @@ extension NBKDoubleWidth {
     /// Int256(" 123") //  nil
     /// ```
     ///
-    /// - Note: This method is required by `Swift.LosslessStringConvertible`.
+    /// ### Swift
+    ///
+    /// This method is required by `Swift.LosslessStringConvertible`.
     ///
     @inlinable public init?(_ description: String) {
         self.init(description, radix: 10)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode
+    //=------------------------------------------------------------------------=
     
     /// The description of this value.
     ///
@@ -44,6 +50,10 @@ extension NBKDoubleWidth {
     /// Int256( 123).description //  "123"
     /// Int256(-123).description // "-123"
     /// ```
+    ///
+    /// ### Swift
+    ///
+    /// This member is required by `Swift.CustomStringConvertible`.
     ///
     @inlinable public var description: String {
         String(self, radix: 10, uppercase: false)

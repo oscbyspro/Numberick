@@ -13,10 +13,16 @@
 
 /// A fixed-width, binary, integer suitable for direct machine word access.
 ///
-/// Conforming types must be trivial and whole integer multiples of `UInt.bitWidth`.
+/// Conforming types must trivial and layout compatible with some multiple of `UInt` words.
 ///
-public protocol NBKMachineWordsInteger: NBKFixedWidthInteger where
-Digit: NBKMachineWordsInteger, Magnitude: NBKMachineWordsInteger { }
+/// ```swift
+/// let storage: (UInt32, UInt32) // ✅ works
+/// let storage: (UInt16, UInt16) // ⚠️ works on 32-bit platforms
+/// let storage: (UInt16, UInt32) // 🚨 wrong size
+/// let storage: [UInt64]         // 🚨 nontrivial
+/// ```
+///
+public protocol NBKMachineWordsInteger: NBKFixedWidthInteger where Digit: NBKMachineWordsInteger, Magnitude: NBKMachineWordsInteger { }
 
 //*============================================================================*
 // MARK: * NBK x Machine Words Integer x Swift

@@ -27,7 +27,7 @@
     //=------------------------------------------------------------------------=
     
     @inlinable init(radix: Int) {
-        precondition(radix >= 2 && radix <= 36)
+        precondition(2 ... 36 ~= radix, "radix must be in 2 through 36")
         
         if  radix <= 10 {
             numericalUpperBound = UInt8(ascii: "0") &+ UInt8(truncatingIfNeeded: radix)

@@ -76,18 +76,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns whether this value is a power of `2`.
     @inlinable var isPowerOf2: Bool { get }
     
-    /// Performs a [three-way comparison][3s] and returns: `0`, `1` or `-1`.
-    ///
-    /// It is semantically equivalent to the following expression:
+    /// A [three-way comparison][3s] that returns: `0`, `1` or `-1`.
     ///
     /// ```swift
-    /// (self < other) ? -1 : (self == other) ? 0 : 1
-    /// ```
-    ///
-    /// The return value can also be thought of as the ``signum()`` of the difference:
-    ///
-    /// ```swift
-    /// (self - other).signum() // but without errors
+    /// Int256(1).compared(to: Int256(3)) // -1 (less)
+    /// Int256(2).compared(to: Int256(2)) //  0 (same)
+    /// Int256(3).compared(to: Int256(1)) //  1 (more)
     /// ```
     ///
     /// [3s]: https://en.wikipedia.org/wiki/Three-way_comparison

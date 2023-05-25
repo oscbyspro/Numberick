@@ -52,17 +52,17 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         self.init(digits: digits, radix: AnyRadixUIntRoot(radix))
     }
     
-    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: AnyRadixUIntRoot) {
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: AnyRadixUIntRoot) {
         switch radix.power.isZero {
         case  true: self.init(digits: digits, radix:   PerfectRadixUIntRoot(unchecked: radix))
         case false: self.init(digits: digits, radix: ImperfectRadixUIntRoot(unchecked: radix)) }
     }
     
-    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixUIntRoot) {
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixUIntRoot) {
         var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
         self.init()
@@ -80,7 +80,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
     }
     
-    @inlinable internal init?(digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixUIntRoot) {
+    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixUIntRoot) {
         var digits = digits.drop(while:{ $0 == 48 })
         let alignment = digits.count % radix.exponent
         //=--------------------------------------=
@@ -110,23 +110,23 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable internal func description(radix: Int, uppercase: Bool, prefix: UnsafeBufferPointer<UInt8>) -> String {
+    @inlinable func description(radix: Int, uppercase: Bool, prefix: UnsafeBufferPointer<UInt8>) -> String {
         self.description(radix: AnyRadixUIntRoot(radix), alphabet: MaxRadixAlphabetEncoder(uppercase: uppercase), prefix: prefix)
     }
 
-    @inlinable internal func description(radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+    @inlinable func description(radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         switch radix.power.isZero {
         case  true: return self.description(radix:   PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix)
         case false: return self.description(radix: ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix) }
     }
 
-    @inlinable internal func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+    @inlinable func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
         let chunks: Words.SubSequence = self[...minLastIndex]
         return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
     }
 
-    @inlinable internal func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+    @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return  Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             var magnitude = self
