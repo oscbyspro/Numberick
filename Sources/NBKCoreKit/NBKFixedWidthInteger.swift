@@ -35,20 +35,28 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance repeating the given bit, in two's complement form.
+    /// Creates a new instance repeating the given bit.
     ///
     /// ```swift
     /// Int256(repeating: false) // Int256( 0)
     /// Int256(repeating: true ) // Int256(-1)
     /// ```
     ///
+    /// - Note: This member has two's complement semantics.
+    ///
     @inlinable init(repeating bit: Bool)
+    
+    /// Returns the most significant bit.
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    @inlinable var mostSignificantBit: Bool { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
-    /// Returns whether all of its bits are set, in two's complement form.
+    /// Returns whether all of its bits are set.
     ///
     /// It can be viewed as the bitwise inverse of ``isZero``.
     ///
@@ -57,6 +65,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Int256( 1).isFull // false
     /// Int256(-1).isFull // true
     /// ```
+    ///
+    /// - Note: This member has two's complement semantics.
     ///
     @inlinable var isFull: Bool { get }
     
@@ -271,16 +281,56 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
 //=----------------------------------------------------------------------------=
 
 extension NBKFixedWidthInteger {
-        
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Bits
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(bit: Bool) {
+        self = bit ?  (1 as Self) : (0 as Self)
+    }
+    
+    @inlinable public init(repeating bit: Bool) {
+        self = bit ? ~(0 as Self) : (0 as Self)
+    }
+    
+    @inlinable public var mostSignificantBit: Bool {
+        self & ((1 as Self) &<< (Self.bitWidth &- 1)) != (0 as Self)
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        self & ((1 as Self)) != (0 as Self)
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
+    
+    @inlinable public var isFull: Bool {
+        self == (~0 as Self)
+    }
+    
+    @inlinable public var isZero: Bool {
+        self == ( 0 as Self)
+    }
+    
+    @inlinable public var isLessThanZero: Bool {
+        Self.isSigned && self < (0 as Self)
+    }
+    
+    @inlinable public var isMoreThanZero: Bool {
+        self > (0 as Self)
+    }
     
     @inlinable public var isPowerOf2: Bool {
         self.nonzeroBitCount == 1
     }
     
-    /// Returns whether this value matches the given bit pattern, in two's complement form.
+    @inlinable public func compared(to other: Self) -> Int {
+        (self < other) ? -1 : (self == other) ? 0 : 1
+    }
+    
+    /// Returns whether this value matches the given bit pattern.
     ///
     /// ```swift
     /// Int256( 0).matches(repeating: true ) // false
@@ -292,8 +342,22 @@ extension NBKFixedWidthInteger {
     /// Int256(-1).matches(repeating: false) // false
     /// ```
     ///
+    /// - Note: This member has two's complement semantics.
+    ///
     @inlinable public func matches(repeating bit: Bool) -> Bool {
         bit ? self.isFull : self.isZero
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Complements
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        self = self.twosComplement()
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        ~self &+ (1 as Self)
     }
     
     //=------------------------------------------------------------------------=

@@ -37,50 +37,6 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Bits
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(bit: Bool) {
-        self = bit ?  (1 as Self) : (0 as Self)
-    }
-    
-    @inlinable public init(repeating bit: Bool) {
-        self = bit ? ~(0 as Self) : (0 as Self)
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        self & ((1 as Self) &<< (Self.bitWidth &- 1)) != (0 as Self)
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self & ((1 as Self)) != (0 as Self)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Comparisons
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var isFull: Bool {
-        self == ~(0 as Self)
-    }
-    
-    @inlinable public var isZero: Bool {
-        self ==  (0 as Self)
-    }
-    
-    @inlinable public var isLessThanZero: Bool {
-        Self.isSigned && self < (0 as Self)
-    }
-    
-    @inlinable public var isMoreThanZero: Bool {
-        self > (0 as Self)
-    }
-    
-    @inlinable public func compared(to other: Self) -> Int {
-        self < other ? -1 : self == other ? 0 : 1
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Complements
     //=------------------------------------------------------------------------=
     
@@ -90,14 +46,6 @@ extension NBKCoreInteger {
     
     @inlinable public var bitPattern: BitPattern {
         Swift.unsafeBitCast(self, to: BitPattern.self)
-    }
-    
-    @inlinable public mutating func formTwosComplement() {
-        self = self.twosComplement()
-    }
-    
-    @inlinable public func twosComplement() -> Self {
-        ~self &+ (1 as Self)
     }
     
     //=------------------------------------------------------------------------=

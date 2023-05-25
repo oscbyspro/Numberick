@@ -52,12 +52,14 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Int256(bit: true ) // Int256(1)
     /// ```
     ///
+    /// - Note: This member has two's complement semantics.
+    ///
     @inlinable init(bit: Bool)
     
-    /// Returns the most significant bit, in two's complement form.
-    @inlinable var mostSignificantBit: Bool { get }
-    
-    /// Returns the least significant bit, in two's complement form.
+    /// Returns the least significant bit.
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
     @inlinable var leastSignificantBit: Bool { get }
     
     //=------------------------------------------------------------------------=
@@ -514,11 +516,25 @@ extension NBKBinaryInteger {
     //=------------------------------------------------------------------------=
     
     /// Returns whether this value is odd.
+    ///
+    /// Semantically, it is equivalent to the following expression:
+    ///
+    /// ```swift
+    /// self.leastSignificantBit == true
+    /// ```
+    ///
     @inlinable public var isOdd: Bool {
         self.leastSignificantBit
     }
     
     /// Returns whether this value is even.
+    ///
+    /// Semantically, it is equivalent to the following expression:
+    ///
+    /// ```swift
+    /// self.leastSignificantBit == false
+    /// ```
+    ///
     @inlinable public var isEven: Bool {
         !self.leastSignificantBit
     }
