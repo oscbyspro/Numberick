@@ -37,7 +37,7 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Complements
+    // MARK: Details x Bit Pattern
     //=------------------------------------------------------------------------=
     
     @inlinable public init(bitPattern: BitPattern) {
@@ -46,6 +46,22 @@ extension NBKCoreInteger {
     
     @inlinable public var bitPattern: BitPattern {
         Swift.unsafeBitCast(self, to: BitPattern.self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        let pvo: PVO<Self> = self.twosComplementSubsequence(carry)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
+        var partialValue = ~self
+        let overflow: Bool = carry && partialValue.addReportingOverflow(1 as Self)
+        return PVO(partialValue, overflow)        
     }
     
     //=------------------------------------------------------------------------=
@@ -113,9 +129,9 @@ extension NBKCoreInteger {
         //=--------------------------------------=
         var lhsMagnitude = HL(Magnitude(bitPattern: dividend.high), dividend.low)
         if  lhsIsLessThanZero {
-            var carry: Bool
-            (lhsMagnitude.low,  carry) = (~lhsMagnitude.low ).addingReportingOverflow(1 as Magnitude)
-            (lhsMagnitude.high, carry) = (~lhsMagnitude.high).addingReportingOverflow(Magnitude(bit: carry))
+            var carry = true
+            carry = lhsMagnitude.low .formTwosComplementSubsequence(carry)
+            carry = lhsMagnitude.high.formTwosComplementSubsequence(carry)
         }
         
         let rhsMagnitude = self.magnitude as Magnitude
@@ -135,27 +151,6 @@ extension NBKCoreInteger {
         }
         //=--------------------------------------=
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Details x Signed
-//=----------------------------------------------------------------------------=
-
-extension NBKCoreInteger where Self: NBKSignedInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func negateReportingOverflow() -> Bool {
-        let pvo: PVO<Self> = self.negatedReportingOverflow()
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
-        PVO(self.twosComplement(), self == Self.min)
     }
 }
 

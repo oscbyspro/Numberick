@@ -50,11 +50,13 @@ extension NBKDoubleWidth {
         }
         
         if  amount.isLessThanZero {
-            var (high, carry) = (~self.first).addingReportingOverflow(1 as UInt)
-            
+            var (high, carry) = self.first.twosComplementSubsequence(true)
             for index in self.indices.dropFirst() {
-                let bit = (product.low[index]).addReportingOverflow(high)
-                (high, carry) = (~self[index]).addingReportingOverflow(UInt(bit: carry) &+ UInt(bit: bit))
+                let bit = product.low[index].addReportingOverflow(high)
+                
+                high  = self[index]
+                carry = high.formTwosComplementSubsequence(carry)
+                carry = high.addReportingOverflow(UInt(bit: bit)) || carry
             }
             
             product.high &+= high
