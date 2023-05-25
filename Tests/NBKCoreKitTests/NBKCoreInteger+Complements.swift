@@ -78,6 +78,34 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
             type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testTwosComplement() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertTwosComplement(T(-1), T( 1))
+            NBKAssertTwosComplement(T( 0), T( 0))
+            NBKAssertTwosComplement(T( 1), T(-1))
+            
+            NBKAssertTwosComplement(T.min, T.min,  true )
+            NBKAssertTwosComplement(T.max, T.min + T( 1))
+        }
+        
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertTwosComplement(T( 1), T.max - T( 0))
+            NBKAssertTwosComplement(T( 2), T.max - T( 1))
+            NBKAssertTwosComplement(T( 3), T.max - T( 2))
+            
+            NBKAssertTwosComplement(T.min, T.min,  true )
+            NBKAssertTwosComplement(T.max, T.min + T( 1))
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
 }
 
 #endif

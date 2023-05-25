@@ -70,7 +70,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     @inlinable var isFull: Bool { get }
     
-    #warning("tests")
     //=------------------------------------------------------------------------=
     // MARK: Details x Complements
     //=------------------------------------------------------------------------=
