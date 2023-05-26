@@ -98,8 +98,8 @@ final class Int256TestsOnDivision: XCTestCase {
     
     func testDividingByDigitReportingOverflow() {
         NBKAssertDivisionByDigit(T( 0),  Int(0),  T( 0), Int(0), true )
-        NBKAssertDivisionByDigit(T( 1),  Int(0),  T( 1), Int(0), true )
-        NBKAssertDivisionByDigit(T( 2),  Int(0),  T( 2), Int(0), true )
+        NBKAssertDivisionByDigit(T( 1),  Int(0),  T( 1), Int(1), true )
+        NBKAssertDivisionByDigit(T( 2),  Int(0),  T( 2), Int(2), true )
         NBKAssertDivisionByDigit(T.min, -Int(1),  T.min, Int(0), true )
         NBKAssertDivisionByDigit(T.max, -Int(1), -T.max, Int(0), false)
     }
@@ -279,8 +279,8 @@ final class UInt256TestsOnDivision: XCTestCase {
     
     func testDividingByDigitReportingOverflow() {
         NBKAssertDivisionByDigit(T(0), UInt(0), T(0), UInt(0), true)
-        NBKAssertDivisionByDigit(T(1), UInt(0), T(1), UInt(0), true)
-        NBKAssertDivisionByDigit(T(2), UInt(0), T(2), UInt(0), true)
+        NBKAssertDivisionByDigit(T(1), UInt(0), T(1), UInt(1), true)
+        NBKAssertDivisionByDigit(T(2), UInt(0), T(2), UInt(2), true)
     }
     
     //=------------------------------------------------------------------------=

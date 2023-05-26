@@ -82,7 +82,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         //=--------------------------------------=
         if  other.isZero {
-            return PVO(0, true)
+            return PVO(Digit(bitPattern: self.first), true)
         }
         //=--------------------------------------=
         var remainder = UInt()

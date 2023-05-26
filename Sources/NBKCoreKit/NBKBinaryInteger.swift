@@ -22,12 +22,6 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-/// ### Division By Zero
-///
-/// The result of division by zero mirrors the standard library, when possible.
-/// Because the dividend may not fit in the remainder of single digit division,
-/// the divisor is returned instead.
-///
 public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
@@ -526,7 +520,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -566,7 +560,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -606,7 +600,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -646,7 +640,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -686,7 +680,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -726,7 +720,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -766,7 +760,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
@@ -806,12 +800,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either the entire remainder or, if undefined, `other`.
+    /// - Note: In the case of `overflow`, the result is either the entire remainder or, if undefined, `self`.
     ///
     @_disfavoredOverload @inlinable mutating func formRemainderReportingOverflow(dividingBy other: Digit) -> Bool
     
@@ -846,12 +840,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `other`.
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self`.
     ///
     @_disfavoredOverload @inlinable func remainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit>
     
@@ -886,12 +880,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `other`.
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `self`.
     ///
     @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>>
     
