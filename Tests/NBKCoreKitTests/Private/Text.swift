@@ -41,43 +41,43 @@ final class NBKTextTests: XCTestCase {
         NBKAssertUnsafeIntegerTextRemoveSign("-123", .minus,  "123")
         NBKAssertUnsafeIntegerTextRemoveSign("~123",  nil,   "~123")
     }
-        
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
+}
 
-    func NBKAssertUnsafeIntegerTextComponents(
-    _ text: String, _ sign: FloatingPointSign?, _ body: String,
-    file: StaticString = #file, line: UInt = #line) {
-        var text = text
-        var body = body
-        
-        text.withUTF8 { text in
-        body.withUTF8 { body in
-            
-            let (componentsSign, componentsBody) = NBK.unsafeIntegerTextComponents(utf8: text)
-            
-            XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
-            XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
-        }}
-    }
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities
+//=----------------------------------------------------------------------------=
 
-    func NBKAssertUnsafeIntegerTextRemoveSign(
-    _ text: String, _ sign: FloatingPointSign?, _ body: String,
-    file: StaticString = #file, line: UInt = #line) {
-        var text = text
-        var body = body
+private func NBKAssertUnsafeIntegerTextComponents(
+_ text: String, _ sign: FloatingPointSign?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    var text = text
+    var body = body
+    
+    text.withUTF8 { text in
+    body.withUTF8 { body in
         
-        text.withUTF8 { text in
-        body.withUTF8 { body in
-            
-            var componentsBody = text[...]
-            let componentsSign = componentsBody.removeSignPrefix()
-            
-            XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
-            XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
-        }}
-    }
+        let (componentsSign, componentsBody) = NBK.unsafeIntegerTextComponents(utf8: text)
+        
+        XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
+        XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
+    }}
+}
+
+private func NBKAssertUnsafeIntegerTextRemoveSign(
+_ text: String, _ sign: FloatingPointSign?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    var text = text
+    var body = body
+    
+    text.withUTF8 { text in
+    body.withUTF8 { body in
+        
+        var componentsBody = text[...]
+        let componentsSign = componentsBody.removeSignPrefix()
+        
+        XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
+        XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
+    }}
 }
 
 #endif
