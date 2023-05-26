@@ -75,8 +75,6 @@ final class NBKCoreIntegerTestsOnMultiplication: XCTestCase {
             NBKAssertMultiplication(T.max, T.min, T.min, T(-1) << (T.bitWidth - 2), true)
             NBKAssertMultiplication(T.min, T.max, T.min, T(-1) << (T.bitWidth - 2), true)
             NBKAssertMultiplication(T.min, T.min, T( 0), T( 1) << (T.bitWidth - 2), true)
-            
-            print(T.max.multipliedFullWidth(by: T.max))
         }
 
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {

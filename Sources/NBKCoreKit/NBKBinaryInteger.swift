@@ -831,7 +831,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and dividend.
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `self`.
     ///
     @inlinable func remainderReportingOverflow(dividingBy other: Self) -> PVO<Self>
     
@@ -871,7 +871,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and dividend.
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `self`.
     ///
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>>
     

@@ -22,12 +22,6 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-/// ### Division By Zero
-///
-/// The result of division by zero mirrors the standard library, when possible.
-/// Because the dividend may not fit in the remainder of single digit division,
-/// the divisor is returned instead.
-///
 public protocol NBKFixedWidthInteger: NBKBinaryInteger, NBKBitPatternConvertible, FixedWidthInteger where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
     
@@ -464,41 +458,45 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     // MARK: Details x Division
     //=------------------------------------------------------------------------=
     
-    #warning("TODO: document")
-    /// Returns the `quotient` and `remainder` of dividing `self` by `other`.
+    /// Returns the `quotient` and `remainder` of dividing `other` by `self`.
     ///
-    /// ```swift
-    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2)
-    /// let (quotient, remainder) =  (Int256.max).dividingFullWidth(dividend)
-    /// //  (quotient, remainder) == (Int256.max, Int256.max - 1)
-    /// ````
+    /// ```
+    /// ┌────────────┬──────────────────────────────────────── → ───────────┬────────────────┬──────────┐
+    /// │ self       │ other                                   │ quotient   | remainder      │ overflow │
+    /// ├────────────┼──────────────────────────────────────── → ───────────┤────────────────┤──────────┤
+    /// │ Int256.max │ Int256( 1),         UInt256( 2)         │ Int256( 2) │ Int256( 4)     │ false    │
+    /// │ Int256.min │ Int256( 1),         UInt256( 2)         │ Int256(-2) │ Int256( 2)     │ false    │
+    /// │ Int256.max │ Int256.max / 2 + 0, UInt256.max / 2 + 0 │ Int256.max │ Int256.max - 1 │ false    │
+    /// │ Int256.min │ Int256.max / 2 + 1, UInt256.max / 2 + 0 │ Int256.min │ Int256.max - 1 │ false    │
+    /// │────────────┤──────────────────────────────────────── → ───────────┤────────────────┤──────────┤
+    /// │ Int256( 0) │ Int256( 1),         UInt256( 2)         │ Int256( 2) │ Int256( 2)     │ true     │
+    /// │ Int256.max │ Int256.max / 2 + 0, UInt256.max / 2 + 1 │ Int256.min │ Int256( 0)     │ true     │
+    /// │ Int256.min │ Int256.max / 2 + 1, UInt256.max / 2 + 1 │ Int256.max │ Int256( 0)     │ true     │
+    /// └────────────┴──────────────────────────────────────── → ───────────┴────────────────┴──────────┘
+    /// ```
     ///
     /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable func dividingFullWidth(_ other: HL<Self, Magnitude>) -> QR<Self, Self>
     
-    #warning("TODO: document")
-    /// Returns the `quotient` and `remainder` of dividing `self` by `other`, along with an `overflow` indicator.
+    /// Returns the `quotient` and `remainder` of dividing `other` by `self`, along with an `overflow` indicator.
     ///
-    /// ```swift
-    /// let ((dividend)) = (high: Int256.max / 2, low: UInt256.max / 2)
-    /// let ((quotient, remainder), overflow) =  ((Int256.max)).dividingFullWidthReportingOverflow(dividend)
-    /// //  ((quotient, remainder), overflow) == ((Int256.max, Int256.max - 1), false)
-    /// ````
+    /// ```
+    /// ┌────────────┬──────────────────────────────────────── → ───────────┬────────────────┬──────────┐
+    /// │ self       │ other                                   │ quotient   | remainder      │ overflow │
+    /// ├────────────┼──────────────────────────────────────── → ───────────┤────────────────┤──────────┤
+    /// │ Int256.max │ Int256( 1),         UInt256( 2)         │ Int256( 2) │ Int256( 4)     │ false    │
+    /// │ Int256.min │ Int256( 1),         UInt256( 2)         │ Int256( 2) │ Int256( 4)     │ false    │
+    /// │ Int256.max │ Int256.max / 2 + 0, UInt256.max / 2 + 0 │ Int256.max │ Int256.max - 1 │ false    │
+    /// │ Int256.min │ Int256.max / 2 + 1, UInt256.max / 2 + 0 │ Int256.min │ Int256.max - 1 │ false    │
+    /// │────────────┤──────────────────────────────────────── → ───────────┤────────────────┤──────────┤
+    /// │ Int256( 0) │ Int256( 1),         UInt256( 2)         │ Int256( 2) │ Int256( 2)     │ true     │
+    /// │ Int256.max │ Int256.max / 2 + 0, UInt256.max / 2 + 1 │ Int256.min │ Int256( 0)     │ true     │
+    /// │ Int256.min │ Int256.max / 2 + 1, UInt256.max / 2 + 1 │ Int256.max │ Int256( 0)     │ true     │
+    /// └────────────┴──────────────────────────────────────── → ───────────┴────────────────┴──────────┘
+    /// ```
     ///
-    /// ```swift
-    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2 + 1)
-    /// let ((quotient, remainder), overflow) =  ((Int256.max)).dividingFullWidthReportingOverflow(dividend)
-    /// //  ((quotient, remainder), overflow) == ((Int256.max, Int256.max - 1), true)
-    /// ````
-    ///
-    /// ```swift
-    /// let (dividend) = (high: Int256.max / 2, low: UInt256.max / 2 + 1)
-    /// let ((quotient, remainder), overflow) =  ((Int256( 0))).dividingFullWidthReportingOverflow(dividend)
-    /// //  ((quotient, remainder), overflow) == ((Int256.max / 2, Int256.max / 2), true)
-    /// ````
-    ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend and dividend.
+    /// - Note: In the case of `overflow`, the result is truncated or, if undefined, `other` and `other`.
     ///
     @inlinable func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>>
 }
