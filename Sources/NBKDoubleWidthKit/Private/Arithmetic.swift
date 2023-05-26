@@ -53,19 +53,17 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
-    /// A [three-way comparison][3s] that returns: `-1` (less), `0` (same), or `1` (more).
+    /// A three-way comparison that returns: `-1` (less), `0` (same), or `1` (more).
     ///
     /// ```
-    /// │ input      │ output │
-    /// ├────────────┼────────┤
+    /// ┌─────────── → ───────┐
     /// │ lhs vs rhs │ signum │
-    /// ├────────────┼────────┤
-    /// │ lhs <  rhs | -1     |
-    /// │ lhs == rhs |  0     |
-    /// │ lhs >  rhs |  1     |
+    /// ├─────────── → ───────┤
+    /// │ lhs <  rhs | -1     | - less
+    /// │ lhs == rhs |  0     | - same
+    /// │ lhs >  rhs |  1     | - more
+    /// └─────────── → ───────┘
     /// ```
-    ///
-    /// [3s]: https://en.wikipedia.org/wiki/Three-way_comparison
     ///
     @_transparent @usableFromInline static func compare33(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
         let a = lhs.high.compared(to: rhs.high)
@@ -81,17 +79,19 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     
-    /// Forms the low part of adding each value in `rhs` to `lhs`, and returns the high.
+    /// Forms the `low` sum of adding each value in `rhs` to `lhs`, and returns the high.
     /// In the case of overflow, the result is truncated.
     ///
-    /// │ input        │ output     │
-    /// ├─────┬────────┼─────┬──────┤
+    /// ```
+    /// ┌─────┬─────── → ────┬──────┐
     /// │ lhs │ rhs    │ lhs │ high │
-    /// ├─────┼────────┼─────┤──────┤
+    /// ├─────┼─────── → ────┤──────┤
     /// │  0  │  0,  0 │  0  │  0   │
     /// │  1  │  2,  3 │  6  │  0   │
     /// │ ~1  │ ~2, ~3 │ ~8  │  2   │
     /// │ ~0  │ ~0, ~0 │ ~2  │  2   │
+    /// └─────┴─────── → ────┴──────┘
+    /// ```
     ///
     @_transparent @usableFromInline static func increment12(_ lhs: inout Self, by rhs: Each2<Self>) -> Digit {
         let x = lhs.addReportingOverflow(rhs.first )
@@ -103,18 +103,18 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Subtraction
     //=------------------------------------------------------------------------=
     
-    /// Forms the difference of subtracting `rhs` from `lhs`, and returns an overflow indicator.
+    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an overflow indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
-    /// │ input               │ output                 │
-    /// ├────────────┬────────┼────────────┬───────────┤
-    /// │ lhs        │ rhs    │ lhs        │ overflow  │
+    /// ┌────────────┬─────── → ───────────┬───────────┐
+    /// │ lhs        │ rhs    │ difference │ overflow  │
     /// ├────────────┼────────┼────────────┼───────────┤
     /// │  0,  0,  0 │ ~0, ~0 │ ~0,  0,  1 │ true      │
     /// │  1,  2,  3 │  4,  5 │  0,  6,  9 │ false     │
     /// │ ~1, ~2, ~3 │ ~4, ~5 │ ~1, ~6, ~8 │ false     │
     /// │ ~0, ~0, ~0 │  0,  0 │ ~0, ~0, ~0 │ false     │
+    /// └────────────┴─────── → ───────────┴───────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
@@ -126,18 +126,18 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
         return  (     y) as Bool
     }
     
-    /// Forms the difference of subtracting `rhs` from `lhs`, and returns an overflow indicator.
+    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an overflow indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
-    /// │ input                   │ output                 │
-    /// ├────────────┬────────────┼────────────┬───────────┤
-    /// │ lhs        │ rhs        │ lhs        │ overflow  │
+    /// ┌────────────┬─────────── → ───────────┬───────────┐
+    /// │ lhs        │ rhs        │ difference │ overflow  │
     /// ├────────────┼────────────┼────────────┼───────────┤
     /// │  0,  0,  0 │ ~0, ~0, ~0 │  0,  0,  1 │ true      │
     /// │  1,  2,  3 │ ~4, ~5, ~6 │  5,  7, 10 │ true      │
     /// │ ~1, ~2, ~3 │  4,  5,  6 │ ~5, ~7, ~9 │ false     │
     /// │ ~0, ~0, ~0 │  0,  0,  0 │ ~0, ~0, ~0 │ false     │
+    /// └────────────┴─────────── → ───────────┴───────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
@@ -154,16 +154,16 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Multiplication
     //=------------------------------------------------------------------------=
     
-    /// Returns the product part of multiplying `lhs` by `rhs`.
+    /// Returns the `product` of multiplying `lhs` by `rhs`.
     ///
     /// ```
-    /// │ input        │ output     │
-    /// ├────────┬─────┼────────────┤
+    /// ┌────────┬──── → ───────────┐
     /// │ lhs    │ rhs │ product    │
     /// ├────────┼─────┼────────────┤
     /// │  1,  2 │  3, │  0,  3,  6 │
     /// │ ~1, ~2 │ ~3, │ ~4,  1, 12 │
     /// │ ~0, ~0 │ ~0, │ ~1, ~0,  1 │
+    /// └────────┴──── → ───────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
