@@ -19,16 +19,16 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
-        let a: Bool = self.low .addReportingOverflow(amount.low )
-        let b: Bool = self.high.addReportingOverflow(amount.high)
+    @inlinable public mutating func addReportingOverflow(_ other: Self) -> Bool {
+        let a: Bool = self.low .addReportingOverflow(other.low )
+        let b: Bool = self.high.addReportingOverflow(other.high)
         let c: Bool = a && self.high.addReportingOverflow(1 as Digit)
         return b || c
     }
     
-    @inlinable public func addingReportingOverflow(_ amount: Self) -> PVO<Self> {
+    @inlinable public func addingReportingOverflow(_ other: Self) -> PVO<Self> {
         var partialValue = self
-        let overflow: Bool = partialValue.addReportingOverflow(amount)
+        let overflow: Bool = partialValue.addReportingOverflow(other)
         return PVO(partialValue, overflow)
     }
 }

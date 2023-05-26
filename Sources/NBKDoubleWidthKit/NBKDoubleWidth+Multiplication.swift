@@ -19,15 +19,15 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func multiplyReportingOverflow(by  amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: amount)
+    @inlinable public mutating func multiplyReportingOverflow(by  other: Self) -> Bool {
+        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public func multipliedReportingOverflow(by amount: Self) -> PVO<Self> {
-        let minus: Bool = self.isLessThanZero != amount.isLessThanZero
-        let unsigned: PVO<Magnitude> = self.magnitude.multipliedReportingOverflow(by: amount.magnitude)
+    @inlinable public func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
+        let minus: Bool = self.isLessThanZero != other.isLessThanZero
+        let unsigned: PVO<Magnitude> = self.magnitude.multipliedReportingOverflow(by: other.magnitude)
         let product = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
         return PVO(product, unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero))
     }
@@ -36,15 +36,15 @@ extension NBKDoubleWidth {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func multiplyFullWidth(by amount: Self) -> Self {
-        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: amount)
+    @inlinable public mutating func multiplyFullWidth(by other: Self) -> Self {
+        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: other)
         self = Self(bitPattern: product.low)
         return product.high as Self
     }
     
-    @inlinable public func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude> {
-        let minus = self.isLessThanZero != amount.isLessThanZero
-        var product = DoubleWidth.Magnitude(descending: self.magnitude.multipliedFullWidth(by: amount.magnitude))
+    @inlinable public func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude> {
+        let minus = self.isLessThanZero != other.isLessThanZero
+        var product = DoubleWidth.Magnitude(descending: self.magnitude.multipliedFullWidth(by: other.magnitude))
         if  minus { product.formTwosComplement() }
         return HL(Self(bitPattern: product.high), product.low)
     }
@@ -60,15 +60,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable func multipliedReportingOverflow(by amount: Self) -> PVO<Self> {
-        var lo = self.low .multipliedFullWidth(by: amount.low)
-        let ay = self.low .multipliedReportingOverflow(by: amount.high )
-        let bx = self.high.multipliedReportingOverflow(by: amount.low  )
+    @inlinable func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
+        var lo = self.low .multipliedFullWidth(by: other.low)
+        let ay = self.low .multipliedReportingOverflow(by: other.high )
+        let bx = self.high.multipliedReportingOverflow(by: other.low  )
         
         let o0 = lo.high.addReportingOverflow(ay.partialValue)
         let o1 = lo.high.addReportingOverflow(bx.partialValue)
         
-        let complete = !self.high.isZero && !amount.high.isZero
+        let complete = !self.high.isZero && !other.high.isZero
         let overflow =  complete || ay.overflow || bx.overflow || o0 || o1
         return PVO(Self(descending: lo), overflow)
     }
@@ -78,11 +78,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
-    @inlinable func multipliedFullWidth(by amount: Self) -> HL<Self, Magnitude> {
-        var lo = Self(descending: self.low .multipliedFullWidth(by: amount.low ))
-        let ay = Self(descending: self.low .multipliedFullWidth(by: amount.high))
-        let bx = Self(descending: self.high.multipliedFullWidth(by: amount.low ))
-        var hi = Self(descending: self.high.multipliedFullWidth(by: amount.high))
+    @inlinable func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude> {
+        var lo = Self(descending: self.low .multipliedFullWidth(by: other.low ))
+        let ay = Self(descending: self.low .multipliedFullWidth(by: other.high))
+        let bx = Self(descending: self.high.multipliedFullWidth(by: other.low ))
+        var hi = Self(descending: self.high.multipliedFullWidth(by: other.high))
         
         let _  = hi/*-*/.addReportingOverflow(Low.increment12(&lo.high, by: Each2(ay.low,  bx.low )))
         let _  = hi.high.addReportingOverflow(Low.increment12(&hi.low,  by: Each2(ay.high, bx.high)))

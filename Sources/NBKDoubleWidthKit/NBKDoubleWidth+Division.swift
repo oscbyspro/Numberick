@@ -19,25 +19,25 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    @inlinable public mutating func divideReportingOverflow(by divisor: Self) -> Bool {
-        let pvo: PVO<Self> = self.dividedReportingOverflow(by: divisor)
+    @inlinable public mutating func divideReportingOverflow(by other: Self) -> Bool {
+        let pvo: PVO<Self> = self.dividedReportingOverflow(by: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
 
-    @inlinable public func dividedReportingOverflow(by divisor: Self) -> PVO<Self> {
-        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+    @inlinable public func dividedReportingOverflow(by other: Self) -> PVO<Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         return   PVO(qro.partialValue.quotient, qro.overflow)
     }
 
-    @inlinable public mutating func formRemainderReportingOverflow(dividingBy divisor: Self) -> Bool {
-        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: divisor)
+    @inlinable public mutating func formRemainderReportingOverflow(dividingBy other: Self) -> Bool {
+        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
 
-    @inlinable public func remainderReportingOverflow(dividingBy divisor: Self) -> PVO<Self> {
-        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+    @inlinable public func remainderReportingOverflow(dividingBy other: Self) -> PVO<Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
 
@@ -48,11 +48,11 @@ extension NBKDoubleWidth {
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
-    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
-        let lhsIsLessThanZero: Bool =    self.isLessThanZero
-        let rhsIsLessThanZero: Bool = divisor.isLessThanZero
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+        let lhsIsLessThanZero: Bool = self .isLessThanZero
+        let rhsIsLessThanZero: Bool = other.isLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide22(self.magnitude, by: divisor.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = Magnitude.divide22(self.magnitude, by: other.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
@@ -73,29 +73,29 @@ extension NBKDoubleWidth {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
 
-    @inlinable public func dividingFullWidth(_ dividend: HL<Self, Magnitude>) -> QR<Self, Self> {
-        self.dividingFullWidth(DoubleWidth(descending: dividend))
+    @inlinable public func dividingFullWidth(_ other: HL<Self, Magnitude>) -> QR<Self, Self> {
+        self.dividingFullWidth(DoubleWidth(descending: other))
     }
 
-    @inlinable public func dividingFullWidth(_ dividend: DoubleWidth) -> QR<Self, Self> {
-        let pvo: PVO<QR<Self, Self>> = self.dividingFullWidthReportingOverflow(dividend)
+    @inlinable public func dividingFullWidth(_ other: DoubleWidth) -> QR<Self, Self> {
+        let pvo: PVO<QR<Self, Self>> = self.dividingFullWidthReportingOverflow(other)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as  QR<Self, Self>
     }
 
-    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
-        self.dividingFullWidthReportingOverflow(DoubleWidth(descending: dividend))
+    @inlinable public func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
+        self.dividingFullWidthReportingOverflow(DoubleWidth(descending: other))
     }
     
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
-    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: DoubleWidth) -> PVO<QR<Self, Self>> {
-        let lhsIsLessThanZero: Bool = dividend.isLessThanZero
-        let rhsIsLessThanZero: Bool = /**/self.isLessThanZero
+    @inlinable public func dividingFullWidthReportingOverflow(_ other: DoubleWidth) -> PVO<QR<Self, Self>> {
+        let lhsIsLessThanZero: Bool = other.isLessThanZero
+        let rhsIsLessThanZero: Bool = self .isLessThanZero
         let minus: Bool = (lhsIsLessThanZero != rhsIsLessThanZero)
         //=--------------------------------------=
-        var qro = Magnitude.divide42(dividend.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = Magnitude.divide42(other.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()

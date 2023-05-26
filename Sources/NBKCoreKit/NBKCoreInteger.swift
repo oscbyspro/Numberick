@@ -68,66 +68,66 @@ extension NBKCoreInteger {
     // MARK: Details x Addition, Subtraction, Multiplication, Division
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func addReportingOverflow(_ amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.addingReportingOverflow(amount)
+    @inlinable public mutating func addReportingOverflow(_ other: Self) -> Bool {
+        let pvo: PVO<Self> = self.addingReportingOverflow(other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public mutating func subtractReportingOverflow(_ amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.subtractingReportingOverflow(amount)
+    @inlinable public mutating func subtractReportingOverflow(_ other: Self) -> Bool {
+        let pvo: PVO<Self> = self.subtractingReportingOverflow(other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public mutating func multiplyReportingOverflow(by amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: amount)
+    @inlinable public mutating func multiplyReportingOverflow(by other: Self) -> Bool {
+        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public mutating func multiplyFullWidth(by amount: Self) -> Self {
-        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: amount)
+    @inlinable public mutating func multiplyFullWidth(by other: Self) -> Self {
+        let product: HL<Self, Magnitude> = self.multipliedFullWidth(by: other)
         self = Self(bitPattern: product.low)
         return product.high as Self
     }
     
-    @inlinable public mutating func divideReportingOverflow(by amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.dividedReportingOverflow(by: amount)
+    @inlinable public mutating func divideReportingOverflow(by other: Self) -> Bool {
+        let pvo: PVO<Self> = self.dividedReportingOverflow(by: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public mutating func formRemainderReportingOverflow(dividingBy amount: Self) -> Bool {
-        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: amount)
+    @inlinable public mutating func formRemainderReportingOverflow(dividingBy other: Self) -> Bool {
+        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: other)
         self = pvo.partialValue
         return pvo.overflow as Bool
     }
     
-    @inlinable public func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self> {
-        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+    @inlinable public func quotientAndRemainder(dividingBy other: Self) -> QR<Self, Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as QR<Self, Self>
     }
     
-    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>> {
-        let quotient:  PVO<Self> = self.dividedReportingOverflow(by: divisor)
-        let remainder: PVO<Self> = self.remainderReportingOverflow(dividingBy: divisor)
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+        let quotient:  PVO<Self> = self.dividedReportingOverflow(by: other)
+        let remainder: PVO<Self> = self.remainderReportingOverflow(dividingBy: other)
         assert(quotient.overflow == remainder.overflow)
         return PVO(QR(quotient.partialValue, remainder.partialValue), quotient.overflow)
     }
     
-    @inlinable public func dividingFullWidthReportingOverflow(_ dividend: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
+    @inlinable public func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         if  self.isZero {
-            return PVO(QR(Self(bitPattern: dividend.low), Self(bitPattern: dividend.low)), true)
+            return PVO(QR(Self(bitPattern: other.low), Self(bitPattern: other.low)), true)
         }
         //=--------------------------------------=
-        let lhsIsLessThanZero: Bool = dividend.high.isLessThanZero
+        let lhsIsLessThanZero: Bool = other.high.isLessThanZero
         let rhsIsLessThanZero: Bool = /*-----*/self.isLessThanZero
         let minus: Bool  = (lhsIsLessThanZero != rhsIsLessThanZero)
         //=--------------------------------------=
-        var lhsMagnitude = HL(Magnitude(bitPattern: dividend.high), dividend.low)
+        var lhsMagnitude = HL(Magnitude(bitPattern: other.high), other.low)
         if  lhsIsLessThanZero {
             var carry = true
             carry = lhsMagnitude.low .formTwosComplementSubsequence(carry)

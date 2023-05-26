@@ -19,24 +19,24 @@ extension NBKDoubleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func addReportingOverflow(_ amount: Digit) -> Bool {
-        let amountIsLessThanZero: Bool = amount.isLessThanZero
-        var carry: Bool = self.first.addReportingOverflow(UInt(bitPattern: amount))
+    @_disfavoredOverload @inlinable public mutating func addReportingOverflow(_ other: Digit) -> Bool {
+        let otherIsLessThanZero: Bool = other.isLessThanZero
+        var carry: Bool = self.first.addReportingOverflow(UInt(bitPattern: other))
         //=----------------------------------=
-        if  carry == amountIsLessThanZero { return false }
-        let extra =  UInt(bitPattern: amountIsLessThanZero ? -1 : 1)
+        if  carry == otherIsLessThanZero { return false }
+        let extra =  UInt(bitPattern: otherIsLessThanZero ? -1 : 1)
         //=----------------------------------=
         for index in 1 ..< self.lastIndex {
             carry =  self[index].addReportingOverflow(extra)
-            if carry == amountIsLessThanZero { return false }
+            if carry == otherIsLessThanZero { return false }
         }
         //=----------------------------------=
         return self.tail.addReportingOverflow(Digit(bitPattern: extra))
     }
     
-    @_disfavoredOverload @inlinable public func addingReportingOverflow(_ amount: Digit) -> PVO<Self> {
+    @_disfavoredOverload @inlinable public func addingReportingOverflow(_ other: Digit) -> PVO<Self> {
         var partialValue = self
-        let overflow: Bool = partialValue.addReportingOverflow(amount)
+        let overflow: Bool = partialValue.addReportingOverflow(other)
         return PVO(partialValue, overflow)
     }
 }

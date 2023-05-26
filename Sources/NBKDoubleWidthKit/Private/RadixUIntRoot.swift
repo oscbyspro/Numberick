@@ -35,7 +35,7 @@ import NBKCoreKit
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Divides the dividend by its base.
+    /// Divides `dividend` by the `base` of this solution.
     @inlinable func dividing(_ dividend: UInt) -> QR<UInt, UInt>
 }
 
