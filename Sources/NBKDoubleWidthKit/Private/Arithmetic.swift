@@ -73,6 +73,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger, Digit == UInt {
     // MARK: Details x Multiplication
     //=------------------------------------------------------------------------=
     
+    #warning("TEST: code coverage")
     @_transparent @usableFromInline static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)

@@ -40,3 +40,7 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
     XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
+
+//*============================================================================*
+// MARK: * NBK x Assert x Text x Components
+//*============================================================================*

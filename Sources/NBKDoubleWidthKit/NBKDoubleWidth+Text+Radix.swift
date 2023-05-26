@@ -21,8 +21,8 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
-        let value: Optional<Self> = description.withUTF8 {
-            let (sign, body) =  NBK.components(ascii: $0)
+        let value: Optional<Self> = description.withUTF8 { utf8 in
+            let (sign, body) = NBK.unsafeIntegerTextComponents(utf8: utf8)
             guard let magnitude = Magnitude(digits: body, radix: radix) else { return nil }
             return NBK.exactly(sign: sign, magnitude: magnitude) as Optional<Self>
         }

@@ -26,14 +26,14 @@ extension NBK {
     /// ├────────┼────────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
     /// │ "+123" │ .minus │  "123" │
-    /// │ "x123" │ .plus  │ "x123" │
+    /// │ "~123" │ .plus  │ "~123" │
     /// ```
     ///
-    @inlinable public static func components(ascii: UnsafeBufferPointer<UInt8>)
+    @inlinable public static func unsafeIntegerTextComponents(utf8: UnsafeBufferPointer<UInt8>)
     -> (sign: FloatingPointSign, body: UnsafeBufferPointer<UInt8>) {
-        var ascii = ascii[...]
-        let sign  = ascii.removeSignPrefix() ??   .plus
-        let body  = UnsafeBufferPointer(rebasing: ascii)
+        var utf8 = utf8[...]
+        let sign = utf8.removeSignPrefix() ??   .plus
+        let body = UnsafeBufferPointer(rebasing: utf8)
         return (sign, body)
     }
 }
@@ -57,7 +57,7 @@ extension UnsafeBufferPointer<UInt8>.SubSequence {
     /// ├────────┼────────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
     /// │ "+123" │ .minus │  "123" │
-    /// │ "x123" │ .plus  │ "x123" │
+    /// │ "~123" │ .plus  │ "~123" │
     /// ```
     ///
     @inlinable mutating func removeSignPrefix() -> FloatingPointSign? {
