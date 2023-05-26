@@ -39,6 +39,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance from the given digit.
+    ///
+    /// ```
+    /// ┌──────── → ────────── = ────────────┐
+    /// │ digit   │ self       │ bit pattern │
+    /// ├──────── → ────────── = ────────────┤
+    /// │ Int( 0) │ Int256( 0) │ 0.......... │
+    /// │ Int(-1) │ Int256(-1) │ 1.......... │
+    /// └──────── → ────────── = ────────────┘
+    /// ```
+    ///
     @inlinable init(digit: Digit)
     
     //=------------------------------------------------------------------------=
@@ -48,19 +58,34 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Creates a new instance from the given bit.
     ///
     /// ```
-    /// ┌────── → ───────────┐
-    /// │ bit   │ self       │
-    /// ├────── → ───────────┤
-    /// │ false │ Int256( 0) │
-    /// │ true  │ Int256( 1) │
-    /// └────── → ───────────┘
+    /// ┌────── → ────────── = ────────────┐
+    /// │ bit   │ self       │ bit pattern │
+    /// ├────── → ────────── = ────────────┤
+    /// │ false │ Int256( 0) │ 0.......... │
+    /// │ true  │ Int256( 1) │ 0.........1 │
+    /// └────── → ────────── = ────────────┘
     /// ```
     ///
     /// - Note: This member has two's complement semantics.
     ///
     @inlinable init(bit: Bool)
     
-    /// Returns the least significant bit.
+    /// Returns the least significant bit (`LSB`).
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ──────┐
+    /// │ self       │ bit pattern │ LSB   │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ true  │
+    /// │ Int256( 2) │ 0........10 │ false │
+    /// │ Int256( 1) │ 0.........1 │ true  │
+    /// │ Int256( 0) │ 0.......... │ false │
+    /// │ Int256(-1) │ 1.......... │ true  │
+    /// │ Int256(-2) │ 1.........0 │ false │
+    /// │ Int256(-3) │ 1........01 │ true  │
+    /// │ Int256(-4) │ 1........11 │ false │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
     ///
     /// - Note: This member has two's complement semantics.
     ///
@@ -71,15 +96,97 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     //=------------------------------------------------------------------------=
     
     /// Returns whether this value is equal to zero.
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ───────┐
+    /// │ self       │ bit pattern │ x == 0 │
+    /// ├─────────── = ─────────── → ───────┤
+    /// │ Int256( 3) │ 0........11 │ false │
+    /// │ Int256( 2) │ 0........10 │ false │
+    /// │ Int256( 1) │ 0.........1 │ false │
+    /// │ Int256( 0) │ 0.......... │ true  │
+    /// │ Int256(-1) │ 1.......... │ false │
+    /// │ Int256(-2) │ 1.........0 │ false │
+    /// │ Int256(-3) │ 1........01 │ false │
+    /// │ Int256(-4) │ 1........00 │ false │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
+    ///
     @inlinable var isZero: Bool { get }
     
     /// Returns whether this value is less than zero.
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ───────┐
+    /// │ self       │ bit pattern │ x <  0 │
+    /// ├─────────── = ─────────── → ───────┤
+    /// │ Int256( 3) │ 0........11 │ false  │
+    /// │ Int256( 2) │ 0........10 │ false  │
+    /// │ Int256( 1) │ 0.........1 │ false  │
+    /// │ Int256( 0) │ 0.......... │ false  │
+    /// │ Int256(-1) │ 1.......... │ true   │
+    /// │ Int256(-2) │ 1.........0 │ true   │
+    /// │ Int256(-3) │ 1........01 │ true   │
+    /// │ Int256(-4) │ 1........00 │ true   │
+    /// └─────────── = ─────────── → ───────┘
+    /// ```
+    ///
+    /// Semantically, it is equivalent to the following expression:
+    ///
+    /// ```swift
+    /// leadingZeroBitCount == 0
+    /// ```
+    ///
     @inlinable var isLessThanZero: Bool { get }
     
     /// Returns whether this value is more than zero.
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ───────┐
+    /// │ self       │ bit pattern │ x >  0 │
+    /// ├─────────── = ─────────── → ───────┤
+    /// │ Int256( 3) │ 0........11 │ true   │
+    /// │ Int256( 2) │ 0........10 │ true   │
+    /// │ Int256( 1) │ 0.........1 │ true   │
+    /// │ Int256( 0) │ 0.......... │ false  │
+    /// │ Int256(-1) │ 1.......... │ false  │
+    /// │ Int256(-2) │ 1.........0 │ false  │
+    /// │ Int256(-3) │ 1........01 │ false  │
+    /// │ Int256(-4) │ 1........00 │ false  │
+    /// └─────────── = ─────────── → ───────┘
+    /// ```
+    ///
+    /// Semantically, it is equivalent to the following expression:
+    ///
+    /// ```swift
+    /// 1 ..< bitWidth ~= leadingZeroBitCount
+    /// ```
+    ///
     @inlinable var isMoreThanZero: Bool { get }
     
     /// Returns whether this value is a power of `2`.
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ──────┐
+    /// │ self       │ bit pattern │ P2    │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ false │
+    /// │ Int256( 2) │ 0........10 │ true  │
+    /// │ Int256( 1) │ 0.........1 │ true  │
+    /// │ Int256( 0) │ 0.......... │ false │
+    /// │ Int256(-1) │ 1.......... │ false │
+    /// │ Int256(-2) │ 1.........0 │ false │
+    /// │ Int256(-3) │ 1........01 │ false │
+    /// │ Int256(-4) │ 1........00 │ false │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
+    ///
+    /// Semantically, it is equivalent to the following expression:
+    ///
+    /// ```swift
+    /// nonzeroBitCount == 1
+    /// ```
+    ///
     @inlinable var isPowerOf2: Bool { get }
     
     /// A three-way comparison that returns: `-1` (less), `0` (same), or `1` (more).
@@ -101,9 +208,39 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     //=------------------------------------------------------------------------=
     
     /// Forms the two's complement of this value.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ ~x + 1     │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
     @inlinable mutating func formTwosComplement()
     
     /// Returns the two's complement of this value.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ ~x + 1     │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
     @inlinable func twosComplement() -> Self
     
     //=------------------------------------------------------------------------=
@@ -126,7 +263,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func +=(lhs: inout Self, rhs: Self)
     
@@ -146,7 +283,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func +=(lhs: inout Self, rhs: Digit)
     
@@ -166,7 +303,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func +(lhs: Self, rhs: Self) -> Self
     
@@ -186,7 +323,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func +(lhs: Self, rhs: Digit) -> Self
     
@@ -206,7 +343,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func -=(lhs: inout Self, rhs: Self)
     
@@ -226,7 +363,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func -=(lhs: inout Self, rhs: Digit)
     
@@ -246,7 +383,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func -(lhs: Self, rhs: Self) -> Self
     
@@ -266,7 +403,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func -(lhs: Self, rhs: Digit) -> Self
     
@@ -290,7 +427,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func *=(lhs: inout Self, rhs: Self)
     
@@ -310,7 +447,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func *=(lhs: inout Self, rhs: Digit)
     
@@ -330,7 +467,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func *(lhs: Self, rhs: Self) -> Self
     
@@ -350,7 +487,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func *(lhs: Self, rhs: Digit) -> Self
     
@@ -374,7 +511,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func /=(lhs: inout Self, rhs: Self)
     
@@ -389,12 +526,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func /=(lhs: inout Self, rhs: Digit)
     
@@ -414,7 +551,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func /(lhs: Self, rhs: Self) -> Self
     
@@ -429,12 +566,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func /(lhs: Self, rhs: Digit) -> Self
     
@@ -454,7 +591,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func %=(lhs: inout Self, rhs: Self)
     
@@ -469,12 +606,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func %=(lhs: inout Self, rhs: Digit)
     
@@ -494,7 +631,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static func %(lhs: Self, rhs: Self) -> Self
     
@@ -509,12 +646,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable static func %(lhs: Self, rhs: Digit) -> Digit
     
@@ -534,7 +671,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable func quotientAndRemainder(dividingBy divisor: Self) -> QR<Self, Self>
     
@@ -549,17 +686,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of overflow, a runtime error may occur.
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @_disfavoredOverload @inlinable func quotientAndRemainder(dividingBy divisor: Digit) -> QR<Self, Digit>
     
-    /// Forms the `quotient` of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
+    /// Forms the `quotient` of this value divided by the given value, and returns an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -574,11 +710,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256.min │ Int256(-1) │ Int256.min │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend.
     ///
     @inlinable mutating func divideReportingOverflow(by divisor: Self) -> Bool
     
-    /// Forms the `quotient` of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
+    /// Forms the `quotient` of this value divided by the given value, and returns an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -589,15 +726,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend.
     ///
     @_disfavoredOverload @inlinable mutating func divideReportingOverflow(by divisor: Digit) -> Bool
     
-    /// Returns the `quotient` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
+    /// Returns the `quotient` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -612,11 +750,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256.min │ Int256(-1) │ Int256.min │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend.
     ///
     @inlinable func dividedReportingOverflow(by divisor: Self) -> PVO<Self>
     
-    /// Returns the `quotient` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend.
+    /// Returns the `quotient` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -627,15 +766,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend.
     ///
     @_disfavoredOverload @inlinable func dividedReportingOverflow(by divisor: Digit) -> PVO<Self>
     
-    /// Forms the `remainder` of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, the dividend.
+    /// Forms the `remainder` of this value divided by the given value, and returns an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -650,11 +790,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256.min │ Int256(-1) │ Int256.min │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either the entire remainder or, if undefined, the dividend.
     ///
     @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Self) -> Bool
     
-    /// Forms the `remainder` of this value divided by the given value, and returns an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, the divisor.
+    /// Forms the `remainder` of this value divided by the given value, and returns an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -665,15 +806,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either the entire remainder or, if undefined, the divisor.
     ///
     @_disfavoredOverload @inlinable mutating func formRemainderReportingOverflow(dividingBy divisor: Digit) -> Bool
     
-    /// Returns the `remainder` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, the dividend.
+    /// Returns the `remainder` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -688,11 +830,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256.min │ Int256(-1) │ Int256.min │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend and dividend.
     ///
     @inlinable func remainderReportingOverflow(dividingBy divisor: Self) -> PVO<Self>
     
-    /// Returns the `remainder` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either the entire remainder or, if undefined, the divisor.
+    /// Returns the `remainder` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -703,15 +846,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend and divisor.
+    ///
     @_disfavoredOverload @inlinable func remainderReportingOverflow(dividingBy divisor: Digit) -> PVO<Digit>
     
-    /// Returns the `quotient` and `remainder` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and dividend.
+    /// Returns the `quotient` and `remainder` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -727,10 +871,11 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend and dividend.
+    ///
     @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Self) -> PVO<QR<Self, Self>>
     
-    /// Returns the `quotient` and `remainder` of this value divided by the given value, along with an overflow indicator.
-    /// In the case of overflow, the result is either truncated or, if undefined, the dividend and divisor.
+    /// Returns the `quotient` and `remainder` of this value divided by the given value, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
@@ -741,10 +886,12 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
     /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    0) │ true     │
     /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, the dividend and divisor.
     ///
     @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy divisor: Digit) -> PVO<QR<Self, Digit>>
     
@@ -779,10 +926,25 @@ extension NBKBinaryInteger {
     
     /// Returns whether this value is odd.
     ///
+    /// ```
+    /// ┌─────────── = ─────────── → ──────┐
+    /// │ self       │ bit pattern │ odd   │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ true  │
+    /// │ Int256( 2) │ 0........10 │ false │
+    /// │ Int256( 1) │ 0.........1 │ true  │
+    /// │ Int256( 0) │ 0.......... │ false │
+    /// │ Int256(-1) │ 1.......... │ true  │
+    /// │ Int256(-2) │ 1.........0 │ false │
+    /// │ Int256(-3) │ 1........01 │ true  │
+    /// │ Int256(-4) │ 1........11 │ false │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
+    ///
     /// Semantically, it is equivalent to the following expression:
     ///
     /// ```swift
-    /// self.leastSignificantBit == true
+    /// leastSignificantBit == true
     /// ```
     ///
     @inlinable public var isOdd: Bool {
@@ -791,10 +953,25 @@ extension NBKBinaryInteger {
     
     /// Returns whether this value is even.
     ///
+    /// ```
+    /// ┌─────────── = ─────────── → ──────┐
+    /// │ self       │ bit pattern │ even  │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ false │
+    /// │ Int256( 2) │ 0........10 │ true  │
+    /// │ Int256( 1) │ 0.........1 │ false │
+    /// │ Int256( 0) │ 0.......... │ true  │
+    /// │ Int256(-1) │ 1.......... │ false │
+    /// │ Int256(-2) │ 1.........0 │ true  │
+    /// │ Int256(-3) │ 1........01 │ false │
+    /// │ Int256(-4) │ 1........11 │ true  │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
+    ///
     /// Semantically, it is equivalent to the following expression:
     ///
     /// ```swift
-    /// self.leastSignificantBit == false
+    /// leastSignificantBit == false
     /// ```
     ///
     @inlinable public var isEven: Bool {
@@ -901,51 +1078,91 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     
     /// Returns a value with equal magnitude but opposite sign.
     ///
-    /// ```swift
-    /// -Int256( 1) // Int256(-1)
-    /// -Int256( 0) // Int256( 0)
-    /// -Int256(-1) // Int256( 1)
     /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ -x         │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable static prefix func -(x: Self) -> Self
     
     /// Forms a value with equal magnitude but opposite sign.
     ///
-    /// ```swift
-    /// var a = Int256( 1); a.negate() // a = Int256(-1)
-    /// var b = Int256( 0); b.negate() // b = Int256( 0)
-    /// var c = Int256(-1); c.negate() // c = Int256( 1)
     /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ -x         │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable mutating func negate()
     
     /// Returns a value with equal magnitude but opposite sign.
     ///
-    /// ```swift
-    /// Int256( 1).negated() // Int256(-1)
-    /// Int256( 0).negated() // Int256( 0)
-    /// Int256(-1).negated() // Int256( 1)
     /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ -x         │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, a runtime error may occur.
     ///
     @inlinable func negated() -> Self
     
-    /// Forms a value with equal magnitude but opposite sign, and returns an overflow indicator.
-    /// In the case of overflow, the result is truncated.
+    /// Forms a value with equal magnitude but opposite sign, along with an `overflow` indicator.
     ///
-    /// ```swift
-    /// var a: Int256.min + 1; a.negateReportingOverflow() // a = Int256.max; -> false
-    /// var b: Int256.min + 0; b.negateReportingOverflow() // b = Int256.min; -> true
     /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ -x         │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
     ///
     @inlinable mutating func negateReportingOverflow() -> Bool
     
-    /// Returns a value with equal magnitude but opposite sign, along with an overflow indicator.
-    /// In the case of overflow, the result is truncated.
+    /// Returns a value with equal magnitude but opposite sign, along with an `overflow` indicator.
     ///
-    /// ```swift
-    /// (Int256.min + 1).negatedReportingOverflow() // -> (partialValue: Int256.max, overflow: false)
-    /// (Int256.min + 0).negatedReportingOverflow() // -> (partialValue: Int256.min, overflow: true )
     /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ x          │ -x         │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
     ///
     @inlinable func negatedReportingOverflow() -> PVO<Self>
 }

@@ -37,16 +37,35 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     
     /// Creates a new instance repeating the given bit.
     ///
-    /// ```swift
-    /// Int256(repeating: false) // Int256( 0)
-    /// Int256(repeating: true ) // Int256(-1)
+    /// ```
+    /// ┌────── → ────────── = ────────────┐
+    /// │ bit   │ self       │ bit pattern │
+    /// ├────── → ────────── = ────────────┤
+    /// │ false │ Int256( 0) │ 0.......... │
+    /// │ true  │ Int256(-1) │ 1.......... │
+    /// └────── → ────────── = ────────────┘
     /// ```
     ///
     /// - Note: This member has two's complement semantics.
     ///
     @inlinable init(repeating bit: Bool)
     
-    /// Returns the most significant bit.
+    /// Returns the most significant bit (`MSB`).
+    ///
+    /// ```
+    /// ┌─────────── = ─────────── → ──────┐
+    /// │ self       │ bit pattern │ MSB   │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ false │
+    /// │ Int256( 2) │ 0........10 │ false │
+    /// │ Int256( 1) │ 0.........1 │ false │
+    /// │ Int256( 0) │ 0.......... │ false │
+    /// │ Int256(-1) │ 1.......... │ true  │
+    /// │ Int256(-2) │ 1.........0 │ true  │
+    /// │ Int256(-3) │ 1........01 │ true  │
+    /// │ Int256(-4) │ 1........00 │ true  │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
     ///
     /// - Note: This member has two's complement semantics.
     ///
@@ -74,9 +93,16 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     // MARK: Details x Complements
     //=------------------------------------------------------------------------=
     
-    /// Forms the two's complement subsequence of this value and the given carry bit.
+    /// Forms a two's complement subsequence, and returns an `overflow` indicator.
     ///
-    /// This example shows the two's complement of a composite integer:
+    /// The subsequence is equal to the two's complement when the `carry` bit is set:
+    ///
+    /// ```
+    /// formTwosComplementSubsequence(true ) // two's complement
+    /// formTwosComplementSubsequence(false) // one's complement
+    /// ```
+    ///
+    /// The following example shows a two's complement formation of a composite integer:
     ///
     /// ```swift
     /// var carry = true
@@ -86,9 +112,16 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool
     
-    /// Forms the two's complement subsequence of this value and the given carry bit.
+    /// Returns a two's complement subsequence, along with an `overflow` indicator.
     ///
-    /// This example shows the two's complement of a composite integer:
+    /// The subsequence is equal to the two's complement when the `carry` bit is set:
+    ///
+    /// ```
+    /// twosComplementSubsequence(true ) // two's complement
+    /// twosComplementSubsequence(false) // one's complement
+    /// ```
+    ///
+    /// The following example shows a two's complement formation of a composite integer:
     ///
     /// ```swift
     /// var carry = true
@@ -97,7 +130,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// ```
     ///
     @inlinable func twosComplementSubsequence(_ carry: Bool) -> PVO<Self>
-    
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition

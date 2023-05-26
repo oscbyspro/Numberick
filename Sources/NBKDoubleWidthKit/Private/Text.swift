@@ -25,14 +25,14 @@ extension UInt {
     /// letters (a-z or A-Z) in ASCII format. The decoding is case insensitive.
     ///
     /// ```
-    /// │     input       │ output │
-    /// ├────────┬────────┼────────┤
-    /// │ digits │ radix  │ value  │
-    /// ├────────┼────────┼────────┤
+    /// ┌────────┬─────── → ───────┐
+    /// │ digits │ radix  │ self   │
+    /// ├────────┼─────── → ───────┤
     /// │  "123" │  10    │  123   │
     /// │ "+123" │  10    │  nil   │
     /// │  "123" │  16    │  291   │
     /// │ "+123" │  16    │  nil   │
+    /// └────────┴─────── → ───────┘
     /// ```
     ///
     /// - Parameters:

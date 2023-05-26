@@ -20,13 +20,13 @@ extension NBK {
     /// Returns the sign, along with all remaining characters.
     ///
     /// ```
-    /// │ input  │     output      │
-    /// ├────────┼────────┬────────┤
+    /// ┌─────── → ───────┬────────┐
     /// │ ascii  │  sign  │  body  │
     /// ├────────┼────────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
     /// │ "+123" │ .minus │  "123" │
     /// │ "~123" │ .plus  │ "~123" │
+    /// └─────── → ───────┴────────┘
     /// ```
     ///
     @inlinable public static func unsafeIntegerTextComponents(utf8: UnsafeBufferPointer<UInt8>)
@@ -51,13 +51,13 @@ extension UnsafeBufferPointer<UInt8>.SubSequence {
     /// Removes and returns a sign prefix, if it exists.
     ///
     /// ```
-    /// │ input  │     output      │
-    /// ├────────┼────────┬────────┤
+    /// ┌─────── → ───────┬────────┐
     /// │ ascii  │  sign  │  self  │
     /// ├────────┼────────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
     /// │ "+123" │ .minus │  "123" │
     /// │ "~123" │ .plus  │ "~123" │
+    /// └────────┴─────── → ───────┘
     /// ```
     ///
     @inlinable mutating func removeSignPrefix() -> FloatingPointSign? {

@@ -79,12 +79,12 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     
-    /// Forms the `low` sum of adding each value in `rhs` to `lhs`, and returns the high.
+    /// Forms the `low` sum of adding each value in `rhs` to `lhs`, and returns the `high`.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
     /// ┌─────┬─────── → ────┬──────┐
-    /// │ lhs │ rhs    │ lhs │ high │
+    /// │ lhs │ rhs    │ low │ high │
     /// ├─────┼─────── → ────┤──────┤
     /// │  0  │  0,  0 │  0  │  0   │
     /// │  1  │  2,  3 │  6  │  0   │
@@ -103,7 +103,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     // MARK: Details x Subtraction
     //=------------------------------------------------------------------------=
     
-    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an overflow indicator.
+    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an `overflow` indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
@@ -126,7 +126,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
         return  (     y) as Bool
     }
     
-    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an overflow indicator.
+    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an `overflow` indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
