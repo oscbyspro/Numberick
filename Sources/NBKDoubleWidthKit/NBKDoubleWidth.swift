@@ -75,10 +75,11 @@ import NBKCoreKit
 /// operations are more efficient for small calculations. Here are some examples:
 ///
 /// ```swift
-/// Int256.max + Int(1)
-/// Int256.max - Int(2)
-/// Int256.max * Int(3)
-/// Int256.max / Int(4)
+/// Int256(1) + Int(1)
+/// Int256(2) - Int(2)
+/// Int256(3) * Int(3)
+/// Int256(4) / Int(4)
+/// Int256(5) % Int(5)
 /// ```
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
