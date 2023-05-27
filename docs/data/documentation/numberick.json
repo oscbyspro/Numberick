@@ -1,0 +1,1690 @@
+{
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "Numberick",
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "role" : "collection",
+    "roleHeading" : "Framework",
+    "symbolKind" : "module",
+    "title" : "Numberick"
+  },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "NBKCoreKit",
+          "level" : 2,
+          "text" : "NBKCoreKit",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A new protocol hierarchy that refines Swift’s standard library.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Protocols",
+          "level" : 3,
+          "text" : "Protocols",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBitPatternConvertible",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKSignedInteger",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKUnsignedInteger",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "anchor" : "Models",
+          "level" : 3,
+          "text" : "Models",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "anchor" : "NBKDoubleWidthKit",
+          "level" : 2,
+          "text" : "NBKDoubleWidthKit",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A composable, large, fixed-width, two’s complement, binary integer.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "🧩-Composable",
+          "level" : 3,
+          "text" : "🧩 Composable",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is a generic software model for working with fixed-width",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "integers larger than one machine word. Its bit width is double the bit width of",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "its ",
+              "type" : "text"
+            },
+            {
+              "code" : "High",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " component. In this way, you may construct new integer types:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "typealias  Int256 = NBKDoubleWidth< Int128>",
+            "typealias UInt256 = NBKDoubleWidth<UInt128>"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "💕-Twos-Complement",
+          "level" : 3,
+          "text" : "💕 Two’s Complement",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Like other binary integers, ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " has two’s complement semantics.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "The two's complement representation of  0 is an infinite sequence of 0s.",
+            "The two's complement representation of -1 is an infinite sequence of 1s."
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "🏰-Fixed-Width-Integer",
+          "level" : 3,
+          "text" : "🏰 Fixed-Width Integer",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each type of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " has a fixed bit width, and so do its halves.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "This design comes with a suite of overflow and bit-casting operations. The",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "even split also lends itself to divide-and-conquer strategies. As such, it",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "leverages A. Karatsuba’s multiplication algorithm, as well as C. Burnikel’s",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "and J. Ziegler’s fast recursive division.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "📖-Trivial-UInt-Collection",
+          "level" : 3,
+          "text" : "📖 Trivial UInt Collection",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " models a trivial ",
+              "type" : "text"
+            },
+            {
+              "code" : "UInt",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " collection, where ",
+              "type" : "text"
+            },
+            {
+              "code" : "UInt",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is an",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "unsigned machine word. It contains at least two words, but the exact count",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "depends on the platform’s architecture. You should, therefore, use",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "properties like ",
+              "type" : "text"
+            },
+            {
+              "code" : "startIndex",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "endIndex",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " instead of hard-coded indices.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "\/\/ Int256 and UInt256, as constructed on a 64-bit platform:",
+            "┌───────────────────────────┐ ┌───────────────────────────┐",
+            "│           Int256          │ │          UInt256          │",
+            "├─────────────┬─────────────┤ ├─────────────┬─────────────┤",
+            "│    Int128   │   UInt128   │ │   UInt128   │   UInt128   │",
+            "├──────┬──────┼──────┬──────┤ ├──────┬──────┼──────┬──────┤",
+            "│  Int │ UInt │ UInt │ UInt │ │ UInt │ UInt │ UInt │ UInt │",
+            "└──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┘"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Swift’s type system enforces proper layout insofar as ",
+              "type" : "text"
+            },
+            {
+              "code" : "Int",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "UInt",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " are the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "only types in the standard library that meet its type requirements.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Specifically, only ",
+              "type" : "text"
+            },
+            {
+              "code" : "Int",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "UInt",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " have ",
+              "type" : "text"
+            },
+            {
+              "code" : "NBKCoreInteger<UInt>",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "Digit",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " types.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "🚀-Single-Digit-Arithmagick",
+          "level" : 3,
+          "text" : "🚀 Single Digit Arithmagick",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Alongside its ordinary arithmagick operations, ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " provides",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "single-digit operations, where a digit is an un\/signed machine word. These",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "operations are more efficient for small calculations. Here are some examples:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "Int256(1) + Int(1), UInt256(1) + UInt(1)",
+            "Int256(2) - Int(2), UInt256(2) - UInt(2)",
+            "Int256(3) * Int(3), UInt256(3) * UInt(3)",
+            "Int256(4) \/ Int(4), UInt256(4) \/ UInt(4)",
+            "Int256(5) % Int(5), UInt256(5) % UInt(5)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Digit",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " type is ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Int",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " when ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Self",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " is signed, and ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "UInt",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " otherwise.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "anchor" : "⭐️-Feature-StaticBigInt",
+          "level" : 3,
+          "text" : "⭐️ Feature: StaticBigInt",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "code" : "StaticBigInt",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is disabled by default. You enable it in ",
+              "type" : "text"
+            },
+            {
+              "code" : "Package.swift",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "You can use ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "StaticString",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " until ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "StaticBigInt",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " becomes available.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBitPatternConvertible",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKSignedInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKUnsignedInteger"
+      ],
+      "title" : "Protocols"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded"
+      ],
+      "title" : "Models"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int128",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int256",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int512",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int1024",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int2048",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int4096",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt128",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt256",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt512",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt1024",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt2048",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt4096"
+      ],
+      "title" : "Integers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+        "doc:\/\/Numberick\/documentation\/Numberick\/LH",
+        "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
+        "doc:\/\/Numberick\/documentation\/Numberick\/QR",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+      ],
+      "title" : "Abbreviations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/HL": {
+  "abstract" : [
+    {
+      "text" : "A high and a low value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HL"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HL"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HL",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/hl"
+},
+"doc://Numberick/documentation/Numberick/Int1024": {
+  "abstract" : [
+    {
+      "text" : "A signed, 1024-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int1024"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int1024",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int1024"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int1024",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int1024"
+},
+"doc://Numberick/documentation/Numberick/Int128": {
+  "abstract" : [
+    {
+      "text" : "A signed, 128-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int128"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int128",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int128"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int128",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int128"
+},
+"doc://Numberick/documentation/Numberick/Int2048": {
+  "abstract" : [
+    {
+      "text" : "A signed, 2048-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int2048"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int2048",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int2048"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int2048",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int2048"
+},
+"doc://Numberick/documentation/Numberick/Int256": {
+  "abstract" : [
+    {
+      "text" : "A signed, 256-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int256"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int256",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int256"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int256",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int256"
+},
+"doc://Numberick/documentation/Numberick/Int4096": {
+  "abstract" : [
+    {
+      "text" : "A signed, 4096-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int4096"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int4096",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int4096"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int4096",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int4096"
+},
+"doc://Numberick/documentation/Numberick/Int512": {
+  "abstract" : [
+    {
+      "text" : "A signed, 512-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int512"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int512",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int512"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int512",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int512"
+},
+"doc://Numberick/documentation/Numberick/LH": {
+  "abstract" : [
+    {
+      "text" : "A low and a high value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LH"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/LH",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LH"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LH",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/lh"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a binary representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKBinaryInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKBinaryInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKBinaryInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKBitPatternConvertible": {
+  "abstract" : [
+    {
+      "text" : "A type that can be converted to and from a bit pattern representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKBitPatternConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBitPatternConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKBitPatternConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKBitPatternConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbitpatternconvertible"
+},
+"doc://Numberick/documentation/Numberick/NBKChunkedInt": {
+  "abstract" : [
+    {
+      "text" : "A sequence that chunks elements of an un\/signed source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKChunkedInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKChunkedInt"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKChunkedInt",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkchunkedint"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger": {
+  "abstract" : [
+    {
+      "text" : "A fixed-width, binary, integer that is up to 64 bits wide.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKCoreInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth": {
+  "abstract" : [
+    {
+      "text" : "A composable, large, fixed-width, two’s complement, binary integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKDoubleWidth",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth"
+},
+"doc://Numberick/documentation/Numberick/NBKEndianness": {
+  "abstract" : [
+    {
+      "text" : "An enumeration of little and big endianness.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKEndianness"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKEndianness"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKEndianness",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkendianness"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKSignedInteger": {
+  "abstract" : [
+    {
+      "text" : "A signed, binary, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKSignedInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKSignedInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKSignedInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKSignedInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbksignedinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKTwinHeaded": {
+  "abstract" : [
+    {
+      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKTwinHeaded"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKTwinHeaded"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKTwinHeaded",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbktwinheaded"
+},
+"doc://Numberick/documentation/Numberick/NBKUnsignedInteger": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, binary, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKUnsignedInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKUnsignedInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKUnsignedInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKUnsignedInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkunsignedinteger"
+},
+"doc://Numberick/documentation/Numberick/PVO": {
+  "abstract" : [
+    {
+      "text" : "A partial value and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PVO"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PVO"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PVO",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/pvo"
+},
+"doc://Numberick/documentation/Numberick/QR": {
+  "abstract" : [
+    {
+      "text" : "A quotient and a remainder, relating to division.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QR"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/QR",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QR"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "QR",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/qr"
+},
+"doc://Numberick/documentation/Numberick/UInt1024": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 1024-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt1024"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt1024",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt1024"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt1024",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint1024"
+},
+"doc://Numberick/documentation/Numberick/UInt128": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 128-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt128"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt128",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt128"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt128",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint128"
+},
+"doc://Numberick/documentation/Numberick/UInt2048": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 2048-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt2048"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt2048",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt2048"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt2048",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint2048"
+},
+"doc://Numberick/documentation/Numberick/UInt256": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 256-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt256"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt256",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt256"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt256",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint256"
+},
+"doc://Numberick/documentation/Numberick/UInt4096": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 4096-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt4096"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt4096",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt4096"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt4096",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint4096"
+},
+"doc://Numberick/documentation/Numberick/UInt512": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 512-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt512"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt512",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt512"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt512",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint512"
+}
+}
+}

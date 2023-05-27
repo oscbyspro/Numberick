@@ -1,0 +1,463 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/NBKBinaryInteger-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "NBKBinaryInteger Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formOnesComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementReportingOverflow()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementSubsequence(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/onesComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/twosComplementReportingOverflow()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/twosComplementSubsequence(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbkcoreinteger\/nbkbinaryinteger-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger": {
+  "abstract" : [
+    {
+      "text" : "A fixed-width, binary, integer that is up to 64 bits wide.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKCoreInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/formOnesComplement()": {
+  "abstract" : [
+    {
+      "text" : "Forms the one’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formOnesComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formOnesComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formOnesComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/formonescomplement()"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/formTwosComplementReportingOverflow()": {
+  "abstract" : [
+    {
+      "text" : "Forms the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formTwosComplementReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementReportingOverflow()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formTwosComplementReportingOverflow()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/formtwoscomplementreportingoverflow()"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/formTwosComplementSubsequence(_:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the two’s complement subsequence of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "carry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formTwosComplementSubsequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementSubsequence(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formTwosComplementSubsequence(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/formtwoscomplementsubsequence(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/onesComplement()": {
+  "abstract" : [
+    {
+      "text" : "Returns the one’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "onesComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/onesComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "onesComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/onescomplement()"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/twosComplementReportingOverflow()": {
+  "abstract" : [
+    {
+      "text" : "Returns the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "twosComplementReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3PVOa",
+      "text" : "PVO"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/twosComplementReportingOverflow()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "twosComplementReportingOverflow()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/twoscomplementreportingoverflow()"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/twosComplementSubsequence(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the two’s complement subsequence of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "carry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "twosComplementSubsequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3PVOa",
+      "text" : "PVO"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/twosComplementSubsequence(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "twosComplementSubsequence(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/twoscomplementsubsequence(_:)"
+}
+}
+}

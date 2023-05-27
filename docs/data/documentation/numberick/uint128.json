@@ -1,0 +1,602 @@
+{
+  "abstract" : [
+    {
+      "text" : "An unsigned, 128-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt128"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:17NBKDoubleWidthKit7UInt128a",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "typealias"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "UInt128"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "UInt128"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "UInt128"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "typealias"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "UInt128"
+            },
+            {
+              "kind" : "text",
+              "text" : " = "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:17NBKDoubleWidthKit0aB0V",
+              "text" : "NBKDoubleWidth"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Su",
+              "text" : "UInt"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int128",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int256",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int512",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int1024",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int2048",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Int4096",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt256",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt512",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt1024",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt2048",
+        "doc:\/\/Numberick\/documentation\/Numberick\/UInt4096"
+      ],
+      "title" : "Integers"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/uint128"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/Int1024": {
+  "abstract" : [
+    {
+      "text" : "A signed, 1024-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int1024"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int1024",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int1024"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int1024",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int1024"
+},
+"doc://Numberick/documentation/Numberick/Int128": {
+  "abstract" : [
+    {
+      "text" : "A signed, 128-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int128"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int128",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int128"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int128",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int128"
+},
+"doc://Numberick/documentation/Numberick/Int2048": {
+  "abstract" : [
+    {
+      "text" : "A signed, 2048-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int2048"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int2048",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int2048"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int2048",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int2048"
+},
+"doc://Numberick/documentation/Numberick/Int256": {
+  "abstract" : [
+    {
+      "text" : "A signed, 256-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int256"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int256",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int256"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int256",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int256"
+},
+"doc://Numberick/documentation/Numberick/Int4096": {
+  "abstract" : [
+    {
+      "text" : "A signed, 4096-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int4096"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int4096",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int4096"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int4096",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int4096"
+},
+"doc://Numberick/documentation/Numberick/Int512": {
+  "abstract" : [
+    {
+      "text" : "A signed, 512-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Int512"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Int512",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int512"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int512",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/int512"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth": {
+  "abstract" : [
+    {
+      "text" : "A composable, large, fixed-width, two’s complement, binary integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKDoubleWidth",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth"
+},
+"doc://Numberick/documentation/Numberick/UInt1024": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 1024-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt1024"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt1024",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt1024"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt1024",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint1024"
+},
+"doc://Numberick/documentation/Numberick/UInt128": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 128-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt128"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt128",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt128"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt128",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint128"
+},
+"doc://Numberick/documentation/Numberick/UInt2048": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 2048-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt2048"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt2048",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt2048"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt2048",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint2048"
+},
+"doc://Numberick/documentation/Numberick/UInt256": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 256-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt256"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt256",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt256"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt256",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint256"
+},
+"doc://Numberick/documentation/Numberick/UInt4096": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 4096-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt4096"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt4096",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt4096"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt4096",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint4096"
+},
+"doc://Numberick/documentation/Numberick/UInt512": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, 512-bit, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UInt512"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/UInt512",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt512"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt512",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/uint512"
+}
+}
+}
