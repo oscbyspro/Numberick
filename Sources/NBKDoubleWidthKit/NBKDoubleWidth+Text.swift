@@ -19,17 +19,21 @@ extension NBKDoubleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given string.
+    /// Creates a new instance from the given `description`.
     ///
     /// The description may contain a plus or minus sign (+ or -), followed
     /// by one or more decimal digits (0-9). If the description uses an invalid
     /// format, or it's value cannot be represented, the result is nil.
     ///
-    /// ```swift
-    /// Int256( "123") //  123
-    /// Int256("+123") //  123
-    /// Int256("-123") // -123
-    /// Int256(" 123") //  nil
+    /// ```
+    /// ┌──────────── → ─────────────┐
+    /// │ description │ self         │
+    /// ├──────────── → ─────────────┤
+    /// │  "123"      │ Int256( 123) │
+    /// │ "+123"      │ Int256( 123) │
+    /// │ "-123"      │ Int256(-123) │
+    /// │ "~123"      │ nil          │
+    /// └──────────── → ─────────────┘
     /// ```
     ///
     /// - Note: This member is required by `Swift.LosslessStringConvertible`.
@@ -42,11 +46,15 @@ extension NBKDoubleWidth {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    /// The description of this value.
+    /// The `description` of this value.
     ///
-    /// ```swift
-    /// Int256( 123).description //  "123"
-    /// Int256(-123).description // "-123"
+    /// ```
+    /// ┌───────────── → ────────────┐
+    /// │ self         │ description │
+    /// ├───────────── → ────────────┤
+    /// │ Int256( 123) │  "123"      │
+    /// │ Int256(-123) │ "-123"      │
+    /// └───────────── → ────────────┘
     /// ```
     ///
     /// - Note: This member is required by `Swift.CustomStringConvertible`.
@@ -55,11 +63,15 @@ extension NBKDoubleWidth {
         String(self, radix: 10, uppercase: false)
     }
     
-    /// The description of this type.
+    /// The `description` of this type.
     ///
-    /// ```swift
-    ///  Int256.description //  "Int256"
-    /// UInt512.description // "UInt512"
+    /// ```
+    /// ┌───────────── → ────────────┐
+    /// │ self         │ description │
+    /// ├───────────── → ────────────┤
+    /// │  Int256.self │  "Int256"   │
+    /// │ UInt512.self │ "UInt512"   │
+    /// └───────────── → ────────────┘
     /// ```
     ///
     @inlinable public static var description: String {

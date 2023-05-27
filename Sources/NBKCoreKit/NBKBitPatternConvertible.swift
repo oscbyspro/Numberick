@@ -7,6 +7,7 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+#warning("documentation")
 //*============================================================================*
 // MARK: * NBK x Bit Pattern Convertible
 //*============================================================================*
@@ -29,20 +30,30 @@ public protocol NBKBitPatternConvertible<BitPattern> {
     
     /// Creates a new instance from the given bit pattern.
     ///
-    /// ```swift
-    /// Int256(bitPattern: UInt256( 0)) // Int256( 0)
-    /// Int256(bitPattern: UInt256( 1)) // Int256( 1)
-    /// Int256(bitPattern: UInt256.max) // Int256(-1)
+    /// ```
+    /// ┌─────────── ⇄ ─────────── ⇄ ────────────┐
+    /// │ Int256     │ bit pattern │ UInt256     │
+    /// ├─────────── ⇄ ─────────── ⇄ ────────────┤
+    /// │ Int256( 1) │ 0.........1 │ UInt256( 1) │
+    /// │ Int256( 0) │ 0.......... │ UInt256( 0) │
+    /// │ Int256(-1) │ 1.......... │ UInt256.max │
+    /// │ Int256(-2) │ 1.........0 │ UInt256(~1) │
+    /// └─────────── ⇄ ─────────── ⇄ ────────────┘
     /// ```
     ///
-    @inlinable init(bitPattern source: BitPattern)
+    @inlinable init(bitPattern: BitPattern)
     
     /// The bit pattern of this value.
     ///
-    /// ```swift
-    /// Int256( 0).bitPattern // UInt256( 0)
-    /// Int256( 1).bitPattern // UInt256( 1)
-    /// Int256(-1).bitPattern // UInt256.max
+    /// ```
+    /// ┌─────────── ⇄ ─────────── ⇄ ────────────┐
+    /// │ Int256     │ bit pattern │ UInt256     │
+    /// ├─────────── ⇄ ─────────── ⇄ ────────────┤
+    /// │ Int256( 1) │ 0.........1 │ UInt256( 1) │
+    /// │ Int256( 0) │ 0.......... │ UInt256( 0) │
+    /// │ Int256(-1) │ 1.......... │ UInt256.max │
+    /// │ Int256(-2) │ 1.........0 │ UInt256(~1) │
+    /// └─────────── ⇄ ─────────── ⇄ ────────────┘
     /// ```
     ///
     @inlinable var bitPattern: BitPattern { get }
@@ -60,10 +71,15 @@ extension NBKBitPatternConvertible {
     
     /// Creates a new instance from the given bit pattern.
     ///
-    /// ```swift
-    /// Int256(bitPattern: UInt256( 0)) // Int256( 0)
-    /// Int256(bitPattern: UInt256( 1)) // Int256( 1)
-    /// Int256(bitPattern: UInt256.max) // Int256(-1)
+    /// ```
+    /// ┌─────────── ⇄ ─────────── ⇄ ────────────┐
+    /// │ Int256     │ bit pattern │ UInt256     │
+    /// ├─────────── ⇄ ─────────── ⇄ ────────────┤
+    /// │ Int256( 1) │ 0.........1 │ UInt256( 1) │
+    /// │ Int256( 0) │ 0.......... │ UInt256( 0) │
+    /// │ Int256(-1) │ 1.......... │ UInt256.max │
+    /// │ Int256(-2) │ 1.........0 │ UInt256(~1) │
+    /// └─────────── ⇄ ─────────── ⇄ ────────────┘
     /// ```
     ///
     @inlinable public init(bitPattern source: some NBKBitPatternConvertible<BitPattern>) {

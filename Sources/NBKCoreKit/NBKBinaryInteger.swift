@@ -161,18 +161,18 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns whether this value is a power of `2`.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ P2    │
-    /// ├─────────── = ─────────── → ──────┤
-    /// │ Int256( 3) │ 0........11 │ false │
-    /// │ Int256( 2) │ 0........10 │ true  │
-    /// │ Int256( 1) │ 0.........1 │ true  │
-    /// │ Int256( 0) │ 0.......... │ false │
-    /// │ Int256(-1) │ 1.......... │ false │
-    /// │ Int256(-2) │ 1.........0 │ false │
-    /// │ Int256(-3) │ 1........01 │ false │
-    /// │ Int256(-4) │ 1........00 │ false │
-    /// └─────────── = ─────────── → ──────┘
+    /// ┌─────────── = ─────────── → ──────────┐
+    /// │ self       │ bit pattern │ pow(2, x) │
+    /// ├─────────── = ─────────── → ──────────┤
+    /// │ Int256( 3) │ 0........11 │ false     │
+    /// │ Int256( 2) │ 0........10 │ true      │
+    /// │ Int256( 1) │ 0.........1 │ true      │
+    /// │ Int256( 0) │ 0.......... │ false     │
+    /// │ Int256(-1) │ 1.......... │ false     │
+    /// │ Int256(-2) │ 1.........0 │ false     │
+    /// │ Int256(-3) │ 1........01 │ false     │
+    /// │ Int256(-4) │ 1........00 │ false     │
+    /// └─────────── = ─────────── → ──────────┘
     /// ```
     ///
     /// Semantically, it is equivalent to the following expression:
