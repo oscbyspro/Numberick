@@ -248,9 +248,6 @@ extension RadixUIntRoot {
     //=------------------------------------------------------------------------=
     
     /// Overestimates how many times its power divides the magnitude.
-    ///
-    /// [magic]: https://github.com/oscbyspro/Numberick/issues/67
-    ///
     @inlinable func divisibilityByPowerUpperBound(_ magnitude: some UnsignedInteger) -> Int {
         magnitude.bitWidth / 36.leadingZeroBitCount &+ 1
     }

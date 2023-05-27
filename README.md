@@ -1,4 +1,4 @@
-# Numberick
+# [Numberick][NBK/D]
 
 Large number arithmetic in Swift.
 
@@ -19,7 +19,7 @@ Models, protocols, and utilities underpinning this package.
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 
-## NBKDoubleWidthKit ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
+## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
 A composable, large, fixed-width, two's complement, binary integer.
 
@@ -92,6 +92,9 @@ Int256.max / Int(4)
 - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
 <!-- Links -->
+
+[NBK/D]: https://oscbyspro.github.io/Numberick/documentation/numberick
+[DBL/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkdoublewidth
 
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
