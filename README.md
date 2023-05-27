@@ -8,7 +8,7 @@ Large number arithmetic in Swift.
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
-Models, protocols, and extensions underpinning this package.
+Models, protocols, and utilities underpinning this package.
 
 ### Protocols
 

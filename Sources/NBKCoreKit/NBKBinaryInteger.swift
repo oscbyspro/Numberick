@@ -11,7 +11,7 @@
 // MARK: * NBK x Binary Integer
 //*============================================================================*
 
-/// A binary integer.
+/// An integer type with a binary representation.
 ///
 /// ### Two's Complement
 ///

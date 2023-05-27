@@ -1,6 +1,6 @@
 # ``NBKCoreKit``
 
-Models, protocols, extensions and utilities underpinning this package.
+Models, protocols, and utilities underpinning this package.
 
 ## Topics
 
@@ -13,9 +13,13 @@ Models, protocols, extensions and utilities underpinning this package.
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 
-### Aliases — Arithmetic
+### Aliases
 
 - ``HL``
 - ``LH``
 - ``PVO``
 - ``QR``
+
+### Development
+
+- ``NBK``

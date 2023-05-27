@@ -11,7 +11,7 @@
 // MARK: * NBK x Core Integer
 //*============================================================================*
 
-/// A fixed-width, binary, integer.
+/// A fixed-width, binary, integer that is up to 64 bits wide.
 ///
 /// Only the following types in the standard library may conform to this protocol:
 ///

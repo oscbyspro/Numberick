@@ -11,7 +11,7 @@
 // MARK: * NBK x Fixed Width Integer
 //*============================================================================*
 
-/// A fixed-width, binary, integer.
+/// An integer type that uses a fixed size for every instance.
 ///
 /// ### Two's Complement
 ///
