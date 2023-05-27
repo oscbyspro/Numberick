@@ -43,9 +43,9 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 Each instance of ``NBKDoubleWidth`` has the same bit width, as does all of its
 constituent parts. With this design comes a suite of arithmetic operations for
-handling overflow. It is also safe to bit cast to/from un/signed instances.
+handling overflow. It is also safe to bit cast between un/signed instances.
 
-Because it is evenly partitioned, it is well suited for divided and conquer
+Because it is split into halves, it is well suited for divide-and-conquer
 strategies. As such, it employs adaptations of A. Karatsuba's multiplication 
 algorithm, as well as C. Burnikel's and J. Ziegler's fast recursive division.
 
