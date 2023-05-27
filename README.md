@@ -45,9 +45,9 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 ### 🏰 Fixed Width Integer
 
-Each instance of ``NBKDoubleWidth`` has the same bit width, as does all of its
-constituent parts. With this design comes a suite of arithmetic operations for
-handling overflow. It is also safe to bit cast between un/signed instances.
+Each type of ``NBKDoubleWidth`` has a fixed bit width, and so do its
+constituent parts. With this design comes a suite of operations for handling 
+overflow and bit casting un/signed types.
 
 Because it is split into halves, it is well suited for divide-and-conquer
 strategies. As such, it employs adaptations of A. Karatsuba's multiplication 
@@ -58,7 +58,7 @@ algorithm, as well as C. Burnikel's and J. Ziegler's fast recursive division.
 ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
 unsigned machine word. Its `High` component must therefore be trivial and 
 layout compatible with some machine word aggregate. This layout constraint
-makes it possible to operate on its machine words directly.
+makes it possible to access its machine words directly.
 
 ```
 // Int256 and UInt256, as constructed on a 64-bit platform:
