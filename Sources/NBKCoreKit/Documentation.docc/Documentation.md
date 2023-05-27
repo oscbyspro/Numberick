@@ -10,7 +10,6 @@ Models, protocols, extensions and utilities underpinning this package.
 - ``NBKBitPatternConvertible``
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
-- ``NBKMachineWordsInteger``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 
