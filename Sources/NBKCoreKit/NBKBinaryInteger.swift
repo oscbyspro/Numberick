@@ -17,8 +17,10 @@
 ///
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
-/// - The two's complement representation of `+0` is an infinite sequence of `0s`.
-/// - The two's complement representation of `-1` is an infinite sequence of `1s`.
+/// ```
+/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of -1 is an infinite sequence of 1s.
+/// ```
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
@@ -1059,8 +1061,10 @@ extension String {
 ///
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
-/// - The two's complement representation of `+0` is an infinite sequence of `0s`.
-/// - The two's complement representation of `-1` is an infinite sequence of `1s`.
+/// ```
+/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of -1 is an infinite sequence of 1s.
+/// ```
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
@@ -1197,8 +1201,10 @@ extension NBKSignedInteger {
 ///
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
-/// - The two's complement representation of `+0` is an infinite sequence of `0s`.
-/// - The two's complement representation of `-1` is an infinite sequence of `1s`.
+/// ```
+/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of -1 is an infinite sequence of 1s.
+/// ```
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///

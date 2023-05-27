@@ -1,26 +1,21 @@
-# Numberick
+# ``Numberick``
 
 Large number arithmetic in Swift.
 
-| Package | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
-|:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
-| 0.1.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
-
-## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
+## NBKCoreKit
 
 Models, protocols, and utilities underpinning this package.
 
 ### Protocols
 
-- [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
-- [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
-- [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
-- [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
-- [NBKMachineWordsInteger](Sources/NBKCoreKit/NBKMachineWordsInteger.swift)
-- [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
-- [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
+- ``NBKBinaryInteger``
+- ``NBKBitPatternConvertible``
+- ``NBKCoreInteger``
+- ``NBKFixedWidthInteger``
+- ``NBKSignedInteger``
+- ``NBKUnsignedInteger``
 
-## NBKDoubleWidthKit ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
+## NBKDoubleWidthKit
 
 A composable, large, fixed-width, two's complement, binary integer.
 
@@ -91,14 +86,3 @@ Int256.max / Int(4)
 ```
 
 - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
-
-<!-- Links -->
-
-[COR/S]: Sources/NBKCoreKit
-[DBL/S]: Sources/NBKDoubleWidthKit
-
-[COR/T]: Tests/NBKCoreKitTests
-[DBL/T]: Tests/NBKDoubleWidthKitTests
-
-[COR/B]: Tests/NBKCoreKitBenchmarks
-[DBL/B]: Tests/NBKDoubleWidthKitBenchmarks

@@ -60,6 +60,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
     @inlinable func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
         var lo = self.low .multipliedFullWidth(by: other.low)
         let ay = self.low .multipliedReportingOverflow(by: other.high )
