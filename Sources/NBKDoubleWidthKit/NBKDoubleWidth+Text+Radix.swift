@@ -63,6 +63,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixUIntRoot) {
+        guard !digits.isEmpty else { return nil }
+        //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
         self.init()
@@ -81,6 +83,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixUIntRoot) {
+        guard !digits.isEmpty else { return nil }
+        //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
         let alignment = digits.count % radix.exponent
         //=--------------------------------------=

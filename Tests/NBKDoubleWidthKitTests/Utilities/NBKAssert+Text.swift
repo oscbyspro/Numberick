@@ -20,12 +20,11 @@ _ integer: NBKDoubleWidth<T>?, _ radix: Int, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10 {
-        XCTAssertEqual(NBKDoubleWidth<T>(text), integer)
+        XCTAssertEqual(NBKDoubleWidth<T>(text), integer, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(NBKDoubleWidth<T>(text, radix: radix), integer)
+    XCTAssertEqual(NBKDoubleWidth<T>(text, radix: radix), integer, file: file, line: line)
 }
-
 
 func NBKAssertEncodeText<T: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<T>, _ radix: Int, _ uppercase: Bool, _ text: String,
@@ -40,7 +39,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
     XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
-
-//*============================================================================*
-// MARK: * NBK x Assert x Text x Components
-//*============================================================================*

@@ -48,7 +48,7 @@ extension UInt {
         self.init()
         
         for digit in digits {
-            guard let value = alphabet.decode(digit)/*---------------------*/ else { return nil }
+            guard let value = alphabet.decode(digit)/*---------------------*/ else { return nil }            
             guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
             guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
         }
