@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Fixed Width Integer
+// MARK: * NBK x Fixed-Width Integer
 //*============================================================================*
 
 /// An integer type that uses a fixed size for every instance.
@@ -18,7 +18,7 @@
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
 /// ```
-/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of  0 is an infinite sequence of 0s.
 /// The two's complement representation of -1 is an infinite sequence of 1s.
 /// ```
 ///

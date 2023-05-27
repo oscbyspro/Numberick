@@ -18,7 +18,7 @@
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
 /// ```
-/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of  0 is an infinite sequence of 0s.
 /// The two's complement representation of -1 is an infinite sequence of 1s.
 /// ```
 ///
@@ -323,7 +323,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @_disfavoredOverload @inlinable static func +(lhs: Self, rhs: Digit) -> Self
     
-    /// Forms the `difference` of `lhs` rhs `rhs`.
+    /// Forms the `difference` of `lhs` and `rhs`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
@@ -343,7 +343,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable static func -=(lhs: inout Self, rhs: Self)
     
-    /// Forms the `difference` of `lhs` rhs `rhs`.
+    /// Forms the `difference` of `lhs` and `rhs`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
@@ -363,7 +363,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @_disfavoredOverload @inlinable static func -=(lhs: inout Self, rhs: Digit)
     
-    /// Returns the `difference` of `lhs` rhs `rhs`.
+    /// Returns the `difference` of `lhs` and `rhs`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
@@ -383,7 +383,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable static func -(lhs: Self, rhs: Self) -> Self
     
-    /// Returns the `difference` of `lhs` rhs `rhs`.
+    /// Returns the `difference` of `lhs` and `rhs`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
@@ -1062,7 +1062,7 @@ extension String {
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
 /// ```
-/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of  0 is an infinite sequence of 0s.
 /// The two's complement representation of -1 is an infinite sequence of 1s.
 /// ```
 ///
@@ -1202,7 +1202,7 @@ extension NBKSignedInteger {
 /// Like `BinaryInteger`, it has [two's complement][2s] semantics.
 ///
 /// ```
-/// The two's complement representation of +0 is an infinite sequence of 0s.
+/// The two's complement representation of  0 is an infinite sequence of 0s.
 /// The two's complement representation of -1 is an infinite sequence of 1s.
 /// ```
 ///

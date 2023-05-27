@@ -102,19 +102,19 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The least significant word in this integer.
+    /// The least significant word of this integer.
     @inlinable public var first: UInt {
         _read   { yield  self[unchecked: self.startIndex] }
         _modify { yield &self[unchecked: self.startIndex] }
     }
     
-    /// The most significant word in this integer.
+    /// The most significant word of this integer.
     @inlinable public var last: UInt {
         _read   { yield  self[unchecked: self.lastIndex] }
         _modify { yield &self[unchecked: self.lastIndex] }
     }
     
-    /// The most significant word in this integer, reinterpreted as a ``Digit``.
+    /// The most significant word of this integer, reinterpreted as a ``Digit``.
     @inlinable public var tail: Digit {
         get { Digit(bitPattern: self.last) }
         set { self.last = UInt(bitPattern: newValue) }

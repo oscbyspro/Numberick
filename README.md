@@ -39,7 +39,7 @@ typealias UInt256 = NBKDoubleWidth<UInt128>
 Like other binary integers, ``NBKDoubleWidth`` has two's complement semantics. 
 
 ```
-The two's complement representation of +0 is an infinite sequence of 0s.
+The two's complement representation of  0 is an infinite sequence of 0s.
 The two's complement representation of -1 is an infinite sequence of 1s.
 ```
 
@@ -47,16 +47,15 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 Each specialization of ``NBKDoubleWidth`` has a fixed bit width, and so do its
 halves. This design comes with a suite of overflow and bit-casting operations.
-The even partition also lends itself to divide-and-conquer strategies. As such,
-it uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's and
-J. Ziegler's fast recursive division.
+The equal partition also lends itself to divide-and-conquer strategies. As 
+such, it uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's
+and J. Ziegler's fast recursive division.
 
 ### 📖 Trivial UInt Collection
 
 ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
-unsigned machine word. Its `High` component must therefore be trivial and 
-layout compatible with some machine word aggregate. This layout constraint
-enables direct access to its machine words.
+unsigned machine word. It contains at least two elements, and its element count
+is always a power of two. This layout enables direct machine word access.
 
 ```
 // Int256 and UInt256, as constructed on a 64-bit platform:
@@ -69,8 +68,8 @@ enables direct access to its machine words.
 └──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┘
 ```
 
-Proper layout is enforced by the type system insofar as `Int` and `UInt` are
-the only types in the standard library that meet its type constraints. 
+Swift's type system enforces proper layout insofar as `Int` and `UInt` are the
+only types in the standard library that meet its type requirements. 
 Specifically, only `Int` and `UInt` have `NBKCoreInteger<UInt>` `Digit` types.
 
 ### 🚀 Single Digit Arithmetic
@@ -80,16 +79,14 @@ single-digit operations, where a digit is an un/signed machine word. These
 operations are more efficient for small calculations. Here are some examples:
 
 ```swift
-Int256(1) + Int(1)
-Int256(2) - Int(2)
-Int256(3) * Int(3)
-Int256(4) / Int(4)
-Int256(5) % Int(5)
+Int256(1) + Int(1) │ UInt256(1) + UInt(1)
+Int256(2) - Int(2) │ UInt256(2) - UInt(2)
+Int256(3) * Int(3) │ UInt256(3) * UInt(3)
+Int256(4) / Int(4) │ UInt256(4) / UInt(4)
+Int256(5) % Int(5) │ UInt256(5) % UInt(5)
 ```
 
-```
-The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
-```
+> **Note:**  The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
 <!-- Links -->
 
