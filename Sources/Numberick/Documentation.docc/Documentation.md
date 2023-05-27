@@ -1,6 +1,6 @@
 # ``Numberick``
 
-Large number arithmetic in Swift.
+Large number arithmagick in Swift.
 
 ## NBKCoreKit
 
@@ -22,7 +22,7 @@ A composable, large, fixed-width, two's complement, binary integer.
 ### 🧩 Composable
 
 ``NBKDoubleWidth`` is a model for working with fixed-width integers larger
-than a single machine word. Its bit width is double the bit width of its `High`
+than one machine word. Its bit width is double the bit width of its `High`
 component. In this way, you may construct new integer types:
 
 ```swift
@@ -41,20 +41,18 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 ### 🏰 Fixed Width Integer
 
-Each type of ``NBKDoubleWidth`` has a fixed bit width, and so do its
-constituent parts. With this design comes a suite of operations for handling 
-overflow and bit casting un/signed types.
-
-Because it is split into halves, it is well suited for divide-and-conquer
-strategies. As such, it employs adaptations of A. Karatsuba's multiplication 
-algorithm, as well as C. Burnikel's and J. Ziegler's fast recursive division.
+Each specialization of ``NBKDoubleWidth`` has a fixed bit width, and so do its
+halves. This design comes with a suite of overflow and bit-casting operations.
+The even partition also lends itself to divide-and-conquer strategies. As such,
+it uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's and
+J. Ziegler's fast recursive division.
 
 ### 📖 Trivial UInt Collection
 
 ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
 unsigned machine word. Its `High` component must therefore be trivial and 
 layout compatible with some machine word aggregate. This layout constraint
-makes it possible to access its machine words directly.
+enables direct access to its machine words.
 
 ```
 // Int256 and UInt256, as constructed on a 64-bit platform:
@@ -67,10 +65,9 @@ makes it possible to access its machine words directly.
 └──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┘
 ```
 
-This layout is statically enforced, to some extent, using the type system
-knowledge that `Int` and `UInt` are the only types in the standard library
-that meet its requirements. Specifically, only `Int` and `UInt` have `Digit`
-types that conform to `NBKCoreInteger<UInt>`.
+Proper layout is enforced by the type system insofar as `Int` and `UInt` are
+the only types in the standard library that meet its type constraints. 
+Specifically, only `Int` and `UInt` have `NBKCoreInteger<UInt>` `Digit` types.
 
 ### 🚀 Single Digit Arithmetic
 
