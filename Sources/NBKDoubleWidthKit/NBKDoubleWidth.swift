@@ -37,11 +37,11 @@ import NBKCoreKit
 ///
 /// ### 🏰 Fixed-Width Integer
 ///
-///Each type of ``NBKDoubleWidth`` has a fixed bit width, and so do its halves.
-///This design comes with a suite of overflow and bit-casting operations. The
-///even split also lends itself to divide-and-conquer strategies. As such, it
-///uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's and J.
-///Ziegler's fast recursive division.
+/// Each type of ``NBKDoubleWidth`` has a fixed bit width, and so do its halves.
+/// This design comes with a suite of overflow and bit-casting operations. The
+/// even split also lends itself to divide-and-conquer strategies. As such, it
+/// leverages A. Karatsuba's multiplication algorithm, as well as C. Burnikel's
+/// and J. Ziegler's fast recursive division.
 ///
 /// ### 📖 Trivial UInt Collection
 ///
