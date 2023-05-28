@@ -2,9 +2,9 @@
 
 Large number arithmagick in Swift.
 
-| Date | Release | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
-|:----:|:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
-| ---  | ---     | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
+| Release | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
+|:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
+| 0.1.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
