@@ -895,10 +895,39 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given string and radix.
+    /// Creates a new instance from the given `description` and `radix`.
+    ///
+    /// The `description` may contain a plus or minus sign (+ or -), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z), according to the `radix`.
+    /// If the description uses an invalid format, or it's value cannot be represented,
+    /// the result is nil.
+    ///
+    /// ```
+    /// ┌─────────────┬────── → ─────────────┐
+    /// │ description │ radix │ self         │
+    /// ├─────────────┼────── → ─────────────┤
+    /// │  "123"      │ 16    │ Int256( 291) │
+    /// │ "+123"      │ 16    │ Int256( 291) │
+    /// │ "-123"      │ 16    │ Int256(-291) │
+    /// │ "~123"      │ 16    │ nil          │
+    /// └─────────────┴────── → ─────────────┘
+    /// ```
+    ///
+    /// - Note:  The decoding strategy is case insensitive.
+    ///
     @inlinable init?(_ description: some StringProtocol, radix: Int)
     
-    /// Creates a string representing this value, in the given format.
+    /// Creates a `description` representing this value, in the given format.
+    ///
+    /// ```
+    /// ┌──────────────┬───────┬─────────── → ────────────┐
+    /// │ self         │ radix │ uppercase  │ description │
+    /// ├──────────────┼───────┼─────────── → ────────────┤
+    /// │ Int256( 123) │ 12    │ false      │  "a3"       │
+    /// │ Int256(-123) │ 16    │ true       │ "-7B"       │
+    /// └──────────────┴───────┴─────────── → ────────────┘
+    /// ```
+    ///
     @inlinable func description(radix: Int, uppercase: Bool) -> String
 }
 

@@ -19,31 +19,20 @@ extension UInt {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given digits and radix.
+    /// Creates a new instance from the given `digits` and `radix`.
     ///
-    /// The buffer passed as `digits` contain one or more numeric digits (0-9) or
-    /// letters (a-z or A-Z) in ASCII format. The decoding is case insensitive.
+    /// The ASCII sequence passed as `digits` may contain one or more numeric
+    /// digits (0-9) or letters (a-z or A-Z), according to the `radix`. If
+    /// the ASCII sequence passed as `digits` uses an invalid format, or it's
+    /// value cannot be represented, the result is nil.
     ///
-    /// ```
-    /// ┌────────┬─────── → ───────┐
-    /// │ digits │ radix  │ self   │
-    /// ├────────┼─────── → ───────┤
-    /// │  "123" │  10    │  123   │
-    /// │ "+123" │  10    │  nil   │
-    /// │  "123" │  16    │  291   │
-    /// │ "+123" │  16    │  nil   │
-    /// └────────┴─────── → ───────┘
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - digits: An unsigned ASCII sequence of a number in the given `radix`.
-    ///   - radix: The radix of `digits`. It must be in 2 through 36. The default is 10.
+    /// - Note:  The decoding strategy is case insensitive.
     ///
     @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         guard !digits.isEmpty else { return nil }
         //=------------------------------------------=
         let multiplier = Self(bitPattern: radix)
-        let alphabet = AnyRadixAlphabetDecoder(radix: radix)
+        let alphabet = AnyRadixAlphabetDecoder(radix: radix) // checks the radix
         //=------------------------------------------=
         self.init()
         

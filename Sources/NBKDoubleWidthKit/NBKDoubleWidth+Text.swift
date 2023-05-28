@@ -21,8 +21,8 @@ extension NBKDoubleWidth {
     
     /// Creates a new instance from the given `description`.
     ///
-    /// The description may contain a plus or minus sign (+ or -), followed
-    /// by one or more decimal digits (0-9). If the description uses an invalid
+    /// The `description` may contain a plus or minus sign (+ or -), followed
+    /// by one or more numeric digits (0-9). If the description uses an invalid
     /// format, or it's value cannot be represented, the result is nil.
     ///
     /// ```

@@ -17,7 +17,17 @@ extension Swift.BinaryInteger {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Creates a string representing this value, in the given format.
+    /// Creates a `description` representing this value, in the given format.
+    ///
+    /// ```
+    /// ┌──────────────┬───────┬─────────── → ────────────┐
+    /// │ self         │ radix │ uppercase  │ description │
+    /// ├──────────────┼───────┼─────────── → ────────────┤
+    /// │ Int256( 123) │ 12    │ false      │  "a3"       │
+    /// │ Int256(-123) │ 16    │ true       │ "-7B"       │
+    /// └──────────────┴───────┴─────────── → ────────────┘
+    /// ```
+    ///
     @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
         String(self, radix: radix, uppercase: uppercase)
     }
