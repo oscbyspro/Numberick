@@ -73,7 +73,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     
     /// Returns whether all of its bits are set.
     ///
-    /// It can be viewed as the bitwise inverse of ``isZero``.
+    /// It can be viewed as the bitwise inverse of ``NBKBinaryInteger/isZero``.
     ///
     /// ```
     /// ┌─────────── = ─────────── → ──────┐

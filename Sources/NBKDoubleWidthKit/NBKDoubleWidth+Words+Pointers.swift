@@ -17,8 +17,8 @@ extension NBKDoubleWidth {
     // MARK: Details x Trivial UInt Collection
     //=------------------------------------------------------------------------=
     
-    @inlinable public func withContiguousStorageIfAvailable<T>(
-    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T? {
+    @inlinable public func withContiguousStorage<T>(
+    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         var base = self
         #if _endian(big)
         base.reverse()
@@ -26,13 +26,23 @@ extension NBKDoubleWidth {
         return try base.withUnsafeUIntBufferPointer(body)
     }
     
-    @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(
-    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T? {
+    @inlinable public func withContiguousStorageIfAvailable<T>(
+    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T? {
+        try self.withContiguousStorage(body)
+    }
+    
+    @inlinable public mutating func withContiguousMutableStorage<T>(
+    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         #if _endian(big)
         do    { self.reverse() }
         defer { self.reverse() }
         #endif
         return try self.withUnsafeMutableUIntBufferPointer(body)
+    }
+    
+    @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(
+    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T? {
+        try self.withContiguousMutableStorage(body)
     }
     
     //=------------------------------------------------------------------------=
@@ -79,7 +89,7 @@ extension NBKDoubleWidth {
     @inlinable mutating func withUnsafeMutableUIntBufferPointer<T>(
     _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeMutableUIntPointer { start in
-            var buffer = UnsafeMutableBufferPointer<UInt>(start: start, count: Self.count)
+            var buffer = UnsafeMutableBufferPointer(start: start, count: Self.count)
             return try body(&buffer)
         }
     }

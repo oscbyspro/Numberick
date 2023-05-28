@@ -13,7 +13,7 @@
 
 /// A type that can be converted to and from a bit pattern representation.
 ///
-/// ``init(bitPattern:)`` is a type-safe alternative to `unsafeBitCast(_:to:)`.
+/// `init(bitPattern:)` is a type-safe alternative to `unsafeBitCast(_:to:)`.
 ///
 public protocol NBKBitPatternConvertible<BitPattern> {
     
