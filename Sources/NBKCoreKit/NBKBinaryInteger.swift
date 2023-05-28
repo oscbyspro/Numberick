@@ -79,7 +79,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-1) │ 1.......... │ true  │
     /// │ Int256(-2) │ 1.........0 │ false │
     /// │ Int256(-3) │ 1........01 │ true  │
-    /// │ Int256(-4) │ 1........11 │ false │
+    /// │ Int256(-4) │ 1........00 │ false │
     /// └─────────── = ─────────── → ──────┘
     /// ```
     ///
@@ -225,7 +225,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ ~x + 1     │ overflow │
+    /// │ self       │ ~self + 1  │ overflow │
     /// ├─────────── → ───────────┼──────────┤
     /// │ Int256( 1) │ Int256(-1) │ false    │
     /// │ Int256( 0) │ Int256( 0) │ false    │
@@ -933,7 +933,7 @@ extension NBKBinaryInteger {
     /// │ Int256(-1) │ 1.......... │ true  │
     /// │ Int256(-2) │ 1.........0 │ false │
     /// │ Int256(-3) │ 1........01 │ true  │
-    /// │ Int256(-4) │ 1........11 │ false │
+    /// │ Int256(-4) │ 1........00 │ false │
     /// └─────────── = ─────────── → ──────┘
     /// ```
     ///
@@ -960,7 +960,7 @@ extension NBKBinaryInteger {
     /// │ Int256(-1) │ 1.......... │ false │
     /// │ Int256(-2) │ 1.........0 │ true  │
     /// │ Int256(-3) │ 1........01 │ false │
-    /// │ Int256(-4) │ 1........11 │ true  │
+    /// │ Int256(-4) │ 1........00 │ true  │
     /// └─────────── = ─────────── → ──────┘
     /// ```
     ///

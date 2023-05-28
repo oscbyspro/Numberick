@@ -90,7 +90,7 @@ extension String {
                     defer { index = nextIndex }
                     
                     for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
-                        (chunk, digit) = radix.dividing(chunk)
+                        (chunk,  digit) = radix.dividing(chunk)
                         let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
                         utf8.initializeElement(at: backtrackIndex, to: unit)
                     }

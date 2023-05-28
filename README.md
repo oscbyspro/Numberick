@@ -25,9 +25,9 @@ A composable, large, fixed-width, two's complement, binary integer.
 
 ### 🧩 Composable
 
-``NBKDoubleWidth`` is a model for working with fixed-width integers larger
-than one machine word. Its bit width is double the bit width of its `High`
-component. In this way, you may construct new integer types:
+``NBKDoubleWidth`` is a generic software model for working with fixed-width
+integers larger than one machine word. Its bit width is double the bit width of
+its `High` component. In this way, you may construct new integer types:
 
 ```swift
 typealias  Int256 = NBKDoubleWidth< Int128>
@@ -45,16 +45,16 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 ### 🏰 Fixed-Width Integer
 
-Each specialization of ``NBKDoubleWidth`` has a fixed bit width, and so do its
-halves. This design comes with a suite of overflow and bit-casting operations.
-The equal partition also lends itself to divide-and-conquer strategies. As 
-such, it uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's
-and J. Ziegler's fast recursive division.
+Each type of ``NBKDoubleWidth`` has a fixed bit width, and so do its halves.
+This design comes with a suite of overflow and bit-casting operations. The 
+even split also lends itself to divide-and-conquer strategies. As such, it 
+uses A. Karatsuba's multiplication algorithm, as well as C. Burnikel's and J.
+Ziegler's fast recursive division.
 
 ### 📖 Trivial UInt Collection
 
 ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
-unsigned machine word. It contains at least two elements, and its element count
+unsigned machine word. It contains at least two words, and its word count
 is always a power of two. This layout enables direct machine word access.
 
 ```
