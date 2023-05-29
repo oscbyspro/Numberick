@@ -124,6 +124,25 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// Accesses the word at the given index, from least significant to most.
+    ///
+    /// ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
+    /// unsigned machine word. It contains at least two words, and its word count
+    /// is always a power of two. This layout enables direct machine word access.
+    /// The exact count depends on the platform's architecture. You should, therefore,
+    /// use properties like `startIndex` and `endIndex` instead of hard-coded indices.
+    ///
+    /// ```
+    /// // Int256 and UInt256, as constructed on a 64-bit platform:
+    /// ┌───────────────────────────┐ ┌───────────────────────────┐
+    /// │           Int256          │ │          UInt256          │
+    /// ├─────────────┬─────────────┤ ├─────────────┬─────────────┤
+    /// │    Int128   │   UInt128   │ │   UInt128   │   UInt128   │
+    /// ├──────┬──────┼──────┬──────┤ ├──────┬──────┼──────┬──────┤
+    /// │  Int │ UInt │ UInt │ UInt │ │ UInt │ UInt │ UInt │ UInt │
+    /// └──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┘
+    /// ```
+    ///
     @inlinable public subscript(index: Int) -> UInt {
         _read {
             precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
@@ -135,6 +154,29 @@ extension NBKDoubleWidth {
         }
     }
     
+    /// Accesses the word at the given index, from least significant to most.
+    ///
+    /// ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
+    /// unsigned machine word. It contains at least two words, and its word count
+    /// is always a power of two. This layout enables direct machine word access.
+    /// The exact count depends on the platform's architecture. You should, therefore,
+    /// use properties like `startIndex` and `endIndex` instead of hard-coded indices.
+    ///
+    /// ```
+    /// // Int256 and UInt256, as constructed on a 64-bit platform:
+    /// ┌───────────────────────────┐ ┌───────────────────────────┐
+    /// │           Int256          │ │          UInt256          │
+    /// ├─────────────┬─────────────┤ ├─────────────┬─────────────┤
+    /// │    Int128   │   UInt128   │ │   UInt128   │   UInt128   │
+    /// ├──────┬──────┼──────┬──────┤ ├──────┬──────┼──────┬──────┤
+    /// │  Int │ UInt │ UInt │ UInt │ │ UInt │ UInt │ UInt │ UInt │
+    /// └──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┘
+    /// ```
+    ///
+    /// - Warning: This subscript provides unchecked read and write access. Use
+    ///   it only when you know the index is valid and that bounds-checking poses
+    ///   significant problems. Writing to an index out of bounds is unsafe.
+    ///
     @inlinable public subscript(unchecked index: Int) -> UInt {
         get {
             Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
