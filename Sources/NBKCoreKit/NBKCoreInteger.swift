@@ -124,7 +124,7 @@ extension NBKCoreInteger {
         }
         //=--------------------------------------=
         let lhsIsLessThanZero: Bool = other.high.isLessThanZero
-        let rhsIsLessThanZero: Bool = /*-----*/self.isLessThanZero
+        let rhsIsLessThanZero: Bool = /*--*/self.isLessThanZero
         let minus: Bool  = (lhsIsLessThanZero != rhsIsLessThanZero)
         //=--------------------------------------=
         var lhsMagnitude = HL(Magnitude(bitPattern: other.high), other.low)

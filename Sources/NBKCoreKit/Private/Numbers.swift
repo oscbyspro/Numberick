@@ -19,7 +19,7 @@ extension NBK {
     
     @inlinable public static func exactly<T>(sign: FloatingPointSign, magnitude: T.Magnitude) -> T? where T: NBKFixedWidthInteger {
         let isLessThanZero: Bool = (sign == .minus) && !magnitude.isZero
-        let value = T(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
-        if  value.isLessThanZero  == isLessThanZero { return value } else { return nil }
+        let result = T(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
+        if  result.isLessThanZero  == isLessThanZero { return result } else { return nil }
     }
 }

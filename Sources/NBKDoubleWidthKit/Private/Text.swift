@@ -30,16 +30,15 @@ extension UInt {
     ///
     @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
         guard !digits.isEmpty else { return nil }
-        //=------------------------------------------=
-        let multiplier = Self(bitPattern: radix)
-        let alphabet = AnyRadixAlphabetDecoder(radix: radix) // checks the radix
-        //=------------------------------------------=
+        //=--------------------------------------=
+        let alphabet = AnyRadixAlphabetDecoder(radix: radix) // this checks the radix
+        //=--------------------------------------=
         self.init()
         
         for digit in digits {
-            guard let value = alphabet.decode(digit)/*---------------------*/ else { return nil }            
-            guard !self.multiplyReportingOverflow(by: multiplier)/*--------*/ else { return nil }
-            guard !self.addReportingOverflow(Self(truncatingIfNeeded: value)) else { return nil }
+            guard let digitValue = alphabet.decode(digit) else { return nil }
+            guard !self.multiplyReportingOverflow(by:/**/ Self(bitPattern: radix)) else { return nil }
+            guard !self.addReportingOverflow(Self(truncatingIfNeeded: digitValue)) else { return nil }
         }
     }
 }
@@ -60,17 +59,18 @@ extension String {
     ///
     @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+        //=--------------------------------------=
         assert(!chunks.isEmpty, "chunks must not be empty")
         assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
         assert(  radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
-        return String.withUTF8Unchecked(chunk: chunks.last!, radix: radix, alphabet: alphabet) { leader in
-            let count = prefix.count &+ leader.count + radix.exponent * (chunks.count &- 1)
+        return String.withUTF8Unchecked(chunk: chunks.last!, radix: radix, alphabet: alphabet) { first in
+            let count: Int = prefix.count + first.count + radix.exponent * (chunks.count &- 1)
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 var index = utf8.startIndex
                 //=------------------------------=
                 index = utf8[index...].initialize(fromContentsOf: prefix)
-                index = utf8[index...].initialize(fromContentsOf: leader)
+                index = utf8[index...].initialize(fromContentsOf: first )
                 //=------------------------------=
                 for var chunk in chunks.dropLast().reversed() {
                     var digit: UInt
@@ -97,9 +97,10 @@ extension String {
     ///
     @inlinable static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
+        //=--------------------------------------=
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
-        return  Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
+        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             var digit: UInt
             var chunk: UInt = chunk
             var backtrackIndex = radix.exponent as Int

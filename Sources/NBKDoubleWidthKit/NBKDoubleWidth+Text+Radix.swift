@@ -21,13 +21,14 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
-        let value: Optional<Self> = description.withUTF8 { utf8 in
+        
+        let result: Self? =  description.withUTF8 { utf8 in
             let (sign, body) = NBK.unsafeIntegerTextComponents(utf8: utf8)
             guard let magnitude = Magnitude(digits: body, radix: radix) else { return nil }
-            return NBK.exactly(sign: sign, magnitude: magnitude) as Optional<Self>
+            return NBK.exactly(sign: sign, magnitude: magnitude) as Self?
         }
         
-        if let value { self = value } else { return nil }
+        if let result { self = result } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
@@ -49,7 +50,7 @@ extension NBKDoubleWidth {
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Decode
+    // MARK: Details x Decode x Private
     //=------------------------------------------------------------------------=
     
     @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
@@ -76,7 +77,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             digits    = digits.prefix(upTo: chunk.startIndex)
             
             guard let word = UInt(digits: UnsafeBufferPointer(rebasing: chunk), radix: radix.base) else { return nil }
-
+            
             self[index] = word
             self.formIndex(after: &index)
         }
@@ -111,25 +112,25 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Encode
+    // MARK: Details x Encode x Private
     //=------------------------------------------------------------------------=
     
     @inlinable func description(radix: Int, uppercase: Bool, prefix: UnsafeBufferPointer<UInt8>) -> String {
         self.description(radix: AnyRadixUIntRoot(radix), alphabet: MaxRadixAlphabetEncoder(uppercase: uppercase), prefix: prefix)
     }
-
+    
     @inlinable func description(radix: AnyRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         switch radix.power.isZero {
         case  true: return self.description(radix:   PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix)
         case false: return self.description(radix: ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix) }
     }
-
+    
     @inlinable func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
         let chunks: Words.SubSequence = self[...minLastIndex]
         return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
     }
-
+    
     @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return  Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in

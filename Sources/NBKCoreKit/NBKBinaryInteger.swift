@@ -923,8 +923,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// ┌──────────────┬───────┬─────────── → ────────────┐
     /// │ self         │ radix │ uppercase  │ description │
     /// ├──────────────┼───────┼─────────── → ────────────┤
-    /// │ Int256( 123) │ 12    │ false      │  "a3"       │
-    /// │ Int256(-123) │ 16    │ true       │ "-7B"       │
+    /// │ Int256( 123) │ 12    │ true       │  "A3"       │
+    /// │ Int256(-123) │ 16    │ false      │ "-7b"       │
     /// └──────────────┴───────┴─────────── → ────────────┘
     /// ```
     ///
@@ -1103,7 +1103,7 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the negative of `number`.
+    /// Returns the additive inverse of `number`.
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
@@ -1121,7 +1121,7 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     ///
     @inlinable static prefix func -(number: Self) -> Self
     
-    /// Forms the negative of `self`.
+    /// Forms the additive inverse of `self`.
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
@@ -1139,7 +1139,7 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     ///
     @inlinable mutating func negate()
     
-    /// Returns the negative of `self`.
+    /// Returns the additive inverse of `self`.
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
@@ -1157,7 +1157,7 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     ///
     @inlinable func negated() -> Self
     
-    /// Forms the negative of `self`, and returns an `overflow` indicator.
+    /// Forms the additive inverse of `self`, and returns an `overflow` indicator.
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
@@ -1175,7 +1175,7 @@ public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: N
     ///
     @inlinable mutating func negateReportingOverflow() -> Bool
     
-    /// Returns the negative of `self`, along with an `overflow` indicator.
+    /// Returns the additive inverse of `self`, along with an `overflow` indicator.
     ///
     /// ```
     /// ┌─────────── → ───────────┬──────────┐
