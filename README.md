@@ -90,6 +90,10 @@ Int256(5) % Int(5) │ UInt256(5) % UInt(5)
 
 > **Note:**  The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
+## Acknowledgement
+
+This project is inspired by [Int128][Apple/Int128] and [DoubleWidth][Apple/DoubleWidth] by Apple.
+
 <!-- Links -->
 
 [NBK/D]: https://oscbyspro.github.io/Numberick/documentation/numberick
@@ -103,3 +107,8 @@ Int256(5) % Int(5) │ UInt256(5) % UInt(5)
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
+
+<!-- Links x Acknowledgement -->
+
+[Apple/Int128]: https://github.com/apple/swift/blob/main/stdlib/public/core/Int128.swift.gyb
+[Apple/DoubleWidth]: https://github.com/apple/swift/blob/main/test/Prototypes/DoubleWidth.swift.gyb
