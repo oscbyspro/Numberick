@@ -69,7 +69,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// └─────────── → ───────┘
     /// ```
     ///
-    @_transparent @usableFromInline static func compare33(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
+    @_transparent @usableFromInline static func compare33S(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
         let a = lhs.high.compared(to: rhs.high)
         guard a.isZero else { return  a }
         
@@ -97,7 +97,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// └─────┴─────── → ─────┴─────┘
     /// ```
     ///
-    @_transparent @usableFromInline static func increment12(_ lhs: inout Self, by rhs: Each2<Self>) -> Digit {
+    @_transparent @usableFromInline static func increment12D(_ lhs: inout Self, by rhs: Each2<Self>) -> Digit {
         let x = lhs.addReportingOverflow(rhs.first )
         let y = lhs.addReportingOverflow(rhs.second)
         return  Digit(bit: x) &+ Digit(bit: y)
@@ -121,7 +121,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// └────────────┴─────── → ───────────┴──────────┘
     /// ```
     ///
-    @_transparent @usableFromInline static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
+    @_transparent @usableFromInline static func decrement32B(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.high)
         
@@ -144,7 +144,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
-    @_transparent @usableFromInline static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
+    @_transparent @usableFromInline static func decrement33B(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
         let a = lhs.low .subtractReportingOverflow(rhs.low )
         let b = lhs.mid .subtractReportingOverflow(rhs.mid )
         let c = lhs.high.subtractReportingOverflow(rhs.high)
@@ -170,7 +170,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// └────────┴──── → ───────────┘
     /// ```
     ///
-    @_transparent @usableFromInline static func multiplying21(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
+    @_transparent @usableFromInline static func multiplying213(_ lhs: Wide2<Self>, by rhs: Self) -> Wide3<Self> {
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)
                 

@@ -52,7 +52,7 @@ extension NBKDoubleWidth {
         let lhsIsLessThanZero: Bool = self .isLessThanZero
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide22(self.magnitude, by: other.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = Magnitude.divide2222(self.magnitude, by: other.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
@@ -95,7 +95,7 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = self .isLessThanZero
         let minus: Bool = (lhsIsLessThanZero != rhsIsLessThanZero)
         //=--------------------------------------=
-        var qro = Magnitude.divide42(other.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = Magnitude.divide4222(other.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
@@ -123,8 +123,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable static func divide22(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
+    /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
+    @inlinable static func divide2222(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
         let shift: Int = rhs.leadingZeroBitCount
         //=--------------------------------------=
         // divisor is zero
@@ -133,11 +133,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return PVO(QR(lhs, lhs), true)
         }
         //=--------------------------------------=
-        return PVO(Self.divide22Unchecked(lhs, by: rhs, shift: shift), false)
+        return PVO(Self.divide2222Unchecked(lhs, by: rhs, shift: shift), false)
     }
 
-    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable static func divide22Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
+    /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
+    @inlinable static func divide2222Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs.isMoreThanZero, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
@@ -161,7 +161,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
-            let (quotient, remainder) = Self.divide21(lhs, by: rhs.low)
+            let (quotient, remainder) = Self.divide2121(lhs, by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
@@ -174,7 +174,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
-        let (quotient, remainder) = Self.divide32Normalized(Wide3(high, lhs.high, lhs.low), by: rhs)
+        let (quotient, remainder) = Self.divide3212Normalized(Wide3(high, lhs.high, lhs.low), by: rhs)
         return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
     }
     
@@ -182,8 +182,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// An adaptation of Fast Recursive Division by Christoph Burnikel and Joachim Ziegler.
-    @inlinable static func divide42(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
+    /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
+    @inlinable static func divide4222(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
         let shift: Int = rhs.leadingZeroBitCount
         //=--------------------------------------=
         // divisor is zero
@@ -195,15 +195,16 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // quotient will not fit in two halves
         //=--------------------------------------=
         if  rhs <= lhs.high {
-            let high = Self.divide22Unchecked(lhs.high,  by: rhs, shift: shift)
+            let high = Self.divide2222Unchecked(lhs.high,  by: rhs, shift: shift)
             let truncated = DoubleWidth(descending: HL(high.remainder, lhs.low))
-            return PVO(Self.divide42Unchecked(truncated, by: rhs, shift: shift), true)
+            return PVO(Self.divide4222Unchecked(truncated, by: rhs, shift: shift), true)
         }
         //=--------------------------------------=
-        return PVO(Self.divide42Unchecked(lhs, by: rhs, shift: shift), false)
+        return PVO(Self.divide4222Unchecked(lhs, by: rhs, shift: shift), false)
     }
     
-    @inlinable static func divide42Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
+    /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
+    @inlinable static func divide4222Unchecked(_ lhs: DoubleWidth, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
         assert(rhs.isMoreThanZero, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
@@ -214,7 +215,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 2 by 2
         //=--------------------------------------=
         if  lhsIs00XX {
-            return Self.divide22Unchecked(lhs.low, by: rhs, shift: shift)
+            return Self.divide2222Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
         // division: 3 by 1
@@ -222,7 +223,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
             assert(lhsIs0XXX,  "quotient must fit in two halves")
-            let (quotient, remainder) = Self.divide31Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
+            let (quotient, remainder) = Self.divide3121Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
@@ -235,13 +236,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3 by 2 (normalized)
         //=--------------------------------------=
         if  lhsIs0XXX, Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
-            let (quotient, remainder) = Self.divide32Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+            let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
         }
         //=--------------------------------------=
         // division: 4 by 2 (normalized)
         //=--------------------------------------=
-        let (quotient, remainder) = Self.divide42Normalized(lhs, by: rhs)
+        let (quotient, remainder) = Self.divide4222Normalized(lhs, by: rhs)
         return QR(quotient, remainder.bitshiftedRightUnchecked(words: words, bits: bits))
     }
     
@@ -249,13 +250,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    @inlinable static func divide21(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide2121(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
         return QR(Self(descending: HL(x, y)), b)
     }
     
-    @inlinable static func divide31Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide3121Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
         assert(lhs.high < rhs, "quotient must fit in two halves")
         //=--------------------------------------=
         let (x, b) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
@@ -267,35 +268,35 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Normalized
     //=------------------------------------------------------------------------=
 
-    /// Divides 3 halves by 2 normalized halves, where the quotient fits in one half.
+    /// Divides 3 halves by 2 normalized halves, where the quotient fits in 1 half.
     ///
     /// ### Approximation Adjustment
     ///
     /// The approximation needs at most two adjustments, but the while loop is faster.
     ///
-    @inlinable static func divide32Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
+    @inlinable static func divide3212Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
         assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
         //=--------------------------------------=
         var quotient: Low = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation: Wide3<Low> =  Low.multiplying21(HL(rhs.high, rhs.low), by: quotient)
+        var approximation: Wide3<Low> =  Low.multiplying213(HL(rhs.high, rhs.low), by: quotient)
         //=--------------------------------------=
         // decrement if overestimated (max 2)
         //=--------------------------------------=
-        while Low.compare33(lhs, to: approximation)  == -1 {
+        while Low.compare33S(lhs, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
-            _ = Low.decrement32(&approximation, by: HL(rhs.high, rhs.low))
+            _ = Low.decrement32B(&approximation, by: HL(rhs.high, rhs.low))
         }
         //=--------------------------------------=
         var remainder = lhs as Wide3<Low>
-        let _  = Low.decrement33(&remainder, by: approximation)
+        let _  = Low.decrement33B(&remainder, by: approximation)
         return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }
-
-    /// Divides 4 halves by 2 normalized halves, where the quotient fits in two halves.
-    @inlinable static func divide42Normalized(_ lhs: DoubleWidth, by rhs: Self) -> QR<Self, Self> {
-        let (x, a) = Self.divide32Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
-        let (y, b) = Self.divide32Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
+    
+    /// Divides 4 halves by 2 normalized halves, where the quotient fits in 2 halves.
+    @inlinable static func divide4222Normalized(_ lhs: DoubleWidth,  by rhs: Self) -> QR<Self, Self> {
+        let (x, a) =  Self.divide3212Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
+        let (y, b) =  Self.divide3212Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return QR(Self(descending: HL(x, y)), b)
     }
 }

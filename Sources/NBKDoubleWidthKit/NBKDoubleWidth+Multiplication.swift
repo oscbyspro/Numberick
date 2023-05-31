@@ -85,8 +85,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let bx = Self(descending: self.high.multipliedFullWidth(by: other.low ))
         var hi = Self(descending: self.high.multipliedFullWidth(by: other.high))
         
-        let _  = hi/*-*/.addReportingOverflow(Low.increment12(&lo.high, by: Each2(ay.low,  bx.low )))
-        let _  = hi.high.addReportingOverflow(Low.increment12(&hi.low,  by: Each2(ay.high, bx.high)))
+        let _  = hi/*-*/.addReportingOverflow(Low.increment12D(&lo.high, by: Each2(ay.low,  bx.low )))
+        let _  = hi.high.addReportingOverflow(Low.increment12D(&hi.low,  by: Each2(ay.high, bx.high)))
         return HL(high: hi, low: lo)
     }
 }

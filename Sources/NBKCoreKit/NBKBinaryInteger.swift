@@ -127,12 +127,6 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └─────────── = ─────────── → ───────┘
     /// ```
     ///
-    /// Semantically, it is equivalent to the following expression:
-    ///
-    /// ```swift
-    /// leadingZeroBitCount == 0
-    /// ```
-    ///
     @inlinable var isLessThanZero: Bool { get }
     
     /// Returns whether this value is more than zero.
@@ -150,12 +144,6 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// │ Int256(-3) │ 1........01 │ false  │
     /// │ Int256(-4) │ 1........00 │ false  │
     /// └─────────── = ─────────── → ───────┘
-    /// ```
-    ///
-    /// Semantically, it is equivalent to the following expression:
-    ///
-    /// ```swift
-    /// 1 ..< bitWidth ~= leadingZeroBitCount
     /// ```
     ///
     @inlinable var isMoreThanZero: Bool { get }
