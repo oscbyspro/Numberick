@@ -51,6 +51,7 @@ extension NBKDoubleWidth {
         
         if  other.isLessThanZero {
             var (high, carry) = self.first.twosComplementSubsequence(true)
+            
             for index in self.indices.dropFirst() {
                 let bit = product.low[index].addReportingOverflow(high)
                 
@@ -86,7 +87,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude> {
-        var product = HL(Digit(), Magnitude())
+        var product = HL(Digit.zero, Magnitude.zero)
+        
         for index in self.indices {
             let xy = self[index].multipliedFullWidth(by: other)
             let hi = UInt(bit: product.high.addReportingOverflow(xy.low)) &+ xy.high

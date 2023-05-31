@@ -14,10 +14,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Arithmetic
+// MARK: * NBK x Arithmagick
 //*============================================================================*
 
-final class ArithmeticTests: XCTestCase {
+final class ArithmagickTests: XCTestCase {
     
     typealias T  = UInt64
     typealias T2 = Wide2<T>

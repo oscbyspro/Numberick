@@ -74,9 +74,9 @@ Swift's type system enforces proper layout insofar as `Int` and `UInt` are the
 only types in the standard library that meet its type requirements. 
 Specifically, only `Int` and `UInt` have `NBKCoreInteger<UInt>` `Digit` types.
 
-### 🚀 Single Digit Arithmetic
+### 🚀 Single Digit Arithmagick
 
-Alongside its ordinary arithmetic operations, ``NBKDoubleWidth`` also provides
+Alongside its ordinary arithmagick operations, ``NBKDoubleWidth`` provides
 single-digit operations, where a digit is an un/signed machine word. These
 operations are more efficient for small calculations. Here are some examples:
 
@@ -92,7 +92,7 @@ Int256(5) % Int(5) │ UInt256(5) % UInt(5)
 
 ## Acknowledgement
 
-This project is inspired by [Int128][Apple/Int128] and [DoubleWidth][Apple/DoubleWidth] by Apple.
+This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][Apple/DoubleWidth] by Apple.
 
 <!-- Links -->
 

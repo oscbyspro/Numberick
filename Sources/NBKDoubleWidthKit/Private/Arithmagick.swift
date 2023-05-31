@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Arithmetic x Int or UInt
+// MARK: * NBK x Arithmagick x Int or UInt
 //*============================================================================*
 
 extension NBKCoreInteger<UInt> {
@@ -36,7 +36,7 @@ extension NBKCoreInteger<UInt> {
 }
 
 //*============================================================================*
-// MARK: * NBK x Arithmetic x Tuples
+// MARK: * NBK x Arithmagick x Tuples
 //*============================================================================*
 
 @usableFromInline typealias Each2<T> = (first: T, second: T) where T: NBKFixedWidthInteger
@@ -46,6 +46,10 @@ extension NBKCoreInteger<UInt> {
 @usableFromInline typealias Wide2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
 
 @usableFromInline typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
+
+//=----------------------------------------------------------------------------=
+// MARK: + Unsigned
+//=----------------------------------------------------------------------------=
 
 extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     
