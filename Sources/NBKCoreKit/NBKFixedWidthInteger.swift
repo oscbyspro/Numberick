@@ -34,8 +34,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Creates a new instance repeating the given bit.
     ///
     /// ```
-    /// ┌────── → ────────── = ────────────┐
-    /// │ bit   │ self       │ bit pattern │
+    /// ┌────── → ─────────────────────────┐
+    /// │ bit   │ self                     │
     /// ├────── → ────────── = ────────────┤
     /// │ false │ Int256( 0) │ 0.......... │
     /// │ true  │ Int256(-1) │ 1.......... │
@@ -49,8 +49,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// Returns the most significant bit (`MSB`).
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ MSB   │
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ MSB   │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ false │
     /// │ Int256( 2) │ 0........10 │ false │
@@ -76,8 +76,8 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// It can be viewed as the bitwise inverse of ``NBKBinaryInteger/isZero``.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ full  │
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ full  │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ false │
     /// │ Int256( 2) │ 0........10 │ false │
@@ -308,15 +308,15 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -328,15 +328,15 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -348,15 +348,15 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -368,15 +368,15 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -388,17 +388,19 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: The `high` and `low` product contain the entire `overflow` from `low` to `high`.
     ///
     @inlinable mutating func multiplyFullWidth(by other: Self) -> Self
     
@@ -406,53 +408,59 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: The `high` and `low` product contain the entire `overflow` from `low` to `high`.
     ///
     @_disfavoredOverload @inlinable mutating func multiplyFullWidth(by other: Digit) -> Digit
     
-    /// Returns the `low` and `high` product of `self` and `other`.
+    /// Returns the `high` and `low` product of `self` and `other`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: The `high` and `low` product contain the entire `overflow` from `low` to `high`.
     ///
     @inlinable func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude>
     
-    /// Returns the `low` and `high` product of `self` and `other`.
+    /// Returns the `high` and `low` product of `self` and `other`.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ self       │ other      │ low        | high       │ overflow │
+    /// │ self       │ other      │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
+    ///
+    /// - Note: The `high` and `low` product contain the entire `overflow` from `low` to `high`.
     ///
     @_disfavoredOverload @inlinable func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude>
     
@@ -560,8 +568,8 @@ extension NBKFixedWidthInteger {
     /// Returns whether `self` matches the repeating `bit` pattern.
     ///
     /// ```
-    /// ┌─────────── = ────────────┬────── → ──────┐
-    /// │ self       │ bit pattern │ bit   │ match │
+    /// ┌──────────────────────────┬────── → ──────┐
+    /// │ self                     │ bit   │ match │
     /// ├─────────── = ────────────┼────── → ──────┤
     /// │ Int256( 1) │ 0.........1 │ true  │ false │
     /// │ Int256( 0) │ 0.......... │ true  │ false │

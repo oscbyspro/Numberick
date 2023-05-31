@@ -87,14 +87,14 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
-    /// ┌─────┬─────── → ────┬──────┐
-    /// │ lhs │ rhs    │ low │ high │
-    /// ├─────┼─────── → ────┤──────┤
-    /// │  0  │  0,  0 │  0  │  0   │
-    /// │  1  │  2,  3 │  6  │  0   │
-    /// │ ~1  │ ~2, ~3 │ ~8  │  2   │
-    /// │ ~0  │ ~0, ~0 │ ~2  │  2   │
-    /// └─────┴─────── → ────┴──────┘
+    /// ┌─────┬─────── → ─────┬─────┐
+    /// │ lhs │ rhs    │ high │ low │
+    /// ├─────┼─────── → ─────┤─────┤
+    /// │  0  │  0,  0 │  0   │  0  │
+    /// │  1  │  2,  3 │  0   │  6  │
+    /// │ ~1  │ ~2, ~3 │  2   │ ~8  │
+    /// │ ~0  │ ~0, ~0 │  2   │ ~2  │
+    /// └─────┴─────── → ─────┴─────┘
     /// ```
     ///
     @_transparent @usableFromInline static func increment12(_ lhs: inout Self, by rhs: Each2<Self>) -> Digit {
@@ -111,14 +111,14 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
-    /// ┌────────────┬─────── → ───────────┬───────────┐
-    /// │ lhs        │ rhs    │ difference │ overflow  │
-    /// ├────────────┼────────┼────────────┼───────────┤
-    /// │  0,  0,  0 │ ~0, ~0 │ ~0,  0,  1 │ true      │
-    /// │  1,  2,  3 │  4,  5 │  0,  6,  9 │ false     │
-    /// │ ~1, ~2, ~3 │ ~4, ~5 │ ~1, ~6, ~8 │ false     │
-    /// │ ~0, ~0, ~0 │  0,  0 │ ~0, ~0, ~0 │ false     │
-    /// └────────────┴─────── → ───────────┴───────────┘
+    /// ┌────────────┬─────── → ───────────┬──────────┐
+    /// │ lhs        │ rhs    │ difference │ overflow │
+    /// ├────────────┼────────┼────────────┼──────────┤
+    /// │  0,  0,  0 │ ~0, ~0 │ ~0,  0,  1 │ true     │
+    /// │  1,  2,  3 │  4,  5 │  0,  6,  9 │ false    │
+    /// │ ~1, ~2, ~3 │ ~4, ~5 │ ~1, ~6, ~8 │ false    │
+    /// │ ~0, ~0, ~0 │  0,  0 │ ~0, ~0, ~0 │ false    │
+    /// └────────────┴─────── → ───────────┴──────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func decrement32(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
@@ -134,14 +134,14 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
-    /// ┌────────────┬─────────── → ───────────┬───────────┐
-    /// │ lhs        │ rhs        │ difference │ overflow  │
-    /// ├────────────┼────────────┼────────────┼───────────┤
-    /// │  0,  0,  0 │ ~0, ~0, ~0 │  0,  0,  1 │ true      │
-    /// │  1,  2,  3 │ ~4, ~5, ~6 │  5,  7, 10 │ true      │
-    /// │ ~1, ~2, ~3 │  4,  5,  6 │ ~5, ~7, ~9 │ false     │
-    /// │ ~0, ~0, ~0 │  0,  0,  0 │ ~0, ~0, ~0 │ false     │
-    /// └────────────┴─────────── → ───────────┴───────────┘
+    /// ┌────────────┬─────────── → ───────────┬──────────┐
+    /// │ lhs        │ rhs        │ difference │ overflow │
+    /// ├────────────┼────────────┼────────────┼──────────┤
+    /// │  0,  0,  0 │ ~0, ~0, ~0 │  0,  0,  1 │ true     │
+    /// │  1,  2,  3 │ ~4, ~5, ~6 │  5,  7, 10 │ true     │
+    /// │ ~1, ~2, ~3 │  4,  5,  6 │ ~5, ~7, ~9 │ false    │
+    /// │ ~0, ~0, ~0 │  0,  0,  0 │ ~0, ~0, ~0 │ false    │
+    /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func decrement33(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {

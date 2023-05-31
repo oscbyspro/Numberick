@@ -37,8 +37,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Creates a new instance from the given digit.
     ///
     /// ```
-    /// ┌──────── → ────────── = ────────────┐
-    /// │ digit   │ self       │ bit pattern │
+    /// ┌──────── → ─────────────────────────┐
+    /// │ digit   │ self                     │
     /// ├──────── → ────────── = ────────────┤
     /// │ Int( 0) │ Int256( 0) │ 0.......... │
     /// │ Int(-1) │ Int256(-1) │ 1.......... │
@@ -54,8 +54,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Creates a new instance from the given bit.
     ///
     /// ```
-    /// ┌────── → ────────── = ────────────┐
-    /// │ bit   │ self       │ bit pattern │
+    /// ┌────── → ─────────────────────────┐
+    /// │ bit   │ self                     │
     /// ├────── → ────────── = ────────────┤
     /// │ false │ Int256( 0) │ 0.......... │
     /// │ true  │ Int256( 1) │ 0.........1 │
@@ -69,8 +69,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns the least significant bit (`LSB`).
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ LSB   │
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ LSB   │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ true  │
     /// │ Int256( 2) │ 0........10 │ false │
@@ -94,8 +94,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns whether this value is equal to zero.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ───────┐
-    /// │ self       │ bit pattern │ x == 0 │
+    /// ┌───────────────────────── → ───────┐
+    /// │ self                     │ x == 0 │
     /// ├─────────── = ─────────── → ───────┤
     /// │ Int256( 3) │ 0........11 │ false  │
     /// │ Int256( 2) │ 0........10 │ false  │
@@ -113,8 +113,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns whether this value is less than zero.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ───────┐
-    /// │ self       │ bit pattern │ x <  0 │
+    /// ┌───────────────────────── → ───────┐
+    /// │ self                     │ x <  0 │
     /// ├─────────── = ─────────── → ───────┤
     /// │ Int256( 3) │ 0........11 │ false  │
     /// │ Int256( 2) │ 0........10 │ false  │
@@ -138,8 +138,8 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns whether this value is more than zero.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ───────┐
-    /// │ self       │ bit pattern │ x >  0 │
+    /// ┌───────────────────────── → ───────┐
+    /// │ self                     │ x >  0 │
     /// ├─────────── = ─────────── → ───────┤
     /// │ Int256( 3) │ 0........11 │ true   │
     /// │ Int256( 2) │ 0........10 │ true   │
@@ -160,11 +160,11 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable var isMoreThanZero: Bool { get }
     
-    /// Returns whether this value is a power of `2`.
+    /// Returns whether this value is a power of two.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────────┐
-    /// │ self       │ bit pattern │ pow(2, x) │
+    /// ┌───────────────────────── → ──────────┐
+    /// │ self                     │ pow(2, x) │
     /// ├─────────── = ─────────── → ──────────┤
     /// │ Int256( 3) │ 0........11 │ false     │
     /// │ Int256( 2) │ 0........10 │ true      │
@@ -411,15 +411,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ lhs        │ rhs        │ low        | high       │ overflow │
+    /// │ lhs        │ rhs        │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -431,15 +431,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ lhs        │ rhs        │ low        | high       │ overflow │
+    /// │ lhs        │ rhs        │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -451,15 +451,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ lhs        │ rhs        │ low        | high       │ overflow │
+    /// │ lhs        │ rhs        │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256( 4) │ Int256( 0) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-6) │ Int256(-1) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256( 4) │ Int256( 0) │ false    │
+    /// │ Int256( 1) │ Int256( 4) │ Int256( 0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int256(-3) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int256( 2) │ Int256(-1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int256(-1) │ Int256( 0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int256( 2) │ Int256(-2) │ Int256( 0) │ true     │
-    /// │ Int256.min │ Int256( 2) │ Int256( 0) │ Int256(-1) │ true     │
+    /// │ Int256.max │ Int256( 2) │ Int256( 0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int256( 2) │ Int256(-1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -471,15 +471,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
-    /// │ lhs        │ rhs        │ low        | high       │ overflow │
+    /// │ lhs        │ rhs        │ high       │ low        │ overflow │
     /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256( 4) │ Int(    0) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-6) │ Int(   -1) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256( 4) │ Int(    0) │ false    │
+    /// │ Int256( 1) │ Int(    4) │ Int(    0) │ Int256( 4) │ false    │
+    /// │ Int256( 2) │ Int(   -3) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-3) │ Int(    2) │ Int(   -1) │ Int256(-6) │ false    │
+    /// │ Int256(-4) │ Int(   -1) │ Int(    0) │ Int256( 4) │ false    │
     /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
-    /// │ Int256.max │ Int(    2) │ Int256(-2) │ Int(    0) │ true     │
-    /// │ Int256.min │ Int(    2) │ Int256( 0) │ Int(   -1) │ true     │
+    /// │ Int256.max │ Int(    2) │ Int(    0) │ Int256(-2) │ true     │
+    /// │ Int256.min │ Int(    2) │ Int(   -1) │ Int256( 0) │ true     │
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
@@ -952,8 +952,8 @@ extension NBKBinaryInteger {
     /// Returns whether this value is odd.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ odd   │
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ odd   │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ true  │
     /// │ Int256( 2) │ 0........10 │ false │
@@ -979,8 +979,8 @@ extension NBKBinaryInteger {
     /// Returns whether this value is even.
     ///
     /// ```
-    /// ┌─────────── = ─────────── → ──────┐
-    /// │ self       │ bit pattern │ even  │
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ even  │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ false │
     /// │ Int256( 2) │ 0........10 │ true  │
