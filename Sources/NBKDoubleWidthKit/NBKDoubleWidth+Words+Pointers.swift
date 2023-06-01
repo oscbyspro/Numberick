@@ -17,6 +17,10 @@ extension NBKDoubleWidth {
     // MARK: Details x Trivial UInt Collection
     //=------------------------------------------------------------------------=
     
+    /// Executes the given closure on the collection’s contiguous storage.
+    ///
+    /// The elements of the contiguous storage appear in the order of the collection.
+    ///
     @inlinable public func withContiguousStorage<T>(
     _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         var base = self
@@ -25,12 +29,22 @@ extension NBKDoubleWidth {
         #endif
         return try base.withUnsafeUIntBufferPointer(body)
     }
-    
+        
+    /// Executes the given closure on the collection’s contiguous storage.
+    ///
+    /// The elements of the contiguous storage appear in the order of the collection.
+    ///
+    /// - Note: This member is required by `Swift.Sequence`.
+    ///
     @inlinable public func withContiguousStorageIfAvailable<T>(
     _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T? {
         try self.withContiguousStorage(body)
     }
     
+    /// Executes the given closure on the collection’s contiguous storage.
+    ///
+    /// The elements of the contiguous storage appear in the order of the collection.
+    ///
     @inlinable public mutating func withContiguousMutableStorage<T>(
     _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         #if _endian(big)
@@ -40,6 +54,12 @@ extension NBKDoubleWidth {
         return try self.withUnsafeMutableUIntBufferPointer(body)
     }
     
+    /// Executes the given closure on the collection’s contiguous storage.
+    ///
+    /// The elements of the contiguous storage appear in the order of the collection.
+    ///
+    /// - Note: This member is required by `Swift.MutableCollection`.
+    ///
     @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(
     _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T? {
         try self.withContiguousMutableStorage(body)

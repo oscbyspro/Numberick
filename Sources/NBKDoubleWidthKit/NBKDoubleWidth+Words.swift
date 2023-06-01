@@ -38,7 +38,7 @@ extension NBKDoubleWidth {
     @inlinable public func minLastIndexReportingIsZeroOrMinusOne() -> (minLastIndex: Int, isZeroOrMinusOne: Bool) {
         let sign  = UInt(repeating: self.isLessThanZero)
         let index = self.lastIndex(where:{ $0 != sign })
-        return index.map({( $0, false )}) ?? (0, true)
+        return index.map({( $0, false )}) ?? (Int.zero, true)
     }
 }
 

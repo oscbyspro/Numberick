@@ -375,7 +375,7 @@ final class UInt256TestsOnDivisionCodeCoverage: XCTestCase {
     // MARK: Tests x Full Width
     //=------------------------------------------------------------------------=
     
-    func testDividingFullWidth32Normalized() {
+    func testDividingFullWidth3212Normalized() {
         var dividend: (high: T, low: M)
         //=--------------------------------------=
         dividend.high = T.max << 64
