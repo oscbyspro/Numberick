@@ -148,7 +148,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return comparison.isZero ? QR(1, Self.zero) : QR(Self.zero, lhs)
         }
         //=--------------------------------------=
-        // division: 1 by 1
+        // division: 1111
         //=--------------------------------------=
         let lhsIs0X = lhs.high.isZero as Bool
         if  lhsIs0X {
@@ -157,7 +157,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return QR(Self(descending: HL(High.zero, quotient)), Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
-        // division: 2 by 1
+        // division: 2121
         //=--------------------------------------=
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
@@ -172,7 +172,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let (lhs ) = lhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         let (rhs ) = rhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         //=--------------------------------------=
-        // division: 3 by 2 (normalized)
+        // division: 3212 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide3212Normalized(Wide3(high, lhs.high, lhs.low), by: rhs)
         return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
@@ -212,13 +212,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let lhsIs0XXX = lhs.high.high.isZero as Bool
         let lhsIs00XX = lhsIs0XXX && lhs.high.low.isZero as Bool
         //=--------------------------------------=
-        // division: 2 by 2
+        // division: 2222
         //=--------------------------------------=
         if  lhsIs00XX {
             return Self.divide2222Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
-        // division: 3 by 1
+        // division: 3121
         //=--------------------------------------=
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
@@ -233,14 +233,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let (lhs) = lhs.bitshiftedLeftUnchecked(words: words, bits: bits) as DoubleWidth
         let (rhs) = rhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         //=--------------------------------------=
-        // division: 3 by 2 (normalized)
+        // division: 3212 (normalized)
         //=--------------------------------------=
         if  lhsIs0XXX, Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
             let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: words, bits: bits))
         }
         //=--------------------------------------=
-        // division: 4 by 2 (normalized)
+        // division: 4222 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide4222Normalized(lhs, by: rhs)
         return QR(quotient, remainder.bitshiftedRightUnchecked(words: words, bits: bits))

@@ -90,24 +90,24 @@ extension NBKDoubleWidth {
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
         let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
-        self = isOK ? value : sign.isFull ? Self.min : Self.max
+        if  isOK { self = value } else { self = sign.isFull ? Self.min : Self.max }
     }
-    
+
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
         self = Self.truncating(source).value
     }
-    
-    @inlinable static func truncating<T: BinaryInteger>(_ source: T)
-    -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) {
+
+    @inlinable static func truncating<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        let sign  = UInt(repeating: T.isSigned && words.last?.mostSignificantBit == true)
-        let value = Self.uninitialized { value in
-            for index in value.indices {
-                value[unchecked: index] = index < words.endIndex ? words[index] : sign
+        let isLessThanZero = T.isSigned && words.last?.mostSignificantBit == true
+        let sign  = UInt(repeating: isLessThanZero)
+        //=--------------------------------------=
+        let value = Self.uninitialized  { value in
+            for index in value.indices  {
+                value[unchecked: index] = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
             }
         }
-        
-        assert(words.startIndex == Int.zero && words.endIndex == words.count)
-        return(value: value, remainders: words.dropFirst(value.count), sign: sign)
+        //=--------------------------------------=
+        return (value: value, remainders: words.dropFirst(value.count), sign: sign)
     }
 }
