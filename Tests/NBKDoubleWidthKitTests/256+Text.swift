@@ -145,7 +145,7 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 10, String(repeating: "1", count: 19) + ":")
     }
     
-    func testDecodingStringWithoutDigitsReturnsNil() {
+    func testDecodingStringsWithoutDigitsReturnsNil() {
         NBKAssertDecodeText(T?.none, 10,  "")
         NBKAssertDecodeText(T?.none, 10, "+")
         NBKAssertDecodeText(T?.none, 10, "-")
@@ -157,7 +157,7 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 16, "~")
     }
     
-    func testDecodingValueOutsideOfRepresentableRangeReturnsNil() {
+    func testDecodingValuesOutsideOfRepresentableRangeReturnsNil() {
         let positive = "+" + String(repeating: "1", count: T.bitWidth)
         let negative = "-" + String(repeating: "1", count: T.bitWidth)
         
@@ -339,7 +339,7 @@ final class UInt256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 10, String(repeating: "1", count: 19) + ":")
     }
     
-    func testDecodingStringWithoutDigitsReturnsNil() {
+    func testDecodingStringsWithoutDigitsReturnsNil() {
         NBKAssertDecodeText(T?.none, 10,  "")
         NBKAssertDecodeText(T?.none, 10, "+")
         NBKAssertDecodeText(T?.none, 10, "-")
@@ -351,7 +351,7 @@ final class UInt256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 16, "~")
     }
     
-    func testDecodingValueOutsideOfRepresentableRangeReturnsNil() {
+    func testDecodingValuesOutsideOfRepresentableRangeReturnsNil() {
         let positive = "+" + String(repeating: "1", count: T.bitWidth + 1)
         let negative = "-" + String(repeating: "1", count: 1)
         

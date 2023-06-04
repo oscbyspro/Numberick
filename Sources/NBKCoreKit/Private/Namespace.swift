@@ -15,4 +15,15 @@
 ///
 /// - Warning: Do not use this namespace outside of `Numberick` development.
 ///
-@frozen public enum NBK { }
+@frozen public enum NBK {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Aliases
+    //=------------------------------------------------------------------------=
+    
+    /// The sign of a numeric value.
+    public typealias Sign = FloatingPointSign
+
+    /// An unsafe pointer to a collection of `UTF-8` code points.
+    public typealias UnsafeUTF8 = UnsafeBufferPointer<UInt8>
+}

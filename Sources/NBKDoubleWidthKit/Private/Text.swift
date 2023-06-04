@@ -28,7 +28,7 @@ extension UInt {
     ///
     /// - Note:  The decoding strategy is case insensitive.
     ///
-    @inlinable init?(digits: UnsafeBufferPointer<UInt8>, radix: Int) {
+    @inlinable init?(digits: NBK.UnsafeUTF8, radix: Int) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         let alphabet = AnyRadixAlphabetDecoder(radix: radix) // this checks the radix
@@ -58,7 +58,7 @@ extension String {
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
     @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeBufferPointer<UInt8>) -> String {
+    alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
         assert(!chunks.isEmpty, "chunks must not be empty")
         assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
@@ -96,7 +96,7 @@ extension String {
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
     @inlinable static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
+    alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
         //=--------------------------------------=
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
@@ -116,7 +116,7 @@ extension String {
             let initialized = utf8[backtrackIndex...]
             defer { initialized.deinitialize() }
             //=----------------------------------=
-            return body(UnsafeBufferPointer(rebasing: initialized))
+            return body(NBK.UnsafeUTF8(rebasing: initialized))
         }
     }
 }

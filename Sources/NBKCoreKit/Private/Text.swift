@@ -17,57 +17,41 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Returns the sign, along with all remaining characters.
+    /// Returns the integer's sign, along with all other code points.
     ///
     /// ```
     /// ┌─────── → ───────┬────────┐
-    /// │ ascii  │  sign  │  body  │
-    /// ├────────┼────────┼────────┤
+    /// │ utf8   │  sign  │  body  │
+    /// ├─────── → ───────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
-    /// │ "+123" │ .minus │  "123" │
+    /// │ "-123" │ .minus │  "123" │
     /// │ "~123" │ .plus  │ "~123" │
     /// └─────── → ───────┴────────┘
     /// ```
     ///
-    @inlinable public static func unsafeIntegerTextComponents(utf8: UnsafeBufferPointer<UInt8>)
-    -> (sign: FloatingPointSign, body: UnsafeBufferPointer<UInt8>) {
-        var utf8 = utf8[...]
-        let sign = utf8.removeSignPrefix() ??   .plus
-        let body = UnsafeBufferPointer(rebasing: utf8)
-        return (sign, body)
+    @inlinable public static func unsafeIntegerComponents(utf8: UnsafeUTF8) -> (sign: Sign, body: UnsafeUTF8) {
+        var utf8 = utf8[...] as UnsafeUTF8.SubSequence
+        let sign = NBK.removeSignPrefix(utf8: &utf8) ?? Sign.plus
+        let body = UnsafeUTF8(rebasing: utf8)
+        return (sign: sign, body: body)
     }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + SubSequence
-//=----------------------------------------------------------------------------=
-
-extension UnsafeBufferPointer<UInt8>.SubSequence {
     
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Removes and returns a sign prefix, if it exists.
+    /// Removes and returns an `UTF-8` encoded sign prefix, if it exists.
     ///
     /// ```
     /// ┌─────── → ───────┬────────┐
-    /// │ ascii  │  sign  │  self  │
-    /// ├────────┼────────┼────────┤
+    /// │ utf8   │  sign  │  utf8  │
+    /// ├─────── → ───────┼────────┤
     /// │ "+123" │ .plus  │  "123" │
-    /// │ "+123" │ .minus │  "123" │
-    /// │ "~123" │ .plus  │ "~123" │
-    /// └────────┴─────── → ───────┘
+    /// │ "-123" │ .minus │  "123" │
+    /// │ "~123" │  nil   │ "~123" │
+    /// └─────── → ───────┴────────┘
     /// ```
     ///
-    @inlinable mutating func removeSignPrefix() -> FloatingPointSign? {
-        guard !self.isEmpty else { return nil }
-        //=--------------------------------------=
-        var slice = self[...] as SubSequence
-        //=--------------------------------------=
-        switch slice.removeFirst() {
-        case UInt8(ascii: "+"): self = slice; return .plus
-        case UInt8(ascii: "-"): self = slice; return .minus
-        default:   return nil }
+    @inlinable public static func removeSignPrefix(utf8: inout UnsafeUTF8.SubSequence) -> Sign? {
+        switch utf8.first {
+        case UInt8(ascii: "+"): utf8.removeFirst(); return Sign.plus
+        case UInt8(ascii: "-"): utf8.removeFirst(); return Sign.minus
+        default: return nil  }
     }
 }

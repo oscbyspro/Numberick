@@ -85,7 +85,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return PVO(Digit(bitPattern: self.first), true)
         }
         //=--------------------------------------=
-        var remainder = UInt()
+        var remainder = UInt.zero
+        
         for index in self.indices.reversed() {
             (self[index], remainder) = other.dividingFullWidth(HL(remainder, self[index]))
         }

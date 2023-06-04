@@ -9,7 +9,7 @@
 
 #if DEBUG
 
-@testable import NBKCoreKit
+import NBKCoreKit
 import XCTest
 
 //*============================================================================*
@@ -56,7 +56,7 @@ file: StaticString = #file, line: UInt = #line) {
     text.withUTF8 { text in
     body.withUTF8 { body in
         
-        let (componentsSign, componentsBody) = NBK.unsafeIntegerTextComponents(utf8: text)
+        let (componentsSign, componentsBody) = NBK.unsafeIntegerComponents(utf8: text)
         
         XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
         XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
@@ -73,7 +73,7 @@ file: StaticString = #file, line: UInt = #line) {
     body.withUTF8 { body in
         
         var componentsBody = text[...]
-        let componentsSign = componentsBody.removeSignPrefix()
+        let componentsSign = NBK.removeSignPrefix(utf8: &componentsBody)
         
         XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
         XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
