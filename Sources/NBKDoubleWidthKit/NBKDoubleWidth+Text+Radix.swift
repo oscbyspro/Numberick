@@ -22,7 +22,7 @@ extension NBKDoubleWidth {
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
         
-        let result: Self? =  description.withUTF8 { utf8 in
+        let result: Self? = description.withUTF8 { utf8 in
             let (sign, body) = NBK.unsafeIntegerComponents(utf8: utf8)
             guard let magnitude = Magnitude(digits: body, radix: radix) else { return nil }
             return NBK.exactly(sign: sign, magnitude: magnitude) as Self?
@@ -134,17 +134,20 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return  Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
+            //=----------------------------------=
+            // de/init: element is trivial
+            //=----------------------------------=
             var magnitude = self
             var index = buffer.startIndex
-            
+            //=----------------------------------=
             rebasing: repeat {
                 let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)
                 buffer[index] = remainder
                 buffer.formIndex(after: &index)
                 assert(!overflow)
             }   while !magnitude.isZero
-            
-            let chunks = UnsafeBufferPointer<UInt>(rebasing: buffer[..<index])
+            //=----------------------------------=
+            let chunks  = NBK.UnsafeWords(rebasing: buffer[..<index])
             return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
         }
     }

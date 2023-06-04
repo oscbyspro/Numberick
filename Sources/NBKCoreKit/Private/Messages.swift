@@ -23,6 +23,7 @@ extension NBK {
         "overflow in \(function) at \(file):\(line)"
     }
     
+    /// A message describing the source code location of an index-out-of-bounds occurrence.
     @inlinable public static func callsiteIndexOutOfBoundsInfo(
     function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> String {
         "index out of bounds in \(function) at \(file):\(line)"

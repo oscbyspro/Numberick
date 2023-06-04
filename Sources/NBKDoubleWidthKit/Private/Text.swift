@@ -67,10 +67,13 @@ extension String {
         return String.withUTF8Unchecked(chunk: chunks.last!, radix: radix, alphabet: alphabet) { first in
             let count: Int = prefix.count + first.count + radix.exponent * (chunks.count &- 1)
             return String(unsafeUninitializedCapacity: count) { utf8 in
+                //=------------------------------=
+                // de/init: element is trivial
+                //=------------------------------=
                 var index = utf8.startIndex
                 //=------------------------------=
-                index = utf8[index...].initialize(fromContentsOf: prefix)
-                index = utf8[index...].initialize(fromContentsOf: first )
+                index = utf8[index...].update(fromContentsOf: prefix)
+                index = utf8[index...].update(fromContentsOf: first )
                 //=------------------------------=
                 for var chunk in chunks.dropLast().reversed() {
                     var digit: UInt
@@ -81,7 +84,7 @@ extension String {
                     for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
                         (chunk,  digit) = radix.dividing(chunk)
                         let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
-                        utf8.initializeElement(at: backtrackIndex, to: unit)
+                        utf8[backtrackIndex] = unit
                     }
                 }
                 //=------------------------------=
@@ -101,6 +104,9 @@ extension String {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
+            //=----------------------------------=
+            // de/init: element is trivial
+            //=----------------------------------=
             var digit: UInt
             var chunk: UInt = chunk
             var backtrackIndex = radix.exponent as Int
@@ -110,13 +116,10 @@ extension String {
                 
                 (chunk,  digit) = radix.dividing(chunk)
                 let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
-                utf8.initializeElement(at: backtrackIndex, to: unit)
+                utf8[backtrackIndex] = unit
             }   while !chunk.isZero
             //=----------------------------------=
-            let initialized = utf8[backtrackIndex...]
-            defer { initialized.deinitialize() }
-            //=----------------------------------=
-            return body(NBK.UnsafeUTF8(rebasing: initialized))
+            return body(NBK.UnsafeUTF8(rebasing: utf8[backtrackIndex...]))
         }
     }
 }
