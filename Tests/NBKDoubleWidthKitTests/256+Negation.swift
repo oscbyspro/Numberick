@@ -30,13 +30,15 @@ final class Int256TestsOnNegation: XCTestCase {
     
     func testNegating() {
         NBKAssertNegation( T(1), -T(1))
-        NBKAssertNegation( T(0),  T(0))
+        NBKAssertNegation( T( ),  T( ))
         NBKAssertNegation(-T(1),  T(1))
     }
     
     func testNegatingReportingOverflow() {
-        NBKAssertNegation(T.min, T.min,  true)
-        NBKAssertNegation(T.max, T.min + T(1))
+        NBKAssertNegation(T.max - T( ), T.min + T(1))
+        NBKAssertNegation(T.max - T(1), T.min + T(2))
+        NBKAssertNegation(T.min + T(1), T.max - T( ))
+        NBKAssertNegation(T.min + T( ), T.min,  true)
     }
     
     //=------------------------------------------------------------------------=

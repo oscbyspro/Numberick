@@ -45,11 +45,11 @@ extension NBKDoubleWidth {
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
     @inlinable public mutating func bitshiftLeftSmart(by amount: Int) {
-        let amountAbsoluteValue = amount.magnitude  as UInt
-        switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
-        case (true,  true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: amountAbsoluteValue))
+        let unsigned = amount.magnitude as UInt
+        switch (amount >= 0, unsigned < UInt(bitPattern: Self.bitWidth)) {
+        case (true,  true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: unsigned))
         case (true,  false): self = Self(repeating: false)
-        case (false, true ): self.bitshiftRightUnchecked(by: Int(bitPattern: amountAbsoluteValue))
+        case (false, true ): self.bitshiftRightUnchecked(by: Int(bitPattern: unsigned))
         case (false, false): self = Self(repeating: self.isLessThanZero)
         }
     }
@@ -155,11 +155,11 @@ extension NBKDoubleWidth {
     ///   - amount: `Int.min <= amount <= Int.max`
     ///
     @inlinable public mutating func bitshiftRightSmart(by amount: Int) {
-        let amountAbsoluteValue = amount.magnitude  as UInt
-        switch (amount >= 0, amountAbsoluteValue <  UInt(bitPattern: Self.bitWidth)) {
-        case (true,  true ): self.bitshiftRightUnchecked(by: Int(bitPattern: amountAbsoluteValue))
+        let unsigned = amount.magnitude as UInt
+        switch (amount >= 0, unsigned < UInt(bitPattern: Self.bitWidth)) {
+        case (true,  true ): self.bitshiftRightUnchecked(by: Int(bitPattern: unsigned))
         case (true,  false): self = Self(repeating: self.isLessThanZero)
-        case (false, true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: amountAbsoluteValue))
+        case (false, true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: unsigned))
         case (false, false): self = Self(repeating: false)
         }
     }

@@ -99,8 +99,8 @@ extension NBKDoubleWidth {
 
     @inlinable static func truncating<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        let isLessThanZero = T.isSigned && words.last?.mostSignificantBit == true
-        let sign  = UInt(repeating: isLessThanZero)
+        let isLessThanZero: Bool = T.isSigned && (words.last?.mostSignificantBit == true)
+        let sign = UInt(repeating: isLessThanZero)
         //=--------------------------------------=
         let value = Self.uninitialized  { value in
             for index in value.indices  {

@@ -88,13 +88,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     @_disfavoredOverload @inlinable func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude> {
         var product = HL(Digit.zero, Magnitude.zero)
-        
+        //=--------------------------------------=
+        // the high product is also the carry
+        //=--------------------------------------=
         for index in self.indices {
-            let xy = self[index].multipliedFullWidth(by: other)
-            let hi = UInt(bit: product.high.addReportingOverflow(xy.low)) &+ xy.high
-            (product.high, product.low[index]) = (hi, product.high)
+            var xy = self[index].multipliedFullWidth(by: other)
+            xy.high &+= UInt(bit: xy.low.addReportingOverflow(product.high))
+            (product.high, product.low[index]) = xy
         }
-        
+        //=--------------------------------------=
         return product as HL<Digit, Magnitude>
     }
 }
