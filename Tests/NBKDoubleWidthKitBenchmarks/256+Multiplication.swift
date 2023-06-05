@@ -29,8 +29,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplied() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
 
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs * rhs)
@@ -40,8 +40,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs &* rhs)
@@ -51,8 +51,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.multipliedReportingOverflow(by: rhs))
@@ -62,8 +62,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedFullWidth() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.multipliedFullWidth(by: rhs))
@@ -77,8 +77,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultipliedByDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-Int.max)
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs * rhs)
@@ -88,8 +88,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedByDigitWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-Int.max)
 
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs &* rhs)
@@ -99,8 +99,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedByDigitReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-Int.max)
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.multipliedReportingOverflow(by: rhs))
@@ -110,8 +110,8 @@ final class Int256BenchmarksOnMultiplication: XCTestCase {
     }
     
     func testMultipliedByDigitFullWidth() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
-        var rhs = NBK.blackHoleIdentity(Int.max)
+        var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
+        var rhs = NBK.blackHoleIdentity(-Int.max)
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.multipliedFullWidth(by: rhs))

@@ -43,22 +43,12 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude> {
-        var product = Magnitude(bitPattern: self).multipliedFullWidth(by:  Magnitude(bitPattern: other))
+        var minus = self.isLessThanZero != other.isLessThanZero
+        var product = self.magnitude.multipliedFullWidth(by: other.magnitude)
         //=--------------------------------------=
-        if  self.isLessThanZero {
-            var pvo = PVO(partialValue: UInt.zero, overflow: true)
-            for index in product.high.indices {
-                pvo = other[index].twosComplementSubsequence(pvo.overflow)
-                pvo.overflow = pvo.overflow || product.high[index].addReportingOverflow(pvo.partialValue)
-            }
-        }
-        //=--------------------------------------=
-        if  other.isLessThanZero {
-            var pvo = PVO(partialValue: UInt.zero, overflow: true)
-            for index in product.high.indices {
-                pvo = self[index].twosComplementSubsequence(pvo.overflow)
-                pvo.overflow = pvo.overflow || product.high[index].addReportingOverflow(pvo.partialValue)
-            }
+        if  minus {
+            minus = product.low .formTwosComplementSubsequence(minus)
+            minus = product.high.formTwosComplementSubsequence(minus)
         }
         //=--------------------------------------=
         return HL(Self(bitPattern: product.high), product.low)
