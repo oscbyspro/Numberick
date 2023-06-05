@@ -106,7 +106,7 @@ extension NBKDoubleWidth {
         }
         
         if  Self.isSigned, qro.partialValue.quotient.mostSignificantBit != minus {
-            qro.overflow = minus ? (qro.overflow || !qro.partialValue.quotient.isZero) : true
+            qro.overflow = qro.overflow || !(minus && qro.partialValue.quotient.isZero)
         }
         //=--------------------------------------=
         return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)

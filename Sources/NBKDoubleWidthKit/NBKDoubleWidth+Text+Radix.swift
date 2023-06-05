@@ -22,13 +22,13 @@ extension NBKDoubleWidth {
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
         
-        let result: Self? = description.withUTF8 { utf8 in
+        let value: Optional<Self> = description.withUTF8 { utf8 in
             let (sign, body) = NBK.unsafeIntegerComponents(utf8: utf8)
-            guard let magnitude = Magnitude(digits: body, radix: radix) else { return nil }
-            return NBK.exactly(sign: sign, magnitude: magnitude) as Self?
+            let magnitude = Magnitude(digits: body, radix: radix)
+            return magnitude.flatMap({ NBK.exactly(sign: sign, magnitude: $0) })
         }
         
-        if let result { self = result } else { return nil }
+        if let value { self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
@@ -97,7 +97,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             digits    = digits.suffix(from: chunkEndIndex)
             
             guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
-            self.first = word // self = (0 * radix.power) + word
+            self.first = word // self = self * radix.power + word
         }
         
         forwards: while !digits.isEmpty {
@@ -133,12 +133,12 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
-        return  Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
+        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             //=----------------------------------=
             // de/init: element is trivial
             //=----------------------------------=
-            var magnitude = self
-            var index = buffer.startIndex
+            var magnitude: Magnitude = self
+            var index: Int = buffer.startIndex
             //=----------------------------------=
             rebasing: repeat {
                 let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)

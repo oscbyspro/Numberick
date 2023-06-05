@@ -43,7 +43,7 @@ extension NBKDoubleWidth {
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
     ///
-    /// The elements of the contiguous storage appear in the order of the collection.
+    /// The elements of the contiguous mutable storage appear in the order of the collection.
     ///
     @inlinable public mutating func withContiguousMutableStorage<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
         #if _endian(big)
@@ -55,7 +55,7 @@ extension NBKDoubleWidth {
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
     ///
-    /// The elements of the contiguous storage appear in the order of the collection.
+    /// The elements of the contiguous mutable storage appear in the order of the collection.
     ///
     /// - Note: This member is required by `Swift.MutableCollection`.
     ///

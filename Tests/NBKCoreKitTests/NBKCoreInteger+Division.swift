@@ -136,12 +136,22 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             dividend.high = T(  )
             dividend.low  = M( 7)
 
-            NBKAssertDivisionFullWidth(dividend, T( 0),  T( 7), T( 7), true )
+            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true )
             //=----------------------------------=
             dividend.high = T(-1)
             dividend.low  = M( 7)
             
-            NBKAssertDivisionFullWidth(dividend, T( 0),  T( 7), T( 7), true )
+            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true )
+            //=--------------------------------------=
+            dividend.high = T(-1)
+            dividend.low  = M.max
+            
+            NBKAssertDivisionFullWidth(dividend, T( 2), T(  ), T(-1), false)
+            //=--------------------------------------=
+            dividend.high = T(  )
+            dividend.low  = M( 1)
+            
+            NBKAssertDivisionFullWidth(dividend, T(-2), T(  ), T( 1), false)
             //=----------------------------------=
             dividend.high = T(  )
             dividend.low  = M(bitPattern: T.max)

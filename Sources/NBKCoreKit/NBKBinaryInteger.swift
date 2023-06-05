@@ -1063,6 +1063,16 @@ extension String {
     //=------------------------------------------------------------------------=
     
     /// Creates a string representing the given value, in the given format.
+    ///
+    /// ```
+    /// ┌──────────────┬───────┬─────────── → ────────────┐
+    /// │ integer      │ radix │ uppercase  │ self        │
+    /// ├──────────────┼───────┼─────────── → ────────────┤
+    /// │ Int256( 123) │ 12    │ true       │  "A3"       │
+    /// │ Int256(-123) │ 16    │ false      │ "-7b"       │
+    /// └──────────────┴───────┴─────────── → ────────────┘
+    /// ```
+    ///
     @inlinable public init(_ integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
         self = integer.description(radix: radix, uppercase: uppercase)
     }
