@@ -22,8 +22,6 @@ final class ArithmagickTests: XCTestCase {
     typealias T  = UInt64
     typealias T2 = Wide2<T>
     typealias T3 = Wide3<T>
-    typealias X2 = Each2<T>
-    typealias X3 = Each3<T>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Comparisons
@@ -41,17 +39,6 @@ final class ArithmagickTests: XCTestCase {
         NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  1), -1)
         NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  1),  0)
         NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  0),  1)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Addition
-    //=------------------------------------------------------------------------=
-    
-    func testAdding12D() {
-        NBKAssertAddition12D( 0, X2( 0,  0), T2( 0,  0))
-        NBKAssertAddition12D( 1, X2( 2,  3), T2( 0,  6))
-        NBKAssertAddition12D(~1, X2(~2, ~3), T2( 2, ~8))
-        NBKAssertAddition12D(~0, X2(~0, ~0), T2( 2, ~2))
     }
     
     //=------------------------------------------------------------------------=
@@ -91,19 +78,6 @@ private func NBKAssertComparisons33S<T: NBKFixedWidthInteger & NBKUnsignedIntege
 _ lhs: Wide3<T>, _ rhs: Wide3<T>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(T.compare33S(lhs, to: rhs), signum, file: file, line: line)
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Utilities x Addition
-//=----------------------------------------------------------------------------=
-
-private func NBKAssertAddition12D<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: T, _ rhs: Each2<T>, _ sum: HL<T.Digit, T>,
-file: StaticString = #file, line: UInt = #line) {
-    var a = lhs
-    let b = T.increment12D(&a, by: rhs)
-    XCTAssertEqual(a, sum.low,  file: file, line: line)
-    XCTAssertEqual(b, sum.high, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=

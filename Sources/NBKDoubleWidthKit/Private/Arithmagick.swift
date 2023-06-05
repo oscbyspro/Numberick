@@ -39,10 +39,6 @@ extension NBKCoreInteger<UInt> {
 // MARK: * NBK x Arithmagick x Tuples
 //*============================================================================*
 
-@usableFromInline typealias Each2<T> = (first: T, second: T) where T: NBKFixedWidthInteger
-
-@usableFromInline typealias Each3<T> = (first: T, second: T, third: T) where T: NBKFixedWidthInteger
-
 @usableFromInline typealias Wide2<T> = (high: T, low: T.Magnitude) where T: NBKFixedWidthInteger
 
 @usableFromInline typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
@@ -77,30 +73,6 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
         guard b.isZero else { return  b }
         
         return  lhs.low .compared(to: rhs.low )
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Addition
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the `low` sum of adding each value in `rhs` to `lhs`, and returns the `high`.
-    /// In the case of overflow, the result is truncated.
-    ///
-    /// ```
-    /// ┌─────┬─────── → ─────┬─────┐
-    /// │ lhs │ rhs    │ high │ low │
-    /// ├─────┼─────── → ─────┤─────┤
-    /// │  0  │  0,  0 │  0   │  0  │
-    /// │  1  │  2,  3 │  0   │  6  │
-    /// │ ~1  │ ~2, ~3 │  2   │ ~8  │
-    /// │ ~0  │ ~0, ~0 │  2   │ ~2  │
-    /// └─────┴─────── → ─────┴─────┘
-    /// ```
-    ///
-    @_transparent @usableFromInline static func increment12D(_ lhs: inout Self, by rhs: Each2<Self>) -> Digit {
-        let x = lhs.addReportingOverflow(rhs.first )
-        let y = lhs.addReportingOverflow(rhs.second)
-        return  Digit(bit: x) &+ Digit(bit: y)
     }
     
     //=------------------------------------------------------------------------=

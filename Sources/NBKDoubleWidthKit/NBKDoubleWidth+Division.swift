@@ -168,7 +168,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // normalization
         //=--------------------------------------=
         let (words,  bits) = shift.dividedByBitWidth()
-        let (high) = shift.isZero ? Low.zero : lhs.high &>> (Low.bitWidth &- shift)
+        let (high) = shift.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift)
         let (lhs ) = lhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         let (rhs ) = rhs.bitshiftedLeftUnchecked(words: words, bits: bits) as Self
         //=--------------------------------------=
@@ -250,13 +250,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    @inlinable static func divide2121(_ lhs: Self, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide2121(_ lhs: Self, by rhs: High) -> QR<Self, High> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
         return QR(Self(descending: HL(x, y)), b)
     }
     
-    @inlinable static func divide3121Unchecked(_ lhs: Wide3<Low>, by rhs: Low) -> QR<Self, Low> {
+    @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
         assert(lhs.high < rhs, "quotient must fit in two halves")
         //=--------------------------------------=
         let (x, b) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
@@ -274,22 +274,22 @@ extension NBKDoubleWidth where High == High.Magnitude {
     ///
     /// The approximation needs at most two adjustments, but the while loop is faster.
     ///
-    @inlinable static func divide3212Normalized(_ lhs: Wide3<Low>, by rhs: Self) -> QR<Low, Self> {
+    @inlinable static func divide3212Normalized(_ lhs: Wide3<High>, by rhs: Self) -> QR<High, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
         assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
         //=--------------------------------------=
-        var quotient: Low = (lhs.high == rhs.high) ? Low.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation: Wide3<Low> =  Low.multiplying213(HL(rhs.high, rhs.low), by: quotient)
+        var quotient: High = (lhs.high == rhs.high) ? High.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
+        var approximation: Wide3<High> =  High.multiplying213(HL(rhs.high, rhs.low), by: quotient)
         //=--------------------------------------=
         // decrement if overestimated (max 2)
         //=--------------------------------------=
-        while Low.compare33S(lhs, to: approximation) == -1 {
+        while High.compare33S(lhs, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
-            _ = Low.decrement32B(&approximation, by: HL(rhs.high, rhs.low))
+            _ = High.decrement32B(&approximation, by: HL(rhs.high, rhs.low))
         }
         //=--------------------------------------=
-        var remainder = lhs as Wide3<Low>
-        let _  = Low.decrement33B(&remainder, by: approximation)
+        var remainder = lhs as Wide3<High>
+        _ = High.decrement33B(&remainder, by: approximation)
         return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }
     
