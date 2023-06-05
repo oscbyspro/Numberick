@@ -40,11 +40,7 @@ extension NBKDoubleWidth {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
-
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-
+    
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
@@ -120,7 +116,7 @@ extension NBKDoubleWidth {
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x 2222
     //=------------------------------------------------------------------------=
 
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
@@ -179,7 +175,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x 4222
     //=------------------------------------------------------------------------=
     
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
@@ -247,7 +243,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Special
     //=------------------------------------------------------------------------=
 
     @inlinable static func divide2121(_ lhs: Self, by rhs: High) -> QR<Self, High> {
@@ -265,7 +261,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Normalized
+    // MARK: Transformations x Special x Normalized
     //=------------------------------------------------------------------------=
 
     /// Divides 3 halves by 2 normalized halves, where the quotient fits in 1 half.
