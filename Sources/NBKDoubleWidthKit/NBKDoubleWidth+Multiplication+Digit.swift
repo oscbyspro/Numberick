@@ -27,9 +27,10 @@ extension NBKDoubleWidth {
     
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
         let minus: Bool = self.isLessThanZero != other.isLessThanZero
-        let unsigned: PVO<Magnitude> = self.magnitude.multipliedReportingOverflow(by: other.magnitude)
-        let product = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
-        return PVO(product, unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero))
+        let unsigned = self.magnitude.multipliedReportingOverflow(by: other.magnitude) as PVO<Magnitude>
+        let product  = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
+        let overflow = unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero)
+        return PVO(partialValue: product, overflow: overflow)
     }
     
     //=------------------------------------------------------------------------=
@@ -65,7 +66,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
+    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by  other: Digit) -> PVO<Self> {
         let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: other)
         return PVO(partialValue: product.low, overflow: !product.high.isZero)
     }

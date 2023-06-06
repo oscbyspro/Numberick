@@ -20,10 +20,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func addReportingOverflow(_ other: Self) -> Bool {
-        let a: Bool = self.low .addReportingOverflow(other.low )
-        let b: Bool = self.high.addReportingOverflow(other.high)
-        let c: Bool = a && self.high.addReportingOverflow(1 as Digit)
-        return b || c
+        var overflow = self.low.addReportingOverflow(other.low) as Bool
+        overflow = overflow && self.high.addReportingOverflow(1 as Digit)
+        return overflow != self.high.addReportingOverflow(other.high)
     }
     
     @inlinable public func addingReportingOverflow(_ other: Self) -> PVO<Self> {

@@ -56,13 +56,13 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// A three-way comparison that returns: `-1` (less), `0` (same), or `1` (more).
     ///
     /// ```
-    /// ┌─────────── → ───────┐
-    /// │ lhs vs rhs │ signum │
-    /// ├─────────── → ───────┤
-    /// │ lhs <  rhs | -1     | - less
-    /// │ lhs == rhs |  0     | - same
-    /// │ lhs >  rhs |  1     | - more
-    /// └─────────── → ───────┘
+    /// ┌─────────── → ────────┐
+    /// │ lhs vs rhs │ signum  │
+    /// ├─────────── → ────────┤
+    /// │ lhs <  rhs | Int(-1) | - less
+    /// │ lhs == rhs | Int( 0) | - same
+    /// │ lhs >  rhs | Int( 1) | - more
+    /// └─────────── → ────────┘
     /// ```
     ///
     @_transparent @usableFromInline static func compare33S(_ lhs: Wide3<Self>, to rhs: Wide3<Self>) -> Int {
