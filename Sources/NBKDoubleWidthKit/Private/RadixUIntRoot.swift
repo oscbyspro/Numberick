@@ -112,13 +112,13 @@ extension RadixUIntRoot {
         //=--------------------------------------=
         let zeros = UInt(bitPattern: radix.trailingZeroBitCount)
         //=--------------------------------------=
-        // Radix == 2,  4, 16, 256, ...
+        // radix == 02, 04, 16, 256, ...
         //=--------------------------------------=
         if  zeros.isPowerOf2 {
             let exponent = UInt(bitPattern: UInt.bitWidth &>> zeros.trailingZeroBitCount)
             return (exponent: exponent, power: 0)
         //=--------------------------------------=
-        // Radix == 8, 32, 64, 128, ...
+        // radix == 08, 32, 64, 128, ...
         //=--------------------------------------=
         }   else {
             let exponent = UInt(bitPattern: UInt.bitWidth) / zeros

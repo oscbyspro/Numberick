@@ -85,20 +85,59 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
-    @inlinable func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude> {
-        var lo = Self(descending: self.low .multipliedFullWidth(by: other.low ))
-        let ay = Self(descending: self.low .multipliedFullWidth(by: other.high))
-        let bx = Self(descending: self.high.multipliedFullWidth(by: other.low ))
-        var hi = Self(descending: self.high.multipliedFullWidth(by: other.high))
+    ///
+    /// ### Order of operations
+    ///
+    /// The order of operations matters a lot, so don't reorder it without a profiler.
+    ///
+    @inlinable func multipliedFullWidth(by  other: Self) -> HL<Self, Magnitude> {
+        var m0 = self.low .multipliedFullWidth(by: other.low ) as HL<Low, Low>
+        let m1 = self.low .multipliedFullWidth(by: other.high) as HL<Low, Low>
+        let m2 = self.high.multipliedFullWidth(by: other.low ) as HL<Low, Low>
+        var m3 = self.high.multipliedFullWidth(by: other.high) as HL<Low, Low>
         //=--------------------------------------=
-        let o0 = lo.high.addReportingOverflow(ay.low )
-        let o1 = lo.high.addReportingOverflow(bx.low )
-        let _  = hi/*-*/.addReportingOverflow(UInt(bit: o0) &+ UInt(bit: o1))
+        let a0 = m0.high.addReportingOverflow(m1.low) as Bool
+        let a1 = m0.high.addReportingOverflow(m2.low) as Bool
+        let a2 = UInt(bit: a0) &+ UInt(bit: a1)
         
-        let o2 = hi.low .addReportingOverflow(ay.high)
-        let o3 = hi.low .addReportingOverflow(bx.high)
-        let _  = hi.high.addReportingOverflow(UInt(bit: o2) &+ UInt(bit: o3))
+        let b0 = m3.low.addReportingOverflow(m1.high) as Bool
+        let b1 = m3.low.addReportingOverflow(m2.high) as Bool
+        let b2 = UInt(bit: b0) &+ UInt(bit: b1)
         //=--------------------------------------=
-        return HL(high: hi, low: lo)
+        let lo = Magnitude(descending: m0)
+        var hi = Magnitude(descending: m3)
+        
+        let o0 = hi.low .addReportingOverflow(a2) as Bool
+        let _  = hi.high.addReportingOverflow(b2  &+ UInt(bit: o0)) as Bool
+        
+        return HL<Self, Magnitude>(high: hi, low: lo)
+    }
+}
+
+
+//*============================================================================*
+// MARK: * ANK x Arithmetic x Unsigned x Fixed Width
+//*============================================================================*
+
+extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the sum of given values.
+    ///
+    /// ```swift
+    /// UInt.sum(~0,  1,  2) // (high: 1, low:  2)
+    /// UInt.sum(~0, ~0, ~0) // (high: 2, low: ~2)
+    /// ```
+    ///
+    /// - Returns: A value in the range: `(high: 0, low: 0) ... (high: 2, low: ~2)`.
+    ///
+    @inlinable static func sum(_ x0: Self, _ x1: Self, _ x2: Self) -> HL<UInt, Self> {
+        var xx = x0
+        let o3 = xx.addReportingOverflow(x1)
+        let o4 = xx.addReportingOverflow(x2)
+        return HL(UInt(bit: o3) &+ UInt(bit: o4), xx)
     }
 }

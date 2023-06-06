@@ -89,7 +89,7 @@ extension NBKDoubleWidth {
     @inlinable public func dividingFullWidthReportingOverflow(_ other: DoubleWidth) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = other.isLessThanZero
         let rhsIsLessThanZero: Bool = self .isLessThanZero
-        let minus: Bool = (lhsIsLessThanZero != rhsIsLessThanZero)
+        let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
         var qro = Magnitude.divide4222(other.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
         //=--------------------------------------=
