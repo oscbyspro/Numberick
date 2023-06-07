@@ -69,22 +69,6 @@ final class NBKCoreIntegerTestsOnComparisons: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testIsFull() {
-        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(( T(0)).isFull, false)
-            XCTAssertEqual(( T(1)).isFull, false)
-            XCTAssertEqual(( T(2)).isFull, false)
-            
-            XCTAssertEqual((~T(0)).isFull, true )
-            XCTAssertEqual((~T(1)).isFull, false)
-            XCTAssertEqual((~T(2)).isFull, false)
-        }
-
-        for type: T in types {
-            whereIs(type)
-        }
-    }
-    
     func testIsZero() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(( T(0)).isZero, true )
@@ -158,19 +142,6 @@ final class NBKCoreIntegerTestsOnComparisons: XCTestCase {
             XCTAssertEqual((~T(0)).isEven, false)
             XCTAssertEqual((~T(1)).isEven, true )
             XCTAssertEqual((~T(2)).isEven, false)
-        }
-        
-        for type: T in types {
-            whereIs(type)
-        }
-    }
-    
-    func testMatchesRepeatingBit() {
-        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
-            XCTAssertEqual(( T(0)).matches(repeating: true ), false)
-            XCTAssertEqual(( T(0)).matches(repeating: false), true )
-            XCTAssertEqual((~T(0)).matches(repeating: true ), true )
-            XCTAssertEqual((~T(0)).matches(repeating: false), false)
         }
         
         for type: T in types {

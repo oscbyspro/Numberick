@@ -65,15 +65,6 @@ final class Int256BenchmarksOnComparisons: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testIsFull() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.isFull)
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
     func testIsZero() {
         var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
@@ -107,17 +98,6 @@ final class Int256BenchmarksOnComparisons: XCTestCase {
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(abc.isPowerOf2)
             NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
-    func testMatchesRepeatingBit() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var bit = NBK.blackHoleIdentity(true)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.matches(repeating: bit))
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&bit)
         }
     }
 }
@@ -171,15 +151,6 @@ final class UInt256BenchmarksOnComparisons: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testIsFull() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.isFull)
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
     func testIsZero() {
         var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
@@ -213,17 +184,6 @@ final class UInt256BenchmarksOnComparisons: XCTestCase {
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(abc.isPowerOf2)
             NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
-    func testMatchesRepeatingBit() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
-        var bit = NBK.blackHoleIdentity(true)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.matches(repeating: bit))
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&bit)
         }
     }
 }

@@ -68,33 +68,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     @inlinable var mostSignificantBit: Bool { get }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Comparisons
-    //=------------------------------------------------------------------------=
-    
-    /// Returns whether all of its bits are set.
-    ///
-    /// You can think of it as the bitwise inverse of ``NBKBinaryInteger/isZero``.
-    ///
-    /// ```
-    /// ┌───────────────────────── → ──────┐
-    /// │ self                     │ full  │
-    /// ├─────────── = ─────────── → ──────┤
-    /// │ Int256( 3) │ 0........11 │ false │
-    /// │ Int256( 2) │ 0........10 │ false │
-    /// │ Int256( 1) │ 0.........1 │ false │
-    /// │ Int256( 0) │ 0.......... │ false │
-    /// │ Int256(-1) │ 1.......... │ true  │
-    /// │ Int256(-2) │ 1.........0 │ false │
-    /// │ Int256(-3) │ 1........01 │ false │
-    /// │ Int256(-4) │ 1........00 │ false │
-    /// └─────────── = ─────────── → ──────┘
-    /// ```
-    ///
-    /// - Note: This member has two's complement semantics.
-    ///
-    @inlinable var isFull: Bool { get }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Complements
     //=------------------------------------------------------------------------=
     
@@ -541,10 +514,6 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
-    @inlinable public var isFull: Bool {
-        self == (~0 as Self)
-    }
-    
     @inlinable public var isZero: Bool {
         self == ( 0 as Self)
     }
@@ -563,30 +532,6 @@ extension NBKFixedWidthInteger {
     
     @inlinable public func compared(to other: Self) -> Int {
         (self < other) ? -1 : (self == other) ? 0 : 1
-    }
-    
-    /// Returns whether `self` matches the repeating `bit` pattern.
-    ///
-    /// ```
-    /// ┌──────────────────────────┬────── → ──────┐
-    /// │ self                     │ bit   │ match │
-    /// ├─────────── = ────────────┼────── → ──────┤
-    /// │ Int256( 1) │ 0.........1 │ true  │ false │
-    /// │ Int256( 0) │ 0.......... │ true  │ false │
-    /// │ Int256(-1) │ 1.......... │ true  │ true  │
-    /// │ Int256(-2) │ 1.........0 │ true  │ false │
-    /// ├─────────── = ────────────┼────── → ──────┤
-    /// │ Int256( 1) │ 0.........1 │ false │ false │
-    /// │ Int256( 0) │ 0.......... │ false │ true  │
-    /// │ Int256(-1) │ 1.......... │ false │ false │
-    /// │ Int256(-2) │ 1.........0 │ false │ false │
-    /// └─────────── = ────────────┴────── → ──────┘
-    /// ```
-    ///
-    /// - Note: This member has two's complement semantics.
-    ///
-    @inlinable public func matches(repeating bit: Bool) -> Bool {
-        bit ? self.isFull : self.isZero
     }
     
     //=------------------------------------------------------------------------=

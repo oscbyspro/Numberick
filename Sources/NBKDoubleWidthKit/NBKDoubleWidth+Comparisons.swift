@@ -19,10 +19,6 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var isFull: Bool {
-        self.low.isFull && self.high.isFull
-    }
-    
     @inlinable public var isZero: Bool {
         self.low.isZero && self.high.isZero
     }

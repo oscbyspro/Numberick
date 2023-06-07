@@ -82,16 +82,16 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(exactly source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
+        let isOK = (value.isLessThanZero != sign.isZero) && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
 
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero == sign.isFull) && remainders.allSatisfy({ $0 == sign })
-        if  isOK { self = value } else { self = sign.isFull ? Self.min : Self.max }
+        let isOK = (value.isLessThanZero != sign.isZero) && remainders.allSatisfy({ $0 == sign })
+        if  isOK { self = value } else { self = sign.isZero ? Self.max : Self.min }
     }
-
+    
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
         self = Self.truncating(source).value
     }
