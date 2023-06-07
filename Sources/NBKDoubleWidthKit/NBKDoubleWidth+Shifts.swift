@@ -70,8 +70,9 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftLeftUnchecked(by amount: Int) {
         assert(0 ..< Self.bitWidth ~= amount, "invalid left shift amount")
-        let (words, bits) = amount.dividedByBitWidth()
-        return self.bitshiftLeftUnchecked(words: words, bits: bits)
+        let major = Int(bitPattern: amount.bitPattern .quotientDividingByBitWidth())
+        let minor = Int(bitPattern: amount.bitPattern.remainderDividingByBitWidth())
+        return self.bitshiftLeftUnchecked(words: major, bits: minor)
     }
     
     /// Performs an unchecked left shift.
@@ -180,8 +181,9 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftRightUnchecked(by amount: Int) {
         assert(0 ..< Self.bitWidth ~= amount, "invalid right shift amount")
-        let (words, bits) = amount.dividedByBitWidth()
-        return self.bitshiftRightUnchecked(words: words, bits: bits)
+        let major = Int(bitPattern: amount.bitPattern .quotientDividingByBitWidth())
+        let minor = Int(bitPattern: amount.bitPattern.remainderDividingByBitWidth())
+        return self.bitshiftRightUnchecked(words: major, bits: minor)
     }
     
     /// Performs an unchecked, signed, right shift.

@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Int or UInt
+// MARK: * NBK x Arithmagick x UInt
 //*============================================================================*
 
-extension NBKCoreInteger<UInt> {
+extension UInt {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

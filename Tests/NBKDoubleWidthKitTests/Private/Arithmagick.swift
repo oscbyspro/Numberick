@@ -14,10 +14,63 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick
+// MARK: * NBK x Arithmagick x UInt
 //*============================================================================*
 
-final class ArithmagickTests: XCTestCase {
+final class ArithmagickTestsOnUInt: XCTestCase {
+    
+    typealias T = UInt
+    
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    let bitWidth = T(T.bitWidth)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testDividingByBitWidth() {
+        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(0), T(0), T(0))
+        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(1), T(0), T(1))
+        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(2), T(0), T(2))
+        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(3), T(0), T(3))
+        
+        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(0), T(1), T(0))
+        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(1), T(1), T(1))
+        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(2), T(1), T(2))
+        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(3), T(1), T(3))
+        
+        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(0), T(2), T(0))
+        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(1), T(2), T(1))
+        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(2), T(2), T(2))
+        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(3), T(2), T(3))
+        
+        NBKAssertDividingByBitWidthAsUInt(T.min, T.min / bitWidth, T.min % bitWidth)
+        NBKAssertDividingByBitWidthAsUInt(T.max, T.max / bitWidth, T.max % bitWidth)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertDividingByBitWidthAsUInt(
+_ value: UInt, _ quotient: UInt, _ remainder: UInt,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(value .quotientDividingByBitWidth(), quotient,  file: file, line: line)
+    XCTAssertEqual(value.remainderDividingByBitWidth(), remainder, file: file, line: line)
+    
+    XCTAssertEqual(value.dividedByBitWidth().quotient,  quotient,  file: file, line: line)
+    XCTAssertEqual(value.dividedByBitWidth().remainder, remainder, file: file, line: line)
+}
+
+//*============================================================================*
+// MARK: * NBK x Arithmagick x Tuples
+//*============================================================================*
+
+final class ArithmagickTestsOnTuples: XCTestCase {
     
     typealias T  = UInt64
     typealias T2 = Wide2<T>
