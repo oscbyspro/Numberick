@@ -52,7 +52,7 @@ extension NBKDoubleWidth {
             minus = product.high.formTwosComplementSubsequence(minus)
         }
         //=--------------------------------------=
-        return HL(Self(bitPattern: product.high), product.low)
+        return NBK.bitCast(product) as HL<Self, Magnitude>
     }
 }
 

@@ -120,14 +120,14 @@ extension NBKCoreInteger {
     @inlinable public func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
         if  self.isZero {
-            return PVO(QR(Self(bitPattern: other.low), Self(bitPattern: other.low)), true)
+            return NBK.bitCast(PVO(QR(other.low, other.low), true))
         }
         //=--------------------------------------=
-        let lhsIsLessThanZero: Bool = other.high.isLessThanZero
-        let rhsIsLessThanZero: Bool = /*--*/self.isLessThanZero
-        let minus: Bool = (lhsIsLessThanZero != rhsIsLessThanZero)
+        let lhsIsLessThanZero: Bool =  other.high.isLessThanZero
+        let rhsIsLessThanZero: Bool =  /*--*/self.isLessThanZero
+        let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var lhsMagnitude = HL(Magnitude(bitPattern: other.high), other.low)
+        var lhsMagnitude = NBK.bitCast(other) as HL<Magnitude, Magnitude>
         if  lhsIsLessThanZero {
             var carry = true
             carry = lhsMagnitude.low .formTwosComplementSubsequence(carry)
@@ -136,7 +136,7 @@ extension NBKCoreInteger {
         
         let rhsMagnitude = self.magnitude as Magnitude
         //=--------------------------------------=
-        var qro = PVO(rhsMagnitude.dividingFullWidth(lhsMagnitude), lhsMagnitude.high >= rhsMagnitude)
+        var qro = NBK.bitCast(PVO(rhsMagnitude.dividingFullWidth(lhsMagnitude), lhsMagnitude.high >= rhsMagnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
@@ -146,11 +146,11 @@ extension NBKCoreInteger {
             qro.partialValue.remainder.formTwosComplement()
         }
         
-        if  Self.isSigned, qro.partialValue.quotient.mostSignificantBit != minus {
+        if  minus != qro.partialValue.quotient.isLessThanZero {
             qro.overflow = qro.overflow || !(minus && qro.partialValue.quotient.isZero)
         }
         //=--------------------------------------=
-        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
+        return qro as PVO<QR<Self, Self>>
     }
 }
 

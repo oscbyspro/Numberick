@@ -43,8 +43,6 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var byteSwapped: Self {
-        let a = High(bitPattern: self.low .byteSwapped)
-        let b = Low (bitPattern: self.high.byteSwapped)
-        return  Self(descending: HL(a, b))
+        Self(descending: NBK.bitCast(HL(self.low.byteSwapped, self.high.byteSwapped)))
     }
 }

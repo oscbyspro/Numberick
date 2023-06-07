@@ -48,7 +48,7 @@ extension NBKDoubleWidth {
         let lhsIsLessThanZero: Bool = self .isLessThanZero
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide2222(self.magnitude, by: other.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = NBK.bitCast(Magnitude.divide2222(self.magnitude, by: other.magnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
@@ -58,17 +58,17 @@ extension NBKDoubleWidth {
             qro.partialValue.remainder.formTwosComplement()
         }
 
-        if  lhsIsLessThanZero, rhsIsLessThanZero, qro.partialValue.quotient.mostSignificantBit {
+        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
             qro.overflow = true
         }
         //=--------------------------------------=
-        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
+        return qro as PVO<QR<Self, Self>>
     }
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
-
+    
     @inlinable public func dividingFullWidth(_ other: HL<Self, Magnitude>) -> QR<Self, Self> {
         self.dividingFullWidth(DoubleWidth(descending: other))
     }
@@ -91,7 +91,7 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = self .isLessThanZero
         let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var qro = Magnitude.divide4222(other.magnitude, by: self.magnitude) as PVO<QR<Magnitude, Magnitude>>
+        var qro = NBK.bitCast(Magnitude.divide4222(other.magnitude, by: self.magnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
@@ -101,11 +101,11 @@ extension NBKDoubleWidth {
             qro.partialValue.remainder.formTwosComplement()
         }
         
-        if  Self.isSigned, qro.partialValue.quotient.mostSignificantBit != minus {
+        if  minus != qro.partialValue.quotient.isLessThanZero {
             qro.overflow = qro.overflow || !(minus && qro.partialValue.quotient.isZero)
         }
         //=--------------------------------------=
-        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Self(bitPattern: qro.partialValue.remainder)), qro.overflow)
+        return qro as PVO<QR<Self, Self>>
     }
 }
 

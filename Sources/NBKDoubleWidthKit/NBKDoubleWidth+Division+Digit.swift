@@ -45,7 +45,7 @@ extension NBKDoubleWidth {
         let lhsIsLessThanZero: Bool = self .isLessThanZero
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         //=--------------------------------------=
-        var qro = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)
+        var qro = NBK.bitCast(self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)) as PVO<QR<Self, Digit>>
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             qro.partialValue.quotient.formTwosComplement()
@@ -55,11 +55,11 @@ extension NBKDoubleWidth {
             qro.partialValue.remainder.formTwosComplement()
         }
         
-        if  lhsIsLessThanZero, rhsIsLessThanZero, qro.partialValue.quotient.mostSignificantBit {
+        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
             qro.overflow = true
         }
         //=--------------------------------------=
-        return PVO(QR(Self(bitPattern: qro.partialValue.quotient), Digit(bitPattern: qro.partialValue.remainder)), qro.overflow)
+        return qro as PVO<QR<Self, Digit>>
     }
 }
 
@@ -82,7 +82,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         //=--------------------------------------=
         if  other.isZero {
-            return PVO(Digit(bitPattern: self.first), true)
+            return NBK.bitCast(PVO(self.first, true))            
         }
         //=--------------------------------------=
         var remainder = UInt.zero
