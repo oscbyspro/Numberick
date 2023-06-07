@@ -114,15 +114,15 @@ final class Int256TestsOnMultiplication: XCTestCase {
     }
     
     func testMultiplyingByDigitReportingOverflow() {
-        NBKAssertMultiplicationByDigit(T.max, Int( 1), T.max,        Int( 0), false)
-        NBKAssertMultiplicationByDigit(T.max, Int(-1), T.min + T(1), Int(-1), false)
-        NBKAssertMultiplicationByDigit(T.min, Int( 1), T.min,        Int(-1), false)
-        NBKAssertMultiplicationByDigit(T.min, Int(-1), T.min,        Int( 0), true )
+        NBKAssertMultiplicationByDigit(T.max, Int( 1),  T.max, Int( 0), false)
+        NBKAssertMultiplicationByDigit(T.max, Int(-1), -T.max, Int(-1), false)
+        NBKAssertMultiplicationByDigit(T.min, Int( 1),  T.min, Int(-1), false)
+        NBKAssertMultiplicationByDigit(T.min, Int(-1),  T.min, Int( 0), true )
         
-        NBKAssertMultiplicationByDigit(T.max, Int( 2), T(-2),        Int( 0), true )
-        NBKAssertMultiplicationByDigit(T.max, Int(-2), T( 2),        Int(-1), true )
-        NBKAssertMultiplicationByDigit(T.min, Int( 2), T( 0),        Int(-1), true )
-        NBKAssertMultiplicationByDigit(T.min, Int(-2), T( 0),        Int( 1), true )
+        NBKAssertMultiplicationByDigit(T.max, Int( 2),  T(-2), Int( 0), true )
+        NBKAssertMultiplicationByDigit(T.max, Int(-2),  T( 2), Int(-1), true )
+        NBKAssertMultiplicationByDigit(T.min, Int( 2),  T( 0), Int(-1), true )
+        NBKAssertMultiplicationByDigit(T.min, Int(-2),  T( 0), Int( 1), true )
     }
     
     //=------------------------------------------------------------------------=

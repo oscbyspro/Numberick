@@ -71,12 +71,12 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var lo = self.low .multipliedFullWidth(by: other.low)
         let ay = self.low .multipliedReportingOverflow(by: other.high)
         let bx = self.high.multipliedReportingOverflow(by: other.low )
-        
-        let o0 = lo.high.addReportingOverflow(ay.partialValue)
-        let o1 = lo.high.addReportingOverflow(bx.partialValue)
-        
-        let complete = !(self.high.isZero || other.high.isZero)
-        let overflow =  complete || ay.overflow || bx.overflow || o0 || o1
+        //=--------------------------------------=
+        let o0 = lo.high.addReportingOverflow(ay.partialValue) as Bool
+        let o1 = lo.high.addReportingOverflow(bx.partialValue) as Bool
+        //=--------------------------------------=
+        let overflow = !(self.high.isZero || other.high.isZero) || ay.overflow || bx.overflow || o0 || o1
+        //=--------------------------------------=
         return PVO(Self(descending: lo), overflow)
     }
     
@@ -91,10 +91,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// The order of operations matters a lot, so don't reorder it without a profiler.
     ///
     @inlinable func multipliedFullWidth(by  other: Self) -> HL<Self, Magnitude> {
-        var m0 = self.low .multipliedFullWidth(by: other.low ) as HL<Low, Low>
-        let m1 = self.low .multipliedFullWidth(by: other.high) as HL<Low, Low>
-        let m2 = self.high.multipliedFullWidth(by: other.low ) as HL<Low, Low>
-        var m3 = self.high.multipliedFullWidth(by: other.high) as HL<Low, Low>
+        var m0 = self.low .multipliedFullWidth(by: other.low ) as HL<High, Low>
+        let m1 = self.low .multipliedFullWidth(by: other.high) as HL<High, Low>
+        let m2 = self.high.multipliedFullWidth(by: other.low ) as HL<High, Low>
+        var m3 = self.high.multipliedFullWidth(by: other.high) as HL<High, Low>
         //=--------------------------------------=
         let a0 = m0.high.addReportingOverflow(m1.low) as Bool
         let a1 = m0.high.addReportingOverflow(m2.low) as Bool

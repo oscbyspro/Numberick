@@ -135,7 +135,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             //=----------------------------------=
-            // de/init: element is trivial
+            // de/init: pointee is trivial
             //=----------------------------------=
             var magnitude: Magnitude = self
             var index: Int = buffer.startIndex

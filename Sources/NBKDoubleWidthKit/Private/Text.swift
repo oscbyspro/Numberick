@@ -68,7 +68,7 @@ extension String {
             let count: Int = prefix.count + first.count + radix.exponent * (chunks.count &- 1)
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 //=------------------------------=
-                // de/init: element is trivial
+                // de/init: pointee is trivial
                 //=------------------------------=
                 var index = utf8.startIndex
                 //=------------------------------=
@@ -105,7 +105,7 @@ extension String {
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             //=----------------------------------=
-            // de/init: element is trivial
+            // de/init: pointee is trivial
             //=----------------------------------=
             var digit: UInt
             var chunk: UInt = chunk
