@@ -44,8 +44,8 @@ final class Int256Benchmarks: XCTestCase {
     }
     
     func testInitComponents() {
-        var abc = NBK.blackHoleIdentity(LH( T.Low (), T.High() ))
-        var xyz = NBK.blackHoleIdentity(HL( T.High(), T.Low () ))
+        var abc = NBK.blackHoleIdentity(LH( T.Low .zero, T.High.zero ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High.zero, T.Low .zero ))
 
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(T(ascending:  abc))
@@ -85,8 +85,8 @@ final class UInt256Benchmarks: XCTestCase {
     }
     
     func testInitComponents() {
-        var abc = NBK.blackHoleIdentity(LH( T.Low (), T.High() ))
-        var xyz = NBK.blackHoleIdentity(HL( T.High(), T.Low () ))
+        var abc = NBK.blackHoleIdentity(LH( T.Low .zero, T.High.zero ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High.zero, T.Low .zero ))
 
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(T(ascending:  abc))

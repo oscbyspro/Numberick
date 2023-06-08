@@ -40,10 +40,8 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
-        var carry = carry
-        carry = self.low .formTwosComplementSubsequence(carry)
-        carry = self.high.formTwosComplementSubsequence(carry)
-        return carry as Bool
+        let carry = self.low .formTwosComplementSubsequence(carry)
+        return /**/ self.high.formTwosComplementSubsequence(carry)
     }
     
     @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {

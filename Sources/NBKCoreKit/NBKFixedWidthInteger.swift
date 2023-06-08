@@ -515,7 +515,7 @@ extension NBKFixedWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        self == ( 0 as Self)
+        self == (0 as Self)
     }
     
     @inlinable public var isLessThanZero: Bool {

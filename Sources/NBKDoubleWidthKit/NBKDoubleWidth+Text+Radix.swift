@@ -69,15 +69,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
         self.init()
-        var index: Int = self.startIndex
         
+        var index: Int = self.startIndex
         backwards: while !digits.isEmpty {
             guard index < self.endIndex else { return nil }
+            
             let chunk = digits.suffix(radix.exponent)
             digits    = digits.prefix(upTo: chunk.startIndex)
             
             guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
-            
             self[index] = word
             self.formIndex(after: &index)
         }

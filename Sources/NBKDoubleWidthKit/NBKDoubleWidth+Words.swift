@@ -104,20 +104,20 @@ extension NBKDoubleWidth {
     
     /// The least significant word of this integer.
     @inlinable public var first: UInt {
-        _read   { yield  self[unsafe: self.startIndex, as: UInt.self] }
-        _modify { yield &self[unsafe: self.startIndex, as: UInt.self] }
+        _read   { yield  self[unchecked: self.startIndex] }
+        _modify { yield &self[unchecked: self.startIndex] }
     }
     
     /// The most significant word of this integer.
     @inlinable public var last: UInt {
-        _read   { yield  self[unsafe: self.lastIndex, as: UInt.self] }
-        _modify { yield &self[unsafe: self.lastIndex, as: UInt.self] }
+        _read   { yield  self[unchecked: self.lastIndex] }
+        _modify { yield &self[unchecked: self.lastIndex] }
     }
     
     /// The most significant word of this integer, reinterpreted as a ``Digit``.
     @inlinable public var tail: Digit {
-        _read   { yield  self[unsafe: self.lastIndex, as: Digit.self] }
-        _modify { yield &self[unsafe: self.lastIndex, as: Digit.self] }
+        _read   { yield  self[unchecked: self.lastIndex, as: Digit.self] }
+        _modify { yield &self[unchecked: self.lastIndex, as: Digit.self] }
     }
     
     //=------------------------------------------------------------------------=
@@ -144,14 +144,8 @@ extension NBKDoubleWidth {
     /// ```
     ///
     @inlinable public subscript(index: Int) -> UInt {
-        _read {
-            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield  self[unsafe: index, as: UInt.self]
-        }
-        _modify {
-            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield &self[unsafe: index, as: UInt.self]
-        }
+        _read   { yield  self[index, as: UInt.self] }
+        _modify { yield &self[index, as: UInt.self] }
     }
     
     /// Accesses the word at the given index, from least significant to most.
@@ -178,13 +172,28 @@ extension NBKDoubleWidth {
     ///   significant problems. Writing to an index out of bounds is unsafe.
     ///
     @inlinable public subscript(unchecked index: Int) -> UInt {
+        _read   { yield  self[unchecked: index, as: UInt.self] }
+        _modify { yield &self[unchecked: index, as: UInt.self] }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors x Private
+    //=------------------------------------------------------------------------=
+    
+    /// Accesses the word at the given index, from least significant to most.
+    ///
+    /// - Parameter index: The machine word index.
+    /// - Parameter type:  The machine word type, which is `Int.self` or `UInt.self`.
+    ///
+    @inlinable subscript<T>(_ index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         _read {
-            Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield  self[unsafe: index, as: UInt.self]
+            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            yield  self[unchecked: index, as: T.self]
         }
+        
         _modify {
-            Swift.assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
-            yield &self[unsafe: index, as: UInt.self]
+            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            yield &self[unchecked: index, as: T.self]
         }
     }
         
@@ -193,7 +202,7 @@ extension NBKDoubleWidth {
     /// - Parameter index: The machine word index.
     /// - Parameter type:  The machine word type, which is `Int.self` or `UInt.self`.
     ///
-    @inlinable subscript<T>(unsafe index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
+    @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
             let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
             return Swift.withUnsafeBytes(of: self) { $0.load(fromByteOffset: offset, as: T.self) }
@@ -213,7 +222,7 @@ extension NBKDoubleWidth {
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
     @inlinable static func endiannessSensitiveIndex(unchecked index: Int) -> Int {

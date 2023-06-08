@@ -163,8 +163,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = Int(bitPattern: shift.bitPattern .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: shift.bitPattern.remainderDividingByBitWidth())
+        let major = Int(bitPattern: UInt(bitPattern: shift) .quotientDividingByBitWidth())
+        let minor = Int(bitPattern: UInt(bitPattern: shift).remainderDividingByBitWidth())
         
         let top = shift.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift)
         let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
@@ -220,15 +220,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
-            assert(lhsIs0XXX,  "quotient must fit in two halves")
+            assert(lhs.high.high.isZero, "quotient must fit in two halves")
             let (quotient, remainder) = Self.divide3121Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(descending: HL(High.zero, remainder)))
         }
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = Int(bitPattern: shift.bitPattern .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: shift.bitPattern.remainderDividingByBitWidth())
+        let major = Int(bitPattern: UInt(bitPattern: shift) .quotientDividingByBitWidth())
+        let minor = Int(bitPattern: UInt(bitPattern: shift).remainderDividingByBitWidth())
         
         let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as DoubleWidth
         let rhs = rhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
@@ -236,6 +236,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3212 (normalized)
         //=--------------------------------------=
         if  lhsIs0XXX, Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
+            assert(lhs.high.high.isZero, "quotient must fit in one half")
             let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
         }
