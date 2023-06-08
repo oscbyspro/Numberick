@@ -260,9 +260,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
         assert(lhs.high < rhs, "quotient must fit in two halves")
         //=--------------------------------------=
-        let (x, b) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
-        let (y, c) = b.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(b, lhs.low))
-        return QR(Self(descending: HL(x, y)), c)
+        let (x, a) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
+        let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
+        return QR(Self(descending: HL(x, y)), b)
     }
     
     //=------------------------------------------------------------------------=
@@ -279,17 +279,17 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
         assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
         //=--------------------------------------=
-        var quotient: High = (lhs.high == rhs.high) ? High.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation: Wide3<High> =  High.multiplying213(HL(rhs.high, rhs.low), by: quotient)
+        var remainder = lhs as Wide3<High>
+        var quotient  = remainder.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(remainder.high, remainder.mid)).quotient
+        var approximation = High.multiplying213(HL(rhs.high, rhs.low), by: quotient) as Wide3<High>
         //=--------------------------------------=
-        // decrement if overestimated (max 2)
+        // fix when overestimated (max 2)
         //=--------------------------------------=
-        while High.compare33S(lhs, to: approximation) == -1 {
+        while High.compare33S(remainder, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
             _ = High.decrement32B(&approximation, by: HL(rhs.high, rhs.low))
         }
         //=--------------------------------------=
-        var remainder = lhs as Wide3<High>
         _ = High.decrement33B(&remainder, by: approximation)
         return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
     }

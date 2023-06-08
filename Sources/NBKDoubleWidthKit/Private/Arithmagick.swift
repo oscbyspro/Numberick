@@ -76,20 +76,71 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Addition
+    //=------------------------------------------------------------------------=
+    
+    /// Forms the `sum` of `lhs` and `rhs`, and returns an `overflow` indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```
+    /// ┌────────────┬─────── → ───────────┬──────────┐
+    /// │ lhs        │ rhs    │ sum        │ overflow │
+    /// ├────────────┼────────┼────────────┼──────────┤
+    /// │  0,  0,  0 │ ~4, ~5 │  0, ~4, ~5 │ false    │
+    /// │  1,  2,  3 │ ~4, ~5 │  1, ~2, ~2 │ false    │
+    /// │ ~1, ~2, ~3 │  4,  5 │ ~0,  2,  1 │ false    │
+    /// │ ~0, ~0, ~0 │  4,  5 │  0,  4,  4 │ true     │
+    /// └────────────┴─────── → ───────────┴──────────┘
+    /// ```
+    ///
+    @_transparent @usableFromInline static func increment32B(_ lhs: inout Wide3<Self>, by rhs: Wide2<Self>) -> Bool {
+        let a = lhs.low .addReportingOverflow(rhs.low )
+        let b = lhs.mid .addReportingOverflow(rhs.high)
+        
+        let x = (a     ) && lhs.mid .addReportingOverflow(1 as Digit)
+        let y = (b || x) && lhs.high.addReportingOverflow(1 as Digit)
+        return  (     y) as Bool
+    }
+    
+    /// Forms the `sum` of `lhs` and `rhs`, and returns an `overflow` indicator.
+    /// In the case of overflow, the result is truncated.
+    ///
+    /// ```
+    /// ┌────────────┬─────────── → ───────────┬──────────┐
+    /// │ lhs        │ rhs        │ sum        │ overflow │
+    /// ├────────────┼────────────┼────────────┼──────────┤
+    /// │  0,  0,  0 │ ~4, ~5, ~6 │ ~4, ~5, ~6 │ false    │
+    /// │  1,  2,  3 │ ~4, ~5, ~6 │ ~3, ~3, ~3 │ false    │
+    /// │ ~1, ~2, ~3 │  4,  5,  6 │  3,  3,  2 │ true     │
+    /// │ ~0, ~0, ~0 │  4,  5,  6 │  4,  5,  5 │ true     │
+    /// └────────────┴─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    @_transparent @usableFromInline static func increment33B(_ lhs: inout Wide3<Self>, by rhs: Wide3<Self>) -> Bool {
+        let a = lhs.low .addReportingOverflow(rhs.low )
+        let b = lhs.mid .addReportingOverflow(rhs.mid )
+        let c = lhs.high.addReportingOverflow(rhs.high)
+        
+        let x = (a     ) && lhs.mid .addReportingOverflow(1 as Digit)
+        let y = (b || x) && lhs.high.addReportingOverflow(1 as Digit)
+        return  (c || y) as Bool
+    }
+        
+    //=------------------------------------------------------------------------=
     // MARK: Details x Subtraction
     //=------------------------------------------------------------------------=
     
-    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an `overflow` indicator.
+    /// Forms the `difference` of `lhs` and `rhs`, and returns an `overflow` indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
     /// ┌────────────┬─────── → ───────────┬──────────┐
     /// │ lhs        │ rhs    │ difference │ overflow │
     /// ├────────────┼────────┼────────────┼──────────┤
-    /// │  0,  0,  0 │ ~0, ~0 │ ~0,  0,  1 │ true     │
-    /// │  1,  2,  3 │  4,  5 │  0,  6,  9 │ false    │
-    /// │ ~1, ~2, ~3 │ ~4, ~5 │ ~1, ~6, ~8 │ false    │
-    /// │ ~0, ~0, ~0 │  0,  0 │ ~0, ~0, ~0 │ false    │
+    /// │  0,  0,  0 │ ~4, ~5 │ ~0,  4,  6 │ true     │
+    /// │  1,  2,  3 │ ~4, ~5 │  0,  6,  9 │ false    │
+    /// │ ~1, ~2, ~3 │  4,  5 │ ~1, ~6, ~8 │ false    │
+    /// │ ~0, ~0, ~0 │  4,  5 │ ~0, ~4, ~5 │ false    │
     /// └────────────┴─────── → ───────────┴──────────┘
     /// ```
     ///
@@ -102,17 +153,17 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
         return  (     y) as Bool
     }
     
-    /// Forms the `difference` of subtracting `rhs` from `lhs`, and returns an `overflow` indicator.
+    /// Forms the `difference` of `lhs` and `rhs`, and returns an `overflow` indicator.
     /// In the case of overflow, the result is truncated.
     ///
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
     /// │ lhs        │ rhs        │ difference │ overflow │
     /// ├────────────┼────────────┼────────────┼──────────┤
-    /// │  0,  0,  0 │ ~0, ~0, ~0 │  0,  0,  1 │ true     │
+    /// │  0,  0,  0 │ ~4, ~5, ~6 │  4,  5,  7 │ true     │
     /// │  1,  2,  3 │ ~4, ~5, ~6 │  5,  7, 10 │ true     │
     /// │ ~1, ~2, ~3 │  4,  5,  6 │ ~5, ~7, ~9 │ false    │
-    /// │ ~0, ~0, ~0 │  0,  0,  0 │ ~0, ~0, ~0 │ false    │
+    /// │ ~0, ~0, ~0 │  4,  5,  6 │ ~4, ~5, ~6 │ false    │
     /// └────────────┴─────────── → ───────────┴──────────┘
     /// ```
     ///

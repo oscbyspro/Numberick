@@ -95,21 +95,39 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Addition
+    //=------------------------------------------------------------------------=
+    
+    func testAdding32B() {
+        NBKAssertAdding32B(T3( 0,  0,  0), T2(~4, ~5), T3( 0, ~4, ~5), false)
+        NBKAssertAdding32B(T3( 1,  2,  3), T2(~4, ~5), T3( 1, ~2, ~2), false)
+        NBKAssertAdding32B(T3(~1, ~2, ~3), T2( 4,  5), T3(~0,  2,  1), false)
+        NBKAssertAdding32B(T3(~0, ~0, ~0), T2( 4,  5), T3( 0,  4,  4), true )
+    }
+    
+    func testAdding33B() {
+        NBKAssertAdding33B(T3( 0,  0,  0), T3(~4, ~5, ~6), T3(~4, ~5, ~6), false)
+        NBKAssertAdding33B(T3( 1,  2,  3), T3(~4, ~5, ~6), T3(~3, ~3, ~3), false)
+        NBKAssertAdding33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3( 3,  3,  2), true )
+        NBKAssertAdding33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3( 4,  5,  5), true )
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Subtraction
     //=------------------------------------------------------------------------=
     
     func testSubtracting32B() {
-        NBKAssertSubtraction32B(T3( 0,  0,  0), T2(~0, ~0), T3(~0,  0,  1), true )
+        NBKAssertSubtraction32B(T3( 0,  0,  0), T2(~4, ~5), T3(~0,  4,  6), true )
         NBKAssertSubtraction32B(T3( 1,  2,  3), T2(~4, ~5), T3( 0,  6,  9), false)
         NBKAssertSubtraction32B(T3(~1, ~2, ~3), T2( 4,  5), T3(~1, ~6, ~8), false)
-        NBKAssertSubtraction32B(T3(~0, ~0, ~0), T2( 0,  0), T3(~0, ~0, ~0), false)
+        NBKAssertSubtraction32B(T3(~0, ~0, ~0), T2( 4,  5), T3(~0, ~4, ~5), false)
     }
     
     func testSubtracting33B() {
-        NBKAssertSubtraction33B(T3( 0,  0,  0), T3(~0, ~0, ~0), T3( 0,  0,  1), true )
+        NBKAssertSubtraction33B(T3( 0,  0,  0), T3(~4, ~5, ~6), T3( 4,  5,  7), true )
         NBKAssertSubtraction33B(T3( 1,  2,  3), T3(~4, ~5, ~6), T3( 5,  7, 10), true )
         NBKAssertSubtraction33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3(~5, ~7, ~9), false)
-        NBKAssertSubtraction33B(T3(~0, ~0, ~0), T3( 0,  0,  0), T3(~0, ~0, ~0), false)
+        NBKAssertSubtraction33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3(~4, ~5, ~6), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -131,6 +149,32 @@ private func NBKAssertComparisons33S<T: NBKFixedWidthInteger & NBKUnsignedIntege
 _ lhs: Wide3<T>, _ rhs: Wide3<T>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(T.compare33S(lhs, to: rhs), signum, file: file, line: line)
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities x Addition
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertAdding32B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
+_ lhs: Wide3<T>, _ rhs: Wide2<T>, _ sum: Wide3<T>, _ overflow: Bool,
+file: StaticString = #file, line: UInt = #line) {
+    var x = lhs
+    let o = T.increment32B(&x, by: rhs)
+    XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
+    XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
+    XCTAssertEqual(x.high, sum.high, file: file, line: line)
+    XCTAssertEqual(o,      overflow, file: file, line: line)
+}
+
+private func NBKAssertAdding33B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
+_ lhs: Wide3<T>, _ rhs: Wide3<T>, _ sum: Wide3<T>, _ overflow: Bool,
+file: StaticString = #file, line: UInt = #line) {
+    var x = lhs
+    let o = T.increment33B(&x, by: rhs)
+    XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
+    XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
+    XCTAssertEqual(x.high, sum.high, file: file, line: line)
+    XCTAssertEqual(o,      overflow, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
