@@ -26,11 +26,17 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
-        let minus: Bool = self.isLessThanZero != other.isLessThanZero
-        let unsigned = self.magnitude.multipliedReportingOverflow(by: other.magnitude) as PVO<Magnitude>
-        let product  = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
-        let overflow = unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero)
-        return PVO(partialValue: product, overflow: overflow)
+        let minus = self.isLessThanZero != other.isLessThanZero
+        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude)) as PVO<Self>
+        //=--------------------------------------=
+        var suboverflow = (pvo.partialValue.isLessThanZero)
+        if  minus {
+            suboverflow = !pvo.partialValue.formTwosComplementSubsequence(true) && suboverflow
+        }
+        
+        pvo.overflow = (pvo.overflow || suboverflow) as Bool
+        //=--------------------------------------=
+        return pvo as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=

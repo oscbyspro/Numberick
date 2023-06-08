@@ -82,13 +82,13 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(exactly source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero != sign.isZero) && remainders.allSatisfy({ $0 == sign })
+        let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
 
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
-        let isOK = (value.isLessThanZero != sign.isZero) && remainders.allSatisfy({ $0 == sign })
+        let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { self = sign.isZero ? Self.max : Self.min }
     }
     
@@ -98,7 +98,7 @@ extension NBKDoubleWidth {
 
     @inlinable static func truncating<T>(_ source: T) -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) where T: BinaryInteger {
         let words: T.Words = source.words
-        let isLessThanZero: Bool = T.isSigned && (words.last?.mostSignificantBit == true)
+        let isLessThanZero: Bool = T.isSigned && words.last?.mostSignificantBit == true
         let sign = UInt(repeating: isLessThanZero)
         //=--------------------------------------=
         let value = Self.uninitialized  { value in

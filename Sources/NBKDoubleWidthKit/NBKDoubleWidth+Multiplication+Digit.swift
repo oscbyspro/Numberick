@@ -26,11 +26,17 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
-        let minus: Bool = self.isLessThanZero != other.isLessThanZero
-        let unsigned = self.magnitude.multipliedReportingOverflow(by: other.magnitude) as PVO<Magnitude>
-        let product  = Self(bitPattern: minus ? unsigned.partialValue.twosComplement() : unsigned.partialValue)
-        let overflow = unsigned.overflow || (minus ? product.isMoreThanZero : product.isLessThanZero)
-        return PVO(partialValue: product, overflow: overflow)
+        let minus = self.isLessThanZero != other.isLessThanZero
+        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude)) as PVO<Self>
+        //=--------------------------------------=
+        var suboverflow = (pvo.partialValue.isLessThanZero)
+        if  minus {
+            suboverflow = !pvo.partialValue.formTwosComplementSubsequence(true) && suboverflow
+        }
+        
+        pvo.overflow = (pvo.overflow || suboverflow) as Bool
+        //=--------------------------------------=
+        return pvo as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=
@@ -38,21 +44,21 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by other: Digit) -> Digit {
-        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: other)
+        let product = self.multipliedFullWidth(by: other) as HL<Digit, Magnitude>
         self = Self(bitPattern: product.low)
         return product.high as  Digit
     }
     
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude> {
         var minus = self.isLessThanZero != other.isLessThanZero
-        var product = self.magnitude.multipliedFullWidth(by: other.magnitude)
+        var product = self.magnitude.multipliedFullWidth(by: other.magnitude) as HL<UInt, Magnitude>
         //=--------------------------------------=
         if  minus {
             minus = product.low .formTwosComplementSubsequence(minus)
             minus = product.high.formTwosComplementSubsequence(minus)
         }
         //=--------------------------------------=
-        return HL(Digit(bitPattern: product.high), product.low)
+        return NBK.bitCast(product) as HL<Digit, Magnitude>
     }
 }
 
@@ -66,9 +72,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by  other: Digit) -> PVO<Self> {
-        let product: HL<Digit, Magnitude> = self.multipliedFullWidth(by: other)
-        return PVO(partialValue: product.low, overflow: !product.high.isZero)
+    @_disfavoredOverload @inlinable mutating func multiplyReportingOverflow(by other: Digit) -> Bool {
+        !self.multiplyFullWidth(by: other).isZero
+    }
+    
+    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
+        var pvo = PVO(self, false)
+        pvo.overflow = pvo.partialValue.multiplyReportingOverflow(by: other)
+        return pvo as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=
@@ -79,9 +90,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var carry = UInt.zero
         
         for index in self.indices {
-            var xy = self[index].multipliedFullWidth(by: other)
-            xy.high &+= UInt(bit: xy.low.addReportingOverflow(carry))
-            (carry,  self[index]) = xy as HL<UInt, UInt>
+            var (high, low) = self[index].multipliedFullWidth(by: other)
+            high &+= UInt(bit: low.addReportingOverflow(carry))
+            (carry, self[index]) = (high, low) as HL<UInt, UInt>
         }
         
         return carry as Digit

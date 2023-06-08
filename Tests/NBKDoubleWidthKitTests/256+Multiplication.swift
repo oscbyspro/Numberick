@@ -69,20 +69,23 @@ final class Int256TestsOnMultiplication: XCTestCase {
     }
     
     func testMultiplyingReportingOverflow() {
-        NBKAssertMultiplication(T.max, T( 1),  T.max, T( 0), false)
+        NBKAssertMultiplication(T(  ), T(-1),  T(  ), T(  ), false)
+        NBKAssertMultiplication(T(-1), T(  ),  T(  ), T(  ), false)
+        
+        NBKAssertMultiplication(T.max, T( 1),  T.max, T(  ), false)
         NBKAssertMultiplication(T.max, T(-1), -T.max, T(-1), false)
         NBKAssertMultiplication(T.min, T( 1),  T.min, T(-1), false)
-        NBKAssertMultiplication(T.min, T(-1),  T.min, T( 0), true )
+        NBKAssertMultiplication(T.min, T(-1),  T.min, T(  ), true )
         
-        NBKAssertMultiplication(T.max, T( 2),  T(-2), T( 0), true )
+        NBKAssertMultiplication(T.max, T( 2),  T(-2), T(  ), true )
         NBKAssertMultiplication(T.max, T(-2),  T( 2), T(-1), true )
-        NBKAssertMultiplication(T.min, T( 2),  T( 0), T(-1), true )
-        NBKAssertMultiplication(T.min, T(-2),  T( 0), T( 1), true )
+        NBKAssertMultiplication(T.min, T( 2),  T(  ), T(-1), true )
+        NBKAssertMultiplication(T.min, T(-2),  T(  ), T( 1), true )
         
         NBKAssertMultiplication(T.max, T.max,  T( 1), T(x64: X(~0, ~0, ~0, ~0 >>  2)), true)
         NBKAssertMultiplication(T.max, T.min,  T.min, T(x64: X( 0,  0,  0, ~0 << 62)), true)
         NBKAssertMultiplication(T.min, T.max,  T.min, T(x64: X( 0,  0,  0, ~0 << 62)), true)
-        NBKAssertMultiplication(T.min, T.min,  T( 0), T(x64: X( 0,  0,  0,  1 << 62)), true)
+        NBKAssertMultiplication(T.min, T.min,  T(  ), T(x64: X( 0,  0,  0,  1 << 62)), true)
     }
     
     //=------------------------------------------------------------------------=
@@ -114,15 +117,18 @@ final class Int256TestsOnMultiplication: XCTestCase {
     }
     
     func testMultiplyingByDigitReportingOverflow() {
-        NBKAssertMultiplicationByDigit(T.max, Int( 1),  T.max, Int( 0), false)
+        NBKAssertMultiplicationByDigit(T(  ), Int(-1),  T(  ), Int(  ), false)
+        NBKAssertMultiplicationByDigit(T(-1), Int(  ),  T(  ), Int(  ), false)
+        
+        NBKAssertMultiplicationByDigit(T.max, Int( 1),  T.max, Int(  ), false)
         NBKAssertMultiplicationByDigit(T.max, Int(-1), -T.max, Int(-1), false)
         NBKAssertMultiplicationByDigit(T.min, Int( 1),  T.min, Int(-1), false)
-        NBKAssertMultiplicationByDigit(T.min, Int(-1),  T.min, Int( 0), true )
+        NBKAssertMultiplicationByDigit(T.min, Int(-1),  T.min, Int(  ), true )
         
-        NBKAssertMultiplicationByDigit(T.max, Int( 2),  T(-2), Int( 0), true )
+        NBKAssertMultiplicationByDigit(T.max, Int( 2),  T(-2), Int(  ), true )
         NBKAssertMultiplicationByDigit(T.max, Int(-2),  T( 2), Int(-1), true )
-        NBKAssertMultiplicationByDigit(T.min, Int( 2),  T( 0), Int(-1), true )
-        NBKAssertMultiplicationByDigit(T.min, Int(-2),  T( 0), Int( 1), true )
+        NBKAssertMultiplicationByDigit(T.min, Int( 2),  T(  ), Int(-1), true )
+        NBKAssertMultiplicationByDigit(T.min, Int(-2),  T(  ), Int( 1), true )
     }
     
     //=------------------------------------------------------------------------=
