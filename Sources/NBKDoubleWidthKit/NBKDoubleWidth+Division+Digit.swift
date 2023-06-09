@@ -44,10 +44,11 @@ extension NBKDoubleWidth {
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         let lhsIsLessThanZero: Bool = self .isLessThanZero
         let rhsIsLessThanZero: Bool = other.isLessThanZero
+        let minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
         var qro = NBK.bitCast(self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)) as PVO<QR<Self, Digit>>
         //=--------------------------------------=
-        if  lhsIsLessThanZero != rhsIsLessThanZero {
+        if  minus {
             qro.partialValue.quotient.formTwosComplement()
         }
         

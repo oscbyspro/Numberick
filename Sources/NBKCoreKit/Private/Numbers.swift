@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Numberx
+// MARK: * NBK x Numbers
 //*============================================================================*
 
 extension NBK {
@@ -18,8 +18,13 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func exactly<T>(sign: Sign, magnitude: T.Magnitude) -> T? where T: NBKFixedWidthInteger {
-        let isLessThanZero: Bool = (sign == Sign.minus) && !magnitude.isZero
-        let value = T(bitPattern: isLessThanZero ? magnitude.twosComplement() : magnitude)
+        var bitPattern = magnitude as T.Magnitude
+        var isLessThanZero = (sign == Sign.minus)
+        if  isLessThanZero {
+            isLessThanZero = !bitPattern.formTwosComplementSubsequence(true)
+        }
+        
+        let value = T(bitPattern: bitPattern)
         return value.isLessThanZero == isLessThanZero ? value : nil
     }
 }
