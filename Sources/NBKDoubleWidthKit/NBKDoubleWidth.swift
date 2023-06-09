@@ -186,11 +186,13 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     // MARK: Accessors x Halves
     //=------------------------------------------------------------------------=
     
+    /// The `low` and `high` halves of this value.
     @inlinable public var ascending: LH<Low, High> {
         get { (low: self.low, high: self.high) }
         set { (self.low, self.high) = newValue }
     }
     
+    /// The `high` and `low` halves of this value.
     @inlinable public var descending: HL<High, Low> {
         get { (high: self.high, low: self.low) }
         set { (self.high, self.low) = newValue }

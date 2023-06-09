@@ -15,35 +15,35 @@ import XCTest
 // MARK: * NBK x Assert
 //*============================================================================*
 
-func NBKAssertHalvesGetSetInit<T: NBKFixedWidthInteger>(
-_ value: NBKDoubleWidth<T>, _ low: T.Magnitude, _ high: T,
+func NBKAssertHalvesGetSetInit<H: NBKFixedWidthInteger>(
+_ value: NBKDoubleWidth<H>, _ low: H.Magnitude, _ high: H,
 file: StaticString = #file, line: UInt = #line) {
-    typealias T2 = NBKDoubleWidth<T>
+    typealias T = NBKDoubleWidth<H>
     //=--------------------------------------=
     if  high.isZero {
-        XCTAssertEqual(value, T2(low:  low ), file: file, line: line)
+        XCTAssertEqual(value, T(low:  low ), file: file, line: line)
     }
     
     if  low.isZero {
-        XCTAssertEqual(value, T2(high: high), file: file, line: line)
+        XCTAssertEqual(value, T(high: high), file: file, line: line)
     }
     //=--------------------------------------=
-    XCTAssertEqual(value, T2(low:  low,  high: high), file: file, line: line)
-    XCTAssertEqual(value, T2(high: high, low:  low ), file: file, line: line)
+    XCTAssertEqual(value, T(low:  low,  high: high), file: file, line: line)
+    XCTAssertEqual(value, T(high: high, low:  low ), file: file, line: line)
     
-    XCTAssertEqual(value, T2(ascending:  LH(low, high)), file: file, line: line)
-    XCTAssertEqual(value, T2(descending: HL(high, low)), file: file, line: line)
+    XCTAssertEqual(value, T(ascending:  LH(low, high)), file: file, line: line)
+    XCTAssertEqual(value, T(descending: HL(high, low)), file: file, line: line)
     
     XCTAssertEqual(value.low,  low,  file: file, line: line)
     XCTAssertEqual(value.high, high, file: file, line: line)
     
-    XCTAssertEqual(value.ascending .low,  low,  file: file, line: line)
-    XCTAssertEqual(value.ascending .high, high, file: file, line: line)
+    XCTAssertEqual(value.ascending.low,   low,  file: file, line: line)
+    XCTAssertEqual(value.ascending.high,  high, file: file, line: line)
     
     XCTAssertEqual(value.descending.low,  low,  file: file, line: line)
     XCTAssertEqual(value.descending.high, high, file: file, line: line)
     
-    XCTAssertEqual(value, { var x = T2(); x.low = low; x.high =  high;  return x }(), file: file, line: line)
-    XCTAssertEqual(value, { var x = T2(); x.ascending  = LH(low, high); return x }(), file: file, line: line)
-    XCTAssertEqual(value, { var x = T2(); x.descending = HL(high, low); return x }(), file: file, line: line)
+    XCTAssertEqual(value, { var x = T(); x.low = low; x.high =  high;  return x }(), file: file, line: line)
+    XCTAssertEqual(value, { var x = T(); x.ascending  = LH(low, high); return x }(), file: file, line: line)
+    XCTAssertEqual(value, { var x = T(); x.descending = HL(high, low); return x }(), file: file, line: line)
 }

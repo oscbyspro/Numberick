@@ -10,7 +10,17 @@
 import NBKDoubleWidthKit
 
 //*============================================================================*
-// MARK: * NBK x 256 x Utilities
+// MARK: * NBK x Machine Tuples
+//*============================================================================*
+
+typealias NBK128X64 = (UInt64, UInt64)
+typealias NBK128X32 = (UInt32, UInt32, UInt32, UInt32)
+
+typealias NBK256X64 = (UInt64, UInt64, UInt64, UInt64)
+typealias NBK256X32 = (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)
+
+//*============================================================================*
+// MARK: * NBK x Machine Tuples x Double Width
 //*============================================================================*
 
 extension NBKDoubleWidth {
