@@ -151,7 +151,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         if  lhsIs0X {
             assert(rhs.high.isZero, "divisors greater than or equal should go fast path")
             let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
-            return QR(Self(descending: HL(High.zero, quotient)), Self(descending: HL(High.zero, remainder)))
+            return QR(Self(low: quotient), Self(low: remainder))
         }
         //=--------------------------------------=
         // division: 2121
@@ -159,7 +159,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
             let (quotient, remainder) = Self.divide2121(lhs, by: rhs.low)
-            return QR(quotient, Self(descending: HL(High.zero, remainder)))
+            return QR(quotient, Self(low: remainder))
         }
         //=--------------------------------------=
         // normalization
@@ -174,7 +174,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3212 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide3212Normalized(Wide3(top, lhs.high, lhs.low), by: rhs)
-        return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
+        return QR(Self(low: quotient), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
     }
     
     //=------------------------------------------------------------------------=
@@ -195,7 +195,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         if  rhs <= lhs.high {
             let high = Self.divide2222Unchecked(lhs.high,  by: rhs, shift: shift)
-            let truncated = DoubleWidth(descending: HL(high.remainder, lhs.low))
+            let truncated = DoubleWidth(high:  high.remainder, low: lhs.low)
             return PVO(Self.divide4222Unchecked(truncated, by: rhs, shift: shift), true)
         }
         //=--------------------------------------=
@@ -223,7 +223,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         if  rhsIs0X {
             assert(lhs.high.high.isZero, "quotient must fit in two halves")
             let (quotient, remainder) = Self.divide3121Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
-            return QR(quotient, Self(descending: HL(High.zero, remainder)))
+            return QR(quotient, Self(low: remainder))
         }
         //=--------------------------------------=
         // normalization
@@ -236,10 +236,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
-        if  lhsIs0XXX, Self(descending: HL(lhs.high.low, lhs.low.high)) < rhs {
+        if  lhsIs0XXX, Self(high: lhs.high.low, low: lhs.low.high) < rhs {
             assert(lhs.high.high.isZero, "quotient must fit in one half")
             let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return QR(Self(descending: HL(High.zero, quotient)), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
+            return QR(Self(low: quotient), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
         }
         //=--------------------------------------=
         // division: 4222 (normalized)
@@ -255,7 +255,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable static func divide2121(_ lhs: Self, by rhs: High) -> QR<Self, High> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
-        return QR(Self(descending: HL(x, y)), b)
+        return QR(Self(high: x, low: y), b)
     }
     
     @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
@@ -263,7 +263,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         let (x, a) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
-        return QR(Self(descending: HL(x, y)), b)
+        return QR(Self(high: x, low: y), b)
     }
     
     //=------------------------------------------------------------------------=
@@ -278,7 +278,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     ///
     @inlinable static func divide3212Normalized(_ lhs: Wide3<High>, by rhs: Self) -> QR<High, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
-        assert(rhs > Self(descending: HL(lhs.high, lhs.mid)), "quotient must fit in one half")
+        assert(rhs > Self(high: lhs.high, low: lhs.mid), "quotient must fit in one half")
         //=--------------------------------------=
         var remainder = lhs as Wide3<High>
         var quotient  = remainder.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(remainder.high, remainder.mid)).quotient
@@ -292,13 +292,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
         //=--------------------------------------=
         _ = High.decrement33B(&remainder, by: approximation)
-        return QR(quotient, Self(descending: HL(remainder.mid, remainder.low)))
+        return QR(quotient, Self(high: remainder.mid, low: remainder.low))
     }
     
     /// Divides 4 halves by 2 normalized halves, where the quotient fits in 2 halves.
     @inlinable static func divide4222Normalized(_ lhs: DoubleWidth,  by rhs: Self) -> QR<Self, Self> {
         let (x, a) =  Self.divide3212Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
         let (y, b) =  Self.divide3212Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
-        return QR(Self(descending: HL(x, y)), b)
+        return QR(Self(high: x, low: y), b)
     }
 }

@@ -80,16 +80,17 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
     @inlinable func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
-        var lo = self.low .multipliedFullWidth(by: other.low)
+        var ax = self.low .multipliedFullWidth(by: other.low)
         let ay = self.low .multipliedReportingOverflow(by: other.high)
         let bx = self.high.multipliedReportingOverflow(by: other.low )
+        let by = !(self.high.isZero || other.high.isZero)
         //=--------------------------------------=
-        let o0 = lo.high.addReportingOverflow(ay.partialValue) as Bool
-        let o1 = lo.high.addReportingOverflow(bx.partialValue) as Bool
+        let o0 = ax.high.addReportingOverflow(ay.partialValue) as Bool
+        let o1 = ax.high.addReportingOverflow(bx.partialValue) as Bool
         //=--------------------------------------=
-        let overflow = !(self.high.isZero || other.high.isZero) || ay.overflow || bx.overflow || o0 || o1
+        let overflow = by || ay.overflow || bx.overflow || o0 || o1
         //=--------------------------------------=
-        return PVO(Self(descending: lo), overflow)
+        return PVO(Self(descending: ax), overflow)
     }
     
     //=------------------------------------------------------------------------=
@@ -103,21 +104,21 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// The order of operations matters a lot, so don't reorder it without a profiler.
     ///
     @inlinable func multipliedFullWidth(by  other: Self) -> HL<Self, Magnitude> {
-        var m0 = self.low .multipliedFullWidth(by: other.low ) as HL<High, Low>
-        let m1 = self.low .multipliedFullWidth(by: other.high) as HL<High, Low>
-        let m2 = self.high.multipliedFullWidth(by: other.low ) as HL<High, Low>
-        var m3 = self.high.multipliedFullWidth(by: other.high) as HL<High, Low>
+        var ax = self.low .multipliedFullWidth(by: other.low ) as HL<High, Low>
+        let ay = self.low .multipliedFullWidth(by: other.high) as HL<High, Low>
+        let bx = self.high.multipliedFullWidth(by: other.low ) as HL<High, Low>
+        var by = self.high.multipliedFullWidth(by: other.high) as HL<High, Low>
         //=--------------------------------------=
-        let a0 = m0.high.addReportingOverflow(m1.low) as Bool
-        let a1 = m0.high.addReportingOverflow(m2.low) as Bool
+        let a0 = ax.high.addReportingOverflow(ay.low) as Bool
+        let a1 = ax.high.addReportingOverflow(bx.low) as Bool
         let a2 = UInt(bit: a0) &+ UInt(bit: a1)
         
-        let b0 = m3.low.addReportingOverflow(m1.high) as Bool
-        let b1 = m3.low.addReportingOverflow(m2.high) as Bool
+        let b0 = by.low.addReportingOverflow(ay.high) as Bool
+        let b1 = by.low.addReportingOverflow(bx.high) as Bool
         let b2 = UInt(bit: b0) &+ UInt(bit: b1)
         //=--------------------------------------=
-        let lo = Magnitude(descending: m0)
-        var hi = Magnitude(descending: m3)
+        let lo = Magnitude(descending: ax)
+        var hi = Magnitude(descending: by)
         
         let o0 = hi.low .addReportingOverflow(a2) as Bool
         let _  = hi.high.addReportingOverflow(b2  &+ UInt(bit: o0)) as Bool

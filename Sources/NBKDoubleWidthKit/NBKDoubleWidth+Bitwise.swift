@@ -20,7 +20,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        Self(descending: HL(~x.high, ~x.low))
+        Self(high: ~x.high, low: ~x.low)
     }
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
@@ -43,8 +43,8 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var byteSwapped: Self {
-        let hi = High(bitPattern: self.low .byteSwapped)
-        let lo = Low (bitPattern: self.high.byteSwapped)
-        return Self(descending: HL(hi, lo))
+        let high = High(bitPattern: self.low .byteSwapped)
+        let low  = Low (bitPattern: self.high.byteSwapped)
+        return Self(high: high, low: low)
     }
 }

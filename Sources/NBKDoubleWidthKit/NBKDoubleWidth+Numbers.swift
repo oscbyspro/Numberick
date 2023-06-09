@@ -20,11 +20,11 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static var min: Self {
-        Self(descending: HL(High.min, Low.min))
+        Self(high: High.min, low: Low.min)
     }
     
     @inlinable public static var max: Self {
-        Self(descending: HL(High.max, Low.max))
+        Self(high: High.max, low: Low.max)
     }
     
     //=------------------------------------------------------------------------=
@@ -35,11 +35,11 @@ extension NBKDoubleWidth {
         let bit  = digit.isLessThanZero
         let high = High(repeating: bit)
         let low  = Low(truncatingIfNeeded: digit)
-        self.init(descending: HL(high, low))
+        self.init(high: high, low: low)
     }
     
-    @inlinable public init(_truncatingBits source: UInt) {
-        self.init(descending: HL(High.zero, Low(_truncatingBits: source)))
+    @inlinable public init(_truncatingBits  source: UInt) {
+        self.init(low: Low(_truncatingBits: source))
     }
     
     //=------------------------------------------------------------------------=

@@ -117,35 +117,73 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     //=------------------------------------------------------------------------=
     
     #if _endian(big)
-    /// The most  significant part of this value.
+    /// The most  significant half of this value.
     public var high: High
-    /// The least significant part of this value.
+    /// The least significant half of this value.
     public var low:  Low
     #else
-    /// The least significant part of this value.
+    /// The least significant half of this value.
     public var low:  Low
-    /// The most  significant part of this value.
+    /// The most  significant half of this value.
     public var high: High
     #endif
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Initializers x Ascending
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given partition.
+    /// Creates a new instance from a `low` and a `high` value.
     ///
-    /// - Parameter ascending: An integer split into two parts, from least significant to most.
+    /// - Parameter low:  The least significant half of this value.
     ///
-    @inlinable public init(ascending components: LH<Low, High>) {
-        (self.low, self.high) = components
+    @inlinable public init(low: Low) {
+        self.init(low: low, high: High.zero)
     }
     
-    /// Creates a new instance from the given partition.
+    /// Creates a new instance from a `low` and a `high` value.
     ///
-    /// - Parameter descending: An integer split into two parts, from most significant to least.
+    /// - Parameter low:  The least significant half of this value.
+    /// - Parameter high: The most  significant half of this value.
     ///
-    @inlinable public init(descending components: HL<High, Low>) {
-        (self.high, self.low) = components
+    @inlinable public init(low: Low, high: High) {
+        self.init(ascending: LH(low: low,  high: high))
+    }
+    
+    /// Creates a new instance from a `low` and a `high` value.
+    ///
+    /// - Parameter ascending: An integer split into two `halves`, from least significant to most.
+    ///
+    @inlinable public init(ascending halves: LH<Low, High>) {
+        (self.low, self.high) = halves
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Descending
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from a `high`.
+    ///
+    /// - Parameter high: The most  significant half of this value.
+    ///
+    @inlinable public init(high: High) {
+        self.init(high: high, low: Low.zero)
+    }
+    
+    /// Creates a new instance from a `high` and a `low` value.
+    ///
+    /// - Parameter high: The most  significant half of this value.
+    /// - Parameter low:  The least significant half of this value.
+    ///
+    @inlinable public init(high: High, low:  Low) {
+        self.init(descending: HL(high: high, low: low))
+    }
+    
+    /// Creates a new instance from a `high` and a `low` value.
+    ///
+    /// - Parameter descending: An integer split into two `halves`, from most significant to least.
+    ///
+    @inlinable public init(descending halves: HL<High, Low>) {
+        (self.high, self.low) = halves
     }
 }
 

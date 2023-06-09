@@ -30,7 +30,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(bit: Bool) {
-        self.init(descending: HL(High.zero, Low(bit: bit)))
+        self.init(low: Low(bit: bit))
     }
     
     @inlinable public init(repeating bit: Bool) {
