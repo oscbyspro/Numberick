@@ -129,10 +129,10 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     #endif
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Ascending
+    // MARK: Initializers x Halves
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from a `low` and a `high` value.
+    /// Creates a new instance from the given `low` half.
     ///
     /// - Parameter low:  The least significant half of this value.
     ///
@@ -140,7 +140,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
         self.init(low: low, high: High.zero)
     }
     
-    /// Creates a new instance from a `low` and a `high` value.
+    /// Creates a new instance from the given `low` and `high` halves.
     ///
     /// - Parameter low:  The least significant half of this value.
     /// - Parameter high: The most  significant half of this value.
@@ -149,19 +149,15 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
         self.init(ascending: LH(low: low,  high: high))
     }
     
-    /// Creates a new instance from a `low` and a `high` value.
+    /// Creates a new instance from the given `low` and `high` halves.
     ///
-    /// - Parameter ascending: An integer split into two `halves`, from least significant to most.
+    /// - Parameter ascending: An integer split into two halves, from least significant to most.
     ///
     @inlinable public init(ascending halves: LH<Low, High>) {
         (self.low, self.high) = halves
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Descending
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a new instance from a `high`.
+    /// Creates a new instance from the given `high` half.
     ///
     /// - Parameter high: The most  significant half of this value.
     ///
@@ -169,7 +165,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
         self.init(high: high, low: Low.zero)
     }
     
-    /// Creates a new instance from a `high` and a `low` value.
+    /// Creates a new instance from the given `high` and `low` halves.
     ///
     /// - Parameter high: The most  significant half of this value.
     /// - Parameter low:  The least significant half of this value.
@@ -178,9 +174,9 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
         self.init(descending: HL(high: high, low: low))
     }
     
-    /// Creates a new instance from a `high` and a `low` value.
+    /// Creates a new instance from the given `high` and `low` halves.
     ///
-    /// - Parameter descending: An integer split into two `halves`, from most significant to least.
+    /// - Parameter descending: An integer split into two halves, from most significant to least.
     ///
     @inlinable public init(descending halves: HL<High, Low>) {
         (self.high, self.low) = halves
