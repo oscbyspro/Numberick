@@ -7,16 +7,58 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
 import NBKDoubleWidthKit
+import XCTest
 
 //*============================================================================*
-// MARK: * NBK x 256 x Utilities
+// MARK: * NBK x Double Width
+//*============================================================================*
+
+final class NBKDoubleWidthTests: XCTestCase {
+    
+    typealias T = any NBKFixedWidthInteger.Type
+
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    static let signed:   [T] = [ Int256.self,  Int512.self,  Int1024.self,  Int2048.self,  Int4096.self]
+    static let unsigned: [T] = [UInt256.self, UInt512.self, UInt1024.self, UInt2048.self, UInt4096.self]
+    static let types:    [T] = signed + unsigned
+    
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    let types: [T] = NBKDoubleWidthTests.types
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testMemoryLayout() {
+        func whereIs<T>(_ type: T.Type) where T: NBKFixedWidthInteger {
+            XCTAssert(MemoryLayout<T>.size *  8 == T.bitWidth)
+            XCTAssert(MemoryLayout<T>.size == MemoryLayout<T>.stride)
+            XCTAssert(MemoryLayout<T>.size /  MemoryLayout<UInt>.stride >= 2)
+            XCTAssert(MemoryLayout<T>.size %  MemoryLayout<UInt>.stride == 0)
+        }
+        
+        for type: T in types {
+            whereIs(type)
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Initializers
 //*============================================================================*
 
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Tuples
     //=------------------------------------------------------------------------=
     
     init(x64: NBK128X64) where BitPattern == UInt128 {

@@ -30,16 +30,6 @@ extension NBKDoubleWidth {
     @inlinable public var _lowWord: UInt {
         self.low._lowWord
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Two's Complement
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func minLastIndexReportingIsZeroOrMinusOne() -> (minLastIndex: Int, isZeroOrMinusOne: Bool) {
-        let sign  = UInt(repeating: self.isLessThanZero)
-        let index = self.lastIndex(where:{ $0 != sign })
-        return index.map({( $0, false )}) ?? (Int.zero, true)
-    }
 }
 
 //=----------------------------------------------------------------------------=

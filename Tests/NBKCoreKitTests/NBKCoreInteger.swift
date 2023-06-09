@@ -21,7 +21,7 @@ final class NBKCoreIntegerTests: XCTestCase {
     typealias T = any NBKCoreInteger.Type
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: State
     //=------------------------------------------------------------------------=
     
     static let signed:   [T] = [ Int.self,  Int8.self,  Int16.self,  Int32.self,  Int64.self]
