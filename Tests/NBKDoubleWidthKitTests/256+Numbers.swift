@@ -26,6 +26,10 @@ final class Int256TestsOnNumbers: XCTestCase {
     typealias T =  Int256
     typealias M = UInt256
     
+    typealias S2 = S.DoubleWidth
+    typealias T2 = T.DoubleWidth
+    typealias M2 = M.DoubleWidth
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Literal
     //=------------------------------------------------------------------------=
@@ -315,49 +319,45 @@ final class Int256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToDoubleWidth() {
-        typealias U = T.DoubleWidth
+        XCTAssertEqual(T2(T(x64: X( 1,  0,  0,  0))), T2(high:  0, low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(T(x64: X(~0,  0,  0,  0))), T2(high:  0, low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(T(x64: X( 1,  1,  1,  1))), T2(high:  0, low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(T(x64: X(~0, ~0, ~0, ~0))), T2(high: -1, low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(T(x64: X( 1,  0,  0,  0))), U(descending: HL( 0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(T(x64: X(~0,  0,  0,  0))), U(descending: HL( 0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(T(x64: X( 1,  1,  1,  1))), U(descending: HL( 0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(-1, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(exactly:  T(x64: X( 1,  0,  0,  0))), T2(high:  0, low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(exactly:  T(x64: X(~0,  0,  0,  0))), T2(high:  0, low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(exactly:  T(x64: X( 1,  1,  1,  1))), T2(high:  0, low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(exactly:  T(x64: X(~0, ~0, ~0, ~0))), T2(high: -1, low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(exactly:  T(x64: X( 1,  0,  0,  0))), U(descending: HL( 0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(exactly:  T(x64: X(~0,  0,  0,  0))), U(descending: HL( 0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(exactly:  T(x64: X( 1,  1,  1,  1))), U(descending: HL( 0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(exactly:  T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(-1, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(clamping: T(x64: X( 1,  0,  0,  0))), T2(high:  0, low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(clamping: T(x64: X(~0,  0,  0,  0))), T2(high:  0, low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(clamping: T(x64: X( 1,  1,  1,  1))), T2(high:  0, low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(clamping: T(x64: X(~0, ~0, ~0, ~0))), T2(high: -1, low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(clamping: T(x64: X( 1,  0,  0,  0))), U(descending: HL( 0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(clamping: T(x64: X(~0,  0,  0,  0))), U(descending: HL( 0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(clamping: T(x64: X( 1,  1,  1,  1))), U(descending: HL( 0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(clamping: T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(-1, M(x64: X(~0, ~0, ~0, ~0)))))
-        
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X( 1,  0,  0,  0))), U(descending: HL( 0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X(~0,  0,  0,  0))), U(descending: HL( 0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X( 1,  1,  1,  1))), U(descending: HL( 0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(-1, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X( 1,  0,  0,  0))), T2(high:  0, low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X(~0,  0,  0,  0))), T2(high:  0, low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X( 1,  1,  1,  1))), T2(high:  0, low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X(~0, ~0, ~0, ~0))), T2(high: -1, low: M(x64: X(~0, ~0, ~0, ~0))))
     }
     
-    func testFromDoubleWidth() {
-        typealias U = T.DoubleWidth
+    func testFromDoubleWidth() {        
+        XCTAssertEqual(T(T2(high: T(-1), low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(T2(high: T( 0), low: M(bitPattern: T.max))), T.max)
         
-        XCTAssertEqual(T(U(descending: HL(T(-1), M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(U(descending: HL(T( 0), M(bitPattern: T.max)))), T.max)
+        XCTAssertEqual(T(exactly:  T2(high: T.min, low: M(bitPattern: T.min))),   nil)
+        XCTAssertEqual(T(exactly:  T2(high: T(-1), low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(exactly:  T2(high: T( 0), low: M(bitPattern: T.max))), T.max)
+        XCTAssertEqual(T(exactly:  T2(high: T.max, low: M(bitPattern: T.max))),   nil)
         
-        XCTAssertEqual(T(exactly:  U(descending: HL(T.min, M(bitPattern: T.min)))),   nil)
-        XCTAssertEqual(T(exactly:  U(descending: HL(T(-1), M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(exactly:  U(descending: HL(T( 0), M(bitPattern: T.max)))), T.max)
-        XCTAssertEqual(T(exactly:  U(descending: HL(T.max, M(bitPattern: T.max)))),   nil)
+        XCTAssertEqual(T(clamping: T2(high: T.min, low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(clamping: T2(high: T(-1), low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(clamping: T2(high: T( 0), low: M(bitPattern: T.max))), T.max)
+        XCTAssertEqual(T(clamping: T2(high: T.max, low: M(bitPattern: T.max))), T.max)
         
-        XCTAssertEqual(T(clamping: U(descending: HL(T.min, M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(clamping: U(descending: HL(T(-1), M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(clamping: U(descending: HL(T( 0), M(bitPattern: T.max)))), T.max)
-        XCTAssertEqual(T(clamping: U(descending: HL(T.max, M(bitPattern: T.max)))), T.max)
-        
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T.min, M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T(-1), M(bitPattern: T.min)))), T.min)
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T( 0), M(bitPattern: T.max)))), T.max)
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T.max, M(bitPattern: T.max)))), T.max)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T.min, low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T(-1), low: M(bitPattern: T.min))), T.min)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T( 0), low: M(bitPattern: T.max))), T.max)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T.max, low: M(bitPattern: T.max))), T.max)
     }
     
     //=------------------------------------------------------------------------=
@@ -474,6 +474,10 @@ final class UInt256TestsOnNumbers: XCTestCase {
     typealias S =  Int256
     typealias T = UInt256
     typealias M = UInt256
+    
+    typealias S2 = S.DoubleWidth
+    typealias T2 = T.DoubleWidth
+    typealias M2 = M.DoubleWidth
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Literal
@@ -761,49 +765,45 @@ final class UInt256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToDoubleWidth() {
-        typealias U = T.DoubleWidth
+        XCTAssertEqual(T2(T(x64: X( 1,  0,  0,  0))), T2(low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(T(x64: X(~0,  0,  0,  0))), T2(low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(T(x64: X( 1,  1,  1,  1))), T2(low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(T(x64: X(~0, ~0, ~0, ~0))), T2(low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(T(x64: X( 1,  0,  0,  0))), U(descending: HL(0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(T(x64: X(~0,  0,  0,  0))), U(descending: HL(0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(T(x64: X( 1,  1,  1,  1))), U(descending: HL(0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(0, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(exactly:  T(x64: X( 1,  0,  0,  0))), T2(low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(exactly:  T(x64: X(~0,  0,  0,  0))), T2(low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(exactly:  T(x64: X( 1,  1,  1,  1))), T2(low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(exactly:  T(x64: X(~0, ~0, ~0, ~0))), T2(low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(exactly:  T(x64: X( 1,  0,  0,  0))), U(descending: HL(0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(exactly:  T(x64: X(~0,  0,  0,  0))), U(descending: HL(0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(exactly:  T(x64: X( 1,  1,  1,  1))), U(descending: HL(0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(exactly:  T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(0, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(clamping: T(x64: X( 1,  0,  0,  0))), T2(low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(clamping: T(x64: X(~0,  0,  0,  0))), T2(low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(clamping: T(x64: X( 1,  1,  1,  1))), T2(low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(clamping: T(x64: X(~0, ~0, ~0, ~0))), T2(low: M(x64: X(~0, ~0, ~0, ~0))))
         
-        XCTAssertEqual(U(clamping: T(x64: X( 1,  0,  0,  0))), U(descending: HL(0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(clamping: T(x64: X(~0,  0,  0,  0))), U(descending: HL(0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(clamping: T(x64: X( 1,  1,  1,  1))), U(descending: HL(0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(clamping: T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(0, M(x64: X(~0, ~0, ~0, ~0)))))
-        
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X( 1,  0,  0,  0))), U(descending: HL(0, M(x64: X( 1,  0,  0,  0)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X(~0,  0,  0,  0))), U(descending: HL(0, M(x64: X(~0,  0,  0,  0)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X( 1,  1,  1,  1))), U(descending: HL(0, M(x64: X( 1,  1,  1,  1)))))
-        XCTAssertEqual(U(truncatingIfNeeded: T(x64: X(~0, ~0, ~0, ~0))), U(descending: HL(0, M(x64: X(~0, ~0, ~0, ~0)))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X( 1,  0,  0,  0))), T2(low: M(x64: X( 1,  0,  0,  0))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X(~0,  0,  0,  0))), T2(low: M(x64: X(~0,  0,  0,  0))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X( 1,  1,  1,  1))), T2(low: M(x64: X( 1,  1,  1,  1))))
+        XCTAssertEqual(T2(truncatingIfNeeded: T(x64: X(~0, ~0, ~0, ~0))), T2(low: M(x64: X(~0, ~0, ~0, ~0))))
     }
     
     func testFromDoubleWidth() {
-        typealias U = T.DoubleWidth
+        XCTAssertEqual(T(T2(high: T(  ), low: M.min)), T.min)
+        XCTAssertEqual(T(T2(high: T(  ), low: M.max)), T.max)
         
-        XCTAssertEqual(T(U(descending: HL(T(  ), M.min))), T.min)
-        XCTAssertEqual(T(U(descending: HL(T(  ), M.max))), T.max)
+        XCTAssertEqual(T(exactly:  T2(high: T.min, low: M.min)), T(  ))
+        XCTAssertEqual(T(exactly:  T2(high: T(  ), low: M.min)), T.min)
+        XCTAssertEqual(T(exactly:  T2(high: T(  ), low: M.max)), T.max)
+        XCTAssertEqual(T(exactly:  T2(high: T.max, low: M.max)),   nil)
         
-        XCTAssertEqual(T(exactly:  U(descending: HL(T.min, M.min))), T(  ))
-        XCTAssertEqual(T(exactly:  U(descending: HL(T(  ), M.min))), T.min)
-        XCTAssertEqual(T(exactly:  U(descending: HL(T(  ), M.max))), T.max)
-        XCTAssertEqual(T(exactly:  U(descending: HL(T.max, M.max))),   nil)
+        XCTAssertEqual(T(clamping: T2(high: T.min, low: M.min)), T(  ))
+        XCTAssertEqual(T(clamping: T2(high: T(  ), low: M.min)), T.min)
+        XCTAssertEqual(T(clamping: T2(high: T(  ), low: M.max)), T.max)
+        XCTAssertEqual(T(clamping: T2(high: T.max, low: M.max)), T.max)
         
-        XCTAssertEqual(T(clamping: U(descending: HL(T.min, M.min))), T(  ))
-        XCTAssertEqual(T(clamping: U(descending: HL(T(  ), M.min))), T.min)
-        XCTAssertEqual(T(clamping: U(descending: HL(T(  ), M.max))), T.max)
-        XCTAssertEqual(T(clamping: U(descending: HL(T.max, M.max))), T.max)
-        
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T.min, M.min))), T(  ))
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T(  ), M.min))), T.min)
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T(  ), M.max))), T.max)
-        XCTAssertEqual(T(truncatingIfNeeded: U(descending: HL(T.max, M.max))), T.max)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T.min, low: M.min)), T(  ))
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T(  ), low: M.min)), T.min)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T(  ), low: M.max)), T.max)
+        XCTAssertEqual(T(truncatingIfNeeded: T2(high: T.max, low: M.max)), T.max)
     }
     
     //=------------------------------------------------------------------------=

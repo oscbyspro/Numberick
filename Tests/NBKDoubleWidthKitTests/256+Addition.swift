@@ -77,8 +77,8 @@ final class Int256TestsOnAddition: XCTestCase {
         NBKAssertAddition(T.max, T( 1), T.min,  true)
         NBKAssertAddition(T.max, T(-1), T.max - T(1))
         
-        NBKAssertAddition(T(descending: HL(.max, .max)), T(-1), T(descending: HL(.max, .max - 1))) // carry 1st
-        NBKAssertAddition(T(descending: HL(.min, .max)), T(-1), T(descending: HL(.min, .max - 1))) // carry 2nd
+        NBKAssertAddition(T(high: .max, low: .max), T(-1), T(high: .max, low: .max - 1)) // carry 1st
+        NBKAssertAddition(T(high: .min, low: .max), T(-1), T(high: .min, low: .max - 1)) // carry 2nd
     }
     
     //=------------------------------------------------------------------------=

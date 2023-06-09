@@ -77,8 +77,8 @@ final class Int256TestsOnSubtraction: XCTestCase {
         NBKAssertSubtraction(T.min, T(-2), T.min + T(2), false)
         NBKAssertSubtraction(T.max, T(-2), T.min + T(1), true )
         
-        NBKAssertSubtraction(T(descending: HL(.min, .min)), T(-1), T(descending: HL(.min, .min + 1))) // carry 1st
-        NBKAssertSubtraction(T(descending: HL(.max, .min)), T(-1), T(descending: HL(.max, .min + 1))) // carry 2nd
+        NBKAssertSubtraction(T(high: .min, low: .min), T(-1), T(high: .min, low: .min + 1)) // carry 1st
+        NBKAssertSubtraction(T(high: .max, low: .min), T(-1), T(high: .max, low: .min + 1)) // carry 2nd
     }
     
     //=------------------------------------------------------------------------=

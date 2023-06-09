@@ -73,11 +73,11 @@ import NBKCoreKit
 /// operations are more efficient for small calculations. Here are some examples:
 ///
 /// ```swift
-/// Int256(1) + Int(1) │ UInt256(1) + UInt(1)
-/// Int256(2) - Int(2) │ UInt256(2) - UInt(2)
-/// Int256(3) * Int(3) │ UInt256(3) * UInt(3)
-/// Int256(4) / Int(4) │ UInt256(4) / UInt(4)
-/// Int256(5) % Int(5) │ UInt256(5) % UInt(5)
+/// Int256(1) + Int(1), UInt256(1) + UInt(1)
+/// Int256(2) - Int(2), UInt256(2) - UInt(2)
+/// Int256(3) * Int(3), UInt256(3) * UInt(3)
+/// Int256(4) / Int(4), UInt256(4) / UInt(4)
+/// Int256(5) % Int(5), UInt256(5) % UInt(5)
 /// ```
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
@@ -151,7 +151,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// Creates a new instance from the given `low` and `high` halves.
     ///
-    /// - Parameter ascending: An integer split into two halves, from least significant to most.
+    /// - Parameter ascending: Both halves of this value, from least significant to most.
     ///
     @inlinable public init(ascending halves: LH<Low, High>) {
         (self.low, self.high) = halves
@@ -176,7 +176,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// Creates a new instance from the given `high` and `low` halves.
     ///
-    /// - Parameter descending: An integer split into two halves, from most significant to least.
+    /// - Parameter descending: Both halves of this value, from most significant to least.
     ///
     @inlinable public init(descending halves: HL<High, Low>) {
         (self.high, self.low) = halves
