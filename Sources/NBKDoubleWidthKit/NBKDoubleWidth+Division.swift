@@ -282,13 +282,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         var remainder = lhs as Wide3<High>
         var quotient  = remainder.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(remainder.high, remainder.mid)).quotient
-        var approximation = High.multiplying213(HL(rhs.high, rhs.low), by: quotient) as Wide3<High>
+        var approximation = High.multiplying213(rhs.descending, by: quotient) as Wide3<High>
         //=--------------------------------------=
         // decrement when overestimated (max 2)
         //=--------------------------------------=
         while High.compare33S(remainder, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
-            _ = High.decrement32B(&approximation, by: HL(rhs.high, rhs.low))
+            _ = High.decrement32B(&approximation, by: rhs.descending)
         }
         //=--------------------------------------=
         _ = High.decrement33B(&remainder, by: approximation)
