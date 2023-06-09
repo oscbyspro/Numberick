@@ -81,11 +81,11 @@ single-digit operations, where a digit is an un/signed machine word. These
 operations are more efficient for small calculations. Here are some examples:
 
 ```swift
-Int256(1) + Int(1) │ UInt256(1) + UInt(1)
-Int256(2) - Int(2) │ UInt256(2) - UInt(2)
-Int256(3) * Int(3) │ UInt256(3) * UInt(3)
-Int256(4) / Int(4) │ UInt256(4) / UInt(4)
-Int256(5) % Int(5) │ UInt256(5) % UInt(5)
+Int256(1) + Int(1), UInt256(1) + UInt(1)
+Int256(2) - Int(2), UInt256(2) - UInt(2)
+Int256(3) * Int(3), UInt256(3) * UInt(3)
+Int256(4) / Int(4), UInt256(4) / UInt(4)
+Int256(5) % Int(5), UInt256(5) % UInt(5)
 ```
 
 > **Note:**  The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.

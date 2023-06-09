@@ -47,17 +47,18 @@ extension NBKDoubleWidth {
     @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = self .isLessThanZero
         let rhsIsLessThanZero: Bool = other.isLessThanZero
+        let minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
         var qro = NBK.bitCast(Magnitude.divide2222(self.magnitude, by: other.magnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
-        if  lhsIsLessThanZero != rhsIsLessThanZero {
+        if  minus {
             qro.partialValue.quotient.formTwosComplement()
         }
 
         if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
         }
-
+        
         if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
             qro.overflow = true
         }
@@ -89,7 +90,7 @@ extension NBKDoubleWidth {
     @inlinable public func dividingFullWidthReportingOverflow(_ other: DoubleWidth) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = other.isLessThanZero
         let rhsIsLessThanZero: Bool = self .isLessThanZero
-        let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
+        let minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
         var qro = NBK.bitCast(Magnitude.divide4222(other.magnitude, by: self.magnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
@@ -118,10 +119,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Transformations x 2222
     //=------------------------------------------------------------------------=
-
+    
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide2222(_ lhs: Self, by rhs: Self) -> PVO<QR<Self, Self>> {
-        let shift: Int = rhs.leadingZeroBitCount
+        let shift = rhs.leadingZeroBitCount as Int
         //=--------------------------------------=
         // divisor is zero
         //=--------------------------------------=
@@ -131,7 +132,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         return PVO(Self.divide2222Unchecked(lhs, by: rhs, shift: shift), false)
     }
-
+    
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide2222Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs.isMoreThanZero, "must not divide by zero")
@@ -182,7 +183,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide4222(_ lhs: DoubleWidth, by rhs: Self) -> PVO<QR<Self, Self>> {
-        let shift: Int = rhs.leadingZeroBitCount
+        let shift = rhs.leadingZeroBitCount as Int
         //=--------------------------------------=
         // divisor is zero
         //=--------------------------------------=
@@ -190,7 +191,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             return PVO(QR(lhs.low, lhs.low), true)
         }
         //=--------------------------------------=
-        // quotient will not fit in two halves
+        // quotient does not fit in two halves
         //=--------------------------------------=
         if  rhs <= lhs.high {
             let high = Self.divide2222Unchecked(lhs.high,  by: rhs, shift: shift)
@@ -283,7 +284,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var quotient  = remainder.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(remainder.high, remainder.mid)).quotient
         var approximation = High.multiplying213(HL(rhs.high, rhs.low), by: quotient) as Wide3<High>
         //=--------------------------------------=
-        // fix when overestimated (max 2)
+        // decrement when overestimated (max 2)
         //=--------------------------------------=
         while High.compare33S(remainder, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)

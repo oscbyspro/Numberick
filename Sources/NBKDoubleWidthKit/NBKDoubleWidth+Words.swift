@@ -183,7 +183,7 @@ extension NBKDoubleWidth {
     /// Accesses the word at the given index, from least significant to most.
     ///
     /// - Parameter index: The machine word index.
-    /// - Parameter type:  The machine word type, which is `Int.self` or `UInt.self`.
+    /// - Parameter type:  The machine word type, which is `Int` or `UInt`.
     ///
     @inlinable subscript<T>(_ index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         _read {
@@ -200,7 +200,7 @@ extension NBKDoubleWidth {
     /// Accesses the word at the given index, from least significant to most.
     ///
     /// - Parameter index: The machine word index.
-    /// - Parameter type:  The machine word type, which is `Int.self` or `UInt.self`.
+    /// - Parameter type:  The machine word type, which is `Int` or `UInt`.
     ///
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {

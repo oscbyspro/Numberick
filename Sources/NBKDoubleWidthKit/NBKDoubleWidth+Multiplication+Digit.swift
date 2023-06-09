@@ -26,7 +26,10 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
-        let minus = self.isLessThanZero != other.isLessThanZero
+        let lhsIsLessThanZero: Bool = self .isLessThanZero
+        let rhsIsLessThanZero: Bool = other.isLessThanZero
+        let minus = lhsIsLessThanZero != rhsIsLessThanZero
+        //=--------------------------------------=
         var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude)) as PVO<Self>
         //=--------------------------------------=
         var suboverflow = (pvo.partialValue.isLessThanZero)
@@ -34,7 +37,7 @@ extension NBKDoubleWidth {
             suboverflow = !pvo.partialValue.formTwosComplementSubsequence(true) && suboverflow
         }
         
-        pvo.overflow = (pvo.overflow || suboverflow) as Bool
+        pvo.overflow = pvo.overflow || suboverflow as Bool
         //=--------------------------------------=
         return pvo as PVO<Self>
     }
@@ -50,7 +53,10 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude> {
-        var minus = self.isLessThanZero != other.isLessThanZero
+        let lhsIsLessThanZero: Bool = self .isLessThanZero
+        let rhsIsLessThanZero: Bool = other.isLessThanZero
+        var minus = lhsIsLessThanZero != rhsIsLessThanZero
+        //=--------------------------------------=
         var product = self.magnitude.multipliedFullWidth(by: other.magnitude) as HL<UInt, Magnitude>
         //=--------------------------------------=
         if  minus {
@@ -90,9 +96,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var carry = UInt.zero
         
         for index in self.indices {
-            var (high, low) = self[index].multipliedFullWidth(by: other)
-            high &+= UInt(bit: low.addReportingOverflow(carry))
-            (carry, self[index]) = (high, low) as HL<UInt, UInt>
+            var subproduct = self[index].multipliedFullWidth(by: other)
+            subproduct.high &+= UInt(bit: subproduct.low.addReportingOverflow(carry))
+            (carry, self[index]) = subproduct as HL<UInt, UInt>
         }
         
         return carry as Digit
