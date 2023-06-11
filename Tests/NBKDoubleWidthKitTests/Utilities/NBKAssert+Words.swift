@@ -15,10 +15,10 @@ import XCTest
 // MARK: * NBK x Assert x Words
 //*============================================================================*
 
-func NBKAssertWords<T: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<T>, _ words: [UInt],
+func NBKAssertWords<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
-    var integer: NBKDoubleWidth<T> = integer
+    var integer: NBKDoubleWidth<H> = integer
     var generic: some RandomAccessCollection<UInt> & MutableCollection = integer
     
     XCTAssertEqual(Array(integer),       words, file: file, line: line)
@@ -34,8 +34,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(generic.withContiguousMutableStorageIfAvailable({ Array($0) }), words, file: file, line: line)
 }
 
-func NBKAssertMinLastIndexReportingIsZeroOrMinusOne<T: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<T>, _ minLastIndex: Int, _ isZeroOrMinusOne: Bool,
+func NBKAssertMinLastIndexReportingIsZeroOrMinusOne<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ minLastIndex: Int, _ isZeroOrMinusOne: Bool,
 file: StaticString = #file, line: UInt = #line) {
     let result = integer.minLastIndexReportingIsZeroOrMinusOne()
     

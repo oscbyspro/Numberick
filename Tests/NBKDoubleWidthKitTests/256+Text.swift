@@ -106,6 +106,20 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T(-11), 36, "-0b")
     }
     
+    func testDecodingRadixLiteralAsRadixReturnsNil() {
+        NBKAssertDecodeText(T?.none, 10,  "0x10")
+        NBKAssertDecodeText(T?.none, 10,  "0o10")
+        NBKAssertDecodeText(T?.none, 10,  "0b10")
+        
+        NBKAssertDecodeText(T?.none, 10, "+0x10")
+        NBKAssertDecodeText(T?.none, 10, "+0o10")
+        NBKAssertDecodeText(T?.none, 10, "+0b10")
+        
+        NBKAssertDecodeText(T?.none, 10, "-0x10")
+        NBKAssertDecodeText(T?.none, 10, "-0o10")
+        NBKAssertDecodeText(T?.none, 10, "-0b10")
+    }
+    
     func testDecodingStringsWithOrWithoutSign() {
         NBKAssertDecodeText(T( 1234567890), 10,  "1234567890")
         NBKAssertDecodeText(T( 1234567890), 10, "+1234567890")
@@ -299,6 +313,16 @@ final class UInt256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T(33), 36, "+0x")
         NBKAssertDecodeText(T(24), 36, "+0o")
         NBKAssertDecodeText(T(11), 36, "+0b")
+    }
+    
+    func testDecodingRadixLiteralAsRadixReturnsNil() {
+        NBKAssertDecodeText(T?.none, 10,  "0x10")
+        NBKAssertDecodeText(T?.none, 10,  "0o10")
+        NBKAssertDecodeText(T?.none, 10,  "0b10")
+        
+        NBKAssertDecodeText(T?.none, 10, "+0x10")
+        NBKAssertDecodeText(T?.none, 10, "+0o10")
+        NBKAssertDecodeText(T?.none, 10, "+0b10")
     }
     
     func testDecodingStringsWithOrWithoutSign() {

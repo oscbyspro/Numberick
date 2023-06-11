@@ -22,6 +22,7 @@ private typealias Y = NBK256X32
 
 final class Int256TestsOnShifts: XCTestCase {
     
+    typealias S = Int256
     typealias T = Int256
     
     //=------------------------------------------------------------------------=
@@ -118,17 +119,17 @@ final class Int256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  257, T(x64: X(2, 4, 6, 8)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -255, T(x64: X(2, 4, 6, 8)))
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  257, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -255, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>>  257, T(x64: X(1, 2, 3, 4)))
-        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>> -255, T(x64: X(1, 2, 3, 4)))
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  320, T(x64: X(0, 1, 2, 3)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -192, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  320, T(x64: X(0, 1, 2, 3)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -192, T(x64: X(0, 1, 2, 3)))
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  257, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -255, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>>  320, T(x64: X(2, 3, 4, 0)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>> -192, T(x64: X(2, 3, 4, 0)))
+        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)),  320, T(x64: X(2, 3, 4, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)), -192, T(x64: X(2, 3, 4, 0)), signitude: S.self)
     }
 }
 
@@ -138,6 +139,7 @@ final class Int256TestsOnShifts: XCTestCase {
 
 final class UInt256TestsOnShifts: XCTestCase {
     
+    typealias S =  Int256
     typealias T = UInt256
     
     //=------------------------------------------------------------------------=
@@ -234,17 +236,17 @@ final class UInt256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  257, T(x64: X(2, 4, 6, 8)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -255, T(x64: X(2, 4, 6, 8)))
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  257, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -255, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>>  257, T(x64: X(1, 2, 3, 4)))
-        XCTAssertEqual(T(x64: X(2, 4, 6, 8)) &>> -255, T(x64: X(1, 2, 3, 4)))
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  320, T(x64: X(0, 1, 2, 3)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -192, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<<  320, T(x64: X(0, 1, 2, 3)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &<< -192, T(x64: X(0, 1, 2, 3)))
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  257, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -255, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>>  320, T(x64: X(2, 3, 4, 0)))
-        XCTAssertEqual(T(x64: X(1, 2, 3, 4)) &>> -192, T(x64: X(2, 3, 4, 0)))
+        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)),  320, T(x64: X(2, 3, 4, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)), -192, T(x64: X(2, 3, 4, 0)), signitude: S.self)
     }
 }
 

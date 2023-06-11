@@ -1,7 +1,7 @@
 //=----------------------------------------------------------------------------=
 // This source file is part of the Numberick open source project.
 //
-// Copyright (c) 2022 Oscar Byström Ericsson
+// Copyright (c) 2023 Oscar Byström Ericsson
 // Licensed under Apache License, Version 2.0
 //
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
@@ -89,17 +89,17 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
             NBKAssertTwosComplement(T( 0), T( 0))
             NBKAssertTwosComplement(T( 1), T(-1))
             
-            NBKAssertTwosComplement(T.min, T.min,  true )
-            NBKAssertTwosComplement(T.max, T.min + T( 1))
+            NBKAssertTwosComplement(T.min, T.min,  true)
+            NBKAssertTwosComplement(T.max, T.min + 1)
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            NBKAssertTwosComplement(T( 1), T.max - T( 0))
-            NBKAssertTwosComplement(T( 2), T.max - T( 1))
-            NBKAssertTwosComplement(T( 3), T.max - T( 2))
+            NBKAssertTwosComplement(T( 1), T.max - 0)
+            NBKAssertTwosComplement(T( 2), T.max - 1)
+            NBKAssertTwosComplement(T( 3), T.max - 2)
             
-            NBKAssertTwosComplement(T.min, T.min,  true )
-            NBKAssertTwosComplement(T.max, T.min + T( 1))
+            NBKAssertTwosComplement(T.min, T.min,  true)
+            NBKAssertTwosComplement(T.max, T.min + 1)
         }
         
         for type: T in types {

@@ -56,7 +56,7 @@ file: StaticString = #file, line: UInt = #line) {
     text.withUTF8 { text in
     body.withUTF8 { body in
         
-        let (componentsSign, componentsBody) = NBK.unsafeIntegerComponents(utf8: text)
+        let (componentsSign, componentsBody) = NBK.integerComponents(utf8: text)
         
         XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
         XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)

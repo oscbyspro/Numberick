@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Comparisons
 //*============================================================================*
 
-func NBKAssertComparisons<T: NBKFixedWidthInteger>(
-_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>, _ result: Int,
+func NBKAssertComparisons<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>, _ result: Int,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs == rhs, result ==  0, file: file, line: line)
     XCTAssertEqual(lhs != rhs, result !=  0, file: file, line: line)

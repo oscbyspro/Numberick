@@ -15,9 +15,9 @@ import XCTest
 // MARK: * NBK x Assert x Division
 //*============================================================================*
 
-func NBKAssertDivision<T: NBKFixedWidthInteger>(
-_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>,
-_ quotient: NBKDoubleWidth<T>, _ remainder: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertDivision<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>,
+_ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
@@ -48,11 +48,11 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
 }
 
-func NBKAssertDivisionByDigit<T: NBKFixedWidthInteger>(
-_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>.Digit,
-_ quotient: NBKDoubleWidth<T>, _ remainder: NBKDoubleWidth<T>.Digit, _ overflow: Bool = false,
+func NBKAssertDivisionByDigit<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
+_ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    let extended = NBKDoubleWidth<T>(digit: remainder)
+    let extended = NBKDoubleWidth<H>(digit: remainder)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
@@ -86,17 +86,19 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: * NBK x Assert x Division x Full Width
 //*============================================================================*
 
-func NBKAssertDivisionFullWidth<T: NBKFixedWidthInteger>(
-_ lhs: HL<NBKDoubleWidth<T>, NBKDoubleWidth<T>.Magnitude>, _ rhs: NBKDoubleWidth<T>,
-_ quotient: NBKDoubleWidth<T>, _ remainder: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertDivisionFullWidth<H: NBKFixedWidthInteger>(
+_ lhs: HL<NBKDoubleWidth<H>, NBKDoubleWidth<H>.Magnitude>, _ rhs: NBKDoubleWidth<H>,
+_ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
     if !overflow {
-        let qr: QR<NBKDoubleWidth<T>, NBKDoubleWidth<T>> = rhs.dividingFullWidth(lhs)
+        let qr: QR<T, T> = rhs.dividingFullWidth(lhs)
         XCTAssertEqual(qr.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(qr.remainder, remainder, file: file, line: line)
     }
-    
-    let qro: PVO<QR<NBKDoubleWidth<T>, NBKDoubleWidth<T>>> = rhs.dividingFullWidthReportingOverflow(lhs)
+    //=------------------------------------------=
+    let qro: PVO<QR<T, T>> = rhs.dividingFullWidthReportingOverflow(lhs)
     XCTAssertEqual(qro.partialValue.quotient,  quotient,  file: file, line: line)
     XCTAssertEqual(qro.partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(qro.overflow,               overflow,  file: file, line: line)

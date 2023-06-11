@@ -815,7 +815,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
     /// ```
     ///
-    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self` and `self`.
+    /// - Note: In the case of `overflow`, the result is either truncated or, if undefined, `self`.
     ///
     @inlinable func remainderReportingOverflow(dividingBy other: Self) -> PVO<Self>
     
@@ -1073,8 +1073,8 @@ extension String {
     /// └──────────────┴───────┴─────────── → ────────────┘
     /// ```
     ///
-    @inlinable public init(_ integer: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
-        self = integer.description(radix: radix, uppercase: uppercase)
+    @inlinable public init(_ source: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
+        self = source.description(radix: radix, uppercase: uppercase)
     }
 }
 

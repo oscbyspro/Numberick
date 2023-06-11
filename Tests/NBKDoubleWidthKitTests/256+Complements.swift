@@ -67,8 +67,8 @@ final class Int256TestsOnComplements: XCTestCase {
         NBKAssertTwosComplement(T( 0), T( 0))
         NBKAssertTwosComplement(T( 1), T(-1))
         
-        NBKAssertTwosComplement(T.min, T.min,  true )
-        NBKAssertTwosComplement(T.max, T.min + T( 1))
+        NBKAssertTwosComplement(T.min, T.min + 0, true)
+        NBKAssertTwosComplement(T.max, T.min + 1)
     }
 }
 
@@ -112,12 +112,12 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        NBKAssertTwosComplement(T( 1), T.max - T( 0))
-        NBKAssertTwosComplement(T( 2), T.max - T( 1))
-        NBKAssertTwosComplement(T( 3), T.max - T( 2))
+        NBKAssertTwosComplement(T( 1), T.max - 0)
+        NBKAssertTwosComplement(T( 2), T.max - 1)
+        NBKAssertTwosComplement(T( 3), T.max - 2)
         
-        NBKAssertTwosComplement(T.min, T.min,  true )
-        NBKAssertTwosComplement(T.max, T.min + T( 1))
+        NBKAssertTwosComplement(T.min, T.min + 0, true)
+        NBKAssertTwosComplement(T.max, T.min + 1)
     }
 }
 

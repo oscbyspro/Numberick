@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Negation
 //*============================================================================*
 
-func NBKAssertNegation<T: NBKFixedWidthInteger & NBKSignedInteger>(
-_ operand: NBKDoubleWidth<T>, _ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertNegation<H: NBKFixedWidthInteger & NBKSignedInteger>(
+_ operand: NBKDoubleWidth<H>, _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {

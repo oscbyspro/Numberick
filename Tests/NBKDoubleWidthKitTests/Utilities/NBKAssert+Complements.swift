@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Complements
 //*============================================================================*
 
-func NBKAssertTwosComplement<T: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<T>, _ twosComplement: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertTwosComplement<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ twosComplement: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(integer.twosComplement(),                              twosComplement,      file: file, line: line)
     XCTAssertEqual(integer.twosComplementSubsequence(true ).partialValue, twosComplement,      file: file, line: line)

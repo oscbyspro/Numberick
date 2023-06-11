@@ -15,9 +15,9 @@ import XCTest
 // MARK: * NBK x Assert x Addition
 //*============================================================================*
 
-func NBKAssertAddition<T: NBKFixedWidthInteger>(
-_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>,
-_ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertAddition<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>,
+_ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
@@ -35,9 +35,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let o = x.addReportingOverflow(rhs); return o }(), overflow,     file: file, line: line)
 }
 
-func NBKAssertAdditionByDigit<T: NBKFixedWidthInteger>(
-_ lhs: NBKDoubleWidth<T>, _ rhs: NBKDoubleWidth<T>.Digit,
-_ partialValue: NBKDoubleWidth<T>, _ overflow: Bool = false,
+func NBKAssertAdditionByDigit<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
+_ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {

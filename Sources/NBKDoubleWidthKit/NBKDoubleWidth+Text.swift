@@ -60,7 +60,7 @@ extension NBKDoubleWidth {
     /// - Note: This member is required by `Swift.CustomStringConvertible`.
     ///
     @inlinable public var description: String {
-        String(self, radix: 10, uppercase: false)
+        self.description(radix: 10, uppercase: false)
     }
     
     /// The `description` of this type.

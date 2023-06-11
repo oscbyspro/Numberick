@@ -32,9 +32,9 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
     
     func testDividing() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            NBKAssertDivision(T( 0), T( 1), T( 0), T( 0))
-            NBKAssertDivision(T( 0), T( 2), T( 0), T( 0))
-            NBKAssertDivision(T( 7), T( 1), T( 7), T( 0))
+            NBKAssertDivision(T(  ), T( 1), T(  ), T(  ))
+            NBKAssertDivision(T(  ), T( 2), T(  ), T(  ))
+            NBKAssertDivision(T( 7), T( 1), T( 7), T(  ))
             NBKAssertDivision(T( 7), T( 2), T( 3), T( 1))
 
             NBKAssertDivision(T( 7), T( 3), T( 2), T( 1))
@@ -42,11 +42,11 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             NBKAssertDivision(T(-7), T( 3), T(-2), T(-1))
             NBKAssertDivision(T(-7), T(-3), T( 2), T(-1))
         }
-
+        
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            NBKAssertDivision(T( 0), T( 1), T( 0), T( 0))
-            NBKAssertDivision(T( 0), T( 2), T( 0), T( 0))
-            NBKAssertDivision(T( 7), T( 1), T( 7), T( 0))
+            NBKAssertDivision(T(  ), T( 1), T(  ), T(  ))
+            NBKAssertDivision(T(  ), T( 2), T(  ), T(  ))
+            NBKAssertDivision(T( 7), T( 1), T( 7), T(  ))
             NBKAssertDivision(T( 7), T( 2), T( 3), T( 1))
         }
 
@@ -57,17 +57,17 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
 
     func testDividingReportingOverflow() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            NBKAssertDivision(T( 0), T( 0), T( 0),     T( 0), true )
-            NBKAssertDivision(T( 1), T( 0), T( 1),     T( 1), true )
-            NBKAssertDivision(T( 2), T( 0), T( 2),     T( 2), true )
-            NBKAssertDivision(T.min, T(-1), T.min,     T( 0), true )
-            NBKAssertDivision(T.max, T(-1), T.min + 1, T( 0), false)
+            NBKAssertDivision(T(  ), T(  ), T(  ),     T(  ), true)
+            NBKAssertDivision(T( 1), T(  ), T( 1),     T( 1), true)
+            NBKAssertDivision(T( 2), T(  ), T( 2),     T( 2), true)
+            NBKAssertDivision(T.min, T(-1), T.min,     T(  ), true)
+            NBKAssertDivision(T.max, T(-1), T.min + 1, T(  ))
         }
 
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
-            NBKAssertDivision(T( 0), T( 0), T( 0),     T( 0), true)
-            NBKAssertDivision(T( 1), T( 0), T( 1),     T( 1), true)
-            NBKAssertDivision(T( 2), T( 0), T( 2),     T( 2), true)
+            NBKAssertDivision(T(  ), T(  ), T(  ),     T(  ), true)
+            NBKAssertDivision(T( 1), T(  ), T( 1),     T( 1), true)
+            NBKAssertDivision(T( 2), T(  ), T( 2),     T( 2), true)
         }
         
         for type: T in types {
@@ -85,25 +85,25 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             //=----------------------------------=
             var dividend: (high: T, low: M)
             //=----------------------------------=
-            dividend.high = T.max / T(2)
+            dividend.high = T.max / 2
             dividend.low  = M( 1)
 
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T(  ) - T( ))
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T(  ))
             //=----------------------------------=
-            dividend.high = T.max / T(2)
-            dividend.low  = M.max / M(2)
+            dividend.high = T.max / 2
+            dividend.low  = M.max / 2
 
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1))
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - 1)
             //=----------------------------------=
-            dividend.high = T.max / T(2) + T(1)
+            dividend.high = T.max / 2 + 1
             dividend.low  = M(  )
 
-            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T(  ) - T( ))
+            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T(  ))
             //=----------------------------------=
-            dividend.high = T.max / T(2) + T(1)
-            dividend.low  = M.max / M(2)
+            dividend.high = T.max / 2 + 1
+            dividend.low  = M.max / 2
 
-            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max - T( ))
+            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max)
         }
 
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
@@ -111,15 +111,15 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             //=----------------------------------=
             var dividend: (high: T, low: M)
             //=----------------------------------=
-            dividend.high = T.max - T(1)
+            dividend.high = T.max - 1
             dividend.low  = M( 1)
 
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T(  ) - T( ))
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T(  ))
             //=----------------------------------=
-            dividend.high = T.max - T(1)
+            dividend.high = T.max - 1
             dividend.low  = M.max
 
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1))
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - 1)
         }
         
         for type: T in types {
@@ -136,52 +136,52 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             dividend.high = T(  )
             dividend.low  = M( 7)
 
-            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true )
+            NBKAssertDivisionFullWidth(dividend, T(  ), T( 7), T( 7), true)
             //=----------------------------------=
             dividend.high = T(-1)
             dividend.low  = M( 7)
             
-            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true )
+            NBKAssertDivisionFullWidth(dividend, T(  ), T( 7), T( 7), true)
             //=--------------------------------------=
             dividend.high = T(-1)
             dividend.low  = M.max
             
-            NBKAssertDivisionFullWidth(dividend, T( 2), T(  ), T(-1), false)
+            NBKAssertDivisionFullWidth(dividend, T( 2), T(  ), T(-1))
             //=--------------------------------------=
             dividend.high = T(  )
             dividend.low  = M( 1)
             
-            NBKAssertDivisionFullWidth(dividend, T(-2), T(  ), T( 1), false)
+            NBKAssertDivisionFullWidth(dividend, T(-2), T(  ), T( 1))
             //=----------------------------------=
             dividend.high = T(  )
             dividend.low  = M(bitPattern: T.max)
 
-            NBKAssertDivisionFullWidth(dividend, T(-1), T.min + T(1), T(0), false)
+            NBKAssertDivisionFullWidth(dividend, T(-1), T.min + 1, T(  ))
             //=----------------------------------=
             dividend.high = T(-1)
             dividend.low  = M(bitPattern: T.min)
             
-            NBKAssertDivisionFullWidth(dividend, T(-1), T.min + T(0), T(0), true )
+            NBKAssertDivisionFullWidth(dividend, T(-1), T.min, T(  ), true)
             //=----------------------------------=
-            dividend.high = T.max >> 1 + T(0)
-            dividend.low  = M.max >> 1 + M(0)
+            dividend.high = T.max >> 1
+            dividend.low  = M.max >> 1
             
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - 1)
             //=----------------------------------=
-            dividend.high = T.max >> 1 + T(0)
-            dividend.low  = M.max >> 1 + M(1)
+            dividend.high = T.max >> 1
+            dividend.low  = M.max >> 1 + 1
             
-            NBKAssertDivisionFullWidth(dividend, T.max, T.min, T(  ) - T(0), true )
+            NBKAssertDivisionFullWidth(dividend, T.max, T.min, T(  ), true)
             //=----------------------------------=
-            dividend.high = T.max >> 1 + T(1)
-            dividend.low  = M.max >> 1 + M(0)
+            dividend.high = T.max >> 1 + 1
+            dividend.low  = M.max >> 1
             
-            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max - T(0), false)
+            NBKAssertDivisionFullWidth(dividend, T.min, T.min, T.max)
             //=----------------------------------=
-            dividend.high = T.max >> 1 + T(1)
-            dividend.low  = M.max >> 1 + M(1)
+            dividend.high = T.max >> 1 + 1
+            dividend.low  = M.max >> 1 + 1
             
-            NBKAssertDivisionFullWidth(dividend, T.min, T.max, T(  ) - T(0), true )
+            NBKAssertDivisionFullWidth(dividend, T.min, T.max, T(  ), true)
         }
 
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
@@ -192,22 +192,22 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             dividend.high = T(  )
             dividend.low  = M( 7)
             
-            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true)
+            NBKAssertDivisionFullWidth(dividend, T(  ), T( 7), T( 7), true)
             //=----------------------------------=
             dividend.high = T.max
             dividend.low  = M( 7)
             
-            NBKAssertDivisionFullWidth(dividend, T( 0), T( 7), T( 7), true)
+            NBKAssertDivisionFullWidth(dividend, T(  ), T( 7), T( 7), true)
             //=----------------------------------=
-            dividend.high = T.max - T(1)
+            dividend.high = T.max - 1
             dividend.low  = M.max
             
-            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - T(1), false)
+            NBKAssertDivisionFullWidth(dividend, T.max, T.max, T.max - 1)
             //=----------------------------------=
-            dividend.high = T.max - T(0)
+            dividend.high = T.max
             dividend.low  = M.min
             
-            NBKAssertDivisionFullWidth(dividend, T.max, T.min, T.min - T(0), true )
+            NBKAssertDivisionFullWidth(dividend, T.max, T.min, T.min, true)
         }
                 
         for type: T in types {
@@ -224,11 +224,11 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             dividend.high = T(repeating: true )
             dividend.low  = M(repeating: false)
             
-            NBKAssertDivisionFullWidth(dividend, T(0), ~T(0) << (T.bitWidth - 0), T(0), true )
-            NBKAssertDivisionFullWidth(dividend, T(1), ~T(0) << (T.bitWidth - 0), T(0), true )
-            NBKAssertDivisionFullWidth(dividend, T(2), ~T(0) << (T.bitWidth - 1), T(0), false)
-            NBKAssertDivisionFullWidth(dividend, T(4), ~T(0) << (T.bitWidth - 2), T(0), false)
-            NBKAssertDivisionFullWidth(dividend, T(8), ~T(0) << (T.bitWidth - 3), T(0), false)
+            NBKAssertDivisionFullWidth(dividend, T( ), ~T( ) << (T.bitWidth - 0), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(1), ~T( ) << (T.bitWidth - 0), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(2), ~T( ) << (T.bitWidth - 1), T( ))
+            NBKAssertDivisionFullWidth(dividend, T(4), ~T( ) << (T.bitWidth - 2), T( ))
+            NBKAssertDivisionFullWidth(dividend, T(8), ~T( ) << (T.bitWidth - 3), T( ))
         }
 
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
@@ -239,11 +239,11 @@ final class NBKCoreIntegerTestsOnDivision: XCTestCase {
             dividend.high = T(repeating: true )
             dividend.low  = M(repeating: false)
             
-            NBKAssertDivisionFullWidth(dividend, T(0), ~T(0) << (T.bitWidth - 0), T(0), true)
-            NBKAssertDivisionFullWidth(dividend, T(1), ~T(0) << (T.bitWidth - 0), T(0), true)
-            NBKAssertDivisionFullWidth(dividend, T(2), ~T(0) << (T.bitWidth - 1), T(0), true)
-            NBKAssertDivisionFullWidth(dividend, T(4), ~T(0) << (T.bitWidth - 2), T(0), true)
-            NBKAssertDivisionFullWidth(dividend, T(8), ~T(0) << (T.bitWidth - 3), T(0), true)
+            NBKAssertDivisionFullWidth(dividend, T( ), ~T( ) << (T.bitWidth - 0), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(1), ~T( ) << (T.bitWidth - 0), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(2), ~T( ) << (T.bitWidth - 1), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(4), ~T( ) << (T.bitWidth - 2), T( ), true)
+            NBKAssertDivisionFullWidth(dividend, T(8), ~T( ) << (T.bitWidth - 3), T( ), true)
         }
         
         for type: T in types {

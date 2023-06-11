@@ -17,38 +17,37 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Returns the integer's sign, along with all other code points.
+    /// Returns an `UTF-8` encoded integer's `sign` and `body`.
     ///
     /// ```
-    /// ┌─────── → ───────┬────────┐
-    /// │ utf8   │  sign  │  body  │
-    /// ├─────── → ───────┼────────┤
-    /// │ "+123" │ .plus  │  "123" │
-    /// │ "-123" │ .minus │  "123" │
-    /// │ "~123" │ .plus  │ "~123" │
-    /// └─────── → ───────┴────────┘
+    /// ┌─────── → ──────┬────────┐
+    /// │ utf8   │ sign  │  body  │
+    /// ├─────── → ──────┼────────┤
+    /// │ "+123" │ plus  │  "123" │
+    /// │ "-123" │ minus │  "123" │
+    /// │ "~123" │ plus  │ "~123" │
+    /// └─────── → ──────┴────────┘
     /// ```
     ///
-    @inlinable public static func unsafeIntegerComponents(utf8: UnsafeUTF8) -> (sign: Sign, body: UnsafeUTF8) {
-        var utf8 = utf8[...] as UnsafeUTF8.SubSequence
-        let sign = NBK.removeSignPrefix(utf8: &utf8) ?? Sign.plus
-        let body = UnsafeUTF8(rebasing: utf8)
+    @inlinable public static func integerComponents<T>(utf8: T) -> (sign: Sign, body: T.SubSequence) where T: Collection<UInt8> {
+        var body = utf8[...] as T.SubSequence
+        let sign = NBK.removeSignPrefix(utf8: &body) ?? Sign.plus
         return (sign: sign, body: body)
     }
     
     /// Removes and returns an `UTF-8` encoded sign prefix, if it exists.
     ///
     /// ```
-    /// ┌─────── → ───────┬────────┐
-    /// │ utf8   │  sign  │  utf8  │
-    /// ├─────── → ───────┼────────┤
-    /// │ "+123" │ .plus  │  "123" │
-    /// │ "-123" │ .minus │  "123" │
-    /// │ "~123" │  nil   │ "~123" │
-    /// └─────── → ───────┴────────┘
+    /// ┌─────── → ──────┬────────┐
+    /// │ utf8   │ sign  │  utf8  │
+    /// ├─────── → ──────┼────────┤
+    /// │ "+123" │ plus  │  "123" │
+    /// │ "-123" │ minus │  "123" │
+    /// │ "~123" │ nil   │ "~123" │
+    /// └─────── → ──────┴────────┘
     /// ```
     ///
-    @inlinable public static func removeSignPrefix(utf8: inout UnsafeUTF8.SubSequence) -> Sign? {
+    @inlinable public static func removeSignPrefix<T>(utf8: inout T) -> Sign? where T: Collection<UInt8>, T == T.SubSequence {
         switch utf8.first {
         case UInt8(ascii: "+"): utf8.removeFirst(); return Sign.plus
         case UInt8(ascii: "-"): utf8.removeFirst(); return Sign.minus

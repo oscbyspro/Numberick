@@ -82,6 +82,28 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
         }
     }
     
+    func testDecodingRadixLiteralAsRadixReturnsNil() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertDecodeText(T?.none, 10,  "0x10")
+            NBKAssertDecodeText(T?.none, 10,  "0o10")
+            NBKAssertDecodeText(T?.none, 10,  "0b10")
+            
+            NBKAssertDecodeText(T?.none, 10, "+0x10")
+            NBKAssertDecodeText(T?.none, 10, "+0o10")
+            NBKAssertDecodeText(T?.none, 10, "+0b10")
+            
+            guard type.isSigned else { return }
+            
+            NBKAssertDecodeText(T?.none, 10, "-0x10")
+            NBKAssertDecodeText(T?.none, 10, "-0o10")
+            NBKAssertDecodeText(T?.none, 10, "-0b10")
+        }
+        
+        for type: T in types {
+            whereIs(type)
+        }
+    }
+    
     func testDecodingStringsWithOrWithoutSign() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDecodeText(T( 123), 10,  "123")
@@ -101,6 +123,24 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDecodeText(T(0), 10, String(repeating: "0", count: 99) + "0")
             NBKAssertDecodeText(T(1), 10, String(repeating: "0", count: 99) + "1")
+        }
+        
+        for type: T in types {
+            whereIs(type)
+        }
+    }
+    
+    func testDecodingStringsWithoutDigitsReturnsNil() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertDecodeText(T?.none, 10,  "")
+            NBKAssertDecodeText(T?.none, 10, "+")
+            NBKAssertDecodeText(T?.none, 10, "-")
+            NBKAssertDecodeText(T?.none, 10, "~")
+            
+            NBKAssertDecodeText(T?.none, 16,  "")
+            NBKAssertDecodeText(T?.none, 16, "+")
+            NBKAssertDecodeText(T?.none, 16, "-")
+            NBKAssertDecodeText(T?.none, 16, "~")
         }
         
         for type: T in types {

@@ -15,19 +15,20 @@ import XCTest
 // MARK: * NBK x Assert x Text
 //*============================================================================*
 
-func NBKAssertDecodeText<T: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<T>?, _ radix: Int, _ text: String,
+func NBKAssertDecodeText<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>?, _ radix: Int, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
+    typealias T = NBKDoubleWidth<H>
     //=------------------------------------------=
     if  radix == 10 {
-        XCTAssertEqual(NBKDoubleWidth<T>(text), integer, file: file, line: line)
+        XCTAssertEqual(T(text), integer, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(NBKDoubleWidth<T>(text, radix: radix), integer, file: file, line: line)
+    XCTAssertEqual(T(text, radix: radix), integer, file: file, line: line)
 }
 
-func NBKAssertEncodeText<T: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<T>, _ radix: Int, _ uppercase: Bool, _ text: String,
+func NBKAssertEncodeText<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10, uppercase == false {

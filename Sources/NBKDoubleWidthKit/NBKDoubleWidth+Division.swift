@@ -236,7 +236,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
-        if  lhsIs0XXX, Self(high: lhs.high.low, low: lhs.low.high) < rhs {
+        if  lhsIs0XXX, rhs > Self(high: lhs.high.low,  low: lhs.low.high) {
             assert(lhs.high.high.isZero, "quotient must fit in one half")
             let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(low: quotient), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
@@ -259,7 +259,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
-        assert(lhs.high < rhs, "quotient must fit in two halves")
+        assert(rhs > lhs.high, "quotient must fit in two halves")
         //=--------------------------------------=
         let (x, a) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
@@ -269,7 +269,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Special x Normalized
     //=------------------------------------------------------------------------=
-
+    
     /// Divides 3 halves by 2 normalized halves, where the quotient fits in 1 half.
     ///
     /// ### Approximation Adjustment
