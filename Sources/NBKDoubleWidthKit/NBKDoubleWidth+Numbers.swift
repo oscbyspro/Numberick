@@ -85,7 +85,7 @@ extension NBKDoubleWidth {
         let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
         if  isOK { self = value } else { return nil }
     }
-
+    
     @inlinable public init(clamping source: some BinaryInteger) {
         let (value, remainders, sign) = Self.truncating(source)
         let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })

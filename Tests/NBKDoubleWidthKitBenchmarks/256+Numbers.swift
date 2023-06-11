@@ -414,15 +414,17 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
     // MARK: Tests x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    func testSignAndMagnitude() {
+    func testSignMagnitude() {
         var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         
-        for _ in 0 ..< 250_000 {
-            NBK.blackHole(NBK.exactly(sign: abc.sign, magnitude: abc.magnitude) as T?)
-            NBK.blackHole(NBK.exactly(sign: xyz.sign, magnitude: xyz.magnitude) as T?)
-            
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T.exactly (sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T.clamping(sign: abc.sign, magnitude: abc.magnitude))
             NBK.blackHoleInoutIdentity(&abc)
+            
+            NBK.blackHole(T.exactly (sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(T.clamping(sign: xyz.sign, magnitude: xyz.magnitude))
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
@@ -826,15 +828,17 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     // MARK: Tests x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    func testSignAndMagnitude() {
+    func testSignMagnitude() {
         var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         
-        for _ in 0 ..< 250_000 {
-            NBK.blackHole(NBK.exactly(sign: abc.sign, magnitude: abc.magnitude) as T?)
-            NBK.blackHole(NBK.exactly(sign: xyz.sign, magnitude: xyz.magnitude) as T?)
-            
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T.exactly (sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T.clamping(sign: abc.sign, magnitude: abc.magnitude))
             NBK.blackHoleInoutIdentity(&abc)
+            
+            NBK.blackHole(T.exactly (sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(T.clamping(sign: xyz.sign, magnitude: xyz.magnitude))
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }

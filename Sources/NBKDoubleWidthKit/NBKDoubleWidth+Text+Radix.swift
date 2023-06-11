@@ -25,7 +25,7 @@ extension NBKDoubleWidth {
         let value: Optional<Self> = description.withUTF8 { utf8 in
             let (sign,body) = NBK.integerComponents(utf8:  utf8)
             let (magnitude) = Magnitude(digits: NBK.UnsafeUTF8(rebasing: body), radix: radix)
-            return magnitude.flatMap({ NBK.exactly(sign: sign, magnitude: $0) })
+            return magnitude.flatMap({ Self.exactly(sign: sign, magnitude: $0) })
         }
         
         if let value { self = value } else { return nil }
