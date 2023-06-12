@@ -88,7 +88,7 @@ Int256(4) / Int(4), UInt256(4) / UInt(4)
 Int256(5) % Int(5), UInt256(5) % UInt(5)
 ```
 
-> **Note:**  The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
+> **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
 ## Acknowledgement
 

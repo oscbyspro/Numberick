@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK256X64
-private typealias Y = NBK256X32
+private typealias X = NBK.U256X64
+private typealias Y = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Int256 x Multiplication

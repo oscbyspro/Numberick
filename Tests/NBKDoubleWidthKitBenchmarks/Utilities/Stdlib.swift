@@ -8,10 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Standard Swift x Text x Decode
+// MARK: * NBK x Stdlib x Text x Decode
 //*============================================================================*
 
-extension FixedWidthInteger {
+extension Swift.FixedWidthInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -23,10 +23,10 @@ extension FixedWidthInteger {
 }
 
 //*============================================================================*
-// MARK: * NBK x Standard Swift x Text x Encode
+// MARK: * NBK x Stdlib x Text x Encode
 //*============================================================================*
 
-extension String {
+extension Swift.String {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers

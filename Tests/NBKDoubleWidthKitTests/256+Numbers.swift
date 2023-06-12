@@ -13,8 +13,8 @@ import NBKCoreKit
 @testable import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK256X64
-private typealias Y = NBK256X32
+private typealias X = NBK.U256X64
+private typealias Y = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Int256 x Numbers
@@ -307,7 +307,7 @@ final class Int256TestsOnNumbers: XCTestCase {
         XCTAssertEqual(T.exactly (sign: .minus, magnitude: T.min.magnitude), T.min)
         XCTAssertEqual(T.clamping(sign: .minus, magnitude: T.min.magnitude), T.min)
     }
-
+    
     func testsFromSignAndMagnitudeAsPlusMinusZero() {
         XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
         XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
