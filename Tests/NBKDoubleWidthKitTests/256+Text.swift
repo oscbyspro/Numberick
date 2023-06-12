@@ -120,7 +120,7 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 10, "-0b10")
     }
     
-    func testDecodingStringsWithOrWithoutSign() {
+    func testDecodingStringsWithAndWithoutSign() {
         NBKAssertDecodeText(T( 1234567890), 10,  "1234567890")
         NBKAssertDecodeText(T( 1234567890), 10, "+1234567890")
         NBKAssertDecodeText(T(-1234567890), 10, "-1234567890")
@@ -325,7 +325,7 @@ final class UInt256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T?.none, 10, "+0b10")
     }
     
-    func testDecodingStringsWithOrWithoutSign() {
+    func testDecodingStringsWithAndWithoutSign() {
         NBKAssertDecodeText(T(1234567890), 10,  "1234567890")
         NBKAssertDecodeText(T(1234567890), 10, "+1234567890")
     }

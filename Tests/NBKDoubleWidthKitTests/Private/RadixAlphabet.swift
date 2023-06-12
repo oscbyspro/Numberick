@@ -26,14 +26,14 @@ final class RadixAlphabetTests: XCTestCase {
     func testLowercaseMaxRadixAlphabetEncoder() {
         let alphabet = MaxRadixAlphabetEncoder(uppercase: false)
         let list = (0 ..< 36).map(alphabet.encode(_:))
-        let expectation = "0123456789abcdefghijklmnopqrstuvwxyz".utf8.map({ $0 })
+        let expectation = Array("0123456789abcdefghijklmnopqrstuvwxyz".utf8)
         XCTAssertEqual(list, expectation)
     }
     
     func testUppercaseMaxRadixAlphabetEncoder() {
         let alphabet = MaxRadixAlphabetEncoder(uppercase: true)
         let list = (0 ..< 36).map(alphabet.encode(_:))
-        let expectation = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".utf8.map({ $0 })
+        let expectation = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".utf8)
         XCTAssertEqual(list, expectation)
     }
 }

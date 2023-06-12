@@ -414,7 +414,7 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
     // MARK: Tests x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    func testSignMagnitude() {
+    func testSignAndMagnitude() {
         var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         
@@ -828,7 +828,7 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     // MARK: Tests x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    func testSignMagnitude() {
+    func testSignAndMagnitude() {
         var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64: X(0, 1, 2, 3))))
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64: X(0, 1, 2, 3))))
         

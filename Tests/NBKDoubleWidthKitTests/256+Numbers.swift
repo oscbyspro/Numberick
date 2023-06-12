@@ -199,38 +199,6 @@ final class Int256TestsOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Sign & Magnitude
-    //=------------------------------------------------------------------------=
-    
-    func testsFromSignedMagnitude() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M( 1)), T( 1))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M( 1)), T( 1))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M( 1)), T(-1))
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M( 1)), T(-1))
-        
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M.max),   nil)
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M.max), T.max)
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M.max),   nil)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M.max), T.min)
-        
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: T.max.magnitude), T.max)
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: T.max.magnitude), T.max)
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: T.min.magnitude), T.min)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: T.min.magnitude), T.min)
-    }
-
-    func testsFromSignedMagnitudePlusMinusZero() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M(  )), T(  ))
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Tests x Float32
     //=------------------------------------------------------------------------=
     
@@ -247,10 +215,10 @@ final class Int256TestsOnNumbers: XCTestCase {
     }
         
     func testFromFloat32() {
-        XCTAssertEqual(T( Float32(22.0)),  22)
-        XCTAssertEqual(T(-Float32(22.0)), -22)
-        XCTAssertEqual(T( Float32(22.5)),  22)
-        XCTAssertEqual(T(-Float32(22.5)), -22)
+        XCTAssertEqual(T(Float32(  22.0)),  22)
+        XCTAssertEqual(T(Float32( -22.0)), -22)
+        XCTAssertEqual(T(Float32(  22.5)),  22)
+        XCTAssertEqual(T(Float32( -22.5)), -22)
         
         XCTAssertEqual(T(exactly:  22.5), nil)
         XCTAssertEqual(T(exactly: -22.5), nil)
@@ -258,7 +226,7 @@ final class Int256TestsOnNumbers: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float32(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), 1 as T)
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 0))), nil)
@@ -314,6 +282,38 @@ final class Int256TestsOnNumbers: XCTestCase {
         XCTAssertNil(T(exactly: Float64.signalingNaN))
         XCTAssertNil(T(exactly: Float64.leastNormalMagnitude))
         XCTAssertNil(T(exactly: Float64.leastNonzeroMagnitude))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testsFromSignAndMagnitude() {
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M( 1)), T( 1))
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M( 1)), T( 1))
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M( 1)), T(-1))
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M( 1)), T(-1))
+        
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M.max),   nil)
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M.max), T.max)
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M.max),   nil)
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M.max), T.min)
+        
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: T.max.magnitude), T.max)
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: T.max.magnitude), T.max)
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: T.min.magnitude), T.min)
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: T.min.magnitude), T.min)
+    }
+
+    func testsFromSignAndMagnitudeAsPlusMinusZero() {
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M(  )), T(  ))
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M(  )), T(  ))
     }
 }
 
@@ -497,38 +497,6 @@ final class UInt256TestsOnNumbers: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Sign & Magnitude
-    //=------------------------------------------------------------------------=
-    
-    func testsFromSignedMagnitude() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M( 1)), T( 1))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M( 1)), T( 1))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M( 1)),   nil)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M( 1)), T.min)
-        
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M.max), T.max)
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M.max), T.max)
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M.max),   nil)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M.max), T.min)
-        
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: T.max.magnitude), T.max)
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: T.max.magnitude), T.max)
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: T.min.magnitude), T.min)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: T.min.magnitude), T.min)
-    }
-
-    func testsFromSignedMagnitudePlusMinusZero() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M(  )), T(  ))
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Tests x Float32
     //=------------------------------------------------------------------------=
     
@@ -550,7 +518,7 @@ final class UInt256TestsOnNumbers: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float32(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), 1 as T)
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 0))), nil)
@@ -600,6 +568,38 @@ final class UInt256TestsOnNumbers: XCTestCase {
         XCTAssertNil(T(exactly: Float64.signalingNaN))
         XCTAssertNil(T(exactly: Float64.leastNormalMagnitude))
         XCTAssertNil(T(exactly: Float64.leastNonzeroMagnitude))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    func testsFromSignAndMagnitude() {
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M( 1)), T( 1))
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M( 1)), T( 1))
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M( 1)),   nil)
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M( 1)), T.min)
+        
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M.max), T.max)
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M.max), T.max)
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M.max),   nil)
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M.max), T.min)
+        
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: T.max.magnitude), T.max)
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: T.max.magnitude), T.max)
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: T.min.magnitude), T.min)
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: T.min.magnitude), T.min)
+    }
+    
+    func testsFromSignAndMagnitudeAsPlusMinusZero() {
+        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
+        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
+        
+        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M(  )), T(  ))
+        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M(  )), T(  ))
     }
 }
 

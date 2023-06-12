@@ -22,24 +22,24 @@ final class NBKTextTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testUnsafeIntegerTextComponents() {
-        NBKAssertUnsafeIntegerTextComponents(    "", .plus,      "")
-        NBKAssertUnsafeIntegerTextComponents(   "+", .plus,      "")
-        NBKAssertUnsafeIntegerTextComponents(   "-", .minus,     "")
-        NBKAssertUnsafeIntegerTextComponents(   "~", .plus,     "~")
-        NBKAssertUnsafeIntegerTextComponents("+123", .plus,   "123")
-        NBKAssertUnsafeIntegerTextComponents("-123", .minus,  "123")
-        NBKAssertUnsafeIntegerTextComponents("~123", .plus,  "~123")
+    func testIntegerComponents() {
+        NBKAssertIntegerComponents(    "", .plus,      "")
+        NBKAssertIntegerComponents(   "+", .plus,      "")
+        NBKAssertIntegerComponents(   "-", .minus,     "")
+        NBKAssertIntegerComponents(   "~", .plus,     "~")
+        NBKAssertIntegerComponents("+123", .plus,   "123")
+        NBKAssertIntegerComponents("-123", .minus,  "123")
+        NBKAssertIntegerComponents("~123", .plus,  "~123")
     }
     
-    func testUnsafeIntegerTextRemoveSign() {
-        NBKAssertUnsafeIntegerTextRemoveSign(    "",  nil,       "")
-        NBKAssertUnsafeIntegerTextRemoveSign(   "+", .plus,      "")
-        NBKAssertUnsafeIntegerTextRemoveSign(   "-", .minus,     "")
-        NBKAssertUnsafeIntegerTextRemoveSign(   "~",  nil,      "~")
-        NBKAssertUnsafeIntegerTextRemoveSign("+123", .plus,   "123")
-        NBKAssertUnsafeIntegerTextRemoveSign("-123", .minus,  "123")
-        NBKAssertUnsafeIntegerTextRemoveSign("~123",  nil,   "~123")
+    func testRemoveSignPrefix() {
+        NBKAssertRemoveSignPrefix(    "",  nil,       "")
+        NBKAssertRemoveSignPrefix(   "+", .plus,      "")
+        NBKAssertRemoveSignPrefix(   "-", .minus,     "")
+        NBKAssertRemoveSignPrefix(   "~",  nil,      "~")
+        NBKAssertRemoveSignPrefix("+123", .plus,   "123")
+        NBKAssertRemoveSignPrefix("-123", .minus,  "123")
+        NBKAssertRemoveSignPrefix("~123",  nil,   "~123")
     }
 }
 
@@ -47,37 +47,21 @@ final class NBKTextTests: XCTestCase {
 // MARK: + Utilities
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertUnsafeIntegerTextComponents(
+private func NBKAssertIntegerComponents(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
-    var text = text
-    var body = body
-    
-    text.withUTF8 { text in
-    body.withUTF8 { body in
-        
-        let (componentsSign, componentsBody) = NBK.integerComponents(utf8: text)
-        
-        XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
-        XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
-    }}
+    let components = NBK.integerComponents(utf8: text.utf8)
+    XCTAssertEqual(components.sign, sign)
+    XCTAssertEqual(Array(components.body), Array(body.utf8))
 }
 
-private func NBKAssertUnsafeIntegerTextRemoveSign(
+private func NBKAssertRemoveSignPrefix(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
-    var text = text
-    var body = body
-    
-    text.withUTF8 { text in
-    body.withUTF8 { body in
-        
-        var componentsBody = text[...]
-        let componentsSign = NBK.removeSignPrefix(utf8: &componentsBody)
-        
-        XCTAssertEqual(/*--*/componentsSign,  /*--*/sign,  file: file, line: line)
-        XCTAssertEqual(Array(componentsBody), Array(body), file: file, line: line)
-    }}
+    var componentsBody = text.utf8[...]
+    let componentsSign = NBK.removeSignPrefix(utf8: &componentsBody)
+    XCTAssertEqual(componentsSign, sign)
+    XCTAssertEqual(Array(componentsBody), Array(body.utf8))
 }
 
 #endif

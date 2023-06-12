@@ -104,7 +104,7 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
         }
     }
     
-    func testDecodingStringsWithOrWithoutSign() {
+    func testDecodingStringsWithAndWithoutSign() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertDecodeText(T( 123), 10,  "123")
             NBKAssertDecodeText(T( 123), 10, "+123")

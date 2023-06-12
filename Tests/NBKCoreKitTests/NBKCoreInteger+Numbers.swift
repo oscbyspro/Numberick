@@ -46,7 +46,7 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     // MARK: Tests x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    func testsFromSignMagnitude() {
+    func testsFromSignAndMagnitude() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             
