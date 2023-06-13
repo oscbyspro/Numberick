@@ -25,9 +25,27 @@ final class Int256BenchmarksOnNumbers: XCTestCase {
     typealias S =  Int256
     typealias T =  Int256
     typealias M = UInt256
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testZero() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T())
+            NBK.blackHole(T.zero)
+        }
+    }
+    
+    func testEdges() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T.min)
+            NBK.blackHole(T.max)
+        }
+    }
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Integers
     //=------------------------------------------------------------------------=
     
     func testToInt() {
@@ -442,6 +460,24 @@ final class UInt256BenchmarksOnNumbers: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testZero() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T())
+            NBK.blackHole(T.zero)
+        }
+    }
+    
+    func testEdges() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(T.min)
+            NBK.blackHole(T.max)
+        }
+    }
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Integers
     //=------------------------------------------------------------------------=
     
     func testToInt() {
