@@ -10,6 +10,29 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Arithmagick x Int
+//*============================================================================*
+
+extension Int {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the `quotient` of dividing this value by its bit width.
+    @inlinable func quotientDividingByBitWidthAssumingIsAtLeastZero() -> Self {
+        assert(self.isLessThanZero == false, "this value must be at least zero")
+        return Self(bitPattern: Magnitude(bitPattern: self).quotientDividingByBitWidth())
+    }
+    
+    /// Returns the `remainder` of dividing this value by its bit width.
+    @inlinable func remainderDividingByBitWidthAssumingIsAtLeastZero() -> Self {
+        assert(self.isLessThanZero == false, "this value must be at least zero")
+        return Self(bitPattern: Magnitude(bitPattern: self).remainderDividingByBitWidth())
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Arithmagick x UInt
 //*============================================================================*
 
@@ -19,19 +42,30 @@ extension UInt {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the quotient of dividing this value by its bit width.
-    @_transparent @usableFromInline func quotientDividingByBitWidth() -> Self {
+    /// Returns the `quotient` of dividing this value by its bit width.
+    @inlinable func quotientDividingByBitWidth() -> Self {
         self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
     }
     
-    /// Returns the remainder of dividing this value by its bit width.
-    @_transparent @usableFromInline func remainderDividingByBitWidth() -> Self {
+    /// Returns the `remainder` of dividing this value by its bit width.
+    @inlinable func remainderDividingByBitWidth() -> Self {
         self & Self(bitPattern: Self.bitWidth &- 1)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Arithmagick x Binary Integer
+//*============================================================================*
+
+extension BinaryInteger {
     
-    /// Returns the quotient and remainder of dividing this value by its bit width.
-    @_transparent @usableFromInline func dividedByBitWidth() -> QR<Self, Self> {
-        QR(self.quotientDividingByBitWidth(), self.remainderDividingByBitWidth())
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Returns `self` modulo `other.bitWidth`.
+    @inlinable func moduloBitWidth<T>(of other: NBKDoubleWidth<T>.Type) -> Int {
+        Int(bitPattern: self._lowWord & UInt(bitPattern: other.bitWidth &- 1))
     }
 }
 
@@ -85,7 +119,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// ```
     /// ┌────────────┬─────── → ───────────┬──────────┐
     /// │ lhs        │ rhs    │ sum        │ overflow │
-    /// ├────────────┼────────┼────────────┼──────────┤
+    /// ├────────────┼─────── → ───────────┼──────────┤
     /// │  0,  0,  0 │ ~4, ~5 │  0, ~4, ~5 │ false    │
     /// │  1,  2,  3 │ ~4, ~5 │  1, ~2, ~2 │ false    │
     /// │ ~1, ~2, ~3 │  4,  5 │ ~0,  2,  1 │ false    │
@@ -108,7 +142,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
     /// │ lhs        │ rhs        │ sum        │ overflow │
-    /// ├────────────┼────────────┼────────────┼──────────┤
+    /// ├────────────┼─────────── → ───────────┼──────────┤
     /// │  0,  0,  0 │ ~4, ~5, ~6 │ ~4, ~5, ~6 │ false    │
     /// │  1,  2,  3 │ ~4, ~5, ~6 │ ~3, ~3, ~3 │ false    │
     /// │ ~1, ~2, ~3 │  4,  5,  6 │  3,  3,  2 │ true     │
@@ -136,7 +170,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// ```
     /// ┌────────────┬─────── → ───────────┬──────────┐
     /// │ lhs        │ rhs    │ difference │ overflow │
-    /// ├────────────┼────────┼────────────┼──────────┤
+    /// ├────────────┼─────── → ───────────┼──────────┤
     /// │  0,  0,  0 │ ~4, ~5 │ ~0,  4,  6 │ true     │
     /// │  1,  2,  3 │ ~4, ~5 │  0,  6,  9 │ false    │
     /// │ ~1, ~2, ~3 │  4,  5 │ ~1, ~6, ~8 │ false    │
@@ -159,7 +193,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// ```
     /// ┌────────────┬─────────── → ───────────┬──────────┐
     /// │ lhs        │ rhs        │ difference │ overflow │
-    /// ├────────────┼────────────┼────────────┼──────────┤
+    /// ├────────────┼─────────── → ───────────┼──────────┤
     /// │  0,  0,  0 │ ~4, ~5, ~6 │  4,  5,  7 │ true     │
     /// │  1,  2,  3 │ ~4, ~5, ~6 │  5,  7, 10 │ true     │
     /// │ ~1, ~2, ~3 │  4,  5,  6 │ ~5, ~7, ~9 │ false    │
@@ -186,7 +220,7 @@ extension NBKFixedWidthInteger where Self: NBKUnsignedInteger {
     /// ```
     /// ┌────────┬──── → ───────────┐
     /// │ lhs    │ rhs │ product    │
-    /// ├────────┼─────┼────────────┤
+    /// ├────────┼──── → ───────────┤
     /// │  1,  2 │  3, │  0,  3,  6 │
     /// │ ~1, ~2 │ ~3, │ ~4,  1, 12 │
     /// │ ~0, ~0 │ ~0, │ ~1, ~0,  1 │

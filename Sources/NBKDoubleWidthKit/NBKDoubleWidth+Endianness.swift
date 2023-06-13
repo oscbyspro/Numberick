@@ -54,4 +54,10 @@ extension NBKDoubleWidth {
         return self
         #endif
     }
+    
+    @inlinable public var byteSwapped: Self {
+        let high = High(bitPattern: self.low .byteSwapped)
+        let low  = Low (bitPattern: self.high.byteSwapped)
+        return Self(high: high, low: low)
+    }
 }

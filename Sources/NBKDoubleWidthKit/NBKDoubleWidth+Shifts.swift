@@ -28,7 +28,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeftUnchecked(by: Int(bitPattern: rhs._lowWord) & (Self.bitWidth &- 1))
+        lhs.bitshiftLeftUnchecked(by: rhs.moduloBitWidth(of: Self.self))
     }
     
     @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -70,8 +70,8 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftLeftUnchecked(by amount: Int) {
         assert(0 ..< Self.bitWidth ~= amount, "invalid left shift amount")
-        let major = Int(bitPattern: UInt(bitPattern: amount) .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: UInt(bitPattern: amount).remainderDividingByBitWidth())
+        let major = amount .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor = amount.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitshiftLeftUnchecked(words: major, bits: minor)
     }
     
@@ -139,7 +139,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRightUnchecked(by: Int(bitPattern: rhs._lowWord) & (Self.bitWidth &- 1))
+        lhs.bitshiftRightUnchecked(by: rhs.moduloBitWidth(of: Self.self))
     }
     
     @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -181,8 +181,8 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftRightUnchecked(by amount: Int) {
         assert(0 ..< Self.bitWidth ~= amount, "invalid right shift amount")
-        let major = Int(bitPattern: UInt(bitPattern: amount) .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: UInt(bitPattern: amount).remainderDividingByBitWidth())
+        let major = amount .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor = amount.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitshiftRightUnchecked(words: major, bits: minor)
     }
     

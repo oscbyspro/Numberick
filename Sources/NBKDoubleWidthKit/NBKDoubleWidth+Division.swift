@@ -164,8 +164,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = Int(bitPattern: UInt(bitPattern: shift) .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: UInt(bitPattern: shift).remainderDividingByBitWidth())
+        let major = shift .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
         
         let top = shift.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift)
         let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self

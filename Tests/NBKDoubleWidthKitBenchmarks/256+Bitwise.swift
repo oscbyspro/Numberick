@@ -69,15 +69,6 @@ final class Int256BenchmarksOnBitwise: XCTestCase {
             NBK.blackHoleInoutIdentity(&abc)
         }
     }
-    
-    func testByteSwapped() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.byteSwapped)
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
 }
 
 //*============================================================================*
@@ -130,15 +121,6 @@ final class UInt256BenchmarksOnBitwise: XCTestCase {
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(~abc)
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
-    func testByteSwapped() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(abc.byteSwapped)
             NBK.blackHoleInoutIdentity(&abc)
         }
     }

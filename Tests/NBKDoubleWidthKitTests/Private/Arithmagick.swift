@@ -14,10 +14,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick x UInt
+// MARK: * NBK x Arithmagick x Int or UInt
 //*============================================================================*
 
-final class ArithmagickTestsOnUInt: XCTestCase {
+final class ArithmagickTestsOnIntOrUInt: XCTestCase {
     
     typealias T = UInt
     
@@ -32,23 +32,23 @@ final class ArithmagickTestsOnUInt: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingByBitWidth() {
-        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(0), T(0), T(0))
-        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(1), T(0), T(1))
-        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(2), T(0), T(2))
-        NBKAssertDividingByBitWidthAsUInt(T(0) * bitWidth + T(3), T(0), T(3))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(0) * bitWidth + T(0), T(0), T(0))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(0) * bitWidth + T(1), T(0), T(1))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(0) * bitWidth + T(2), T(0), T(2))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(0) * bitWidth + T(3), T(0), T(3))
         
-        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(0), T(1), T(0))
-        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(1), T(1), T(1))
-        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(2), T(1), T(2))
-        NBKAssertDividingByBitWidthAsUInt(T(1) * bitWidth + T(3), T(1), T(3))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(1) * bitWidth + T(0), T(1), T(0))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(1) * bitWidth + T(1), T(1), T(1))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(1) * bitWidth + T(2), T(1), T(2))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(1) * bitWidth + T(3), T(1), T(3))
         
-        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(0), T(2), T(0))
-        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(1), T(2), T(1))
-        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(2), T(2), T(2))
-        NBKAssertDividingByBitWidthAsUInt(T(2) * bitWidth + T(3), T(2), T(3))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(2) * bitWidth + T(0), T(2), T(0))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(2) * bitWidth + T(1), T(2), T(1))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(2) * bitWidth + T(2), T(2), T(2))
+        NBKAssertDividingByBitWidthAsIntOrUInt(T(2) * bitWidth + T(3), T(2), T(3))
         
-        NBKAssertDividingByBitWidthAsUInt(T.min, T.min / bitWidth, T.min % bitWidth)
-        NBKAssertDividingByBitWidthAsUInt(T.max, T.max / bitWidth, T.max % bitWidth)
+        NBKAssertDividingByBitWidthAsIntOrUInt(T.min, T.min / bitWidth, T.min % bitWidth)
+        NBKAssertDividingByBitWidthAsIntOrUInt(T.max, T.max / bitWidth, T.max % bitWidth)
     }
 }
 
@@ -56,14 +56,17 @@ final class ArithmagickTestsOnUInt: XCTestCase {
 // MARK: + Utilities
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertDividingByBitWidthAsUInt(
+private func NBKAssertDividingByBitWidthAsIntOrUInt(
 _ value: UInt, _ quotient: UInt, _ remainder: UInt,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     XCTAssertEqual(value .quotientDividingByBitWidth(), quotient,  file: file, line: line)
     XCTAssertEqual(value.remainderDividingByBitWidth(), remainder, file: file, line: line)
-    
-    XCTAssertEqual(value.dividedByBitWidth().quotient,  quotient,  file: file, line: line)
-    XCTAssertEqual(value.dividedByBitWidth().remainder, remainder, file: file, line: line)
+    //=------------------------------------------=
+    if  let value = Int(exactly: value), let quotient = Int(exactly: quotient), let remainder = Int(exactly: remainder) {
+        XCTAssertEqual(value .quotientDividingByBitWidthAssumingIsAtLeastZero(), quotient,  file: file, line: line)
+        XCTAssertEqual(value.remainderDividingByBitWidthAssumingIsAtLeastZero(), remainder, file: file, line: line)
+    }
 }
 
 //*============================================================================*

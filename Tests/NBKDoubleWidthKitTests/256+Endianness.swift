@@ -52,6 +52,14 @@ final class Int256TestsOnEndianness: XCTestCase {
         XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(littleEndian: T(x64: X(01, 02, 03, 04))))
         XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(littleEndian: T(x64: X(l1, l2, l3, l4))))
     }
+    
+    func testByteSwapped() {
+        XCTAssertEqual(T(x64: X(b1, b2, b3, b4)).byteSwapped, T(x64: X(l4, l3, l2, l1)))
+        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)).byteSwapped, T(x64: X(b4, b3, b2, b1)))
+        
+        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)).byteSwapped, T(x64: X(l1, l2, l3, l4)))
+        XCTAssertEqual(T(x64: X(l4, l3, l2, l1)).byteSwapped, T(x64: X(b1, b2, b3, b4)))
+    }
 }
 
 //*============================================================================*
@@ -89,6 +97,14 @@ final class UInt256TestsOnEndianness: XCTestCase {
         
         XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(littleEndian: T(x64: X(01, 02, 03, 04))))
         XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(littleEndian: T(x64: X(l1, l2, l3, l4))))
+    }
+    
+    func testByteSwapped() {
+        XCTAssertEqual(T(x64: X(b1, b2, b3, b4)).byteSwapped, T(x64: X(l4, l3, l2, l1)))
+        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)).byteSwapped, T(x64: X(b4, b3, b2, b1)))
+        
+        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)).byteSwapped, T(x64: X(l1, l2, l3, l4)))
+        XCTAssertEqual(T(x64: X(l4, l3, l2, l1)).byteSwapped, T(x64: X(b1, b2, b3, b4)))
     }
 }
 

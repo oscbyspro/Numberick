@@ -37,14 +37,4 @@ extension NBKDoubleWidth {
         lhs.low  ^= rhs.low
         lhs.high ^= rhs.high
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var byteSwapped: Self {
-        let high = High(bitPattern: self.low .byteSwapped)
-        let low  = Low (bitPattern: self.high.byteSwapped)
-        return Self(high: high, low: low)
-    }
 }

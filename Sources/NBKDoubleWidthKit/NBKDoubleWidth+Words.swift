@@ -25,7 +25,7 @@ extension NBKDoubleWidth {
     
     /// The least significant word of this value.
     ///
-    /// - Note: This member is required by Swift.BinaryInteger.
+    /// - Note: This member is required by `Swift.BinaryInteger`.
     ///
     @inlinable public var _lowWord: UInt {
         self.low._lowWord

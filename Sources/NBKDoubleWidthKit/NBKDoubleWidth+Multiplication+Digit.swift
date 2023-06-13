@@ -39,7 +39,7 @@ extension NBKDoubleWidth {
         
         pvo.overflow = pvo.overflow || suboverflow as Bool
         //=--------------------------------------=
-        return pvo as PVO<Self>
+        return pvo  as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=
@@ -85,7 +85,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @_disfavoredOverload @inlinable func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
         var pvo = PVO(self, false)
         pvo.overflow = pvo.partialValue.multiplyReportingOverflow(by: other)
-        return pvo as PVO<Self>
+        return pvo  as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=

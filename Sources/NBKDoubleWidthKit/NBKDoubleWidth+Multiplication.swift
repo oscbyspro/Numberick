@@ -39,7 +39,7 @@ extension NBKDoubleWidth {
         
         pvo.overflow = pvo.overflow || suboverflow as Bool
         //=--------------------------------------=
-        return pvo as PVO<Self>
+        return pvo  as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=
