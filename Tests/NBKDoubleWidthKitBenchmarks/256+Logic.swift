@@ -17,10 +17,10 @@ private typealias X = NBK.U256X64
 private typealias Y = NBK.U256X32
 
 //*============================================================================*
-// MARK: * NBK x Int256 x Bitwise
+// MARK: * NBK x Int256 x Logic
 //*============================================================================*
 
-final class Int256BenchmarksOnBitwise: XCTestCase {
+final class Int256BenchmarksOnLogic: XCTestCase {
     
     typealias T = Int256
     
@@ -72,10 +72,10 @@ final class Int256BenchmarksOnBitwise: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UInt256 x Bitwise
+// MARK: * NBK x UInt256 x Logic
 //*============================================================================*
 
-final class UInt256BenchmarksOnBitwise: XCTestCase {
+final class UInt256BenchmarksOnLogic: XCTestCase {
     
     typealias T = UInt256
     

@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Bitwise
+// MARK: * NBK x Double Width x Logic
 //*============================================================================*
 
 extension NBKDoubleWidth {

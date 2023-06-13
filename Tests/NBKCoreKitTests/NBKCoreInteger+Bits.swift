@@ -30,7 +30,7 @@ final class NBKCoreIntegerTestsOnBits: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInitBit() {
+    func testFromBit() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(bit: false), T( ))
             XCTAssertEqual(T(bit: true ), T(1))
@@ -41,7 +41,7 @@ final class NBKCoreIntegerTestsOnBits: XCTestCase {
         }
     }
     
-    func testInitRepeatingBit() {
+    func testFromRepeatingBit() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(repeating: false),  T( ))
             XCTAssertEqual(T(repeating: true ), ~T( ))
@@ -51,6 +51,10 @@ final class NBKCoreIntegerTestsOnBits: XCTestCase {
             whereIs(type)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Accessors
+    //=------------------------------------------------------------------------=
     
     func testMostSignificantBit() {
         for type: T in types {
