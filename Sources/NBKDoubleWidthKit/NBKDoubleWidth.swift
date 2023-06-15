@@ -101,9 +101,6 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     /// The bit pattern of this type.
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
     
-    /// An integer type with double the width of this type.
-    public typealias DoubleWidth = NBKDoubleWidth<Self>
-    
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=

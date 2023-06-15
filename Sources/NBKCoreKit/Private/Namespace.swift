@@ -35,4 +35,20 @@
     
     /// An unsafe pointer to a mutable collection of `UInt` machine words.
     public typealias UnsafeMutableWords = UnsafeMutableBufferPointer<UInt>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Aliases x Tuples
+    //=------------------------------------------------------------------------=
+    
+    /// A 128-bit pattern, split into `UInt64` words.
+    public typealias U128X64 = (UInt64, UInt64)
+
+    /// A 128-bit pattern, split into `UInt32` words.
+    public typealias U128X32 = (UInt32, UInt32, UInt32, UInt32)
+    
+    /// A 256-bit pattern, split into `UInt64` words.
+    public typealias U256X64 = (UInt64, UInt64, UInt64, UInt64)
+
+    /// A 256-bit pattern, split into `UInt32` words.
+    public typealias U256X32 = (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)
 }

@@ -26,9 +26,9 @@ final class Int256TestsOnNumbers: XCTestCase {
     typealias T =  Int256
     typealias M = UInt256
     
-    typealias S2 = S.DoubleWidth
-    typealias T2 = T.DoubleWidth
-    typealias M2 = M.DoubleWidth
+    typealias S2 = NBKDoubleWidth<S>
+    typealias T2 = NBKDoubleWidth<T>
+    typealias M2 = NBKDoubleWidth<M>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -344,9 +344,9 @@ final class UInt256TestsOnNumbers: XCTestCase {
     typealias T = UInt256
     typealias M = UInt256
     
-    typealias S2 = S.DoubleWidth
-    typealias T2 = T.DoubleWidth
-    typealias M2 = M.DoubleWidth
+    typealias S2 = NBKDoubleWidth<S>
+    typealias T2 = NBKDoubleWidth<T>
+    typealias M2 = NBKDoubleWidth<M>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

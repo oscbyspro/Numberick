@@ -22,7 +22,8 @@ private typealias Y = NBK.U256X32
 
 final class Int256TestsOnText: XCTestCase {
     
-    typealias T = Int256
+    typealias T  = Int256
+    typealias T2 = NBKDoubleWidth<T>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -49,8 +50,8 @@ final class Int256TestsOnText: XCTestCase {
     }
     
     func testMetaTypeDescriptionIsSimple() {
-        XCTAssertEqual("Int256", T.description)
-        XCTAssertEqual("Int512", T.DoubleWidth.description)
+        XCTAssertEqual("Int256", T .description)
+        XCTAssertEqual("Int512", T2.description)
     }
     
     //=------------------------------------------------------------------------=
@@ -238,7 +239,8 @@ final class Int256TestsOnText: XCTestCase {
 
 final class UInt256TestsOnText: XCTestCase {
     
-    typealias T = UInt256
+    typealias T  = UInt256
+    typealias T2 = NBKDoubleWidth<T>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -262,8 +264,8 @@ final class UInt256TestsOnText: XCTestCase {
     }
     
     func testMetaTypeDescriptionIsSimple() {
-        XCTAssertEqual("UInt256", T.description)
-        XCTAssertEqual("UInt512", T.DoubleWidth.description)
+        XCTAssertEqual("UInt256", T .description)
+        XCTAssertEqual("UInt512", T2.description)
     }
     
     //=------------------------------------------------------------------------=
