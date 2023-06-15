@@ -17,7 +17,7 @@ extension NBKDoubleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance with unsafe access to a temporary allocation.
+    /// Creates a new instance with access to a temporary allocation.
     @inlinable public static func uninitialized(_ body: (inout Self) -> Void) -> Self {
         Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
             //=----------------------------------=

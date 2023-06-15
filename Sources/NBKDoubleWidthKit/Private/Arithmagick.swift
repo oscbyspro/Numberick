@@ -20,12 +20,18 @@ extension Int {
     //=------------------------------------------------------------------------=
     
     /// Returns the `quotient` of dividing this value by its bit width.
+    ///
+    /// - Parameter self: `0 <= self <= Self.max`
+    ///
     @inlinable func quotientDividingByBitWidthAssumingIsAtLeastZero() -> Self {
         assert(self.isLessThanZero == false, "this value must be at least zero")
         return Self(bitPattern: Magnitude(bitPattern: self).quotientDividingByBitWidth())
     }
     
     /// Returns the `remainder` of dividing this value by its bit width.
+    ///
+    /// - Parameter self: `0 <= self <= Self.max`
+    ///
     @inlinable func remainderDividingByBitWidthAssumingIsAtLeastZero() -> Self {
         assert(self.isLessThanZero == false, "this value must be at least zero")
         return Self(bitPattern: Magnitude(bitPattern: self).remainderDividingByBitWidth())

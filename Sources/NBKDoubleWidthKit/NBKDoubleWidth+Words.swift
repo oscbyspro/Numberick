@@ -159,7 +159,7 @@ extension NBKDoubleWidth {
     ///
     /// - Warning: This subscript provides unchecked read and write access. Use
     ///   it only when you know the index is valid and that bounds-checking poses
-    ///   significant problems. Writing to an index out of bounds is unsafe.
+    ///   significant performance problems.
     ///
     @inlinable public subscript(unchecked index: Int) -> UInt {
         _read   { yield  self[unchecked: index, as: UInt.self] }

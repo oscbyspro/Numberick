@@ -901,7 +901,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └─────────────┴────── → ─────────────┘
     /// ```
     ///
-    /// - Note:  The decoding strategy is case insensitive.
+    /// - Note: The decoding strategy is case insensitive.
     ///
     @inlinable init?(_ description: some StringProtocol, radix: Int)
     

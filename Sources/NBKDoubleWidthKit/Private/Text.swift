@@ -26,7 +26,7 @@ extension UInt {
     /// the ASCII sequence passed as `digits` uses an invalid format, or it's
     /// value cannot be represented, the result is nil.
     ///
-    /// - Note:  The decoding strategy is case insensitive.
+    /// - Note: The decoding strategy is case insensitive.
     ///
     @inlinable init?(digits: NBK.UnsafeUTF8, radix: Int) {
         guard !digits.isEmpty else { return nil }

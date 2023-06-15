@@ -228,8 +228,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = Int(bitPattern: UInt(bitPattern: shift) .quotientDividingByBitWidth())
-        let minor = Int(bitPattern: UInt(bitPattern: shift).remainderDividingByBitWidth())
+        let major = shift .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
         
         let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as DoubleWidth
         let rhs = rhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
@@ -270,7 +270,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Special x Normalized
     //=------------------------------------------------------------------------=
     
-    /// Divides 3 halves by 2 normalized halves, where the quotient fits in 1 half.
+    /// Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.
     ///
     /// ### Approximation Adjustment
     ///
@@ -295,7 +295,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return QR(quotient, Self(high: remainder.mid, low: remainder.low))
     }
     
-    /// Divides 4 halves by 2 normalized halves, where the quotient fits in 2 halves.
+    /// Divides 4 halves by 2 normalized halves, assuming the quotient fits in 2 halves.
     @inlinable static func divide4222Normalized(_ lhs: DoubleWidth,  by rhs: Self) -> QR<Self, Self> {
         let (x, a) =  Self.divide3212Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
         let (y, b) =  Self.divide3212Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)

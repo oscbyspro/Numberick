@@ -91,65 +91,35 @@ file: StaticString = #file, line: UInt = #line) where S.Digit: NBKCoreInteger<UI
     typealias M  = NBKDoubleWidth<H>.Magnitude
     typealias S2 = NBKDoubleWidth<S>
     typealias M2 = NBKDoubleWidth<S>.Magnitude
-    XCTAssert(S.Magnitude.self == M.self, file: file, line: line)
+    precondition(S.Magnitude.self == M.self)
     //=------------------------------------------=
-    let moduloBitWidth = (rhs % lhs.bitWidth) + (rhs.isLessThanZero ? lhs.bitWidth : 0)
-    //=------------------------------------------=
-    XCTAssertEqual(lhs &<<   (rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(rhs), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &<<   (rhs + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(rhs + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(rhs + lhs.bitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &<<   (rhs - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(rhs - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(rhs - lhs.bitWidth), result, file: file, line: line)
-    //=------------------------------------------=
-    if !rhs.isLessThanZero {
+    func NBKAssertWith(_ lhs: T, _ rhs: Int, _ result: T) {
+        XCTAssertEqual(lhs &<<   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<<  S(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<< S2(rhs), result, file: file, line: line)
+        guard !rhs.isLessThanZero else { return }
         XCTAssertEqual(lhs &<<   (rhs), result, file: file, line: line)
         XCTAssertEqual(lhs &<<  M(rhs), result, file: file, line: line)
         XCTAssertEqual(lhs &<< M2(rhs), result, file: file, line: line)
     }
     
-    if  rhs > lhs.bitWidth.negated() {
-        XCTAssertEqual(lhs &<<   (rhs + lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<<  M(rhs + lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<< M2(rhs + lhs.bitWidth), result, file: file, line: line)
-    }
-    
-    if  rhs > lhs.bitWidth {
-        XCTAssertEqual(lhs &<<   (rhs - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<<  M(rhs - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<< M2(rhs - lhs.bitWidth), result, file: file, line: line)
-    }
+    NBKAssertWith(lhs, rhs,                result)
+    NBKAssertWith(lhs, rhs + lhs.bitWidth, result)
+    NBKAssertWith(lhs, rhs - lhs.bitWidth, result)
     //=------------------------------------------=
-    XCTAssertEqual(lhs &<<   (moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(moduloBitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &<<   (moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &<<   (moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  S(moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< S2(moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    //=------------------------------------------=
-    XCTAssertEqual(lhs &<<   (moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  M(moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< M2(moduloBitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &<<   (moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<<  M(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &<< M2(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    
-    if  lhs.bitWidth.isPowerOf2  {
-        XCTAssertEqual(lhs &<<   (                    moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<<  M(truncatingIfNeeded: moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &<< M2(truncatingIfNeeded: moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
+    func NBKAssertWithProtocolWitnessesOf<T>(_ lhs: T, _ rhs: Int, _ result: T) where T: NBKFixedWidthInteger {
+        XCTAssertEqual(lhs &<<   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<<  S(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<< S2(rhs), result, file: file, line: line)
+        guard !rhs.isLessThanZero else { return }
+        XCTAssertEqual(lhs &<<   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<<  M(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &<< M2(rhs), result, file: file, line: line)
     }
+    
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs,                result)
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs + lhs.bitWidth, result)
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs - lhs.bitWidth, result)
 }
 
 func NBKAssertShiftRightByMasking<H: NBKFixedWidthInteger, S: NBKFixedWidthInteger & NBKSignedInteger>(
@@ -160,63 +130,33 @@ file: StaticString = #file, line: UInt = #line) where S.Digit: NBKCoreInteger<UI
     typealias M  = NBKDoubleWidth<H>.Magnitude
     typealias S2 = NBKDoubleWidth<S>
     typealias M2 = NBKDoubleWidth<S>.Magnitude
-    XCTAssert(S.Magnitude.self == M.self, file: file, line: line)
+    precondition(S.Magnitude.self == M.self)
     //=------------------------------------------=
-    let moduloBitWidth = (rhs % lhs.bitWidth) + (rhs.isLessThanZero ? lhs.bitWidth : 0)
-    //=------------------------------------------=
-    XCTAssertEqual(lhs &>>   (rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(rhs), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &>>   (rhs + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(rhs + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(rhs + lhs.bitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &>>   (rhs - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(rhs - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(rhs - lhs.bitWidth), result, file: file, line: line)
-    //=------------------------------------------=
-    if !rhs.isLessThanZero {
+    func NBKAssertWith(_ lhs: T, _ rhs: Int, _ result: T) {
+        XCTAssertEqual(lhs &>>   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>>  S(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>> S2(rhs), result, file: file, line: line)
+        guard !rhs.isLessThanZero else { return }
         XCTAssertEqual(lhs &>>   (rhs), result, file: file, line: line)
         XCTAssertEqual(lhs &>>  M(rhs), result, file: file, line: line)
         XCTAssertEqual(lhs &>> M2(rhs), result, file: file, line: line)
     }
     
-    if  rhs > lhs.bitWidth.negated() {
-        XCTAssertEqual(lhs &>>   (rhs + lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>>  M(rhs + lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>> M2(rhs + lhs.bitWidth), result, file: file, line: line)
-    }
-    
-    if  rhs > lhs.bitWidth {
-        XCTAssertEqual(lhs &>>   (rhs - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>>  M(rhs - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>> M2(rhs - lhs.bitWidth), result, file: file, line: line)
-    }
+    NBKAssertWith(lhs, rhs,                result)
+    NBKAssertWith(lhs, rhs + lhs.bitWidth, result)
+    NBKAssertWith(lhs, rhs - lhs.bitWidth, result)
     //=------------------------------------------=
-    XCTAssertEqual(lhs &>>   (moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(moduloBitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &>>   (moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &>>   (moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  S(moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> S2(moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-    //=------------------------------------------=
-    XCTAssertEqual(lhs &>>   (moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  M(moduloBitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> M2(moduloBitWidth), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs &>>   (moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>>  M(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    XCTAssertEqual(lhs &>> M2(moduloBitWidth + lhs.bitWidth), result, file: file, line: line)
-    
-    if  lhs.bitWidth.isPowerOf2  {
-        XCTAssertEqual(lhs &>>   (                    moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>>  M(truncatingIfNeeded: moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
-        XCTAssertEqual(lhs &>> M2(truncatingIfNeeded: moduloBitWidth - lhs.bitWidth), result, file: file, line: line)
+    func NBKAssertWithProtocolWitnessesOf<T>(_ lhs: T, _ rhs: Int, _ result: T) where T: NBKFixedWidthInteger {
+        XCTAssertEqual(lhs &>>   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>>  S(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>> S2(rhs), result, file: file, line: line)
+        guard !rhs.isLessThanZero else { return }
+        XCTAssertEqual(lhs &>>   (rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>>  M(rhs), result, file: file, line: line)
+        XCTAssertEqual(lhs &>> M2(rhs), result, file: file, line: line)
     }
+    
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs,                result)
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs + lhs.bitWidth, result)
+    NBKAssertWithProtocolWitnessesOf(lhs, rhs - lhs.bitWidth, result)
 }
