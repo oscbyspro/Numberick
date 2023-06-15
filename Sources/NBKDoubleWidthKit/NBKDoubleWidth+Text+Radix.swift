@@ -126,8 +126,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8) -> String {
-        let minLastIndex: Int = self.minLastIndexReportingIsZeroOrMinusOne().minLastIndex
-        let chunks: Words.SubSequence = self[...minLastIndex]
+        let index = self.lastIndex(where:{ !$0.isZero }) ?? self.startIndex
+        let chunks: Words.SubSequence = self[...index]
         return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix)
     }
     

@@ -33,12 +33,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(generic.withContiguousStorageIfAvailable({        Array($0) }), words, file: file, line: line)
     XCTAssertEqual(generic.withContiguousMutableStorageIfAvailable({ Array($0) }), words, file: file, line: line)
 }
-
-func NBKAssertMinLastIndexReportingIsZeroOrMinusOne<H: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<H>, _ minLastIndex: Int, _ isZeroOrMinusOne: Bool,
-file: StaticString = #file, line: UInt = #line) {
-    let result = integer.minLastIndexReportingIsZeroOrMinusOne()
-    
-    XCTAssertEqual(result.minLastIndex,     minLastIndex,     file: file, line: line)
-    XCTAssertEqual(result.isZeroOrMinusOne, isZeroOrMinusOne, file: file, line: line)
-}
