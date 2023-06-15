@@ -33,3 +33,21 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(generic.withContiguousStorageIfAvailable({        Array($0) }), words, file: file, line: line)
     XCTAssertEqual(generic.withContiguousMutableStorageIfAvailable({ Array($0) }), words, file: file, line: line)
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + First, Last, Tail
+//=----------------------------------------------------------------------------=
+
+func NBKAssertFirstLastTail<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, first: UInt, last: UInt, tail: H.Digit,
+file: StaticString = #file, line: UInt = #line) {
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    XCTAssertEqual(integer.first, first, file: file, line: line)
+    XCTAssertEqual(integer.last,  last,  file: file, line: line)
+    XCTAssertEqual(integer.tail,  tail,  file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual({ var x = T.zero; x.first = first; return x.first }(), first, file: file, line: line)
+    XCTAssertEqual({ var x = T.zero; x.last  = last;  return x.last  }(), last,  file: file, line: line)
+    XCTAssertEqual({ var x = T.zero; x.tail  = tail;  return x.tail  }(), tail,  file: file, line: line)
+}

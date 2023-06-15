@@ -35,11 +35,11 @@ extension NBK {
         return (sign: sign, body: body)
     }
     
-    /// Removes and returns an `UTF-8` encoded sign prefix, if it exists.
+    /// Removes and returns an `UTF-8` encoded `sign` prefix, if it exists.
     ///
     /// ```
     /// ┌─────── → ──────┬────────┐
-    /// │ utf8   │ sign  │  utf8  │
+    /// │ self   │ sign  │  self  │
     /// ├─────── → ──────┼────────┤
     /// │ "+123" │ plus  │  "123" │
     /// │ "-123" │ minus │  "123" │

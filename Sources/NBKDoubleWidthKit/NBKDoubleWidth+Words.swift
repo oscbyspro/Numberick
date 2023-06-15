@@ -42,24 +42,29 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The number of words of this integer.
     @inlinable public static var count: Int {
         assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
         assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
         return MemoryLayout<Self>.size / MemoryLayout<UInt>.stride
     }
     
+    /// The index of the least significant word of integer.
     @inlinable public static var startIndex: Int {
         0
     }
     
-    @inlinable public static var endIndex: Int {
-        self.count
-    }
-    
+    /// The index of the most significant word of this integer.
     @inlinable public static var lastIndex: Int {
         self.count - 1
     }
     
+    /// The index after the last valid subscript argument of this integer.
+    @inlinable public static var endIndex: Int {
+        self.count
+    }
+    
+    /// A collection of every valid subscript argument of this integer, in ascending order.
     @inlinable public static var indices: Range<Int> {
         0 ..< self.count
     }

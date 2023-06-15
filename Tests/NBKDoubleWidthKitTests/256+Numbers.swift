@@ -22,9 +22,9 @@ private typealias Y = NBK.U256X32
 
 final class Int256TestsOnNumbers: XCTestCase {
     
-    typealias S =  Int256
-    typealias T =  Int256
-    typealias M = UInt256
+    typealias S  =  Int256
+    typealias T  =  Int256
+    typealias M  = UInt256
     
     typealias S2 = NBKDoubleWidth<S>
     typealias T2 = NBKDoubleWidth<T>
@@ -340,9 +340,9 @@ final class Int256TestsOnNumbers: XCTestCase {
 
 final class UInt256TestsOnNumbers: XCTestCase {
     
-    typealias S =  Int256
-    typealias T = UInt256
-    typealias M = UInt256
+    typealias S  =  Int256
+    typealias T  = UInt256
+    typealias M  = UInt256
     
     typealias S2 = NBKDoubleWidth<S>
     typealias T2 = NBKDoubleWidth<T>

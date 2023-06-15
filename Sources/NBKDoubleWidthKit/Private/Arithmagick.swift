@@ -24,7 +24,7 @@ extension Int {
     /// - Parameter self: `0 <= self <= Self.max`
     ///
     @inlinable func quotientDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self.isLessThanZero == false, "this value must be at least zero")
+        assert(self >= 0, "this value must be at least zero")
         return Self(bitPattern: Magnitude(bitPattern: self).quotientDividingByBitWidth())
     }
     
@@ -33,7 +33,7 @@ extension Int {
     /// - Parameter self: `0 <= self <= Self.max`
     ///
     @inlinable func remainderDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self.isLessThanZero == false, "this value must be at least zero")
+        assert(self >= 0, "this value must be at least zero")
         return Self(bitPattern: Magnitude(bitPattern: self).remainderDividingByBitWidth())
     }
 }

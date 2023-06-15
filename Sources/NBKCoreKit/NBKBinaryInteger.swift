@@ -1042,13 +1042,13 @@ extension NBKBinaryInteger {
     @inlinable public func quotientAndRemainder(dividingBy other: Self) -> QR<Self, Self> {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
-        return qro.partialValue as QR<Self, Self>
+        return qro.partialValue as  QR<Self, Self>
     }
     
     @_disfavoredOverload @inlinable public func quotientAndRemainder(dividingBy other: Digit) -> QR<Self, Digit> {
         let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
-        return qro.partialValue as QR<Self, Digit>
+        return qro.partialValue as  QR<Self, Digit>
     }
 }
 
