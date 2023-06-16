@@ -49,7 +49,7 @@ extension NBKDoubleWidth {
     @inlinable public mutating func multiplyFullWidth(by other: Self) -> Self {
         let product = self.multipliedFullWidth(by: other) as HL<Self, Magnitude>
         self = Self(bitPattern: product.low)
-        return product.high as Self
+        return product.high as  Self
     }
     
     @inlinable public func multipliedFullWidth(by other: Self) -> HL<Self, Magnitude> {

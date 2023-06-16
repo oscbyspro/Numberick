@@ -71,8 +71,10 @@ extension NBKDoubleWidth {
     ///
     /// - Note: The order of the integer's words depends on the platform's endianness.
     ///
-    @inlinable func withUnsafeUIntPointer<T>(_ body: (UnsafePointer<UInt>) throws -> T) rethrows -> T {
-        try Swift.withUnsafePointer(to: self, { try $0.withMemoryRebound(to: UInt.self, capacity: Self.count, body) })
+    @inlinable func withUnsafeUIntPointer<T>(_  body: (UnsafePointer<UInt>) throws -> T) rethrows -> T {
+        try Swift.withUnsafePointer(to: self) { base in
+            try base.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
+        }
     }
     
     /// Grants unsafe access to the integer's in-memory representation.
@@ -80,7 +82,9 @@ extension NBKDoubleWidth {
     /// - Note: The order of the integer's words depends on the platform's endianness.
     ///
     @inlinable func withUnsafeUIntBufferPointer<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T {
-        try self.withUnsafeUIntPointer({ try body(UnsafeBufferPointer(start: $0, count: Self.count)) })
+        try self.withUnsafeUIntPointer { base in
+            try body(UnsafeBufferPointer(start: base, count: Self.count))
+        }
     }
     
     /// Grants unsafe access to the integer's in-memory representation.
@@ -88,7 +92,9 @@ extension NBKDoubleWidth {
     /// - Note: The order of the integer's words depends on the platform's endianness.
     ///
     @inlinable mutating func withUnsafeMutableUIntPointer<T>(_ body: (UnsafeMutablePointer<UInt>) throws -> T) rethrows -> T {
-        try Swift.withUnsafeMutablePointer(to: &self, { try $0.withMemoryRebound(to: UInt.self, capacity: Self.count, body) })
+        try Swift.withUnsafeMutablePointer(to: &self) { base in
+            try base.withMemoryRebound(to: UInt.self, capacity: Self.count, body)
+        }
     }
     
     /// Grants unsafe access to the integer's in-memory representation.
@@ -96,6 +102,9 @@ extension NBKDoubleWidth {
     /// - Note: The order of the integer's words depends on the platform's endianness.
     ///
     @inlinable mutating func withUnsafeMutableUIntBufferPointer<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
-        try self.withUnsafeMutableUIntPointer({ var x = UnsafeMutableBufferPointer(start: $0, count: Self.count); return try body(&x) })
+        try self.withUnsafeMutableUIntPointer { base in
+            var buffer = UnsafeMutableBufferPointer(start: base, count: Self.count);
+            return try body(&buffer)
+        }
     }
 }

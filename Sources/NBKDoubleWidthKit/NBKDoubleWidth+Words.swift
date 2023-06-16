@@ -200,12 +200,16 @@ extension NBKDoubleWidth {
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
             let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            return Swift.withUnsafeBytes(of: self) { $0.load(fromByteOffset: offset, as: T.self) }
+            return Swift.withUnsafeBytes(of: self) { data in
+                data.load(fromByteOffset: offset, as: T.self)
+            }
         }
         
         set {
             let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            Swift.withUnsafeMutableBytes(of: &self) { $0.storeBytes(of: newValue, toByteOffset: offset, as: T.self) }
+            Swift.withUnsafeMutableBytes(of: &self) { data in
+                data.storeBytes(of: newValue, toByteOffset: offset, as: T.self)
+            }
         }
     }
 }
