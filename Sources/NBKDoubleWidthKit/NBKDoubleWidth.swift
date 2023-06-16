@@ -46,10 +46,9 @@ import NBKCoreKit
 /// ### 📖 Trivial UInt Collection
 ///
 /// ``NBKDoubleWidth`` models a trivial `UInt` collection, where `UInt` is an
-/// unsigned machine word. It contains at least two words, and its word count
-/// is always a power of two. This layout enables direct machine word access.
-/// The exact count depends on the platform's architecture. You should, therefore,
-/// use properties like `startIndex` and `endIndex` instead of hard-coded indices.
+/// unsigned machine word. It contains at least two words, but the exact count
+/// depends on the platform's architecture. You should, therefore, use
+/// properties like `startIndex` and `endIndex` instead of hard-coded indices.
 ///
 /// ```
 /// // Int256 and UInt256, as constructed on a 64-bit platform:
