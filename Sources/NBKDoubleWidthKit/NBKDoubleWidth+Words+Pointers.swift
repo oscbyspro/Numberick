@@ -103,7 +103,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable mutating func withUnsafeMutableUIntBufferPointer<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
         try self.withUnsafeMutableUIntPointer { base in
-            var buffer = UnsafeMutableBufferPointer(start: base, count: Self.count);
+            var buffer = UnsafeMutableBufferPointer(start: base, count: Self.count)
             return try body(&buffer)
         }
     }

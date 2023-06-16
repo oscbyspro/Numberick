@@ -70,8 +70,25 @@ extension BinaryInteger {
     //=------------------------------------------------------------------------=
     
     /// Returns `self` modulo `other.bitWidth`.
-    @inlinable func moduloBitWidth<T>(of other: NBKDoubleWidth<T>.Type) -> Int {
-        Int(bitPattern: self._lowWord & UInt(bitPattern: other.bitWidth &- 1))
+    @inlinable func moduloBitWidth<T>(of other: T.Type) -> Int where T: FixedWidthInteger {
+        Int(bitPattern: self.modulo(UInt(bitPattern: other.bitWidth)))
+    }
+    
+    /// Returns `self` modulo `modulus`.
+    @inlinable func modulo(_ modulus: UInt) -> UInt {
+        //=--------------------------------------=
+        if  modulus.isPowerOf2 {
+            return self._lowWord & (modulus &- 1)
+        }
+        //=--------------------------------------=
+        let minus = Self.isSigned && self < (0 as Self)
+        var residue = UInt.zero
+        
+        for word in self.magnitude.words.reversed() {
+            residue = modulus.dividingFullWidth(HL(residue, word)).remainder
+        }
+        
+        return minus ? modulus &- residue : residue
     }
 }
 
