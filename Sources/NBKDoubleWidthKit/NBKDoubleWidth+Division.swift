@@ -135,7 +135,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide2222Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
-        assert(rhs.isMoreThanZero, "must not divide by zero")
+        assert(rhs.isZero == false, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
         // divisor is greater than or equal
@@ -205,7 +205,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide4222Unchecked(_ lhs: NBKDoubleWidth<Self>, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
-        assert(rhs.isMoreThanZero, "must not divide by zero")
+        assert(rhs.isZero == false, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift, "save shift amount")
         //=--------------------------------------=
         let lhsIs0XXX = lhs.high.high.isZero as Bool
