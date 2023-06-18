@@ -68,19 +68,20 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
-        self.init()
-        
-        var index: Int = self.startIndex
-        backwards: while !digits.isEmpty {
-            guard index < self.endIndex else { return nil }
-            
-            let chunk = digits.suffix(radix.exponent)
-            digits    = digits.prefix(upTo: chunk.startIndex)
-            
-            guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
-            self[index] = word
-            self.formIndex(after: &index)
+        var error = false
+        let value = Self.uninitialized { value in
+            for index in value.indices {
+                if  digits.isEmpty {
+                    value[index] = UInt.zero
+                }   else {
+                    let chunk = NBK.removeSuffix(from: &digits, maxLength: radix.exponent)
+                    let word  = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base)
+                    if let word { value[index] = word } else { return error = true }
+                }
+            }
         }
+        
+        if !error, digits.isEmpty { self = value } else { return nil }
     }
     
     @inlinable init?(digits: NBK.UnsafeUTF8, radix: ImperfectRadixUIntRoot) {
@@ -92,19 +93,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         self.init()
         
         forwards: if !alignment.isZero {
-            let chunkEndIndex = digits.startIndex &+ alignment
-            let chunk = digits.prefix(upTo: chunkEndIndex)
-            digits    = digits.suffix(from: chunkEndIndex)
-            
+            let chunk = NBK.removePrefix(from: &digits, maxLength: alignment)
             guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
             self.first = word // self = self * radix.power + word
         }
         
         forwards: while !digits.isEmpty {
-            let chunkEndIndex = digits.startIndex &+ radix.exponent
-            let chunk = digits.prefix(upTo: chunkEndIndex)
-            digits    = digits.suffix(from: chunkEndIndex)
-            
+            let chunk = NBK.removePrefix(from: &digits, maxLength: radix.exponent)
             guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
             guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
             guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
