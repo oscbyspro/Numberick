@@ -35,10 +35,10 @@ extension UInt {
         //=--------------------------------------=
         self.init()
         
-        for digit in digits {
-            guard let digitValue = alphabet.decode(digit) else { return nil }
-            guard !self.multiplyReportingOverflow(by:/**/ Self(bitPattern: radix)) else { return nil }
-            guard !self.addReportingOverflow(Self(truncatingIfNeeded: digitValue)) else { return nil }
+        for digit in  digits {
+            guard let addend = alphabet.decode(digit) else { return nil }
+            guard !self.multiplyReportingOverflow(by: Self(bitPattern: radix)) else { return nil }
+            guard !self.addReportingOverflow(addend._lowWord) else { return nil }
         }
     }
 }

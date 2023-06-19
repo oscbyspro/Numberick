@@ -90,27 +90,23 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var digits = digits.drop(while:{ $0 == 48 })
         let alignment = digits.count % radix.exponent
         //=--------------------------------------=
-        var error = false
-        let value = Self.uninitialized { value in
-            for index in value.indices {
-                value[index] = UInt.zero
-            }
+        self.init()
+        guard let _ = { // this closure makes it 10% faster for some reason
             
             forwards: if !alignment.isZero {
-                let chunk = NBK.removePrefix(from: &digits, maxLength: alignment)
-                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return error = true }
-                value.first = word
+                let chunk = NBK.removePrefix(from: &digits, count: alignment)
+                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
+                self.first = word
             }
             
             forwards: while !digits.isEmpty {
-                let chunk = NBK.removePrefix(from: &digits, maxLength: radix.exponent)
-                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return error = true }
-                guard !value.multiplyReportingOverflow(by: radix.power) else { return error = true }
-                guard !value.addReportingOverflow(word)/*------------*/ else { return error = true }
+                let chunk = NBK.removePrefix(from: &digits, count: radix.exponent)
+                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
+                guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
+                guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
             }
-        }
-        
-        if !error { self = value } else { return nil }
+            
+        }() as Void? else { return nil }
     }
     
     //=------------------------------------------------------------------------=
