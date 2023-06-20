@@ -85,7 +85,7 @@ import NBKCoreKit
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
-    /// The most significant half of this type.
+    /// The most  significant half of this type.
     public typealias High = High
     
     /// The least significant half of this type.

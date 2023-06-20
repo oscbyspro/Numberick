@@ -13,7 +13,7 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Collection x Tests
+// MARK: * NBK x Collection
 //*============================================================================*
 
 final class NBKCollectionTests: XCTestCase {

@@ -14,7 +14,7 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Remove Count
     //=------------------------------------------------------------------------=
     
     /// Removes `count` prefixing elements from the given `collection`.
@@ -34,7 +34,7 @@ extension NBK {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Remove Max Length
     //=------------------------------------------------------------------------=
     
     /// Removes up to `maxLength` prefixing elements from the given `collection`.
