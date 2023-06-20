@@ -118,11 +118,6 @@ extension NBKCoreInteger {
     }
     
     @inlinable public func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
-        //=--------------------------------------=
-        if  self.isZero {
-            return NBK.bitCast(PVO(QR(other.low, other.low), true))
-        }
-        //=--------------------------------------=
         let lhsIsLessThanZero: Bool =  other.high.isLessThanZero
         let rhsIsLessThanZero: Bool =  /*--*/self.isLessThanZero
         let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
@@ -136,12 +131,12 @@ extension NBKCoreInteger {
         
         let rhsMagnitude = self.magnitude as Magnitude
         //=--------------------------------------=
-        var qro = NBK.bitCast(PVO(rhsMagnitude.dividingFullWidth(lhsMagnitude), lhsMagnitude.high >= rhsMagnitude)) as PVO<QR<Self, Self>>
+        var qro = NBK.bitCast(rhsMagnitude.dividingFullWidthReportingOverflowAsUnsigned(lhsMagnitude)) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
         }
-
+        
         if  lhsIsLessThanZero {
             qro.partialValue.remainder.formTwosComplement()
         }
@@ -151,6 +146,41 @@ extension NBKCoreInteger {
         }
         //=--------------------------------------=
         return qro as PVO<QR<Self, Self>>
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Unsigned
+//=----------------------------------------------------------------------------=
+
+extension NBKCoreInteger where Self == Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Division x Full Width
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func dividingFullWidthReportingOverflowAsUnsigned(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
+        //=--------------------------------------=
+        // divisor is zero
+        //=--------------------------------------=
+        if  self.isZero {
+            return NBK.bitCast(PVO(QR(other.low, other.low), true))
+        }
+        //=--------------------------------------=
+        // quotient does not fit in this type
+        //=--------------------------------------=
+        if  self <= other.high {
+            let high = other.high.quotientAndRemainder(dividingBy: self)
+            return PVO(self.dividingFullWidthUncheckedAsUnsigned(HL(high.remainder, other.low)), true)
+        }
+        //=--------------------------------------=
+        return PVO(self.dividingFullWidthUncheckedAsUnsigned(other), false)
+    }
+    
+    @inlinable func dividingFullWidthUncheckedAsUnsigned(_ other: HL<Self, Magnitude>) -> QR<Self, Self> {
+        assert(self > 0, "must not divide by zero")
+        assert(self > other.high, "quotient must fit in this type")
+        return self.dividingFullWidth(other) // stdlib
     }
 }
 
