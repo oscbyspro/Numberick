@@ -167,11 +167,10 @@ extension NBKCoreInteger where Self == Magnitude {
             return NBK.bitCast(PVO(QR(other.low, other.low), true))
         }
         //=--------------------------------------=
-        // quotient does not fit in this type
+        // quotient does not fit in two halves
         //=--------------------------------------=
         if  self <= other.high {
-            let high = other.high.quotientAndRemainder(dividingBy: self)
-            return PVO(self.dividingFullWidthUncheckedAsUnsigned(HL(high.remainder, other.low)), true)
+            return PVO(self.dividingFullWidthUncheckedAsUnsigned(HL(other.high % self, other.low)), true)
         }
         //=--------------------------------------=
         return PVO(self.dividingFullWidthUncheckedAsUnsigned(other), false)
@@ -179,7 +178,7 @@ extension NBKCoreInteger where Self == Magnitude {
     
     @inlinable func dividingFullWidthUncheckedAsUnsigned(_ other: HL<Self, Magnitude>) -> QR<Self, Self> {
         assert(self > 0, "must not divide by zero")
-        assert(self > other.high, "quotient must fit in this type")
+        assert(self > other.high, "quotient must fit in two halves")
         return self.dividingFullWidth(other) // stdlib
     }
 }
