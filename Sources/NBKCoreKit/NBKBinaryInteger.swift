@@ -1039,7 +1039,13 @@ extension NBKBinaryInteger {
         return pvo.partialValue as Digit
     }
     
-    @inlinable public func quotientAndRemainder(dividingBy other: Self) -> QR<Self, Self> {
+    @inlinable public func quotientAndRemainder(dividingBy other: Self) -> QR<Self, Self>  {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
+        precondition(!qro.overflow, NBK.callsiteOverflowInfo())
+        return qro.partialValue as  QR<Self, Self>
+    }
+    
+    @inlinable public func quotientAndRemainder(dividingBy other: Self) -> QR<Self, Self> where Self == Digit {
         let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as  QR<Self, Self>
