@@ -28,8 +28,8 @@ final class Int256BenchmarksOnText: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static var decoded = NBK.blackHoleIdentity(T(encoded, radix: 16)!)
-    static var encoded = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
+    static let decoded = NBK.blackHoleIdentity(T(encoded, radix: 16)!)
+    static let encoded = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -140,8 +140,8 @@ final class UInt256BenchmarksOnText: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static var decoded = NBK.blackHoleIdentity(T(encoded, radix: 16)!)
-    static var encoded = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
+    static let decoded = NBK.blackHoleIdentity(T(encoded, radix: 16)!)
+    static let encoded = NBK.blackHoleIdentity(String(repeating: "1", count: 64))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

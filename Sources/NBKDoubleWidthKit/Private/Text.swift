@@ -58,14 +58,21 @@ extension String {
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
     @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8) -> String {
+    alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
         assert(!chunks.isEmpty, "chunks must not be empty")
         assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
         assert(  radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
-        return String.withUTF8Unchecked(chunk: chunks.last!, radix: radix, alphabet: alphabet) { first in
-            let count: Int = prefix.count + first.count + radix.exponent * (chunks.count &- 1)
+        var remainders = chunks[...]
+        let mostSignificantChunk = remainders.removeLast()
+        return String.withUTF8Unchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
+            var count: Int
+            count  = prefix.count
+            count += first .count
+            count += remainders.count * radix.exponent
+            count += suffix.count
+            //=----------------------------------=
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 //=------------------------------=
                 // de/init: pointee is trivial
@@ -74,8 +81,8 @@ extension String {
                 //=------------------------------=
                 index = utf8[index...].update(fromContentsOf: prefix)
                 index = utf8[index...].update(fromContentsOf: first )
-                //=------------------------------=
-                for var chunk in chunks.dropLast().reversed() {
+                
+                for var chunk in remainders.reversed() {
                     var digit: UInt
                     
                     let nextIndex = utf8.index(index, offsetBy: radix.exponent)
@@ -87,6 +94,8 @@ extension String {
                         utf8[backtrackIndex] = unit
                     }
                 }
+                
+                index = utf8[index...].update(fromContentsOf: suffix)
                 //=------------------------------=
                 assert(utf8[..<index].count == count)
                 return count
