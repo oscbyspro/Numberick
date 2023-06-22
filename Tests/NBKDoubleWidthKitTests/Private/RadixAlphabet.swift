@@ -20,7 +20,7 @@ import XCTest
 final class RadixAlphabetTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Encode
     //=------------------------------------------------------------------------=
     
     func testLowercaseMaxRadixAlphabetEncoder() {
