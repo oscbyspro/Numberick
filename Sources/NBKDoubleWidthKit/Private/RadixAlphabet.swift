@@ -81,14 +81,9 @@
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable func encode(_ value: UInt8) -> UInt8 {
-        precondition(value < 36, "digit is not in alphabet")
-        return self.encode(unchecked: value)
-    }
-    
-    @inlinable func encode(unchecked value: UInt8) -> UInt8 {
-        Swift.assert(value < 36, "digit is not in alphabet")
-        let offset = value < 10 ? self.x00x10 : self.x10x36
-        return value &+ offset
+    @inlinable func encode(_ value: UInt8) -> UInt8? {
+        if value < 10 { return value &+ self.x00x10 }
+        if value < 36 { return value &+ self.x10x36 }
+        return nil
     }
 }

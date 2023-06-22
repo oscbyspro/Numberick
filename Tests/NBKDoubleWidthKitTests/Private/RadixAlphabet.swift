@@ -54,14 +54,14 @@ final class RadixAlphabetTests: XCTestCase {
     // MARK: Tests x Encode
     //=------------------------------------------------------------------------=
     
-    func testLowercaseMaxRadixAlphabetEncoder() {
-        let alphabet = MaxRadixAlphabetEncoder(uppercase: false)
-        XCTAssertEqual(self.lowercase, (0 ..< 36).map(alphabet.encode(_:)))
-    }
-    
-    func testUppercaseMaxRadixAlphabetEncoder() {
-        let alphabet = MaxRadixAlphabetEncoder(uppercase: true)
-        XCTAssertEqual(self.uppercase, (0 ..< 36).map(alphabet.encode(_:)))
+    func testMaxRadixAlphabetEncoder() {
+        let lowercase = MaxRadixAlphabetEncoder(uppercase: false)
+        let uppercase = MaxRadixAlphabetEncoder(uppercase: true )
+        
+        for value in 0 ..< UInt8(44) {
+            XCTAssertEqual(lowercase.encode(value), value < 36 ? self.lowercase[Int(value)] : nil)
+            XCTAssertEqual(uppercase.encode(value), value < 36 ? self.uppercase[Int(value)] : nil)
+        }
     }
 }
 
