@@ -20,21 +20,48 @@ import XCTest
 final class RadixAlphabetTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    let lowercase: [UInt8] = Array("0123456789abcdefghijklmnopqrstuvwxyz".utf8)
+    let uppercase: [UInt8] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".utf8)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Decode
+    //=------------------------------------------------------------------------=
+    
+    func testAnyRadixAlphabetDecoder() {
+        for radix in 2 ... 36 {
+            let alphabet = AnyRadixAlphabetDecoder(radix: radix)
+            
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "0") - 1))
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "A") - 1))
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "a") - 1))
+            
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "9") + 1))
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "Z") + 1))
+            XCTAssertNil(alphabet.decode(UInt8(ascii: "z") + 1))
+            
+            for value in 0 ..< 36 {
+                let expectation = value < radix ? UInt8(value) : nil
+                XCTAssertEqual(alphabet.decode(self.lowercase[value]), expectation)
+                XCTAssertEqual(alphabet.decode(self.uppercase[value]), expectation)
+            }
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Encode
     //=------------------------------------------------------------------------=
     
     func testLowercaseMaxRadixAlphabetEncoder() {
         let alphabet = MaxRadixAlphabetEncoder(uppercase: false)
-        let list = (0 ..< 36).map(alphabet.encode(_:))
-        let expectation = Array("0123456789abcdefghijklmnopqrstuvwxyz".utf8)
-        XCTAssertEqual(list, expectation)
+        XCTAssertEqual(self.lowercase, (0 ..< 36).map(alphabet.encode(_:)))
     }
     
     func testUppercaseMaxRadixAlphabetEncoder() {
         let alphabet = MaxRadixAlphabetEncoder(uppercase: true)
-        let list = (0 ..< 36).map(alphabet.encode(_:))
-        let expectation = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".utf8)
-        XCTAssertEqual(list, expectation)
+        XCTAssertEqual(self.uppercase, (0 ..< 36).map(alphabet.encode(_:)))
     }
 }
 
