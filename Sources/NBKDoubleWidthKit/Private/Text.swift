@@ -59,7 +59,6 @@ extension String {
     ///
     @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        //=--------------------------------------=
         assert(!chunks.isEmpty, "chunks must not be empty")
         assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
         assert(  radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
@@ -84,14 +83,12 @@ extension String {
                 
                 for var chunk in remainders.reversed() {
                     var digit: UInt
-                    
                     let nextIndex = utf8.index(index, offsetBy: radix.exponent)
                     defer { index = nextIndex }
                     
                     for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
                         (chunk,  digit) = radix.dividing(chunk)
-                        let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
-                        utf8[backtrackIndex] = unit
+                        utf8[backtrackIndex] = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
                     }
                 }
                 
@@ -109,9 +106,7 @@ extension String {
     ///
     @inlinable static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
-        //=--------------------------------------=
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
-        //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             //=----------------------------------=
             // de/init: pointee is trivial
@@ -122,10 +117,8 @@ extension String {
             //=----------------------------------=
             backwards: repeat {
                 utf8.formIndex(before: &backtrackIndex)
-                
                 (chunk,  digit) = radix.dividing(chunk)
-                let unit: UInt8 = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
-                utf8[backtrackIndex] = unit
+                utf8[backtrackIndex] = alphabet.encode(unchecked: UInt8(_truncatingBits: digit))
             }   while !chunk.isZero
             //=----------------------------------=
             return body(NBK.UnsafeUTF8(rebasing: utf8[backtrackIndex...]))
