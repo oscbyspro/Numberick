@@ -887,7 +887,7 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     /// The `description` may contain a plus or minus sign (+ or -), followed by one
     /// or more numeric digits (0-9) or letters (a-z or A-Z), according to the `radix`.
-    /// If the description uses an invalid format, or it's value cannot be represented,
+    /// If the description uses an invalid format, or its value cannot be represented,
     /// the result is nil.
     ///
     /// ```
