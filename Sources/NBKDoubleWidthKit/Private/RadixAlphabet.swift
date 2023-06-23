@@ -44,11 +44,11 @@
     //=------------------------------------------------------------------------=
     
     @inlinable func decode(_ ascii: UInt8) -> UInt8? {
-        var count: UInt8
+        var index: UInt8
         
-        count = ascii &- UInt8(ascii: "0"); if count < self.x00x10 { return count       }
-        count = ascii &- UInt8(ascii: "A"); if count < self.x10x36 { return count &+ 10 }
-        count = ascii &- UInt8(ascii: "a"); if count < self.x10x36 { return count &+ 10 }
+        index = ascii &- UInt8(ascii: "0"); if index < self.x00x10 { return index       }
+        index = ascii &- UInt8(ascii: "A"); if index < self.x10x36 { return index &+ 10 }
+        index = ascii &- UInt8(ascii: "a"); if index < self.x10x36 { return index &+ 10 }
         
         return nil
     }

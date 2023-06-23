@@ -22,9 +22,9 @@ extension UInt {
     /// Creates a new instance from the given `digits` and `radix`.
     ///
     /// The ASCII sequence passed as `digits` may contain one or more numeric
-    /// digits (0-9) or letters (a-z or A-Z), according to the `radix`. If
-    /// the ASCII sequence passed as `digits` uses an invalid format, or it's
-    /// value cannot be represented, the result is nil.
+    /// digits (0-9) or letters (a-z or A-Z), according to the `radix`. If the
+    /// ASCII sequence passed as `digits` uses an invalid format, or its value
+    /// cannot be represented, the result is nil.
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///
@@ -38,7 +38,7 @@ extension UInt {
         for digit in  digits {
             guard let addend = alphabet.decode(digit) else { return nil }
             guard !self.multiplyReportingOverflow(by: Self(bitPattern: radix)) else { return nil }
-            guard !self.addReportingOverflow(addend._lowWord) else { return nil }
+            guard !self.addReportingOverflow(UInt(truncatingIfNeeded: addend)) else { return nil }
         }
     }
 }
@@ -76,25 +76,27 @@ extension String {
                 //=------------------------------=
                 // de/init: pointee is trivial
                 //=------------------------------=
-                var index = utf8.startIndex
+                var index = count as Int
+                func pull(_ unit: UInt8) {
+                    utf8.formIndex(before: &index)
+                    utf8[index] = unit
+                }
                 //=------------------------------=
-                index = utf8[index...].update(fromContentsOf: prefix)
-                index = utf8[index...].update(fromContentsOf: first )
+                suffix.reversed().forEach(pull)
                 
-                for var chunk in remainders.reversed() {
+                for var chunk in remainders {
                     var digit: UInt
-                    let nextIndex = utf8.index(index, offsetBy: radix.exponent)
-                    defer { index = nextIndex }
-                    
-                    for backtrackIndex in Range(uncheckedBounds:(index, nextIndex)).reversed() {
-                        (chunk,  digit) = radix.dividing(chunk)
-                        utf8[backtrackIndex] = alphabet.encode(UInt8(_truncatingBits: digit))!
+                    for _ in 0  ..< radix.exponent {
+                        (chunk, digit) = radix.dividing(chunk)
+                        pull(alphabet.encode(UInt8(_truncatingBits: digit))!)
                     }
                 }
                 
-                index = utf8[index...].update(fromContentsOf: suffix)
+                first .reversed().forEach(pull)
+                prefix.reversed().forEach(pull)
                 //=------------------------------=
-                assert(utf8[..<index].count == count)
+                assert(utf8.startIndex == index)
+                assert(utf8[index..<count].count == count)
                 return count
             }
         }
