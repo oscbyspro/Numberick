@@ -85,9 +85,9 @@ extension String {
                 suffix.reversed().forEach(pull)
                 
                 for var chunk in remainders {
-                    var digit: UInt
-                    for _ in 0  ..< radix.exponent {
-                        (chunk, digit) = radix.dividing(chunk)
+                    for _ in 0 ..< radix.exponent {
+                        let digit: UInt
+                        (chunk,  digit) = radix.dividing(chunk)
                         pull(alphabet.encode(UInt8(_truncatingBits: digit))!)
                     }
                 }
@@ -113,17 +113,17 @@ extension String {
             //=----------------------------------=
             // de/init: pointee is trivial
             //=----------------------------------=
-            var digit: UInt
-            var chunk: UInt = chunk
-            var backtrackIndex = radix.exponent as Int
+            var chunk = chunk as UInt
+            var index = radix.exponent as Int
             //=----------------------------------=
             backwards: repeat {
-                utf8.formIndex(before: &backtrackIndex)
+                let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
-                utf8[backtrackIndex] = alphabet.encode(UInt8(_truncatingBits: digit))!
+                utf8.formIndex(before: &index)
+                utf8[index] = alphabet.encode(UInt8(_truncatingBits: digit))!
             }   while !chunk.isZero
             //=----------------------------------=
-            return body(NBK.UnsafeUTF8(rebasing: utf8[backtrackIndex...]))
+            return body(NBK.UnsafeUTF8(rebasing: utf8[index...]))
         }
     }
 }
