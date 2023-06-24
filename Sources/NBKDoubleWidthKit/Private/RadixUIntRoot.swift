@@ -240,6 +240,9 @@ extension RadixUIntRoot {
         //=--------------------------------------=
         let capacity: Int = UInt.bitWidth.trailingZeroBitCount
         return withUnsafeTemporaryAllocation(of: Solution.self, capacity: capacity) { squares in
+            //=----------------------------------=
+            // de/init: pointee is trivial
+            //=----------------------------------=
             var solution = Solution(1, radix)
             var index = squares.startIndex as Int
             
