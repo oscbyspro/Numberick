@@ -75,6 +75,8 @@ extension RadixUIntRoot {
 /// A ``RadixUIntRoot`` with a power that may be zero.
 @frozen @usableFromInline struct AnyRadixUIntRoot: RadixUIntRoot {
     
+    @usableFromInline typealias Solution = (exponent: UInt, power: UInt)
+    
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
@@ -89,16 +91,14 @@ extension RadixUIntRoot {
     
     /// Creates a new instance from the given radix.
     ///
-    /// The radix must not exceed `36`, because that is the size of the alphabet.
+    /// The radix must not exceed `36` because that is the size of the alphabet.
     ///
     /// - Parameter radix: A value from `2` through `36`.
     ///
     @inlinable init(_ radix: Int) {
-        precondition(2 ... 36 ~= radix, "radix must be in 2 through 36")
-        ( self.base) = UInt(bitPattern:  radix)
-        ( self.exponent, self.power)  =  radix.isPowerOf2
-        ? Self.solutionAssumingRadixIsPowerOf2(self.base)
-        : Self.solutionAssumingRadixIsWhatever(self.base)
+        Swift.precondition(2 ... 36 ~= radix)
+        (self.base) = UInt(bitPattern: radix)
+        (self.exponent, self.power) = Self.solution(unchecked: self.base)
     }
     
     //=------------------------------------------------------------------------=
@@ -106,7 +106,14 @@ extension RadixUIntRoot {
     //=------------------------------------------------------------------------=
     
     /// Returns the largest exponent in `pow(radix, exponent) <= UInt.max + 1`.
-    @inlinable static func solutionAssumingRadixIsPowerOf2(_ radix: UInt) -> (exponent: UInt, power: UInt) {
+    @inlinable static func solution(unchecked radix: UInt) -> Solution {
+        switch radix.isPowerOf2 {
+        case  true: return Self.solutionAssumingRadixIsPowerOf2   (unchecked: radix)
+        case false: return Self.solutionAssumingRadixIsNotPowerOf2(unchecked: radix) }
+    }
+    
+    /// Returns the largest exponent in `pow(radix, exponent) <= UInt.max + 1`.
+    @inlinable static func solutionAssumingRadixIsPowerOf2(unchecked radix: UInt) -> Solution {
         assert(radix >= 2)
         assert(radix.isPowerOf2)
         //=--------------------------------------=
@@ -116,36 +123,49 @@ extension RadixUIntRoot {
         //=--------------------------------------=
         if  zeros.isPowerOf2 {
             let exponent = UInt(bitPattern: UInt.bitWidth &>> zeros.trailingZeroBitCount)
-            return (exponent: exponent, power: 0)
+            return Solution(exponent: exponent, power: 0)
         //=--------------------------------------=
         // radix: 08, 32, 64, 128, ...
         //=--------------------------------------=
         }   else {
-            let exponent = UInt(bitPattern: UInt.bitWidth) / zeros
-            return (exponent: exponent, power: 1 &<< (zeros &* exponent))
+            let exponent = UInt(bitPattern: UInt.bitWidth) / (zeros)
+            return Solution(exponent: exponent, power: 1 &<< (zeros &* exponent))
         }
     }
     
-    @inlinable static func solutionAssumingRadixIsWhatever(_ radix: UInt) -> (exponent: UInt, power: UInt) {
+    /// Returns the largest exponent in `pow(radix, exponent) <= UInt.max + 1`.
+    @inlinable static func solutionAssumingRadixIsNotPowerOf2(unchecked radix: UInt) -> Solution {
         assert(radix >= 2)
+        assert(radix.isPowerOf2 == false)
         //=--------------------------------------=
-        var exponent  = 1 as UInt
-        var power = radix as UInt
-        let radix = radix as UInt
-        //=--------------------------------------=
-        var product = power.multipliedFullWidth(by: radix)
-        exponentiate: while product.high.isZero {
-            exponent  &+= 1
-            power   = product.low
-            product = power.multipliedFullWidth(by: radix)
+        let capacity: Int = UInt.bitWidth.trailingZeroBitCount
+        return withUnsafeTemporaryAllocation(of: Solution.self, capacity: capacity) { buffer in
+            var solution = Solution(1, radix)
+            var index: Int = buffer.startIndex
+            
+            while index < buffer.endIndex {
+                buffer[index] = solution
+                let product = solution.power.multipliedReportingOverflow(by: solution.power)
+                if  product.overflow { break }
+                
+                solution.exponent &<<= 1
+                solution.power = (product.partialValue)
+                buffer.formIndex(after: &index)
+            }
+            
+            while index > buffer.startIndex {
+                buffer.formIndex(before: &index)
+                
+                let element = buffer[index]
+                let product = solution.power.multipliedReportingOverflow(by: element.power)
+                if  product.overflow { continue }
+                
+                solution.exponent &+= element.exponent
+                solution.power = (product.partialValue)
+            }
+            
+            return solution as Solution
         }
-        //=--------------------------------------=
-        if  product.high == 1, product.low.isZero {
-            exponent &+= 1
-            power = product.low
-        }
-        //=--------------------------------------=
-        return (exponent: exponent, power: power)
     }
 }
 

@@ -20,20 +20,24 @@ import XCTest
 final class RadixUIntRootTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: State
-    //=------------------------------------------------------------------------=
-    
-    let radices = UInt(2) ... 36
-    
-    //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testTheGeneralCaseAlgorithmAlsoSolvesPowerOf2() {
-        for radix in self.radices where radix.isPowerOf2 {
-            let special = AnyRadixUIntRoot.solutionAssumingRadixIsPowerOf2(radix)
-            let general = AnyRadixUIntRoot.solutionAssumingRadixIsWhatever(radix)
-            XCTAssert(general == special)
+    func testAnyRadixUIntRoot() {
+        for radix in 2 ... 36 {
+            let solution = AnyRadixUIntRoot(radix)
+            XCTAssertEqual(solution.base, UInt(radix))
+            
+            var product = HL(UInt(0), UInt(1))
+            for _ in 0 ..< solution.exponent {
+                XCTAssert(product.high.isZero)
+                product = product.low.multipliedFullWidth(by: UInt(radix))
+            }
+            
+            XCTAssertEqual(product.low, solution.power)
+            XCTAssertEqual(product.low.isZero, [2, 4, 16].contains(radix))
+            XCTAssertEqual(product.high, /**/  [2, 4, 16].contains(radix) ? 1 : 0)
+            XCTAssertEqual(product.low.multipliedReportingOverflow(by: UInt(radix)).overflow, ![2, 4, 16].contains(radix))
         }
     }
 }

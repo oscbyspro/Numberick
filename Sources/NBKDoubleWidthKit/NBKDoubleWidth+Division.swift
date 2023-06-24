@@ -260,7 +260,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
-        //=--------------------------------------=
         let (x, a) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
         return QR(Self(high: x, low: y), b)
