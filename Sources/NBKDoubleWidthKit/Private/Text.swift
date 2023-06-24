@@ -71,7 +71,6 @@ extension String {
             count += first .count
             count += remainders.count * radix.exponent
             count += suffix.count
-            //=----------------------------------=
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 //=------------------------------=
                 // de/init: pointee is trivial
