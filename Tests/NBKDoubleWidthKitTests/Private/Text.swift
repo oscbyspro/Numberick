@@ -25,37 +25,49 @@ final class TextTestsOnUInt: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testDecodingRadix10() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+        
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(12345678901234567890), 10, "12345678901234567890")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(18446744073709551615), 10, "18446744073709551615")
+        
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(00000000000000000000), 10, "18446744073709551616" ) // + 01
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(18446744073709551606), 10, "184467440737095516150") // * 10
+    }
+    
+    func testDecodingRadix16() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+        
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(0x123456789abcdef0), 16, "123456789abcdef0")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(0xffffffffffffffff), 16, "ffffffffffffffff")
+        
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(0x0000000000000000), 16, "10000000000000000") // + 01
+        NBKAssertDecodeDigitsAsUIntByTruncating(T(0xfffffffffffffff0), 16, "ffffffffffffffff0") // + 16
+    }
+    
     func testDecodingStringWithoutDigitsReturnsNil() {
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10,  "")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10, "+")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10, "-")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10, "~")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10,  "")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "+")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "-")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "~")
         
-        NBKAssertDecodeDigitsAsUInt(T?.none, 16,  "")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 16, "+")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 16, "-")
-        NBKAssertDecodeDigitsAsUInt(T?.none, 16, "~")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16,  "")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "+")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "-")
+        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "~")
     }
-    
-    func testDecodingDigitsOutsideOfRepresentableRangeReturnsNil() {
-        let digits = String(repeating: "1", count: T.bitWidth + 1)
-        
-        for radix in 2 ... 36 {
-            NBKAssertDecodeDigitsAsUInt(T?.none, radix, digits)
-        }
-        
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10, "18446744073709551616" ) // + 01
-        NBKAssertDecodeDigitsAsUInt(T?.none, 10, "184467440737095516150") // * 10
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
+}
 
-    func NBKAssertDecodeDigitsAsUInt(_ integer: T?, _ radix: Int, _ digits: String, file: StaticString = #file, line: UInt = #line) {
-        var digits = digits; digits.withUTF8 {
-            XCTAssertEqual(UInt(digits: $0, radix: radix), integer, file: file, line: line)
-        }
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertDecodeDigitsAsUIntByTruncating(
+_ result: UInt?, _ radix: Int, _ digits: String,
+file: StaticString = #file, line: UInt = #line) {
+    var digits = digits; digits.withUTF8 {  utf8 in
+        let value = UInt.truncating(digits: utf8, radix: radix)
+        XCTAssertEqual(value, result, file: file,  line:  line)
     }
 }
 

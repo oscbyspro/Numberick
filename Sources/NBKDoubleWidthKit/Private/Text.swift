@@ -19,27 +19,33 @@ extension UInt {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given `digits` and `radix`.
+    /// Creates a new instance by truncating the given `digits` and `radix`.
     ///
-    /// The ASCII sequence passed as `digits` may contain one or more numeric
-    /// digits (0-9) or letters (a-z or A-Z), according to the `radix`. If the
-    /// ASCII sequence passed as `digits` uses an invalid format, or its value
-    /// cannot be represented, the result is nil.
+    /// The sequence passed as `digits` may contain one or more numeric digits
+    /// (0-9) or letters (a-z or A-Z), according to the `radix`. If the sequence
+    /// passed as `digits` uses an invalid format, the result is nil. If the
+    /// sequence passed as `digits` cannot be represented, the result is truncated.
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///
-    @inlinable init?(digits: NBK.UnsafeUTF8, radix: Int) {
+    /// ### Parameters
+    ///
+    /// It's faster to create a new decoder than it is to pass one as an argument.
+    ///
+    @inlinable static func truncating(digits: NBK.UnsafeUTF8, radix: Int) -> Self? {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        let alphabet = AnyRadixAlphabetDecoder(radix: radix) // this checks the radix
+        let alphabet = AnyRadixAlphabetDecoder(radix: radix)
         //=--------------------------------------=
-        self.init()
+        var value = Self.zero
         
         for digit in  digits {
             guard let addend = alphabet.decode(digit) else { return nil }
-            guard !self.multiplyReportingOverflow(by: Self(bitPattern: radix)) else { return nil }
-            guard !self.addReportingOverflow(UInt(truncatingIfNeeded: addend)) else { return nil }
+            value &*= Self(bitPattern: radix)
+            value &+= Self(truncatingIfNeeded: addend)
         }
+        
+        return value as Self
     }
 }
 

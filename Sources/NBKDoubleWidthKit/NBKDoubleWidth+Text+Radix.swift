@@ -75,8 +75,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
                 if  digits.isEmpty {
                     value[index] = UInt.zero
                 }   else {
-                    let chunk = NBK.removeSuffix(from: &digits, maxLength: radix.exponent)
-                    guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return error = true }
+                    let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
+                    guard let word = UInt.truncating(digits: chunk, radix: radix.base) else { return error = true }
                     value[index] = word
                 }
             }
@@ -95,14 +95,14 @@ extension NBKDoubleWidth where High == High.Magnitude {
         guard let _ = { // this closure makes it 10% faster for some reason
             
             forwards: if !alignment.isZero {
-                let chunk = NBK.removePrefix(from: &digits, count: alignment)
-                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
+                guard let word = UInt.truncating(digits: chunk, radix: radix.base) else { return nil }
                 self.first = word
             }
             
             forwards: while !digits.isEmpty {
-                let chunk = NBK.removePrefix(from: &digits, count: radix.exponent)
-                guard let word = UInt(digits: NBK.UnsafeUTF8(rebasing: chunk), radix: radix.base) else { return nil }
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
+                guard let word = UInt.truncating(digits: chunk, radix: radix.base) else { return nil }
                 guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
                 guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
             }

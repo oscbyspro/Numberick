@@ -238,6 +238,8 @@ extension RadixUIntRoot {
         assert(radix >= 2)
         assert(radix.isPowerOf2 == false)
         //=--------------------------------------=
+        // radix: 03, 05, 06, 007, ...
+        //=--------------------------------------=
         let capacity: Int = UInt.bitWidth.trailingZeroBitCount - 1
         return Swift.withUnsafeTemporaryAllocation(of: Solution.self, capacity: capacity) { squares in
             //=----------------------------------=
