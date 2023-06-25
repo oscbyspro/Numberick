@@ -219,13 +219,13 @@ extension RadixUIntRoot {
         //=--------------------------------------=
         let zeros = UInt(bitPattern: radix.trailingZeroBitCount)
         //=--------------------------------------=
-        // radix: 02, 04, 16, 256, ...
+        // radix: 002, 004, 016, 256, ...
         //=--------------------------------------=
         if  zeros.isPowerOf2 {
             let exponent = UInt(bitPattern: UInt.bitWidth &>> zeros.trailingZeroBitCount)
             return Solution(exponent: exponent, power: 0)
         //=--------------------------------------=
-        // radix: 08, 32, 64, 128, ...
+        // radix: 008, 032, 064, 128, ...
         //=--------------------------------------=
         }   else {
             let exponent = UInt(bitPattern: UInt.bitWidth) / (zeros as UInt)
@@ -238,7 +238,7 @@ extension RadixUIntRoot {
         assert(radix >= 2)
         assert(radix.isPowerOf2 == false)
         //=--------------------------------------=
-        // radix: 03, 05, 06, 007, ...
+        // radix: 003, 005, 006, 007, ...
         //=--------------------------------------=
         let capacity: Int = UInt.bitWidth.trailingZeroBitCount - 1
         return Swift.withUnsafeTemporaryAllocation(of: Solution.self, capacity: capacity) { squares in

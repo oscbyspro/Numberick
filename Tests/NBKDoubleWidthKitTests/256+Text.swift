@@ -63,6 +63,17 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertDecodeText(T.max, 2,        String(repeating: "1", count: T.bitWidth / 1 - 1))
     }
     
+    func testDecodingRadix03() {
+        NBKAssertDecodeText(T.min, 3,         "-21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101022" )
+        NBKAssertDecodeText(T.max, 3,          "21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101021" )
+    }
+    
     func testDecodingRadix04() {
         NBKAssertDecodeText(T.min, 4, "-2" + String(repeating: "0", count: T.bitWidth / 2 - 1))
         NBKAssertDecodeText(T.max, 4,  "1" + String(repeating: "3", count: T.bitWidth / 2 - 1))
@@ -196,6 +207,17 @@ final class Int256TestsOnText: XCTestCase {
         NBKAssertEncodeText(T.max, 2, false,        String(repeating: "1", count: T.bitWidth / 1 - 1))
     }
     
+    func testEncodingRadix03() {
+        NBKAssertEncodeText(T.min, 3, false,  "-21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101022" )
+        NBKAssertEncodeText(T.max, 3, false,   "21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101021" )
+    }
+    
     func testEncodingRadix04() {
         NBKAssertEncodeText(T.min, 4, false, "-2" + String(repeating: "0", count: T.bitWidth / 2 - 1))
         NBKAssertEncodeText(T.max, 4, false,  "1" + String(repeating: "3", count: T.bitWidth / 2 - 1))
@@ -275,6 +297,14 @@ final class UInt256TestsOnText: XCTestCase {
     func testDecodingRadix02() {
         NBKAssertDecodeText(T.min, 2, "0")
         NBKAssertDecodeText(T.max, 2, String(repeating: "1", count: T.bitWidth / 1))
+    }
+    
+    func testDecodingRadix03() {
+        NBKAssertDecodeText(T.min, 3,                    "0" )
+        NBKAssertDecodeText(T.max, 3,         "120220022011" +
+        "02222202122221121112210000122122012000200021102211" +
+        "02022111210012120210102102000200101210112021202111" +
+        "10021000020122121222212000211211110200012022202120" )
     }
     
     func testDecodingRadix04() {
@@ -397,6 +427,14 @@ final class UInt256TestsOnText: XCTestCase {
     func testEncodingRadix02() {
         NBKAssertEncodeText(T.min, 2, false, "0")
         NBKAssertEncodeText(T.max, 2, false, String(repeating: "1", count: T.bitWidth / 1))
+    }
+    
+    func testEncodingRadix03() {
+        NBKAssertEncodeText(T.min, 3, false,             "0" )
+        NBKAssertEncodeText(T.max, 3, false,  "120220022011" +
+        "02222202122221121112210000122122012000200021102211" +
+        "02022111210012120210102102000200101210112021202111" +
+        "10021000020122121222212000211211110200012022202120" )
     }
     
     func testEncodingRadix04() {
