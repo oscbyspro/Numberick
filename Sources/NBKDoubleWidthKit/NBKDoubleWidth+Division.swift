@@ -168,13 +168,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
         
         let top = shift.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift)
-        let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
-        let rhs = rhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
+        let lhs = lhs.bitshiftedLeft(words: major, bits: minor) as Self
+        let rhs = rhs.bitshiftedLeft(words: major, bits: minor) as Self
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide3212Normalized(Wide3(top, lhs.high, lhs.low), by: rhs)
-        return QR(Self(low: quotient), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
+        return QR(Self(low: quotient), remainder.bitshiftedRight(words: major, bits: minor))
     }
     
     //=------------------------------------------------------------------------=
@@ -231,21 +231,21 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let major = shift .quotientDividingByBitWidthAssumingIsAtLeastZero()
         let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
         
-        let lhs = lhs.bitshiftedLeftUnchecked(words: major, bits: minor) as NBKDoubleWidth<Self>
-        let rhs = rhs.bitshiftedLeftUnchecked(words: major, bits: minor) as Self
+        let lhs = lhs.bitshiftedLeft(words: major, bits: minor) as NBKDoubleWidth<Self>
+        let rhs = rhs.bitshiftedLeft(words: major, bits: minor) as Self
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
         if  lhsIs0XXX, rhs > Self(high:  lhs.high.low, low: lhs.low.high) {
             assert(lhs.high.high.isZero, "quotient must fit in one half")
             let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return QR(Self(low: quotient), remainder.bitshiftedRightUnchecked(words: major, bits: minor))
+            return QR(Self(low: quotient), remainder.bitshiftedRight(words: major, bits: minor))
         }
         //=--------------------------------------=
         // division: 4222 (normalized)
         //=--------------------------------------=
-        let (quotient, remainder) = Self.divide4222Normalized(lhs, by: rhs)
-        return QR(quotient, remainder.bitshiftedRightUnchecked(words: major, bits: minor))
+        let (quotient, remainder) = Self.divide4222Normalized(lhs,  by: rhs)
+        return QR(quotient, remainder.bitshiftedRight(words: major, bits: minor))
     }
     
     //=------------------------------------------------------------------------=
