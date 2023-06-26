@@ -30,7 +30,7 @@ extension UInt {
     ///
     /// ### Parameters
     ///
-    /// It's faster to create a new decoder than it is to pass one as an argument.
+    /// Creating a new decoder is faster than passing one as an argument.
     ///
     @inlinable static func truncating(digits: NBK.UnsafeUTF8, radix: Int) -> Self? {
         guard !digits.isEmpty else { return nil }

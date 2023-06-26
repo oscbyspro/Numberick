@@ -50,8 +50,7 @@ extension NBKDoubleWidth {
         case (true,  true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: unsigned))
         case (true,  false): self = Self(repeating: false)
         case (false, true ): self.bitshiftRightUnchecked(by: Int(bitPattern: unsigned))
-        case (false, false): self = Self(repeating: self.isLessThanZero)
-        }
+        case (false, false): self = Self(repeating: self.isLessThanZero) }
     }
     
     /// Performs a smart left shift.
@@ -90,16 +89,16 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeftUnchecked(words major: Int, bits minor: Int) {
-        assert(0 ..< Self.endIndex ~= major, "invalid major left shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor left shift amount")
+    @inlinable public mutating func bitshiftLeftUnchecked(words: Int, bits: Int) {
+        assert(0 ..< Self.endIndex ~= words, "invalid major left shift amount")
+        assert(0 ..< UInt.bitWidth ~= bits,  "invalid minor left shift amount")
         //=--------------------------------------=
-        let a = UInt(bitPattern: minor)
-        let b = UInt(bitPattern: UInt.bitWidth &- minor)
-        let x = minor.isZero as  Bool
+        let a = UInt(bitPattern: bits)
+        let b = UInt(bitPattern: UInt.bitWidth &- bits)
+        let x = bits.isZero  as  Bool
         //=--------------------------------------=
         for i: Int  in  self.indices.reversed() {
-            let j:  Int = i &- major
+            let j:  Int = i &- words
             let k:  Int = j &- 1
             
             let p: UInt =         (j >= self.startIndex ? self[j] : 0) &<< a
@@ -161,8 +160,7 @@ extension NBKDoubleWidth {
         case (true,  true ): self.bitshiftRightUnchecked(by: Int(bitPattern: unsigned))
         case (true,  false): self = Self(repeating: self.isLessThanZero)
         case (false, true ): self.bitshiftLeftUnchecked(by:  Int(bitPattern: unsigned))
-        case (false, false): self = Self(repeating: false)
-        }
+        case (false, false): self = Self(repeating: false) }
     }
     
     /// Performs a smart, signed, right shift.
@@ -201,17 +199,17 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRightUnchecked(words major: Int, bits minor: Int) {
-        assert(0 ..< Self.endIndex ~= major, "invalid major right shift amount")
-        assert(0 ..< UInt.bitWidth ~= minor, "invalid minor right shift amount")
+    @inlinable public mutating func bitshiftRightUnchecked(words: Int, bits: Int) {
+        assert(0 ..< Self.endIndex ~= words, "invalid major right shift amount")
+        assert(0 ..< UInt.bitWidth ~= bits,  "invalid minor right shift amount")
         //=--------------------------------------=
-        let a = UInt(bitPattern: minor)
-        let b = UInt(bitPattern: UInt.bitWidth &- minor)
+        let a = UInt(bitPattern: bits)
+        let b = UInt(bitPattern: UInt.bitWidth &- bits)
         let c = UInt(repeating:  self.isLessThanZero)
-        let x = minor.isZero as  Bool
+        let x = bits.isZero  as  Bool
         //=--------------------------------------=
         for i: Int  in  self.indices {
-            let j:  Int = i &+ major
+            let j:  Int = i &+ words
             let k:  Int = j &+ 1
             
             let p: UInt =         (j < self.endIndex ? self[j] : c) &>> a
