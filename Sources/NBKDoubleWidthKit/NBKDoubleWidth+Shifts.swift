@@ -42,56 +42,56 @@ extension NBKDoubleWidth {
     /// Performs a smart left shift.
     ///
     /// - Parameters:
-    ///   - amount: `Int.min <= amount <= Int.max`
+    ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public mutating func bitshiftLeftSmart(by amount: Int) {
-        let unsigned = amount.magnitude as UInt
-        switch (amount >= 0, unsigned < UInt(bitPattern: Self.bitWidth)) {
-        case (true,  true ): self.bitshiftLeft (by: Int(bitPattern: unsigned))
+    @inlinable public mutating func bitshiftLeftSmart(by distance: Int) {
+        let size = distance.magnitude as UInt
+        switch (distance >= 0, size < UInt(bitPattern: Self.bitWidth)) {
+        case (true,  true ): self.bitshiftLeft (by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: false)
-        case (false, true ): self.bitshiftRight(by: Int(bitPattern: unsigned))
+        case (false, true ): self.bitshiftRight(by: Int(bitPattern: size))
         case (false, false): self = Self(repeating: self.isLessThanZero) }
     }
     
     /// Performs a smart left shift.
     ///
     /// - Parameters:
-    ///   - amount: `Int.min <= amount <= Int.max`
+    ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public func bitshiftedLeftSmart(by amount: Int) -> Self {
-        var result = self; result.bitshiftLeftSmart(by: amount); return result
+    @inlinable public func bitshiftedLeftSmart(by distance: Int) -> Self {
+        var result = self; result.bitshiftLeftSmart(by: distance); return result
     }
     
     /// Performs an unchecked left shift.
     ///
     /// - Parameters:
-    ///   - amount: `0 <= amount < Self.bitWidth`
+    ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(by amount: Int) {
-        precondition(0 <= amount, "invalid left shift amount")
-        let major = amount .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor = amount.remainderDividingByBitWidthAssumingIsAtLeastZero()
+    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+        precondition(distance >= 0, "shift distance must be at least zero")
+        let major  = distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor  = distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitshiftLeft(words: major, bits: minor)
     }
     
     /// Performs an unchecked left shift.
     ///
     /// - Parameters:
-    ///   - amount: `0 <= amount < Self.bitWidth`
+    ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable public func bitshiftedLeft(by amount: Int) -> Self {
-        var result = self; result.bitshiftLeft(by: amount); return result
+    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
+        var result = self; result.bitshiftLeft(by: distance); return result
     }
     
     /// Performs an unchecked left shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major left shift amount")
-        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor left shift amount")
+        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
+        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor shift distance")
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftLeft(words: words)
@@ -118,7 +118,7 @@ extension NBKDoubleWidth {
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
         var result = self; result.bitshiftLeft(words: words, bits: bits); return result
@@ -130,7 +130,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major left shift amount")
+        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
         //=--------------------------------------=
         guard words > Int.zero else { return }
         //=--------------------------------------=
@@ -182,56 +182,56 @@ extension NBKDoubleWidth {
     /// Performs a smart, signed, right shift.
     ///
     /// - Parameters:
-    ///   - amount: `Int.min <= amount <= Int.max`
+    ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public mutating func bitshiftRightSmart(by amount: Int) {
-        let unsigned = amount.magnitude as UInt
-        switch (amount >= 0, unsigned < UInt(bitPattern: Self.bitWidth)) {
-        case (true,  true ): self.bitshiftRight(by: Int(bitPattern: unsigned))
+    @inlinable public mutating func bitshiftRightSmart(by distance: Int) {
+        let size = distance.magnitude as UInt
+        switch (distance >= 0, size < UInt(bitPattern: Self.bitWidth)) {
+        case (true,  true ): self.bitshiftRight(by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: self.isLessThanZero)
-        case (false, true ): self.bitshiftLeft (by: Int(bitPattern: unsigned))
+        case (false, true ): self.bitshiftLeft (by: Int(bitPattern: size))
         case (false, false): self = Self(repeating: false) }
     }
     
     /// Performs a smart, signed, right shift.
     ///
     /// - Parameters:
-    ///   - amount: `Int.min <= amount <= Int.max`
+    ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public func bitshiftedRightSmart(by amount: Int) -> Self {
-        var result = self; result.bitshiftRightSmart(by: amount); return result
+    @inlinable public func bitshiftedRightSmart(by distance: Int) -> Self {
+        var result = self; result.bitshiftRightSmart(by: distance); return result
     }
     
     /// Performs an unchecked, signed, right shift.
     ///
     /// - Parameters:
-    ///   - amount: `0 <= amount < Self.bitWidth`
+    ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(by amount: Int) {
-        precondition(0 <= amount, "invalid right shift amount")
-        let major = amount .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor = amount.remainderDividingByBitWidthAssumingIsAtLeastZero()
+    @inlinable public mutating func bitshiftRight(by distance: Int) {
+        precondition(distance >= 0, "shift distance must be at least zero")
+        let major =  distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
+        let minor =  distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitshiftRight(words: major, bits: minor)
     }
     
     /// Performs an unchecked, signed, right shift.
     ///
     /// - Parameters:
-    ///   - amount: `0 <= amount < Self.bitWidth`
+    ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable public func bitshiftedRight(by amount: Int) -> Self {
-        var result = self; result.bitshiftRight(by: amount); return result
+    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
+        var result = self; result.bitshiftRight(by: distance); return result
     }
     
     /// Performs an unchecked, signed, right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major right shift amount")
-        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor right shift amount")
+        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
+        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor shift distance")
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftRight(words: words)
@@ -259,7 +259,7 @@ extension NBKDoubleWidth {
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
         var result = self; result.bitshiftRight(words: words, bits: bits); return result
@@ -271,7 +271,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major right shift amount")
+        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
         //=--------------------------------------=
         if words.isZero { return }
         //=--------------------------------------=
