@@ -97,20 +97,19 @@ extension NBKDoubleWidth {
             return self.bitshiftLeft(words: words)
         }
         //=--------------------------------------=
-        let a = UInt(bitPattern: bits)
-        let b = UInt(bitPattern: UInt.bitWidth - bits)
+        let push = UInt(bitPattern: bits)
+        let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
-        var x = self.distance(from: words, to: self.lastIndex)
-        var y = self[x] as UInt
-        //=--------------------------------------=
-        for i in stride(from: self.lastIndex, to: -1, by: -1) {
-            let p = y &<< a
+        var source = self.distance(from: words, to: self.lastIndex)
+        var (word) = self[source] as UInt
+        for destination in stride(from: self.lastIndex, to: -1, by: -1) {
+            let head = word &<< push
             
-            x = x  - 1
-            y = x >= self.startIndex ? self[x] : 0
+            source = source  - 1
+            (word) = source >= self.startIndex ? self[source] : 0
             
-            let q = y &>> b
-            self[i] = p | q
+            let tail = word &>> pull
+            self[destination] = head | tail
         }
     }
     
@@ -132,10 +131,10 @@ extension NBKDoubleWidth {
     @inlinable public mutating func bitshiftLeft(words: Int) {
         precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
         //=--------------------------------------=
-        guard words > Int.zero else { return }
+        if  words.isZero { return }
         //=--------------------------------------=
-        for i in self.indices.reversed() {
-            self[i] = i >= words ? self[i - words] : 0
+        for destination in self.indices.reversed() {
+            self[destination] = destination >= words ? self[destination - words] : 0
         }
     }
     
@@ -237,21 +236,20 @@ extension NBKDoubleWidth {
             return self.bitshiftRight(words: words)
         }
         //=--------------------------------------=
-        let a = UInt(bitPattern: bits)
-        let b = UInt(bitPattern: UInt.bitWidth - bits)
-        let s = UInt(repeating:  self.isLessThanZero )
+        let push = UInt(bitPattern: bits)
+        let pull = UInt(bitPattern: UInt.bitWidth - bits)
+        let sign = UInt(repeating:  self.isLessThanZero )
         //=--------------------------------------=
-        var x = (words) as  Int
-        var y = self[x] as UInt
-        //=--------------------------------------=
-        for i in self.indices {
-            let p = y &>> a
+        var source = words as Int
+        var (word) = self[source] as UInt
+        for destination in self.indices {
+            let head = word &>> push
             
-            x = x + 1
-            y = x < self.endIndex ? self[x] : s
+            source = source + 1
+            (word) = source < self.endIndex ? self[source] : sign
             
-            let q = y &<< b
-            self[i] = p | q
+            let tail = word &<< pull
+            self[destination] = head | tail
         }
     }
     
@@ -273,13 +271,13 @@ extension NBKDoubleWidth {
     @inlinable public mutating func bitshiftRight(words: Int) {
         precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
         //=--------------------------------------=
-        if words.isZero { return }
+        if  words.isZero { return }
         //=--------------------------------------=
-        let s = UInt(repeating: self.isLessThanZero)
-        let e = self.endIndex - words
+        let sign = UInt(repeating: self.isLessThanZero)
+        let edge = self.distance(from: words, to: self.endIndex)
         //=--------------------------------------=
-        for i in self.indices {
-            self[i] = (i < e) ? self[i + words] : s
+        for destination in self.indices {
+            self[destination] = destination < edge ? self[destination + words] : sign
         }
     }
     

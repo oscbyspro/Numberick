@@ -62,13 +62,13 @@ extension NBKDoubleWidth {
             let rhsWord: Digit = other.tail
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
-                
+        
         backwards: for index in self.indices.dropLast().reversed() {
             let lhsWord: UInt = self [index]
             let rhsWord: UInt = other[index]
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
-
+        
         return Int.zero
     }
 }
