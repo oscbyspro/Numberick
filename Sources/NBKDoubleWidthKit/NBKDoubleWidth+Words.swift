@@ -19,21 +19,28 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: Self {
-        _read { yield self }
+    /// The number of words of this integer.
+    @inlinable public static var count: Int {
+        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
+        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
+        return MemoryLayout<Self>.size / MemoryLayout<UInt>.stride
     }
     
-    /// The least significant word of this integer.
-    ///
-    /// - Note: This member is required by `Swift.BinaryInteger`.
-    ///
-    @inlinable public var _lowWord: UInt {
-        self.low._lowWord
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var count: Int {
+        Self.count
+    }
+    
+    @inlinable public var words: Self {
+        _read { yield self }
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Collection
+// MARK: + Collection x Indices
 //=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth {
@@ -41,13 +48,6 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
-    
-    /// The number of words of this integer.
-    @inlinable public static var count: Int {
-        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
-        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
-        return MemoryLayout<Self>.size / MemoryLayout<UInt>.stride
-    }
     
     /// The index of the least significant word of integer.
     @inlinable public static var startIndex: Int {
@@ -73,10 +73,6 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var count: Int {
-        Self.count
-    }
-    
     @inlinable public var startIndex: Int {
         Self.startIndex
     }
@@ -94,8 +90,60 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func distance(from start: Int, to end: Int) -> Int {
+        end - start
+    }
+    
+    @inlinable public func index(after index: Int) -> Int {
+        index + 1
+    }
+    
+    @inlinable public func formIndex(after index: inout Int) {
+        index = self.index(after: index)
+    }
+    
+    @inlinable public func index(before index: Int) -> Int {
+        index - 1
+    }
+    
+    @inlinable public func formIndex(before index: inout Int) {
+        index = self.index(before: index)
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        index + distance
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+        let distanceLimit = self.distance(from: index, to: limit)
+        guard distance >= 0
+        ? distance <= distanceLimit || distanceLimit < 0
+        : distance >= distanceLimit || distanceLimit > 0
+        else { return nil }
+        return self.index(index, offsetBy: distance) as Int
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Collection x Elements
+//=----------------------------------------------------------------------------=
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
+    
+    /// The least significant word of this integer.
+    ///
+    /// - Note: This member is required by `Swift.BinaryInteger`.
+    ///
+    @inlinable public var _lowWord: UInt {
+        self.low._lowWord // same as first
+    }
     
     /// The least significant word of this integer.
     @inlinable public var first: UInt {

@@ -55,12 +55,11 @@ extension NBKDoubleWidth {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        //=--------------------------------------=
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
         : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
         else { return nil }
-        //=--------------------------------------=
+        
         self = Self.uninitialized { value in
             for index in value.indices {
                 value[unchecked: index] = source[index]

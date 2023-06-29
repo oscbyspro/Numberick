@@ -69,6 +69,30 @@ final class Int256TestsOnWords: XCTestCase {
         NBKAssertFirstLastTail( T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first:  1, last:  8, tail:  8)
         NBKAssertFirstLastTail(~T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first: ~1, last: ~8, tail: ~8)
     }
+    
+    //=----------------------------------------------------------------------------=
+    // MARK: + Indices
+    //=----------------------------------------------------------------------------=
+    
+    func testIndexOffsetByLimitedBy() {
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  2,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  1,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  0,  2,  1)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -1,  2,  0)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -2,  2, -1)
+        
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  2,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  1,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  0,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -1,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -2,  2,  nil)
+        
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  2,  2,  5)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  1,  2,  4)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  0,  2,  3)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -1,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -2,  2,  nil)
+    }
 }
 
 //*============================================================================*
@@ -123,6 +147,30 @@ final class UInt256TestsOnWords: XCTestCase {
         
         NBKAssertFirstLastTail( T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first:  1, last:  8, tail:  8)
         NBKAssertFirstLastTail(~T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first: ~1, last: ~8, tail: ~8)
+    }
+    
+    //=----------------------------------------------------------------------------=
+    // MARK: + Indices
+    //=----------------------------------------------------------------------------=
+    
+    func testIndexOffsetByLimitedBy() {
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  2,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  1,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  0,  2,  1)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -1,  2,  0)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -2,  2, -1)
+        
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  2,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  1,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  0,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -1,  2,  nil)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -2,  2,  nil)
+        
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  2,  2,  5)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  1,  2,  4)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  0,  2,  3)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -1,  2,  2)
+        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -2,  2,  nil)
     }
 }
 

@@ -51,3 +51,17 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = T.zero; x.last  = last;  return x.last  }(), last,  file: file, line: line)
     XCTAssertEqual({ var x = T.zero; x.tail  = tail;  return x.tail  }(), tail,  file: file, line: line)
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + Indices
+//=----------------------------------------------------------------------------=
+
+func NBKAssertIndexOffsetByLimitedBy<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ index: Int, _ distance: Int, _ limit: Int, _ expectation: Int?,
+file: StaticString = #file, line: UInt = #line) {
+    let wordsIndex = /*-*/(integer).index(index, offsetBy: distance, limitedBy: limit)
+    let arrayIndex = Array(integer).index(index, offsetBy: distance, limitedBy: limit)
+    
+    XCTAssertEqual(wordsIndex, expectation, file: file, line: line)
+    XCTAssertEqual(arrayIndex, expectation, file: file, line: line)
+}

@@ -105,7 +105,7 @@ extension NBKDoubleWidth {
         var word = self[destination &+ offset]
         
         while destination > self.startIndex {
-            destination &-= 1 as  Int
+            self.formIndex(before: &destination)
             let pushed = word &<< push
             word = destination > words ? self[destination &+ offset] : UInt()
             let pulled = word &>> pull
@@ -245,7 +245,7 @@ extension NBKDoubleWidth {
         let edge = self.endIndex &- words
         
         while destination < self.endIndex {
-            let after = destination &+ 1
+            let after  = self.index(after: destination)
             let pushed = word &>> push
             word = after < edge ? self[after &+ words] : sign
             let pulled = word &<< pull
