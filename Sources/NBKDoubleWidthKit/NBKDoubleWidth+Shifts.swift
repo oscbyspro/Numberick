@@ -100,16 +100,16 @@ extension NBKDoubleWidth {
         let push = UInt(bitPattern: bits)
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
-        var source = self.distance(from: words, to: self.lastIndex)
-        var (word) = self[source] as UInt
-        for destination in stride(from: self.lastIndex, to: -1, by: -1) {
-            let head = word &<< push
-            
-            source = source  - 1
-            (word) = source >= self.startIndex ? self[source] : 0
-            
-            let tail = word &>> pull
-            self[destination] = head | tail
+        var destination = self.endIndex as Int
+        let offset: Int = ~(words)
+        var word = self[destination &+ offset]
+        
+        while destination > self.startIndex {
+            destination &-= 1 as  Int
+            let pushed = word &<< push
+            word = destination > words ? self[destination &+ offset] : UInt()
+            let pulled = word &>> pull
+            self[destination] = pushed | pulled
         }
     }
     
@@ -134,7 +134,7 @@ extension NBKDoubleWidth {
         if  words.isZero { return }
         //=--------------------------------------=
         for destination in self.indices.reversed() {
-            self[destination] = destination >= words ? self[destination - words] : 0
+            self[destination] = destination >= words ? self[destination - words] : UInt()
         }
     }
     
@@ -238,18 +238,19 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         let push = UInt(bitPattern: bits)
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
-        let sign = UInt(repeating:  self.isLessThanZero )
+        let sign = UInt(repeating: self.isLessThanZero)
         //=--------------------------------------=
-        var source = words as Int
-        var (word) = self[source] as UInt
-        for destination in self.indices {
-            let head = word &>> push
-            
-            source = source + 1
-            (word) = source < self.endIndex ? self[source] : sign
-            
-            let tail = word &<< pull
-            self[destination] = head | tail
+        var destination = self.startIndex
+        var word = self[words]
+        let edge = self.endIndex &- words
+        
+        while destination < self.endIndex {
+            let after = destination &+ 1
+            let pushed = word &>> push
+            word = after < edge ? self[after &+ words] : sign
+            let pulled = word &<< pull
+            self[destination] = pushed | pulled
+            destination = after
         }
     }
     
@@ -274,8 +275,9 @@ extension NBKDoubleWidth {
         if  words.isZero { return }
         //=--------------------------------------=
         let sign = UInt(repeating: self.isLessThanZero)
-        let edge = self.distance(from: words, to: self.endIndex)
         //=--------------------------------------=
+        let edge = self.distance(from: words, to: self.endIndex)
+        
         for destination in self.indices {
             self[destination] = destination < edge ? self[destination + words] : sign
         }
