@@ -241,8 +241,8 @@ extension NBKDoubleWidth {
         let sign = UInt(repeating: self.isLessThanZero)
         //=--------------------------------------=
         var destination = self.startIndex
-        var word = self[words]
-        let edge = self.endIndex &- words
+        let edge = self.distance(from: words, to: self.endIndex)
+        var word = self[words] as UInt
         
         while destination < self.endIndex {
             let after  = self.index(after: destination)
