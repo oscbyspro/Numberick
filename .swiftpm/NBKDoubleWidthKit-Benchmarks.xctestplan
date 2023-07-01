@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "2BBD9A51-D890-4B97-AED4-B9962867DF57",
+      "name" : "Main",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
+        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
+        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()",
+        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
+        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
+        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+      ],
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKDoubleWidthKitBenchmarks",
+        "name" : "NBKDoubleWidthKitBenchmarks"
+      }
+    }
+  ],
+  "version" : 1
+}
