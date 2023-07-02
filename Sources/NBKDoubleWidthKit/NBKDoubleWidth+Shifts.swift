@@ -62,7 +62,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftLeftSmart(by: distance); return result
     }
     
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -74,7 +74,7 @@ extension NBKDoubleWidth {
         return self.bitshiftLeft(words: major, bits: minor)
     }
     
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -83,7 +83,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftLeft(by: distance); return result
     }
     
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -113,7 +113,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -123,7 +123,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftLeft(words: words, bits: bits); return result
     }
         
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -138,7 +138,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs an unchecked left shift.
+    /// Performs a left shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -201,7 +201,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRightSmart(by: distance); return result
     }
     
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -213,7 +213,7 @@ extension NBKDoubleWidth {
         return self.bitshiftRight(words: major, bits: minor)
     }
     
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -222,7 +222,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRight(by: distance); return result
     }
     
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -254,7 +254,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -264,7 +264,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRight(words: words, bits: bits); return result
     }
         
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -283,7 +283,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs an unchecked, signed, right shift.
+    /// Performs a signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
