@@ -34,7 +34,7 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
     @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
-        precondition(distance >= 0, "shift distance must be at least zero")
+        precondition(distance >= 0, "rotation distance must be at least zero")
         let major  = distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
         let minor  = distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitrotatedLeft(words: major, bits: minor)
@@ -144,7 +144,7 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
     @inlinable public func bitrotatedRight(by distance: Int) -> Self {
-        precondition(distance >= 0, "shift distance must be at least zero")
+        precondition(distance >= 0, "rotation distance must be at least zero")
         let major  = distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
         let minor  = distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
         return self.bitrotatedRight(words: major, bits: minor)
