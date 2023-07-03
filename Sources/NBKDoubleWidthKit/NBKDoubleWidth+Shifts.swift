@@ -90,8 +90,8 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
-        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor shift distance")
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteShiftOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftLeft(words: words)
@@ -129,7 +129,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
@@ -178,7 +178,7 @@ extension NBKDoubleWidth {
     // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
-    /// Performs a smart, signed, right shift.
+    /// Performs an un/signed, smart, right shift.
     ///
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
@@ -192,7 +192,7 @@ extension NBKDoubleWidth {
         case (false, false): self = Self(repeating: false) }
     }
     
-    /// Performs a smart, signed, right shift.
+    /// Performs an un/signed, smart, right shift.
     ///
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
@@ -201,7 +201,7 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRightSmart(by: distance); return result
     }
     
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -213,7 +213,7 @@ extension NBKDoubleWidth {
         return self.bitshiftRight(words: major, bits: minor)
     }
     
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
@@ -222,15 +222,15 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRight(by: distance); return result
     }
     
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
-        precondition(0 ..< UInt.bitWidth ~= bits,  "invalid minor shift distance")
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteShiftOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftRight(words: words)
@@ -254,7 +254,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
@@ -264,13 +264,13 @@ extension NBKDoubleWidth {
         var result = self; result.bitshiftRight(words: words, bits: bits); return result
     }
         
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, "invalid major shift distance")
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
@@ -283,7 +283,7 @@ extension NBKDoubleWidth {
         }
     }
     
-    /// Performs a signed right shift.
+    /// Performs an un/signed right shift.
     ///
     /// - Parameters:
     ///   - words: `0 <= words < Self.endIndex`

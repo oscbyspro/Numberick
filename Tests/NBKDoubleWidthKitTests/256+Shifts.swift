@@ -113,7 +113,7 @@ final class Int256TestsOnShifts: XCTestCase {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
-    func testBitshiftingByMinAmountDoesNotTrap() {
+    func testBitshiftingByMinDistanceDoesNotTrap() {
         XCTAssertEqual(T(repeating: true) << Int.min, T(repeating: true ))
         XCTAssertEqual(T(repeating: true) >> Int.min, T(repeating: false))
     }
@@ -230,7 +230,7 @@ final class UInt256TestsOnShifts: XCTestCase {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
-    func testBitshiftingByMinAmountDoesNotTrap() {
+    func testBitshiftingByMinDistanceDoesNotTrap() {
         XCTAssertEqual(T(repeating: true) << Int.min, T(repeating: false))
         XCTAssertEqual(T(repeating: true) >> Int.min, T(repeating: false))
     }

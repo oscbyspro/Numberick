@@ -482,6 +482,148 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Note: In the case of `overflow`, the result is truncated or, if undefined, `other` and `other`.
     ///
     @inlinable func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Shifts
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left shift.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256( 1) │ Int(255) │ Int256.min │
+    /// │ Int256.min │ Int(  1) │ Int256( 0) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(by distance: Int)
+    
+    /// Performs a left shift.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256( 1) │ Int(255) │ Int256.min │
+    /// │ Int256.min │ Int(  1) │ Int256( 0) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable func bitshiftedLeft(by distance: Int) -> Self
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.min │ Int(255) │ Int256(-1) │
+    /// │ Int256(-1) │ Int(  1) │ Int256(-1) │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.max │ Int(254) │ Int256( 1) │
+    /// │ Int256( 1) │ Int(  1) │ Int256( 0) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(by distance: Int)
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.min │ Int(255) │ Int256(-1) │
+    /// │ Int256(-1) │ Int(  1) │ Int256(-1) │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.max │ Int(254) │ Int256( 1) │
+    /// │ Int256( 1) │ Int(  1) │ Int256( 0) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable func bitshiftedRight(by distance: Int) -> Self
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Rotations
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left rotation.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256( 1) │ Int(255) │ Int256.min │
+    /// │ Int256.min │ Int(  1) │ Int256( 1) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable mutating func bitrotateLeft(by distance: Int)
+    
+    /// Performs a left rotation.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256( 1) │ Int(255) │ Int256.min │
+    /// │ Int256.min │ Int(  1) │ Int256( 1) │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable func bitrotatedLeft(by distance: Int) -> Self
+    
+    /// Performs a right rotation.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.min │ Int(255) │ Int256( 1) │
+    /// │ Int256( 1) │ Int(  1) │ Int256.min │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable mutating func bitrotateRight(by distance: Int)
+    
+    /// Performs a right rotation.
+    ///
+    /// ```
+    /// ┌────────────┬───────── → ───────────┐
+    /// │ self       │ distance │ self       │
+    /// ├────────────┼───────── → ───────────┤
+    /// │ Int256.min │ Int(255) │ Int256( 1) │
+    /// │ Int256( 1) │ Int(  1) │ Int256.min │
+    /// └────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///
+    @inlinable func bitrotatedRight(by distance: Int) -> Self
 }
 
 //=----------------------------------------------------------------------------=
@@ -666,6 +808,62 @@ extension NBKFixedWidthInteger {
     
     @_disfavoredOverload @inlinable public static func &*(lhs: Self, rhs: Digit) -> Self {
         lhs.multipliedReportingOverflow(by: rhs).partialValue
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Shifts
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        self &<<= distance
+    }
+    
+    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        return self &<< distance
+    }
+    
+    @inlinable public mutating func bitshiftRight(by distance: Int) {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        self &>>= distance
+    }
+    
+    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        return self &>> distance
+    }
+
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Rotations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func bitrotateLeft(by distance: Int) {
+        self = self.bitrotatedLeft(by: distance)
+    }
+    
+    @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteRotationOutOfBoundsInfo())
+        //=--------------------------------------=
+        if  distance.isZero { return self }
+        //=--------------------------------------=
+        let pushed = self &<< (distance)
+        let pulled = Magnitude(bitPattern: self) &>> (Self.bitWidth &- distance)
+        return pushed | Self(bitPattern: pulled)
+    }
+    
+    @inlinable public mutating func bitrotateRight(by distance: Int) {
+        self = self.bitrotatedRight(by: distance)
+    }
+    
+    @inlinable public func bitrotatedRight(by distance: Int) -> Self {
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteRotationOutOfBoundsInfo())
+        //=--------------------------------------=
+        if  distance.isZero { return self }
+        //=--------------------------------------=
+        let pulled = self &<< (Self.bitWidth &- distance)
+        let pushed = Magnitude(bitPattern: self) &>> (distance)
+        return Self(bitPattern: pushed) | pulled
     }
 }
 

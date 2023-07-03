@@ -162,58 +162,6 @@ extension NBKCoreInteger {
         //=--------------------------------------=
         return PVO(self.dividingFullWidth(other), false) // stdlib
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Rotations
-    //=------------------------------------------------------------------------=
-    
-    /// Performs a left rotation.
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable public mutating func bitrotateLeft(by distance: Int) {
-        self = self.bitrotatedLeft(by: distance)
-    }
-    
-    /// Performs a left rotation.
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, "invalid rotation distance")
-        //=--------------------------------------=
-        if  distance.isZero { return self }
-        //=--------------------------------------=
-        let pushed = self &<< (distance)
-        let pulled = Magnitude(bitPattern: self) &>> (Self.bitWidth &- distance)
-        return pushed | Self(bitPattern: pulled)
-    }
-    
-    /// Performs a right rotation.
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable public mutating func bitrotateRight(by distance: Int) {
-        self = self.bitrotatedRight(by: distance)
-    }
-    
-    /// Performs a right rotation.
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable public func bitrotatedRight(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, "invalid rotation distance")
-        //=--------------------------------------=
-        if  distance.isZero { return self }
-        //=--------------------------------------=
-        let pulled = self &<< (Self.bitWidth &- distance)
-        let pushed = Magnitude(bitPattern: self) &>> (distance)
-        return Self(bitPattern: pushed) | pulled
-    }
 }
 
 //*============================================================================*
