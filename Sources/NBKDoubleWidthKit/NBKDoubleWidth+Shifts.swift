@@ -90,8 +90,8 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftLeft(words: words)
@@ -129,7 +129,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
@@ -229,8 +229,8 @@ extension NBKDoubleWidth {
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftRight(words: words)
@@ -270,7 +270,7 @@ extension NBKDoubleWidth {
     ///   - words: `0 <= words < Self.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=

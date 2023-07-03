@@ -815,22 +815,22 @@ extension NBKFixedWidthInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func bitshiftLeft(by distance: Int) {
-        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &<<= distance
     }
     
     @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
-        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &<< distance
     }
     
     @inlinable public mutating func bitshiftRight(by distance: Int) {
-        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &>>= distance
     }
     
     @inlinable public func bitshiftedRight(by distance: Int) -> Self {
-        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteShiftOutOfBoundsInfo())
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &>> distance
     }
 
@@ -843,7 +843,7 @@ extension NBKFixedWidthInteger {
     }
     
     @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteRotationOutOfBoundsInfo())
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  distance.isZero { return self }
         //=--------------------------------------=
@@ -857,7 +857,7 @@ extension NBKFixedWidthInteger {
     }
     
     @inlinable public func bitrotatedRight(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteRotationOutOfBoundsInfo())
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  distance.isZero { return self }
         //=--------------------------------------=

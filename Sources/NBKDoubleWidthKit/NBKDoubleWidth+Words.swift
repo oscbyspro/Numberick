@@ -228,12 +228,12 @@ extension NBKDoubleWidth {
     ///
     @inlinable subscript<T>(_ index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         _read {
-            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            precondition(self.indices ~= index, NBK.callsiteOutOfBoundsInfo())
             yield  self[unchecked: index, as: T.self]
         }
         
         _modify {
-            precondition(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+            precondition(self.indices ~= index, NBK.callsiteOutOfBoundsInfo())
             yield &self[unchecked: index, as: T.self]
         }
     }
@@ -271,7 +271,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
-        assert(self.indices ~= index, NBK.callsiteIndexOutOfBoundsInfo())
+        assert(self.indices ~= index, NBK.callsiteOutOfBoundsInfo())
         #if _endian(big)
         return self.lastIndex - index
         #else
