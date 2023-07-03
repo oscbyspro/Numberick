@@ -33,12 +33,12 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by:   rhs); return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs {
+    if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(                 lhs &<<  rhs,                 result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs &<<= rhs; return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs {
+    if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
         
@@ -46,7 +46,7 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(words: words, bits: bits); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs, bits.isZero {
+    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
         XCTAssertEqual(lhs.bitshiftedLeft(words: words), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(words: words); return lhs }(), result, file: file, line: line)
     }
@@ -70,12 +70,12 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: rhs); return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs {
+    if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(                 lhs &>>  rhs,                 result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs &>>= rhs; return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs {
+    if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
         
@@ -83,7 +83,7 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(words: words, bits: bits); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs, bits.isZero {
+    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
         XCTAssertEqual(lhs.bitshiftedRight(words: words), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(words: words); return lhs }(), result, file: file, line: line)
     }

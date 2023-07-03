@@ -21,9 +21,17 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
-    XCTAssert(0 ..< lhs.bitWidth ~= rhs, file: file, line: line)
+    XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs, bits.isZero {
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitrotatedLeft(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(by: rhs); return lhs }(), result, file: file, line: line)
+        
+        XCTAssertEqual(lhs.bitrotatedLeft(words: words, bits: bits), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+    }
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
         XCTAssertEqual(lhs.bitrotatedLeft(words: words), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(words: words); return lhs }(), result, file: file, line: line)
     }
@@ -35,9 +43,17 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
-    XCTAssert(0 ..< lhs.bitWidth ~= rhs, file: file, line: line)
+    XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
     //=------------------------------------------=
-    if (0 ..< lhs.bitWidth) ~= rhs, bits.isZero {
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitrotatedRight(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(by: rhs); return lhs }(), result, file: file, line: line)
+        
+        XCTAssertEqual(lhs.bitrotatedRight(words: words, bits: bits), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+    }
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
         XCTAssertEqual(lhs.bitrotatedRight(words: words), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(words: words); return lhs }(), result, file: file, line: line)
     }

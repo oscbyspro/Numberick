@@ -28,6 +28,28 @@ final class Int256BenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
+    func testBitrotatingLeft() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedLeft(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitrotatingLeftByWordsAndBits() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedLeft(words: rhs.words, bits: rhs.bits))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testBitrotatingLeftByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
@@ -42,6 +64,28 @@ final class Int256BenchmarksOnRotations: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
+    
+    func testBitrotatingRight() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedRight(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitrotatingRightByWordsAndBits() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedRight(words: rhs.words, bits: rhs.bits))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
     
     func testBitrotatingRightByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
@@ -67,6 +111,28 @@ final class UInt256BenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
+    func testBitrotatingLeft() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedLeft(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitrotatingLeftByWordsAndBits() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedLeft(words: rhs.words, bits: rhs.bits))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testBitrotatingLeftByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
@@ -81,6 +147,28 @@ final class UInt256BenchmarksOnRotations: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
+    
+    func testBitrotatingRight() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedRight(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitrotatingRightByWordsAndBits() {
+        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.bitrotatedRight(words: rhs.words, bits: rhs.bits))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
     
     func testBitrotatingRightByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
