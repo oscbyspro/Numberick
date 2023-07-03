@@ -32,7 +32,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity(true )
         var xyz = NBK.blackHoleIdentity(false)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bit: abc))
             NBK.blackHole(T(bit: xyz))
             
@@ -45,7 +45,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity(true )
         var xyz = NBK.blackHoleIdentity(false)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(repeating: abc))
             NBK.blackHole(T(repeating: xyz))
             
@@ -58,7 +58,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitWidth)
             NBK.blackHole(xyz.bitWidth)
             
@@ -71,7 +71,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.nonzeroBitCount)
             NBK.blackHole(xyz.nonzeroBitCount)
             
@@ -84,7 +84,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leadingZeroBitCount)
             NBK.blackHole(xyz.leadingZeroBitCount)
             
@@ -97,7 +97,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.trailingZeroBitCount)
             NBK.blackHole(xyz.trailingZeroBitCount)
             
@@ -110,7 +110,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.mostSignificantBit)
             NBK.blackHole(xyz.mostSignificantBit)
             
@@ -123,7 +123,7 @@ final class Int256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leastSignificantBit)
             NBK.blackHole(xyz.leastSignificantBit)
             
@@ -149,7 +149,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity(true )
         var xyz = NBK.blackHoleIdentity(false)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bit: abc))
             NBK.blackHole(T(bit: xyz))
             
@@ -162,7 +162,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity(true )
         var xyz = NBK.blackHoleIdentity(false)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(repeating: abc))
             NBK.blackHole(T(repeating: xyz))
             
@@ -175,7 +175,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitWidth)
             NBK.blackHole(xyz.bitWidth)
             
@@ -188,7 +188,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.nonzeroBitCount)
             NBK.blackHole(xyz.nonzeroBitCount)
             
@@ -201,7 +201,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leadingZeroBitCount)
             NBK.blackHole(xyz.leadingZeroBitCount)
             
@@ -214,7 +214,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.trailingZeroBitCount)
             NBK.blackHole(xyz.trailingZeroBitCount)
             
@@ -227,7 +227,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.mostSignificantBit)
             NBK.blackHole(xyz.mostSignificantBit)
             
@@ -240,7 +240,7 @@ final class UInt256BenchmarksOnBits: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leastSignificantBit)
             NBK.blackHole(xyz.leastSignificantBit)
             

@@ -33,7 +33,7 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitPattern)
             NBK.blackHole(xyz.bitPattern)
             
@@ -46,7 +46,7 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bitPattern: abc))
             NBK.blackHole(T(bitPattern: xyz))
             
@@ -63,7 +63,7 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.magnitude)
             NBK.blackHole(xyz.magnitude)
             
@@ -80,7 +80,7 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
             NBK.blackHole(xyz.twosComplement())
             
@@ -93,7 +93,7 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementSubsequence(true))
             NBK.blackHole(xyz.twosComplementSubsequence(true))
             
@@ -120,7 +120,7 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitPattern)
             NBK.blackHole(xyz.bitPattern)
             
@@ -133,7 +133,7 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bitPattern: abc))
             NBK.blackHole(T(bitPattern: xyz))
             
@@ -150,7 +150,7 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.magnitude)
             NBK.blackHole(xyz.magnitude)
             
@@ -167,7 +167,7 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
             NBK.blackHole(xyz.twosComplement())
             
@@ -180,7 +180,7 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
         var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementSubsequence(true))
             NBK.blackHole(xyz.twosComplementSubsequence(true))
             

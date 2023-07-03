@@ -43,6 +43,7 @@ final class NBKDoubleWidthTests: XCTestCase {
             XCTAssert(MemoryLayout<T>.size == MemoryLayout<T>.stride)
             XCTAssert(MemoryLayout<T>.size /  MemoryLayout<UInt>.stride >= 2)
             XCTAssert(MemoryLayout<T>.size %  MemoryLayout<UInt>.stride == 0)
+            XCTAssert(MemoryLayout<T>.alignment == MemoryLayout<UInt>.alignment)
         }
         
         for type: T in types {
