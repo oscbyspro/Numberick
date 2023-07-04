@@ -131,54 +131,6 @@ final class Int256BenchmarksOnBits: XCTestCase {
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Get, Set, Clear, Toggle
-    //=------------------------------------------------------------------------=
-    
-    func testGetBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.get(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testSetBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.set(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testClearBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.clear(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testToggleBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.toggle(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
 }
 
 //*============================================================================*
@@ -294,54 +246,6 @@ final class UInt256BenchmarksOnBits: XCTestCase {
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Get, Set, Clear, Toggle
-    //=------------------------------------------------------------------------=
-    
-    func testGetBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.get(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testSetBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.set(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testClearBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.clear(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testToggleBit() {
-        var lhs = NBK.blackHoleIdentity(T.max)
-        var rhs = NBK.blackHoleIdentity(T.bitWidth * 2/3)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.toggle(bit: rhs))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
         }
     }
 }

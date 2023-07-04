@@ -11,6 +11,7 @@
 // MARK: * NBK x Bit Vector
 //*============================================================================*
 
+/// A bit pattern.
 public protocol NBKBitVector {
     
     //=------------------------------------------------------------------------=
@@ -19,58 +20,6 @@ public protocol NBKBitVector {
     
     /// The number of bits in the binary representation of this value.
     @inlinable var bitWidth: Int { get }
-    
-    /// Returns the `bit` at the given `index`.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ──────┐
-    /// │ self       │ index    │ bit   │
-    /// ├────────────┼───────── → ──────┤
-    /// │ Int256.min │ Int(255) │ true  │
-    /// │ Int256.max │ Int(255) │ false │
-    /// └────────────┴───────── → ──────┘
-    /// ```
-    ///
-    @inlinable func get(bit: Int) -> Bool
-    
-    /// Sets the `bit` at the given `index`.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ index    │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256( 0) │ Int(255) │ Int256.min │
-    /// │ Int256.max │ Int(255) │ Int256(-1) │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    @inlinable mutating func set(bit: Int)
-    
-    /// Clears the `bit` at the given `index`.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ index    │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256.min │ Int(255) │ Int256( 0) │
-    /// │ Int256(-1) │ Int(255) │ Int256.max │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    @inlinable mutating func clear(bit: Int)
-    
-    /// Toggles the `bit` at the given `index`.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ index    │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256( 0) │ Int(255) │ Int256.min │
-    /// │ Int256.min │ Int(255) │ Int256( 0) │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    @inlinable mutating func toggle(bit: Int)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Logic
@@ -323,51 +272,10 @@ public protocol NBKBitVector {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Details
-//=----------------------------------------------------------------------------=
-
-extension NBKBitVector {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    /// Accesses the `bit` at the given `index`.
-    @inlinable public subscript(bit index: Int) -> Bool {
-        get { /*------*/ self.get(bit: index) /*--------------------*/ }
-        set { newValue ? self.set(bit: index) : self.clear(bit: index) }
-    }
-}
-
-//=----------------------------------------------------------------------------=
 // MARK: + Details where Self is Fixed-Width Integer
 //=----------------------------------------------------------------------------=
 
 extension NBKBitVector where Self: NBKFixedWidthInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Bits
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func get(bit: Int) -> Bool {
-        precondition(0 ..< self.bitWidth ~= bit, NBK.callsiteOutOfBoundsInfo())
-        return self & ((1 as Self) &<< bit) != (0 as Self)
-    }
-    
-    @inlinable public mutating func set(bit: Int) {
-        precondition(0 ..< self.bitWidth ~= bit, NBK.callsiteOutOfBoundsInfo())
-        self |=  ((1 as Self) &<< bit)
-    }
-    
-    @inlinable public mutating func clear(bit: Int) {
-        precondition(0 ..< self.bitWidth ~= bit, NBK.callsiteOutOfBoundsInfo())
-        self &= ~((1 as Self) &<< bit)
-    }
-    
-    @inlinable public mutating func toggle(bit: Int) {
-        precondition(0 ..< self.bitWidth ~= bit, NBK.callsiteOutOfBoundsInfo())
-        self ^=  ((1 as Self) &<< bit)
-    }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Shifts

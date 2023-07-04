@@ -64,36 +64,4 @@ extension NBKDoubleWidth {
     @inlinable public var leastSignificantBit: Bool {
         self.low.leastSignificantBit
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Get, Set, Clear, Toggle
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func get(bit: Int) -> Bool {
-        precondition(bit >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major  = bit .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor  = bit.remainderDividingByBitWidthAssumingIsAtLeastZero()
-        return self[major].get(bit: minor)
-    }
-    
-    @inlinable public mutating func set(bit: Int) {
-        precondition(bit >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major  = bit .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor  = bit.remainderDividingByBitWidthAssumingIsAtLeastZero()
-        self[major].set(bit: minor)
-    }
-    
-    @inlinable public mutating func clear(bit: Int) {
-        precondition(bit >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major  = bit .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor  = bit.remainderDividingByBitWidthAssumingIsAtLeastZero()
-        self[major].clear(bit: minor)
-    }
-    
-    @inlinable public mutating func toggle(bit: Int) {
-        precondition(bit >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major  = bit .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor  = bit.remainderDividingByBitWidthAssumingIsAtLeastZero()
-        self[major].toggle(bit: minor)
-    }
 }
