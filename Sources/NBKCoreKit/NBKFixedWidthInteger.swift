@@ -24,7 +24,7 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-public protocol NBKFixedWidthInteger: FixedWidthInteger, NBKBinaryInteger, NBKBitPatternConvertible, NBKBitVector where
+public protocol NBKFixedWidthInteger: FixedWidthInteger, NBKBinaryInteger, NBKBitPatternConvertible where
 Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPattern == BitPattern {
     
     //=------------------------------------------------------------------------=
@@ -808,6 +808,62 @@ extension NBKFixedWidthInteger {
     
     @_disfavoredOverload @inlinable public static func &*(lhs: Self, rhs: Digit) -> Self {
         lhs.multipliedReportingOverflow(by: rhs).partialValue
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Shifts
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        self &<<= distance
+    }
+    
+    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        return self &<< distance
+    }
+    
+    @inlinable public mutating func bitshiftRight(by distance: Int) {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        self &>>= distance
+    }
+    
+    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
+        precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        return self &>> distance
+    }
+
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Rotations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func bitrotateLeft(by distance: Int) {
+        self = self.bitrotatedLeft(by: distance)
+    }
+    
+    @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        if  distance.isZero { return self }
+        //=--------------------------------------=
+        let pushed = self &<< (distance)
+        let pulled = Magnitude(bitPattern: self) &>> (Self.bitWidth &- distance)
+        return pushed | Self(bitPattern: pulled)
+    }
+    
+    @inlinable public mutating func bitrotateRight(by distance: Int) {
+        self = self.bitrotatedRight(by: distance)
+    }
+    
+    @inlinable public func bitrotatedRight(by distance: Int) -> Self {
+        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        if  distance.isZero { return self }
+        //=--------------------------------------=
+        let pulled = self &<< (Self.bitWidth &- distance)
+        let pushed = Magnitude(bitPattern: self) &>> (distance)
+        return Self(bitPattern: pushed) | pulled
     }
 }
 
