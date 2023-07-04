@@ -88,6 +88,40 @@ final class Int256TestsOnBits: XCTestCase {
         XCTAssertEqual(T(x64: X( 0,  0, ~0,  0)).leastSignificantBit, false)
         XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)).leastSignificantBit, false)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Get, Set
+    //=------------------------------------------------------------------------=
+    
+    func testGetBitAtIndex() {
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 0 + 0 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 0 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 0 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 1 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 1 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 1 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 2 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 2 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 2 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 3 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 3 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 5 + 3 * 64, false)
+    }
+    
+    func testSetBitAtIndex() {
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 1 + 0 * 64, true,  T(x64: X(2, 0, 0,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 2 + 1 * 64, true,  T(x64: X(0, 4, 0,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 3 + 2 * 64, true,  T(x64: X(0, 0, 8,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 4 + 3 * 64, true,  T(x64: X(0, 0, 0, 16)))
+        
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 0 * 64, false, T(x64: X(0, 4, 8, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 1 * 64, false, T(x64: X(2, 0, 8, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 2 * 64, false, T(x64: X(2, 4, 0, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 3 * 64, false, T(x64: X(2, 4, 8,  0)))
+    }
 }
 
 //*============================================================================*
@@ -161,6 +195,40 @@ final class UInt256TestsOnBits: XCTestCase {
         XCTAssertEqual(T(x64: X( 0, ~0,  0,  0)).leastSignificantBit, false)
         XCTAssertEqual(T(x64: X( 0,  0, ~0,  0)).leastSignificantBit, false)
         XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)).leastSignificantBit, false)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Get, Set
+    //=------------------------------------------------------------------------=
+    
+    func testGetBitAtIndex() {
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 0 + 0 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 0 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 0 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 1 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 1 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 1 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 2 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 2 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 2 * 64, false)
+        
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 3 * 64, false)
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 3 * 64, true )
+        NBKAssertGetBitAtIndex(T(x64: X(2, 4, 8, 16)), 5 + 3 * 64, false)
+    }
+    
+    func testSetBitAtIndex() {
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 1 + 0 * 64, true,  T(x64: X(2, 0, 0,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 2 + 1 * 64, true,  T(x64: X(0, 4, 0,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 3 + 2 * 64, true,  T(x64: X(0, 0, 8,  0)))
+        NBKAssertSetBitAtIndex(T(x64: X(0, 0, 0,  0)), 4 + 3 * 64, true,  T(x64: X(0, 0, 0, 16)))
+        
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 1 + 0 * 64, false, T(x64: X(0, 4, 8, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 2 + 1 * 64, false, T(x64: X(2, 0, 8, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 3 + 2 * 64, false, T(x64: X(2, 4, 0, 16)))
+        NBKAssertSetBitAtIndex(T(x64: X(2, 4, 8, 16)), 4 + 3 * 64, false, T(x64: X(2, 4, 8,  0)))
     }
 }
 

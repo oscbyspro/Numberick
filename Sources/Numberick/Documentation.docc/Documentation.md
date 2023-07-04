@@ -10,6 +10,7 @@ Models, protocols, and utilities underpinning this package.
 
 - ``NBKBinaryInteger``
 - ``NBKBitPatternConvertible``
+- ``NBKBitVector``
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
 - ``NBKSignedInteger``

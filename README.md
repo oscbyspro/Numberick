@@ -14,6 +14,7 @@ Models, protocols, and utilities underpinning this package.
 
 - [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
+- [NBKBitVector](Sources/NBKCoreKit/NBKBitVector.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
