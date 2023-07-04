@@ -4,7 +4,7 @@ Large number arithmagick in Swift.
 
 | Release | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
 |:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
-| 0.5.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
+| 0.6.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
@@ -14,7 +14,6 @@ Models, protocols, and utilities underpinning this package.
 
 - [NBKBinaryInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
-- [NBKBitVector](Sources/NBKCoreKit/NBKBitVector.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
