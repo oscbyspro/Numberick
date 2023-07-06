@@ -136,7 +136,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide2222Unchecked(_ lhs: Self, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs.isZero == false, "must not divide by zero")
-        assert(rhs.leadingZeroBitCount == shift, "save shift amount")
+        assert(rhs.leadingZeroBitCount == shift, "save shift distance")
         //=--------------------------------------=
         // divisor is greater than or equal
         //=--------------------------------------=
@@ -206,7 +206,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable static func divide4222Unchecked(_ lhs: NBKDoubleWidth<Self>, by rhs: Self, shift: Int) -> QR<Self, Self> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
         assert(rhs.isZero == false, "must not divide by zero")
-        assert(rhs.leadingZeroBitCount == shift, "save shift amount")
+        assert(rhs.leadingZeroBitCount == shift, "save shift distance")
         //=--------------------------------------=
         let lhsIs0XXX = lhs.high.high.isZero as Bool
         let lhsIs00XX = lhsIs0XXX && lhs.high.low.isZero as Bool
@@ -251,7 +251,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Special
     //=------------------------------------------------------------------------=
-
+    
     @inlinable static func divide2121(_ lhs: Self, by rhs: High) -> QR<Self, High> {
         let (x, a) = lhs.high.quotientAndRemainder(dividingBy: rhs)
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
