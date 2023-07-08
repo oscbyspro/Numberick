@@ -82,13 +82,13 @@ extension BinaryInteger {
         }
         //=--------------------------------------=
         let minus = Self.isSigned && self < (0 as Self)
-        var residue = UInt.zero
+        var residue = (0 as UInt)
         
         for word in self.magnitude.words.reversed() {
             residue = modulus.dividingFullWidth(HL(residue, word)).remainder
         }
         
-        return minus ? modulus &- residue : residue
+        return (minus && !residue.isZero) ? (modulus &- residue) : residue
     }
 }
 

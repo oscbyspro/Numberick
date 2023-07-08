@@ -25,7 +25,7 @@ let package = Package(
     ],
     products: [
         //=--------------------------------------=
-        // Numberick
+        // NBK
         //=--------------------------------------=
         .library(
         name: "Numberick",
@@ -45,7 +45,7 @@ let package = Package(
     ],
     targets: [
         //=--------------------------------------=
-        // Numberick
+        // NBK
         //=--------------------------------------=
         .target(
         name: "Numberick",

@@ -81,22 +81,54 @@ final class ArithmagickTestsOnBinaryInteger: XCTestCase {
     
     func testModuloPowerOf2() {
         XCTAssertEqual( Int8.min.modulo(8), 0)
-        XCTAssertEqual( Int8(-1).modulo(8), 7)
         XCTAssertEqual( Int8.max.modulo(8), 7)
         
         XCTAssertEqual(UInt8.min.modulo(8), 0)
-        XCTAssertEqual(UInt8( 1).modulo(8), 1)
         XCTAssertEqual(UInt8.max.modulo(8), 7)
+        
+        XCTAssertEqual( Int8(-4).modulo(4), 0)
+        XCTAssertEqual( Int8(-3).modulo(4), 1)
+        XCTAssertEqual( Int8(-2).modulo(4), 2)
+        XCTAssertEqual( Int8(-1).modulo(4), 3)
+        XCTAssertEqual( Int8( 0).modulo(4), 0)
+        XCTAssertEqual( Int8( 1).modulo(4), 1)
+        XCTAssertEqual( Int8( 2).modulo(4), 2)
+        XCTAssertEqual( Int8( 3).modulo(4), 3)
+        XCTAssertEqual( Int8( 4).modulo(4), 0)
+        
+        XCTAssertEqual(UInt8( 0).modulo(4), 0)
+        XCTAssertEqual(UInt8( 1).modulo(4), 1)
+        XCTAssertEqual(UInt8( 2).modulo(4), 2)
+        XCTAssertEqual(UInt8( 3).modulo(4), 3)
+        XCTAssertEqual(UInt8( 4).modulo(4), 0)
+        XCTAssertEqual(UInt8( 5).modulo(4), 1)
+        XCTAssertEqual(UInt8( 6).modulo(4), 2)
+        XCTAssertEqual(UInt8( 7).modulo(4), 3)
+        XCTAssertEqual(UInt8( 8).modulo(4), 0)
     }
     
     func testModuloNonPowerOf2() {
         XCTAssertEqual( Int8.min.modulo(7), 5)
-        XCTAssertEqual( Int8(-1).modulo(7), 6)
         XCTAssertEqual( Int8.max.modulo(7), 1)
         
         XCTAssertEqual(UInt8.min.modulo(7), 0)
-        XCTAssertEqual(UInt8( 1).modulo(7), 1)
         XCTAssertEqual(UInt8.max.modulo(7), 3)
+        
+        XCTAssertEqual( Int8(-3).modulo(3), 0)
+        XCTAssertEqual( Int8(-2).modulo(3), 1)
+        XCTAssertEqual( Int8(-1).modulo(3), 2)
+        XCTAssertEqual( Int8( 0).modulo(3), 0)
+        XCTAssertEqual( Int8( 1).modulo(3), 1)
+        XCTAssertEqual( Int8( 2).modulo(3), 2)
+        XCTAssertEqual( Int8( 3).modulo(3), 0)
+        
+        XCTAssertEqual(UInt8( 0).modulo(3), 0)
+        XCTAssertEqual(UInt8( 1).modulo(3), 1)
+        XCTAssertEqual(UInt8( 2).modulo(3), 2)
+        XCTAssertEqual(UInt8( 3).modulo(3), 0)
+        XCTAssertEqual(UInt8( 4).modulo(3), 1)
+        XCTAssertEqual(UInt8( 5).modulo(3), 2)
+        XCTAssertEqual(UInt8( 6).modulo(3), 0)
     }
 }
 

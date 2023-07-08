@@ -45,7 +45,7 @@
     @inlinable func decode(_ ascii: UInt8) -> UInt8? {
         var index: UInt8
         
-        index = ascii &- UInt8(ascii: "0"); if index < self.x00x10 { return index       }
+        index = ascii &- UInt8(ascii: "0"); if index < self.x00x10 { return index }
         index = ascii &- UInt8(ascii: "A"); if index < self.x10x36 { return index &+ 10 }
         index = ascii &- UInt8(ascii: "a"); if index < self.x10x36 { return index &+ 10 }
         
