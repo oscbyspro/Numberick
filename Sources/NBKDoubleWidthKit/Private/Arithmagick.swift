@@ -88,7 +88,7 @@ extension BinaryInteger {
             residue = modulus.dividingFullWidth(HL(residue, word)).remainder
         }
         
-        return (minus && !residue.isZero) ? (modulus &- residue) : residue
+        return (minus && !residue.isZero) ? (modulus &- residue) : (residue)
     }
 }
 

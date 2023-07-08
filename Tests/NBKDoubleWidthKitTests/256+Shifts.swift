@@ -119,17 +119,23 @@ final class Int256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  257, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -255, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  320, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -192, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  256, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -256, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        
         NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  257, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -255, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
-        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)),  320, T(x64: X(2, 3, 4, 0)), signitude: S.self)
-        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)), -192, T(x64: X(2, 3, 4, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  320, T(x64: X(4, 6, 8, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -192, T(x64: X(4, 6, 8, 0)), signitude: S.self)
     }
 }
 
@@ -236,17 +242,23 @@ final class UInt256TestsOnShifts: XCTestCase {
     }
     
     func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
+        
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  257, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -255, T(x64: X(2, 4, 6, 8)), signitude: S.self)
         
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  320, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -192, T(x64: X(0, 1, 2, 3)), signitude: S.self)
         
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  256, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -256, T(x64: X(2, 4, 6, 8)), signitude: S.self)
+        
         NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  257, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -255, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
-        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)),  320, T(x64: X(2, 3, 4, 0)), signitude: S.self)
-        NBKAssertShiftRightByMasking(T(x64: X(1, 2, 3, 4)), -192, T(x64: X(2, 3, 4, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)),  320, T(x64: X(4, 6, 8, 0)), signitude: S.self)
+        NBKAssertShiftRightByMasking(T(x64: X(2, 4, 6, 8)), -192, T(x64: X(4, 6, 8, 0)), signitude: S.self)
     }
 }
 
