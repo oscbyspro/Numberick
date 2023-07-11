@@ -132,6 +132,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+        //=--------------------------------------=
+        // with one buffer pointer specialization
+        //=--------------------------------------=
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             //=----------------------------------=

@@ -93,7 +93,7 @@ extension String {
                     for _ in 0 ..< radix.exponent {
                         let digit: UInt
                         (chunk,  digit) = radix.dividing(chunk)
-                        pull(alphabet.encode(UInt8(_truncatingBits: digit))!)
+                        pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                     }
                 }
                 
@@ -125,7 +125,7 @@ extension String {
                 let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
                 utf8.formIndex(before: &index)
-                utf8[index] = alphabet.encode(UInt8(_truncatingBits: digit))!
+                utf8[index] = alphabet.encode(UInt8(truncatingIfNeeded: digit))!
             }   while !chunk.isZero
             //=----------------------------------=
             return body(NBK.UnsafeUTF8(rebasing: utf8[index...]))
