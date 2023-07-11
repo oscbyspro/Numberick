@@ -20,6 +20,11 @@
           "containerPath" : "container:",
           "identifier" : "NBKDoubleWidthKit",
           "name" : "NBKDoubleWidthKit"
+        },
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKFlexibleWidthKit",
+          "name" : "NBKFlexibleWidthKit"
         }
       ]
     }
@@ -37,6 +42,13 @@
         "containerPath" : "container:",
         "identifier" : "NBKDoubleWidthKitTests",
         "name" : "NBKDoubleWidthKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKFlexibleWidthKitTests",
+        "name" : "NBKFlexibleWidthKitTests"
       }
     }
   ],

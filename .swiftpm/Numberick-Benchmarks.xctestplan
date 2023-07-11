@@ -35,6 +35,17 @@
         "identifier" : "NBKDoubleWidthKitBenchmarks",
         "name" : "NBKDoubleWidthKitBenchmarks"
       }
+    },
+    {
+      "skippedTests" : [
+        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+      ],
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKFlexibleWidthKitBenchmarks",
+        "name" : "NBKFlexibleWidthKitBenchmarks"
+      }
     }
   ],
   "version" : 1

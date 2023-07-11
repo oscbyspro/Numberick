@@ -8,9 +8,16 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Exports
+// MARK: * NBK x Stdlib x Text x Encode
 //*============================================================================*
 
-@_exported import NBKCoreKit
-@_exported import NBKDoubleWidthKit
-@_exported import NBKFlexibleWidthKit
+extension Swift.String {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    static func stdlib(_ source: some BinaryInteger, radix: Int = 10, uppercase: Bool = false) -> Self {
+        Self(source, radix: radix, uppercase: uppercase)
+    }
+}

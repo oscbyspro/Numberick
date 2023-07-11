@@ -89,6 +89,10 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
+## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
+
+👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
+
 ## Acknowledgements
 
 This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][Apple/DoubleWidth] by Apple.
@@ -97,15 +101,19 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 
 [NBK/D]: https://oscbyspro.github.io/Numberick/documentation/numberick
 [DBL/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkdoublewidth
+[FLX/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkflexiblewidth
 
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
+[FLX/S]: Sources/NBKFlexibleWidthKit
 
 [COR/T]: Tests/NBKCoreKitTests
 [DBL/T]: Tests/NBKDoubleWidthKitTests
+[FLX/T]: Tests/NBKFlexibleWidthKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
+[FLX/B]: Tests/NBKFlexibleWidthKitBenchmarks
 
 <!-- Links x Acknowledgements -->
 

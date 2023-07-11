@@ -7,10 +7,16 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+import NBKFlexibleWidthKit
+import XCTest
+
 //*============================================================================*
-// MARK: * NBK x Exports
+// MARK: * NBK x Assert x Words
 //*============================================================================*
 
-@_exported import NBKCoreKit
-@_exported import NBKDoubleWidthKit
-@_exported import NBKFlexibleWidthKit
+func NBKAssertWords<T: NBKBinaryInteger>(
+_ integer: T, _ words: [UInt],
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(Array(integer.words), words, file: file, line: line)
+}

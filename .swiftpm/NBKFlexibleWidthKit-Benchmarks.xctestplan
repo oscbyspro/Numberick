@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "2BBD9A51-D890-4B97-AED4-B9962867DF57",
+      "name" : "Main",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+      ],
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKFlexibleWidthKitBenchmarks",
+        "name" : "NBKFlexibleWidthKitBenchmarks"
+      }
+    }
+  ],
+  "version" : 1
+}

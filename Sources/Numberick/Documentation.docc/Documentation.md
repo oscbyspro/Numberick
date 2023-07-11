@@ -99,9 +99,11 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 ### Models
 
 - ``NBKDoubleWidth``
+- ``NBKFlexibleWidth``
 
 ### Integers
 
+- ``IntXL``
 - ``Int128``
 - ``Int256``
 - ``Int512``
@@ -109,6 +111,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``Int2048``
 - ``Int4096``
 
+- ``UIntXL``
 - ``UInt128``
 - ``UInt256``
 - ``UInt512``

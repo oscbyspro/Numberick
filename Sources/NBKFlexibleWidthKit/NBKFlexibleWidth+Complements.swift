@@ -7,10 +7,23 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x Exports
+// MARK: * NBK x Flexible Width x Complements x Unsigned
 //*============================================================================*
 
-@_exported import NBKCoreKit
-@_exported import NBKDoubleWidthKit
-@_exported import NBKFlexibleWidthKit
+extension NBKFlexibleWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        fatalError("TODO")
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        fatalError("TODO")
+    }
+}
