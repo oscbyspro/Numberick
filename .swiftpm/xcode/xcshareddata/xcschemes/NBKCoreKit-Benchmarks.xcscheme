@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKCoreKitBenchmarks"
-               BuildableName = "NBKCoreKitBenchmarks"
-               BlueprintName = "NBKCoreKitBenchmarks"
+               BlueprintIdentifier = "NBKCoreKit"
+               BuildableName = "NBKCoreKit"
+               BlueprintName = "NBKCoreKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -54,9 +54,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NBKCoreKitBenchmarks"
-            BuildableName = "NBKCoreKitBenchmarks"
-            BlueprintName = "NBKCoreKitBenchmarks"
+            BlueprintIdentifier = "NBKCoreKit"
+            BuildableName = "NBKCoreKit"
+            BlueprintName = "NBKCoreKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

@@ -208,18 +208,18 @@ extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ whe
 
 #if arch(i386) || arch(arm) || arch(arm64_32) || arch(wasm32) || arch(powerpc)
 
-/// A 128-bit signed integer value type.
+/// A signed, 128-bit, integer.
 public typealias Int128 = NBKDoubleWidth<NBKDoubleWidth<Int>>
 
-/// A 128-bit unsigned integer value type.
+/// An unsigned, 128-bit, integer.
 public typealias UInt128 = NBKDoubleWidth<NBKDoubleWidth<UInt>>
 
 #elseif arch(x86_64) || arch(arm64) || arch(powerpc64) || arch(powerpc64le) || arch(s390x)
 
-/// A 128-bit signed integer value type.
+/// A signed, 128-bit, integer.
 public typealias Int128 = NBKDoubleWidth<Int>
 
-/// A 128-bit unsigned integer value type.
+/// An unsigned, 128-bit, integer.
 public typealias UInt128 = NBKDoubleWidth<UInt>
 
 #else
@@ -232,48 +232,48 @@ public typealias UInt128 = NBKDoubleWidth<UInt>
 // MARK: * NBK x Double Width x [U]256
 //*============================================================================*
 
-/// A 256-bit signed integer value type.
+/// A signed, 256-bit, integer.
 public typealias Int256 = NBKDoubleWidth<Int128>
 
-/// A 256-bit unsigned integer value type.
+/// An unsigned, 256-bit, integer.
 public typealias UInt256 = NBKDoubleWidth<UInt128>
 
 //*============================================================================*
 // MARK: * NBK x Double Width x [U]512
 //*============================================================================*
 
-/// A 512-bit signed integer value type.
+/// A signed, 512-bit, integer.
 public typealias Int512 = NBKDoubleWidth<Int256>
 
-/// A 512-bit unsigned integer value type.
+/// An unsigned, 512-bit, integer.
 public typealias UInt512 = NBKDoubleWidth<UInt256>
 
 //*============================================================================*
 // MARK: * NBK x Double Width x [U]1024
 //*============================================================================*
 
-/// A 1024-bit signed integer value type.
+/// A signed, 1024-bit, integer.
 public typealias Int1024 = NBKDoubleWidth<Int512>
 
-/// A 1024-bit unsigned integer value type.
+/// An unsigned, 1024-bit, integer.
 public typealias UInt1024 = NBKDoubleWidth<UInt512>
 
 //*============================================================================*
 // MARK: * NBK x Double Width x [U]2048
 //*============================================================================*
 
-/// A 2048-bit signed integer value type.
+/// A signed, 2048-bit, integer.
 public typealias Int2048 = NBKDoubleWidth<Int1024>
 
-/// A 2048-bit unsigned integer value type.
+/// An unsigned, 2048-bit, integer.
 public typealias UInt2048 = NBKDoubleWidth<UInt1024>
 
 //*============================================================================*
 // MARK: * NBK x Double Width x [U]4096
 //*============================================================================*
 
-/// A 4096-bit signed integer value type.
+/// A signed, 4096-bit, integer.
 public typealias Int4096 = NBKDoubleWidth<Int2048>
 
-/// A 4096-bit unsigned integer value type.
+/// An unsigned, 4096-bit, integer.
 public typealias UInt4096 = NBKDoubleWidth<UInt2048>

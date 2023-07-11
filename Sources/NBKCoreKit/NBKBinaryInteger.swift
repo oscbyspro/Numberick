@@ -165,12 +165,6 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// └─────────── = ─────────── → ──────────┘
     /// ```
     ///
-    /// Semantically, it is equivalent to the following expression:
-    ///
-    /// ```swift
-    /// nonzeroBitCount == 1
-    /// ```
-    ///
     @inlinable var isPowerOf2: Bool { get }
     
     /// A three-way comparison that returns: `-1` (less), `0` (same), or `1` (more).
