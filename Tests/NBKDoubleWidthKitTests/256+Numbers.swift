@@ -35,13 +35,13 @@ final class Int256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        XCTAssertEqual(T(   ), T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.zero, T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
     }
 
     func testEdges() {
-        XCTAssertEqual(T.min,  T(x64: X(0, 0, 0, 1 << 63)))
-        XCTAssertEqual(T.max, ~T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: T.min,  default:  T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: T.max,  default: ~T(x64: X(0, 0, 0, 1 << 63)))
     }
     
     //=------------------------------------------------------------------------=
@@ -54,8 +54,8 @@ final class Int256TestsOnNumbers: XCTestCase {
     }
     
     func testFromIntAsDigit() {
-        XCTAssertEqual(T(digit: Int.min), ~T(x64: X(UInt64(Int.max), 0, 0, 0)))
-        XCTAssertEqual(T(digit: Int.max),  T(x64: X(UInt64(Int.max), 0, 0, 0)))
+        NBKAssertNumbers(from: T(digit: Int.min), default: ~T(x64: X(UInt64(Int.max), 0, 0, 0)))
+        NBKAssertNumbers(from: T(digit: Int.max), default:  T(x64: X(UInt64(Int.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -68,8 +68,8 @@ final class Int256TestsOnNumbers: XCTestCase {
     }
     
     func testFromUIntAsBits() {
-        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        NBKAssertNumbers(from: T(_truncatingBits: UInt.min), default: T(x64: X(UInt64(UInt.min), 0, 0, 0)))
+        NBKAssertNumbers(from: T(_truncatingBits: UInt.max), default: T(x64: X(UInt64(UInt.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -320,11 +320,11 @@ final class Int256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromLiteral() {
-        XCTAssertEqual(T(x64:( 0,  0,  0,  0)),  0)
-        XCTAssertEqual(T(x64:(~0,  0,  0,  0)),  18446744073709551615)
-        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)),  340282366920938463463374607431768211455)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)),  6277101735386680763835789423207666416102355444464034512895)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), -1)
+        XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0)
+        XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  18446744073709551615)
+        XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)),  340282366920938463463374607431768211455)
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0,  0)),  6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0, ~0)), -1)
         
         XCTAssertEqual(T.min, -57896044618658097711785492504343953926634992332820282019728792003956564819968)
         XCTAssertEqual(T.max,  57896044618658097711785492504343953926634992332820282019728792003956564819967)
@@ -353,13 +353,13 @@ final class UInt256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        XCTAssertEqual(T(   ), T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.zero, T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
     }
     
     func testEdges() {
-        XCTAssertEqual(T.min,  T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(T.max, ~T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.min,  default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.max,  default: ~T(x64: X(0, 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -381,13 +381,13 @@ final class UInt256TestsOnNumbers: XCTestCase {
     }
     
     func testFromUIntAsDigit() {
-        XCTAssertEqual(T(digit: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(digit: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        NBKAssertNumbers(from: T(digit: UInt.min), default: T(x64: X(UInt64(UInt.min), 0, 0, 0)))
+        NBKAssertNumbers(from: T(digit: UInt.max), default: T(x64: X(UInt64(UInt.max), 0, 0, 0)))
     }
     
     func testFromUIntAsBits() {
-        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        NBKAssertNumbers(from: T(_truncatingBits: UInt.min), default: T(x64: X(UInt64(UInt.min), 0, 0, 0)))
+        NBKAssertNumbers(from: T(_truncatingBits: UInt.max), default: T(x64: X(UInt64(UInt.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -625,14 +625,14 @@ final class UInt256TestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromLiteral() {
-        XCTAssertEqual(T(x64:( 0,  0,  0,  0)), 0)
-        XCTAssertEqual(T(x64:(~0,  0,  0,  0)), 18446744073709551615)
-        XCTAssertEqual(T(x64:(~0, ~0,  0,  0)), 340282366920938463463374607431768211455)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0,  0)), 6277101735386680763835789423207666416102355444464034512895)
-        XCTAssertEqual(T(x64:(~0, ~0, ~0, ~0)), 115792089237316195423570985008687907853269984665640564039457584007913129639935)
+        XCTAssertEqual(T(x64: X( 0,  0,  0,  0)), 0)
+        XCTAssertEqual(T(x64: X(~0,  0,  0,  0)), 18446744073709551615)
+        XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)), 340282366920938463463374607431768211455)
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0,  0)), 6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0, ~0)), 115792089237316195423570985008687907853269984665640564039457584007913129639935)
         
-        XCTAssertNil(T(exactlyIntegerLiteral:  -1))
-        XCTAssertNil(T(exactlyIntegerLiteral:   115792089237316195423570985008687907853269984665640564039457584007913129639936))
+        XCTAssertNil(T(exactlyIntegerLiteral: -1))
+        XCTAssertNil(T(exactlyIntegerLiteral:  115792089237316195423570985008687907853269984665640564039457584007913129639936))
     }
 }
 

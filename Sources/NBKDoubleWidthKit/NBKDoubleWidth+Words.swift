@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of words of this integer.
+    /// The number of words.
     @inlinable public static var count: Int {
         assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
         assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
@@ -49,22 +49,22 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The index of the least significant word of integer.
+    /// The index of the least significant word.
     @inlinable public static var startIndex: Int {
         0
     }
     
-    /// The index of the most significant word of this integer.
+    /// The index of the most significant word.
     @inlinable public static var lastIndex: Int {
         self.count - 1
     }
     
-    /// The index after the last valid subscript argument of this integer.
+    /// The index after the last valid subscript argument.
     @inlinable public static var endIndex: Int {
         self.count
     }
     
-    /// A collection of every valid subscript argument of this integer, in ascending order.
+    /// A collection of each valid subscript argument, in ascending order.
     @inlinable public static var indices: Range<Int> {
         0 ..< self.count
     }
@@ -119,10 +119,12 @@ extension NBKDoubleWidth {
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
         let distanceLimit = self.distance(from: index, to: limit)
+        
         guard distance >= 0
         ? distance <= distanceLimit || distanceLimit < 0
         : distance >= distanceLimit || distanceLimit > 0
         else { return nil }
+        
         return self.index(index, offsetBy: distance) as Int
     }
 }
@@ -137,7 +139,7 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The least significant word of this integer.
+    /// The least significant word.
     ///
     /// - Note: This member is required by `Swift.BinaryInteger`.
     ///
@@ -145,19 +147,19 @@ extension NBKDoubleWidth {
         self.low._lowWord // same as first
     }
     
-    /// The least significant word of this integer.
+    /// The least significant word.
     @inlinable public var first: UInt {
         _read   { yield  self[unchecked: self.startIndex] }
         _modify { yield &self[unchecked: self.startIndex] }
     }
     
-    /// The most significant word of this integer.
+    /// The most significant word.
     @inlinable public var last: UInt {
         _read   { yield  self[unchecked: self.lastIndex] }
         _modify { yield &self[unchecked: self.lastIndex] }
     }
     
-    /// The most significant word of this integer, reinterpreted as a ``Digit``.
+    /// The most significant word, reinterpreted as a ``Digit``.
     @inlinable public var tail: Digit {
         _read   { yield  self[unchecked: self.lastIndex, as: Digit.self] }
         _modify { yield &self[unchecked: self.lastIndex, as: Digit.self] }
