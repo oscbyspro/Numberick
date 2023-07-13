@@ -98,19 +98,19 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func index(after index: Int) -> Int {
-        index + 1
+        index +  1
     }
     
     @inlinable public func formIndex(after index: inout Int) {
-        index = self.index(after: index)
+        index += 1
     }
     
     @inlinable public func index(before index: Int) -> Int {
-        index - 1
+        index -  1
     }
     
     @inlinable public func formIndex(before index: inout Int) {
-        index = self.index(before: index)
+        index -= 1
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
@@ -118,7 +118,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        let distanceLimit = self.distance(from: index, to: limit)
+        let distanceLimit: Int = self.distance(from: index, to: limit)
         
         guard distance >= 0
         ? distance <= distanceLimit || distanceLimit < 0
