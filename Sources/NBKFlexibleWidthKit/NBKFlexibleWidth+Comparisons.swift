@@ -68,14 +68,39 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
+        self .storage.withUnsafeBufferPointer { lhs in
+        other.storage.withUnsafeBufferPointer { rhs in
+            Self.compareWordsUnchecked(lhs, to: rhs)
+        }}
+    }
+    
+    @inlinable public func compared(to other: Self, at index: Int) -> Int {
+        self .storage.withUnsafeBufferPointer { lhs in
+        other.storage.withUnsafeBufferPointer { rhs in
+            let partition = Swift.min(lhs.count - 1, index)
+            let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
+            let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
+            if !comparison.isZero { return comparison }
+            let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
+            return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+        }}
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
+        assert(lhs.count == 1 || !lhs.last!.isZero)
+        assert(rhs.count == 1 || !rhs.last!.isZero)
         //=--------------------------------------=
-        if  self.storage.count != other.storage.count {
-            return self.storage.count < other.storage.count ? -1 : 1
+        if  lhs.count != rhs.count {
+            return lhs.count < rhs.count ? -1 : 1
         }
         //=--------------------------------------=
-        for index in self.storage.indices.reversed() {
-            let lhsWord: UInt = self .storage[index]
-            let rhsWord: UInt = other.storage[index]
+        for index in lhs.indices.reversed() {
+            let lhsWord  = lhs[index] as UInt
+            let rhsWord  = rhs[index] as UInt
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
         

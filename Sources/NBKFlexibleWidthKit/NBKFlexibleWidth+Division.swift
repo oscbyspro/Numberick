@@ -57,20 +57,15 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable func quotientAndRemainderReportingOverflowAsNormal(dividingBy other: Self) -> PVO<QR<Self, Self>> {
-        let otherMinLastIndex = other.storage.index(before: other.storage.endIndex)
-        //=--------------------------------------=
-        // divisor is zero
-        //=--------------------------------------=
-        if  other.isZero {
-            return PVO(QR(self, self), true)
-        }
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
         if  other.storage.count == 1 {
+            // TODO: test truncation semantcs
             let divisor = other.storage.first! as UInt
-            let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-            return   PVO(QR(qro.partialValue.quotient, Self(digit: qro.partialValue.remainder)),  qro.overflow)
+            let qro = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
+            let remainder = qro.overflow ? self : Self(digit: qro.partialValue.remainder)
+            return PVO(QR(qro.partialValue.quotient, remainder), qro.overflow)
         }
         //=--------------------------------------=
         // divisor is greater than or equal
@@ -79,52 +74,48 @@ extension NBKFlexibleWidth.Magnitude {
             return self == other ? PVO(QR(1, Self.zero), false) : PVO(QR(Self.zero, self), false)
         }
         //=--------------------------------------=
-        let gap = self.storage.count  - other.storage.count as Int
-        let shift = other.storage.last!.leadingZeroBitCount as Int
-        //=--------------------------------------=
         // shift to clamp approximation
         //=--------------------------------------=
-        var remainder = self .bitshiftedLeft(words: 000, bits: shift) as Self
-        var increment = other.bitshiftedLeft(words: gap, bits: shift) as Self
-        let discriminant = increment.storage.last! as UInt
-        assert(discriminant.mostSignificantBit)
+        let shift = other.storage.last!.leadingZeroBitCount as Int
+        var remainderIndex = self.storage.endIndex
+        var remainder = self.bitshiftedLeft(words: 0, bits: shift) as Self
+        let divisor = other .bitshiftedLeft(words: 0, bits: shift) as Self
+        let divisorLast0 = divisor.storage[divisor.storage.endIndex - 1] as UInt
+        assert(divisorLast0.mostSignificantBit)
         //=--------------------------------------=
-        // division
+        // division: approximate quotient digits
         //=--------------------------------------=
-        var quotient = Storage(repeating: UInt.zero, count: gap + 1)
-        for quotientIndex in quotient.indices.reversed() {
-            //=------------------------------=
-            // approximate quotient digit
-            //=------------------------------=
-            var digit: UInt = {
-                let remainderIndex  = otherMinLastIndex + quotientIndex + 1
-                let remainderLast0  = remainderIndex < remainder.storage.endIndex ? remainder.storage[remainderIndex] : UInt.zero
-                if  remainderLast0 >= discriminant { return UInt.max }
-                let remainderLast1  = remainder.storage[remainderIndex - 1]
-                return discriminant.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
-            }()
+        var quotientIndex = remainderIndex - divisor.storage.endIndex as Int
+        var quotient = Self.uninitialized(count: quotientIndex + 1) { quotient in
+            // TODO: denormalized or fixed-width operations
             
-            var approximation = increment.multiplied(by: digit)
-            //=------------------------------=
-            // decrement if overestimated
-            //=------------------------------=
-            if  approximation > remainder {
-                brrrrrrrrrrrrrrrrrrrrrrr: do { digit -= 1; approximation -= increment }
-                if approximation > remainder { digit -= 1; approximation -= increment }
-            }
-            
-            assert(approximation <= remainder)
-            //=------------------------------=
-            remainder -= approximation
-            quotient[quotientIndex] = digit
-            //=------------------------------=
-            guard !quotientIndex.isZero else { break }
-            increment.bitshiftRight(words: 1)
+            repeat {
+                //=------------------------------=
+                let remainderLast0 = remainderIndex < remainder.storage.endIndex ? remainder.storage[remainderIndex] : UInt.zero
+                remainder.storage.formIndex(before: &remainderIndex)
+                let remainderLast1 = remainderIndex < remainder.storage.endIndex ? remainder.storage[remainderIndex] : UInt.zero
+                //=------------------------------=
+                var digit = remainderLast0 == divisorLast0 ? UInt.max : divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
+                if !digit.isZero {
+                    var approximation = divisor.multiplied(by: digit)
+                    
+                    while remainder.compared(to: approximation, at: quotientIndex) < 0 as Int {
+                        _ = digit.subtractReportingOverflow(1 as UInt)
+                        _ = approximation.subtractReportingOverflow(divisor,   at: quotientIndex)
+                    }
+                    
+                    let _ = remainder.subtractReportingOverflow(approximation, at: quotientIndex)
+                }
+                //=----------------------------------=
+                quotient[quotientIndex] =  digit
+                quotient.formIndex(before: &quotientIndex)
+            }   while quotientIndex >= quotient.startIndex
         }
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
+        quotient .normalize()
         remainder.bitshiftRight(words: Int.zero, bits: shift)
-        return PVO(QR(Self(words: quotient), remainder), false)
+        return PVO(QR(quotient, remainder), false)
     }
 }
