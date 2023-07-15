@@ -52,8 +52,7 @@ extension NBKFlexibleWidth.Magnitude {
             self.storage.elements.formIndex(after: &index)
         }
         
-        overflow = self.storage.subtractAsFixedWidthUnchecked(overflow, upToEndIndex: &index)
-        
+        self.storage.borrowAsFixedWidth(&overflow, from: &index)
         self.storage.normalize()
         return overflow as Bool
     }

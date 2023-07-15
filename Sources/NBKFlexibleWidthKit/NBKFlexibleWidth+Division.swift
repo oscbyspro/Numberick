@@ -58,6 +58,12 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable func quotientAndRemainderReportingOverflowAsNormal(dividingBy other: Self) -> PVO<QR<Self, Self>> {
         //=--------------------------------------=
+        // divisor is zero
+        //=--------------------------------------=
+        if  other.isZero {
+            return PVO(QR(self, self), true)
+        }
+        //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
         if  other.storage.elements.count == 1 {

@@ -40,8 +40,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minLastIndex: index + 1)
         
-        var index = index as Int
-        let overflow = self.storage.addAsFixedWidthUnchecked(other, beforeEndIndex: &index)
+        var index: Int = index
+        let overflow = self.storage.addAsFixedWidth(other, at: &index)
         
         self.storage.normalizeAppend(UInt(bit: overflow))
     }
@@ -63,27 +63,17 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func addAsFixedWidthUnchecked(_ other: UInt, beforeEndIndex index: inout Int) -> Bool {
-        assert(index < self.elements.endIndex)
-        //=--------------------------------------=
-        var carry = self.elements[index].addReportingOverflow(other)
+    @inlinable mutating func addAsFixedWidth(_ other: UInt, at index: inout Int) -> Bool {
+        var overflow = self.elements[index].addReportingOverflow(other)
         self.elements.formIndex(after: &index)
-        //=--------------------------------------=
-        carry = self.addAsFixedWidthUnchecked(carry, upToEndIndex: &index)
-        //=--------------------------------------=
-        return carry as Bool
+        self.carryAsFixedWidth(&overflow, from: &index)
+        return overflow as Bool
     }
     
-    @inlinable mutating func addAsFixedWidthUnchecked(_ other: Bool, upToEndIndex index: inout Int) -> Bool {
-        assert(index <= self.elements.endIndex)
-        //=--------------------------------------=
-        var overflow = other
-        
+    @inlinable mutating func carryAsFixedWidth(_ overflow: inout Bool, from index: inout Int) {
         while overflow && index < self.elements.endIndex {
             overflow = self.elements[index].addReportingOverflow(1 as UInt)
             self.elements.formIndex(after: &index)
         }
-        
-        return overflow as Bool
     }
 }

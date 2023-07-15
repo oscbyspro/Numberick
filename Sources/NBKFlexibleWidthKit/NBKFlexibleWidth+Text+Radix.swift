@@ -99,13 +99,14 @@ extension NBKFlexibleWidth.Magnitude {
             forwards: if !alignment.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
                 guard let word = UInt.truncating(digits: chunk, radix: radix.base) else { return nil }
-                self.storage.elements[self.storage.elements.startIndex]  = word
+                self += word
             }
             
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
                 guard let word = UInt.truncating(digits: chunk, radix: radix.base) else { return nil }
-                self *= radix.power; self += word // TODO: combined * and + method
+                self *= radix.power
+                self += word // TODO: combined * and + method
             }
             
         }() as Void? else { return nil }
@@ -123,9 +124,13 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable func description(radix: PerfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
+        // TODO: String.fromUTF8Unchecked
+        //=--------------------------------------=
+        if  self.isZero { return "0" }
+        //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        self.storage.elements.withContiguousStorageIfAvailable {  buffer in
+        return self.storage.elements.withContiguousStorageIfAvailable {  buffer in
             let index = buffer.lastIndex(where:{ !$0.isZero }) ?? buffer.startIndex
             let chunks  = NBK.UnsafeWords(rebasing: buffer[...index])
             return String.fromUTF8Unchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
@@ -133,6 +138,10 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable func description(radix: ImperfectRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+        //=--------------------------------------=
+        // TODO: String.fromUTF8Unchecked
+        //=--------------------------------------=
+        if  self.isZero { return "0" }
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=

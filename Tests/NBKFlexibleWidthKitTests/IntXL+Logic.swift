@@ -29,7 +29,7 @@ final class UIntXLTestsOnLogic: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNot() {
-        NBKAssertNot(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[~0,  0,  0,  0] as [UInt]))
+        NBKAssertNot(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
         NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
         
         NBKAssertNot(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~1, ~2, ~3] as [UInt]))

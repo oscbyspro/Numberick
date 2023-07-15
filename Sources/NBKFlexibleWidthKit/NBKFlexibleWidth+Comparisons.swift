@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        self.storage.elements.count == 1 && self.storage.elements[0].isZero
+        self.storage.elements.isEmpty
     }
     
     @inlinable public var isLessThanZero: Bool {
@@ -91,8 +91,8 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        assert(lhs.count == 1 || !lhs.last!.isZero)
-        assert(rhs.count == 1 || !rhs.last!.isZero)
+        assert(lhs.count == 0 || !lhs.last!.isZero)
+        assert(rhs.count == 0 || !rhs.last!.isZero)
         //=--------------------------------------=
         if  lhs.count != rhs.count {
             return lhs.count < rhs.count ? -1 : 1

@@ -55,7 +55,7 @@ extension NBKFlexibleWidth.Magnitude {
         defer { Swift.assert(self.storage.isNormal) }
         //=--------------------------------------=
         if  other.isZero {
-            return NBK.bitCast(PVO(self.storage.elements.first!, true))
+            return NBK.bitCast(PVO(self.storage.elements.first ?? UInt.zero, true))
         }
         //=--------------------------------------=
         var remainder = UInt.zero

@@ -36,7 +36,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage.elements[self.storage.elements.index(before: self.storage.elements.endIndex)].leadingZeroBitCount
+        self.storage.elements.last?.leadingZeroBitCount ?? Int.zero
     }
     
     @inlinable public var trailingZeroBitCount: Int {
@@ -52,10 +52,10 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        self.storage.elements[self.storage.elements.index(before: self.storage.elements.endIndex)].mostSignificantBit
+        self.storage.elements.last?.mostSignificantBit ?? false
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        self.storage.elements[self.storage.elements.startIndex].leastSignificantBit
+        self.storage.elements.first?.leastSignificantBit ?? false
     }
 }

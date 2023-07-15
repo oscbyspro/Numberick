@@ -36,10 +36,10 @@ final class UIntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingReportingOverflow() {
-        NBKAssertSubtraction(T(1), T(0), Int(0),  T(1))
-        NBKAssertSubtraction(T(1), T(1), Int(0),  T(0))
-        NBKAssertSubtraction(T(1), T(2), Int(0), ~T(0), true)
-        NBKAssertSubtraction(T(1), T(3), Int(0), ~T(1), true)
+        NBKAssertSubtraction(T(1), T(0), Int(0), T(words:[ 1] as [UInt]))
+        NBKAssertSubtraction(T(1), T(1), Int(0), T(words:[ 0] as [UInt]))
+        NBKAssertSubtraction(T(1), T(2), Int(0), T(words:[~0] as [UInt]), true)
+        NBKAssertSubtraction(T(1), T(3), Int(0), T(words:[~1] as [UInt]), true)
     }
     
     func testSubtractingAtIndex() {
@@ -72,10 +72,10 @@ final class UIntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingDigitReportingOverflow() {
-        NBKAssertSubtractionByDigit(T(1), UInt(0), Int(0),  T(1))
-        NBKAssertSubtractionByDigit(T(1), UInt(1), Int(0),  T(0))
-        NBKAssertSubtractionByDigit(T(1), UInt(2), Int(0), ~T(0), true)
-        NBKAssertSubtractionByDigit(T(1), UInt(3), Int(0), ~T(1), true)
+        NBKAssertSubtractionByDigit(T(1), UInt(0), Int(0), T(words:[ 1] as [UInt]))
+        NBKAssertSubtractionByDigit(T(1), UInt(1), Int(0), T(words:[ 0] as [UInt]))
+        NBKAssertSubtractionByDigit(T(1), UInt(2), Int(0), T(words:[~0] as [UInt]), true)
+        NBKAssertSubtractionByDigit(T(1), UInt(3), Int(0), T(words:[~1] as [UInt]), true)
     }
     
     func testSubtractingDigitAtIndex() {

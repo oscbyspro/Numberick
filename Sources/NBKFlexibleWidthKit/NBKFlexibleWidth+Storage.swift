@@ -32,18 +32,8 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=--------------------------------------------------------------------=
     
     /// Returns whether the underlying storage is normalized.
-    ///
-    /// The storage is normalized under each of the following conditions:
-    ///
-    /// - `count == 1`
-    /// - `count >= 2 && last != 0`
-    ///
     @inlinable var isNormal: Bool {
-        // TODO: self.elements.last != 0
-        
-        switch self.elements.count > 1 {
-        case  true: return !self.elements.last!.isZero
-        case false: return !self.elements.isEmpty }
+        self.elements.last != 0 as UInt
     }
     
     //=--------------------------------------------------------------------=
@@ -51,28 +41,13 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=--------------------------------------------------------------------=
     
     /// Normalizes the underlying storage.
-    ///
-    /// The storage is normalized under each of the following conditions:
-    ///
-    /// - `count == 1`
-    /// - `count >= 2 && last != 0`
-    ///
     @inlinable mutating func normalize() {
-        // TODO: while self.elements.last == 0 { self.elements.removeLast() }
-        
-        var index = self.elements.endIndex as Int
-        if  index > self.elements.startIndex {
-            self.elements.formIndex(before: &index)
-            while index > self.elements.startIndex,
-            self.elements[index].isZero {
-                self.elements.formIndex(before: &index)
-                self.elements.removeLast()
-            }
-        }   else {
-            self.elements.append(UInt.zero)
+        trimming: while self.elements.last == 0 as UInt {
+            self.elements.removeLast()
         }
     }
     
+    /// Normalizes the underlying storage after appending the element.
     @inlinable mutating func normalizeAppend(_ element: UInt) {
         if  element.isZero {
             self.normalize()
@@ -86,14 +61,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     /// Resizes the underlying storage, if needed.
-    ///
-    /// The storage is normalized under each of the following conditions:
-    ///
-    /// - `count == 1`
-    /// - `count >= 2 && last != 0`
-    ///
-    /// - Note: Calling this method denormalizes `self`.
-    ///
     @inlinable mutating func resize(minCount: Int) {
         self.elements.reserveCapacity(minCount)
         appending: while self.elements.count < minCount {
@@ -102,15 +69,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     }
     
     /// Resizes the underlying storage, if needed.
-    ///
-    /// The storage is normalized under each of the following conditions:
-    ///
-    /// - `count == 1`
-    /// - `count >= 2 && last != 0`
-    ///
-    ///
-    /// - Note: Calling this method denormalizes `self`.
-    ///
     @inlinable mutating func resize(minLastIndex: Int) {
         self.resize(minCount: minLastIndex + 1)
     }
