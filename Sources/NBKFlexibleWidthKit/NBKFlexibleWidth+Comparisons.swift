@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        self.storage.count == 1 && self.storage[0].isZero
+        self.storage.elements.count == 1 && self.storage.elements[0].isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
@@ -37,11 +37,11 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable public var isPowerOf2: Bool {
         var nonzeroBitCountLowerBound = 0
-        var index = self.storage.startIndex
+        var index = self.storage.elements.startIndex
         //=--------------------------------------=
-        while index < self.storage.endIndex, nonzeroBitCountLowerBound < 2 {
-            nonzeroBitCountLowerBound &+= self.storage[index].nonzeroBitCount
-            self.storage.formIndex(after: &index)
+        while index < self.storage.elements.endIndex, nonzeroBitCountLowerBound < 2 {
+            nonzeroBitCountLowerBound &+= self.storage.elements[index].nonzeroBitCount
+            self.storage.elements.formIndex(after: &index)
         }
         //=--------------------------------------=
         return nonzeroBitCountLowerBound == 1
@@ -68,15 +68,15 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        self .storage.withUnsafeBufferPointer { lhs in
-        other.storage.withUnsafeBufferPointer { rhs in
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        other.storage.elements.withUnsafeBufferPointer { rhs in
             Self.compareWordsUnchecked(lhs, to: rhs)
         }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        self .storage.withUnsafeBufferPointer { lhs in
-        other.storage.withUnsafeBufferPointer { rhs in
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        other.storage.elements.withUnsafeBufferPointer { rhs in
             let partition = Swift.min(lhs.count - 1, index)
             let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
             let comparison = Self.compareWordsUnchecked(suffix, to: rhs)

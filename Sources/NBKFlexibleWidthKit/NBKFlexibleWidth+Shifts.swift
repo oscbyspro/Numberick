@@ -68,21 +68,21 @@ extension NBKFlexibleWidth.Magnitude {
         let push = UInt(bitPattern: bits)
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
-        self.resize(minCount: self.storage.endIndex + words + 1)
+        self.storage.resize(minCount: self.storage.elements.endIndex + words + 1)
         //=--------------------------------------=
         let offset: Int = ~(words)
-        var destination = self.storage.endIndex as Int
-        var word = self.storage[destination &+ offset]
+        var destination = self.storage.elements.endIndex as Int
+        var word = self.storage.elements[destination &+ offset]
         //=--------------------------------------=
-        while destination > self.storage.startIndex {
-            self.storage.formIndex(before: &destination)
+        while destination > self.storage.elements.startIndex {
+            self.storage.elements.formIndex(before: &destination)
             let pushed = word &<< push
-            word = destination > words ? self.storage[destination &+ offset] : UInt()
+            word = destination > words ? self.storage.elements[destination &+ offset] : UInt()
             let pulled = word &>> pull
-            self.storage[destination ] = pushed | pulled
+            self.storage.elements[destination ] = pushed | pulled
         }
         //=--------------------------------------=
-        self.normalize()
+        self.storage.normalize()
     }
     
     @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
@@ -97,7 +97,7 @@ extension NBKFlexibleWidth.Magnitude {
         if  self .isZero { return }
         //=--------------------------------------=
         let prefix = repeatElement(UInt.zero, count: words)
-        self.storage.insert(contentsOf: prefix,  at: Int())
+        self.storage.elements.insert(contentsOf: prefix,  at: Int())
     }
     
     @inlinable public func bitshiftedLeft(words: Int) -> Self {
@@ -152,7 +152,7 @@ extension NBKFlexibleWidth.Magnitude {
         precondition(words >= 0, NBK.callsiteOutOfBoundsInfo())
         precondition(bits  >= 0 && bits < UInt.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        if  words >= self.storage.count {
+        if  words >= self.storage.elements.count {
             return self = Self.zero
         }
         //=--------------------------------------=
@@ -164,21 +164,21 @@ extension NBKFlexibleWidth.Magnitude {
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         let sign = UInt(repeating: self.isLessThanZero)
         //=--------------------------------------=
-        var destination = self.storage.startIndex
-        let edge = self.storage.distance(from: words, to: self.storage.endIndex)
-        var word = self.storage[words] as UInt
+        var destination = self.storage.elements.startIndex
+        let edge = self.storage.elements.distance(from: words, to: self.storage.elements.endIndex)
+        var word = self.storage.elements[words] as UInt
         //=--------------------------------------=
         while destination < edge {
-            let after  = self.storage.index(after: destination)
+            let after  = self.storage.elements.index(after: destination)
             let pushed = word &>> push
-            word = after < edge ? self.storage[after &+ words] : sign
+            word = after < edge ? self.storage.elements[after &+ words] : sign
             let pulled = word &<< pull
-            self.storage[destination ] = pushed | pulled
+            self.storage.elements[destination ] = pushed | pulled
             destination = after
         }
         //=--------------------------------------=
-        self.storage.removeLast(words)
-        self.normalize()
+        self.storage.elements.removeLast(words)
+        self.storage.normalize()
     }
     
     @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
@@ -190,8 +190,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
-        self.storage.removeFirst(Swift.min(words, self.storage.count))
-        self.normalize()
+        self.storage.elements.removeFirst(Swift.min(words, self.storage.elements.count))
+        self.storage.normalize()
     }
     
     @inlinable public func bitshiftedRight(words: Int) -> Self {

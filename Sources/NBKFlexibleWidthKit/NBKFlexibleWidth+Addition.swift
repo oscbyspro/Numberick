@@ -32,23 +32,25 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func add(_ other: Self, at index: Int) {
-        defer { Swift.assert(self.isNormal) }
+        defer {
+            Swift.assert(self.storage.isNormal)
+        }
         //=--------------------------------------=
         if other.isZero { return }
         //=--------------------------------------=
-        self.resize(minCount: other.storage.count + index)
+        self.storage.resize(minCount: other.storage.elements.count + index)
         
-        var index = index
-        var carry = false
+        var index    = index
+        var overflow = false
                 
-        for var addend in other.storage {
-            carry = addend.addReportingOverflow(UInt(bit: carry))
-            carry = self.storage[index].addReportingOverflow(addend) || carry
-            self.storage.formIndex(after: &index)
+        for var addend in other.storage.elements {
+            overflow = addend.addReportingOverflow(UInt(bit: overflow))
+            overflow = self.storage.elements[index].addReportingOverflow(addend) || overflow
+            self.storage.elements.formIndex(after: &index)
         }
         
-        if  carry {
-            self.storage.append(1 as UInt)
+        if  overflow {
+            self.storage.elements.append(1 as UInt)
         }
     }
     

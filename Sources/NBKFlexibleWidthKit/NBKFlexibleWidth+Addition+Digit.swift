@@ -32,29 +32,58 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func add(_ other: UInt, at index: Int) {
-        defer { Swift.assert(self.isNormal) }
+        defer {
+            Swift.assert(self.storage.isNormal)
+        }
         //=--------------------------------------=
-        if other.isZero { return }
+        guard !other.isZero else { return }
         //=--------------------------------------=
-        self.resize(minLastIndex: index)
+        self.storage.resize(minLastIndex: index + 1)
         
         var index = index as Int
-        var carry = self.storage[index].addReportingOverflow(other)
-        self.storage.formIndex(after: &index)
+        let overflow = self.storage.addAsFixedWidthUnchecked(other, beforeEndIndex: &index)
         
-        while carry && index < self.storage.endIndex {
-            carry = self.storage[index].addReportingOverflow(1 as UInt)
-            self.storage.formIndex(after: &index)
-        }
-        
-        if  carry {
-            self.storage.append(1 as UInt)
-        }
+        self.storage.normalizeAppend(UInt(bit: overflow))
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {
         var result = self
         result.add(other, at: index)
         return result as Self
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Addition x Digit x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func addAsFixedWidthUnchecked(_ other: UInt, beforeEndIndex index: inout Int) -> Bool {
+        assert(index < self.elements.endIndex)
+        //=--------------------------------------=
+        var carry = self.elements[index].addReportingOverflow(other)
+        self.elements.formIndex(after: &index)
+        //=--------------------------------------=
+        carry = self.addAsFixedWidthUnchecked(carry, upToEndIndex: &index)
+        //=--------------------------------------=
+        return carry as Bool
+    }
+    
+    @inlinable mutating func addAsFixedWidthUnchecked(_ other: Bool, upToEndIndex index: inout Int) -> Bool {
+        assert(index <= self.elements.endIndex)
+        //=--------------------------------------=
+        var overflow = other
+        
+        while overflow && index < self.elements.endIndex {
+            overflow = self.elements[index].addReportingOverflow(1 as UInt)
+            self.elements.formIndex(after: &index)
+        }
+        
+        return overflow as Bool
     }
 }

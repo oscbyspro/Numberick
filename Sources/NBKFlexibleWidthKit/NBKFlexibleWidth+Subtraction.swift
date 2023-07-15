@@ -35,22 +35,27 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func subtractReportingOverflow(_ other: Self, at index: Int) -> Bool {
-        defer { Swift.assert(self.isNormal) }
+        defer {
+            Swift.assert(self.storage.isNormal)
+        }
         //=--------------------------------------=
         if other.isZero { return false }
         //=--------------------------------------=
-        self.resize(minCount: other.storage.count + index)
+        self.storage.resize(minCount: other.storage.elements.count + index)
         
-        var index  = index
-        var borrow = false
+        var index    = index
+        var overflow = false
         
-        for var subtrahend in other.storage {
-            borrow = subtrahend.addReportingOverflow(UInt(bit: borrow))
-            borrow = self.storage[index].subtractReportingOverflow(subtrahend) || borrow
-            self.storage.formIndex(after: &index)
+        for var subtrahend in other.storage.elements {
+            overflow = subtrahend.addReportingOverflow(UInt(bit: overflow))
+            overflow = self.storage.elements[index].subtractReportingOverflow(subtrahend) || overflow
+            self.storage.elements.formIndex(after: &index)
         }
         
-        return self.subtractUpToEndIndex(borrow, from: &index)
+        overflow = self.storage.subtractAsFixedWidthUnchecked(overflow, upToEndIndex: &index)
+        
+        self.storage.normalize()
+        return overflow as Bool
     }
     
     @inlinable public func subtractingReportingOverflow(_ other: Self, at index: Int) -> PVO<Self> {

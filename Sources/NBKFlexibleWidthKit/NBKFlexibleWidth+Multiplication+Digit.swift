@@ -32,24 +32,24 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable mutating func multiply(by other: UInt) {
-        defer { Swift.assert(self.isNormal) }
+        defer { Swift.assert(self.storage.isNormal) }
         //=--------------------------------------=
         if  other.isZero {
             return self = Self.zero
         }
         //=--------------------------------------=
-        self.storage.reserveCapacity(self.storage.count + 1)
+        self.storage.elements.reserveCapacity(self.storage.elements.count + 1)
         //=--------------------------------------=
         var carry = UInt.zero
         
-        for index in self.storage.indices {
-            var subproduct = self.storage[index].multipliedFullWidth(by: other)
+        for index in self.storage.elements.indices {
+            var subproduct = self.storage.elements[index].multipliedFullWidth(by: other)
             subproduct.high &+= UInt(bit:  subproduct.low.addReportingOverflow(carry))
-            (carry, self.storage[index]) = subproduct as HL<UInt, UInt>
+            (carry, self.storage.elements[index]) = subproduct as HL<UInt, UInt>
         }
         
         if !carry.isZero {
-            self.storage.append(carry)
+            self.storage.elements.append(carry)
         }
     }
     

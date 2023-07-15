@@ -32,7 +32,7 @@ final class UIntXLBenchmarksOnAddition: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
-        for _ in 0 ..< 5_000_000 {
+        for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs + rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
@@ -47,7 +47,7 @@ final class UIntXLBenchmarksOnAddition: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
-        for _ in 0 ..< 5_000_000 {
+        for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs + rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)

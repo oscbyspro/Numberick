@@ -26,7 +26,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
         
     @inlinable public init(digit: Digit) {
-        self.init(unchecked: [digit])
+        self.init(storage: Storage(elements: [digit]))
     }
     
     //=------------------------------------------------------------------------=

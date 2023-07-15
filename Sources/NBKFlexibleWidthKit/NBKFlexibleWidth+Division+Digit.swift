@@ -52,19 +52,19 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: UInt) -> PVO<UInt> {
-        defer { Swift.assert(self.isNormal) }
+        defer { Swift.assert(self.storage.isNormal) }
         //=--------------------------------------=
         if  other.isZero {
-            return NBK.bitCast(PVO(self.storage.first!, true))
+            return NBK.bitCast(PVO(self.storage.elements.first!, true))
         }
         //=--------------------------------------=
         var remainder = UInt.zero
         
-        for index in self.storage.indices.reversed() {
-            (self.storage[index], remainder) = other.dividingFullWidth(HL(remainder, self.storage[index]))
+        for index in self.storage.elements.indices.reversed() {
+            (self.storage.elements[index], remainder) = other.dividingFullWidth(HL(remainder, self.storage.elements[index]))
         }
         
-        self.normalize()
+        self.storage.normalize()
         return PVO(remainder, false)
     }
 }

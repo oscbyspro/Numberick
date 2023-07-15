@@ -60,9 +60,9 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
-        if  other.storage.count == 1 {
+        if  other.storage.elements.count == 1 {
             // TODO: test truncation semantcs
-            let divisor = other.storage.first! as UInt
+            let divisor = other.storage.elements.first! as UInt
             let qro = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
             let remainder = qro.overflow ? self : Self(digit: qro.partialValue.remainder)
             return PVO(QR(qro.partialValue.quotient, remainder), qro.overflow)
@@ -70,30 +70,33 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is greater than or equal
         //=--------------------------------------=
-        if  self <= other {
-            return self == other ? PVO(QR(1, Self.zero), false) : PVO(QR(Self.zero, self), false)
+        let comparison  = other.compared(to: self)
+        if  comparison >= 0 {
+            switch comparison.isZero {
+            case  true: return PVO(QR(0001, Self.zero), false)
+            case false: return PVO(QR(Self.zero, self), false) }
         }
         //=--------------------------------------=
         // shift to clamp approximation
         //=--------------------------------------=
-        let shift = other.storage.last!.leadingZeroBitCount as Int
-        var remainderIndex = self.storage.endIndex
+        let shift = other.storage.elements.last!.leadingZeroBitCount as Int
+        var remainderIndex = self.storage.elements.endIndex
         var remainder = self.bitshiftedLeft(words: 0, bits: shift) as Self
-        let divisor = other .bitshiftedLeft(words: 0, bits: shift) as Self
-        let divisorLast0 = divisor.storage[divisor.storage.endIndex - 1] as UInt
+        let divisor =  other.bitshiftedLeft(words: 0, bits: shift) as Self
+        let divisorLast0 = divisor.storage.elements[divisor.storage.elements.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
-        var quotientIndex = remainderIndex - divisor.storage.endIndex as Int
+        var quotientIndex = remainderIndex - divisor.storage.elements.endIndex as Int
         var quotient = Self.uninitialized(count: quotientIndex + 1) { quotient in
             // TODO: denormalized or fixed-width operations
             
             repeat {
                 //=------------------------------=
-                let remainderLast0 = remainderIndex < remainder.storage.endIndex ? remainder.storage[remainderIndex] : UInt.zero
-                remainder.storage.formIndex(before: &remainderIndex)
-                let remainderLast1 = remainderIndex < remainder.storage.endIndex ? remainder.storage[remainderIndex] : UInt.zero
+                let remainderLast0 = remainderIndex < remainder.storage.elements.endIndex ? remainder.storage.elements[remainderIndex] : UInt.zero
+                remainder.storage.elements.formIndex(before: &remainderIndex)
+                let remainderLast1 = remainderIndex < remainder.storage.elements.endIndex ? remainder.storage.elements[remainderIndex] : UInt.zero
                 //=------------------------------=
                 var digit = remainderLast0 == divisorLast0 ? UInt.max : divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 if !digit.isZero {
@@ -114,7 +117,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
-        quotient .normalize()
+        quotient .storage.normalize()
         remainder.bitshiftRight(words: Int.zero, bits: shift)
         return PVO(QR(quotient, remainder), false)
     }

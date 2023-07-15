@@ -44,6 +44,36 @@ import NBKCoreKit
         
         @inlinable init(unchecked: Storage) {
             self.storage = unchecked
+            Swift.assert(self.storage.isNormal)
+        }
+        
+        @inlinable init(storage: Storage) {
+            self.storage = storage
+            self.storage.normalize()
+            Swift.assert(self.storage.isNormal)
+        }
+        
+        //*====================================================================*
+        // MARK: * Storage
+        //*====================================================================*
+        
+        @frozen @usableFromInline struct Storage: Hashable {
+            
+            @usableFromInline typealias Elements = [UInt]
+            
+            //=----------------------------------------------------------------=
+            // MARK: State
+            //=----------------------------------------------------------------=
+            
+            @usableFromInline var elements: Elements
+            
+            //=----------------------------------------------------------------=
+            // MARK: Initializers
+            //=----------------------------------------------------------------=
+
+            @inlinable init(elements: Elements) {
+                self.elements = elements
+            }
         }
     }
 }

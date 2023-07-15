@@ -28,34 +28,34 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var bitWidth: Int {
-        self.storage.count * UInt.bitWidth
+        self.storage.elements.count * UInt.bitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        self.storage.reduce(0) { $0 + $1.nonzeroBitCount }
+        self.storage.elements.reduce(0) { $0 + $1.nonzeroBitCount }
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage[self.storage.index(before: self.storage.endIndex)].leadingZeroBitCount
+        self.storage.elements[self.storage.elements.index(before: self.storage.elements.endIndex)].leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        var index = self.storage.startIndex
+        var index = self.storage.elements.startIndex
         var element = UInt.zero
         
-        while index < self.storage.endIndex, element.isZero {
-            element = self.storage[index]
-            self.storage.formIndex(after: &index)
+        while index < self.storage.elements.endIndex, element.isZero {
+            element = self.storage.elements[index]
+            self.storage.elements.formIndex(after: &index)
         }
         
         return (index - 1) * UInt.bitWidth + element.trailingZeroBitCount
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        self.storage[self.storage.index(before: self.storage.endIndex)].mostSignificantBit
+        self.storage.elements[self.storage.elements.index(before: self.storage.elements.endIndex)].mostSignificantBit
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        self.storage[self.storage.startIndex].leastSignificantBit
+        self.storage.elements[self.storage.elements.startIndex].leastSignificantBit
     }
 }

@@ -20,23 +20,23 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        Self(words: x.storage.map(~))
+        Self(words: x.storage.elements.map(~))
     }
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        defer { Swift.assert(lhs.isNormal) }
+        defer { Swift.assert(lhs.storage.isNormal) }
         //=--------------------------------------=
-        if  lhs.storage.endIndex > rhs.storage.endIndex {
-            lhs.storage.removeSubrange(rhs.storage.endIndex...)
+        if  lhs.storage.elements.endIndex > rhs.storage.elements.endIndex {
+            lhs.storage.elements.removeSubrange(rhs.storage.elements.endIndex...)
         }
         //=--------------------------------------=
-        for index in lhs.storage.indices.reversed() {
-            let word = lhs.storage[index] & rhs.storage[index]
+        for index in lhs.storage.elements.indices.reversed() {
+            let word = lhs.storage.elements[index] & rhs.storage.elements[index]
             
-            if  index == lhs.storage.endIndex, word.isZero, index != lhs.storage.startIndex {
-                lhs.storage.removeLast()
+            if  index == lhs.storage.elements.endIndex, word.isZero, index != lhs.storage.elements.startIndex {
+                lhs.storage.elements.removeLast()
             }   else {
-                lhs.storage[index] = word
+                lhs.storage.elements[index] = word
             }
         }
     }
@@ -46,17 +46,17 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        defer { Swift.assert(lhs.isNormal) }
+        defer { Swift.assert(lhs.storage.isNormal) }
         //=--------------------------------------=
-        lhs.storage.reserveCapacity(rhs.storage.count)
+        lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
         //=--------------------------------------=
-        for index in rhs.storage.indices {
-            let source = rhs.storage[index]
+        for index in rhs.storage.elements.indices {
+            let source = rhs.storage.elements[index]
             
-            if  index < lhs.storage.endIndex {
-                lhs.storage[index] |= source
+            if  index < lhs.storage.elements.endIndex {
+                lhs.storage.elements[index] |= source
             }   else {
-                lhs.storage.append(source as UInt)
+                lhs.storage.elements.append(source as UInt)
             }
         }
     }
@@ -66,17 +66,17 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        defer { lhs.normalize() }
+        defer { lhs.storage.normalize() }
         //=--------------------------------------=
-        lhs.storage.reserveCapacity(rhs.storage.count)
+        lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
         //=--------------------------------------=
-        for index in rhs.storage.indices {
-            let source = rhs.storage[index]
+        for index in rhs.storage.elements.indices {
+            let source = rhs.storage.elements[index]
             
-            if  index < lhs.storage.endIndex {
-                lhs.storage[index] ^= source
+            if  index < lhs.storage.elements.endIndex {
+                lhs.storage.elements[index] ^= source
             }   else {
-                lhs.storage.append(source as UInt)
+                lhs.storage.elements.append(source as UInt)
             }
         }
     }

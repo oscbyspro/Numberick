@@ -13,13 +13,23 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width x Storage x Unsigned
 //*============================================================================*
 
-extension NBKFlexibleWidth.Magnitude {
-    
-    @usableFromInline typealias Storage = Array<UInt>
+extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors x Private
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
+    
+    @inlinable init(_ elements: some Sequence<UInt>) {
+        self.init(elements: Elements(elements))
+    }
+    
+    @inlinable init(repeating element: UInt, count: Int) {
+        self.init(elements: Elements(repeating: element, count: count))
+    }
+    
+    //=--------------------------------------------------------------------=
+    // MARK: Accessors
+    //=--------------------------------------------------------------------=
     
     /// Returns whether the underlying storage is normalized.
     ///
@@ -29,14 +39,16 @@ extension NBKFlexibleWidth.Magnitude {
     /// - `count >= 2 && last != 0`
     ///
     @inlinable var isNormal: Bool {
-        switch self.storage.count > 1 {
-        case  true: return !self.storage.last!.isZero
-        case false: return !self.storage.isEmpty }
+        // TODO: self.elements.last != 0
+        
+        switch self.elements.count > 1 {
+        case  true: return !self.elements.last!.isZero
+        case false: return !self.elements.isEmpty }
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
-    //=------------------------------------------------------------------------=
+    //=--------------------------------------------------------------------=
+    // MARK: Transformations
+    //=--------------------------------------------------------------------=
     
     /// Normalizes the underlying storage.
     ///
@@ -46,18 +58,32 @@ extension NBKFlexibleWidth.Magnitude {
     /// - `count >= 2 && last != 0`
     ///
     @inlinable mutating func normalize() {
-        var index = self.storage.endIndex as Int
-        if  index > self.storage.startIndex {
-            self.storage.formIndex(before: &index)
-            while index > self.storage.startIndex,
-            self.storage[index].isZero {
-                self.storage.formIndex(before: &index)
-                self.storage.removeLast()
+        // TODO: while self.elements.last == 0 { self.elements.removeLast() }
+        
+        var index = self.elements.endIndex as Int
+        if  index > self.elements.startIndex {
+            self.elements.formIndex(before: &index)
+            while index > self.elements.startIndex,
+            self.elements[index].isZero {
+                self.elements.formIndex(before: &index)
+                self.elements.removeLast()
             }
         }   else {
-            self.storage.append(UInt.zero)
+            self.elements.append(UInt.zero)
         }
     }
+    
+    @inlinable mutating func normalizeAppend(_ element: UInt) {
+        if  element.isZero {
+            self.normalize()
+        }   else {
+            self.elements.append(element)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
     
     /// Resizes the underlying storage, if needed.
     ///
@@ -69,9 +95,9 @@ extension NBKFlexibleWidth.Magnitude {
     /// - Note: Calling this method denormalizes `self`.
     ///
     @inlinable mutating func resize(minCount: Int) {
-        self.storage.reserveCapacity(minCount)
-        appending: while self.storage.count < minCount {
-            self.storage.append(UInt.zero)
+        self.elements.reserveCapacity(minCount)
+        appending: while self.elements.count < minCount {
+            self.elements.append(UInt.zero)
         }
     }
     

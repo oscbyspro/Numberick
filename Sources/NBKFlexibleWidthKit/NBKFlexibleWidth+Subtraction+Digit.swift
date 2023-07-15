@@ -35,17 +35,19 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt, at index: Int) -> Bool {
-        defer { Swift.assert(self.isNormal) }
+        defer {
+            assert(self.storage.isNormal)
+        }
         //=--------------------------------------=
-        if other.isZero { return false }
+        guard !other.isZero else { return false }
         //=--------------------------------------=
-        self.resize(minLastIndex: index)
+        self.storage.resize(minLastIndex: index)
         
-        var index  = index as Int
-        let borrow = self.storage[index].subtractReportingOverflow(other)
-        self.storage.formIndex(after: &index)
+        var index = index as Int
+        let overflow = self.storage.subtractAsFixedWidthUnchecked(other, beforeEndIndex: &index)
         
-        return self.subtractUpToEndIndex(borrow, from: &index)
+        self.storage.normalize()
+        return overflow as Bool
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt, at index: Int) -> PVO<Self> {
@@ -53,20 +55,39 @@ extension NBKFlexibleWidth.Magnitude {
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Digit x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func subtractUpToEndIndex(_ borrow: Bool, from index: inout Int) -> Bool {
-        var borrow = borrow
+    @inlinable mutating func subtractAsFixedWidthUnchecked(_ other: UInt, beforeEndIndex index: inout Int) -> Bool {
+        assert(index < self.elements.endIndex)
+        //=--------------------------------------=
+        var overflow = self.elements[index].subtractReportingOverflow(other)
+        self.elements.formIndex(after: &index)
+        //=--------------------------------------=
+        overflow = self.subtractAsFixedWidthUnchecked(overflow, upToEndIndex: &index)
+        //=--------------------------------------=
+        return overflow as Bool
+    }
         
-        forwards: while borrow, index < self.storage.endIndex {
-            borrow = self.storage[index].subtractReportingOverflow(1 as UInt)
-            self.storage.formIndex(after: &index)
+    @inlinable mutating func subtractAsFixedWidthUnchecked(_ other: Bool, upToEndIndex index: inout Int) -> Bool {
+        assert(index <= self.elements.endIndex)
+        //=--------------------------------------=
+        var overflow = other
+        
+        forwards: while overflow, index < self.elements.endIndex {
+            overflow = self.elements[index].subtractReportingOverflow(1 as UInt)
+            self.elements.formIndex(after: &index)
         }
         
-        self.normalize()
-        return borrow as Bool
+        return overflow as Bool
     }
 }

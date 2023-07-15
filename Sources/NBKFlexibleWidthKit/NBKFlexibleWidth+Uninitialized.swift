@@ -20,12 +20,29 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
-        let storage = Array(unsafeUninitializedCapacity: count) {
-            storage, endIndex in
-            body(NBK.UnsafeMutableWords(rebasing: storage.prefix(upTo: count)))
+        var storage = Storage.uninitialized(count: count, body: body)
+        storage.normalize()
+        return Self(unchecked: storage)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Uninitialized x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
+        let elements = Elements(unsafeUninitializedCapacity: count) {
+            elements, endIndex in
+            body(NBK.UnsafeMutableWords(rebasing: elements.prefix(upTo: count)))
             endIndex = count as Int
         }
         
-        return Self(unchecked: storage)
+        return Self(elements: elements)
     }
 }
