@@ -60,7 +60,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.storage == rhs.storage
+        lhs.compared(to: rhs) == 0
     }
     
     @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
@@ -77,7 +77,7 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
         self .storage.elements.withUnsafeBufferPointer { lhs in
         other.storage.elements.withUnsafeBufferPointer { rhs in
-            let partition = Swift.min(lhs.count - 1, index)
+            let partition = Swift.min(index, lhs.endIndex)
             let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
             let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
             if !comparison.isZero { return comparison }
@@ -91,8 +91,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        assert(lhs.count == 0 || !lhs.last!.isZero)
-        assert(rhs.count == 0 || !rhs.last!.isZero)
+        assert(lhs.last != 0 && rhs.last != 0)
         //=--------------------------------------=
         if  lhs.count != rhs.count {
             return lhs.count < rhs.count ? -1 : 1

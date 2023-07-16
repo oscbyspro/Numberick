@@ -74,7 +74,7 @@ extension NBKFlexibleWidth.Magnitude {
         guard !digits.isEmpty else { self = Self.zero; return }
         //=--------------------------------------=
         var error = false
-        let value = Self.uninitialized(count: count) { storage in
+        let value = Storage.uninitialized(count: count) { storage in
             for index in storage.indices {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
                 guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return error = true }
@@ -84,7 +84,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(digits.isEmpty)
         }
         
-        if !error { self = value } else { return nil }
+        if !error { self.init(unchecked: value) } else { return nil }
     }
     
     @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.ImperfectRadixUIntRoot) {
@@ -126,10 +126,10 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        return self.storage.elements.withContiguousStorageIfAvailable { buffer in
-            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from:  buffer, while: { $0.isZero }))
+        return self.storage.elements.withUnsafeBufferPointer { buffer in
+            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from: buffer, while: { $0.isZero }))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }!
+        }
     }
     
     @inlinable func description(radix: NBK.ImperfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {

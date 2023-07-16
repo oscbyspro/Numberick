@@ -25,7 +25,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
         
-    @inlinable public init(digit: Digit) {
+    @inlinable public init(digit: UInt) {
         self.init(storage: Storage(elements: [digit]))
     }
     
@@ -44,16 +44,18 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
         guard source.signum() >= 0 else { return nil }
         //=--------------------------------------=
-        let bitWidth  = source.bitWidth - 1
-        let quotient  = bitWidth &>> UInt.bitWidth.trailingZeroBitCount
-        let remainder = bitWidth &  (UInt.bitWidth - 1)
-        let count = Swift.max(1, quotient + Int(bit: !remainder.isZero))
+        let bitWidth = source.bitWidth - 1
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let count = major + Int(bit: !minor.isZero)
         //=--------------------------------------=
-        self = Self.uninitialized(count: count) { storage in
+        let storage = Storage.uninitialized(count: count) { storage in
             for index in storage.indices {
                 storage[index] = source[index]
             }
         }
+        
+        self.init(unchecked: storage)
     }
     
     //=------------------------------------------------------------------------=

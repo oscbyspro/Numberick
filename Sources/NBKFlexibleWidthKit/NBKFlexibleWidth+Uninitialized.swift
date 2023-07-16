@@ -10,23 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Uninitialized x Unsigned
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Private
-    //=------------------------------------------------------------------------=
-    
-    @inlinable static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
-        var storage = Storage.uninitialized(count: count, body: body)
-        storage.normalize()
-        return Self(unchecked: storage)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Uninitialized x Unsigned x Storage
 //*============================================================================*
 
@@ -38,7 +21,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     
     @inlinable static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
         let elements = Elements(unsafeUninitializedCapacity: count) {
-            elements, endIndex in
+            elements,  endIndex in
             body(NBK.UnsafeMutableWords(rebasing: elements.prefix(upTo: count)))
             endIndex = count as Int
         }

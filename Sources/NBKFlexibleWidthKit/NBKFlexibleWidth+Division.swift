@@ -95,7 +95,7 @@ extension NBKFlexibleWidth.Magnitude {
         // division: approximate quotient digits
         //=--------------------------------------=
         var quotientIndex = remainderIndex - divisor.storage.elements.endIndex as Int
-        var quotient = Self.uninitialized(count: quotientIndex + 1) { quotient in
+        var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
             // TODO: denormalized or fixed-width operations
             
             repeat {
@@ -123,8 +123,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
-        quotient .storage.normalize()
+        quotient .normalize()
         remainder.bitshiftRight(words: Int.zero, bits: shift)
-        return PVO(QR(quotient, remainder), false)
+        return PVO(QR(Self(unchecked: quotient), remainder), false)
     }
 }
