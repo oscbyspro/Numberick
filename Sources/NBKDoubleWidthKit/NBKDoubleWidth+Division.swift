@@ -164,8 +164,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = shift .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(shift)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(shift)
         
         let top = shift.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift)
         let lhs = lhs.bitshiftedLeft(words: major, bits: minor) as Self
@@ -228,8 +228,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = shift .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor = shift.remainderDividingByBitWidthAssumingIsAtLeastZero()
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(shift)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(shift)
         
         let lhs = lhs.bitshiftedLeft(words: major, bits: minor) as NBKDoubleWidth<Self>
         let rhs = rhs.bitshiftedLeft(words: major, bits: minor) as Self
