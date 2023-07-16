@@ -7,54 +7,51 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Int
+// MARK: * NBK x Arithmagick x Int or UInt
 //*============================================================================*
 
-extension Int {
+extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
     /// Returns the `quotient` of dividing this value by its bit width.
     ///
-    /// - Parameter self: `0 <= self <= Self.max`
+    /// - Parameter value: `0 <= value <= max`
     ///
-    @inlinable func quotientDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self >= 0, "this value must be at least zero")
-        return Self(bitPattern: Magnitude(bitPattern: self).quotientDividingByBitWidth())
+    @inlinable public static func quotientDividingByBitWidthAssumingIsAtLeastZero(_ value: Int) -> Int {
+        assert(value >= 0, NBK.callsiteOutOfBoundsInfo())
+        return Int(bitPattern: NBK.quotientDividingByBitWidth(UInt(bitPattern: value)))
     }
     
     /// Returns the `remainder` of dividing this value by its bit width.
     ///
-    /// - Parameter self: `0 <= self <= Self.max`
+    /// - Parameter value: `0 <= value <= max`
     ///
-    @inlinable func remainderDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self >= 0, "this value must be at least zero")
-        return Self(bitPattern: Magnitude(bitPattern: self).remainderDividingByBitWidth())
+    @inlinable public static func remainderDividingByBitWidthAssumingIsAtLeastZero(_ value: Int) -> Int {
+        assert(value >= 0, NBK.callsiteOutOfBoundsInfo())
+        return Int(bitPattern: NBK.remainderDividingByBitWidth(UInt(bitPattern: value)))
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Arithmagick x UInt
-//*============================================================================*
-
-extension UInt {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformation x UInt
     //=------------------------------------------------------------------------=
     
     /// Returns the `quotient` of dividing this value by its bit width.
-    @inlinable func quotientDividingByBitWidth() -> Self {
-        self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
+    ///
+    /// - Parameter value: `0 <= value <= max`
+    ///
+    @inlinable public static func quotientDividingByBitWidth(_ value: UInt) -> UInt {
+        value &>> UInt(bitPattern: UInt.bitWidth.trailingZeroBitCount)
     }
     
     /// Returns the `remainder` of dividing this value by its bit width.
-    @inlinable func remainderDividingByBitWidth() -> Self {
-        self & Self(bitPattern: Self.bitWidth &- 1)
+    ///
+    /// - Parameter value: `0 <= value <= max`
+    ///
+    @inlinable public static func remainderDividingByBitWidth(_ value: UInt) -> UInt {
+        value & UInt(bitPattern: UInt.bitWidth &- 1)
     }
 }

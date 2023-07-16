@@ -32,7 +32,7 @@ final class Int256BenchmarksOnStrides: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.advanced(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
@@ -43,7 +43,7 @@ final class Int256BenchmarksOnStrides: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)).advanced(by: Int.max))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.distance(to: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
@@ -67,7 +67,7 @@ final class UInt256BenchmarksOnStrides: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.advanced(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
@@ -78,7 +78,7 @@ final class UInt256BenchmarksOnStrides: XCTestCase {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)).advanced(by: Int.max))
         
-        for _ in 0 ..< 1_000_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.distance(to: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)

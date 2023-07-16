@@ -10,56 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Int
-//*============================================================================*
-
-extension Int {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the `quotient` of dividing this value by its bit width.
-    ///
-    /// - Parameter self: `0 <= self <= Self.max`
-    ///
-    @inlinable func quotientDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self >= 0, "this value must be at least zero")
-        return Self(bitPattern: Magnitude(bitPattern: self).quotientDividingByBitWidth())
-    }
-    
-    /// Returns the `remainder` of dividing this value by its bit width.
-    ///
-    /// - Parameter self: `0 <= self <= Self.max`
-    ///
-    @inlinable func remainderDividingByBitWidthAssumingIsAtLeastZero() -> Self {
-        assert(self >= 0, "this value must be at least zero")
-        return Self(bitPattern: Magnitude(bitPattern: self).remainderDividingByBitWidth())
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Arithmagick x UInt
-//*============================================================================*
-
-extension UInt {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the `quotient` of dividing this value by its bit width.
-    @inlinable func quotientDividingByBitWidth() -> Self {
-        self &>> Self(bitPattern: Self.bitWidth.trailingZeroBitCount)
-    }
-    
-    /// Returns the `remainder` of dividing this value by its bit width.
-    @inlinable func remainderDividingByBitWidth() -> Self {
-        self & Self(bitPattern: Self.bitWidth &- 1)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Arithmagick x Binary Integer
 //*============================================================================*
 

@@ -69,8 +69,8 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftLeft(by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major  = distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor  = distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
         return self.bitshiftLeft(words: major, bits: minor)
     }
     
@@ -208,8 +208,8 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftRight(by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major =  distance .quotientDividingByBitWidthAssumingIsAtLeastZero()
-        let minor =  distance.remainderDividingByBitWidthAssumingIsAtLeastZero()
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
         return self.bitshiftRight(words: major, bits: minor)
     }
     
