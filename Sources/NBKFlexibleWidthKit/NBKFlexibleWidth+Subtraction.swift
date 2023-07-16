@@ -41,18 +41,13 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if other.isZero { return false }
         //=--------------------------------------=
-        self.storage.resize(minCount: other.storage.elements.count + index)
+        self.storage.resize(minCount: index + other.storage.elements.count)
         
         var index    = index
         var overflow = false
         
-        for var subtrahend in other.storage.elements {
-            overflow = subtrahend.addReportingOverflow(UInt(bit: overflow))
-            overflow = self.storage.elements[index].subtractReportingOverflow(subtrahend) || overflow
-            self.storage.elements.formIndex(after: &index)
-        }
+        self.storage.subtractAsFixedWidth(other.storage, at: &index, borrowing: &overflow)
         
-        self.storage.borrowAsFixedWidth(&overflow, from: &index)
         self.storage.normalize()
         return overflow as Bool
     }
@@ -61,5 +56,29 @@ extension NBKFlexibleWidth.Magnitude {
         var partialValue = self
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func subtractAsFixedWidth(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
+        self.subtractAsFixedWidthWithoutBorrowingBeyondIt(other, at: &index, borrowing: &overflow)
+        self.subtractAsFixedWidth(Void(), at: &index, borrowing: &overflow)
+    }
+    
+    @inlinable mutating func subtractAsFixedWidthWithoutBorrowingBeyondIt(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
+        for var subtrahend in other.elements {
+            overflow = subtrahend.addReportingOverflow(UInt(bit: overflow))
+            overflow = self.elements[index].subtractReportingOverflow(subtrahend) || overflow
+            self.elements.formIndex(after: &index)
+        }
     }
 }

@@ -70,11 +70,11 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable mutating func subtractAsFixedWidth(_ other: UInt, at index: inout Int) -> Bool {
         var overflow = self.elements[index].subtractReportingOverflow(other)
         self.elements.formIndex(after: &index)
-        self.borrowAsFixedWidth(&overflow, from: &index)
+        self.subtractAsFixedWidth(Void(), at: &index, borrowing: &overflow)
         return overflow as Bool
     }
     
-    @inlinable mutating func borrowAsFixedWidth(_ overflow: inout Bool, from index: inout Int) {
+    @inlinable mutating func subtractAsFixedWidth(_ other: Void, at index: inout Int, borrowing overflow: inout Bool) {
         while overflow && index < self.elements.endIndex {
             overflow = self.elements[index].subtractReportingOverflow(1 as UInt)
             self.elements.formIndex(after: &index)

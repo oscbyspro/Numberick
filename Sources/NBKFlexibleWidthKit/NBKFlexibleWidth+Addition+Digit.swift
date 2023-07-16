@@ -38,7 +38,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         guard !other.isZero else { return }
         //=--------------------------------------=
-        self.storage.resize(minLastIndex: index + 1)
+        self.storage.resize(minLastIndex: index)
         
         var index: Int = index
         let overflow = self.storage.addAsFixedWidth(other, at: &index)
@@ -66,11 +66,11 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable mutating func addAsFixedWidth(_ other: UInt, at index: inout Int) -> Bool {
         var overflow = self.elements[index].addReportingOverflow(other)
         self.elements.formIndex(after: &index)
-        self.carryAsFixedWidth(&overflow, from: &index)
+        self.addAsFixedWidth(Void(), at: &index, carrying: &overflow)
         return overflow as Bool
     }
     
-    @inlinable mutating func carryAsFixedWidth(_ overflow: inout Bool, from index: inout Int) {
+    @inlinable mutating func addAsFixedWidth(_ other: Void, at index: inout Int, carrying overflow: inout Bool) {
         while overflow && index < self.elements.endIndex {
             overflow = self.elements[index].addReportingOverflow(1 as UInt)
             self.elements.formIndex(after: &index)

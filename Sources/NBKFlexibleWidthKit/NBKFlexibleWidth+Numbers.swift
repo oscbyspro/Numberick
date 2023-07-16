@@ -88,25 +88,23 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryFloatingPoint) {
-        self.init(exactly: source.rounded(.towardZero))!
+        guard let value = Self(exactly: source.rounded(.towardZero)) else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+        
+        self = value
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
         if source.sign == .minus { return nil }
-        //=--------------------------------------=
-        //
         //=--------------------------------------=
         if source.isZero { self.init();  return }
         guard source.isFinite else { return nil }
         let   value = source.rounded(.towardZero)
         guard value == source else { return nil }
         //=--------------------------------------=
-        //
-        //=--------------------------------------=
         let exponent = Int(source.exponent)
         let ratio = exponent.quotientAndRemainder(dividingBy: UInt.bitWidth)
-        //=--------------------------------------=
-        //
         //=--------------------------------------=
         self.init(exactly: source.significandBitPattern)
         self >>=  type(of: source).significandBitCount - exponent
