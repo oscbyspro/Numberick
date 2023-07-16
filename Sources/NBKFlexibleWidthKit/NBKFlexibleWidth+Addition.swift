@@ -38,12 +38,13 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return }
         //=--------------------------------------=
+        // TODO: better resizing methods
         self.storage.resize(minCount: index + other.storage.elements.count)
         
         var index    = index
         var overflow = false
         
-        self.storage.addAsFixedWidth(other.storage, at: &index, carrying: &overflow)
+        self.storage.add(other.storage, at: &index, carrying: &overflow)
         
         if  overflow {
             self.storage.elements.append(1 as UInt)
@@ -54,37 +55,5 @@ extension NBKFlexibleWidth.Magnitude {
         var result = self
         result.add(other, at: index)
         return result as Self
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Addition x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func addAsFixedWidth(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
-        self.addAsFixedWidthWithoutGoingBeyond(other, at: &index, carrying: &overflow)
-        self.addAsFixedWidth(Void(), at: &index, carrying: &overflow)
-    }
-    
-    @inlinable mutating func addAsFixedWidthWithoutGoingBeyond(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
-        for otherIndex in other.elements.indices {
-            var lhsWord = self .elements[index]
-            let rhsWord = other.elements[otherIndex]
-                        
-            if !overflow {
-                overflow = lhsWord.addReportingOverflow(rhsWord)
-            }   else if    rhsWord != UInt.max {
-                overflow = lhsWord.addReportingOverflow(rhsWord &+ 1)
-            }
-            
-            self.elements[index] = lhsWord
-            self.elements.formIndex(after: &index)
-        }
     }
 }

@@ -41,10 +41,13 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         guard !other.isZero else { return false }
         //=--------------------------------------=
+        // TODO: better resizing methods
         self.storage.resize(minLastIndex: index)
         
-        var index: Int = index
-        let overflow = self.storage.subtractAsFixedWidth(other, at: &index)
+        var index   = index
+        var overflow = false
+        
+        self.storage.subtract(other, at: &index, borrowing: &overflow)
         
         self.storage.normalize()
         return overflow as Bool
@@ -54,30 +57,5 @@ extension NBKFlexibleWidth.Magnitude {
         var partialValue = self
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x Digit x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func subtractAsFixedWidth(_ other: UInt, at index: inout Int) -> Bool {
-        var overflow = self.elements[index].subtractReportingOverflow(other)
-        self.elements.formIndex(after: &index)
-        self.subtractAsFixedWidth(Void(), at: &index, borrowing: &overflow)
-        return overflow as Bool
-    }
-    
-    @inlinable mutating func subtractAsFixedWidth(_ other: Void, at index: inout Int, borrowing overflow: inout Bool) {
-        while overflow && index < self.elements.endIndex {
-            overflow = self.elements[index].subtractReportingOverflow(1 as UInt)
-            self.elements.formIndex(after: &index)
-        }
     }
 }

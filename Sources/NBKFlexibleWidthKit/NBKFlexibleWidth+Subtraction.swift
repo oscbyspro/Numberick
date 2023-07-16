@@ -41,12 +41,13 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return false }
         //=--------------------------------------=
+        // TODO: better resizing methods
         self.storage.resize(minCount: index + other.storage.elements.count)
         
         var index    = index
         var overflow = false
         
-        self.storage.subtractAsFixedWidth(other.storage, at: &index, borrowing: &overflow)
+        self.storage.subtract(other.storage, at: &index, borrowing: &overflow)
         
         self.storage.normalize()
         return overflow as Bool
@@ -56,37 +57,5 @@ extension NBKFlexibleWidth.Magnitude {
         var partialValue = self
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func subtractAsFixedWidth(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        self.subtractAsFixedWidthWithoutGoingBeyond(other, at: &index, borrowing: &overflow)
-        self.subtractAsFixedWidth(Void(), at: &index, borrowing: &overflow)
-    }
-    
-    @inlinable mutating func subtractAsFixedWidthWithoutGoingBeyond(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        for otherIndex in other.elements.indices {
-            var lhsWord = self .elements[index]
-            let rhsWord = other.elements[otherIndex]
-            
-            if !overflow {
-                overflow = lhsWord.subtractReportingOverflow(rhsWord)
-            }   else if    rhsWord != UInt.max {
-                overflow = lhsWord.subtractReportingOverflow(rhsWord &+ 1)
-            }
-            
-            self.elements[index] = lhsWord
-            self.elements.formIndex(after: &index)
-        }
     }
 }

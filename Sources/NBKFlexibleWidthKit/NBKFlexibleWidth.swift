@@ -57,9 +57,13 @@ import NBKCoreKit
         // MARK: * Storage
         //*====================================================================*
         
+        /// A contiguous collection of machine words.
+        ///
+        /// - Note: It's methods have fixed-width semantics unless stated otherwise.
+        ///
         @frozen @usableFromInline struct Storage: Hashable {
             
-            @usableFromInline typealias Elements = [UInt]
+            @usableFromInline typealias Elements = Array<UInt>
             
             //=----------------------------------------------------------------=
             // MARK: State

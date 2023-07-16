@@ -38,42 +38,22 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         guard !other.isZero else { return }
         //=--------------------------------------=
+        // TODO: better resizing methods
         self.storage.resize(minLastIndex: index)
         
-        var index: Int = index
-        let overflow = self.storage.addAsFixedWidth(other, at: &index)
+        var index    = index
+        var overflow = false
         
-        self.storage.normalizeAppend(UInt(bit: overflow))
+        self.storage.add(other, at: &index, carrying: &overflow)
+        
+        if  overflow {
+            self.storage.elements.append(1)
+        }
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {
         var result = self
         result.add(other, at: index)
         return result as Self
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Addition x Digit x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func addAsFixedWidth(_ other: UInt, at index: inout Int) -> Bool {
-        var overflow = self.elements[index].addReportingOverflow(other)
-        self.elements.formIndex(after: &index)
-        self.addAsFixedWidth(Void(), at: &index, carrying: &overflow)
-        return overflow as Bool
-    }
-    
-    @inlinable mutating func addAsFixedWidth(_ other: Void, at index: inout Int, carrying overflow: inout Bool) {
-        while overflow && index < self.elements.endIndex {
-            overflow = self.elements[index].addReportingOverflow(1 as UInt)
-            self.elements.formIndex(after: &index)
-        }
     }
 }

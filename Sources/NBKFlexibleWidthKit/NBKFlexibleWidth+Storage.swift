@@ -47,15 +47,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
     
-    /// Normalizes the underlying storage after appending the element.
-    @inlinable mutating func normalizeAppend(_ element: UInt) {
-        if  element.isZero {
-            self.normalize()
-        }   else {
-            self.elements.append(element)
-        }
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
