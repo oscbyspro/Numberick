@@ -10,14 +10,13 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
 // MARK: * NBK x Radix Alphabet
 //*============================================================================*
 
-final class RadixAlphabetTests: XCTestCase {
+final class NBKRadixAlphabetTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -32,7 +31,7 @@ final class RadixAlphabetTests: XCTestCase {
     
     func testAnyRadixAlphabetDecoder() {
         for radix in 2 ... 36 {
-            let alphabet = AnyRadixAlphabetDecoder(radix: radix)
+            let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
             
             XCTAssertNil(alphabet.decode(UInt8(ascii: "0") - 1))
             XCTAssertNil(alphabet.decode(UInt8(ascii: "A") - 1))
@@ -55,8 +54,8 @@ final class RadixAlphabetTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMaxRadixAlphabetEncoder() {
-        let lowercase = MaxRadixAlphabetEncoder(uppercase: false)
-        let uppercase = MaxRadixAlphabetEncoder(uppercase: true )
+        let lowercase = NBK.MaxRadixAlphabetEncoder(uppercase: false)
+        let uppercase = NBK.MaxRadixAlphabetEncoder(uppercase: true )
         
         for value in 0 ..< UInt8(44) {
             XCTAssertEqual(lowercase.encode(value), value < 36 ? self.lowercase[Int(value)] : nil)

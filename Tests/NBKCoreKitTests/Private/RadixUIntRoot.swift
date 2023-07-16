@@ -10,14 +10,13 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
 // MARK: * NBK x Radix UInt Root
 //*============================================================================*
 
-final class RadixUIntRootTests: XCTestCase {
+final class NBKRadixUIntRootTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -25,7 +24,7 @@ final class RadixUIntRootTests: XCTestCase {
     
     func testAnyRadixUIntRoot() {
         for radix in 2 ... 36 {
-            let solution = AnyRadixUIntRoot(radix)
+            let solution = NBK.AnyRadixUIntRoot(radix)
             XCTAssertEqual(solution.base, UInt(radix))
             
             var product = HL(UInt(0), UInt(1))
