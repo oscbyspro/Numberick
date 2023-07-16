@@ -51,7 +51,7 @@ final class UInt256BenchmarksOnRandom: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
-
+    
     func testRandomInRangeUsingSystemRandomNumberGenerator() {
         var range = NBK.blackHoleIdentity((T.min / 2) ... (T.max / 2))
         var randomness = NBK.blackHoleIdentity(SystemRandomNumberGenerator())

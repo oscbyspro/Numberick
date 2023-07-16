@@ -7,16 +7,55 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
-// MARK: * NBK x Text x UInt
+// MARK: * NBK x Integer Text
 //*============================================================================*
 
-extension UInt {
+extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Text
+    // MARK: Details x Components
+    //=------------------------------------------------------------------------=
+    
+    /// Returns an `UTF-8` encoded integer's `sign` and `body`.
+    ///
+    /// ```
+    /// ┌─────── → ──────┬────────┐
+    /// │ utf8   │ sign  │  body  │
+    /// ├─────── → ──────┼────────┤
+    /// │ "+123" │ plus  │  "123" │
+    /// │ "-123" │ minus │  "123" │
+    /// │ "~123" │ plus  │ "~123" │
+    /// └─────── → ──────┴────────┘
+    /// ```
+    ///
+    @inlinable public static func integerComponents<T>(utf8: T) -> (sign: Sign, body: T.SubSequence) where T: Collection<UInt8> {
+        var body = utf8[...] as T.SubSequence
+        let sign = NBK.removeSignPrefix(utf8: &body) ?? Sign.plus
+        return (sign: sign, body: body)
+    }
+    
+    /// Removes and returns an `UTF-8` encoded `sign` prefix, if it exists.
+    ///
+    /// ```
+    /// ┌─────── → ──────┬────────┐
+    /// │ self   │ sign  │  self  │
+    /// ├─────── → ──────┼────────┤
+    /// │ "+123" │ plus  │  "123" │
+    /// │ "-123" │ minus │  "123" │
+    /// │ "~123" │ nil   │ "~123" │
+    /// └─────── → ──────┴────────┘
+    /// ```
+    ///
+    @inlinable public static func removeSignPrefix<T>(utf8: inout T) -> Sign? where T: Collection<UInt8>, T == T.SubSequence {
+        switch utf8.first {
+        case UInt8(ascii: "+"): utf8.removeFirst(); return Sign.plus
+        case UInt8(ascii: "-"): utf8.removeFirst(); return Sign.minus
+        default: return nil  }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance by truncating the given `digits` and `radix`.
@@ -32,46 +71,38 @@ extension UInt {
     ///
     /// Creating a new decoder is faster than passing one as an argument.
     ///
-    @inlinable static func truncating(digits: NBK.UnsafeUTF8, radix: Int) -> Self? {
+    @inlinable public static func truncatingAsUInt(digits: NBK.UnsafeUTF8, radix: Int) -> UInt? {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        let alphabet = AnyRadixAlphabetDecoder(radix: radix)
+        let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
         //=--------------------------------------=
-        var value = Self.zero
+        var value = UInt.zero
         
         for digit in  digits {
             guard let addend = alphabet.decode(digit) else { return nil }
-            value &*= Self(bitPattern: radix)
-            value &+= Self(truncatingIfNeeded: addend)
+            value &*= UInt(bitPattern: radix)
+            value &+= UInt(truncatingIfNeeded: addend)
         }
         
-        return value as Self
+        return value as UInt
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Text x String
-//*============================================================================*
-
-extension String {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    /// Encodes unchecked chunks, using the given format.
+    /// Encodes unchecked chunks, using the given UTF-8 format.
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable static func fromUTF8Unchecked(chunks: some RandomAccessCollection<UInt>, radix: some RadixUIntRoot,
+    @inlinable public static func integerTextUnchecked(chunks: some RandomAccessCollection<UInt>, radix: some _NBKRadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        assert(!chunks.isEmpty, "chunks must not be empty")
-        assert(!chunks.last!.isZero || chunks.count == 1, "chunks must not have redundant zeros")
-        assert(  radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
+        assert(chunks.count <= 1  || chunks.last != 0, "chunks must not contain redundant zeros")
+        assert(radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
         var remainders = chunks[...]
-        let mostSignificantChunk = remainders.removeLast()
-        return String.withUTF8Unchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
+        let mostSignificantChunk = remainders.popLast() ?? UInt()
+        return NBK.withIntegerTextUnchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
             var count: Int
             count  = prefix.count
             count += first .count
@@ -107,11 +138,11 @@ extension String {
         }
     }
     
-    /// Encodes an unchecked chunk, using the given format.
+    /// Encodes an unchecked chunk, using the given UTF-8 format.
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable static func withUTF8Unchecked<T>(chunk: UInt, radix: some RadixUIntRoot,
+    @inlinable public static func withIntegerTextUnchecked<T>(chunk: UInt, radix: some _NBKRadixUIntRoot,
     alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in

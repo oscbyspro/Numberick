@@ -10,14 +10,65 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKDoubleWidthKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Text x UInt
+// MARK: * NBK x Radix Integers
 //*============================================================================*
 
-final class TextTestsOnUInt: XCTestCase {
+final class NBKRadixIntegersTests: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Components
+    //=------------------------------------------------------------------------=
+    
+    func testIntegerComponents() {
+        NBKAssertIntegerComponents(    "", .plus,      "")
+        NBKAssertIntegerComponents(   "+", .plus,      "")
+        NBKAssertIntegerComponents(   "-", .minus,     "")
+        NBKAssertIntegerComponents(   "~", .plus,     "~")
+        NBKAssertIntegerComponents("+123", .plus,   "123")
+        NBKAssertIntegerComponents("-123", .minus,  "123")
+        NBKAssertIntegerComponents("~123", .plus,  "~123")
+    }
+    
+    func testRemoveSignPrefix() {
+        NBKAssertRemoveSignPrefix(    "",  nil,       "")
+        NBKAssertRemoveSignPrefix(   "+", .plus,      "")
+        NBKAssertRemoveSignPrefix(   "-", .minus,     "")
+        NBKAssertRemoveSignPrefix(   "~",  nil,      "~")
+        NBKAssertRemoveSignPrefix("+123", .plus,   "123")
+        NBKAssertRemoveSignPrefix("-123", .minus,  "123")
+        NBKAssertRemoveSignPrefix("~123",  nil,   "~123")
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertIntegerComponents(
+_ text: String, _ sign: FloatingPointSign?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    let components = NBK.integerComponents(utf8: text.utf8)
+    XCTAssertEqual(components.sign, sign)
+    XCTAssertEqual(Array(components.body), Array(body.utf8))
+}
+
+private func NBKAssertRemoveSignPrefix(
+_ text: String, _ sign: FloatingPointSign?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    var componentsBody = text.utf8[...]
+    let componentsSign = NBK.removeSignPrefix(utf8: &componentsBody)
+    XCTAssertEqual(componentsSign, sign)
+    XCTAssertEqual(Array(componentsBody), Array(body.utf8))
+}
+
+//*============================================================================*
+// MARK: * NBK x Radix Integers x UInt
+//*============================================================================*
+
+final class NBKRadixIntegersTestsOnUInt: XCTestCase {
     
     typealias T = UInt
     
@@ -65,9 +116,9 @@ final class TextTestsOnUInt: XCTestCase {
 private func NBKAssertDecodeDigitsAsUIntByTruncating(
 _ result: UInt?, _ radix: Int, _ digits: String,
 file: StaticString = #file, line: UInt = #line) {
-    var digits = digits; digits.withUTF8 {  utf8 in
-        let value = UInt.truncating(digits: utf8, radix: radix)
-        XCTAssertEqual(value, result, file: file,  line:  line)
+    var digits = digits; digits.withUTF8 { utf8 in
+        let value = NBK.truncatingAsUInt(digits: utf8, radix: radix)
+        XCTAssertEqual(value, result, file: file, line: line)
     }
 }
 

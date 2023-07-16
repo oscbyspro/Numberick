@@ -14,6 +14,23 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
+    // MARK: Transformations x Drop
+    //=------------------------------------------------------------------------=
+    
+    /// Drops elements that the satisfy the predicate from the end of the given `collection`.
+    @inlinable public static func dropLast<T>(from collection: T, while predicate: (T.Element) -> Bool) -> T.SubSequence where T: BidirectionalCollection {
+        var newEndIndex = collection.endIndex
+        
+        backwards: while newEndIndex > collection.startIndex {
+            let newLastIndex = collection.index(before: newEndIndex)
+            guard predicate(collection[newLastIndex]) else { break }
+            newEndIndex = newLastIndex
+        }
+        
+        return collection.prefix(upTo: newEndIndex)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations x Remove Count
     //=------------------------------------------------------------------------=
     
