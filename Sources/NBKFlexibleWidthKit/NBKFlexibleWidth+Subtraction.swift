@@ -39,7 +39,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        if other.isZero { return false }
+        if  other.isZero { return false }
         //=--------------------------------------=
         self.storage.resize(minCount: index + other.storage.elements.count)
         
@@ -70,14 +70,22 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func subtractAsFixedWidth(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        self.subtractAsFixedWidthWithoutBorrowingBeyondIt(other, at: &index, borrowing: &overflow)
+        self.subtractAsFixedWidthWithoutGoingBeyond(other, at: &index, borrowing: &overflow)
         self.subtractAsFixedWidth(Void(), at: &index, borrowing: &overflow)
     }
     
-    @inlinable mutating func subtractAsFixedWidthWithoutBorrowingBeyondIt(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        for var subtrahend in other.elements {
-            overflow = subtrahend.addReportingOverflow(UInt(bit: overflow))
-            overflow = self.elements[index].subtractReportingOverflow(subtrahend) || overflow
+    @inlinable mutating func subtractAsFixedWidthWithoutGoingBeyond(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
+        for otherIndex in other.elements.indices {
+            var lhsWord = self .elements[index]
+            let rhsWord = other.elements[otherIndex]
+            
+            if !overflow {
+                overflow = lhsWord.subtractReportingOverflow(rhsWord)
+            }   else if    rhsWord != UInt.max {
+                overflow = lhsWord.subtractReportingOverflow(rhsWord &+ 1)
+            }
+            
+            self.elements[index] = lhsWord
             self.elements.formIndex(after: &index)
         }
     }

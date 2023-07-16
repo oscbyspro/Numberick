@@ -36,7 +36,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        if other.isZero { return }
+        if  other.isZero { return }
         //=--------------------------------------=
         self.storage.resize(minCount: index + other.storage.elements.count)
         
@@ -68,14 +68,22 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func addAsFixedWidth(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
-        self.addAsFixedWidthWithoutCarryingBeyondIt(other, at: &index, carrying: &overflow)
+        self.addAsFixedWidthWithoutGoingBeyond(other, at: &index, carrying: &overflow)
         self.addAsFixedWidth(Void(), at: &index, carrying: &overflow)
     }
     
-    @inlinable mutating func addAsFixedWidthWithoutCarryingBeyondIt(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
-        for var addend in other.elements {
-            overflow = addend.addReportingOverflow(UInt(bit: overflow))
-            overflow = self.elements[index].addReportingOverflow(addend) || overflow
+    @inlinable mutating func addAsFixedWidthWithoutGoingBeyond(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
+        for otherIndex in other.elements.indices {
+            var lhsWord = self .elements[index]
+            let rhsWord = other.elements[otherIndex]
+                        
+            if !overflow {
+                overflow = lhsWord.addReportingOverflow(rhsWord)
+            }   else if    rhsWord != UInt.max {
+                overflow = lhsWord.addReportingOverflow(rhsWord &+ 1)
+            }
+            
+            self.elements[index] = lhsWord
             self.elements.formIndex(after: &index)
         }
     }
