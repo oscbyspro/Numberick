@@ -20,40 +20,38 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: UInt) {
-        lhs.multiply(by: rhs)
+        lhs.multiply(by: rhs, adding: UInt.zero)
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: UInt) -> Self {
-        var lhs = lhs; lhs *= rhs; return lhs
+        lhs.multiplied(by: rhs, adding: UInt.zero)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func multiply(by other: UInt) {
-        defer { Swift.assert(self.storage.isNormal) }
-        //=--------------------------------------=
-        if  other.isZero {
-            return self = Self.zero
+    @_disfavoredOverload @inlinable mutating func multiply(by multiplicand: UInt, adding addend: UInt) {
+        defer {
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        self.storage.elements.reserveCapacity(self.storage.elements.count + 1)
-        //=--------------------------------------=
-        var carry = UInt.zero
-        
-        for index in self.storage.elements.indices {
-            var subproduct = self.storage.elements[index].multipliedFullWidth(by: other)
-            subproduct.high &+= UInt(bit:  subproduct.low.addReportingOverflow(carry))
-            (carry, self.storage.elements[index]) = subproduct as HL<UInt, UInt>
+        if  multiplicand.isZero {
+            return self.assign(addend)
         }
+        //=--------------------------------------=
+        self.storage.reserve(minCount: self.storage.elements.count + 1)
         
-        if !carry.isZero {
-            self.storage.elements.append(carry)
+        var overflow = addend as UInt
+        
+        self.storage.multiply(by: multiplicand, carrying: &overflow)
+        
+        if !overflow.isZero {
+            self.storage.elements.append(overflow)
         }
     }
     
-    @_disfavoredOverload @inlinable func multiplied(by other: UInt) -> Self {
-        var result = self; result.multiply(by: other); return result as Self
+    @_disfavoredOverload @inlinable func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
+        var result = self; result.multiply(by: multiplicand, adding: addend); return result
     }
 }

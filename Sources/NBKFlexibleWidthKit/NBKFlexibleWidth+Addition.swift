@@ -38,7 +38,6 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return }
         //=--------------------------------------=
-        // TODO: better resizing methods
         self.storage.resize(minCount: index + other.storage.elements.count)
         
         var index    = index
@@ -52,8 +51,6 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func adding(_ other: Self, at index: Int) -> Self {
-        var result = self
-        result.add(other, at: index)
-        return result as Self
+        var result = self; result.add(other, at: index); return result
     }
 }

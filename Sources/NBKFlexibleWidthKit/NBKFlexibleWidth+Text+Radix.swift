@@ -71,8 +71,6 @@ extension NBKFlexibleWidth.Magnitude {
         let division = digits.count.quotientAndRemainder(dividingBy: radix.exponent)
         let count = division.quotient + Int(bit: !division.remainder.isZero)
         //=--------------------------------------=
-        guard !digits.isEmpty else { self = Self.zero; return }
-        //=--------------------------------------=
         var error = false
         let value = Storage.uninitialized(count: count) { storage in
             for index in storage.indices {
@@ -105,8 +103,7 @@ extension NBKFlexibleWidth.Magnitude {
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
                 guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return nil }
-                self  *=  radix.power // TODO: combined * and + method
-                self  +=  word
+                self.multiply(by: radix.power, adding: word)
             }
             
         }() as Void? else { return nil }

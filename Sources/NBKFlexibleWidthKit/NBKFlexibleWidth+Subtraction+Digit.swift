@@ -39,12 +39,11 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        guard !other.isZero else { return false }
+        if  other.isZero { return false }
         //=--------------------------------------=
-        // TODO: better resizing methods
         self.storage.resize(minLastIndex: index)
         
-        var index   = index
+        var index    = index
         var overflow = false
         
         self.storage.subtract(other, at: &index, borrowing: &overflow)

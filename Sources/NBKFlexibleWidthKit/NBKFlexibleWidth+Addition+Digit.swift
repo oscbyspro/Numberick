@@ -36,9 +36,8 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        guard !other.isZero else { return }
+        if  other.isZero { return }
         //=--------------------------------------=
-        // TODO: better resizing methods
         self.storage.resize(minLastIndex: index)
         
         var index    = index
@@ -52,8 +51,6 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {
-        var result = self
-        result.add(other, at: index)
-        return result as Self
+        var result = self; result.add(other, at: index); return result
     }
 }

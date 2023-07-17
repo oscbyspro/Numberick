@@ -106,7 +106,7 @@ extension NBKFlexibleWidth.Magnitude {
                 //=------------------------------=
                 var digit = remainderLast0 == divisorLast0 ? UInt.max : divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 if !digit.isZero {
-                    var approximation = divisor.multiplied(by: digit)
+                    var approximation: Self = divisor * digit
                     
                     while remainder.compared(to: approximation, at: quotientIndex) < 0 as Int {
                         _ = digit.subtractReportingOverflow(1 as UInt)

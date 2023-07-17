@@ -31,7 +31,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
 
-    /// Returns whether the underlying storage is normalized.
     @inlinable var isNormal: Bool {
         self.elements.last != 0 as UInt
     }
@@ -40,23 +39,28 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Normalizes the underlying storage.
     @inlinable mutating func normalize() {
         trimming: while self.elements.last == 0 as UInt {
             self.elements.removeLast()
         }
     }
     
-    /// Resizes the underlying storage, if needed.
     @inlinable mutating func resize(minCount: Int) {
-        self.elements.reserveCapacity(minCount)
+        self.reserve(minCount: minCount)
         appending: while self.elements.count < minCount {
             self.elements.append(UInt.zero)
         }
     }
     
-    /// Resizes the underlying storage, if needed.
     @inlinable mutating func resize(minLastIndex: Int) {
         self.resize(minCount: minLastIndex + 1)
+    }
+    
+    @inlinable mutating func reserve(minCount: Int) {
+        self.elements.reserveCapacity(minCount)
+    }
+    
+    @inlinable mutating func reserve(minLastIndex: Int) {
+        self.reserve(minCount: minLastIndex + 1)
     }
 }

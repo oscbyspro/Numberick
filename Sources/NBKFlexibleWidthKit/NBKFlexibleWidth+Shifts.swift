@@ -153,7 +153,7 @@ extension NBKFlexibleWidth.Magnitude {
         precondition(bits  >= 0 && bits < UInt.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  words >= self.storage.elements.count {
-            return self = Self.zero
+            return self.assignZeroValue()
         }
         //=--------------------------------------=
         if  bits.isZero {

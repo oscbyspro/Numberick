@@ -24,7 +24,9 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        defer { Swift.assert(lhs.storage.isNormal) }
+        defer {
+            Swift.assert(lhs.storage.isNormal)
+        }
         //=--------------------------------------=
         if  lhs.storage.elements.endIndex > rhs.storage.elements.endIndex {
             lhs.storage.elements.removeSubrange(rhs.storage.elements.endIndex...)
@@ -46,7 +48,9 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        defer { Swift.assert(lhs.storage.isNormal) }
+        defer {
+            Swift.assert(lhs.storage.isNormal)
+        }
         //=--------------------------------------=
         lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
         //=--------------------------------------=
@@ -66,7 +70,9 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        defer { lhs.storage.normalize() }
+        defer {
+            lhs.storage.normalize()
+        }
         //=--------------------------------------=
         lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
         //=--------------------------------------=
