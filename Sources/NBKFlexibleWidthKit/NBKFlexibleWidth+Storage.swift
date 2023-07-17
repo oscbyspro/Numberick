@@ -45,6 +45,16 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
     
+    @inlinable mutating func resize(maxCount: Int) {
+        if  self.elements.count > maxCount {
+            self.elements.removeSubrange(maxCount...)
+        }
+    }
+    
+    @inlinable mutating func resize(maxLastIndex: Int) {
+        self.resize(maxCount: maxLastIndex + 1)
+    }
+    
     @inlinable mutating func resize(minCount: Int) {
         self.reserve(minCount: minCount)
         appending: while self.elements.count < minCount {

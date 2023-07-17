@@ -20,22 +20,22 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.multiply(by: rhs, adding: UInt.zero)
+        lhs.multiply(by: rhs)
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multiplied(by: rhs, adding: UInt.zero)
+        lhs.multiplied(by: rhs)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func multiply(by multiplicand: Self, adding addend: UInt) {
-        self = self.multiplied(by: multiplicand, adding: addend)
+    @inlinable public mutating func multiply(by multiplicand: Self) {
+        self = self.multiplied(by: multiplicand)
     }
     
-    @inlinable public func multiplied(by multiplicand: Self, adding addend: UInt) -> Self {
-        Self(storage: self.storage.multipliedFullWidth(by: multiplicand.storage, adding: addend))
+    @inlinable public func multiplied(by multiplicand: Self) -> Self {
+        Self(storage: self.storage.multipliedFullWidth(by: multiplicand.storage))
     }
 }

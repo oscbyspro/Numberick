@@ -16,21 +16,23 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x NOT
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
         Self(words: x.storage.elements.map(~))
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x AND
+    //=------------------------------------------------------------------------=
+    
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
         defer {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        if  lhs.storage.elements.endIndex > rhs.storage.elements.endIndex {
-            lhs.storage.elements.removeSubrange(rhs.storage.elements.endIndex...)
-        }
+        lhs.storage.resize(maxCount: rhs.storage.elements.count)
         //=--------------------------------------=
         for index in lhs.storage.elements.indices.reversed() {
             let word = lhs.storage.elements[index] & rhs.storage.elements[index]
@@ -47,12 +49,16 @@ extension NBKFlexibleWidth.Magnitude {
         var lhs = lhs; lhs &= rhs; return lhs
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x OR
+    //=------------------------------------------------------------------------=
+    
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
         defer {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
+        lhs.storage.reserve(minCount: rhs.storage.elements.count)
         //=--------------------------------------=
         for index in rhs.storage.elements.indices {
             let source = rhs.storage.elements[index]
@@ -69,12 +75,16 @@ extension NBKFlexibleWidth.Magnitude {
         var lhs = lhs; lhs |= rhs; return lhs
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x XOR
+    //=------------------------------------------------------------------------=
+    
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
         defer {
             lhs.storage.normalize()
         }
         //=--------------------------------------=
-        lhs.storage.elements.reserveCapacity(rhs.storage.elements.count)
+        lhs.storage.reserve(minCount: rhs.storage.elements.count)
         //=--------------------------------------=
         for index in rhs.storage.elements.indices {
             let source = rhs.storage.elements[index]

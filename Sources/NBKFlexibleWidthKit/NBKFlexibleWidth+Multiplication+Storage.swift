@@ -19,7 +19,11 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Transformations x Self
     //=------------------------------------------------------------------------=
     
-    @inlinable func multipliedFullWidth(by multiplicand: Self, adding addend: UInt) -> Self {
+    @inlinable func multipliedFullWidth(by multiplicand: Self) -> Self {
+        self.multipliedFullWidthByNaiveMethod(by: multiplicand, adding: UInt.zero)
+    }
+
+    @inlinable func multipliedFullWidthByNaiveMethod(by multiplicand: Self, adding addend: UInt) -> Self {
         Self.uninitialized(count: self.elements.count + multiplicand.elements.count) { product in
             //=----------------------------------=
             // de/init: pointee is trivial

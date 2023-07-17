@@ -28,6 +28,26 @@ final class UIntXLBenchmarksOnLogic: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testNot() {
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(~abc)
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
+    func testAndInout() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs &= rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testAnd() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
@@ -39,12 +59,34 @@ final class UIntXLBenchmarksOnLogic: XCTestCase {
         }
     }
     
-    func testOr() {
+    func testOrInout() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
 
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs |= rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testOr() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs | rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testXorInout() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs ^= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -58,15 +100,6 @@ final class UIntXLBenchmarksOnLogic: XCTestCase {
             NBK.blackHole(lhs ^ rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testNot() {
-        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(~abc)
-            NBK.blackHoleInoutIdentity(&abc)
         }
     }
 }

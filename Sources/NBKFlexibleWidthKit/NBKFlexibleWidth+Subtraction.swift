@@ -41,7 +41,6 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return false }
         //=--------------------------------------=
-        // TODO: better resizing methods
         self.storage.resize(minCount: index + other.storage.elements.count)
         
         var index    = index
