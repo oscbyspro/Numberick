@@ -20,41 +20,22 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.multiply(by: rhs)
+        lhs.multiply(by: rhs, adding: UInt.zero)
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multiplied(by: rhs)
+        lhs.multiplied(by: rhs, adding: UInt.zero)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func multiply(by other: Self) {
-        self = self.multiplied(by: other)
+    @inlinable public mutating func multiply(by multiplicand: Self, adding addend: UInt) {
+        self = self.multiplied(by: multiplicand, adding: addend)
     }
     
-    @inlinable func multiplied(by other: Self) -> Self {
-        //=--------------------------------------=
-        let capacity: Int = self.storage.elements.count + other.storage.elements.count
-        var product = Storage(repeating: UInt(), count: capacity)
-        //=--------------------------------------=
-        for lhsIndex in self.storage.elements.indices {
-            var carry = UInt.zero
-            
-            for rhsIndex in other.storage.elements.indices {
-                var subproduct = self.storage.elements[lhsIndex].multipliedFullWidth(by: other.storage.elements[rhsIndex])
-                
-                carry   = UInt(bit: subproduct.low.addReportingOverflow(carry))
-                carry &+= UInt(bit: product.elements[lhsIndex + rhsIndex].addReportingOverflow(subproduct.low))
-                carry &+= subproduct.high
-            }
-            
-            product.elements[lhsIndex + other.storage.elements.endIndex] = carry
-        }
-        //=--------------------------------------=
-        product.normalize()
-        return Self(unchecked: product)
+    @inlinable public func multiplied(by multiplicand: Self, adding addend: UInt) -> Self {
+        Self(storage: self.storage.multipliedFullWidth(by: multiplicand.storage, adding: addend))
     }
 }

@@ -21,8 +21,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
     
-    XCTAssertEqual(lhs.multiplied(by: rhs), result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs); return lhs }(), result, file: file, line: line)
+    XCTAssertEqual(lhs.multiplied(by: rhs, adding: UInt.zero), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, adding: UInt.zero); return lhs }(), result, file: file, line: line)
 }
 
 func NBKAssertMultiplicationByDigit(

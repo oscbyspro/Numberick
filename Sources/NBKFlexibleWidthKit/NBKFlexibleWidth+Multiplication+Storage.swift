@@ -16,6 +16,35 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
+    // MARK: Transformations x Self
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func multipliedFullWidth(by multiplicand: Self, adding addend: UInt) -> Self {
+        Self.uninitialized(count: self.elements.count + multiplicand.elements.count) { product in
+            //=----------------------------------=
+            // de/init: pointee is trivial
+            //=----------------------------------=
+            product.update(repeating: UInt.zero)
+            //=----------------------------------=
+            var overflow =  addend as UInt
+            for lhsIndex in self.elements.indices {
+                let outer = self.elements[lhsIndex]
+                
+                for rhsIndex in multiplicand.elements.indices {
+                    let inner = multiplicand.elements[rhsIndex]
+                    var subproduct = outer.multipliedFullWidth(by: inner)
+                    
+                    overflow   = UInt(bit: subproduct.low.addReportingOverflow(overflow))
+                    overflow &+= UInt(bit: product[lhsIndex + rhsIndex].addReportingOverflow(subproduct.low))
+                    overflow &+= subproduct.high
+                }
+                
+                (product[lhsIndex + multiplicand.elements.count], overflow) = (overflow, UInt.zero)
+            }
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations x UInt
     //=------------------------------------------------------------------------=
     
