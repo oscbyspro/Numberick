@@ -27,29 +27,25 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         self.init(elements: Elements(repeating: element, count: count))
     }
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Accessors
-    //=--------------------------------------------------------------------=
-    
+    //=------------------------------------------------------------------------=
+
     /// Returns whether the underlying storage is normalized.
     @inlinable var isNormal: Bool {
         self.elements.last != 0 as UInt
     }
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Transformations
-    //=--------------------------------------------------------------------=
-    
+    //=------------------------------------------------------------------------=
+
     /// Normalizes the underlying storage.
     @inlinable mutating func normalize() {
         trimming: while self.elements.last == 0 as UInt {
             self.elements.removeLast()
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
     
     /// Resizes the underlying storage, if needed.
     @inlinable mutating func resize(minCount: Int) {

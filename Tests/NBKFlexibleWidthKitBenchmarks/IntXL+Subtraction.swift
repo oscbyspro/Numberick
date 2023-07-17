@@ -28,6 +28,17 @@ final class UIntXLBenchmarksOnSubtraction: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testSubtract() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs -= rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testSubtracting() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
@@ -42,6 +53,17 @@ final class UIntXLBenchmarksOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
+    
+    func testSubtractDigit() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(UInt.max)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs -= rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
     
     func testSubtractingDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))

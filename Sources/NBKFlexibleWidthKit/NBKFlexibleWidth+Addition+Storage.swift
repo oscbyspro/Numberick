@@ -40,12 +40,16 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     }
     
     @inlinable mutating func addWithoutGoingBeyond(_ other: UInt, at index: inout Int, carrying overflow: inout Bool) {
-        if !overflow {
-            overflow = self.elements[index].addReportingOverflow(other)
-        }   else if    other != UInt.max {
-            overflow = self.elements[index].addReportingOverflow(other &+ 1)
+        var other = other as UInt
+        
+        if  overflow {
+            overflow = other.addReportingOverflow(1 as UInt)
         }
         
+        if !overflow {
+            overflow = self.elements[index].addReportingOverflow(other)
+        }
+
         self.elements.formIndex(after: &index)
     }
     

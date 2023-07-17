@@ -40,10 +40,14 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     }
     
     @inlinable mutating func subtractWithoutGoingBeyond(_ other: UInt, at index: inout Int, borrowing overflow: inout Bool) {
+        var other = other as UInt
+        
+        if  overflow {
+            overflow = other.addReportingOverflow(1 as UInt)
+        }
+        
         if !overflow {
             overflow = self.elements[index].subtractReportingOverflow(other)
-        }   else if    other != UInt.max {
-            overflow = self.elements[index].subtractReportingOverflow(other &+ 1)
         }
         
         self.elements.formIndex(after: &index)
