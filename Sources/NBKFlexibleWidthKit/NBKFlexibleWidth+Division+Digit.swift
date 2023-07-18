@@ -52,7 +52,9 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: UInt) -> PVO<UInt> {
-        defer { Swift.assert(self.storage.isNormal) }
+        defer {
+            Swift.assert(self.storage.isNormal)
+        }
         //=--------------------------------------=
         if  other.isZero {
             return NBK.bitCast(PVO(self.storage.elements.first ?? UInt.zero, true))

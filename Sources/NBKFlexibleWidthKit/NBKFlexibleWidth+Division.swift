@@ -67,11 +67,8 @@ extension NBKFlexibleWidth.Magnitude {
         // divisor is one word
         //=--------------------------------------=
         if  other.storage.elements.count == 1 {
-            // TODO: test truncation semantcs
-            let divisor = other.storage.elements.first! as UInt
-            let qro = self.quotientAndRemainderReportingOverflow(dividingBy: divisor)
-            let remainder = qro.overflow ? self : Self(digit: qro.partialValue.remainder)
-            return PVO(QR(qro.partialValue.quotient, remainder), qro.overflow)
+            let qro = self.quotientAndRemainder(dividingBy: other.storage.elements.first!)
+            return PVO(QR(qro.quotient, Self(digit: qro.remainder)), false)
         }
         //=--------------------------------------=
         // divisor is greater than or equal

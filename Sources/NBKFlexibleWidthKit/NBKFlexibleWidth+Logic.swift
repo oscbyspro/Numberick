@@ -33,16 +33,8 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         lhs.storage.resize(maxCount: rhs.storage.elements.count)
-        //=--------------------------------------=
-        for index in lhs.storage.elements.indices.reversed() {
-            let word = lhs.storage.elements[index] & rhs.storage.elements[index]
-            
-            if  index == lhs.storage.elements.endIndex, word.isZero, index != lhs.storage.elements.startIndex {
-                lhs.storage.elements.removeLast()
-            }   else {
-                lhs.storage.elements[index] = word
-            }
-        }
+        lhs.storage.formInIntersection(of: rhs.storage, each: &)
+        lhs.storage.normalize()
     }
     
     @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
@@ -58,17 +50,8 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.reserve(minCount: rhs.storage.elements.count)
-        //=--------------------------------------=
-        for index in rhs.storage.elements.indices {
-            let source = rhs.storage.elements[index]
-            
-            if  index < lhs.storage.elements.endIndex {
-                lhs.storage.elements[index] |= source
-            }   else {
-                lhs.storage.elements.append(source as UInt)
-            }
-        }
+        lhs.storage.resize(minCount: rhs.storage.elements.count)
+        lhs.storage.formInIntersection(of: rhs.storage, each: |)
     }
     
     @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
@@ -81,20 +64,12 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
         defer {
-            lhs.storage.normalize()
+            Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.reserve(minCount: rhs.storage.elements.count)
-        //=--------------------------------------=
-        for index in rhs.storage.elements.indices {
-            let source = rhs.storage.elements[index]
-            
-            if  index < lhs.storage.elements.endIndex {
-                lhs.storage.elements[index] ^= source
-            }   else {
-                lhs.storage.elements.append(source as UInt)
-            }
-        }
+        lhs.storage.resize(minCount: rhs.storage.elements.count)
+        lhs.storage.formInIntersection(of: rhs.storage, each: ^)
+        lhs.storage.normalize()
     }
     
     @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
