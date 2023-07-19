@@ -76,7 +76,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
                     value[index] = UInt.zero
                 }   else {
                     let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
-                    guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return error = true }
+                    guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
                     value[index] = word
                 }
             }
@@ -96,13 +96,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
             
             forwards: if !alignment.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
-                guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return nil }
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
                 self.first = word
             }
             
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
-                guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return nil }
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
                 guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
                 guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
             }
