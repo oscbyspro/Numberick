@@ -86,37 +86,22 @@ extension NBKDoubleWidth {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftLeft(words: words)
         }
         //=--------------------------------------=
-        let push = UInt(bitPattern: bits)
-        let pull = UInt(bitPattern: UInt.bitWidth - bits)
-        //=--------------------------------------=
-        var destination = self.endIndex as Int
-        let offset: Int = ~(words)
-        var word = self[destination &+ offset]
-        
-        while destination > self.startIndex {
-            self.formIndex(before: &destination)
-            let pushed = word &<< push
-            word = destination > words ? self[destination &+ offset] : UInt()
-            let pulled = word &>> pull
-            self[destination] = pushed | pulled
-        }
+        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self, environment: false, limbs: words, atLeastOneBit: bits)
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
@@ -126,22 +111,19 @@ extension NBKDoubleWidth {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
-        for destination in self.indices.reversed() {
-            self[destination] = destination >= words ? self[destination - words] : UInt()
-        }
+        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self, environment: false, atLeastOneLimb: words)
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public func bitshiftedLeft(words: Int) -> Self {
         var result = self; result.bitshiftLeft(words: words); return result
@@ -225,39 +207,23 @@ extension NBKDoubleWidth {
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  bits.isZero {
             return self.bitshiftRight(words: words)
         }
         //=--------------------------------------=
-        let push = UInt(bitPattern: bits)
-        let pull = UInt(bitPattern: UInt.bitWidth - bits)
-        let sign = UInt(repeating: self.isLessThanZero)
-        //=--------------------------------------=
-        var destination = self.startIndex
-        let edge = self.distance(from: words, to: self.endIndex)
-        var word = self[words] as UInt
-        
-        while destination < self.endIndex {
-            let after  = self.index(after: destination)
-            let pushed = word &>> push
-            word = after < edge ? self[after &+ words] : sign
-            let pulled = word &<< pull
-            self[destination] = pushed | pulled
-            destination = after
-        }
+        let environment: Bool = self.isLessThanZero
+        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self, environment: environment, limbs: words, atLeastOneBit: bits)
     }
     
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
@@ -267,26 +233,20 @@ extension NBKDoubleWidth {
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(words: Int) {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
-        let sign = UInt(repeating: self.isLessThanZero)
-        //=--------------------------------------=
-        let edge = self.distance(from: words, to: self.endIndex)
-        
-        for destination in self.indices {
-            self[destination] = destination < edge ? self[destination + words] : sign
-        }
+        let environment: Bool = self.isLessThanZero
+        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self, environment: environment, atLeastOneLimb: words)
     }
     
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public func bitshiftedRight(words: Int) -> Self {
         var result = self; result.bitshiftRight(words: words); return result

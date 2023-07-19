@@ -71,20 +71,23 @@ extension NBK {
     ///
     /// Creating a new decoder is faster than passing one as an argument.
     ///
-    @inlinable public static func truncatingAsUInt(digits: NBK.UnsafeUTF8, radix: Int) -> UInt? {
+    @inlinable public static func truncating<T>(digits: NBK.UnsafeUTF8, radix: Int, as type: T.Type = T.self) -> T? where T: NBKCoreInteger {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
         //=--------------------------------------=
-        var value = UInt.zero
-        
+        var value = T.zero
+        let multiplicand = NBK.initWithFastPaths(truncating: radix, as: T.self)
+        //  core integers can represent the range 2 ... 36
+
         for digit in  digits {
             guard let addend = alphabet.decode(digit) else { return nil }
-            value &*= UInt(bitPattern: radix)
-            value &+= UInt(truncatingIfNeeded: addend)
+            value &*= multiplicand
+            value &+= NBK.initWithFastPaths(truncating: addend, as: T.self)
+            //  core integers can represent the range 0 ..< 36
         }
         
-        return value as UInt
+        return value as T
     }
     
     //=------------------------------------------------------------------------=

@@ -77,4 +77,3 @@ file: StaticString = #file, line: UInt = #line){
     XCTAssertEqual(lhs &>> (rhs + lhs.bitWidth), result, file: file, line: line)
     XCTAssertEqual(lhs &>> (rhs - lhs.bitWidth), result, file: file, line: line)
 }
-

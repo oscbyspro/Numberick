@@ -65,47 +65,85 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //*============================================================================*
-// MARK: * NBK x Radix Integers x UInt
+// MARK: * NBK x Radix Integers x Decode Digits By Truncating
 //*============================================================================*
 
-final class NBKRadixIntegersTestsOnUInt: XCTestCase {
-    
-    typealias T = UInt
-    
+final class NBKRadixIntegersTestsOnDecodeDigitsByTruncating: XCTestCase {
+        
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x UInt32
     //=------------------------------------------------------------------------=
     
-    func testDecodingRadix10() throws {
-        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+    func testDecodingRadix10AsUInt32() throws {
+        typealias T = UInt32
         
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(12345678901234567890), 10, "12345678901234567890")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(18446744073709551615), 10, "18446744073709551615")
+        NBKAssertDecodeDigitsByTruncating(T(1234567890), 10, "1234567890")
+        NBKAssertDecodeDigitsByTruncating(T(4294967295), 10, "4294967295")
         
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(00000000000000000000), 10, "18446744073709551616" ) // + 01
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(18446744073709551606), 10, "184467440737095516150") // * 10
+        NBKAssertDecodeDigitsByTruncating(T(0000000000), 10, "4294967296" ) // + 01
+        NBKAssertDecodeDigitsByTruncating(T(4294967286), 10, "42949672950") // * 10
     }
     
-    func testDecodingRadix16() throws {
-        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+    func testDecodingRadix16AsUInt32() throws {
+        typealias T = UInt32
         
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(0x123456789abcdef0), 16, "123456789abcdef0")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(0xffffffffffffffff), 16, "ffffffffffffffff")
+        NBKAssertDecodeDigitsByTruncating(T(0x12345678), 16, "12345678")
+        NBKAssertDecodeDigitsByTruncating(T(0xffffffff), 16, "ffffffff")
         
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(0x0000000000000000), 16, "10000000000000000") // + 01
-        NBKAssertDecodeDigitsAsUIntByTruncating(T(0xfffffffffffffff0), 16, "ffffffffffffffff0") // * 16
+        NBKAssertDecodeDigitsByTruncating(T(0x00000000), 16, "100000000") // + 01
+        NBKAssertDecodeDigitsByTruncating(T(0xfffffff0), 16, "ffffffff0") // * 16
     }
     
-    func testDecodingStringWithoutDigitsReturnsNil() {
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10,  "")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "+")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "-")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 10, "~")
+    func testDecodingStringWithoutDigitsReturnsNilAsUInt32() {
+        typealias T = UInt32
         
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16,  "")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "+")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "-")
-        NBKAssertDecodeDigitsAsUIntByTruncating(T?.none, 16, "~")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10,  "")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "+")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "-")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "~")
+        
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16,  "")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "+")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "-")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "~")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x UInt64
+    //=------------------------------------------------------------------------=
+    
+    func testDecodingRadix10AsUInt64() throws {
+        typealias T = UInt64
+        
+        NBKAssertDecodeDigitsByTruncating(T(12345678901234567890), 10, "12345678901234567890")
+        NBKAssertDecodeDigitsByTruncating(T(18446744073709551615), 10, "18446744073709551615")
+        
+        NBKAssertDecodeDigitsByTruncating(T(00000000000000000000), 10, "18446744073709551616" ) // + 01
+        NBKAssertDecodeDigitsByTruncating(T(18446744073709551606), 10, "184467440737095516150") // * 10
+    }
+    
+    func testDecodingRadix16AsUInt64() throws {
+        typealias T = UInt64
+        
+        NBKAssertDecodeDigitsByTruncating(T(0x123456789abcdef0), 16, "123456789abcdef0")
+        NBKAssertDecodeDigitsByTruncating(T(0xffffffffffffffff), 16, "ffffffffffffffff")
+        
+        NBKAssertDecodeDigitsByTruncating(T(0x0000000000000000), 16, "10000000000000000") // + 01
+        NBKAssertDecodeDigitsByTruncating(T(0xfffffffffffffff0), 16, "ffffffffffffffff0") // * 16
+    }
+    
+    func testDecodingStringWithoutDigitsReturnsNilAsUInt64() {
+        typealias T = UInt64
+        
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10,  "")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "+")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "-")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 10, "~")
+        
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16,  "")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "+")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "-")
+        NBKAssertDecodeDigitsByTruncating(T?.none, 16, "~")
     }
 }
 
@@ -113,12 +151,11 @@ final class NBKRadixIntegersTestsOnUInt: XCTestCase {
 // MARK: + Utilities
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertDecodeDigitsAsUIntByTruncating(
-_ result: UInt?, _ radix: Int, _ digits: String,
+private func NBKAssertDecodeDigitsByTruncating<T: NBKCoreInteger>(
+_ result: T?, _ radix: Int, _ digits: String,
 file: StaticString = #file, line: UInt = #line) {
-    var digits = digits; digits.withUTF8 { utf8 in
-        let value = NBK.truncatingAsUInt(digits: utf8, radix: radix)
-        XCTAssertEqual(value, result, file: file, line: line)
+    var digits = digits; digits.withUTF8 {
+        XCTAssertEqual(NBK.truncating(digits: $0, radix: radix), result, file: file, line: line)
     }
 }
 

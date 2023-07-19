@@ -75,7 +75,7 @@ extension NBKFlexibleWidth.Magnitude {
         let value = Storage.uninitialized(count: count) { storage in
             for index in storage.indices {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
-                guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return error = true }
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
                 storage[index] = word
             }
             
@@ -96,14 +96,14 @@ extension NBKFlexibleWidth.Magnitude {
             
             forwards: if !alignment.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
-                guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return nil }
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
                 self  +=  word
             }
             
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
-                guard let word = NBK.truncatingAsUInt(digits: chunk, radix: radix.base) else { return nil }
-                self.multiply(by: radix.power, adding: word)
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+                self.multiply(by: radix.power,  adding: word)
             }
             
         }() as Void? else { return nil }
