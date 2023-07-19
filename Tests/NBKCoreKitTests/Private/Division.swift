@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Int or UInt
+// MARK: * NBK x Division x Int or UInt
 //*============================================================================*
 
-final class ArithmagickTestsOnIntOrUInt: XCTestCase {
+final class DivisionTestsOnIntOrUInt: XCTestCase {
     
     typealias T = UInt
     

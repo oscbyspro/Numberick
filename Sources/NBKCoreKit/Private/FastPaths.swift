@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Optimizations
+// MARK: * NBK x Fast Paths
 //*============================================================================*
 
 extension NBK {
@@ -17,6 +17,7 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
+    /// Truncates or bit-casts the integer passed as `source`.
     @inlinable public static func initWithFastPaths<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
         if  T.BitPattern.self == U.BitPattern.self {
             return U(bitPattern: Swift.unsafeBitCast(source.bitPattern, to: U.BitPattern.self))

@@ -17,7 +17,7 @@ extension NBK {
     // MARK: Transformations x Left
     //=------------------------------------------------------------------------=
     
-    /// Performs a left shift.
+    /// Performs a left shift on a least to most significant limb collection.
     ///
     /// - Parameters:
     ///   - pointee: The mutable collection.
@@ -50,7 +50,7 @@ extension NBK {
         }
     }
     
-    /// Performs a left shift.
+    /// Performs a left shift on a least to most significant limb collection.
     ///
     /// - Parameters:
     ///   - pointee: The mutable collection.
@@ -75,7 +75,7 @@ extension NBK {
     // MARK: Transformations x Right
     //=------------------------------------------------------------------------=
     
-    /// Performs an un/signed right shift.
+    /// Performs a right shift on a least to most significant limb collection.
     ///
     /// - Parameters:
     ///   - pointee: The mutable collection.
@@ -109,7 +109,7 @@ extension NBK {
         }
     }
     
-    /// Performs an un/signed right shift.
+    /// Performs a right shift on a least to most significant limb collection.
     ///
     /// - Parameters:
     ///   - pointee: The mutable collection.
