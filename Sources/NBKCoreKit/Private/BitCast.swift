@@ -44,3 +44,59 @@ extension NBK {
         PVO(partialValue: NBK.bitCast(x.partialValue), overflow: x.overflow)
     }
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + Integers
+//=----------------------------------------------------------------------------=
+
+extension NBK {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Converts the given integer by bit-casting it when possible.
+    @inlinable public static func initOrBitCast<T, U>(_ source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+        if  T.self == U.self {
+            return Swift.unsafeBitCast(source, to: U.self)
+        }   else {
+            return U(source)
+        }
+    }
+    
+    /// Validates the given integer by bit-casting it when possible.
+    @inlinable public static func initOrBitCast<T, U>(exactly source: T, as type: U.Type = U.self) -> U? where T: BinaryInteger, U: BinaryInteger {
+        if  T.self == U.self {
+            return Swift.unsafeBitCast(source, to: U.self)
+        }   else {
+            return U(exactly: source)
+        }
+    }
+    
+    /// Clamps the given integer by bit-casting it when possible.
+    @inlinable public static func initOrBitCast<T, U>(clamping source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+        if  T.self == U.self {
+            return Swift.unsafeBitCast(source, to: U.self)
+        }   else {
+            return U(clamping: source)
+        }
+    }
+    
+    /// Truncates the given integer by bit-casting it when possible.
+    @inlinable public static func initOrBitCast<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+        if  T.self == U.self {
+            return Swift.unsafeBitCast(source, to: U.self)
+        }   else {
+            return U(truncatingIfNeeded: source)
+        }
+    }
+    
+    /// Truncates the given integer by bit-casting it when possible.
+    @inlinable public static func initOrBitCast<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
+        if  T.BitPattern.self == U.BitPattern.self {
+            return U(bitPattern: Swift.unsafeBitCast(source.bitPattern, to: U.BitPattern.self))
+        }   else {
+            return U(truncatingIfNeeded: source)
+        }
+    }
+}
