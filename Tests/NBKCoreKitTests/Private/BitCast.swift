@@ -19,26 +19,41 @@ import XCTest
 final class BitCastTestsOnIntegers: XCTestCase {
     
     //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    let uint32_msb = UInt32(1) << 31
+    let uint64_msb = UInt64(1) << 63
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Int as Int
     //=------------------------------------------------------------------------=
     
     func testInitOrBitCastInt32AsInt32() {
         NBKAssertInitOrBitCast(Int32.min, exactly: Int32.min >> 00, clamping: Int32.min >> 00, truncating: Int32.min >> 00)
+        NBKAssertInitOrBitCast(Int32(-1), exactly: Int32(-1) >> 00, clamping: Int32(-1) >> 00, truncating: Int32(-1) >> 00)
+        NBKAssertInitOrBitCast(Int32(  ), exactly: Int32(  ) >> 00, clamping: Int32(  ) >> 00, truncating: Int32(  ) >> 00)
         NBKAssertInitOrBitCast(Int32.max, exactly: Int32.max >> 00, clamping: Int32.max >> 00, truncating: Int32.max >> 00)
     }
     
     func testInitOrBitCastInt32AsInt64() {
         NBKAssertInitOrBitCast(Int32.min, exactly: Int64.min >> 32, clamping: Int64.min >> 32, truncating: Int64.min >> 32)
+        NBKAssertInitOrBitCast(Int32(-1), exactly: Int64(-1) >> 00, clamping: Int64(-1) >> 00, truncating: Int64(-1) >> 00)
+        NBKAssertInitOrBitCast(Int32(  ), exactly: Int64(  ) >> 00, clamping: Int64(  ) >> 00, truncating: Int64(  ) >> 00)
         NBKAssertInitOrBitCast(Int32.max, exactly: Int64.max >> 32, clamping: Int64.max >> 32, truncating: Int64.max >> 32)
     }
     
     func testInitOrBitCastInt64AsInt32() {
         NBKAssertInitOrBitCast(Int64.min, exactly: nil,             clamping: Int32.min >> 00, truncating: Int32(  ) >> 00)
+        NBKAssertInitOrBitCast(Int64(-1), exactly: Int32(-1) >> 00, clamping: Int32(-1) >> 00, truncating: Int32(-1) >> 00)
+        NBKAssertInitOrBitCast(Int64(  ), exactly: Int32(  ) >> 00, clamping: Int32(  ) >> 00, truncating: Int32(  ) >> 00)
         NBKAssertInitOrBitCast(Int64.max, exactly: nil,             clamping: Int32.max >> 00, truncating: Int32(-1) >> 00)
     }
     
     func testInitOrBitCastInt64AsInt64() {
         NBKAssertInitOrBitCast(Int64.min, exactly: Int64.min >> 00, clamping: Int64.min >> 00, truncating: Int64.min >> 00)
+        NBKAssertInitOrBitCast(Int64(-1), exactly: Int64(-1) >> 00, clamping: Int64(-1) >> 00, truncating: Int64(-1) >> 00)
+        NBKAssertInitOrBitCast(Int64(  ), exactly: Int64(  ) >> 00, clamping: Int64(  ) >> 00, truncating: Int64(  ) >> 00)
         NBKAssertInitOrBitCast(Int64.max, exactly: Int64.max >> 00, clamping: Int64.max >> 00, truncating: Int64.max >> 00)
     }
     
@@ -48,21 +63,25 @@ final class BitCastTestsOnIntegers: XCTestCase {
     
     func testInitOrBitCastUInt32AsUInt32() {
         NBKAssertInitOrBitCast(UInt32.min, exactly: UInt32(  ) >> 00, clamping: UInt32(  ) >> 00, truncating: UInt32(  ) >> 00)
+        NBKAssertInitOrBitCast(uint32_msb, exactly: uint32_msb >> 00, clamping: uint32_msb >> 00, truncating: uint32_msb >> 00)
         NBKAssertInitOrBitCast(UInt32.max, exactly: UInt32.max >> 00, clamping: UInt32.max >> 00, truncating: UInt32.max >> 00)
     }
     
     func testInitOrBitCastUInt32AsUInt64() {
         NBKAssertInitOrBitCast(UInt32.min, exactly: UInt64(  ) >> 32, clamping: UInt64(  ) >> 32, truncating: UInt64(  ) >> 32)
+        NBKAssertInitOrBitCast(uint32_msb, exactly: UInt64( 1) << 31, clamping: UInt64( 1) << 31, truncating: UInt64( 1) << 31)
         NBKAssertInitOrBitCast(UInt32.max, exactly: UInt64.max >> 32, clamping: UInt64.max >> 32, truncating: UInt64.max >> 32)
     }
     
     func testInitOrBitCastUInt64AsUInt32() {
         NBKAssertInitOrBitCast(UInt64.min, exactly: UInt32(  ) >> 00, clamping: UInt32(  ) >> 00, truncating: UInt32(  ) >> 00)
+        NBKAssertInitOrBitCast(uint64_msb, exactly: nil,              clamping: UInt32.max >> 00, truncating: UInt32(  ) << 00)
         NBKAssertInitOrBitCast(UInt64.max, exactly: nil,              clamping: UInt32.max >> 00, truncating: UInt32.max >> 00)
     }
     
     func testInitOrBitCastUInt64AsUInt64() {
         NBKAssertInitOrBitCast(UInt64.min, exactly: UInt64(  ) >> 00, clamping: UInt64(  ) >> 00, truncating: UInt64(  ) >> 00)
+        NBKAssertInitOrBitCast(uint64_msb, exactly: UInt64( 1) << 63, clamping: UInt64( 1) << 63, truncating: UInt64( 1) << 63)
         NBKAssertInitOrBitCast(UInt64.max, exactly: UInt64.max >> 00, clamping: UInt64.max >> 00, truncating: UInt64.max >> 00)
     }
     
@@ -71,23 +90,31 @@ final class BitCastTestsOnIntegers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitOrBitCastInt32AsUInt32() {
-        NBKAssertInitOrBitCast(Int32.min, exactly: nil,              clamping: UInt32(  ) >> 00, truncating: UInt32.max >> 01 + 1)
-        NBKAssertInitOrBitCast(Int32.max, exactly: UInt32.max >> 01, clamping: UInt32.max >> 01, truncating: UInt32.max >> 01 + 0)
+        NBKAssertInitOrBitCast(Int32.min, exactly: nil,              clamping: UInt32(  ) >> 00, truncating: UInt32( 1) << 31)
+        NBKAssertInitOrBitCast(Int32(-1), exactly: nil,              clamping: UInt32(  ) >> 00, truncating: UInt32.max >> 00)
+        NBKAssertInitOrBitCast(Int32(  ), exactly: UInt32(  ) >> 00, clamping: UInt32(  ) >> 00, truncating: UInt32(  ) >> 00)
+        NBKAssertInitOrBitCast(Int32.max, exactly: UInt32.max >> 01, clamping: UInt32.max >> 01, truncating: UInt32.max >> 01)
     }
     
     func testInitOrBitCastInt32AsUInt64() {
         NBKAssertInitOrBitCast(Int32.min, exactly: nil,              clamping: UInt64(  ) >> 00, truncating: UInt64.max << 31)
+        NBKAssertInitOrBitCast(Int32(-1), exactly: nil,              clamping: UInt64(  ) >> 00, truncating: UInt64.max >> 00)
+        NBKAssertInitOrBitCast(Int32(  ), exactly: UInt64(  ) >> 00, clamping: UInt64(  ) >> 00, truncating: UInt64(  ) >> 00)
         NBKAssertInitOrBitCast(Int32.max, exactly: UInt64.max >> 33, clamping: UInt64.max >> 33, truncating: UInt64.max >> 33)
     }
     
     func testInitOrBitCastInt64AsUInt32() {
         NBKAssertInitOrBitCast(Int64.min, exactly: nil,              clamping: UInt32(  ) >> 00, truncating: UInt32(  ) >> 00)
+        NBKAssertInitOrBitCast(Int64(-1), exactly: nil,              clamping: UInt32(  ) >> 00, truncating: UInt32.max >> 00)
+        NBKAssertInitOrBitCast(Int64(  ), exactly: UInt32(  ) >> 00, clamping: UInt32(  ) >> 00, truncating: UInt32(  ) >> 00)
         NBKAssertInitOrBitCast(Int64.max, exactly: nil,              clamping: UInt32.max >> 00, truncating: UInt32.max >> 00)
     }
     
     func testInitOrBitCastInt64AsUInt64() {
-        NBKAssertInitOrBitCast(Int64.min, exactly: nil,              clamping: UInt64(  ) >> 00, truncating: UInt64.max >> 01 + 1)
-        NBKAssertInitOrBitCast(Int64.max, exactly: UInt64.max >> 01, clamping: UInt64.max >> 01, truncating: UInt64.max >> 01 + 0)
+        NBKAssertInitOrBitCast(Int64.min, exactly: nil,              clamping: UInt64(  ) >> 00, truncating: UInt64( 1) << 63)
+        NBKAssertInitOrBitCast(Int64(-1), exactly: nil,              clamping: UInt64(  ) >> 00, truncating: UInt64.max >> 00)
+        NBKAssertInitOrBitCast(Int64(  ), exactly: UInt64(  ) >> 00, clamping: UInt64(  ) >> 00, truncating: UInt64(  ) >> 00)
+        NBKAssertInitOrBitCast(Int64.max, exactly: UInt64.max >> 01, clamping: UInt64.max >> 01, truncating: UInt64.max >> 01)
     }
     
     //=------------------------------------------------------------------------=
@@ -96,21 +123,25 @@ final class BitCastTestsOnIntegers: XCTestCase {
     
     func testInitOrBitCastUInt32AsInt32() {
         NBKAssertInitOrBitCast(UInt32.min, exactly: Int32(  ) >> 00, clamping: Int32(  ) >> 00, truncating: Int32(  ) >> 00)
+        NBKAssertInitOrBitCast(uint32_msb, exactly: nil,             clamping: Int32.max >> 00, truncating: Int32.min >> 00)
         NBKAssertInitOrBitCast(UInt32.max, exactly: nil,             clamping: Int32.max >> 00, truncating: Int32(-1) >> 00)
     }
     
     func testInitOrBitCastUInt32AsInt64() {
         NBKAssertInitOrBitCast(UInt32.min, exactly: Int64(  ) >> 00, clamping: Int64(  ) >> 00, truncating: Int64(  ) >> 00)
+        NBKAssertInitOrBitCast(uint32_msb, exactly: Int64( 1) << 31, clamping: Int64( 1) << 31, truncating: Int64( 1) << 31)
         NBKAssertInitOrBitCast(UInt32.max, exactly: Int64.max >> 31, clamping: Int64.max >> 31, truncating: Int64.max >> 31)
     }
     
     func testInitOrBitCastUInt64AsInt32() {
         NBKAssertInitOrBitCast(UInt64.min, exactly: Int32(  ) >> 00, clamping: Int32(  ) >> 00, truncating: Int32(  ) >> 00)
+        NBKAssertInitOrBitCast(uint64_msb, exactly: nil,             clamping: Int32.max >> 00, truncating: Int32(  ) >> 00)
         NBKAssertInitOrBitCast(UInt64.max, exactly: nil,             clamping: Int32.max >> 00, truncating: Int32(-1) >> 00)
     }
     
     func testInitOrBitCastUInt64AsInt64() {
         NBKAssertInitOrBitCast(UInt64.min, exactly: Int64(  ) >> 00, clamping: Int64(  ) >> 00, truncating: Int64(  ) >> 00)
+        NBKAssertInitOrBitCast(uint64_msb, exactly: nil,             clamping: Int64.max >> 00, truncating: Int64.min >> 00)
         NBKAssertInitOrBitCast(UInt64.max, exactly: nil,             clamping: Int64.max >> 00, truncating: Int64(-1) >> 00)
     }
 }
