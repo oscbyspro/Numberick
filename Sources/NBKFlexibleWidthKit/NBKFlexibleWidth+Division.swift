@@ -84,8 +84,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         let shift = other.storage.elements.last!.leadingZeroBitCount as Int
         var remainderIndex = self.storage.elements.endIndex
-        var remainder = self.bitshiftedLeft(words: 0, bits: shift) as Self
-        let divisor =  other.bitshiftedLeft(words: 0, bits: shift) as Self
+        var remainder = self.bitshiftedLeft(words: Int.zero, bits: shift) as Self
+        let divisor =  other.bitshiftedLeft(words: Int.zero, bits: shift) as Self
         let divisorLast0 = divisor.storage.elements[divisor.storage.elements.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit)
         //=--------------------------------------=

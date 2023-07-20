@@ -35,9 +35,12 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func bitshiftLeftSmart(by distance: Int) {
-        switch distance >= 0 {
-        case  true: self.bitshiftLeft (by: distance)
-        case false: self.bitshiftRight(by: distance.negated()) }
+        if  distance >= 0 {
+            self.bitshiftLeft (by: distance)
+        }   else {
+            //  self >> Int.max is equivalent to self << Int.min
+            self.bitshiftRight(by: Int(clamping: distance.magnitude))
+        }
     }
     
     @inlinable public func bitshiftedLeftSmart(by distance: Int) -> Self {
@@ -122,9 +125,12 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func bitshiftRightSmart(by distance: Int) {
-        switch distance >= 0 {
-        case  true: self.bitshiftRight(by: distance)
-        case false: self.bitshiftLeft (by: distance.negated()) }
+        if  distance >= 0 {
+            self.bitshiftRight(by: distance)
+        }   else {
+            //  self << Int.max is equivalent to self >> Int.min
+            self.bitshiftLeft (by: Int(clamping: distance.magnitude))
+        }
     }
     
     @inlinable public func bitshiftedRightSmart(by distance: Int) -> Self {

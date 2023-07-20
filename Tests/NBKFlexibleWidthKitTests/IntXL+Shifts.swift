@@ -111,6 +111,19 @@ final class UIntXLTestsOnShifts: XCTestCase {
         XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) <<  64, T(x64:[0, 1, 2, 3, 4] as X))
         XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> -64, T(x64:[0, 1, 2, 3, 4] as X))
     }
+    
+    func testBitshiftingRightDoesNotTrap() {
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> Int.max, T.zero)
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) << Int.min, T.zero)
+    }
+    
+    func testBitshiftingZeroDoesNotTrap() {
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << Int.min, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << Int.max, T.zero)
+        
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.min, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.max, T.zero)
+    }
 }
 
 #endif
