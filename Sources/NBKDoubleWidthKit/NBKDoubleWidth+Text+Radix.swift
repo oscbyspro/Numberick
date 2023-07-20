@@ -125,7 +125,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // with one buffer pointer specialization
         //=--------------------------------------=
         self.withContiguousStorage { buffer in
-            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from:  buffer, while: { $0.isZero }))
+            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from: buffer, while: { $0.isZero }))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }

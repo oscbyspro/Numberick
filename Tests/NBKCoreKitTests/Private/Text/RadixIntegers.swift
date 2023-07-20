@@ -74,7 +74,7 @@ final class NBKRadixIntegersTestsOnDecodeDigitsByTruncating: XCTestCase {
     // MARK: Tests x UInt32
     //=------------------------------------------------------------------------=
     
-    func testDecodingRadix10AsUInt32() throws {
+    func testDecodingRadix10AsUInt32() {
         typealias T = UInt32
         
         NBKAssertDecodeDigitsByTruncating(T(1234567890), 10, "1234567890")
@@ -84,7 +84,7 @@ final class NBKRadixIntegersTestsOnDecodeDigitsByTruncating: XCTestCase {
         NBKAssertDecodeDigitsByTruncating(T(4294967286), 10, "42949672950") // * 10
     }
     
-    func testDecodingRadix16AsUInt32() throws {
+    func testDecodingRadix16AsUInt32() {
         typealias T = UInt32
         
         NBKAssertDecodeDigitsByTruncating(T(0x12345678), 16, "12345678")
@@ -112,7 +112,7 @@ final class NBKRadixIntegersTestsOnDecodeDigitsByTruncating: XCTestCase {
     // MARK: Tests x UInt64
     //=------------------------------------------------------------------------=
     
-    func testDecodingRadix10AsUInt64() throws {
+    func testDecodingRadix10AsUInt64() {
         typealias T = UInt64
         
         NBKAssertDecodeDigitsByTruncating(T(12345678901234567890), 10, "12345678901234567890")
@@ -122,7 +122,7 @@ final class NBKRadixIntegersTestsOnDecodeDigitsByTruncating: XCTestCase {
         NBKAssertDecodeDigitsByTruncating(T(18446744073709551606), 10, "184467440737095516150") // * 10
     }
     
-    func testDecodingRadix16AsUInt64() throws {
+    func testDecodingRadix16AsUInt64() {
         typealias T = UInt64
         
         NBKAssertDecodeDigitsByTruncating(T(0x123456789abcdef0), 16, "123456789abcdef0")
