@@ -77,14 +77,14 @@ extension NBK {
         let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
         //=--------------------------------------=
         var value = T.zero
-        let multiplicand = NBK.initWithFastPaths(truncating: radix, as: T.self)
-        //  core integers can represent the range 2 ... 36
-
+        let multiplicand = NBK.initOrBitCast(truncating: radix, as: T.self)
+        //  all core integers can represent the range 2 ... 36
+        
         for digit in  digits {
             guard let addend = alphabet.decode(digit) else { return nil }
             value &*= multiplicand
-            value &+= NBK.initWithFastPaths(truncating: addend, as: T.self)
-            //  core integers can represent the range 0 ..< 36
+            value &+= NBK.initOrBitCast(truncating: addend, as: T.self)
+            //  all core integers can represent the range 0 ..< 36
         }
         
         return value as T

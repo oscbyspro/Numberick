@@ -27,14 +27,14 @@ extension NBK {
     ///
     @inline(__always) @inlinable public static func bitshiftLeftAsFixedLimbsCodeBlock<T>(
     _ pointee: inout T, environment: Bool, limbs: Int, atLeastOneBit bits: Int)
-    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & UnsignedInteger, T.Indices == Range<Int> {
+    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & NBKUnsignedInteger, T.Indices == Range<Int> {
         typealias Limb = T.Element
         precondition(0 ..< pointee.count == pointee.indices)
         precondition(0 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
         precondition(1 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initWithFastPaths(truncating: bits, as: Limb.self)
-        let pull = NBK.initWithFastPaths(truncating: UInt.bitWidth - bits, as: Limb.self)
+        let push = NBK.initOrBitCast(truncating: bits, as: Limb.self)
+        let pull = NBK.initOrBitCast(truncating: UInt.bitWidth - bits, as: Limb.self)
         let fill = Limb(repeating: environment)
         //=--------------------------------------=
         var destination = pointee.endIndex as Int
@@ -91,8 +91,8 @@ extension NBK {
         precondition(0 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
         precondition(1 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initWithFastPaths(truncating: bits, as: Limb.self)
-        let pull = NBK.initWithFastPaths(truncating: UInt.bitWidth - bits, as: Limb.self)
+        let push = NBK.initOrBitCast(truncating: bits, as: Limb.self)
+        let pull = NBK.initOrBitCast(truncating: UInt.bitWidth - bits, as: Limb.self)
         let fill = Limb(repeating: environment)
         //=--------------------------------------=
         var destination = pointee.startIndex

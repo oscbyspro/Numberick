@@ -23,7 +23,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeftSmart(by: Int(clamping: rhs))
+        lhs.bitshiftLeftSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
     
     @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -38,8 +38,7 @@ extension NBKFlexibleWidth.Magnitude {
         if  distance >= 0 {
             self.bitshiftLeft (by: distance)
         }   else {
-            //  self >> Int.max is equivalent to self << Int.min
-            self.bitshiftRight(by: Int(clamping: distance.magnitude))
+            self.bitshiftRight(by: NBK.initOrBitCast(clamping: distance.magnitude, as: Int.self))
         }
     }
     
@@ -113,7 +112,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRightSmart(by: Int(clamping: rhs))
+        lhs.bitshiftRightSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
 
     @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -128,8 +127,7 @@ extension NBKFlexibleWidth.Magnitude {
         if  distance >= 0 {
             self.bitshiftRight(by: distance)
         }   else {
-            //  self << Int.max is equivalent to self >> Int.min
-            self.bitshiftLeft (by: Int(clamping: distance.magnitude))
+            self.bitshiftLeft (by: NBK.initOrBitCast(clamping: distance.magnitude, as: Int.self))
         }
     }
     

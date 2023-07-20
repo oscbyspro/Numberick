@@ -213,7 +213,7 @@ extension NBK {
         @inlinable static func solution(unchecked radix: UInt) -> Solution {
             switch radix.isPowerOf2 {
             case  true: return Self.solutionAssumingRadixIsPowerOf2   (unchecked: radix)
-                case false: return Self.solutionAssumingRadixIsNotPowerOf2(unchecked: radix) }
+            case false: return Self.solutionAssumingRadixIsNotPowerOf2(unchecked: radix) }
         }
         
         /// Returns the largest exponent in `pow(radix, exponent) <= UInt.max + 1`.
