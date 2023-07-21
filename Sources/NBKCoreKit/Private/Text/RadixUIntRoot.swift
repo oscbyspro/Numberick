@@ -228,9 +228,9 @@ extension NBK {
             if  zeros.isPowerOf2 {
                 let exponent = UInt(bitPattern: UInt.bitWidth &>> zeros.trailingZeroBitCount)
                 return Solution(exponent: exponent, power: 0)
-                //=--------------------------------------=
-                // radix: 008, 032, 064, 128, ...
-                //=--------------------------------------=
+            //=--------------------------------------=
+            // radix: 008, 032, 064, 128, ...
+            //=--------------------------------------=
             }   else {
                 let exponent = UInt(bitPattern: UInt.bitWidth) / (zeros as UInt)
                 return Solution(exponent: exponent, power: 1 &<< (zeros &* exponent))
@@ -252,25 +252,25 @@ extension NBK {
                 var solution = Solution(1, radix)
                 var index = squares.startIndex as Int
                 
-            loop: while index  < squares.endIndex {
-                squares[index] = solution
-                let product = solution.power.multipliedReportingOverflow(by: solution.power)
-                if  product.overflow { break loop }
-                
-                solution.exponent &<<= 1 as UInt
-                solution.power = product.partialValue
-                squares.formIndex(after: &index)
-            }
-                
-            loop: while index  > squares.startIndex {
-                squares.formIndex(before: &index)
-                let square  = squares[index]
-                let product = solution.power.multipliedReportingOverflow(by: square.power)
-                if  product.overflow { continue loop }
-                
-                solution.exponent &+= square.exponent
-                solution.power = product.partialValue
-            }
+                loop: while index  < squares.endIndex {
+                    squares[index] = solution
+                    let product = solution.power.multipliedReportingOverflow(by: solution.power)
+                    if  product.overflow { break loop }
+                    
+                    solution.exponent &<<= 1 as UInt
+                    solution.power = product.partialValue
+                    squares.formIndex(after: &index)
+                }
+                    
+                loop: while index  > squares.startIndex {
+                    squares.formIndex(before: &index)
+                    let square  = squares[index]
+                    let product = solution.power.multipliedReportingOverflow(by: square.power)
+                    if  product.overflow { continue loop }
+                    
+                    solution.exponent &+= square.exponent
+                    solution.power = product.partialValue
+                }
                 
                 return solution as Solution
             }
