@@ -10,71 +10,7 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKDoubleWidthKit
 import XCTest
-
-//*============================================================================*
-// MARK: * NBK x Arithmagick x Binary Integer
-//*============================================================================*
-
-final class ArithmagickTestsOnBinaryInteger: XCTestCase {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Modulo
-    //=------------------------------------------------------------------------=
-    
-    func testModuloPowerOf2() {
-        XCTAssertEqual( Int8.min.modulo(8), 0)
-        XCTAssertEqual( Int8.max.modulo(8), 7)
-        
-        XCTAssertEqual(UInt8.min.modulo(8), 0)
-        XCTAssertEqual(UInt8.max.modulo(8), 7)
-        
-        XCTAssertEqual( Int8(-4).modulo(4), 0)
-        XCTAssertEqual( Int8(-3).modulo(4), 1)
-        XCTAssertEqual( Int8(-2).modulo(4), 2)
-        XCTAssertEqual( Int8(-1).modulo(4), 3)
-        XCTAssertEqual( Int8( 0).modulo(4), 0)
-        XCTAssertEqual( Int8( 1).modulo(4), 1)
-        XCTAssertEqual( Int8( 2).modulo(4), 2)
-        XCTAssertEqual( Int8( 3).modulo(4), 3)
-        XCTAssertEqual( Int8( 4).modulo(4), 0)
-        
-        XCTAssertEqual(UInt8( 0).modulo(4), 0)
-        XCTAssertEqual(UInt8( 1).modulo(4), 1)
-        XCTAssertEqual(UInt8( 2).modulo(4), 2)
-        XCTAssertEqual(UInt8( 3).modulo(4), 3)
-        XCTAssertEqual(UInt8( 4).modulo(4), 0)
-        XCTAssertEqual(UInt8( 5).modulo(4), 1)
-        XCTAssertEqual(UInt8( 6).modulo(4), 2)
-        XCTAssertEqual(UInt8( 7).modulo(4), 3)
-        XCTAssertEqual(UInt8( 8).modulo(4), 0)
-    }
-    
-    func testModuloNonPowerOf2() {
-        XCTAssertEqual( Int8.min.modulo(7), 5)
-        XCTAssertEqual( Int8.max.modulo(7), 1)
-        
-        XCTAssertEqual(UInt8.min.modulo(7), 0)
-        XCTAssertEqual(UInt8.max.modulo(7), 3)
-        
-        XCTAssertEqual( Int8(-3).modulo(3), 0)
-        XCTAssertEqual( Int8(-2).modulo(3), 1)
-        XCTAssertEqual( Int8(-1).modulo(3), 2)
-        XCTAssertEqual( Int8( 0).modulo(3), 0)
-        XCTAssertEqual( Int8( 1).modulo(3), 1)
-        XCTAssertEqual( Int8( 2).modulo(3), 2)
-        XCTAssertEqual( Int8( 3).modulo(3), 0)
-        
-        XCTAssertEqual(UInt8( 0).modulo(3), 0)
-        XCTAssertEqual(UInt8( 1).modulo(3), 1)
-        XCTAssertEqual(UInt8( 2).modulo(3), 2)
-        XCTAssertEqual(UInt8( 3).modulo(3), 0)
-        XCTAssertEqual(UInt8( 4).modulo(3), 1)
-        XCTAssertEqual(UInt8( 5).modulo(3), 2)
-        XCTAssertEqual(UInt8( 6).modulo(3), 0)
-    }
-}
 
 //*============================================================================*
 // MARK: * NBK x Arithmagick x Tuples
@@ -83,49 +19,59 @@ final class ArithmagickTestsOnBinaryInteger: XCTestCase {
 final class ArithmagickTestsOnTuples: XCTestCase {
     
     typealias T  = UInt64
-    typealias T2 = Wide2<T>
-    typealias T3 = Wide3<T>
-    
+    typealias T2 = NBK.Wide2<T>
+    typealias T3 = NBK.Wide3<T>
+
     //=------------------------------------------------------------------------=
     // MARK: Tests x Comparisons
     //=------------------------------------------------------------------------=
-    
-    func testComparing33S() {
-        NBKAssertComparisons33S(T3(0, ~0, ~0), T3(1,  0,  0), -1)
-        NBKAssertComparisons33S(T3(1,  0,  0), T3(1,  0,  0),  0)
-        NBKAssertComparisons33S(T3(1,  0,  0), T3(0, ~0, ~0),  1)
 
-        NBKAssertComparisons33S(T3(1,  0, ~0), T3(1,  1,  0), -1)
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  0),  0)
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  0, ~0),  1)
+    func testComparing22S() {
+        NBKAssertComparisons22S(T2(0, ~0), T2(1,  0), Int(-1))
+        NBKAssertComparisons22S(T2(1,  0), T2(1,  0), Int( 0))
+        NBKAssertComparisons22S(T2(1,  0), T2(0, ~0), Int( 1))
         
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  1), -1)
-        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  1),  0)
-        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  0),  1)
+        NBKAssertComparisons22S(T2(1,  0), T2(1,  1), Int(-1))
+        NBKAssertComparisons22S(T2(1,  1), T2(1,  1), Int( 0))
+        NBKAssertComparisons22S(T2(1,  1), T2(1,  0), Int( 1))
     }
     
+    func testComparing33S() {
+        NBKAssertComparisons33S(T3(0, ~0, ~0), T3(1,  0,  0), Int(-1))
+        NBKAssertComparisons33S(T3(1,  0,  0), T3(1,  0,  0), Int( 0))
+        NBKAssertComparisons33S(T3(1,  0,  0), T3(0, ~0, ~0), Int( 1))
+
+        NBKAssertComparisons33S(T3(1,  0, ~0), T3(1,  1,  0), Int(-1))
+        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  0), Int( 0))
+        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  0, ~0), Int( 1))
+
+        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  1), Int(-1))
+        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  1), Int( 0))
+        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  0), Int( 1))
+    }
+
     //=------------------------------------------------------------------------=
     // MARK: Tests x Addition
     //=------------------------------------------------------------------------=
-    
+
     func testAdding32B() {
         NBKAssertAdding32B(T3( 0,  0,  0), T2(~4, ~5), T3( 0, ~4, ~5), false)
         NBKAssertAdding32B(T3( 1,  2,  3), T2(~4, ~5), T3( 1, ~2, ~2), false)
         NBKAssertAdding32B(T3(~1, ~2, ~3), T2( 4,  5), T3(~0,  2,  1), false)
         NBKAssertAdding32B(T3(~0, ~0, ~0), T2( 4,  5), T3( 0,  4,  4), true )
     }
-    
+
     func testAdding33B() {
         NBKAssertAdding33B(T3( 0,  0,  0), T3(~4, ~5, ~6), T3(~4, ~5, ~6), false)
         NBKAssertAdding33B(T3( 1,  2,  3), T3(~4, ~5, ~6), T3(~3, ~3, ~3), false)
         NBKAssertAdding33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3( 3,  3,  2), true )
         NBKAssertAdding33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3( 4,  5,  5), true )
     }
-    
+
     //=------------------------------------------------------------------------=
     // MARK: Tests x Subtraction
     //=------------------------------------------------------------------------=
-    
+
     func testSubtracting32B() {
         NBKAssertSubtraction32B(T3( 0,  0,  0), T2(~4, ~5), T3(~0,  4,  6), true )
         NBKAssertSubtraction32B(T3( 1,  2,  3), T2(~4, ~5), T3( 0,  6,  9), false)
@@ -139,11 +85,11 @@ final class ArithmagickTestsOnTuples: XCTestCase {
         NBKAssertSubtraction33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3(~5, ~7, ~9), false)
         NBKAssertSubtraction33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3(~4, ~5, ~6), false)
     }
-    
+
     //=------------------------------------------------------------------------=
     // MARK: Tests x Multiplication
     //=------------------------------------------------------------------------=
-    
+
     func testMultipliplying213() {
         NBKAssertMultiplication213(T2( 1,  2),  3, T3( 0,  3,  6))
         NBKAssertMultiplication213(T2(~1, ~2), ~3, T3(~4,  1, 12))
@@ -155,10 +101,16 @@ final class ArithmagickTestsOnTuples: XCTestCase {
 // MARK: + Utilities x Comparisons
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertComparisons33S<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide3<T>, _ rhs: Wide3<T>, _ signum: Int,
+private func NBKAssertComparisons22S<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
+_ lhs: NBK.Wide2<T>, _ rhs: NBK.Wide2<T>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(T.compare33S(lhs, to: rhs), signum, file: file, line: line)
+    XCTAssertEqual(NBK.compare22S(lhs, to: rhs), signum, file: file, line: line)
+}
+
+private func NBKAssertComparisons33S<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide3<T>, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(NBK.compare33S(lhs, to: rhs), signum, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -166,10 +118,10 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertAdding32B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide3<T>, _ rhs: Wide2<T>, _ sum: Wide3<T>, _ overflow: Bool,
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide2<T>, _ sum: NBK.Wide3<T>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     var x = lhs
-    let o = T.increment32B(&x, by: rhs)
+    let o = NBK.increment32B(&x, by: rhs)
     XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
     XCTAssertEqual(x.high, sum.high, file: file, line: line)
@@ -177,10 +129,10 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertAdding33B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide3<T>, _ rhs: Wide3<T>, _ sum: Wide3<T>, _ overflow: Bool,
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide3<T>, _ sum: NBK.Wide3<T>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     var x = lhs
-    let o = T.increment33B(&x, by: rhs)
+    let o = NBK.increment33B(&x, by: rhs)
     XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
     XCTAssertEqual(x.high, sum.high, file: file, line: line)
@@ -192,10 +144,10 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertSubtraction32B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide3<T>, _ rhs: Wide2<T>, _ difference: Wide3<T>, _ overflow: Bool,
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide2<T>, _ difference: NBK.Wide3<T>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     var x = lhs
-    let o = T.decrement32B(&x, by: rhs)
+    let o = NBK.decrement32B(&x, by: rhs)
     XCTAssertEqual(x.low,  difference.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  difference.mid,  file: file, line: line)
     XCTAssertEqual(x.high, difference.high, file: file, line: line)
@@ -203,10 +155,10 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertSubtraction33B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide3<T>, _ rhs: Wide3<T>, _ difference: Wide3<T>, _ overflow: Bool,
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide3<T>, _ difference: NBK.Wide3<T>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     var x = lhs
-    let o = T.decrement33B(&x, by: rhs)
+    let o = NBK.decrement33B(&x, by: rhs)
     XCTAssertEqual(x.low,  difference.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  difference.mid,  file: file, line: line)
     XCTAssertEqual(x.high, difference.high, file: file, line: line)
@@ -218,9 +170,9 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMultiplication213<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: Wide2<T>, _ rhs: T, _ product: Wide3<T>,
+_ lhs: NBK.Wide2<T>, _ rhs: T, _ product: NBK.Wide3<T>,
 file: StaticString = #file, line: UInt = #line) {
-    let (high, mid, low) = T.multiplying213(lhs, by: rhs)
+    let (high, mid, low) = NBK.multiplying213(lhs, by: rhs)
     XCTAssertEqual(low,  product.low,  file: file, line: line)
     XCTAssertEqual(mid,  product.mid,  file: file, line: line)
     XCTAssertEqual(high, product.high, file: file, line: line)

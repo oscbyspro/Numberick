@@ -173,7 +173,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
-        let (quotient, remainder) = Self.divide3212Normalized(Wide3(top, lhs.high, lhs.low), by: rhs)
+        let (quotient, remainder) = Self.divide3212Normalized(NBK.Wide3(top, lhs.high, lhs.low), by: rhs)
         return QR(Self(low: quotient), remainder.bitshiftedRight(words: major, bits: minor))
     }
     
@@ -222,7 +222,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let rhsIs0X = UInt(bitPattern: shift) >= UInt(bitPattern: High.bitWidth)
         if  rhsIs0X {
             assert(lhs.high.high.isZero, "quotient must fit in two halves")
-            let (quotient, remainder) = Self.divide3121Unchecked(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
+            let (quotient, remainder) = Self.divide3121Unchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(low: remainder))
         }
         //=--------------------------------------=
@@ -238,7 +238,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         if  lhsIs0XXX, rhs > Self(high:  lhs.high.low, low: lhs.low.high) {
             assert(lhs.high.high.isZero, "quotient must fit in one half")
-            let (quotient, remainder) = Self.divide3212Normalized(Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
+            let (quotient, remainder) = Self.divide3212Normalized(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(low: quotient), remainder.bitshiftedRight(words: major, bits: minor))
         }
         //=--------------------------------------=
@@ -258,7 +258,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         return QR(Self(high: x, low: y), b)
     }
     
-    @inlinable static func divide3121Unchecked(_ lhs: Wide3<High>, by rhs: High) -> QR<Self, High> {
+    @inlinable static func divide3121Unchecked(_ lhs: NBK.Wide3<High>, by rhs: High) -> QR<Self, High> {
         assert(rhs > lhs.high, "quotient must fit in two halves")
         let (x, a) = rhs.dividingFullWidth(HL(lhs.high, lhs.mid))
         let (y, b) = a.isZero ? lhs.low.quotientAndRemainder(dividingBy: rhs) : rhs.dividingFullWidth(HL(a, lhs.low))
@@ -275,29 +275,29 @@ extension NBKDoubleWidth where High == High.Magnitude {
     ///
     /// The approximation needs at most two adjustments, but the while loop is faster.
     ///
-    @inlinable static func divide3212Normalized(_ lhs: Wide3<High>, by rhs: Self) -> QR<High, Self> {
+    @inlinable static func divide3212Normalized(_ lhs: NBK.Wide3<High>, by rhs: Self) -> QR<High, Self> {
         assert(rhs.mostSignificantBit, "divisor must be normalized")
-        assert(rhs > Self(high: lhs.high, low: lhs.mid), "quotient must fit in one half")
+        assert(NBK.compare22S(rhs.descending, to: NBK.Wide2(lhs.high, lhs.mid)) == 1, "quotient must fit in one half")
         //=--------------------------------------=
-        var remainder = lhs as Wide3<High>
+        var remainder = lhs as NBK.Wide3<High>
         var quotient  = remainder.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(remainder.high, remainder.mid)).quotient
-        var approximation = High.multiplying213(rhs.descending, by: quotient) as Wide3<High>
+        var approximation = NBK.multiplying213(rhs.descending, by: quotient) as NBK.Wide3<High>
         //=--------------------------------------=
         // decrement when overestimated (max 2)
         //=--------------------------------------=
-        while High.compare33S(remainder, to: approximation) == -1 {
+        while NBK.compare33S(remainder, to: approximation) == -1 {
             _ = quotient.subtractReportingOverflow(1 as UInt)
-            _ = High.decrement32B(&approximation, by: rhs.descending)
+            _ = NBK.decrement32B(&approximation, by: rhs.descending)
         }
         //=--------------------------------------=
-        _ = High.decrement33B(&remainder, by: approximation)
+        _ = NBK.decrement33B(&remainder, by: approximation)
         return QR(quotient, Self(high: remainder.mid, low: remainder.low))
     }
     
     /// Divides 4 halves by 2 normalized halves, assuming the quotient fits in 2 halves.
     @inlinable static func divide4222Normalized(_ lhs: NBKDoubleWidth<Self>, by rhs: Self) -> QR<Self, Self> {
-        let (x, a) =  Self.divide3212Normalized(Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
-        let (y, b) =  Self.divide3212Normalized(Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
+        let (x, a) =  Self.divide3212Normalized(NBK.Wide3(lhs.high.high, lhs.high.low, lhs.low.high), by: rhs)
+        let (y, b) =  Self.divide3212Normalized(NBK.Wide3(/*---*/a.high, /*---*/a.low, lhs.low.low ), by: rhs)
         return QR(Self(high: x, low: y), b)
     }
 }
