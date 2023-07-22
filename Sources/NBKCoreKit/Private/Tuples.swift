@@ -173,9 +173,54 @@ extension NBK {
     @_transparent public static func multiplying213<T>(_ lhs: Wide2<T>, by rhs: T) -> Wide3<T> where T: NBKUnsignedInteger {
         let a = lhs.low .multipliedFullWidth(by: rhs)
         var b = lhs.high.multipliedFullWidth(by: rhs)
-                
+        
         let x = b.low.addReportingOverflow(a.high)
         let _ = x && b.high.addReportingOverflow(1 as T.Digit)
         return Wide3(high: b.high, mid: b.low, low: a.low)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Division
+    //=------------------------------------------------------------------------=
+    
+    /// Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.
+    ///
+    /// ### Approximation Adjustment
+    ///
+    /// The approximation needs at most two adjustments, but the while loop is faster.
+    ///
+    /// ### Notes
+    ///
+    /// Skipping the comparison does not make it faster. Try it out with this approach:
+    ///
+    /// ```swift
+    /// if  NBK.decrement33B(&lhs, by: rhs, times: quotient) {
+    ///     if  NBK.increment32B(&lhs, by: rhs) {
+    ///         _ = quotient.subtractReportingOverflow(1 as T.Digit)
+    ///     }   else {
+    ///         _ = NBK.increment32B(&lhs, by: rhs)
+    ///         _ = quotient.subtractReportingOverflow(2 as T.Digit)
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// - Returns: The `quotient` is returned and the `remainder` replaces the dividend.
+    ///
+    @_transparent public static func divide3212MSBUnchecked<T>(_ lhs: inout Wide3<T>, by rhs: Wide2<T>) -> T where T: NBKUnsignedInteger {
+        assert(rhs.high.mostSignificantBit, "divisor must be normalized")
+        assert(NBK.compare22S(rhs, to: HL(lhs.high, lhs.mid)) == 1, "quotient must fit in one half")
+        //=--------------------------------------=
+        var quotient = lhs.high == rhs.high ? T.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
+        var approximation = NBK.multiplying213(rhs, by: quotient)
+        //=--------------------------------------=
+        // decrement when overestimated (max 2)
+        //=--------------------------------------=
+        while NBK.compare33S(lhs, to: approximation) == -1 {
+            _ = quotient.subtractReportingOverflow(1 as T.Digit)
+            _ = NBK.decrement32B(&approximation, by: rhs)
+        }
+        //=--------------------------------------=
+        let _ = NBK.decrement33B(&lhs, by: approximation)
+        return (quotient) as T
     }
 }
