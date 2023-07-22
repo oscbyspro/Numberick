@@ -90,10 +90,28 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     // MARK: Tests x Multiplication
     //=------------------------------------------------------------------------=
 
-    func testMultipliplying213() {
+    func testMultiplying213() {
         NBKAssertMultiplication213(T2( 1,  2),  3, T3( 0,  3,  6))
         NBKAssertMultiplication213(T2(~1, ~2), ~3, T3(~4,  1, 12))
         NBKAssertMultiplication213(T2(~0, ~0), ~0, T3(~1, ~0,  1))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Division
+    //=------------------------------------------------------------------------=
+    
+    func testDividing3212MSB() {
+        NBKAssertDivision3212MSB(T3(~0,  0,  0), T2(~0,  1), ~T(0), T2(~1,  1))
+        NBKAssertDivision3212MSB(T3(~0,  0,  0), T2(~0, ~1), ~T(0), T2( 1, ~1))
+        NBKAssertDivision3212MSB(T3(~1, ~0, ~0), T2(~0,  0), ~T(0), T2(~1, ~0))
+        NBKAssertDivision3212MSB(T3(~1, ~0, ~0), T2(~0, ~0), ~T(0), T2( 0, ~1))
+    }
+    
+    func testDividing3212MSBWithBadInitialEstimate() {
+        NBKAssertDivision3212MSB(T3(1 << 63 - 1,  0,  0), T2(1 << 63, ~0), ~T(3), T2(4, ~3)) // 2
+        NBKAssertDivision3212MSB(T3(1 << 63 - 1,  0, ~0), T2(1 << 63, ~0), ~T(3), T2(5, ~4)) // 2
+        NBKAssertDivision3212MSB(T3(1 << 63 - 1, ~0,  0), T2(1 << 63, ~0), ~T(1), T2(1, ~1)) // 1
+        NBKAssertDivision3212MSB(T3(1 << 63 - 1, ~0, ~0), T2(1 << 63, ~0), ~T(1), T2(2, ~2)) // 1
     }
 }
 
@@ -176,6 +194,28 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(low,  product.low,  file: file, line: line)
     XCTAssertEqual(mid,  product.mid,  file: file, line: line)
     XCTAssertEqual(high, product.high, file: file, line: line)
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities x Division
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertDivision3212MSB<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
+_ lhs: NBK.Wide3<T>, _ rhs: NBK.Wide2<T>, _ quotient: T, _ remainder: NBK.Wide2<T>,
+file: StaticString = #file, line: UInt = #line) {
+    var result: QR<T, NBK.Wide3<T>>
+    result.remainder = lhs
+    result.quotient  = NBK.divide3212MSBUnchecked(&result.remainder,  by: rhs)
+    //=--------------------------------------=
+    XCTAssertEqual(result.quotient,       quotient,       file: file, line: line)
+    XCTAssertEqual(result.remainder.high, T.zero,         file: file, line: line)
+    XCTAssertEqual(result.remainder.mid,  remainder.high, file: file, line: line)
+    XCTAssertEqual(result.remainder.low,  remainder.low,  file: file, line: line)
+    //=--------------------------------------=
+    var composite: NBK.Wide3<T>
+    composite = NBK.multiplying213(rhs,  by: result.quotient )
+    let _ = NBK.increment33B(&composite, by: result.remainder)
+    XCTAssert(lhs == composite, "lhs != rhs * quotient + remainder", file: file, line: line)
 }
 
 #endif
