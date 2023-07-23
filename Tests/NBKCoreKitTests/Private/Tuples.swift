@@ -13,41 +13,56 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Tuples
+// MARK: * NBK x Tuples
 //*============================================================================*
 
-final class ArithmagickTestsOnTuples: XCTestCase {
+final class TuplesTests: XCTestCase {
     
-    typealias T  = UInt64
-    typealias T2 = NBK.Wide2<T>
-    typealias T3 = NBK.Wide3<T>
+    typealias S  = Int64
+    typealias S2 = NBK.Wide2<S>
+    typealias S3 = NBK.Wide3<S>
+    
+    typealias M  = UInt64
+    typealias M2 = NBK.Wide2<M>
+    typealias M3 = NBK.Wide3<M>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Complements
+    //=------------------------------------------------------------------------=
+    
+    func testMagnitude() {
+        NBKAssertMagnitude(S2(-1, ~0), M2( 0,  1))
+        NBKAssertMagnitude(S2( 0,  1), M2( 0,  1))
+        NBKAssertMagnitude(S2(-2,  1), M2( 1, ~0))
+        NBKAssertMagnitude(S2( 1, ~0), M2( 1, ~0))
+    }
 
     //=------------------------------------------------------------------------=
     // MARK: Tests x Comparisons
     //=------------------------------------------------------------------------=
 
     func testComparing22S() {
-        NBKAssertComparisons22S(T2(0, ~0), T2(1,  0), Int(-1))
-        NBKAssertComparisons22S(T2(1,  0), T2(1,  0), Int( 0))
-        NBKAssertComparisons22S(T2(1,  0), T2(0, ~0), Int( 1))
+        NBKAssertComparisons22S(M2(0, ~0), M2(1,  0), Int(-1))
+        NBKAssertComparisons22S(M2(1,  0), M2(1,  0), Int( 0))
+        NBKAssertComparisons22S(M2(1,  0), M2(0, ~0), Int( 1))
         
-        NBKAssertComparisons22S(T2(1,  0), T2(1,  1), Int(-1))
-        NBKAssertComparisons22S(T2(1,  1), T2(1,  1), Int( 0))
-        NBKAssertComparisons22S(T2(1,  1), T2(1,  0), Int( 1))
+        NBKAssertComparisons22S(M2(1,  0), M2(1,  1), Int(-1))
+        NBKAssertComparisons22S(M2(1,  1), M2(1,  1), Int( 0))
+        NBKAssertComparisons22S(M2(1,  1), M2(1,  0), Int( 1))
     }
     
     func testComparing33S() {
-        NBKAssertComparisons33S(T3(0, ~0, ~0), T3(1,  0,  0), Int(-1))
-        NBKAssertComparisons33S(T3(1,  0,  0), T3(1,  0,  0), Int( 0))
-        NBKAssertComparisons33S(T3(1,  0,  0), T3(0, ~0, ~0), Int( 1))
+        NBKAssertComparisons33S(M3(0, ~0, ~0), M3(1,  0,  0), Int(-1))
+        NBKAssertComparisons33S(M3(1,  0,  0), M3(1,  0,  0), Int( 0))
+        NBKAssertComparisons33S(M3(1,  0,  0), M3(0, ~0, ~0), Int( 1))
 
-        NBKAssertComparisons33S(T3(1,  0, ~0), T3(1,  1,  0), Int(-1))
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  0), Int( 0))
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  0, ~0), Int( 1))
+        NBKAssertComparisons33S(M3(1,  0, ~0), M3(1,  1,  0), Int(-1))
+        NBKAssertComparisons33S(M3(1,  1,  0), M3(1,  1,  0), Int( 0))
+        NBKAssertComparisons33S(M3(1,  1,  0), M3(1,  0, ~0), Int( 1))
 
-        NBKAssertComparisons33S(T3(1,  1,  0), T3(1,  1,  1), Int(-1))
-        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  1), Int( 0))
-        NBKAssertComparisons33S(T3(1,  1,  1), T3(1,  1,  0), Int( 1))
+        NBKAssertComparisons33S(M3(1,  1,  0), M3(1,  1,  1), Int(-1))
+        NBKAssertComparisons33S(M3(1,  1,  1), M3(1,  1,  1), Int( 0))
+        NBKAssertComparisons33S(M3(1,  1,  1), M3(1,  1,  0), Int( 1))
     }
 
     //=------------------------------------------------------------------------=
@@ -55,17 +70,17 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testAdding32B() {
-        NBKAssertAdding32B(T3( 0,  0,  0), T2(~4, ~5), T3( 0, ~4, ~5), false)
-        NBKAssertAdding32B(T3( 1,  2,  3), T2(~4, ~5), T3( 1, ~2, ~2), false)
-        NBKAssertAdding32B(T3(~1, ~2, ~3), T2( 4,  5), T3(~0,  2,  1), false)
-        NBKAssertAdding32B(T3(~0, ~0, ~0), T2( 4,  5), T3( 0,  4,  4), true )
+        NBKAssertAdding32B(M3( 0,  0,  0), M2(~4, ~5), M3( 0, ~4, ~5), false)
+        NBKAssertAdding32B(M3( 1,  2,  3), M2(~4, ~5), M3( 1, ~2, ~2), false)
+        NBKAssertAdding32B(M3(~1, ~2, ~3), M2( 4,  5), M3(~0,  2,  1), false)
+        NBKAssertAdding32B(M3(~0, ~0, ~0), M2( 4,  5), M3( 0,  4,  4), true )
     }
 
     func testAdding33B() {
-        NBKAssertAdding33B(T3( 0,  0,  0), T3(~4, ~5, ~6), T3(~4, ~5, ~6), false)
-        NBKAssertAdding33B(T3( 1,  2,  3), T3(~4, ~5, ~6), T3(~3, ~3, ~3), false)
-        NBKAssertAdding33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3( 3,  3,  2), true )
-        NBKAssertAdding33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3( 4,  5,  5), true )
+        NBKAssertAdding33B(M3( 0,  0,  0), M3(~4, ~5, ~6), M3(~4, ~5, ~6), false)
+        NBKAssertAdding33B(M3( 1,  2,  3), M3(~4, ~5, ~6), M3(~3, ~3, ~3), false)
+        NBKAssertAdding33B(M3(~1, ~2, ~3), M3( 4,  5,  6), M3( 3,  3,  2), true )
+        NBKAssertAdding33B(M3(~0, ~0, ~0), M3( 4,  5,  6), M3( 4,  5,  5), true )
     }
 
     //=------------------------------------------------------------------------=
@@ -73,17 +88,17 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testSubtracting32B() {
-        NBKAssertSubtraction32B(T3( 0,  0,  0), T2(~4, ~5), T3(~0,  4,  6), true )
-        NBKAssertSubtraction32B(T3( 1,  2,  3), T2(~4, ~5), T3( 0,  6,  9), false)
-        NBKAssertSubtraction32B(T3(~1, ~2, ~3), T2( 4,  5), T3(~1, ~6, ~8), false)
-        NBKAssertSubtraction32B(T3(~0, ~0, ~0), T2( 4,  5), T3(~0, ~4, ~5), false)
+        NBKAssertSubtraction32B(M3( 0,  0,  0), M2(~4, ~5), M3(~0,  4,  6), true )
+        NBKAssertSubtraction32B(M3( 1,  2,  3), M2(~4, ~5), M3( 0,  6,  9), false)
+        NBKAssertSubtraction32B(M3(~1, ~2, ~3), M2( 4,  5), M3(~1, ~6, ~8), false)
+        NBKAssertSubtraction32B(M3(~0, ~0, ~0), M2( 4,  5), M3(~0, ~4, ~5), false)
     }
     
     func testSubtracting33B() {
-        NBKAssertSubtraction33B(T3( 0,  0,  0), T3(~4, ~5, ~6), T3( 4,  5,  7), true )
-        NBKAssertSubtraction33B(T3( 1,  2,  3), T3(~4, ~5, ~6), T3( 5,  7, 10), true )
-        NBKAssertSubtraction33B(T3(~1, ~2, ~3), T3( 4,  5,  6), T3(~5, ~7, ~9), false)
-        NBKAssertSubtraction33B(T3(~0, ~0, ~0), T3( 4,  5,  6), T3(~4, ~5, ~6), false)
+        NBKAssertSubtraction33B(M3( 0,  0,  0), M3(~4, ~5, ~6), M3( 4,  5,  7), true )
+        NBKAssertSubtraction33B(M3( 1,  2,  3), M3(~4, ~5, ~6), M3( 5,  7, 10), true )
+        NBKAssertSubtraction33B(M3(~1, ~2, ~3), M3( 4,  5,  6), M3(~5, ~7, ~9), false)
+        NBKAssertSubtraction33B(M3(~0, ~0, ~0), M3( 4,  5,  6), M3(~4, ~5, ~6), false)
     }
 
     //=------------------------------------------------------------------------=
@@ -91,9 +106,9 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testMultiplying213() {
-        NBKAssertMultiplication213(T2( 1,  2),  3, T3( 0,  3,  6))
-        NBKAssertMultiplication213(T2(~1, ~2), ~3, T3(~4,  1, 12))
-        NBKAssertMultiplication213(T2(~0, ~0), ~0, T3(~1, ~0,  1))
+        NBKAssertMultiplication213(M2( 1,  2),  3, M3( 0,  3,  6))
+        NBKAssertMultiplication213(M2(~1, ~2), ~3, M3(~4,  1, 12))
+        NBKAssertMultiplication213(M2(~0, ~0), ~0, M3(~1, ~0,  1))
     }
     
     //=------------------------------------------------------------------------=
@@ -101,18 +116,35 @@ final class ArithmagickTestsOnTuples: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividing3212MSB() {
-        NBKAssertDivision3212MSB(T3(~0,  0,  0), T2(~0,  1), ~T(0), T2(~1,  1))
-        NBKAssertDivision3212MSB(T3(~0,  0,  0), T2(~0, ~1), ~T(0), T2( 1, ~1))
-        NBKAssertDivision3212MSB(T3(~1, ~0, ~0), T2(~0,  0), ~T(0), T2(~1, ~0))
-        NBKAssertDivision3212MSB(T3(~1, ~0, ~0), T2(~0, ~0), ~T(0), T2( 0, ~1))
+        NBKAssertDivision3212MSB(M3(~0,  0,  0), M2(~0,  1), ~M(0), M2(~1,  1))
+        NBKAssertDivision3212MSB(M3(~0,  0,  0), M2(~0, ~1), ~M(0), M2( 1, ~1))
+        NBKAssertDivision3212MSB(M3(~1, ~0, ~0), M2(~0,  0), ~M(0), M2(~1, ~0))
+        NBKAssertDivision3212MSB(M3(~1, ~0, ~0), M2(~0, ~0), ~M(0), M2( 0, ~1))
     }
     
     func testDividing3212MSBWithBadInitialEstimate() {
-        NBKAssertDivision3212MSB(T3(1 << 63 - 1,  0,  0), T2(1 << 63, ~0), ~T(3), T2(4, ~3)) // 2
-        NBKAssertDivision3212MSB(T3(1 << 63 - 1,  0, ~0), T2(1 << 63, ~0), ~T(3), T2(5, ~4)) // 2
-        NBKAssertDivision3212MSB(T3(1 << 63 - 1, ~0,  0), T2(1 << 63, ~0), ~T(1), T2(1, ~1)) // 1
-        NBKAssertDivision3212MSB(T3(1 << 63 - 1, ~0, ~0), T2(1 << 63, ~0), ~T(1), T2(2, ~2)) // 1
+        NBKAssertDivision3212MSB(M3(1 << 63 - 1,  0,  0), M2(1 << 63, ~0), ~M(3), M2(4, ~3)) // 2
+        NBKAssertDivision3212MSB(M3(1 << 63 - 1,  0, ~0), M2(1 << 63, ~0), ~M(3), M2(5, ~4)) // 2
+        NBKAssertDivision3212MSB(M3(1 << 63 - 1, ~0,  0), M2(1 << 63, ~0), ~M(1), M2(1, ~1)) // 1
+        NBKAssertDivision3212MSB(M3(1 << 63 - 1, ~0, ~0), M2(1 << 63, ~0), ~M(1), M2(2, ~2)) // 1
     }
+}
+
+//=------------------------------------------------------------------------=
+// MARK: + Utilities x Complements
+//=------------------------------------------------------------------------=
+
+private func NBKAssertMagnitude<T: NBKFixedWidthInteger>(
+_ value: NBK.Wide2<T>, _ magnitude: NBK.Wide2<T.Magnitude>,
+file: StaticString = #file, line: UInt = #line) {
+    let result = NBK.magnitude(of: value)
+    //=--------------------------------------=
+    if  let value = value as? NBK.Wide2<T.Magnitude> {
+        XCTAssert(result == value, file: file, line: line)
+    }
+    //=--------------------------------------=
+    XCTAssert(result == magnitude, file: file, line: line)
+    XCTAssert(NBK.magnitude(of: result) == magnitude, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=

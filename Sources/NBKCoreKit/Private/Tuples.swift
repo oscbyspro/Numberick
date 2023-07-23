@@ -14,6 +14,34 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Complements
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the `magnitude` of the given `value`.
+    ///
+    /// ```
+    /// ┌─────────────────── → ───────────────────┐
+    /// │ value              │ magnitude          │
+    /// ├─────────────────── → ───────────────────┤
+    /// │ Int(-1), UInt.max  │ UInt( 0), UInt( 1) │
+    /// │ Int( 0), UInt( 1)  │ UInt( 0), UInt( 1) │
+    /// │ Int(-2), UInt( 1)  │ UInt( 1), UInt.max │
+    /// │ Int( 1), UInt.max  │ UInt( 1), UInt.max │
+    /// └─────────────────── → ───────────────────┘
+    /// ```
+    ///
+    @_transparent public static func magnitude<T>(of value: Wide2<T>) -> Wide2<T.Magnitude> {
+        var value = value as Wide2<T>
+        if  value.high.isLessThanZero {
+            var carry = true
+            carry = value.low .formTwosComplementSubsequence(carry)
+            carry = value.high.formTwosComplementSubsequence(carry)
+        }
+        
+        return NBK.bitCast(value) as Wide2<T.Magnitude>
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
     
