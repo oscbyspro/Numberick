@@ -119,4 +119,34 @@ final class UIntXLTestsOnDivision: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x UIntXL x Division x Code Coverage
+//*============================================================================*
+
+final class UIntXLTestsOnDivisionCodeCoverage: XCTestCase {
+    
+    typealias T = UIntXL
+    typealias M = UIntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testDividingFullWidth3212MSBAsUInt256() {
+        var dividend: T, divisor: T, quotient: T, remainder: T
+        //=--------------------------------------=
+        dividend  = T(x64:[ 0,  0,  0,  0,  0, ~0, ~0, ~0] as X)
+        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        quotient  = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        NBKAssertDivision(dividend, divisor, quotient, remainder)
+        //=--------------------------------------=
+        dividend  = T(x64:[~0, ~0, ~0, ~0,  0, ~0, ~0, ~0] as X)
+        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        quotient  = T(x64:[ 1, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        NBKAssertDivision(dividend, divisor, quotient, remainder)
+    }
+}
+
 #endif

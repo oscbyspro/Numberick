@@ -57,27 +57,37 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable func quotientAndRemainderReportingOverflowAsNormal(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+        var (remainder) = self
+        let (quotient, overflow) = remainder.formRemainderWithQuotientReportingOverflowAsNormal(dividingBy: other)
+        return PVO(QR(quotient, remainder), overflow)
+    }
+    
+    @inlinable mutating func formRemainderWithQuotientReportingOverflowAsNormal(dividingBy other: Self) -> PVO<Self> {
         //=--------------------------------------=
         // divisor is zero
         //=--------------------------------------=
         if  other.isZero {
-            return PVO(QR(self, self), true)
+            return PVO(self, true)
         }
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
         if  other.storage.elements.count == 1 {
-            let qro = self.quotientAndRemainder(dividingBy: other.storage.elements.first!)
-            return PVO(QR(qro.quotient, Self(digit: qro.remainder)), false)
+            let qr = self.quotientAndRemainder(dividingBy: other.storage.elements.first!)
+            self.assign(qr.remainder)
+            return PVO(qr.quotient, false)
         }
         //=--------------------------------------=
         // divisor is greater than or equal
         //=--------------------------------------=
         let comparison  = other.compared(to: self)
         if  comparison >= 0 {
-            switch comparison.isZero {
-            case  true: return PVO(QR(0001, Self.zero), false)
-            case false: return PVO(QR(Self.zero, self), false) }
+            if  comparison.isZero {
+                self.assign(UInt.zero)
+                return PVO(001, false)
+            }   else {
+                return PVO(000, false)
+            }
         }
         //=--------------------------------------=
         // shift to clamp approximation
@@ -88,19 +98,18 @@ extension NBKFlexibleWidth.Magnitude {
         let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit, "divisor must be normalized")
         
-        var remainder = self.storage
-        var remainderIndex = remainder.elements.endIndex
-        remainder.elements.append(0)
-        remainder.bitshiftLeft(words: Int.zero, bits: shift)
+        var remainderIndex = self.storage.elements.endIndex
+        self.storage.elements.append(0)
+        self.storage.bitshiftLeft(words: Int.zero, bits: shift)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
         var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
         var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
             loop: repeat {
-                let remainderLast0 = remainder.elements[remainderIndex]
-                remainder.elements.formIndex(before:   &remainderIndex)
-                let remainderLast1 = remainder.elements[remainderIndex]
+                let remainderLast0 = self.storage.elements[remainderIndex]
+                self.storage.elements.formIndex(before:   &remainderIndex)
+                let remainderLast1 = self.storage.elements[remainderIndex]
                 //=------------------------------=
                 var digit: UInt
                 if  divisorLast0 == remainderLast0 {
@@ -110,10 +119,10 @@ extension NBKFlexibleWidth.Magnitude {
                 }
                 //=------------------------------=
                 if !digit.isZero {
-                    var   overflow = remainder.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
+                    var overflow = self.storage.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
                     while overflow {
-                        _ = digit.subtractReportingOverflow(1 as UInt)
-                        overflow = !remainder.add(divisor, plus: false, at: quotientIndex)
+                        let _ = digit.subtractReportingOverflow(1 as UInt)
+                        overflow = !self.storage.add(divisor, plus: false, at: quotientIndex)
                     }
                 }
                 //=------------------------------=
@@ -124,9 +133,9 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
-        quotient .normalize()
-        remainder.bitshiftRight(words: Int.zero, bits: shift)
-        remainder.normalize()
-        return PVO(QR(Self(unchecked: quotient), Self(unchecked: remainder)), false)
+        quotient.normalize()
+        self.storage.bitshiftRight(words: Int.zero, bits: shift)
+        self.storage.normalize()
+        return PVO(Self(unchecked: quotient), false)
     }
 }

@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
-import NBKFlexibleWidthKit
+@testable import NBKFlexibleWidthKit
 import XCTest
 
 //*============================================================================*
@@ -47,6 +47,10 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).partialValue.quotient,  quotient,  file: file, line: line)
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).partialValue.quotient,  quotient,  file: file, line: line)
+    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).partialValue.remainder, remainder, file: file, line: line)
+    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
 }
 
 func NBKAssertDivisionByDigit(
