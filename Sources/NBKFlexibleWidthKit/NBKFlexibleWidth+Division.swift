@@ -82,38 +82,46 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // shift to clamp approximation
         //=--------------------------------------=
-        let shift = other.storage.elements.last!.leadingZeroBitCount as Int
-        var remainderIndex = self.storage.elements.endIndex
-        var remainder = self.bitshiftedLeft(words: Int.zero, bits: shift) as Self
-        let divisor =  other.bitshiftedLeft(words: Int.zero, bits: shift) as Self
-        let divisorLast0 = divisor.storage.elements[divisor.storage.elements.endIndex - 1] as UInt
-        assert(divisorLast0.mostSignificantBit)
+        var divisor = other.storage
+        let shift = divisor.elements.last!.leadingZeroBitCount as Int
+        divisor.bitshiftLeft(words: Int.zero, bits: shift)
+        let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
+        assert(divisorLast0.mostSignificantBit, "divisor must be normalized")
+        
+        var remainder = self.storage
+        var remainderIndex = remainder.elements.endIndex
+        remainder.elements.append(0)
+        remainder.bitshiftLeft(words: Int.zero, bits: shift)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
-        var quotientIndex = remainderIndex - divisor.storage.elements.endIndex as Int
+        var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
         var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
-            // TODO: denormalized or fixed-width operations
-            
-            repeat {
+            loop: repeat {
+                let remainderLast0 = remainder.elements[remainderIndex]
+                remainder.elements.formIndex(before:   &remainderIndex)
+                let remainderLast1 = remainder.elements[remainderIndex]
                 //=------------------------------=
-                let remainderLast0 = remainderIndex < remainder.storage.elements.endIndex ? remainder.storage.elements[remainderIndex] : UInt.zero
-                remainder.storage.elements.formIndex(before: &remainderIndex)
-                let remainderLast1 = remainderIndex < remainder.storage.elements.endIndex ? remainder.storage.elements[remainderIndex] : UInt.zero
-                //=------------------------------=
-                var digit = remainderLast0 == divisorLast0 ? UInt.max : divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
-                if !digit.isZero {
-                    var approximation: Self = divisor * digit
-                    
-                    while remainder.compared(to: approximation, at: quotientIndex) == -1 as Int {
-                        _ = digit.subtractReportingOverflow(1 as UInt)
-                        _ = approximation.subtractReportingOverflow(divisor,   at: quotientIndex)
-                    }
-                    
-                    let _ = remainder.subtractReportingOverflow(approximation, at: quotientIndex)
+                var digit: UInt
+                if  divisorLast0 == remainderLast0 {
+                    digit = UInt.max
+                }   else {
+                    digit = divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                 }
-                //=----------------------------------=
-                quotient[quotientIndex] =  digit
+                //=------------------------------=
+                if !digit.isZero {
+                    var   overflow = remainder.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
+                    while overflow {
+                        let _ = digit.subtractReportingOverflow(1 as UInt)
+                        
+                        var carry = false
+                        var index = quotientIndex
+                        remainder.add(divisor, at: &index, carrying: &carry)
+                        overflow = !carry
+                    }
+                }
+                //=------------------------------=
+                quotient[quotientIndex] = digit
                 quotient.formIndex(before: &quotientIndex)
             }   while quotientIndex >= quotient.startIndex
         }
@@ -122,6 +130,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         quotient .normalize()
         remainder.bitshiftRight(words: Int.zero, bits: shift)
-        return PVO(QR(Self(unchecked: quotient), remainder), false)
+        remainder.normalize()
+        return PVO(QR(Self(unchecked: quotient), Self(unchecked: remainder)), false)
     }
 }

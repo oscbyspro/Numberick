@@ -19,6 +19,8 @@ func NBKAssertDivision(
 _ lhs: UIntXL, _ rhs: UIntXL, _ quotient: UIntXL, _ remainder: UIntXL, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+    //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
         XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
@@ -51,6 +53,8 @@ func NBKAssertDivisionByDigit(
 _ lhs: UIntXL, _ rhs: UIntXL.Digit, _ quotient: UIntXL, _ remainder: UIntXL.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     let extended = UIntXL(digit: remainder)
+    //=------------------------------------------=
+    XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)

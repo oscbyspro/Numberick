@@ -64,3 +64,33 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Unsigned x Storage x Special
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Multiplication By UInt
+    //=------------------------------------------------------------------------=
+    
+    // TODO: test cases
+    @inlinable mutating func subtract(_ other: Self, times multiplicand: UInt, plus addend: UInt, at index: Int) -> Bool {
+        var index    = index
+        var overflow = false
+        //=--------------------------------------=
+        var otherOverflow = addend as UInt
+        for otherIndex in other.elements.indices {
+            var subproduct = other.elements[otherIndex].multipliedFullWidth(by: multiplicand)
+            subproduct.high &+= UInt(bit: subproduct.low.addReportingOverflow(otherOverflow))
+            otherOverflow = subproduct.high
+            
+            self.subtractWithoutGoingBeyond(subproduct.low, at: &index, borrowing: &overflow)
+        }
+        
+        self.subtract(otherOverflow, at: &index, borrowing: &overflow)
+        //=--------------------------------------=
+        return overflow
+    }
+}
