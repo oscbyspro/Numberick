@@ -57,37 +57,37 @@ extension NBK {
     
     /// Converts the given integer by bit-casting it when possible.
     @inlinable public static func initOrBitCast<T, U>(_ source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
-        if  T.self == U.self {
-            return Swift.unsafeBitCast(source, to: U.self)
-        }   else {
+        if  T.self != U.self {
             return U(source)
+        }   else {
+            return Swift.unsafeBitCast(source, to: U.self)
         }
     }
     
     /// Validates the given integer by bit-casting it when possible.
     @inlinable public static func initOrBitCast<T, U>(exactly source: T, as type: U.Type = U.self) -> U? where T: BinaryInteger, U: BinaryInteger {
-        if  T.self == U.self {
-            return Swift.unsafeBitCast(source, to: U.self)
-        }   else {
+        if  T.self != U.self {
             return U(exactly: source)
+        }   else {
+            return Swift.unsafeBitCast(source, to: U.self)
         }
     }
     
     /// Clamps the given integer by bit-casting it when possible.
     @inlinable public static func initOrBitCast<T, U>(clamping source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
-        if  T.self == U.self {
-            return Swift.unsafeBitCast(source, to: U.self)
-        }   else {
+        if  T.self != U.self {
             return U(clamping: source)
+        }   else {
+            return Swift.unsafeBitCast(source, to: U.self)
         }
     }
     
     /// Truncates the given integer by bit-casting it when possible.
     @inlinable public static func initOrBitCast<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
-        if  T.self == U.self {
-            return Swift.unsafeBitCast(source, to: U.self)
-        }   else {
+        if  T.self != U.self {
             return U(truncatingIfNeeded: source)
+        }   else {
+            return Swift.unsafeBitCast(source, to: U.self)
         }
     }
     

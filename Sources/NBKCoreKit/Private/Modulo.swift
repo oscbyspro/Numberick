@@ -7,20 +7,30 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
-// MARK: * NBK x Arithmagick x Binary Integer
+// MARK: * NBK x Modulo x Binary Integer
 //*============================================================================*
 
-extension BinaryInteger {
+extension NBK {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns `self` modulo `other.bitWidth`.
-    @inlinable func moduloBitWidth<T>(of other: T.Type) -> Int where T: FixedWidthInteger {
-        Int(bitPattern: NBK.residue(of: self, modulo: UInt(bitPattern: T.bitWidth)))
+    /// Returns `value` modulo `modulus`.
+    @inlinable public static func residue<T>(of value: T, modulo modulus: UInt) -> UInt where T: BinaryInteger {
+        //=--------------------------------------=
+        if  modulus.isPowerOf2 {
+            return value._lowWord & (modulus &- 1)
+        }
+        //=--------------------------------------=
+        let minus = T.isSigned && value < (0 as T)
+        var residue = (0 as UInt)
+        
+        for word in value.magnitude.words.reversed() {
+            residue = modulus.dividingFullWidth(HL(residue, word)).remainder
+        }
+        
+        return (minus && !residue.isZero) ? (modulus &- residue) : (residue)
     }
 }

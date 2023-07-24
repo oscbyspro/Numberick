@@ -120,16 +120,7 @@ extension NBKCoreInteger {
         let rhsIsLessThanZero: Bool =  /*--*/self.isLessThanZero
         let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var lhsMagnitude = NBK.bitCast(other) as HL<Magnitude, Magnitude>
-        if  lhsIsLessThanZero {
-            var carry = true
-            carry = lhsMagnitude.low .formTwosComplementSubsequence(carry)
-            carry = lhsMagnitude.high.formTwosComplementSubsequence(carry)
-        }
-        
-        let rhsMagnitude = self.magnitude as Magnitude
-        //=--------------------------------------=
-        var qro = NBK.bitCast(rhsMagnitude.dividingFullWidthReportingOverflow(lhsMagnitude)) as PVO<QR<Self, Self>>
+        var qro = NBK.bitCast(self.magnitude.dividingFullWidthReportingOverflow(NBK.magnitude(of: other))) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
