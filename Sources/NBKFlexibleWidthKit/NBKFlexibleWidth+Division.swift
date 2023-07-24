@@ -112,12 +112,8 @@ extension NBKFlexibleWidth.Magnitude {
                 if !digit.isZero {
                     var   overflow = remainder.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
                     while overflow {
-                        let _ = digit.subtractReportingOverflow(1 as UInt)
-                        
-                        var carry = false
-                        var index = quotientIndex
-                        remainder.add(divisor, at: &index, carrying: &carry)
-                        overflow = !carry
+                        _ = digit.subtractReportingOverflow(1 as UInt)
+                        overflow = !remainder.add(divisor, plus: false, at: quotientIndex)
                     }
                 }
                 //=------------------------------=

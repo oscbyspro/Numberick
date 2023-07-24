@@ -42,14 +42,8 @@ extension NBKFlexibleWidth.Magnitude {
         if  other.isZero { return false }
         //=--------------------------------------=
         self.storage.resize(minCount: other.storage.elements.count + index)
-        
-        var index    = index
-        var overflow = false
-        
-        self.storage.subtract(other.storage, at: &index, borrowing: &overflow)
-        
-        self.storage.normalize()
-        return overflow as Bool
+        defer{ self.storage.normalize() }
+        return self.storage.subtract(other.storage, plus: false, at: index)
     }
     
     @inlinable public func subtractingReportingOverflow(_ other: Self, at index: Int) -> PVO<Self> {

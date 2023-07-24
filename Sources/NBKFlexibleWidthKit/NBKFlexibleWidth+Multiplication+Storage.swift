@@ -22,7 +22,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable func multipliedFullWidth(by multiplicand: Self) -> Self {
         self.multipliedFullWidthByNaiveMethod(by: multiplicand, adding: UInt.zero)
     }
-
+    
     @inlinable func multipliedFullWidthByNaiveMethod(by multiplicand: Self, adding addend: UInt) -> Self {
         Self.uninitialized(count: self.elements.count + multiplicand.elements.count) { product in
             //=----------------------------------=
@@ -52,11 +52,28 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Transformations x UInt
     //=------------------------------------------------------------------------=
     
+    @inlinable mutating func multiply(by other: UInt, plus addend: UInt) -> UInt {
+        var overflow = addend
+        self.multiply(by: other, carrying: &overflow)
+        return overflow as UInt
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+    
+extension NBKFlexibleWidth.Magnitude.Storage {
+
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x UInt
+    //=------------------------------------------------------------------------=
+    
     @inlinable mutating func multiply(by other: UInt, carrying overflow: inout UInt) {
         for index in self.elements.indices {
-            var subproduct  = self.elements[index].multipliedFullWidth(by: other)
-            subproduct.high &+= UInt(bit: subproduct.low.addReportingOverflow(overflow))
-            (overflow, self.elements[index]) = subproduct as HL<UInt, UInt>
+            var subproduct = self.elements[index].multipliedFullWidth(by: other)
+            overflow = UInt(bit:   subproduct.low.addReportingOverflow(overflow)) &+ subproduct.high
+            self.elements[index] = subproduct.low as UInt
         }
     }
 }

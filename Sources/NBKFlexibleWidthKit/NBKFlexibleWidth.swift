@@ -31,7 +31,7 @@ import NBKCoreKit
     @frozen public struct Magnitude: NBKUnsignedInteger {
         
         public typealias Digit = UInt
-                
+        
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
@@ -74,7 +74,7 @@ import NBKCoreKit
             //=----------------------------------------------------------------=
             // MARK: Initializers
             //=----------------------------------------------------------------=
-
+            
             @inlinable init(elements: Elements) {
                 self.elements = elements
             }

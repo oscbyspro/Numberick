@@ -19,6 +19,33 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Transformations x Self
     //=------------------------------------------------------------------------=
     
+    @inlinable mutating func add(_ other: Self, plus addend: Bool, at index: Int) -> Bool {
+        var index = index, overflow = addend
+        self.add(other, at: &index, carrying: &overflow)
+        return overflow as Bool
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x UInt
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func add(_ other: UInt, plus addend: Bool, at index: Int) -> Bool {
+        var index = index, overflow = addend
+        self.add(other, at: &index, carrying: &overflow)
+        return overflow as Bool
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Self
+    //=------------------------------------------------------------------------=
+    
     @inlinable mutating func add(_ other: Self, at index: inout Int, carrying overflow: inout Bool) {
         self.addWithoutGoingBeyond(other, at: &index, carrying: &overflow)
         self.add((), at: &index, carrying: &overflow)
