@@ -31,10 +31,17 @@ final class TuplesTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        NBKAssertMagnitude(S2(-1, ~0), M2( 0,  1))
-        NBKAssertMagnitude(S2( 0,  1), M2( 0,  1))
-        NBKAssertMagnitude(S2(-2,  1), M2( 1, ~0))
-        NBKAssertMagnitude(S2( 1, ~0), M2( 1, ~0))
+        NBKAssertMagnitude(S2(~1, ~1), M2( 1,  2))
+        NBKAssertMagnitude(S2(~0,  0), M2( 1,  0))
+        NBKAssertMagnitude(S2( 0,  0), M2( 0,  0))
+        NBKAssertMagnitude(S2( 1,  0), M2( 1,  0))
+        NBKAssertMagnitude(S2( 1,  2), M2( 1,  2))
+        
+        NBKAssertMagnitude(M2(~1, ~1), M2(~1, ~1))
+        NBKAssertMagnitude(M2(~0,  0), M2(~0,  0))
+        NBKAssertMagnitude(M2( 0,  0), M2( 0,  0))
+        NBKAssertMagnitude(M2( 1,  0), M2( 1,  0))
+        NBKAssertMagnitude(M2( 1,  2), M2( 1,  2))
     }
 
     //=------------------------------------------------------------------------=

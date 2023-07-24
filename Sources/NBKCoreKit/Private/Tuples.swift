@@ -23,10 +23,11 @@ extension NBK {
     /// ┌─────────────────── → ───────────────────┐
     /// │ value              │ magnitude          │
     /// ├─────────────────── → ───────────────────┤
-    /// │ Int(-1), UInt.max  │ UInt( 0), UInt( 1) │
-    /// │ Int( 0), UInt( 1)  │ UInt( 0), UInt( 1) │
-    /// │ Int(-2), UInt( 1)  │ UInt( 1), UInt.max │
-    /// │ Int( 1), UInt.max  │ UInt( 1), UInt.max │
+    /// │ Int(~1), UInt(~1)  │ UInt( 1), UInt( 2) │
+    /// │ Int(~0), UInt( 0)  │ UInt( 1), UInt( 0) │
+    /// │ Int( 0), UInt( 0)  │ UInt( 0), UInt( 0) │
+    /// │ Int( 1), UInt( 0)  │ UInt( 1), UInt( 0) │
+    /// │ Int( 1), UInt( 2)  │ UInt( 1), UInt( 2) │
     /// └─────────────────── → ───────────────────┘
     /// ```
     ///

@@ -32,7 +32,12 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var magnitude: Magnitude {
-        Magnitude(bitPattern: self.isLessThanZero ? self.twosComplement() : self)
+        var value = self
+        if  value.isLessThanZero {
+            value.formTwosComplement()
+        }
+        
+        return Magnitude(bitPattern: value)
     }
     
     //=------------------------------------------------------------------------=
