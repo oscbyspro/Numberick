@@ -39,23 +39,23 @@ final class UIntXLBenchmarksOnShifts: XCTestCase {
         }
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(words: rhs.words, bits: rhs.bits))
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
     func testBitshiftingLeftByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs.bitshiftedLeft(words: rhs.words))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitshiftingLeftByWordsAndBits() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs.bitshiftedLeft(words: rhs.words, bits: rhs.bits))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -76,6 +76,17 @@ final class UIntXLBenchmarksOnShifts: XCTestCase {
         }
     }
     
+    func testBitshiftingRightByWords() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs.bitshiftedRight(words: rhs.words))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testBitshiftingRightByWordsAndBits() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
@@ -87,12 +98,50 @@ final class UIntXLBenchmarksOnShifts: XCTestCase {
         }
     }
     
-    func testBitshiftingRightByWords() {
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x In Both Directions
+    //=------------------------------------------------------------------------=
+
+    func testBitshiftingInBothDirectionsInout() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
+
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs.bitshiftLeft (by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+            
+            NBK.blackHole(lhs.bitshiftRight(by: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitshiftingInBothDirectionsByWordsInout() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(words: rhs.words))
+            NBK.blackHole(lhs.bitshiftLeft (words: rhs.words))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+            
+            NBK.blackHole(lhs.bitshiftRight(words: rhs.words))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testBitshiftingInBothDirectionsByWordsAndBitsInout() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity((words: 1, bits: UInt.bitWidth/2))
+
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs.bitshiftLeft (words: rhs.words, bits: rhs.bits))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+            
+            NBK.blackHole(lhs.bitshiftRight(words: rhs.words, bits: rhs.bits))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

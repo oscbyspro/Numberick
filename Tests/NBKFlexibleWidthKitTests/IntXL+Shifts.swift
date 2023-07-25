@@ -124,6 +124,14 @@ final class UIntXLTestsOnShifts: XCTestCase {
         XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.min, T.zero)
         XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.max, T.zero)
     }
+    
+    func testBitshiftingZeroDoesNotDoAnything() {
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << (UInt.bitWidth + 0), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << (UInt.bitWidth + 1), T.zero)
+        
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> (UInt.bitWidth + 0), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> (UInt.bitWidth + 1), T.zero)
+    }
 }
 
 #endif
