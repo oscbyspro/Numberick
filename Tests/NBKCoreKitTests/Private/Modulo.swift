@@ -19,7 +19,7 @@ import XCTest
 final class ModuloTestsOnBinaryInteger: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Modulo
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testModuloPowerOf2AsInt8() {

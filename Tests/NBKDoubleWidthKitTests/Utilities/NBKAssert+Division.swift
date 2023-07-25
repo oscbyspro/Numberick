@@ -21,6 +21,10 @@ _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool 
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
+        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+    }
+    //=------------------------------------------=
+    if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
         XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
         
@@ -53,6 +57,10 @@ _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     let extended = NBKDoubleWidth<H>(digit: remainder)
+    //=------------------------------------------=
+    if !overflow {
+        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+    }
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
@@ -90,15 +98,23 @@ func NBKAssertDivisionFullWidth<H: NBKFixedWidthInteger>(
 _ lhs: HL<NBKDoubleWidth<H>, NBKDoubleWidth<H>.Magnitude>, _ rhs: NBKDoubleWidth<H>,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    typealias T = NBKDoubleWidth<H>
+    typealias T  = NBKDoubleWidth<H>
+    typealias T2 = NBKDoubleWidth<T>
+    //=------------------------------------------=
+    let lhs = T2(descending: lhs)
     //=------------------------------------------=
     if !overflow {
-        let qr: QR<T, T> = rhs.dividingFullWidth(lhs)
+        let composite = T2(descending: rhs.multipliedFullWidth(by: quotient)) + T2(remainder)
+        XCTAssertEqual(lhs, composite, "lhs != rhs * quotient + remainder", file: file, line: line)
+    }
+    //=------------------------------------------=
+    if !overflow {
+        let qr: QR<T, T> = rhs.dividingFullWidth(lhs.descending)
         XCTAssertEqual(qr.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(qr.remainder, remainder, file: file, line: line)
     }
     //=------------------------------------------=
-    let qro: PVO<QR<T, T>> = rhs.dividingFullWidthReportingOverflow(lhs)
+    let qro: PVO<QR<T, T>> = rhs.dividingFullWidthReportingOverflow(lhs.descending)
     XCTAssertEqual(qro.partialValue.quotient,  quotient,  file: file, line: line)
     XCTAssertEqual(qro.partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(qro.overflow,               overflow,  file: file, line: line)
