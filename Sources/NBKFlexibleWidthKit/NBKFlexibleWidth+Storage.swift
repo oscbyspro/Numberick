@@ -51,10 +51,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
     
-    @inlinable mutating func resize(maxLastIndex: Int) {
-        self.resize(maxCount: maxLastIndex + 1)
-    }
-    
     @inlinable mutating func resize(minCount: Int) {
         self.reserve(minCount: minCount)
         appending: while self.elements.count < minCount {
@@ -62,15 +58,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
     
-    @inlinable mutating func resize(minLastIndex: Int) {
-        self.resize(minCount: minLastIndex + 1)
-    }
-    
     @inlinable mutating func reserve(minCount: Int) {
         self.elements.reserveCapacity(minCount)
-    }
-    
-    @inlinable mutating func reserve(minLastIndex: Int) {
-        self.reserve(minCount: minLastIndex + 1)
     }
 }

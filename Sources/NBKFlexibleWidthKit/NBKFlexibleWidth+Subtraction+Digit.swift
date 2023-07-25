@@ -41,7 +41,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return false }
         //=--------------------------------------=
-        self.storage.resize(minLastIndex: index)
+        self.storage.resize(minCount: index + 1)
         defer{ self.storage.normalize() }
         return self.storage.subtract(other, plus: false, at: index)
     }

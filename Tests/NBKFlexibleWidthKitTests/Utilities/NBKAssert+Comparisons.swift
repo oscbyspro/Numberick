@@ -16,16 +16,27 @@ import XCTest
 //*============================================================================*
 
 func NBKAssertComparisons<T: NBKBinaryInteger>(
-_ lhs: T, _ rhs: T, _ result: Int,
+_ lhs: T, _ rhs: T, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(lhs == rhs, result ==  0, file: file, line: line)
-    XCTAssertEqual(lhs != rhs, result !=  0, file: file, line: line)
+    XCTAssertEqual(lhs == rhs, signum ==  0, file: file, line: line)
+    XCTAssertEqual(lhs != rhs, signum !=  0, file: file, line: line)
     
-    XCTAssertEqual(lhs <  rhs, result == -1, file: file, line: line)
-    XCTAssertEqual(lhs <= rhs, result !=  1, file: file, line: line)
+    XCTAssertEqual(lhs <  rhs, signum == -1, file: file, line: line)
+    XCTAssertEqual(lhs <= rhs, signum !=  1, file: file, line: line)
     
-    XCTAssertEqual(lhs >  rhs, result ==  1, file: file, line: line)
-    XCTAssertEqual(lhs >= rhs, result != -1, file: file, line: line)
+    XCTAssertEqual(lhs >  rhs, signum ==  1, file: file, line: line)
+    XCTAssertEqual(lhs >= rhs, signum != -1, file: file, line: line)
     
-    XCTAssertEqual(lhs.compared(to: rhs), result, file: file, line: line)
+    XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
+}
+
+func NBKAssertComparisonsAtIndex(
+_ lhs: UIntXL, _ rhs: UIntXL, _ index: Int, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  index.isZero {
+        NBKAssertComparisons(lhs, rhs, signum, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.compared(to: rhs, at: index), signum, file: file, line: line)
 }

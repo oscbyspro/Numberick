@@ -43,7 +43,8 @@ extension NBKFlexibleWidth.Magnitude.Storage {
                     overflow &+= subproduct.high
                 }
                 
-                (product[lhsIndex + multiplicand.elements.count], overflow) = (overflow, UInt.zero)
+                product[lhsIndex + multiplicand.elements.count] = overflow
+                overflow = UInt.zero
             }
         }
     }

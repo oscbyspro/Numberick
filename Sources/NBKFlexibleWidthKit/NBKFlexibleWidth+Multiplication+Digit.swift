@@ -41,11 +41,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         self.storage.reserve(minCount: self.storage.elements.count + 1)
-        
-        var overflow = addend as UInt
-        
-        self.storage.multiply(by: multiplicand, carrying: &overflow)
-        
+        let overflow = self.storage.multiply(by: multiplicand, plus: addend)
         if !overflow.isZero {
             self.storage.elements.append(overflow)
         }
