@@ -10,6 +10,37 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func -=(lhs: inout Self, rhs: Self) {
+        lhs.subtract(rhs, at: Int.zero)
+    }
+    
+    @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
+        lhs.subtracting(rhs, at: Int.zero)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func subtract(_ other: Self, at index: Int) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public func subtracting(_ other: Self, at index: Int) -> Self {
+        var result = self; result.subtract(other, at: index); return result
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Subtraction x Unsigned
 //*============================================================================*
 

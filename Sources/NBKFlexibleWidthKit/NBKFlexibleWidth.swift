@@ -13,7 +13,7 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width
 //*============================================================================*
 
-@frozen public struct NBKFlexibleWidth: Hashable {
+@frozen public struct NBKFlexibleWidth: NBKSignedInteger {
     
     public typealias Digit = Int
     

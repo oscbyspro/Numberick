@@ -10,6 +10,39 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Multiplication x Digit x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Int) {
+        lhs.multiply(by: rhs, adding: UInt.zero)
+    }
+    
+    @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Int) -> Self {
+        lhs.multiplied(by: rhs, adding: UInt.zero)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    // TODO: see what kind of addition the algorithm intrinsically permits
+    @_disfavoredOverload @inlinable mutating func multiply(by multiplicand: Int, adding addend: UInt) {
+        fatalError("TODO")
+    }
+    
+    // TODO: see what kind of addition the algorithm intrinsically permits
+    @_disfavoredOverload @inlinable func multiplied(by multiplicand: Int, adding addend: UInt) -> Self {
+        var result = self; result.multiply(by: multiplicand, adding: addend); return result
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x Digit x Unsigned
 //*============================================================================*
 

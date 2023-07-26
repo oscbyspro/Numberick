@@ -10,6 +10,43 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Division x Digit x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by other: Digit) -> Bool {
+        let pvo: PVO<Self> = self.dividedReportingOverflow(by: other)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @_disfavoredOverload @inlinable public func dividedReportingOverflow(by other: Digit) -> PVO<Self> {
+        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
+        return   PVO(qro.partialValue.quotient, qro.overflow)
+    }
+    
+    @_disfavoredOverload @inlinable public mutating func formRemainderReportingOverflow(dividingBy other: Digit) -> Bool {
+        let pvo: PVO<Digit> = self.remainderReportingOverflow(dividingBy: other)
+        self = Self(digit: pvo.partialValue)
+        return pvo.overflow as Bool
+    }
+    
+    @_disfavoredOverload @inlinable public func remainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
+        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
+        return   PVO(qro.partialValue.remainder, qro.overflow)
+    }
+    
+    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Division x Digit x Unsigned
 //*============================================================================*
 
@@ -41,7 +78,7 @@ extension NBKFlexibleWidth.Magnitude {
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
     
-    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: UInt) -> PVO<QR<Self, UInt>> {
+    @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         var quotient  = self
         let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: other)
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
@@ -51,7 +88,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations x Private
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: UInt) -> PVO<UInt> {
+    @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         defer {
             Swift.assert(self.storage.isNormal)
         }

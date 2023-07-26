@@ -10,6 +10,49 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Bits x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(bit: Bool) {
+        self.init(digit: Digit(bit: bit))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var bitWidth: Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var nonzeroBitCount: Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var leadingZeroBitCount: Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var trailingZeroBitCount: Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var mostSignificantBit: Bool {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Bits x Unsigned
 //*============================================================================*
 

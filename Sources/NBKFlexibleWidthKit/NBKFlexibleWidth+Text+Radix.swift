@@ -9,8 +9,32 @@
 
 import NBKCoreKit
 
+// TODO: IntXL and UIntXL are similar
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Text x Radix
+// MARK: * NBK x Flexible Width x Text x Radix x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Decode
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Text x Radix x Unsigned
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {

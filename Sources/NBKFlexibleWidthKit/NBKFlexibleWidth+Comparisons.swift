@@ -10,6 +10,65 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Comparisons x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var isZero: Bool {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var isLessThanZero: Bool {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var isMoreThanZero: Bool {
+        fatalError("TODO")
+    }
+    
+    @inlinable public func signum() -> Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public var isPowerOf2: Bool {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func hash(into hasher: inout Hasher) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.compared(to: rhs) == 0
+    }
+    
+    @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
+        lhs.compared(to: rhs) == -1
+    }
+    
+    @inlinable public func compared(to other: Self) -> Int {
+        fatalError("TODO")
+    }
+    
+    @inlinable public func compared(to other: Self, at index: Int) -> Int {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Comparisons x Unsigned
 //*============================================================================*
 
@@ -85,6 +144,13 @@ extension NBKFlexibleWidth.Magnitude {
             return Int(bit: !prefix.allSatisfy({ $0.isZero }))
         }}
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities x Private

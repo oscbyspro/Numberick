@@ -10,13 +10,40 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Complements x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Magnitude
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var magnitude: Magnitude {
+        self._magnitude
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        fatalError("TODO")
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Complements x Unsigned
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {

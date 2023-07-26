@@ -55,6 +55,9 @@ final class UIntXLTestsOnDivision: XCTestCase {
     }
     
     func testDividingWithLargeDivisor() {
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 3,  4,  5,  6 &+ 1 << 63] as X), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 2,  3,  4,  5 &+ 1 << 63] as X), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X))
+
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 1,  2,  3,  4 &+ 1 << 63] as X), T(1), T(x64:[0, 0, 0, 0] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 0,  1,  2,  3 &+ 1 << 63] as X), T(1), T(x64:[1, 1, 1, 1] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~0, ~0,  0,  2 &+ 1 << 63] as X), T(1), T(x64:[2, 2, 2, 2] as X))

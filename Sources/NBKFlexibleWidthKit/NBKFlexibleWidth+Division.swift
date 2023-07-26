@@ -10,6 +10,43 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Division x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func divideReportingOverflow(by other: Self) -> Bool {
+        let pvo: PVO<Self> = self.dividedReportingOverflow(by: other)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public func dividedReportingOverflow(by other: Self) -> PVO<Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
+        return   PVO(qro.partialValue.quotient, qro.overflow)
+    }
+    
+    @inlinable public mutating func formRemainderReportingOverflow(dividingBy other: Self) -> Bool {
+        let pvo: PVO<Self> = self.remainderReportingOverflow(dividingBy: other)
+        self = pvo.partialValue
+        return pvo.overflow as Bool
+    }
+    
+    @inlinable public func remainderReportingOverflow(dividingBy other: Self) -> PVO<Self> {
+        let qro: PVO<QR<Self, Self>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
+        return   PVO(qro.partialValue.remainder, qro.overflow)
+    }
+    
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Division x Unsigned
 //*============================================================================*
 

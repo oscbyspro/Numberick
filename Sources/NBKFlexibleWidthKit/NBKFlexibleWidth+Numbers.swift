@@ -10,19 +10,80 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Numbers x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Constants
+    //=------------------------------------------------------------------------=
+    
+    public static let zero = Self(0)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Digit
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(digit: Int) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Literal
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(integerLiteral value: StaticBigInt) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Binary Integer
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init?(exactly source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init(clamping source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Binary Floating Point
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ source: some BinaryFloatingPoint) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init?(exactly source: some BinaryFloatingPoint) {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Numbers x Unsigned
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Constants
     //=------------------------------------------------------------------------=
     
     public static let zero = Self(0)
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Initializers x Digit
     //=------------------------------------------------------------------------=
         
     @inlinable public init(digit: UInt) {

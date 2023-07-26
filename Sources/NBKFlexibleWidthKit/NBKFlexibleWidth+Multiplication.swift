@@ -10,6 +10,37 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Multiplication x Signed
+//*============================================================================*
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
+        lhs.multiply(by: rhs)
+    }
+    
+    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
+        lhs.multiplied(by: rhs)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func multiply(by multiplicand: Self) {
+        self = self.multiplied(by: multiplicand)
+    }
+    
+    @inlinable public func multiplied(by multiplicand: Self) -> Self {
+        fatalError("TODO")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x Unsigned
 //*============================================================================*
 
