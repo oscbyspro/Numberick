@@ -24,6 +24,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(Array(integer),       words, file: file, line: line)
     XCTAssertEqual(Array(integer.words), words, file: file, line: line)
     
+    XCTAssertEqual(Array(integer.reversed()),       words.reversed(), file: file, line: line)
+    XCTAssertEqual(Array(integer.words.reversed()), words.reversed(), file: file, line: line)
+    
     XCTAssertEqual(integer.withContiguousStorage({        Array($0) }), words, file: file, line: line)
     XCTAssertEqual(integer.withContiguousMutableStorage({ Array($0) }), words, file: file, line: line)
     

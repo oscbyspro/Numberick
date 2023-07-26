@@ -46,7 +46,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftLeftSmart(by distance: Int) {
         let size = distance.magnitude as UInt
-        switch (distance >= 0, size < UInt(bitPattern: Self.bitWidth)) {
+        switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
         case (true,  true ): self.bitshiftLeft (by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: false)
         case (false, true ): self.bitshiftRight(by: Int(bitPattern: size))
@@ -65,7 +65,7 @@ extension NBKDoubleWidth {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
@@ -77,7 +77,7 @@ extension NBKDoubleWidth {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
         var result = self; result.bitshiftLeft(by: distance); return result
@@ -167,7 +167,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable public mutating func bitshiftRightSmart(by distance: Int) {
         let size = distance.magnitude as UInt
-        switch (distance >= 0, size < UInt(bitPattern: Self.bitWidth)) {
+        switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
         case (true,  true ): self.bitshiftRight(by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: self.isLessThanZero)
         case (false, true ): self.bitshiftLeft (by: Int(bitPattern: size))
@@ -186,7 +186,7 @@ extension NBKDoubleWidth {
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
@@ -198,7 +198,7 @@ extension NBKDoubleWidth {
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitshiftedRight(by distance: Int) -> Self {
         var result = self; result.bitshiftRight(by: distance); return result

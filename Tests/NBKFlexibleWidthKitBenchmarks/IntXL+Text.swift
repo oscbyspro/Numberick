@@ -88,7 +88,7 @@ final class UIntXLBenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -99,7 +99,7 @@ final class UIntXLBenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }

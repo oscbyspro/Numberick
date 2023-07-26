@@ -16,7 +16,20 @@ import XCTest
 // MARK: * NBK x Collection
 //*============================================================================*
 
-final class NBKCollectionTests: XCTestCase {
+final class CollectionTests: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Drop
+    //=------------------------------------------------------------------------=
+    
+    func testDropLastWhile() {
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 0 }, [             ])
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 1 }, [1            ])
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 2 }, [1, 2         ])
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 3 }, [1, 2, 3      ])
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 4 }, [1, 2, 3, 4   ])
+        NBKAssertDropLastWhile([1, 2, 3, 4, 5], { $0 > 5 }, [1, 2, 3, 4, 5])
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Remove Count
@@ -69,6 +82,17 @@ final class NBKCollectionTests: XCTestCase {
         NBKAssertRemoveSuffixMaxLength(8, [             ], [1, 2, 3, 4, 5])
         NBKAssertRemoveSuffixMaxLength(9, [             ], [1, 2, 3, 4, 5])
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Utilities x Drop
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertDropLastWhile(
+_ collection: [Int], _ predicate: (Int) -> Bool, _ subsequence: [Int],
+file: StaticString = #file, line: UInt = #line) {
+    let result = NBK.dropLast(from: collection, while: predicate)
+    XCTAssertEqual(Array(result),  subsequence, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=

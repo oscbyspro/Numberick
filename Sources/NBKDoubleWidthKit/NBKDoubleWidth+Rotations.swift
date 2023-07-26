@@ -22,7 +22,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitrotateLeft(by distance: Int) {
         self = self.bitrotatedLeft(by: distance)
@@ -31,7 +31,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
@@ -43,7 +43,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitrotateLeft(words: Int, bits: Int) {
@@ -53,7 +53,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitrotatedLeft(words: Int, bits: Int) -> Self {
@@ -88,7 +88,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public mutating func bitrotateLeft(words: Int) {
         self = self.bitrotatedLeft(words: words)
@@ -97,7 +97,7 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public func bitrotatedLeft(words: Int) -> Self {
         precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
@@ -132,7 +132,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitrotateRight(by distance: Int) {
         self = self.bitrotatedRight(by: distance)
@@ -141,7 +141,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
+    ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitrotatedRight(by distance: Int) -> Self {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
@@ -153,7 +153,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public mutating func bitrotateRight(words: Int, bits: Int) {
@@ -163,7 +163,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
     @inlinable public func bitrotatedRight(words: Int, bits: Int) -> Self {
@@ -199,7 +199,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public mutating func bitrotateRight(words: Int) {
         self = self.bitrotatedRight(words: words)
@@ -208,7 +208,7 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < Self.endIndex`
+    ///   - words: `0 <= words < self.endIndex`
     ///
     @inlinable public func bitrotatedRight(words: Int) -> Self {
         precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())

@@ -88,7 +88,7 @@ final class Int256BenchmarksOnText: XCTestCase {
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T.stdlib(encoded, radix: radix)!)
+            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -99,7 +99,7 @@ final class Int256BenchmarksOnText: XCTestCase {
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T.stdlib(encoded, radix: radix)!)
+            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -110,7 +110,7 @@ final class Int256BenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -121,7 +121,7 @@ final class Int256BenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -200,7 +200,7 @@ final class UInt256BenchmarksOnText: XCTestCase {
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T.stdlib(encoded, radix: radix)!)
+            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -211,7 +211,7 @@ final class UInt256BenchmarksOnText: XCTestCase {
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(T.stdlib(encoded, radix: radix)!)
+            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -222,7 +222,7 @@ final class UInt256BenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -233,7 +233,7 @@ final class UInt256BenchmarksOnText: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(String.stdlib(decoded, radix: radix))
+            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }

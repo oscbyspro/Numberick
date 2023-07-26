@@ -8,16 +8,24 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Stdlib x Text x Encode
+// MARK: * NBK x Stdlib
 //*============================================================================*
 
-extension Swift.String {
+extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    static func stdlib(_ source: some BinaryInteger, radix: Int = 10, uppercase: Bool = false) -> Self {
-        Self(source, radix: radix, uppercase: uppercase)
+    /// Creates a description from an integer by using Swift's standard library method.
+    @inlinable public static func descriptionAsStdlib(
+    _ source: some Swift.BinaryInteger, radix: Int = 10, uppercase: Bool = false) -> String {
+        String.init(source, radix: radix, uppercase: uppercase)
+    }
+    
+    /// Creates an integer from a description by using Swift's standard library method.
+    @inlinable public static func integerAsStdlib<T: Swift.FixedWidthInteger>(
+    _ source: some StringProtocol, radix: Int = 10, as type: T.Type = T.self) -> Optional<T> {
+        T.init(source, radix: radix)
     }
 }
