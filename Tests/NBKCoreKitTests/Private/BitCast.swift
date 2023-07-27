@@ -164,28 +164,28 @@ final class BitCastTestsOnIntegers: XCTestCase {
 private func NBKAssertInitOrBitCast<I: NBKFixedWidthInteger, O: NBKFixedWidthInteger>(
 _ source: I, exactly: O?, clamping: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {
-    //=--------------------------------------=
+    //=------------------------------------------=
     if  let exactly {
         XCTAssertEqual(NBK.initOrBitCast(source), exactly, file: file, line: line)
     }
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssertEqual(NBK.initOrBitCast(exactly:    source), exactly,    file: file, line: line)
     XCTAssertEqual(NBK.initOrBitCast(clamping:   source), clamping,   file: file, line: line)
     XCTAssertEqual(NBK.initOrBitCast(truncating: source), truncating, file: file, line: line)
-    //=--------------------------------------=
+    //=------------------------------------------=
     // some BinaryInteger
-    //=--------------------------------------=
+    //=------------------------------------------=
     NBKAssertInitOrBitCastAsBinaryInteger(source, exactly: exactly, clamping: clamping, truncating: truncating, file: file, line: line)
 }
 
 private func NBKAssertInitOrBitCastAsBinaryInteger<I: BinaryInteger, O: BinaryInteger>(
 _ source: I, exactly: O?, clamping: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {
-    //=--------------------------------------=
+    //=------------------------------------------=
     if  let exactly {
         XCTAssertEqual(NBK.initOrBitCast(source), exactly, file: file, line: line)
     }
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssertEqual(NBK.initOrBitCast(exactly:    source), exactly,    file: file, line: line)
     XCTAssertEqual(NBK.initOrBitCast(clamping:   source), clamping,   file: file, line: line)
     XCTAssertEqual(NBK.initOrBitCast(truncating: source), truncating, file: file, line: line)

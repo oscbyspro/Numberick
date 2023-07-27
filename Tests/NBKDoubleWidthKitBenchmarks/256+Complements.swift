@@ -101,6 +101,36 @@ final class Int256BenchmarksOnComplements: XCTestCase {
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Additive Inverse
+    //=------------------------------------------------------------------------=
+    
+    func testAdditiveInverse() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.negated())
+            NBK.blackHole(xyz.negated())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testAdditiveInverseReportingOverflow() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.negatedReportingOverflow())
+            NBK.blackHole(xyz.negatedReportingOverflow())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
 }
 
 //*============================================================================*

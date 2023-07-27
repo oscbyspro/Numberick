@@ -42,11 +42,11 @@ file: StaticString = #file, line: UInt = #line) {
 func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, exactly: O?, clamping: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {
-    //=--------------------------------------=
+    //=------------------------------------------=
     if  let exactly = exactly {
         XCTAssertEqual(O(value), exactly, file: file, line: line)
     }
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssertEqual(O(exactly:            value), exactly,    file: file, line: line)
     XCTAssertEqual(O(clamping:           value), clamping,   file: file, line: line)
     XCTAssertEqual(O(truncatingIfNeeded: value), truncating, file: file, line: line)

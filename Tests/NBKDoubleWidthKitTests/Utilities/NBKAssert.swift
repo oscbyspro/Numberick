@@ -19,7 +19,7 @@ func NBKAssertHalvesGetSetInit<H: NBKFixedWidthInteger>(
 _ value: NBKDoubleWidth<H>, _ low: H.Magnitude, _ high: H,
 file: StaticString = #file, line: UInt = #line) {
     typealias T = NBKDoubleWidth<H>
-    //=--------------------------------------=
+    //=------------------------------------------=
     if  high.isZero {
         XCTAssertEqual(value, T(low:  low ), file: file, line: line)
     }
@@ -27,7 +27,7 @@ file: StaticString = #file, line: UInt = #line) {
     if  low.isZero {
         XCTAssertEqual(value, T(high: high), file: file, line: line)
     }
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssertEqual(value, T(low:  low,  high: high), file: file, line: line)
     XCTAssertEqual(value, T(high: high, low:  low ), file: file, line: line)
     

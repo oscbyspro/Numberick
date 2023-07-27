@@ -145,11 +145,11 @@ private func NBKAssertMagnitude<T: NBKFixedWidthInteger>(
 _ value: NBK.Wide2<T>, _ magnitude: NBK.Wide2<T.Magnitude>,
 file: StaticString = #file, line: UInt = #line) {
     let result = NBK.magnitude(of: value)
-    //=--------------------------------------=
+    //=------------------------------------------=
     if  let value = value as? NBK.Wide2<T.Magnitude> {
         XCTAssert(result == value, file: file, line: line)
     }
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssert(result == magnitude, file: file, line: line)
     XCTAssert(NBK.magnitude(of: result) == magnitude, file: file, line: line)
 }
@@ -245,12 +245,12 @@ file: StaticString = #file, line: UInt = #line) {
     var result: QR<T, NBK.Wide3<T>>
     result.remainder = lhs
     result.quotient  = NBK.divide3212MSBUnchecked(&result.remainder,  by: rhs)
-    //=--------------------------------------=
+    //=------------------------------------------=
     XCTAssertEqual(result.quotient,       quotient,       file: file, line: line)
     XCTAssertEqual(result.remainder.high, T.zero,         file: file, line: line)
     XCTAssertEqual(result.remainder.mid,  remainder.high, file: file, line: line)
     XCTAssertEqual(result.remainder.low,  remainder.low,  file: file, line: line)
-    //=--------------------------------------=
+    //=------------------------------------------=
     var composite: NBK.Wide3<T>
     composite = NBK.multiplying213(rhs,  by: result.quotient )
     let _ = NBK.increment33B(&composite, by: result.remainder)
