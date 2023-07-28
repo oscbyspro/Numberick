@@ -167,7 +167,21 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable var isPowerOf2: Bool { get }
     
-    /// A three-way comparison that returns: `-1` (less), `0` (same), or `1` (more).
+    /// A three-way comparison against zero.
+    ///
+    /// ```
+    /// ┌─────────── → ────────┐
+    /// │ self       │ signum  │
+    /// ├─────────── → ────────┤
+    /// │ Int256(-2) │ Int(-1) │ - less
+    /// │ Int256( 0) │ Int( 0) │ - same
+    /// │ Int256( 2) │ Int( 1) │ - more
+    /// └─────────── → ────────┘
+    /// ```
+    ///
+    @inlinable func signum() -> Int
+    
+    /// A three-way comparison against the given value.
     ///
     /// ```
     /// ┌────────────┬─────────── → ────────┐

@@ -37,6 +37,14 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Signum
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func signum() -> Int {
+        Int(bit: self > Self.zero) - Int(bit: self < Self.zero)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Bit Pattern
     //=------------------------------------------------------------------------=
     

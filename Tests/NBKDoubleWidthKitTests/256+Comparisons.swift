@@ -133,16 +133,6 @@ final class Int256TestsOnComparisons: XCTestCase {
         XCTAssertFalse((~T(2)).isEven)
     }
     
-    func testSignum() {
-        XCTAssertEqual(( T(0)).signum(),  Int(0))
-        XCTAssertEqual(( T(1)).signum(),  Int(1))
-        XCTAssertEqual(( T(2)).signum(),  Int(1))
-        
-        XCTAssertEqual((~T(0)).signum(), -Int(1))
-        XCTAssertEqual((~T(1)).signum(), -Int(1))
-        XCTAssertEqual((~T(2)).signum(), -Int(1))
-    }
-    
     func testIsPowerOf2() {
         XCTAssertFalse((T.min).isPowerOf2)
         XCTAssertFalse((T(-4)).isPowerOf2)
@@ -163,6 +153,16 @@ final class Int256TestsOnComparisons: XCTestCase {
         XCTAssertTrue (T(x64: X(0, 0, 1, 0)).isPowerOf2)
         XCTAssertFalse(T(x64: X(0, 0, 1, 1)).isPowerOf2)
         XCTAssertTrue (T(x64: X(0, 0, 0, 1)).isPowerOf2)
+    }
+    
+    func testSignum() {
+        NBKAssertSignum( T(0),  Int(0))
+        NBKAssertSignum( T(1),  Int(1))
+        NBKAssertSignum( T(2),  Int(1))
+        
+        NBKAssertSignum(~T(0), -Int(1))
+        NBKAssertSignum(~T(1), -Int(1))
+        NBKAssertSignum(~T(2), -Int(1))
     }
 }
 
@@ -268,16 +268,6 @@ final class UInt256TestsOnComparisons: XCTestCase {
         XCTAssertFalse((~T(2)).isEven)
     }
     
-    func testSignum() {
-        XCTAssertEqual(( T(0)).signum(), Int(0))
-        XCTAssertEqual(( T(1)).signum(), Int(1))
-        XCTAssertEqual(( T(2)).signum(), Int(1))
-        
-        XCTAssertEqual((~T(0)).signum(), Int(1))
-        XCTAssertEqual((~T(1)).signum(), Int(1))
-        XCTAssertEqual((~T(2)).signum(), Int(1))
-    }
-    
     func testIsPowerOf2() {
         XCTAssertFalse((T.min).isPowerOf2)
         XCTAssertFalse((T( 0)).isPowerOf2)
@@ -298,6 +288,16 @@ final class UInt256TestsOnComparisons: XCTestCase {
         XCTAssertTrue (T(x64: X(0, 0, 1, 0)).isPowerOf2)
         XCTAssertFalse(T(x64: X(0, 0, 1, 1)).isPowerOf2)
         XCTAssertTrue (T(x64: X(0, 0, 0, 1)).isPowerOf2)
+    }
+    
+    func testSignum() {
+        NBKAssertSignum( T(0),  Int(0))
+        NBKAssertSignum( T(1),  Int(1))
+        NBKAssertSignum( T(2),  Int(1))
+        
+        NBKAssertSignum(~T(0),  Int(1))
+        NBKAssertSignum(~T(1),  Int(1))
+        NBKAssertSignum(~T(2),  Int(1))
     }
 }
 
