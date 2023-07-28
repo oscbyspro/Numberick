@@ -40,8 +40,8 @@ extension NBKCoreInteger {
     // MARK: Details x Signum
     //=------------------------------------------------------------------------=
     
-    @inlinable public func signum() -> Int {
-        Int(bit: self > Self.zero) - Int(bit: self < Self.zero)
+    @inlinable public func signum()  -> Int {
+        Int(bit: self.isMoreThanZero) - Int(bit: self.isLessThanZero)
     }
     
     //=------------------------------------------------------------------------=
