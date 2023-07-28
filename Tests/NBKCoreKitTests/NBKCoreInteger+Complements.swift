@@ -18,7 +18,8 @@ import XCTest
 
 final class NBKCoreIntegerTestsOnComplements: XCTestCase {
     
-    typealias T = any NBKCoreInteger.Type
+    typealias T = any (NBKCoreInteger).Type
+    typealias S = any (NBKCoreInteger & NBKSignedInteger).Type
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -30,22 +31,22 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
     // MARK: Tests x Bit Pattern
     //=------------------------------------------------------------------------=
     
-    func testToBitPattern() {
+    func testBitPattern() {
         func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             
-            XCTAssertEqual(T( 0).bitPattern, M.min)
-            XCTAssertEqual(T(-1).bitPattern, M.max)
+            NBKAssertBitPattern(T( 0),  (M.min))
+            NBKAssertBitPattern(T(-1),  (M.max))
             
-            XCTAssertEqual(T.min.bitPattern,  (M(1) << (T.bitWidth - 1)))
-            XCTAssertEqual(T.max.bitPattern, ~(M(1) << (T.bitWidth - 1)))
+            NBKAssertBitPattern(T.min,  (M(1) << (M.bitWidth - 1)))
+            NBKAssertBitPattern(T.max, ~(M(1) << (M.bitWidth - 1)))
         }
         
         func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
             typealias M = T.Magnitude
             
-            XCTAssertEqual(T.min.bitPattern, M.min)
-            XCTAssertEqual(T.max.bitPattern, M.max)
+            NBKAssertBitPattern(T.min,  (M.min))
+            NBKAssertBitPattern(T.max,  (M.max))
         }
         
         for type: T in types {
@@ -135,6 +136,35 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
         
         for type: T in types {
             type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Additive Inverse
+    //=------------------------------------------------------------------------=
+    
+    func testAdditiveInverse() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+            NBKAssertAdditiveInverse( T(1), -T(1))
+            NBKAssertAdditiveInverse( T( ),  T( ))
+            NBKAssertAdditiveInverse(-T(1),  T(1))
+        }
+        
+        for case let type as S in types {
+            whereIsSigned(type)
+        }
+    }
+    
+    func testAdditiveInverseReportingOverflow() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+            NBKAssertAdditiveInverse(T.max - T( ), T.min + T(1))
+            NBKAssertAdditiveInverse(T.max - T(1), T.min + T(2))
+            NBKAssertAdditiveInverse(T.min + T(1), T.max - T( ))
+            NBKAssertAdditiveInverse(T.min + T( ), T.min,  true)
+        }
+        
+        for case let type as S in types {
+            whereIsSigned(type)
         }
     }
 }

@@ -15,6 +15,15 @@ import XCTest
 // MARK: * NBK x Assert x Comparisons
 //*============================================================================*
 
+func NBKAssertSignum<H: NBKFixedWidthInteger>(
+_ operand: NBKDoubleWidth<H>, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    XCTAssertEqual(Int(operand.signum() as Int), signum, file: file, line: line)
+    XCTAssertEqual(Int(operand.signum() as T  ), signum, file: file, line: line) // stdlib
+}
+
 func NBKAssertComparisons<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {

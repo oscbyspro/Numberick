@@ -29,20 +29,12 @@ final class Int256TestsOnComplements: XCTestCase {
     // MARK: Tests x Bit Pattern
     //=------------------------------------------------------------------------=
     
-    func testInitBitPattern() {
-        XCTAssertEqual(T(bitPattern: M.min), T( 0))
-        XCTAssertEqual(T(bitPattern: M.max), T(-1))
+    func testBitPattern() {
+        NBKAssertBitPattern(T(  ),  (M.min))
+        NBKAssertBitPattern(T(-1),  (M.max))
         
-        XCTAssertEqual(T(bitPattern:  (M(1) << (M.bitWidth - 1))), T.min)
-        XCTAssertEqual(T(bitPattern: ~(M(1) << (M.bitWidth - 1))), T.max)
-    }
-    
-    func testValueAsBitPattern() {
-        XCTAssertEqual(T( 0).bitPattern, M.min)
-        XCTAssertEqual(T(-1).bitPattern, M.max)
-        
-        XCTAssertEqual(T.min.bitPattern,  (M(1) << (M.bitWidth - 1)))
-        XCTAssertEqual(T.max.bitPattern, ~(M(1) << (M.bitWidth - 1)))
+        NBKAssertBitPattern(T.min,  (M(1) << (M.bitWidth - 1)))
+        NBKAssertBitPattern(T.max, ~(M(1) << (M.bitWidth - 1)))
     }
     
     //=------------------------------------------------------------------------=
@@ -70,6 +62,23 @@ final class Int256TestsOnComplements: XCTestCase {
         NBKAssertTwosComplement(T.min, T.min + 0, true)
         NBKAssertTwosComplement(T.max, T.min + 1)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Additive Inverse
+    //=------------------------------------------------------------------------=
+    
+    func testAdditiveInverse() {
+        NBKAssertAdditiveInverse( T(1), -T(1))
+        NBKAssertAdditiveInverse( T( ),  T( ))
+        NBKAssertAdditiveInverse(-T(1),  T(1))
+    }
+    
+    func testAdditiveInverseReportingOverflow() {
+        NBKAssertAdditiveInverse(T.max - T( ), T.min + T(1))
+        NBKAssertAdditiveInverse(T.max - T(1), T.min + T(2))
+        NBKAssertAdditiveInverse(T.min + T(1), T.max - T( ))
+        NBKAssertAdditiveInverse(T.min + T( ), T.min,  true)
+    }
 }
 
 //*============================================================================*
@@ -85,14 +94,9 @@ final class UInt256TestsOnComplements: XCTestCase {
     // MARK: Tests x Bit Pattern
     //=------------------------------------------------------------------------=
     
-    func testInitBitPattern() {
-        XCTAssertEqual(T(bitPattern: M.min), T.min)
-        XCTAssertEqual(T(bitPattern: M.max), T.max)
-    }
-    
-    func testValueAsBitPattern() {
-        XCTAssertEqual(T.min.bitPattern, M.min)
-        XCTAssertEqual(T.max.bitPattern, M.max)
+    func testBitPattern() {
+        NBKAssertBitPattern(T.min, M.min)
+        NBKAssertBitPattern(T.max, M.max)
     }
     
     //=------------------------------------------------------------------------=

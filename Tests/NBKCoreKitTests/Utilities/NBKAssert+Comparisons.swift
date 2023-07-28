@@ -14,6 +14,13 @@ import XCTest
 // MARK: * NBK x Assert x Comparisons
 //*============================================================================*
 
+func NBKAssertSignum<T: NBKFixedWidthInteger>(
+_ operand: T, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(Int(operand.signum() as Int), signum, file: file, line: line)
+    XCTAssertEqual(Int(operand.signum() as T  ), signum, file: file, line: line) // stdlib
+}
+
 func NBKAssertComparisons<T: NBKFixedWidthInteger>(
 _ lhs: T, _ rhs: T, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
@@ -22,7 +29,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     XCTAssertEqual(lhs <  rhs, signum == -1, file: file, line: line)
     XCTAssertEqual(lhs <= rhs, signum !=  1, file: file, line: line)
-
+    
     XCTAssertEqual(lhs >  rhs, signum ==  1, file: file, line: line)
     XCTAssertEqual(lhs >= rhs, signum != -1, file: file, line: line)
     

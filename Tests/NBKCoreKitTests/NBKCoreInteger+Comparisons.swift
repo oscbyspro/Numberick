@@ -180,6 +180,43 @@ final class NBKCoreIntegerTestsOnComparisons: XCTestCase {
             type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
         }
     }
+    
+    func testSignum() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertSignum( T(0),  Int(0))
+            NBKAssertSignum( T(1),  Int(1))
+            NBKAssertSignum( T(2),  Int(1))
+            
+            NBKAssertSignum(~T(0), -Int(1))
+            NBKAssertSignum(~T(1), -Int(1))
+            NBKAssertSignum(~T(2), -Int(1))
+        }
+        
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            NBKAssertSignum( T(0),  Int(0))
+            NBKAssertSignum( T(1),  Int(1))
+            NBKAssertSignum( T(2),  Int(1))
+            
+            NBKAssertSignum(~T(0),  Int(1))
+            NBKAssertSignum(~T(1),  Int(1))
+            NBKAssertSignum(~T(2),  Int(1))
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguousWhenUsingSignum() {
+        func becauseThisCompilesSuccessfully(_ value: inout some NBKCoreInteger, _ asInt: inout Int) {
+            XCTAssertNotNil(value.signum())
+            XCTAssertNotNil(asInt.signum())
+        }
+    }
 }
 
 #endif

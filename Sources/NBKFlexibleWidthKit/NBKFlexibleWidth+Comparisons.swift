@@ -35,6 +35,10 @@ extension NBKFlexibleWidth {
         fatalError("TODO")
     }
     
+    @inlinable public func signum() -> Self {
+        Self(digit: self.signum() as Digit)
+    }
+    
     @inlinable public var isPowerOf2: Bool {
         fatalError("TODO")
     }
