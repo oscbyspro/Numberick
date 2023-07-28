@@ -21,8 +21,11 @@ import NBKCoreKit
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline var _signum: Int
-    @usableFromInline var _magnitude: Magnitude
+    /// The sign of this value.
+    public var sign: NBK.Sign
+    
+    /// The magnitude of this value.
+    public var magnitude: Magnitude
     
     //*========================================================================*
     // MARK: * Magnitude
@@ -42,14 +45,14 @@ import NBKCoreKit
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(unchecked: Storage) {
-            self.storage = unchecked
-            Swift.assert(self.storage.isNormal)
-        }
-        
         @inlinable init(storage: Storage) {
             self.storage = storage
             self.storage.normalize()
+            Swift.assert(self.storage.isNormal)
+        }
+        
+        @inlinable init(unchecked: Storage) {
+            self.storage = unchecked
             Swift.assert(self.storage.isNormal)
         }
         
@@ -75,9 +78,7 @@ import NBKCoreKit
             // MARK: Initializers
             //=----------------------------------------------------------------=
             
-            @inlinable init(elements: Elements) {
-                self.elements = elements
-            }
+            @inlinable init(elements: Elements) { self.elements = elements }
         }
     }
 }

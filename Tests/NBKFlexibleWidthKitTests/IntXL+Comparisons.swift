@@ -132,20 +132,10 @@ final class UIntXLTestsOnComparisons: XCTestCase {
         XCTAssertTrue (T(words:[ 0] as [UInt]).isEven)
         XCTAssertFalse(T(words:[ 1] as [UInt]).isEven)
         XCTAssertTrue (T(words:[ 2] as [UInt]).isEven)
-
+        
         XCTAssertFalse(T(words:[~0] as [UInt]).isEven)
         XCTAssertTrue (T(words:[~1] as [UInt]).isEven)
         XCTAssertFalse(T(words:[~2] as [UInt]).isEven)
-    }
-
-    func testSignum() {
-        XCTAssertEqual(T(words:[ 0] as [UInt]).signum(), Int(0))
-        XCTAssertEqual(T(words:[ 1] as [UInt]).signum(), Int(1))
-        XCTAssertEqual(T(words:[ 2] as [UInt]).signum(), Int(1))
-
-        XCTAssertEqual(T(words:[~0] as [UInt]).signum(), Int(1))
-        XCTAssertEqual(T(words:[~1] as [UInt]).signum(), Int(1))
-        XCTAssertEqual(T(words:[~2] as [UInt]).signum(), Int(1))
     }
 
     func testIsPowerOf2() {
@@ -166,6 +156,16 @@ final class UIntXLTestsOnComparisons: XCTestCase {
         XCTAssertTrue (T(words:[ 0,  0,  1,  0] as [UInt]).isPowerOf2)
         XCTAssertFalse(T(words:[ 0,  0,  1,  1] as [UInt]).isPowerOf2)
         XCTAssertTrue (T(words:[ 0,  0,  0,  1] as [UInt]).isPowerOf2)
+    }
+    
+    func testSignum() {
+        NBKAssertSignum(T(words:[ 0] as [UInt]), Int(0))
+        NBKAssertSignum(T(words:[ 1] as [UInt]), Int(1))
+        NBKAssertSignum(T(words:[ 2] as [UInt]), Int(1))
+
+        NBKAssertSignum(T(words:[~0] as [UInt]), Int(1))
+        NBKAssertSignum(T(words:[~1] as [UInt]), Int(1))
+        NBKAssertSignum(T(words:[~2] as [UInt]), Int(1))
     }
 }
 
