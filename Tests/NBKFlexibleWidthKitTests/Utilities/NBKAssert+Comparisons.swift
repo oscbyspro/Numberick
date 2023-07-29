@@ -37,8 +37,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
 }
 
-func NBKAssertComparisonsAtIndex(
-_ lhs: UIntXL, _ rhs: UIntXL, _ index: Int, _ signum: Int,
+func NBKAssertComparisonsAtIndex<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T, _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  index.isZero {

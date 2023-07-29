@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKFlexibleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Constants
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     public static let zero = Self(0)
@@ -26,15 +26,24 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(digit: Int) {
-        fatalError("TODO")
+        let sign = digit.isLessThanZero
+        let magnitude = Magnitude(digit: digit.magnitude)
+        self.init(sign: Sign(sign), magnitude: magnitude)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Literal
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(integerLiteral value: StaticBigInt) {
-        fatalError("TODO")
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        let sourceIsLessThanZero = source.signum() == -1
+        //=--------------------------------------=
+        self.init(sign: Sign.plus, magnitude: Magnitude(truncatingIntegerLiteral: source))
+        //=--------------------------------------=
+        if  sourceIsLessThanZero {
+            self.sign.toggle()
+            self.magnitude.formTwosComplement()
+        }
     }
     
     //=------------------------------------------------------------------------=
@@ -42,19 +51,31 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
-        fatalError("TODO")
+        //=--------------------------------------=
+        // Magnitude
+        //=--------------------------------------=
+        if  let source = source as? Magnitude {
+            self.init(sign: Sign.plus, magnitude: source)
+        //=--------------------------------------=
+        // some BinaryInteger
+        //=--------------------------------------=
+        }   else {
+            let sign = Sign(source < 0)
+            let magnitude = Magnitude(source.magnitude)
+            self.init(sign: sign, magnitude: magnitude)
+        }
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
-        fatalError("TODO")
+        self.init(source)
     }
     
     @inlinable public init(clamping source: some BinaryInteger) {
-        fatalError("TODO")
+        self.init(source)
     }
     
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
-        fatalError("TODO")
+        self.init(source)
     }
     
     //=------------------------------------------------------------------------=
@@ -67,6 +88,18 @@ extension NBKFlexibleWidth {
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
         fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func exactly(sign: FloatingPointSign, magnitude: Magnitude) -> Self {
+        Self(sign: sign, magnitude: magnitude)
+    }
+    
+    @inlinable public static func clamping(sign: FloatingPointSign, magnitude: Magnitude) -> Self {
+        Self(sign: sign, magnitude: magnitude)
     }
 }
 
@@ -103,20 +136,14 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        guard source.signum() >= 0 else { return nil }
         //=--------------------------------------=
-        let bitWidth = source.bitWidth - 1
-        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
-        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
-        let count = major + Int(bit: !minor.isZero)
+        if source.signum() == -1 { return nil }
         //=--------------------------------------=
-        let storage = Storage.uninitialized(count: count) { storage in
-            for index in storage.indices {
-                storage[index] = source[index]
-            }
-        }
-        
-        self.init(unchecked: storage)
+        self.init(truncatingIntegerLiteral: source)
+    }
+    
+    @inlinable init(truncatingIntegerLiteral source: StaticBigInt) {
+        self.init(storage: Storage(truncating: source))
     }
     
     //=------------------------------------------------------------------------=
@@ -176,11 +203,11 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func exactly(sign: FloatingPointSign, magnitude: Self) -> Self? {
+    @inlinable public static func exactly(sign: FloatingPointSign, magnitude: Magnitude) -> Self? {
         if sign == FloatingPointSign.plus || magnitude.isZero { return magnitude } else { return nil }
     }
     
-    @inlinable public static func clamping(sign: FloatingPointSign, magnitude: Self) -> Self {
+    @inlinable public static func clamping(sign: FloatingPointSign, magnitude: Magnitude) -> Self {
         if sign == FloatingPointSign.plus { return magnitude } else { return Self.zero }
     }
 }

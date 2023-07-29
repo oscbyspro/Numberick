@@ -26,6 +26,21 @@ extension NBKFlexibleWidth {
     @inlinable public func twosComplement() -> Self {
         fatalError("TODO")
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Additive Inverse
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func negateReportingOverflow() -> Bool {
+        self.sign.toggle()
+        return false as Bool
+    }
+    
+    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.negateReportingOverflow()
+        return PVO(partialValue, overflow)
+    }
 }
 
 //*============================================================================*
@@ -38,11 +53,14 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
+    #warning("tests")
     @inlinable public mutating func formTwosComplement() {
-        fatalError("TODO")
+        self.storage.formTwosComplement()
+        self.storage.normalize()
     }
     
+    #warning("tests")
     @inlinable public func twosComplement() -> Self {
-        fatalError("TODO")
+        var result = self; result.formTwosComplement(); return result
     }
 }

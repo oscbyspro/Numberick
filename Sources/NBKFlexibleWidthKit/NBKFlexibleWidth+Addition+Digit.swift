@@ -31,8 +31,24 @@ extension NBKFlexibleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    #warning("tests")
     @_disfavoredOverload @inlinable public mutating func add(_ other: Int, at index: Int) {
-        fatalError("TODO")
+        //=--------------------------------------=
+        if  self.sign ==  Sign(other.isLessThanZero) {
+            self.magnitude.add(other.magnitude, at: index)
+            return
+        }
+        //=--------------------------------------=
+        //  TODO: func compared(to: Digit)
+        //  TODO: Magnitude.init(digit, at: index)
+        let extended = Magnitude(digit: other.magnitude).bitshiftedLeft(by: index)
+        if  self.magnitude >= extended {
+            self.magnitude.subtract(extended, at: Int.zero)
+        //=--------------------------------------=
+        }   else {
+            self.sign.toggle()
+            self.magnitude = extended.subtracting(self.magnitude, at: Int.zero)
+        }
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: Int, at index: Int) -> Self {

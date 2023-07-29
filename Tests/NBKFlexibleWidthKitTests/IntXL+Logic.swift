@@ -17,6 +17,39 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
+// MARK: * NBK x IntXL x Logic
+//*============================================================================*
+
+final class IntXLTestsOnLogic: XCTestCase {
+    
+    typealias T = IntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testNot() {
+        NBKAssertNot(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+
+        NBKAssertNot(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~1, ~2, ~3] as [UInt]))
+        NBKAssertNot(T(words:[~0, ~1, ~2, ~3] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
+    }
+    
+    func testAnd() {
+        // TODO: (!)
+    }
+    
+    func testOr() {
+        // TODO: (!)
+    }
+    
+    func testXor() {
+        // TODO: (!)
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x UIntXL x Logic
 //*============================================================================*
 

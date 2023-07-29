@@ -20,27 +20,27 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        fatalError("TODO")
+        self.magnitude.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
-        fatalError("TODO")
+        self.sign != Sign.plus && !self.isZero
     }
     
     @inlinable public var isMoreThanZero: Bool {
-        fatalError("TODO")
+        self.sign == Sign.plus && !self.isZero
     }
     
     @inlinable public func signum() -> Int {
-        fatalError("TODO")
+        self.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
     }
     
     @inlinable public func signum() -> Self {
-        Self(digit: self.signum() as Digit)
+        Self(digit:   self.signum() as Digit)
     }
     
     @inlinable public var isPowerOf2: Bool {
-        fatalError("TODO")
+        self.sign == Sign.plus && self.magnitude.isPowerOf2
     }
     
     //=------------------------------------------------------------------------=
@@ -48,7 +48,8 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public func hash(into hasher: inout Hasher) {
-        fatalError("TODO")
+        hasher.combine(self.sign == Sign.minus && self.isZero ? Sign.plus : self.sign)
+        hasher.combine(self.magnitude)
     }
     
     //=------------------------------------------------------------------------=
@@ -64,11 +65,25 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        fatalError("TODO")
+        //=--------------------------------------=
+        if  self.sign != other.sign {
+            if self.isZero && other.isZero { return 0 }
+            return self.sign  == Sign.plus ? 1 : -1
+        }
+        //=--------------------------------------=
+        let m = self.magnitude.compared(to: other.magnitude)
+        return  self.sign == Sign.plus ? m : -(m)
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        fatalError("TODO")
+        //=--------------------------------------=
+        if  self.sign != other.sign {
+            if self.isZero && other.isZero { return 0 }
+            return self.sign  == Sign.plus ? 1 : -1
+        }
+        //=--------------------------------------=
+        let m = self.magnitude.compared(to: other.magnitude, at: index)
+        return  self.sign == Sign.plus ? m : -(m)
     }
 }
 
@@ -160,6 +175,10 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
+    /// A three-way comparison of `lhs` against `rhs`.
+    ///
+    /// - Requires: The last element in `lhs` and `rhs` must not be zero.
+    ///
     @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
         assert(lhs.last != 0 && rhs.last != 0)
         //=--------------------------------------=

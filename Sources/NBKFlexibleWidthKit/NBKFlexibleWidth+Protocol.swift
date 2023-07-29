@@ -9,22 +9,17 @@
 
 import NBKCoreKit
 
-// TODO: consider moving this to complements as the additive inverse
+// TODO: consider a public NBKCoreKit/NBKFlexibleWidthInteger protocol
+// TODO: consider a primary associated type similar to NBKCoreKit/NBKCoreInteger
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Negation x Signed
+// MARK: * NBK x Flexible Width x Protocol
 //*============================================================================*
 
-extension NBKFlexibleWidth {
+public protocol IntXLOrUIntXL: NBKBinaryInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func negateReportingOverflow() -> Bool {
-        fatalError("TODO")
-    }
-    
-    @inlinable public func negatedReportingOverflow() -> PVO<Self> {
-        fatalError("TODO")
-    }
+ 
+    func compared(to other: Self, at index: Int) -> Int
 }

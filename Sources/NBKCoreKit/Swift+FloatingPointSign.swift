@@ -36,6 +36,21 @@ extension Swift.FloatingPointSign {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The `ascii` representation of this value.
+    ///
+    /// ```
+    /// ┌────────── → ─────────────┐
+    /// │ sign      │ ascii        │
+    /// ├────── = ─ → ────── = ────┤
+    /// │ plus  │ 0 │ 43     │ "+" │
+    /// │ minus │ 1 │ 45     │ "-" │
+    /// └────── = ─ → ────── = ────┘
+    /// ```
+    ///
+    @_transparent public var ascii: UInt8 {
+        UInt8(ascii: self.bit ? "-" : "+")
+    }
+    
     /// The `bit` representation of this value.
     ///
     /// ```

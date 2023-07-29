@@ -24,6 +24,11 @@ final class SwiftTestsOnFloatingPointSign: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testASCII() {
+        XCTAssertEqual(T.plus .ascii, UInt8(ascii: "+"))
+        XCTAssertEqual(T.minus.ascii, UInt8(ascii: "-"))
+    }
+    
     func testBit() {
         XCTAssertEqual(T(false), T.plus )
         XCTAssertEqual(T(true ), T.minus)

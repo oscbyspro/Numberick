@@ -18,7 +18,6 @@ import XCTest
 func NBKAssertWords<T: NBKBinaryInteger>(
 _ integer: T, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
-    
     XCTAssertEqual(Array(integer.words),            Array(words),            file: file, line: line)
     XCTAssertEqual(Array(integer.words.reversed()), Array(words.reversed()), file: file, line: line)
 }

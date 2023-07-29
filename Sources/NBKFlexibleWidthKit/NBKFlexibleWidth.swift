@@ -13,25 +13,43 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width
 //*============================================================================*
 
-@frozen public struct NBKFlexibleWidth: NBKSignedInteger {
+/// A signed, flexible-width, binary integer.
+@frozen public struct NBKFlexibleWidth: NBKSignedInteger, IntXLOrUIntXL {
     
     public typealias Digit = Int
+    
+    public typealias Sign  = NBK.Sign
     
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
     /// The sign of this value.
-    public var sign: NBK.Sign
+    public var sign: Sign
     
     /// The magnitude of this value.
     public var magnitude: Magnitude
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(sign: Sign, magnitude: Magnitude) {
+        self.sign = sign
+        self.magnitude = magnitude
+    }
     
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*
     
-    @frozen public struct Magnitude: NBKUnsignedInteger {
+    /// An unsigned, flexible-width, binary integer.
+    ///
+    /// ### Logic
+    ///
+    /// - TODO: Comment on bitwise NOT, AND, OR, XOR semantics.
+    ///
+    @frozen public struct Magnitude: NBKUnsignedInteger, IntXLOrUIntXL {
         
         public typealias Digit = UInt
         

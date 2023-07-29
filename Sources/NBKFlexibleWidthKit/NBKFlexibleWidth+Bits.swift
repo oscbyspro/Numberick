@@ -27,28 +27,45 @@ extension NBKFlexibleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
-        fatalError("TODO")
+        self.magnitude.bitWidth + self.extraBitWidthInBitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        fatalError("TODO")
+        if !self.isLessThanZero {
+            return self.magnitude.nonzeroBitCount
+        }
+        
+        var nonzeroBitCount = self.bitWidth
+        nonzeroBitCount   &-= self.magnitude.nonzeroBitCount
+        nonzeroBitCount   &-= self.magnitude.trailingZeroBitCount
+        return nonzeroBitCount &+ 1 as Int
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        fatalError("TODO")
+        self.isLessThanZero ? Int.zero : self.magnitude.leadingZeroBitCount + self.extraBitWidthInBitWidth
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        fatalError("TODO")
+        self.magnitude.trailingZeroBitCount
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        fatalError("TODO")
+        self.isLessThanZero
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        fatalError("TODO")
+        self.magnitude.leastSignificantBit
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    /// The number of extra bits in `bitWidth` compared to `magnitude/bitWidth`.
+    @inlinable var extraBitWidthInBitWidth: Int {
+        self.wordsNeedsOneMoreWord ? UInt.bitWidth : Int.zero
     }
 }
 
@@ -70,6 +87,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
         self.storage.elements.count * UInt.bitWidth
     }

@@ -19,16 +19,119 @@ extension NBKFlexibleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
+    /// Creates an instance from the given two's complement machine words.
+    ///
+    /// - Note: An empty collection defaults to positive zero.
+    ///
     @inlinable public init(words: some RandomAccessCollection<UInt>) {
-        fatalError("TODO")
+        //=--------------------------------------=
+        // default to zero by nil coalescing
+        //=--------------------------------------=
+        let last = words.last ?? UInt()
+        //=--------------------------------------=
+        self.init(sign: Sign.plus, magnitude: Magnitude(words: words))
+        //=--------------------------------------=
+        if  last.mostSignificantBit {
+            self.sign.toggle()
+            self.magnitude.formTwosComplement()
+        }
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: [UInt] {
-        fatalError("TODO")
+    @inlinable public var words: Words {
+        Words(source: self)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var wordsNeedsOneMoreWord: Bool {
+        self.magnitude.isZero || self.magnitude.mostSignificantBit
+    }
+    
+    //*========================================================================*
+    // MARK: * Words
+    //*========================================================================*
+    
+    @frozen public struct Words: RandomAccessCollection {
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        public var count: Int
+        @usableFromInline let sign: UInt
+        @usableFromInline var storage: Magnitude.Storage
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(source: NBKFlexibleWidth) {
+            self.count   = Int(bit: source.wordsNeedsOneMoreWord)
+            self.sign    = UInt(repeating: source.isLessThanZero)
+            self.storage = source.magnitude.storage
+            //=----------------------------------=
+            if !self.sign.isZero {
+                self.storage.formTwosComplement()
+            }
+            //=----------------------------------=
+            self.count += self.storage.elements.count
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Accessors
+        //=--------------------------------------------------------------------=
+        
+        @inlinable public var startIndex: Int {
+            (0 as Int)
+        }
+        
+        @inlinable public var endIndex: Int {
+            self.count
+        }
+        
+        @inlinable public subscript(index: Int) -> UInt {
+            switch index < self.storage.elements.endIndex {
+            case  true: return self.storage.elements[index]
+            case false: return self.sign }
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        @inlinable public func distance(from start: Int, to end: Int) -> Int {
+            self.storage.elements.distance(from: start, to: end)
+        }
+        
+        @inlinable public func index(after index: Int) -> Int {
+            self.storage.elements.index(after: index)
+        }
+        
+        @inlinable public func formIndex(after index: inout Int) {
+            self.storage.elements.formIndex(after: &index)
+        }
+        
+        @inlinable public func index(before index: Int) -> Int {
+            self.storage.elements.index(before: index)
+        }
+        
+        @inlinable public func formIndex(before index: inout Int) {
+            self.storage.elements.formIndex(before: &index)
+        }
+        
+        @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+            self.storage.elements.index(index, offsetBy: distance)
+        }
+        
+        @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+            self.storage.elements.index(index, offsetBy: distance, limitedBy: limit)
+        }
     }
 }
 
@@ -53,7 +156,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var words: Words {
-        Words(magnitude: self)
+        Words(source: self)
     }
     
     //*========================================================================*
@@ -66,14 +169,14 @@ extension NBKFlexibleWidth.Magnitude {
         // MARK: State
         //=--------------------------------------------------------------------=
         
-        @usableFromInline let magnitude: Magnitude
+        @usableFromInline let storage: Magnitude.Storage
         
         //=--------------------------------------------------------------------=
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(magnitude: Magnitude) {
-            self.magnitude = magnitude
+        @inlinable init(source: Magnitude) {
+            self.storage = source.storage
         }
         
         //=--------------------------------------------------------------------=
@@ -81,20 +184,20 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------------------------------------=
         
         @inlinable public var count: Int {
-            self.magnitude.storage.elements.count
+            self.storage.elements.count
         }
         
         @inlinable public var startIndex: Int {
-            self.magnitude.storage.elements.startIndex
+            (0 as Int)
         }
         
         @inlinable public var endIndex: Int {
-            self.magnitude.storage.elements.endIndex
+            self.count
         }
         
         @inlinable public subscript(index: Int) -> UInt {
-            switch index < self.magnitude.storage.elements.endIndex {
-            case  true: return self.magnitude.storage.elements[index]
+            switch index < self.storage.elements.endIndex {
+            case  true: return self.storage.elements[index]
             case false: return UInt.zero }
         }
         
@@ -103,31 +206,31 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------------------------------------=
         
         @inlinable public func distance(from start: Int, to end: Int) -> Int {
-            self.magnitude.storage.elements.distance(from: start, to: end)
+            self.storage.elements.distance(from: start, to: end)
         }
         
         @inlinable public func index(after index: Int) -> Int {
-            self.magnitude.storage.elements.index(after: index)
+            self.storage.elements.index(after: index)
         }
         
         @inlinable public func formIndex(after index: inout Int) {
-            self.magnitude.storage.elements.formIndex(after: &index)
+            self.storage.elements.formIndex(after: &index)
         }
         
         @inlinable public func index(before index: Int) -> Int {
-            self.magnitude.storage.elements.index(before: index)
+            self.storage.elements.index(before: index)
         }
         
         @inlinable public func formIndex(before index: inout Int) {
-            self.magnitude.storage.elements.formIndex(before: &index)
+            self.storage.elements.formIndex(before: &index)
         }
         
         @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
-            self.magnitude.storage.elements.index(index, offsetBy: distance)
+            self.storage.elements.index(index, offsetBy: distance)
         }
         
         @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-            self.magnitude.storage.elements.index(index, offsetBy: distance, limitedBy: limit)
+            self.storage.elements.index(index, offsetBy: distance, limitedBy: limit)
         }
     }
 }

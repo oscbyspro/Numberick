@@ -20,7 +20,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        fatalError("TODO")
+        -(x + Int(1))
     }
     
     //=------------------------------------------------------------------------=
