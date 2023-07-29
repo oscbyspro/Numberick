@@ -50,7 +50,10 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable var wordsNeedsOneMoreWord: Bool {
-        self.magnitude.isZero || self.magnitude.mostSignificantBit
+        guard !self.magnitude.isZero else { return true }
+        let index = self.magnitude.storage.elements.count - 1
+        let comparison = self.magnitude.compared(to: UInt(bitPattern: Int.min), at: index)
+        return comparison >= Int(bit: self.sign.bit)
     }
     
     //*========================================================================*

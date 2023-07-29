@@ -85,6 +85,32 @@ extension NBKFlexibleWidth {
         let m = self.magnitude.compared(to: other.magnitude, at: index)
         return  self.sign == Sign.plus ? m : -(m)
     }
+    
+    #warning("tests")
+    // TODO: common implementation
+    @inlinable public func compared(to other: Digit) -> Int {
+        //=--------------------------------------=
+        if  self.sign.bit  != other.isLessThanZero  {
+            if self.isZero && other.isZero { return 0 }
+            return self.sign  == Sign.plus ? 1 : -1
+        }
+        //=--------------------------------------=
+        let m = self.magnitude.compared(to: other.magnitude)
+        return  self.sign == Sign.plus ? m : -(m)
+    }
+
+    #warning("tests")
+    // TODO: common implementation
+    @inlinable public func compared(to other: Digit, at index: Int) -> Int {
+        //=--------------------------------------=
+        if  self.sign.bit  != other.isLessThanZero  {
+            if self.isZero && other.isZero { return 0 }
+            return self.sign  == Sign.plus ? 1 : -1
+        }
+        //=--------------------------------------=
+        let m = self.magnitude.compared(to: other.magnitude, at: index)
+        return  self.sign == Sign.plus ? m : -(m)
+    }
 }
 
 //*============================================================================*
@@ -155,6 +181,31 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
         self .storage.elements.withUnsafeBufferPointer { lhs in
         other.storage.elements.withUnsafeBufferPointer { rhs in
+            let partition = Swift.min(index, lhs.endIndex)
+            let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
+            let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
+            if !comparison.isZero { return comparison }
+            let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
+            return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+        }}
+    }
+    
+    #warning("tests")
+    // TODO: common implementation
+    @inlinable public func compared(to other: Digit) -> Int {
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        Swift.withUnsafePointer(to: other) { rhs in
+            let rhs = NBK.UnsafeWords(start: rhs, count: Int(bit: !rhs.pointee.isZero))
+            return Self.compareWordsUnchecked(lhs, to: rhs)
+        }}
+    }
+    
+    #warning("tests")
+    // TODO: common implementation
+    @inlinable public func compared(to other: Digit, at index: Int) -> Int {
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        Swift.withUnsafePointer(to: other) { rhs in
+            let rhs = NBK.UnsafeWords(start: rhs, count: Int(bit: !rhs.pointee.isZero))
             let partition = Swift.min(index, lhs.endIndex)
             let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
             let comparison = Self.compareWordsUnchecked(suffix, to: rhs)

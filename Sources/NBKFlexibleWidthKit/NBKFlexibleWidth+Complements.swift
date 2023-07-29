@@ -20,11 +20,11 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        fatalError("TODO")
+        if self.magnitude.isZero || !self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero { self.negate() }
     }
     
     @inlinable public func twosComplement() -> Self {
-        fatalError("TODO")
+        var result = self; result.formTwosComplement(); return result
     }
     
     //=------------------------------------------------------------------------=
@@ -49,17 +49,16 @@ extension NBKFlexibleWidth {
 
 extension NBKFlexibleWidth.Magnitude {
     
+    // TODO: update NBKBinaryInteger/twosComplement() documentation
     //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
-    #warning("tests")
     @inlinable public mutating func formTwosComplement() {
         self.storage.formTwosComplement()
         self.storage.normalize()
     }
     
-    #warning("tests")
     @inlinable public func twosComplement() -> Self {
         var result = self; result.formTwosComplement(); return result
     }
