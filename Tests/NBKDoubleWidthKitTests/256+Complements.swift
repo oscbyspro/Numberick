@@ -30,8 +30,8 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitPattern() {
-        NBKAssertBitPattern(T(  ),  (M.min))
         NBKAssertBitPattern(T(-1),  (M.max))
+        NBKAssertBitPattern(T(  ),  (M.min))
         
         NBKAssertBitPattern(T.min,  (M(1) << (M.bitWidth - 1)))
         NBKAssertBitPattern(T.max, ~(M(1) << (M.bitWidth - 1)))
@@ -43,7 +43,7 @@ final class Int256TestsOnComplements: XCTestCase {
     
     func testMagnitude() {
         XCTAssertEqual(T(-1).magnitude, M(1))
-        XCTAssertEqual(T( 0).magnitude, M(0))
+        XCTAssertEqual(T(  ).magnitude, M( ))
         XCTAssertEqual(T( 1).magnitude, M(1))
         
         XCTAssertEqual(T.min.magnitude,  (M(1) << (M.bitWidth - 1)))
@@ -55,9 +55,10 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        NBKAssertTwosComplement(T(-1), T( 1))
-        NBKAssertTwosComplement(T( 0), T( 0))
-        NBKAssertTwosComplement(T( 1), T(-1))
+        NBKAssertTwosComplement(-T(1),  T(1))
+        NBKAssertTwosComplement(-T( ),  T( ))
+        NBKAssertTwosComplement( T( ), -T( ))
+        NBKAssertTwosComplement( T(1), -T(1))
         
         NBKAssertTwosComplement(T.min, T.min + 0, true)
         NBKAssertTwosComplement(T.max, T.min + 1)
@@ -68,16 +69,17 @@ final class Int256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdditiveInverse() {
-        NBKAssertAdditiveInverse( T(1), -T(1))
-        NBKAssertAdditiveInverse( T( ),  T( ))
         NBKAssertAdditiveInverse(-T(1),  T(1))
+        NBKAssertAdditiveInverse(-T( ),  T( ))
+        NBKAssertAdditiveInverse( T( ), -T( ))
+        NBKAssertAdditiveInverse( T(1), -T(1))
     }
     
     func testAdditiveInverseReportingOverflow() {
-        NBKAssertAdditiveInverse(T.max - T( ), T.min + T(1))
-        NBKAssertAdditiveInverse(T.max - T(1), T.min + T(2))
-        NBKAssertAdditiveInverse(T.min + T(1), T.max - T( ))
         NBKAssertAdditiveInverse(T.min + T( ), T.min,  true)
+        NBKAssertAdditiveInverse(T.min + T(1), T.max - T( ))
+        NBKAssertAdditiveInverse(T.max - T(1), T.min + T(2))
+        NBKAssertAdditiveInverse(T.max - T( ), T.min + T(1))
     }
 }
 
@@ -104,7 +106,7 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        XCTAssertEqual(T( 0).magnitude, M( 0))
+        XCTAssertEqual(T(  ).magnitude, M(  ))
         XCTAssertEqual(T( 1).magnitude, M( 1))
         
         XCTAssertEqual(T.min.magnitude, M.min)
@@ -116,6 +118,7 @@ final class UInt256TestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
+        NBKAssertTwosComplement(T(  ), T.min - 0, true)
         NBKAssertTwosComplement(T( 1), T.max - 0)
         NBKAssertTwosComplement(T( 2), T.max - 1)
         NBKAssertTwosComplement(T( 3), T.max - 2)
