@@ -65,51 +65,41 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        //=--------------------------------------=
-        if  self.sign != other.sign {
-            if self.isZero && other.isZero { return 0 }
-            return self.sign  == Sign.plus ? 1 : -1
-        }
-        //=--------------------------------------=
-        let m = self.magnitude.compared(to: other.magnitude)
-        return  self.sign == Sign.plus ? m : -(m)
+        Self.compare(self, to: other, at: Int.zero, magnitude: { lhs, rhs, _  in lhs.compared(to: rhs) })
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        //=--------------------------------------=
-        if  self.sign != other.sign {
-            if self.isZero && other.isZero { return 0 }
-            return self.sign  == Sign.plus ? 1 : -1
-        }
-        //=--------------------------------------=
-        let m = self.magnitude.compared(to: other.magnitude, at: index)
-        return  self.sign == Sign.plus ? m : -(m)
+        Self.compare(self, to: other, at: index, magnitude: { lhs, rhs, index in lhs.compared(to: rhs, at: index) })
     }
     
-    #warning("tests")
-    // TODO: common implementation
-    @inlinable public func compared(to other: Digit) -> Int {
-        //=--------------------------------------=
-        if  self.sign.bit  != other.isLessThanZero  {
-            if self.isZero && other.isZero { return 0 }
-            return self.sign  == Sign.plus ? 1 : -1
-        }
-        //=--------------------------------------=
-        let m = self.magnitude.compared(to: other.magnitude)
-        return  self.sign == Sign.plus ? m : -(m)
+    @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
+        Self.compare(self, to: other, at: Int.zero, magnitude: { lhs, rhs, _  in lhs.compared(to: rhs) })
     }
+    
+    @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
+        Self.compare(self, to: other, at: index, magnitude: { lhs, rhs, index in lhs.compared(to: rhs, at: index) })
+    }
+}
 
-    #warning("tests")
-    // TODO: common implementation
-    @inlinable public func compared(to other: Digit, at index: Int) -> Int {
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func compare<T>(_ lhs: Self, to rhs: T, at index: Int,
+    magnitude: (Magnitude, T.Magnitude, Int) -> Int) -> Int where T: NBKBinaryInteger {
         //=--------------------------------------=
-        if  self.sign.bit  != other.isLessThanZero  {
-            if self.isZero && other.isZero { return 0 }
-            return self.sign  == Sign.plus ? 1 : -1
+        if  lhs.sign.bit != rhs.isLessThanZero {
+            return lhs.isZero && rhs.isZero ? 0 : lhs.sign.bit ? -1 : 1
         }
         //=--------------------------------------=
-        let m = self.magnitude.compared(to: other.magnitude, at: index)
-        return  self.sign == Sign.plus ? m : -(m)
+        let magnitude = magnitude(lhs.magnitude, rhs.magnitude, index)
+        return lhs.sign.bit ? magnitude.negated()  : magnitude
     }
 }
 
@@ -140,15 +130,15 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var isPowerOf2: Bool {
-        var nonzeroBitCountLowerBound = 0
+        var nonzeroBitCount = Int.zero
         var index = self.storage.elements.startIndex
-        //=--------------------------------------=
-        while index < self.storage.elements.endIndex, nonzeroBitCountLowerBound < 2 {
-            nonzeroBitCountLowerBound &+= self.storage.elements[index].nonzeroBitCount
+        
+        while index < self.storage.elements.endIndex, nonzeroBitCount < 2 {
+            nonzeroBitCount &+= self.storage.elements[index].nonzeroBitCount
             self.storage.elements.formIndex(after: &index)
         }
-        //=--------------------------------------=
-        return nonzeroBitCountLowerBound == 1
+        
+        return nonzeroBitCount == 1 as Int
     }
     
     //=------------------------------------------------------------------------=
@@ -181,37 +171,21 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
         self .storage.elements.withUnsafeBufferPointer { lhs in
         other.storage.elements.withUnsafeBufferPointer { rhs in
-            let partition = Swift.min(index, lhs.endIndex)
-            let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-            let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
-            if !comparison.isZero { return comparison }
-            let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-            return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+            Self.compareWordsUnchecked(lhs, to: rhs, at: index)
         }}
     }
     
-    #warning("tests")
-    // TODO: common implementation
-    @inlinable public func compared(to other: Digit) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        Swift.withUnsafePointer(to: other) { rhs in
-            let rhs = NBK.UnsafeWords(start: rhs, count: Int(bit: !rhs.pointee.isZero))
-            return Self.compareWordsUnchecked(lhs, to: rhs)
+    @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+        Self.withUnsafeWords(of: other) { rhs in
+            Self.compareWordsUnchecked(lhs, to: rhs)
         }}
     }
     
-    #warning("tests")
-    // TODO: common implementation
-    @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        Swift.withUnsafePointer(to: other) { rhs in
-            let rhs = NBK.UnsafeWords(start: rhs, count: Int(bit: !rhs.pointee.isZero))
-            let partition = Swift.min(index, lhs.endIndex)
-            let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-            let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
-            if !comparison.isZero { return comparison }
-            let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-            return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+    @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+        Self.withUnsafeWords(of: other) { rhs in
+            Self.compareWordsUnchecked(lhs, to: rhs, at: index)
         }}
     }
 }
@@ -244,5 +218,20 @@ extension NBKFlexibleWidth.Magnitude {
         }
         
         return Int.zero
+    }
+    
+    /// A three-way comparison of `lhs` against `rhs` at `index`.
+    ///
+    /// - Requires: The last element in `lhs` and `rhs` must not be zero.
+    ///
+    @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
+        assert(lhs.last != 0 && rhs.last != 0 && index >= 0)
+        //=--------------------------------------=
+        let partition = Swift.min(index, lhs.endIndex)
+        let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
+        let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
+        if !comparison.isZero { return comparison }
+        let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
+        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
     }
 }

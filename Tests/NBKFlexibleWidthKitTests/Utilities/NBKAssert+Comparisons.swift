@@ -47,3 +47,29 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(lhs.compared(to: rhs, at: index), signum, file: file, line: line)
 }
+
+func NBKAssertComparisonsByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(lhs == rhs, signum ==  0, file: file, line: line)
+    XCTAssertEqual(lhs != rhs, signum !=  0, file: file, line: line)
+    
+    XCTAssertEqual(lhs <  rhs, signum == -1, file: file, line: line)
+    XCTAssertEqual(lhs <= rhs, signum !=  1, file: file, line: line)
+    
+    XCTAssertEqual(lhs >  rhs, signum ==  1, file: file, line: line)
+    XCTAssertEqual(lhs >= rhs, signum != -1, file: file, line: line)
+    
+    XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
+}
+
+func NBKAssertComparisonsByDigitAtIndex<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ index: Int, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  index.isZero {
+        NBKAssertComparisonsByDigit(lhs, rhs, signum, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.compared(to: rhs, at: index), signum, file: file, line: line)
+}

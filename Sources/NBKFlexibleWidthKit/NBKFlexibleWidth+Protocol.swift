@@ -22,4 +22,8 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger {
     //=------------------------------------------------------------------------=
  
     func compared(to other: Self, at index: Int) -> Int
+    
+    func compared(to other: Self.Digit) -> Int
+    
+    func compared(to other: Self.Digit, at index: Int) -> Int
 }

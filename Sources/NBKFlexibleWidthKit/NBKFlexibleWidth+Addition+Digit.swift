@@ -33,21 +33,20 @@ extension NBKFlexibleWidth {
     
     #warning("tests")
     @_disfavoredOverload @inlinable public mutating func add(_ other: Int, at index: Int) {
-        //=--------------------------------------=
-        if  self.sign ==  Sign(other.isLessThanZero) {
+        if  self.sign == Sign(other.isLessThanZero) {
             self.magnitude.add(other.magnitude, at: index)
             return
         }
         //=--------------------------------------=
-        //  TODO: func compared(to: Digit)
-        //  TODO: Magnitude.init(digit, at: index)
-        let extended = Magnitude(digit: other.magnitude).bitshiftedLeft(by: index)
-        if  self.magnitude >= extended {
-            self.magnitude.subtract(extended, at: Int.zero)
+        let otherMagnitude = other.magnitude as UInt
         //=--------------------------------------=
+        if  self.magnitude.compared(to: otherMagnitude, at: index) >= 0 {
+            self.magnitude.subtract(otherMagnitude, at: index)
         }   else {
             self.sign.toggle()
-            self.magnitude = extended.subtracting(self.magnitude, at: Int.zero)
+            let  magnitude = self.magnitude as Magnitude
+            self.magnitude = Magnitude(digit: otherMagnitude, at: index)
+            self.magnitude.subtract(magnitude, at: Int.zero)
         }
     }
     
@@ -85,11 +84,9 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return }
         //=--------------------------------------=
-        self.storage.resize(minCount:   index + 1)
+        self.storage.resize(minCount:   index  + 1)
         let overflow = self.storage.add(other, plus: false, at: index)
-        if  overflow {
-            self.storage.elements.append(1)
-        }
+        if  overflow { self.storage.elements.append(1) }
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {

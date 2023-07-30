@@ -71,9 +71,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minCount:   other.storage.elements.count +  index)
         let overflow = self.storage.add(other.storage, plus: false, at: index)
-        if  overflow {
-            self.storage.elements.append(1 as UInt)
-        }
+        if  overflow { self.storage.elements.append(1) }
     }
     
     @inlinable public func adding(_ other: Self, at index: Int) -> Self {
