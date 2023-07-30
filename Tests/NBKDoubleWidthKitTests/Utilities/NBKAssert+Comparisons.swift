@@ -38,3 +38,18 @@ file: StaticString = #file, line: UInt = #line) {
     
     XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
 }
+
+func NBKAssertComparisonsByDigit<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(lhs == rhs, signum ==  0, file: file, line: line)
+    XCTAssertEqual(lhs != rhs, signum !=  0, file: file, line: line)
+    
+    XCTAssertEqual(lhs <  rhs, signum == -1, file: file, line: line)
+    XCTAssertEqual(lhs <= rhs, signum !=  1, file: file, line: line)
+
+    XCTAssertEqual(lhs >  rhs, signum ==  1, file: file, line: line)
+    XCTAssertEqual(lhs >= rhs, signum != -1, file: file, line: line)
+    
+    XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
+}

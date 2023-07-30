@@ -28,61 +28,6 @@ final class Int256TestsOnComparisons: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testHashing() {
-        var union = Set<T>()
-        union.insert(T(x64: X(0, 0, 0, 0)))
-        union.insert(T(x64: X(1, 0, 0, 0)))
-        union.insert(T(x64: X(0, 1, 0, 0)))
-        union.insert(T(x64: X(0, 0, 1, 0)))
-        union.insert(T(x64: X(0, 0, 0, 1)))
-        union.insert(T(x64: X(0, 0, 0, 0)))
-        XCTAssertEqual(union.count, 5)
-    }
-    
-    func testComparing() {
-        NBKAssertComparisons( T(0),  T(0),  Int(0))
-        NBKAssertComparisons( T(0), -T(0),  Int(0))
-        NBKAssertComparisons(-T(0),  T(0),  Int(0))
-        NBKAssertComparisons(-T(0), -T(0),  Int(0))
-        
-        NBKAssertComparisons( T(1),  T(1),  Int(0))
-        NBKAssertComparisons( T(1), -T(1),  Int(1))
-        NBKAssertComparisons(-T(1),  T(1), -Int(1))
-        NBKAssertComparisons(-T(1), -T(1),  Int(0))
-        
-        NBKAssertComparisons( T(2),  T(3), -Int(1))
-        NBKAssertComparisons( T(2), -T(3),  Int(1))
-        NBKAssertComparisons(-T(2),  T(3), -Int(1))
-        NBKAssertComparisons(-T(2), -T(3),  Int(1))
-        
-        NBKAssertComparisons( T(3),  T(2),  Int(1))
-        NBKAssertComparisons( T(3), -T(2),  Int(1))
-        NBKAssertComparisons(-T(3),  T(2), -Int(1))
-        NBKAssertComparisons(-T(3), -T(2), -Int(1))
-        
-        NBKAssertComparisons(T.max, T.max,  Int(0))
-        NBKAssertComparisons(T.max, T.min,  Int(1))
-        NBKAssertComparisons(T.min, T.max, -Int(1))
-        NBKAssertComparisons(T.min, T.min,  Int(0))
-        
-        NBKAssertComparisons(T(x64: X(0, 2, 3, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
-        NBKAssertComparisons(T(x64: X(1, 0, 3, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
-        NBKAssertComparisons(T(x64: X(1, 2, 0, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 0)), T(x64: X(1, 2, 3, 4)), -Int(1))
-        NBKAssertComparisons(T(x64: X(0, 2, 3, 4)), T(x64: X(0, 2, 3, 4)),  Int(0))
-        NBKAssertComparisons(T(x64: X(1, 0, 3, 4)), T(x64: X(1, 0, 3, 4)),  Int(0))
-        NBKAssertComparisons(T(x64: X(1, 2, 0, 4)), T(x64: X(1, 2, 0, 4)),  Int(0))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 0)), T(x64: X(1, 2, 3, 0)),  Int(0))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(0, 2, 3, 4)),  Int(1))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 0, 3, 4)),  Int(1))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 0, 4)),  Int(1))
-        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 3, 0)),  Int(1))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests
-    //=------------------------------------------------------------------------=
-    
     func testIsZero() {
         XCTAssertTrue (( T(0)).isZero)
         XCTAssertFalse(( T(1)).isZero)
@@ -164,15 +109,6 @@ final class Int256TestsOnComparisons: XCTestCase {
         NBKAssertSignum(~T(1), -Int(1))
         NBKAssertSignum(~T(2), -Int(1))
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x UInt256 x Comparisons
-//*============================================================================*
-
-final class UInt256TestsOnComparisons: XCTestCase {
-    
-    typealias T = UInt256
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -191,10 +127,25 @@ final class UInt256TestsOnComparisons: XCTestCase {
     
     func testComparing() {
         NBKAssertComparisons( T(0),  T(0),  Int(0))
+        NBKAssertComparisons( T(0), -T(0),  Int(0))
+        NBKAssertComparisons(-T(0),  T(0),  Int(0))
+        NBKAssertComparisons(-T(0), -T(0),  Int(0))
+        
         NBKAssertComparisons( T(1),  T(1),  Int(0))
+        NBKAssertComparisons( T(1), -T(1),  Int(1))
+        NBKAssertComparisons(-T(1),  T(1), -Int(1))
+        NBKAssertComparisons(-T(1), -T(1),  Int(0))
+        
         NBKAssertComparisons( T(2),  T(3), -Int(1))
+        NBKAssertComparisons( T(2), -T(3),  Int(1))
+        NBKAssertComparisons(-T(2),  T(3), -Int(1))
+        NBKAssertComparisons(-T(2), -T(3),  Int(1))
+        
         NBKAssertComparisons( T(3),  T(2),  Int(1))
-
+        NBKAssertComparisons( T(3), -T(2),  Int(1))
+        NBKAssertComparisons(-T(3),  T(2), -Int(1))
+        NBKAssertComparisons(-T(3), -T(2), -Int(1))
+        
         NBKAssertComparisons(T.max, T.max,  Int(0))
         NBKAssertComparisons(T.max, T.min,  Int(1))
         NBKAssertComparisons(T.min, T.max, -Int(1))
@@ -213,6 +164,63 @@ final class UInt256TestsOnComparisons: XCTestCase {
         NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 0, 4)),  Int(1))
         NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 3, 0)),  Int(1))
     }
+    
+    func testComparingByDigit() {
+        NBKAssertComparisonsByDigit( T(0),  Int(0),  Int(0))
+        NBKAssertComparisonsByDigit( T(0), -Int(0),  Int(0))
+        NBKAssertComparisonsByDigit(-T(0),  Int(0),  Int(0))
+        NBKAssertComparisonsByDigit(-T(0), -Int(0),  Int(0))
+        
+        NBKAssertComparisonsByDigit( T(1),  Int(1),  Int(0))
+        NBKAssertComparisonsByDigit( T(1), -Int(1),  Int(1))
+        NBKAssertComparisonsByDigit(-T(1),  Int(1), -Int(1))
+        NBKAssertComparisonsByDigit(-T(1), -Int(1),  Int(0))
+        
+        NBKAssertComparisonsByDigit( T(2),  Int(3), -Int(1))
+        NBKAssertComparisonsByDigit( T(2), -Int(3),  Int(1))
+        NBKAssertComparisonsByDigit(-T(2),  Int(3), -Int(1))
+        NBKAssertComparisonsByDigit(-T(2), -Int(3),  Int(1))
+        
+        NBKAssertComparisonsByDigit( T(3),  Int(2),  Int(1))
+        NBKAssertComparisonsByDigit( T(3), -Int(2),  Int(1))
+        NBKAssertComparisonsByDigit(-T(3),  Int(2), -Int(1))
+        NBKAssertComparisonsByDigit(-T(3), -Int(2), -Int(1))
+        
+        NBKAssertComparisonsByDigit( T(x64: X(0, 0, 0, 0)),  Int(1), -Int(1))
+        NBKAssertComparisonsByDigit( T(x64: X(1, 0, 0, 0)),  Int(1),  Int(0))
+        NBKAssertComparisonsByDigit( T(x64: X(2, 0, 0, 0)),  Int(1),  Int(1))
+
+        NBKAssertComparisonsByDigit( T(x64: X(0, 1, 0, 0)),  Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(x64: X(1, 1, 0, 0)),  Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(x64: X(2, 1, 0, 0)),  Int(1),  Int(1))
+        
+        NBKAssertComparisonsByDigit(~T(x64: X(0, 0, 0, 0)), ~Int(1),  Int(1))
+        NBKAssertComparisonsByDigit(~T(x64: X(1, 0, 0, 0)), ~Int(1),  Int(0))
+        NBKAssertComparisonsByDigit(~T(x64: X(2, 0, 0, 0)), ~Int(1), -Int(1))
+
+        NBKAssertComparisonsByDigit(~T(x64: X(0, 1, 0, 0)), ~Int(1), -Int(1))
+        NBKAssertComparisonsByDigit(~T(x64: X(1, 1, 0, 0)), ~Int(1), -Int(1))
+        NBKAssertComparisonsByDigit(~T(x64: X(2, 1, 0, 0)), ~Int(1), -Int(1))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
+        func becauseThisCompilesSuccessfully(_ x: inout T) {
+            XCTAssertNotNil(x.compared(to: 0))
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x UInt256 x Comparisons
+//*============================================================================*
+
+final class UInt256TestsOnComparisons: XCTestCase {
+    
+    typealias T = UInt256
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -298,6 +306,71 @@ final class UInt256TestsOnComparisons: XCTestCase {
         NBKAssertSignum(~T(0),  Int(1))
         NBKAssertSignum(~T(1),  Int(1))
         NBKAssertSignum(~T(2),  Int(1))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testHashing() {
+        var union = Set<T>()
+        union.insert(T(x64: X(0, 0, 0, 0)))
+        union.insert(T(x64: X(1, 0, 0, 0)))
+        union.insert(T(x64: X(0, 1, 0, 0)))
+        union.insert(T(x64: X(0, 0, 1, 0)))
+        union.insert(T(x64: X(0, 0, 0, 1)))
+        union.insert(T(x64: X(0, 0, 0, 0)))
+        XCTAssertEqual(union.count, 5)
+    }
+    
+    func testComparing() {
+        NBKAssertComparisons(T( 0), T( 0),  Int(0))
+        NBKAssertComparisons(T( 1), T( 1),  Int(0))
+        NBKAssertComparisons(T( 2), T( 3), -Int(1))
+        NBKAssertComparisons(T( 3), T( 2),  Int(1))
+        
+        NBKAssertComparisons(T.max, T.max,  Int(0))
+        NBKAssertComparisons(T.max, T.min,  Int(1))
+        NBKAssertComparisons(T.min, T.max, -Int(1))
+        NBKAssertComparisons(T.min, T.min,  Int(0))
+        
+        NBKAssertComparisons(T(x64: X(0, 2, 3, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
+        NBKAssertComparisons(T(x64: X(1, 0, 3, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
+        NBKAssertComparisons(T(x64: X(1, 2, 0, 4)), T(x64: X(1, 2, 3, 4)), -Int(1))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 0)), T(x64: X(1, 2, 3, 4)), -Int(1))
+        NBKAssertComparisons(T(x64: X(0, 2, 3, 4)), T(x64: X(0, 2, 3, 4)),  Int(0))
+        NBKAssertComparisons(T(x64: X(1, 0, 3, 4)), T(x64: X(1, 0, 3, 4)),  Int(0))
+        NBKAssertComparisons(T(x64: X(1, 2, 0, 4)), T(x64: X(1, 2, 0, 4)),  Int(0))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 0)), T(x64: X(1, 2, 3, 0)),  Int(0))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(0, 2, 3, 4)),  Int(1))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 0, 3, 4)),  Int(1))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 0, 4)),  Int(1))
+        NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 3, 0)),  Int(1))
+    }
+    
+    func testComparingByDigit() {
+        NBKAssertComparisonsByDigit(T( 0), UInt(0),  Int(0))
+        NBKAssertComparisonsByDigit(T( 1), UInt(1),  Int(0))
+        NBKAssertComparisonsByDigit(T( 2), UInt(3), -Int(1))
+        NBKAssertComparisonsByDigit(T( 3), UInt(2),  Int(1))
+        
+        NBKAssertComparisonsByDigit(T(x64: X(0, 0, 0, 0)), UInt(1), -Int(1))
+        NBKAssertComparisonsByDigit(T(x64: X(1, 0, 0, 0)), UInt(1),  Int(0))
+        NBKAssertComparisonsByDigit(T(x64: X(2, 0, 0, 0)), UInt(1),  Int(1))
+        
+        NBKAssertComparisonsByDigit(T(x64: X(0, 1, 0, 0)), UInt(1),  Int(1))
+        NBKAssertComparisonsByDigit(T(x64: X(1, 1, 0, 0)), UInt(1),  Int(1))
+        NBKAssertComparisonsByDigit(T(x64: X(2, 1, 0, 0)), UInt(1),  Int(1))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
+        func becauseThisCompilesSuccessfully(_ x: inout T) {
+            XCTAssertNotNil(x.compared(to: 0))
+        }
     }
 }
 

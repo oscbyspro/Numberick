@@ -257,13 +257,21 @@ final class IntXLTestsOnComparisons: XCTestCase {
         NBKAssertComparisonsByDigit(-T(3),  Int(2), -Int(1))
         NBKAssertComparisonsByDigit(-T(3), -Int(2), -Int(1))
         
-        NBKAssertComparisonsByDigit(T(words:[0, 0, 0, 0]), Int(1), -Int(1))
-        NBKAssertComparisonsByDigit(T(words:[1, 0, 0, 0]), Int(1),  Int(0))
-        NBKAssertComparisonsByDigit(T(words:[2, 0, 0, 0]), Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(words:[0, 0, 0, 0]),  Int(1), -Int(1))
+        NBKAssertComparisonsByDigit( T(words:[1, 0, 0, 0]),  Int(1),  Int(0))
+        NBKAssertComparisonsByDigit( T(words:[2, 0, 0, 0]),  Int(1),  Int(1))
         
-        NBKAssertComparisonsByDigit(T(words:[0, 1, 0, 0]), Int(1),  Int(1))
-        NBKAssertComparisonsByDigit(T(words:[1, 1, 0, 0]), Int(1),  Int(1))
-        NBKAssertComparisonsByDigit(T(words:[2, 1, 0, 0]), Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(words:[0, 1, 0, 0]),  Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(words:[1, 1, 0, 0]),  Int(1),  Int(1))
+        NBKAssertComparisonsByDigit( T(words:[2, 1, 0, 0]),  Int(1),  Int(1))
+        
+        NBKAssertComparisonsByDigit(~T(words:[0, 0, 0, 0]), ~Int(1),  Int(1))
+        NBKAssertComparisonsByDigit(~T(words:[1, 0, 0, 0]), ~Int(1),  Int(0))
+        NBKAssertComparisonsByDigit(~T(words:[2, 0, 0, 0]), ~Int(1), -Int(1))
+        
+        NBKAssertComparisonsByDigit(~T(words:[0, 1, 0, 0]), ~Int(1), -Int(1))
+        NBKAssertComparisonsByDigit(~T(words:[1, 1, 0, 0]), ~Int(1), -Int(1))
+        NBKAssertComparisonsByDigit(~T(words:[2, 1, 0, 0]), ~Int(1), -Int(1))
     }
     
     func testComparingByDigitAtIndex() {
@@ -465,11 +473,12 @@ final class UIntXLTestsOnComparisons: XCTestCase {
         NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as [UInt]), T(words:[1, 2, 3, 4] as [UInt]), Int(4),  -Int(1))
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
-    //=------------------------------------------------------------------------=
-    
     func testComparingByDigit() {
+        NBKAssertComparisonsByDigit(T(0), UInt(0),  Int(0))
+        NBKAssertComparisonsByDigit(T(1), UInt(1),  Int(0))
+        NBKAssertComparisonsByDigit(T(2), UInt(3), -Int(1))
+        NBKAssertComparisonsByDigit(T(3), UInt(2),  Int(1))
+        
         NBKAssertComparisonsByDigit(T(words:[0, 0, 0, 0]), UInt(1), -Int(1))
         NBKAssertComparisonsByDigit(T(words:[1, 0, 0, 0]), UInt(1),  Int(0))
         NBKAssertComparisonsByDigit(T(words:[2, 0, 0, 0]), UInt(1),  Int(1))
