@@ -250,7 +250,7 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable static func withUnsafeWords<T>(of digit: Digit, perform body: (NBK.UnsafeWords) -> T) -> T {
         Swift.withUnsafePointer(to: digit) {
-            body(NBK.UnsafeWords(start: $0, count: Int(bit: !digit.isZero)))
+            body(NBK.UnsafeWords(start: $0, count: Int(bit: !$0.pointee.isZero)))
         }
     }
 }
