@@ -195,6 +195,20 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable func compared(to other: Self) -> Int
     
+    /// A three-way comparison against the given value.
+    ///
+    /// ```
+    /// ┌────────────┬─────────── → ────────┐
+    /// │ self       │ other      │ signum  │
+    /// ├────────────┼─────────── → ────────┤
+    /// │ Int256( 1) │ Int(    3) │ Int(-1) │ - less
+    /// │ Int256( 2) │ Int(    2) │ Int( 0) │ - same
+    /// │ Int256( 3) │ Int(    1) │ Int( 1) │ - more
+    /// └────────────┴─────────── → ────────┘
+    /// ```
+    ///
+    @_disfavoredOverload @inlinable func compared(to other: Digit) -> Int
+    
     //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
