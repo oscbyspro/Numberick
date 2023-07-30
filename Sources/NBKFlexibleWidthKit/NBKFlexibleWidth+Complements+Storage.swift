@@ -20,7 +20,11 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        _ = self.formTwosComplementSubsequence(true)
+        _ = self.formTwosComplementReportingOverflow()
+    }
+    
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
     }
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {

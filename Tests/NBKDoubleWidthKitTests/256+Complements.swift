@@ -51,6 +51,20 @@ final class Int256TestsOnComplements: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOneComplement() {
+        NBKAssertOnesComplement(-T(1),  T(0))
+        NBKAssertOnesComplement(-T( ), -T(1))
+        NBKAssertOnesComplement( T( ), -T(1))
+        NBKAssertOnesComplement( T(1), -T(2))
+        
+        NBKAssertOnesComplement(T.min, T.max)
+        NBKAssertOnesComplement(T.max, T.min)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
@@ -111,6 +125,20 @@ final class UInt256TestsOnComplements: XCTestCase {
         
         XCTAssertEqual(T.min.magnitude, M.min)
         XCTAssertEqual(T.max.magnitude, M.max)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOneComplement() {
+        NBKAssertOnesComplement(T(  ), T.max - 0)
+        NBKAssertOnesComplement(T( 1), T.max - 1)
+        NBKAssertOnesComplement(T( 2), T.max - 2)
+        NBKAssertOnesComplement(T( 3), T.max - 3)
+        
+        NBKAssertOnesComplement(T.min, T.max + 0)
+        NBKAssertOnesComplement(T.max, T.min + 0)
     }
     
     //=------------------------------------------------------------------------=

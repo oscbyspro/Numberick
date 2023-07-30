@@ -37,6 +37,31 @@ final class IntXLTestsOnComplements: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOnesComplement() {
+        NBKAssertOnesComplement(-T(1),  T(0))
+        NBKAssertOnesComplement(-T(0), -T(1))
+        NBKAssertOnesComplement( T(0), -T(1))
+        NBKAssertOnesComplement( T(1), -T(2))
+        
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0,  0] as [UInt]), T(words:[~1, ~0, ~0, ~0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0,  0,  0,  0] as [UInt]), T(words:[ 0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[~1, ~1, ~1, ~1] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0,  0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0, ~0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1,  0] as [UInt]), T(words:[~1, ~0, ~0, ~0/2 + 0, ~0] as [UInt]))
+
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1, ~0] as [UInt]), T(words:[~1, ~0, ~0, ~0/2 + 0,  0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0,  0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0, ~0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1,  0] as [UInt]))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
@@ -52,12 +77,12 @@ final class IntXLTestsOnComplements: XCTestCase {
         NBKAssertTwosComplement(T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[~0, ~1, ~1, ~1] as [UInt]))
         NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  0,  0,  0] as [UInt]))
         
-        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0,  0] as [UInt]), T(words:[ 1,  0,  0, ~0/2 + 1, ~0] as [UInt])) // Int256.max
+        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0,  0] as [UInt]), T(words:[ 1,  0,  0, ~0/2 + 1, ~0] as [UInt]))
         NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1,  0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]))
         NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0, ~0] as [UInt]))
 
         NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1, ~0] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0,  0] as [UInt]))
-        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt])) // Int256.min
+        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1, ~0] as [UInt]), true)
         NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0, ~0] as [UInt]), T(words:[ 1,  0,  0, ~0/2 + 1,  0] as [UInt]))
     }
     
@@ -94,11 +119,31 @@ final class UIntXLTestsOnComplements: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOnesComplement() {
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0,  0] as [UInt]), T(words:[~1,  0,  0,  0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[~1, ~1, ~1, ~1] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as [UInt]), T(words:[~1, ~0, ~0, ~0/2 + 0] as [UInt]))
+
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as [UInt]), T(words:[~1, ~0, ~0, ~0/2 + 0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as [UInt]), T(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt]))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt]), T(words:[ 0,  0,  0, ~0/2 + 1] as [UInt]))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        NBKAssertTwosComplement(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertTwosComplement(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), true)
         NBKAssertTwosComplement(T(words:[ 1,  0,  0,  0] as [UInt]), T(words:[~0,  0,  0,  0] as [UInt]))
         NBKAssertTwosComplement(T(words:[~0,  0,  0,  0] as [UInt]), T(words:[ 1,  0,  0,  0] as [UInt]))
         NBKAssertTwosComplement(T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[~0, ~1, ~1, ~1] as [UInt]))

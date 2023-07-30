@@ -19,12 +19,39 @@ extension NBKFlexibleWidth {
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func formTwosComplement() {
-        if self.magnitude.isZero || !self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero { self.negate() }
+    @inlinable public mutating func formOnesComplement() {
+        self.add(1 as Int, at: Int.zero)
+        self.negate()
     }
     
-    @inlinable public func twosComplement() -> Self {
-        var result = self; result.formTwosComplement(); return result
+    @inlinable public func onesComplement() -> Self {
+        var result = self; result.formOnesComplement(); return result
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.isTwosComplementMinValue || self.negateReportingOverflow()
+    }
+    
+    @inlinable public func twosComplementReportingOverflow() -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementReportingOverflow()
+        return PVO(partialValue, overflow)
+    }
+    
+    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        switch carry {
+        case true : return self.formTwosComplementReportingOverflow()
+        case false: self.formOnesComplement(); return false as Bool }
+    }
+    
+    @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementSubsequence(carry)
+        return PVO(partialValue, overflow)
     }
     
     //=------------------------------------------------------------------------=
@@ -41,6 +68,14 @@ extension NBKFlexibleWidth {
         let overflow = partialValue.negateReportingOverflow()
         return PVO(partialValue, overflow)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var isTwosComplementMinValue: Bool {
+        !self.magnitude.isZero && self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero
+    }
 }
 
 //*============================================================================*
@@ -49,17 +84,43 @@ extension NBKFlexibleWidth {
 
 extension NBKFlexibleWidth.Magnitude {
     
-    // TODO: update NBKBinaryInteger/twosComplement() documentation
+    //=------------------------------------------------------------------------=
+    // MARK: Details x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formOnesComplement() {
+        for index in self.storage.elements.indices {
+            self.storage.elements[index].formOnesComplement()
+        };  self.storage.normalize()
+    }
+
+    @inlinable public func onesComplement() -> Self {
+        Self(storage: Storage(elements: self.storage.elements.map(~)))
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func formTwosComplement() {
-        self.storage.formTwosComplement()
-        self.storage.normalize()
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
+        defer{ self.storage.normalize() }
+        return self.storage.formTwosComplementReportingOverflow()
     }
     
-    @inlinable public func twosComplement() -> Self {
-        var result = self; result.formTwosComplement(); return result
+    @inlinable public func twosComplementReportingOverflow() -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementReportingOverflow()
+        return PVO(partialValue, overflow)
+    }
+    
+    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        defer{ self.storage.normalize() }
+        return self.storage.formTwosComplementSubsequence(carry)
+    }
+    
+    @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementSubsequence(carry)
+        return PVO(partialValue, overflow)
     }
 }

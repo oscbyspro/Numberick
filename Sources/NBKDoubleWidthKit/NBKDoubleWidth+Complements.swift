@@ -41,8 +41,29 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formOnesComplement() {
+        self.low .formOnesComplement()
+        self.high.formOnesComplement()
+    }
+    
+    @inlinable public func onesComplement() -> Self {
+        Self(high: ~self.high, low: ~self.low)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
+    }
+    
+    @inlinable public func twosComplementReportingOverflow() -> PVO<Self> {
+        self.twosComplementSubsequence(true)
+    }
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
         let carry = self.low .formTwosComplementSubsequence(carry)

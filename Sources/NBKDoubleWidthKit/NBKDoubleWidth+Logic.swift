@@ -20,7 +20,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        Self(high: ~x.high, low: ~x.low)
+        x.onesComplement()
     }
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {

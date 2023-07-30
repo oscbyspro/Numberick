@@ -64,7 +64,7 @@ final class Int256BenchmarksOnComparisons: XCTestCase {
         }
     }
     
-    func testIsSignum() {
+    func testSignum() {
         var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 5_000_000 {
@@ -170,7 +170,7 @@ final class UInt256BenchmarksOnComparisons: XCTestCase {
         }
     }
     
-    func testIsSignum() {
+    func testSignum() {
         var abc = NBK.blackHoleIdentity(T(x64: X(0, 1, 2, 3)))
         
         for _ in 0 ..< 5_000_000 {

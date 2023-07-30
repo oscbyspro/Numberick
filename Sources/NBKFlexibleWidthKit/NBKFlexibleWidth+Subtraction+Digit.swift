@@ -31,8 +31,23 @@ extension NBKFlexibleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    #warning("tests")
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: Int, at index: Int) {
-        fatalError("TODO")
+        if  self.sign != Sign(other.isLessThanZero) {
+            self.magnitude.add(other.magnitude, at: index)
+            return
+        }
+        //=--------------------------------------=
+        let otherMagnitude = other.magnitude as UInt
+        //=--------------------------------------=
+        if  self.magnitude.compared(to: otherMagnitude, at: index) >= 0 {
+            self.magnitude.subtract(otherMagnitude, at: index)
+        }   else {
+            self.sign.toggle()
+            let  magnitude = self.magnitude as Magnitude
+            self.magnitude = Magnitude(digit: otherMagnitude, at: index)
+            self.magnitude.subtract(magnitude, at: Int.zero)
+        }
     }
     
     @_disfavoredOverload @inlinable public func subtracting(_ other: Int, at index: Int) -> Self {
@@ -62,13 +77,11 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    #warning("tests")
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, at index: Int) {
         let overflow: Bool = self.subtractReportingOverflow(other, at: index)
         precondition(!overflow, NBK.callsiteOverflowInfo())
     }
 
-    #warning("tests")
     @_disfavoredOverload @inlinable public func subtracting(_ other: UInt, at index: Int) -> Self {
         let pvo: PVO<Self> = self.subtractingReportingOverflow(other, at: index)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())

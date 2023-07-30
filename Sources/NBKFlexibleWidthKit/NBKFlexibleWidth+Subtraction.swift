@@ -62,13 +62,11 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    #warning("tests")
     @inlinable public mutating func subtract(_ other: Self, at index: Int) {
         let overflow: Bool = self.subtractReportingOverflow(other, at: index)
         precondition(!overflow, NBK.callsiteOverflowInfo())
     }
     
-    #warning("tests")
     @inlinable public func subtracting(_ other: Self, at index: Int) -> Self {
         let pvo: PVO<Self> = self.subtractingReportingOverflow(other, at: index)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())

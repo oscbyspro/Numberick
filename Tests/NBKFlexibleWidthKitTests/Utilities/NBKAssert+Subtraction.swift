@@ -22,6 +22,9 @@ file: StaticString = #file, line: UInt = #line) {
     if !overflow, index.isZero {
         XCTAssertEqual(                 lhs -  rhs,                 partialValue, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs -= rhs; return lhs }(), partialValue, file: file, line: line)
+        
+        XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
     //=------------------------------------------=
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)
@@ -38,6 +41,9 @@ file: StaticString = #file, line: UInt = #line) {
     if !overflow, index.isZero {
         XCTAssertEqual(                 lhs -  rhs,                 partialValue, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs -= rhs; return lhs }(), partialValue, file: file, line: line)
+        
+        XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
     //=------------------------------------------=
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)

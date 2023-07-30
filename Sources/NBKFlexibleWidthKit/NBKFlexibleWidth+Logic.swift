@@ -71,7 +71,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        Self(words: x.storage.elements.map(~))
+        x.onesComplement()
     }
     
     //=------------------------------------------------------------------------=
