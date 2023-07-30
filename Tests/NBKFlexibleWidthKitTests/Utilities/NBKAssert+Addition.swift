@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Addition
 //*============================================================================*
 
-func NBKAssertAddition(
-_ lhs: UIntXL, _ rhs: UIntXL, _ index: Int, _ partialValue: UIntXL,
+func NBKAssertAddition<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T, _ index: Int, _ partialValue: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  index.isZero {
@@ -28,8 +28,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let _ = x.add(rhs, at: index); return x }(), partialValue, file: file, line: line)
 }
 
-func NBKAssertAdditionByDigit(
-_ lhs: UIntXL, _ rhs: UIntXL.Digit, _ index: Int, _ partialValue: UIntXL,
+func NBKAssertAdditionByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ index: Int, _ partialValue: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  index.isZero {

@@ -31,22 +31,12 @@ extension NBKFlexibleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    #warning("tests")
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: Int, at index: Int) {
-        if  self.sign != Sign(other.isLessThanZero) {
+        if  self.sign !=  Sign(other.isLessThanZero) {
             self.magnitude.add(other.magnitude, at: index)
-            return
-        }
-        //=--------------------------------------=
-        let otherMagnitude = other.magnitude as UInt
-        //=--------------------------------------=
-        if  self.magnitude.compared(to: otherMagnitude, at: index) >= 0 {
-            self.magnitude.subtract(otherMagnitude, at: index)
-        }   else {
+        }   else if self.magnitude.subtractReportingOverflow(other.magnitude, at: index) {
             self.sign.toggle()
-            let  magnitude = self.magnitude as Magnitude
-            self.magnitude = Magnitude(digit: otherMagnitude, at: index)
-            self.magnitude.subtract(magnitude, at: Int.zero)
+            self.magnitude.formTwosComplement()
         }
     }
     

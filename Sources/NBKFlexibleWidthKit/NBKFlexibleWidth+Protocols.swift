@@ -32,4 +32,28 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger {
     //=------------------------------------------------------------------------=
     
     init(digit: Self.Digit, at index: Int)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Addition
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func add(_ other: Self, at index: Int)
+    
+    @_disfavoredOverload @inlinable mutating func add(_ other: Digit, at index: Int)
+
+    @inlinable func adding(_ other: Self, at index: Int) -> Self
+    
+    @_disfavoredOverload @inlinable func adding(_ other: Digit, at index: Int) -> Self
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Subtraction
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func subtract(_ other: Self, at index: Int)
+    
+    @_disfavoredOverload @inlinable mutating func subtract(_ other: Digit, at index: Int)
+
+    @inlinable func subtracting(_ other: Self, at index: Int) -> Self
+    
+    @_disfavoredOverload @inlinable func subtracting(_ other: Digit, at index: Int) -> Self
 }

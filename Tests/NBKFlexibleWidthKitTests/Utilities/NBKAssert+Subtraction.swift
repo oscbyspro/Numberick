@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Subtraction
 //*============================================================================*
 
-func NBKAssertSubtraction(
-_ lhs: UIntXL, _ rhs: UIntXL, _ index: Int, _ partialValue: UIntXL, _ overflow: Bool = false,
+func NBKAssertSubtraction<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T, _ index: Int, _ partialValue: T, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow, index.isZero {
@@ -26,6 +26,8 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
+    //=------------------------------------------=
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let partialValue = partialValue as? UIntXL else { return }
     //=------------------------------------------=
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).overflow,     overflow,     file: file, line: line)
@@ -34,8 +36,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs, at: index); return o }(), overflow,     file: file, line: line)
 }
 
-func NBKAssertSubtractionByDigit(
-_ lhs: UIntXL, _ rhs: UIntXL.Digit, _ index: Int, _ partialValue: UIntXL, _ overflow: Bool = false,
+func NBKAssertSubtractionByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ index: Int, _ partialValue: T, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow, index.isZero {
@@ -45,6 +47,8 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
+    //=------------------------------------------=
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL.Digit, let partialValue = partialValue as? UIntXL else { return }
     //=------------------------------------------=
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)
     XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).overflow,     overflow,     file: file, line: line)

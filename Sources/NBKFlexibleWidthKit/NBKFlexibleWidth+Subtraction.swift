@@ -32,7 +32,12 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func subtract(_ other: Self, at index: Int) {
-        fatalError("TODO")
+        if  self.sign != other.sign {
+            self.magnitude.add(other.magnitude, at: index)
+        }   else if self.magnitude.subtractReportingOverflow(other.magnitude, at: index) {
+            self.sign.toggle()
+            self.magnitude.formTwosComplement()
+        }
     }
     
     @inlinable public func subtracting(_ other: Self, at index: Int) -> Self {

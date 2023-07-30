@@ -17,6 +17,67 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
+// MARK: * NBK x IntXL x Addition
+//*============================================================================*
+
+final class IntXLBenchmarksOnAddition: XCTestCase {
+    
+    typealias T = IntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testAdd() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs += rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testAdding() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testAddDigit() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(Int.max)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs += rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testAddingDigit() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(Int.max)
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs + rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x UIntXL x Addition
 //*============================================================================*
 
