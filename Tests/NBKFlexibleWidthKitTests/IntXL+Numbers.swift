@@ -13,6 +13,7 @@ import NBKCoreKit
 @testable import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -40,32 +41,32 @@ final class IntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToInt() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default:  Int( 1))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), exactly:  nil, clamping: Int.max, truncating: -1)
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), exactly:  nil, clamping: Int.max, truncating:  1)
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), default:  Int(-1))
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default:  Int( 1))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), exactly:  nil, clamping: Int.max, truncating: -1)
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), exactly:  nil, clamping: Int.max, truncating:  1)
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), default:  Int(-1))
     }
     
     func testFromInt() {
-        NBKAssertNumbers(from: Int.min, default: ~T(words:[UInt(Int.max), 0, 0, 0] as [UInt]))
-        NBKAssertNumbers(from: Int.max, default:  T(words:[UInt(Int.max), 0, 0, 0] as [UInt]))
+        NBKAssertNumbers(from: Int.min, default: ~T(words:[UInt(Int.max), 0, 0, 0] as W))
+        NBKAssertNumbers(from: Int.max, default:  T(words:[UInt(Int.max), 0, 0, 0] as W))
     }
     
     func testFromIntAsDigit() {
-        NBKAssertNumbers(from: T(digit: Int.min), default: ~T(words:[UInt(Int.max), 0, 0, 0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int.max), default:  T(words:[UInt(Int.max), 0, 0, 0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int.min), default: ~T(words:[UInt(Int.max), 0, 0, 0] as W))
+        NBKAssertNumbers(from: T(digit: Int.max), default:  T(words:[UInt(Int.max), 0, 0, 0] as W))
     }
     
     func testFromIntAsDigitAtIndex() {
-        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(0)), default: T(words:[ 4,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(1)), default: T(words:[ 0,  4,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(2)), default: T(words:[ 0,  0,  4,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(3)), default: T(words:[ 0,  0,  0,  4] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(0)), default: T(words:[ 4,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(1)), default: T(words:[ 0,  4,  0,  0] as W))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(2)), default: T(words:[ 0,  0,  4,  0] as W))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(3)), default: T(words:[ 0,  0,  0,  4] as W))
         
-        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(0)), default: T(words:[~3, ~0, ~0, ~0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(1)), default: T(words:[ 0, ~3, ~0, ~0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(2)), default: T(words:[ 0,  0, ~3, ~0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(3)), default: T(words:[ 0,  0,  0, ~3] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(0)), default: T(words:[~3, ~0, ~0, ~0] as W))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(1)), default: T(words:[ 0, ~3, ~0, ~0] as W))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(2)), default: T(words:[ 0,  0, ~3, ~0] as W))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(3)), default: T(words:[ 0,  0,  0, ~3] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -105,10 +106,10 @@ final class IntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToUInt() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: UInt( 1))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: UInt.max)
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), exactly: nil, clamping: ~0, truncating: UInt( 1))
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), exactly: nil, clamping:  0, truncating: UInt.max)
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: UInt( 1))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: UInt.max)
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), exactly: nil, clamping: ~0, truncating: UInt( 1))
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), exactly: nil, clamping:  0, truncating: UInt.max)
     }
     
     func testFromUInt() {
@@ -153,17 +154,17 @@ final class IntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testToSignitude() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: S(words:[ 1,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: S(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), default: S(words:[ 1,  1,  1,  1] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), default: S(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: S(words:[ 1,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: S(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), default: S(words:[ 1,  1,  1,  1] as W))
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), default: S(words:[~0, ~0, ~0, ~0] as W))
     }
 
     func testFromSignitude() {
-        NBKAssertNumbers(from: S(words:[ 1,  0,  0,  0] as [UInt]), default: T(words:[ 1,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: S(words:[~0,  0,  0,  0] as [UInt]), default: T(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: S(words:[ 1,  1,  1,  1] as [UInt]), default: T(words:[ 1,  1,  1,  1] as [UInt]))
-        NBKAssertNumbers(from: S(words:[~0, ~0, ~0, ~0] as [UInt]), default: T(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: S(words:[ 1,  0,  0,  0] as W), default: T(words:[ 1,  0,  0,  0] as W))
+        NBKAssertNumbers(from: S(words:[~0,  0,  0,  0] as W), default: T(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: S(words:[ 1,  1,  1,  1] as W), default: T(words:[ 1,  1,  1,  1] as W))
+        NBKAssertNumbers(from: S(words:[~0, ~0, ~0, ~0] as W), default: T(words:[~0, ~0, ~0, ~0] as W))
     }
 
     //=------------------------------------------------------------------------=
@@ -171,17 +172,17 @@ final class IntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testToMagnitude() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: M(words:[ 1,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: M(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), default: M(words:[ 1,  1,  1,  1] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), exactly: nil, clamping: M.zero, truncating: M(UInt.max))
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: M(words:[ 1,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: M(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), default: M(words:[ 1,  1,  1,  1] as W))
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), exactly: nil, clamping: M.zero, truncating: M(UInt.max))
     }
 
     func testFromMagnitude() {
-        NBKAssertNumbers(from: M(words:[ 1,  0,  0,  0] as [UInt]), default: T(words:[ 1,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: M(words:[~0,  0,  0,  0] as [UInt]), default: T(words:[~0,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: M(words:[ 1,  1,  1,  1] as [UInt]), default: T(words:[ 1,  1,  1,  1,  0] as [UInt]))
-        NBKAssertNumbers(from: M(words:[~0, ~0, ~0, ~0] as [UInt]), default: T(words:[~0, ~0, ~0, ~0,  0] as [UInt]))
+        NBKAssertNumbers(from: M(words:[ 1,  0,  0,  0] as W), default: T(words:[ 1,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: M(words:[~0,  0,  0,  0] as W), default: T(words:[~0,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: M(words:[ 1,  1,  1,  1] as W), default: T(words:[ 1,  1,  1,  1,  0] as W))
+        NBKAssertNumbers(from: M(words:[~0, ~0, ~0, ~0] as W), default: T(words:[~0, ~0, ~0, ~0,  0] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -241,14 +242,14 @@ final class IntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromLiteral() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]),  0)
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as [UInt]),  18446744073709551615)
-        XCTAssertEqual(T(words:[~0, ~0,  0,  0] as [UInt]),  340282366920938463463374607431768211455)
-        XCTAssertEqual(T(words:[~0, ~0, ~0,  0] as [UInt]),  6277101735386680763835789423207666416102355444464034512895)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]), -1)
-        XCTAssertEqual(T(words:[ 1, ~0, ~0, ~0] as [UInt]), -18446744073709551615)
-        XCTAssertEqual(T(words:[ 1,  0, ~0, ~0] as [UInt]), -340282366920938463463374607431768211455)
-        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as [UInt]), -6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W),  0)
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W),  18446744073709551615)
+        XCTAssertEqual(T(words:[~0, ~0,  0,  0] as W),  340282366920938463463374607431768211455)
+        XCTAssertEqual(T(words:[~0, ~0, ~0,  0] as W),  6277101735386680763835789423207666416102355444464034512895)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W), -1)
+        XCTAssertEqual(T(words:[ 1, ~0, ~0, ~0] as W), -18446744073709551615)
+        XCTAssertEqual(T(words:[ 1,  0, ~0, ~0] as W), -340282366920938463463374607431768211455)
+        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W), -6277101735386680763835789423207666416102355444464034512895)
     }
 }
 
@@ -276,10 +277,10 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToInt() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: Int( 1))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), exactly: nil, clamping: Int.max, truncating: -1)
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), exactly: nil, clamping: Int.max, truncating:  1)
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), exactly: nil, clamping: Int.max, truncating: -1)
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: Int( 1))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), exactly: nil, clamping: Int.max, truncating: -1)
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), exactly: nil, clamping: Int.max, truncating:  1)
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), exactly: nil, clamping: Int.max, truncating: -1)
     }
     
     func testFromInt() {
@@ -324,10 +325,10 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToUInt() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default:  UInt( 1))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: ~UInt( 0))
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), exactly:  nil, clamping: UInt.max, truncating:  1)
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), exactly:  nil, clamping: UInt.max, truncating: ~0)
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default:  UInt( 1))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: ~UInt( 0))
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), exactly:  nil, clamping: UInt.max, truncating:  1)
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), exactly:  nil, clamping: UInt.max, truncating: ~0)
     }
     
     func testFromUInt() {
@@ -336,15 +337,15 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     }
 
     func testFromUIntAsDigit() {
-        NBKAssertNumbers(from: T(digit: UInt.min), default: T(words:[ 0, 0, 0, 0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: UInt.max), default: T(words:[~0, 0, 0, 0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.min), default: T(words:[ 0, 0, 0, 0] as W))
+        NBKAssertNumbers(from: T(digit: UInt.max), default: T(words:[~0, 0, 0, 0] as W))
     }
     
     func testFromUIntAsDigitAtIndex() {
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(0)), default: T(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(1)), default: T(words:[ 0, ~0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(2)), default: T(words:[ 0,  0, ~0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(3)), default: T(words:[ 0,  0,  0, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(0)), default: T(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(1)), default: T(words:[ 0, ~0,  0,  0] as W))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(2)), default: T(words:[ 0,  0, ~0,  0] as W))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(3)), default: T(words:[ 0,  0,  0, ~0] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -384,17 +385,17 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToSignitude() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: S(words:[ 1,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: S(words:[~0,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), default: S(words:[ 1,  1,  1,  1,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), default: S(words:[~0, ~0, ~0, ~0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: S(words:[ 1,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: S(words:[~0,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), default: S(words:[ 1,  1,  1,  1,  0] as W))
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), default: S(words:[~0, ~0, ~0, ~0,  0] as W))
     }
 
     func testFromSignitude() {
-        NBKAssertNumbers(from: S(words:[ 1,  0,  0,  0] as [UInt]), default: T(words:[ 1,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: S(words:[~0,  0,  0,  0] as [UInt]), default: T(words:[~0,  0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: S(words:[ 1,  1,  1,  1] as [UInt]), default: T(words:[ 1,  1,  1,  1,  0] as [UInt]))
-        NBKAssertNumbers(from: S(words:[~0, ~0, ~0, ~0] as [UInt]), exactly: nil, clamping: T.zero, truncating: T(UInt.max))
+        NBKAssertNumbers(from: S(words:[ 1,  0,  0,  0] as W), default: T(words:[ 1,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: S(words:[~0,  0,  0,  0] as W), default: T(words:[~0,  0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: S(words:[ 1,  1,  1,  1] as W), default: T(words:[ 1,  1,  1,  1,  0] as W))
+        NBKAssertNumbers(from: S(words:[~0, ~0, ~0, ~0] as W), exactly: nil, clamping: T.zero, truncating: T(UInt.max))
     }
 
     //=------------------------------------------------------------------------=
@@ -402,17 +403,17 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToMagnitude() {
-        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as [UInt]), default: M(words:[ 1,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as [UInt]), default: M(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as [UInt]), default: M(words:[ 1,  1,  1,  1] as [UInt]))
-        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as [UInt]), default: M(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(words:[ 1,  0,  0,  0] as W), default: M(words:[ 1,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[~0,  0,  0,  0] as W), default: M(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: T(words:[ 1,  1,  1,  1] as W), default: M(words:[ 1,  1,  1,  1] as W))
+        NBKAssertNumbers(from: T(words:[~0, ~0, ~0, ~0] as W), default: M(words:[~0, ~0, ~0, ~0] as W))
     }
 
     func testFromMagnitude() {
-        NBKAssertNumbers(from: M(words:[ 1,  0,  0,  0] as [UInt]), default: T(words:[ 1,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: M(words:[~0,  0,  0,  0] as [UInt]), default: T(words:[~0,  0,  0,  0] as [UInt]))
-        NBKAssertNumbers(from: M(words:[ 1,  1,  1,  1] as [UInt]), default: T(words:[ 1,  1,  1,  1] as [UInt]))
-        NBKAssertNumbers(from: M(words:[~0, ~0, ~0, ~0] as [UInt]), default: T(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: M(words:[ 1,  0,  0,  0] as W), default: T(words:[ 1,  0,  0,  0] as W))
+        NBKAssertNumbers(from: M(words:[~0,  0,  0,  0] as W), default: T(words:[~0,  0,  0,  0] as W))
+        NBKAssertNumbers(from: M(words:[ 1,  1,  1,  1] as W), default: T(words:[ 1,  1,  1,  1] as W))
+        NBKAssertNumbers(from: M(words:[~0, ~0, ~0, ~0] as W), default: T(words:[~0, ~0, ~0, ~0] as W))
     }
     
     //=------------------------------------------------------------------------=

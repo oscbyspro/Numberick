@@ -13,6 +13,7 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -95,10 +96,10 @@ final class UIntXLTestsOnDivision: XCTestCase {
     }
     
     func testDividingByDigitWithLargeDividend() {
-        NBKAssertDivisionByDigit(T(words:[~2,  ~4,  ~6,  9] as [UInt]), UInt(2), T(words:[~1, ~2, ~3, 4] as [UInt]), UInt(1))
-        NBKAssertDivisionByDigit(T(words:[~3,  ~6,  ~9, 14] as [UInt]), UInt(3), T(words:[~1, ~2, ~3, 4] as [UInt]), UInt(2))
-        NBKAssertDivisionByDigit(T(words:[~4,  ~8, ~12, 19] as [UInt]), UInt(4), T(words:[~1, ~2, ~3, 4] as [UInt]), UInt(3))
-        NBKAssertDivisionByDigit(T(words:[~5, ~10, ~15, 24] as [UInt]), UInt(5), T(words:[~1, ~2, ~3, 4] as [UInt]), UInt(4))
+        NBKAssertDivisionByDigit(T(words:[~2,  ~4,  ~6,  9] as W), UInt(2), T(words:[~1, ~2, ~3, 4] as W), UInt(1))
+        NBKAssertDivisionByDigit(T(words:[~3,  ~6,  ~9, 14] as W), UInt(3), T(words:[~1, ~2, ~3, 4] as W), UInt(2))
+        NBKAssertDivisionByDigit(T(words:[~4,  ~8, ~12, 19] as W), UInt(4), T(words:[~1, ~2, ~3, 4] as W), UInt(3))
+        NBKAssertDivisionByDigit(T(words:[~5, ~10, ~15, 24] as W), UInt(5), T(words:[~1, ~2, ~3, 4] as W), UInt(4))
     }
     
     //=------------------------------------------------------------------------=

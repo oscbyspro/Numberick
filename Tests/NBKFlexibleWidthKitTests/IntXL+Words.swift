@@ -13,6 +13,7 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -42,13 +43,13 @@ final class IntXLTestsOnWords: XCTestCase {
         NBKAssertWords(T(words:[1, 2, 3, 0]), [1, 2, 3   ])
         NBKAssertWords(T(words:[1, 2, 3, 4]), [1, 2, 3, 4])
         
-        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])), [~0, ~0, ~0, ~0/2 + 0    ] as [UInt]) // 4
-        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])), [ 0,  0,  0, ~0/2 + 1,  0] as [UInt]) // 5
-        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])), [ 1,  0,  0, ~0/2 + 1,  0] as [UInt]) // 5
+        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)), [~0, ~0, ~0, ~0/2 + 0    ] as W) // 4
+        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)), [ 0,  0,  0, ~0/2 + 1,  0] as W) // 5
+        NBKAssertWords(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)), [ 1,  0,  0, ~0/2 + 1,  0] as W) // 5
         
-        NBKAssertWords(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])), [ 1,  0,  0, ~0/2 + 1    ] as [UInt]) // 4
-        NBKAssertWords(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])), [ 0,  0,  0, ~0/2 + 1    ] as [UInt]) // 4
-        NBKAssertWords(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])), [~0, ~0, ~0, ~0/2 + 0, ~0] as [UInt]) // 5
+        NBKAssertWords(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)), [ 1,  0,  0, ~0/2 + 1    ] as W) // 4
+        NBKAssertWords(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)), [ 0,  0,  0, ~0/2 + 1    ] as W) // 4
+        NBKAssertWords(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)), [~0, ~0, ~0, ~0/2 + 0, ~0] as W) // 5
     }
     
     func testWordsX64() throws {

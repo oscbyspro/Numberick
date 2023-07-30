@@ -13,6 +13,7 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -29,11 +30,11 @@ final class IntXLTestsOnLogic: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNot() {
-        NBKAssertNot(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]))
-        NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertNot(T(words:[ 0,  0,  0,  0] as W), T(words:[~0, ~0, ~0, ~0] as W))
+        NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 0,  0,  0,  0] as W))
 
-        NBKAssertNot(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertNot(T(words:[~0, ~1, ~2, ~3] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
+        NBKAssertNot(T(words:[ 0,  1,  2,  3] as W), T(words:[~0, ~1, ~2, ~3] as W))
+        NBKAssertNot(T(words:[~0, ~1, ~2, ~3] as W), T(words:[ 0,  1,  2,  3] as W))
     }
     
     func testAnd() {
@@ -62,44 +63,44 @@ final class UIntXLTestsOnLogic: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNot() {
-        NBKAssertNot(T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
-        NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertNot(T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
+        NBKAssertNot(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 0,  0,  0,  0] as W))
         
-        NBKAssertNot(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertNot(T(words:[~0, ~1, ~2, ~3] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
+        NBKAssertNot(T(words:[ 0,  1,  2,  3] as W), T(words:[~0, ~1, ~2, ~3] as W))
+        NBKAssertNot(T(words:[~0, ~1, ~2, ~3] as W), T(words:[ 0,  1,  2,  3] as W))
     }
     
     func testAnd() {
-        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
-        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]))
+        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
+        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
         
-        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
-        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 3,  2,  1,  0] as [UInt]))
+        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 0,  1,  2,  3] as W))
+        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 3,  2,  1,  0] as W))
         
-        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 0,  1,  0,  1] as [UInt]))
-        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 1,  0,  1,  0] as [UInt]))
+        NBKAssertAnd(T(words:[ 0,  1,  2,  3] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 0,  1,  0,  1] as W))
+        NBKAssertAnd(T(words:[ 3,  2,  1,  0] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 1,  0,  1,  0] as W))
     }
     
     func testOr() {
-        NBKAssertOr (T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
-        NBKAssertOr (T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 3,  2,  1,  0] as [UInt]))
+        NBKAssertOr (T(words:[ 0,  1,  2,  3] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  1,  2,  3] as W))
+        NBKAssertOr (T(words:[ 3,  2,  1,  0] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 3,  2,  1,  0] as W))
         
-        NBKAssertOr (T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]))
-        NBKAssertOr (T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]))
+        NBKAssertOr (T(words:[ 0,  1,  2,  3] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[~0, ~0, ~0, ~0] as W))
+        NBKAssertOr (T(words:[ 3,  2,  1,  0] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[~0, ~0, ~0, ~0] as W))
         
-        NBKAssertOr (T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 1,  1,  3,  3] as [UInt]))
-        NBKAssertOr (T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 3,  3,  1,  1] as [UInt]))
+        NBKAssertOr (T(words:[ 0,  1,  2,  3] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 1,  1,  3,  3] as W))
+        NBKAssertOr (T(words:[ 3,  2,  1,  0] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 3,  3,  1,  1] as W))
     }
     
     func testXor() {
-        NBKAssertXor(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 0,  1,  2,  3] as [UInt]))
-        NBKAssertXor(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 0,  0,  0,  0] as [UInt]), T(words:[ 3,  2,  1,  0] as [UInt]))
+        NBKAssertXor(T(words:[ 0,  1,  2,  3] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  1,  2,  3] as W))
+        NBKAssertXor(T(words:[ 3,  2,  1,  0] as W), T(words:[ 0,  0,  0,  0] as W), T(words:[ 3,  2,  1,  0] as W))
         
-        NBKAssertXor(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[~0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertXor(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[~3, ~2, ~1, ~0] as [UInt]))
+        NBKAssertXor(T(words:[ 0,  1,  2,  3] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[~0, ~1, ~2, ~3] as W))
+        NBKAssertXor(T(words:[ 3,  2,  1,  0] as W), T(words:[~0, ~0, ~0, ~0] as W), T(words:[~3, ~2, ~1, ~0] as W))
         
-        NBKAssertXor(T(words:[ 0,  1,  2,  3] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 1,  0,  3,  2] as [UInt]))
-        NBKAssertXor(T(words:[ 3,  2,  1,  0] as [UInt]), T(words:[ 1,  1,  1,  1] as [UInt]), T(words:[ 2,  3,  0,  1] as [UInt]))
+        NBKAssertXor(T(words:[ 0,  1,  2,  3] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 1,  0,  3,  2] as W))
+        NBKAssertXor(T(words:[ 3,  2,  1,  0] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 2,  3,  0,  1] as W))
     }
 }
 

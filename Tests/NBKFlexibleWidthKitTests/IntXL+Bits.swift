@@ -13,6 +13,7 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -35,97 +36,97 @@ final class IntXLTestsOnBits: XCTestCase {
     }
     
     func testBitWidth() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).bitWidth, UInt.bitWidth * 1)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).bitWidth, UInt.bitWidth * 1)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).bitWidth, UInt.bitWidth * 1)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).bitWidth, UInt.bitWidth * 1)
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).bitWidth, UInt.bitWidth * 4)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).bitWidth, UInt.bitWidth * 5)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).bitWidth, UInt.bitWidth * 5)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).bitWidth, UInt.bitWidth * 4)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).bitWidth, UInt.bitWidth * 5)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).bitWidth, UInt.bitWidth * 5)
         
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).bitWidth, UInt.bitWidth * 4)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).bitWidth, UInt.bitWidth * 4)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).bitWidth, UInt.bitWidth * 5)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).bitWidth, UInt.bitWidth * 4)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).bitWidth, UInt.bitWidth * 4)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).bitWidth, UInt.bitWidth * 5)
     }
     
     func testNonzeroBitCount() {
         XCTAssertEqual(T(sign: .minus, magnitude:  M.zero).nonzeroBitCount, 0)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).nonzeroBitCount, 0)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).nonzeroBitCount, 4)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).nonzeroBitCount, UInt.bitWidth * 1)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).nonzeroBitCount, 0)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).nonzeroBitCount, 4)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).nonzeroBitCount, UInt.bitWidth * 1)
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).nonzeroBitCount, UInt.bitWidth * 4 - 1)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).nonzeroBitCount, UInt.bitWidth * 0 + 1)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).nonzeroBitCount, UInt.bitWidth * 0 + 2)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).nonzeroBitCount, UInt.bitWidth * 4 - 1)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).nonzeroBitCount, UInt.bitWidth * 0 + 1)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).nonzeroBitCount, UInt.bitWidth * 0 + 2)
         
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).nonzeroBitCount, UInt.bitWidth * 0 + 2)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).nonzeroBitCount, UInt.bitWidth * 0 + 1)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).nonzeroBitCount, UInt.bitWidth * 5 - 1)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).nonzeroBitCount, UInt.bitWidth * 0 + 2)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).nonzeroBitCount, UInt.bitWidth * 0 + 1)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).nonzeroBitCount, UInt.bitWidth * 5 - 1)
     }
     
     func testLeadingZeroBitCount() {
         XCTAssertEqual(T(sign: .minus, magnitude:  M.zero).leadingZeroBitCount,  UInt.bitWidth * 1)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 1)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 1)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).leadingZeroBitCount,  UInt.bitWidth * 0)
         
-        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
         
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 0 + 1)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 1 + 0)
-        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 1 + 0)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).leadingZeroBitCount, UInt.bitWidth * 0 + 1)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).leadingZeroBitCount, UInt.bitWidth * 1 + 0)
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).leadingZeroBitCount, UInt.bitWidth * 1 + 0)
         
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
-        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as [UInt])).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[~0, ~0, ~0, ~0/2 + 0] as W)).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 0,  0,  0, ~0/2 + 1] as W)).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
+        XCTAssertEqual(T(sign: .minus, magnitude: M(words:[ 1,  0,  0, ~0/2 + 1] as W)).leadingZeroBitCount, UInt.bitWidth * 0 + 0)
     }
     
     func testTrailingZeroBitCount() {
         XCTAssertEqual(T(sign: .minus, magnitude:  M.zero).trailingZeroBitCount, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
         
-        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0 + 1)
-        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 1 + 1)
-        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 2 + 1)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 3 + 1)
+        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0 + 1)
+        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 1 + 1)
+        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as W).trailingZeroBitCount, UInt.bitWidth * 2 + 1)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as W).trailingZeroBitCount, UInt.bitWidth * 3 + 1)
     }
     
     func testMostSignificantBit() {
         XCTAssertEqual(T(sign: .minus, magnitude:  M.zero).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).mostSignificantBit,  true )
 
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as W).mostSignificantBit,  true )
         
-        XCTAssertEqual(T(words:[~0,  1,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[~0,  1,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W).mostSignificantBit,  true )
     }
     
     func testLeastSignificantBit() {
         XCTAssertEqual(T(sign: .minus, magnitude:  M.zero).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).leastSignificantBit, true )
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).leastSignificantBit, true )
 
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as [UInt]).leastSignificantBit, true )
-        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as [UInt]).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as W).leastSignificantBit, false)
         
-        XCTAssertEqual(T(words:[~0,  1,  0,  0] as [UInt]).leastSignificantBit, true )
-        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as [UInt]).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[~0,  1,  0,  0] as W).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W).leastSignificantBit, true )
     }
 }
 
@@ -148,63 +149,63 @@ final class UIntXLTestsOnBits: XCTestCase {
     }
     
     func testBitWidth() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).bitWidth, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).bitWidth, UInt.bitWidth * 4)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).bitWidth, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).bitWidth, UInt.bitWidth * 4)
     }
     
     func testNonzeroBitCount() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).nonzeroBitCount, 0)
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as [UInt]).nonzeroBitCount, 4)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).nonzeroBitCount, 0)
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).nonzeroBitCount, 4)
     }
     
     func testLeadingZeroBitCount() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).leadingZeroBitCount,  UInt.bitWidth * 0)
         
-        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as [UInt]).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
     }
     
     func testTrailingZeroBitCount() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
         
-        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 0 + 1)
-        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 1 + 1)
-        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 2 + 1)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as [UInt]).trailingZeroBitCount, UInt.bitWidth * 3 + 1)
+        XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0 + 1)
+        XCTAssertEqual(T(words:[ 0,  2,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 1 + 1)
+        XCTAssertEqual(T(words:[ 0,  0,  2,  0] as W).trailingZeroBitCount, UInt.bitWidth * 2 + 1)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  2] as W).trailingZeroBitCount, UInt.bitWidth * 3 + 1)
     }
     
     func testMostSignificantBit() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).mostSignificantBit,  true )
 
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as [UInt]).mostSignificantBit,  true )
-        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as [UInt]).mostSignificantBit,  true )
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as [UInt]).mostSignificantBit,  true )
-        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as W).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as W).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as W).mostSignificantBit,  true )
         
-        XCTAssertEqual(T(words:[~0,  1,  0,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as [UInt]).mostSignificantBit,  false)
-        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as [UInt]).mostSignificantBit,  true )
+        XCTAssertEqual(T(words:[~0,  1,  0,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as W).mostSignificantBit,  false)
+        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W).mostSignificantBit,  true )
     }
     
     func testLeastSignificantBit() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as [UInt]).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).leastSignificantBit, true )
 
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as [UInt]).leastSignificantBit, true )
-        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as [UInt]).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0, ~0,  0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0,  0, ~0] as W).leastSignificantBit, false)
         
-        XCTAssertEqual(T(words:[~0,  1,  0,  0] as [UInt]).leastSignificantBit, true )
-        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as [UInt]).leastSignificantBit, false)
-        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as [UInt]).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[~0,  1,  0,  0] as W).leastSignificantBit, true )
+        XCTAssertEqual(T(words:[ 0, ~0,  1,  0] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 0,  0, ~0,  1] as W).leastSignificantBit, false)
+        XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W).leastSignificantBit, true )
     }
 }
 

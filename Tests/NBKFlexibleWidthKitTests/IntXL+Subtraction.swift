@@ -13,6 +13,7 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
@@ -49,15 +50,15 @@ final class IntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingAtIndex() {
-        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~1, ~2, ~3, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~3, ~3, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~2, ~4, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~2, ~3, ~1] as [UInt]))
+        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~1, ~2, ~3, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~3, ~3, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~2, ~4, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~2, ~3, ~1] as W))
         
-        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[~0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~0, ~3, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~0, ~2, ~4] as [UInt]))
+        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[~0, ~1, ~2, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~1, ~2, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~0, ~3, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~0, ~2, ~4] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -85,15 +86,15 @@ final class IntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingDigitAtIndex() {
-        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as [UInt]), Int(3), Int(0), T(words:[~3, ~0, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as [UInt]), Int(3), Int(0), T(words:[~2, ~1, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as [UInt]), Int(3), Int(0), T(words:[~2, ~0, ~1, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as [UInt]), Int(3), Int(0), T(words:[~2, ~0, ~0, ~1] as [UInt]))
+        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as W), Int(3), Int(0), T(words:[~3, ~0, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as W), Int(3), Int(0), T(words:[~2, ~1, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as W), Int(3), Int(0), T(words:[~2, ~0, ~1, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as W), Int(3), Int(0), T(words:[~2, ~0, ~0, ~1] as W))
         
-        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as [UInt]), Int(3), Int(1), T(words:[~0, ~3, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as [UInt]), Int(3), Int(1), T(words:[ 0, ~3, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as [UInt]), Int(3), Int(1), T(words:[ 0, ~2, ~1, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as [UInt]), Int(3), Int(1), T(words:[ 0, ~2, ~0, ~1] as [UInt]))
+        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as W), Int(3), Int(1), T(words:[~0, ~3, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as W), Int(3), Int(1), T(words:[ 0, ~3, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as W), Int(3), Int(1), T(words:[ 0, ~2, ~1, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as W), Int(3), Int(1), T(words:[ 0, ~2, ~0, ~1] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -131,28 +132,28 @@ final class UIntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingReportingOverflow() {
-        NBKAssertSubtraction(T(1), T(0), Int(0), T(words:[ 1] as [UInt]))
-        NBKAssertSubtraction(T(1), T(1), Int(0), T(words:[ 0] as [UInt]))
-        NBKAssertSubtraction(T(1), T(2), Int(0), T(words:[~0] as [UInt]), true)
-        NBKAssertSubtraction(T(1), T(3), Int(0), T(words:[~1] as [UInt]), true)
+        NBKAssertSubtraction(T(1), T(0), Int(0), T(words:[ 1] as W))
+        NBKAssertSubtraction(T(1), T(1), Int(0), T(words:[ 0] as W))
+        NBKAssertSubtraction(T(1), T(2), Int(0), T(words:[~0] as W), true)
+        NBKAssertSubtraction(T(1), T(3), Int(0), T(words:[~1] as W), true)
     }
     
     func testSubtractingAtIndex() {
-        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~1, ~2, ~3, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~3, ~3, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~2, ~4, ~0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(0), T(words:[~0, ~2, ~3, ~1] as [UInt]))
+        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~1, ~2, ~3, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~3, ~3, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~2, ~4, ~0] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[~0, ~2, ~3, ~1] as W))
         
-        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[~0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~1, ~2, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~0, ~3, ~3] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as [UInt]), T(words:[ 1,  2,  3,  0] as [UInt]), Int(1), T(words:[ 0, ~0, ~2, ~4] as [UInt]))
+        NBKAssertSubtraction(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[~0, ~1, ~2, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0, ~0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~1, ~2, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0, ~0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~0, ~3, ~3] as W))
+        NBKAssertSubtraction(T(words:[ 0,  0,  0, ~0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0, ~0, ~2, ~4] as W))
     }
     
     func testSubtractingAtIndexReportingOverflow() {
-        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as [UInt]), T(words:[ 4,  5,  0,  0] as [UInt]), Int(0), T(words:[~2, ~3,  2,  0] as [UInt]))
-        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as [UInt]), T(words:[ 4,  5,  0,  0] as [UInt]), Int(1), T(words:[ 1, ~1, ~2,  0] as [UInt]), true)
-        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as [UInt]), T(words:[ 4,  5,  0,  0] as [UInt]), Int(2), T(words:[ 1,  2, ~0, ~5] as [UInt]), true)
+        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as W), T(words:[ 4,  5,  0,  0] as W), Int(0), T(words:[~2, ~3,  2,  0] as W))
+        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as W), T(words:[ 4,  5,  0,  0] as W), Int(1), T(words:[ 1, ~1, ~2,  0] as W), true)
+        NBKAssertSubtraction(T(words:[ 1,  2,  3,  0] as W), T(words:[ 4,  5,  0,  0] as W), Int(2), T(words:[ 1,  2, ~0, ~5] as W), true)
     }
     
     //=------------------------------------------------------------------------=
@@ -167,29 +168,29 @@ final class UIntXLTestsOnSubtraction: XCTestCase {
     }
     
     func testSubtractingDigitReportingOverflow() {
-        NBKAssertSubtractionByDigit(T(1), UInt(0), Int(0), T(words:[ 1] as [UInt]))
-        NBKAssertSubtractionByDigit(T(1), UInt(1), Int(0), T(words:[ 0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(1), UInt(2), Int(0), T(words:[~0] as [UInt]), true)
-        NBKAssertSubtractionByDigit(T(1), UInt(3), Int(0), T(words:[~1] as [UInt]), true)
+        NBKAssertSubtractionByDigit(T(1), UInt(0), Int(0), T(words:[ 1] as W))
+        NBKAssertSubtractionByDigit(T(1), UInt(1), Int(0), T(words:[ 0] as W))
+        NBKAssertSubtractionByDigit(T(1), UInt(2), Int(0), T(words:[~0] as W), true)
+        NBKAssertSubtractionByDigit(T(1), UInt(3), Int(0), T(words:[~1] as W), true)
     }
     
     func testSubtractingDigitAtIndex() {
-        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as [UInt]), UInt(3), Int(0), T(words:[~3, ~0, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as [UInt]), UInt(3), Int(0), T(words:[~2, ~1, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as [UInt]), UInt(3), Int(0), T(words:[~2, ~0, ~1, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as [UInt]), UInt(3), Int(0), T(words:[~2, ~0, ~0, ~1] as [UInt]))
+        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as W), UInt(3), Int(0), T(words:[~3, ~0, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as W), UInt(3), Int(0), T(words:[~2, ~1, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as W), UInt(3), Int(0), T(words:[~2, ~0, ~1, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as W), UInt(3), Int(0), T(words:[~2, ~0, ~0, ~1] as W))
         
-        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as [UInt]), UInt(3), Int(1), T(words:[~0, ~3, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as [UInt]), UInt(3), Int(1), T(words:[ 0, ~3, ~0, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as [UInt]), UInt(3), Int(1), T(words:[ 0, ~2, ~1, ~0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as [UInt]), UInt(3), Int(1), T(words:[ 0, ~2, ~0, ~1] as [UInt]))
+        NBKAssertSubtractionByDigit(T(words:[~0, ~0, ~0, ~0] as W), UInt(3), Int(1), T(words:[~0, ~3, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0, ~0, ~0, ~0] as W), UInt(3), Int(1), T(words:[ 0, ~3, ~0, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0, ~0, ~0] as W), UInt(3), Int(1), T(words:[ 0, ~2, ~1, ~0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 0,  0,  0, ~0] as W), UInt(3), Int(1), T(words:[ 0, ~2, ~0, ~1] as W))
     }
     
     func testSubtractingDigitAtIndexReportingOverflow() {
-        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as [UInt]), UInt(5), Int(0), T(words:[~3,  1,  3,  0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as [UInt]), UInt(5), Int(1), T(words:[ 1, ~2,  2,  0] as [UInt]))
-        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as [UInt]), UInt(5), Int(2), T(words:[ 1,  2, ~1,  0] as [UInt]), true)
-        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as [UInt]), UInt(5), Int(3), T(words:[ 1,  2,  3, ~4] as [UInt]), true)
+        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as W), UInt(5), Int(0), T(words:[~3,  1,  3,  0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as W), UInt(5), Int(1), T(words:[ 1, ~2,  2,  0] as W))
+        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as W), UInt(5), Int(2), T(words:[ 1,  2, ~1,  0] as W), true)
+        NBKAssertSubtractionByDigit(T(words:[ 1,  2,  3,  0] as W), UInt(5), Int(3), T(words:[ 1,  2,  3, ~4] as W), true)
     }
     
     //=------------------------------------------------------------------------=
