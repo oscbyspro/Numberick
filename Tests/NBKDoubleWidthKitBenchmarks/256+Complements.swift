@@ -73,6 +73,23 @@ final class Int256BenchmarksOnComplements: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOnesComplement() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.onesComplement())
+            NBK.blackHole(xyz.onesComplement())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
@@ -83,6 +100,19 @@ final class Int256BenchmarksOnComplements: XCTestCase {
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
             NBK.blackHole(xyz.twosComplement())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testTwosComplementReportingOverflow() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.twosComplementReportingOverflow())
+            NBK.blackHole(xyz.twosComplementReportingOverflow())
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -190,6 +220,23 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    func testOnesComplement() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.onesComplement())
+            NBK.blackHole(xyz.onesComplement())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Two's Complement
     //=------------------------------------------------------------------------=
     
@@ -200,6 +247,19 @@ final class UInt256BenchmarksOnComplements: XCTestCase {
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
             NBK.blackHole(xyz.twosComplement())
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testTwosComplementReportingOverflow() {
+        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.twosComplementReportingOverflow())
+            NBK.blackHole(xyz.twosComplementReportingOverflow())
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)

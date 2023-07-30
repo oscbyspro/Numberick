@@ -20,6 +20,12 @@ _ operand: NBKDoubleWidth<H>, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(~operand, result, file: file, line: line)
     XCTAssertEqual(~result, operand, file: file, line: line)
+    
+    XCTAssertEqual(operand.onesComplement(), result,  file: file, line: line)
+    XCTAssertEqual(result .onesComplement(), operand, file: file, line: line)
+    
+    XCTAssertEqual({ var x = operand; x.formOnesComplement(); return x }(), result,  file: file, line: line)
+    XCTAssertEqual({ var x = result;  x.formOnesComplement(); return x }(), operand, file: file, line: line)
 }
 
 func NBKAssertAnd<H: NBKFixedWidthInteger>(

@@ -57,8 +57,28 @@ extension NBKCoreInteger {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formOnesComplement() {
+        self = self.onesComplement()
+    }
+    
+    @inlinable public func onesComplement() -> Self {
+        ~self
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
+    }
+    
+    @inlinable public func twosComplementReportingOverflow() -> PVO<Self> {
+        self.twosComplementSubsequence(true)
+    }
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
         let pvo: PVO<Self> = self.twosComplementSubsequence(carry)

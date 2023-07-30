@@ -36,18 +36,30 @@ file: StaticString = #file, line: UInt = #line) where T.BitPattern: Equatable {
     XCTAssertEqual(T.BitPattern(bitPattern:  integer), bitPattern, file: file, line: line)
 }
 
+func NBKAssertOnesComplement<H: NBKFixedWidthInteger>(
+_ integer: NBKDoubleWidth<H>, _ result: NBKDoubleWidth<H>,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(integer.onesComplement(),                               result, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(false).partialValue,  result, file: file, line: line)
+    
+    XCTAssertEqual({ var x = integer; let _ = x.formOnesComplement();                  return x }(), result, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(false);  return x }(), result, file: file, line: line)
+}
+
 func NBKAssertTwosComplement<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(integer.twosComplement(),                              partialValue,      file: file, line: line)
-    XCTAssertEqual(integer.twosComplementSubsequence(true ).partialValue, partialValue,      file: file, line: line)
-    XCTAssertEqual(integer.twosComplementSubsequence(true ).overflow,     overflow,          file: file, line: line)
-    XCTAssertEqual(integer.twosComplementSubsequence(false).partialValue, partialValue &- 1, file: file, line: line)
+    XCTAssertEqual(integer.twosComplement(),                               partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementReportingOverflow().partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementReportingOverflow().overflow,     overflow,     file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(true  ).partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(true  ).overflow,     overflow,     file: file, line: line)
     
-    XCTAssertEqual({ var x = integer;         x.formTwosComplement();                 return x }(), partialValue,      file: file, line: line)
-    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(true ); return x }(), partialValue,      file: file, line: line)
-    XCTAssertEqual({ var x = integer; let o = x.formTwosComplementSubsequence(true ); return o }(), overflow,          file: file, line: line)
-    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(false); return x }(), partialValue &- 1, file: file, line: line)
+    XCTAssertEqual({ var x = integer;         x.formTwosComplement();                  return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementReportingOverflow(); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let o = x.formTwosComplementReportingOverflow(); return o }(), overflow,     file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(true  ); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let o = x.formTwosComplementSubsequence(true  ); return o }(), overflow,     file: file, line: line)
 }
 
 func NBKAssertAdditiveInverse<H: NBKFixedWidthInteger & NBKSignedInteger>(

@@ -34,7 +34,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         var suboverflow = (pvo.partialValue.isLessThanZero)
         if  minus {
-            suboverflow = !pvo.partialValue.formTwosComplementSubsequence(true) && suboverflow
+            suboverflow = !pvo.partialValue.formTwosComplementReportingOverflow() && suboverflow
         }
         
         pvo.overflow = pvo.overflow || suboverflow as Bool

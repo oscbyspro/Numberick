@@ -68,48 +68,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     @inlinable var mostSignificantBit: Bool { get }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Complements
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the two's complement subsequence of `self` and `carry`, and returns an `overflow` indicator.
-    ///
-    /// The subsequence is equal to the two's complement when the `carry` bit is set:
-    ///
-    /// ```swift
-    /// formTwosComplementSubsequence(true ) // two's complement
-    /// formTwosComplementSubsequence(false) // one's complement
-    /// ```
-    ///
-    /// The following example shows a two's complement formation of a composite integer:
-    ///
-    /// ```swift
-    /// var carry = true
-    /// carry = low .formTwosComplementSubsequence(carry)
-    /// carry = high.formTwosComplementSubsequence(carry)
-    /// ```
-    ///
-    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool
-    
-    /// Returns the two's complement subsequence of `self` and `carry`, along with an `overflow` indicator.
-    ///
-    /// The subsequence is equal to the two's complement when the `carry` bit is set:
-    ///
-    /// ```swift
-    /// twosComplementSubsequence(true ) // two's complement
-    /// twosComplementSubsequence(false) // one's complement
-    /// ```
-    ///
-    /// The following example shows a two's complement formation of a composite integer:
-    ///
-    /// ```swift
-    /// var carry = true
-    /// (low,  carry) = low .twosComplementSubsequence(carry)
-    /// (high, carry) = high.twosComplementSubsequence(carry)
-    /// ```
-    ///
-    @inlinable func twosComplementSubsequence(_ carry: Bool) -> PVO<Self>
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     
@@ -674,18 +632,6 @@ extension NBKFixedWidthInteger {
     
     @inlinable public func compared(to other: Self) -> Int {
         (self < other) ? -1 : (self == other) ? 0 : 1
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Complements
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func formTwosComplement() {
-        _ = self.formTwosComplementSubsequence(true)
-    }
-    
-    @inlinable public func twosComplement() -> Self {
-        self.twosComplementSubsequence(true).partialValue
     }
     
     //=------------------------------------------------------------------------=

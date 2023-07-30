@@ -210,8 +210,52 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     @_disfavoredOverload @inlinable func compared(to other: Digit) -> Int
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Two's Complement
+    // MARK: Details x Complements
     //=------------------------------------------------------------------------=
+    
+    /// Forms the one's complement of `self`.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┐
+    /// │ self       │ ~self      │
+    /// ├─────────── → ───────────┤
+    /// │ Int256( 1) │ Int256( 0) │
+    /// │ Int256( 0) │ Int256(-1) │
+    /// │ Int256(-1) │ Int256(-2) │
+    /// ├─────────── → ───────────┤
+    /// | Int256.max | Int256.min |
+    /// | Int256.min | Int256.max |
+    /// └─────────── → ───────────┘
+    /// ```
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable mutating func formOnesComplement()
+
+    /// Returns the one's complement of `self`.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┐
+    /// │ self       │ ~self      │
+    /// ├─────────── → ───────────┤
+    /// │ Int256( 1) │ Int256( 0) │
+    /// │ Int256( 0) │ Int256(-1) │
+    /// │ Int256(-1) │ Int256(-2) │
+    /// ├─────────── → ───────────┤
+    /// | Int256.max | Int256.min |
+    /// | Int256.min | Int256.max |
+    /// └─────────── → ───────────┘
+    /// ```
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable func onesComplement() -> Self
     
     /// Forms the two's complement of `self`.
     ///
@@ -228,6 +272,11 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// ```
     ///
     /// - Note: In the case of `overflow`, the result is truncated.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
     ///
     @inlinable mutating func formTwosComplement()
     
@@ -248,6 +297,100 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// - Note: In the case of `overflow`, the result is truncated.
     ///
     @inlinable func twosComplement() -> Self
+    
+    /// Forms the two's complement of `self`, along with an `overflow` indicator.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ self       │ ~self + 1  │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable mutating func formTwosComplementReportingOverflow() -> Bool
+    
+    /// Returns the two's complement of `self`, along with an `overflow` indicator.
+    ///
+    /// ```
+    /// ┌─────────── → ───────────┬──────────┐
+    /// │ self       │ ~self + 1  │ overflow │
+    /// ├─────────── → ───────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1) │ false    │
+    /// │ Int256( 0) │ Int256( 0) │ false    │
+    /// │ Int256(-1) │ Int256( 1) │ false    │
+    /// ├─────────── → ───────────┼──────────┤
+    /// | Int256.min | Int256.min | true     |
+    /// └─────────── → ───────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable func twosComplementReportingOverflow() -> PVO<Self>
+    
+    /// Forms the two's complement subsequence of `self` and `carry`, and returns an `overflow` indicator.
+    ///
+    /// The subsequence is equal to the two's complement when the `carry` bit is set:
+    ///
+    /// ```swift
+    /// formTwosComplementSubsequence(true ) // two's complement
+    /// formTwosComplementSubsequence(false) // one's complement
+    /// ```
+    ///
+    /// The following example shows a two's complement formation of a composite integer:
+    ///
+    /// ```swift
+    /// var carry = true
+    /// carry = low .formTwosComplementSubsequence(carry)
+    /// carry = high.formTwosComplementSubsequence(carry)
+    /// ```
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool
+    
+    /// Returns the two's complement subsequence of `self` and `carry`, along with an `overflow` indicator.
+    ///
+    /// The subsequence is equal to the two's complement when the `carry` bit is set:
+    ///
+    /// ```swift
+    /// twosComplementSubsequence(true ) // two's complement
+    /// twosComplementSubsequence(false) // one's complement
+    /// ```
+    ///
+    /// The following example shows a two's complement formation of a composite integer:
+    ///
+    /// ```swift
+    /// var carry = true
+    /// (low,  carry) = low .twosComplementSubsequence(carry)
+    /// (high, carry) = high.twosComplementSubsequence(carry)
+    /// ```
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// The transformation is performed with respect to the current bit width.
+    /// The bit width may change depending on the value's normalization behavior.
+    ///
+    @inlinable func twosComplementSubsequence(_ carry: Bool) -> PVO<Self>
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition
@@ -1011,6 +1154,18 @@ extension NBKBinaryInteger {
     ///
     @inlinable public var isEven: Bool {
         !self.leastSignificantBit
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Complements
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formTwosComplement() {
+        _ = self.formTwosComplementReportingOverflow()
+    }
+    
+    @inlinable public func twosComplement() -> Self {
+        self.twosComplementReportingOverflow().partialValue
     }
     
     //=------------------------------------------------------------------------=
