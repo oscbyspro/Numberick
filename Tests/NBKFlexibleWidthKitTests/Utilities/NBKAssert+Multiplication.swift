@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Multiplication
 //*============================================================================*
 
-func NBKAssertMultiplication(
-_ lhs: UIntXL, _ rhs:  UIntXL, _ result: UIntXL,
+func NBKAssertMultiplication<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  T, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
@@ -25,8 +25,8 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs); return lhs }(), result, file: file, line: line)
 }
 
-func NBKAssertMultiplicationByDigit(
-_ lhs: UIntXL, _ rhs:  UIntXL.Digit, _ result: UIntXL,
+func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  T.Digit, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)

@@ -32,11 +32,14 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func multiply(by multiplicand: Self) {
-        self = self.multiplied(by: multiplicand)
+        self.sign = self.sign ^ multiplicand.sign
+        self.magnitude.multiply(by: multiplicand.magnitude)
     }
     
     @inlinable public func multiplied(by multiplicand: Self) -> Self {
-        fatalError("TODO")
+        let sign = self.sign ^ Sign(multiplicand.isLessThanZero)
+        let magnitude = self.magnitude.multiplied(by: multiplicand.magnitude)
+        return Self(sign: sign, magnitude: magnitude)
     }
 }
 

@@ -31,14 +31,15 @@ extension NBKFlexibleWidth {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    // TODO: see what kind of addition the algorithm intrinsically permits
-    @_disfavoredOverload @inlinable mutating func multiply(by multiplicand: Int, adding addend: UInt) {
-        fatalError("TODO")
+    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: Int, adding addend: UInt) {
+        self.sign = self.sign ^ Sign(multiplicand.isLessThanZero)
+        return self.magnitude.multiply(by: multiplicand.magnitude, adding: addend)
     }
     
-    // TODO: see what kind of addition the algorithm intrinsically permits
-    @_disfavoredOverload @inlinable func multiplied(by multiplicand: Int, adding addend: UInt) -> Self {
-        var result = self; result.multiply(by: multiplicand, adding: addend); return result
+    @_disfavoredOverload @inlinable public func multiplied(by multiplicand: Int, adding addend: UInt) -> Self {
+        let sign = self.sign ^ Sign(multiplicand.isLessThanZero)
+        let magnitude = self.magnitude.multiplied(by: multiplicand.magnitude, adding: addend)
+        return Self(sign: sign, magnitude: magnitude)
     }
 }
 
@@ -64,7 +65,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func multiply(by multiplicand: UInt, adding addend: UInt) {
+    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: UInt, adding addend: UInt) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
@@ -80,7 +81,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
     }
     
-    @_disfavoredOverload @inlinable func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
+    @_disfavoredOverload @inlinable public func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
         var result = self; result.multiply(by: multiplicand, adding: addend); return result
     }
 }

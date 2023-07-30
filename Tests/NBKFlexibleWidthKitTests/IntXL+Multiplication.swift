@@ -13,8 +13,72 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
 private typealias X = [UInt64]
 private typealias Y = [UInt32]
+
+//*============================================================================*
+// MARK: * NBK x IntXL x Multiplication
+//*============================================================================*
+
+final class IntXLTestsOnMultiplication: XCTestCase {
+    
+    typealias T =  IntXL
+    typealias M = UIntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testMultiplying() {
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[2, 0, 0, 0] as W), T(words:[ 2,  4,  6,  8,  0,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 2, 0, 0] as W), T(words:[ 0,  2,  4,  6,  8,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0,  2,  4,  6,  8,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0,  2,  4,  6,  8,  0] as W))
+        
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[2, 0, 0, 0] as W), T(words:[~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 2, 0, 0] as W), T(words:[ 0, ~1, ~4, ~6, ~8, ~0, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0, ~1, ~4, ~6, ~8, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0, ~1, ~4, ~6, ~8, ~0] as W))
+        
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[2, 0, 0, 0] as W), T(words:[~3, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 2, 0, 0] as W), T(words:[ 0, ~3, ~4, ~6, ~8, ~0, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0, ~3, ~4, ~6, ~8, ~0, ~0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0, ~3, ~4, ~6, ~8, ~0] as W))
+        
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[2, 0, 0, 0] as W), T(words:[ 4,  4,  6,  8,  0,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 2, 0, 0] as W), T(words:[ 0,  4,  4,  6,  8,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0,  4,  4,  6,  8,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0,  4,  4,  6,  8,  0] as W))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit
+    //=------------------------------------------------------------------------=
+    
+    func testMultiplyingByDigit() {
+        NBKAssertMultiplicationByDigit(T(words:[ 1,  2,  3,  4] as W),  Int(2), T(words:[ 2,  4,  6,  8,  0] as W))
+        NBKAssertMultiplicationByDigit(T(words:[ 1,  2,  3,  4] as W), -Int(2), T(words:[~1, ~4, ~6, ~8, ~0] as W))
+        NBKAssertMultiplicationByDigit(T(words:[~1, ~2, ~3, ~4] as W),  Int(2), T(words:[~3, ~4, ~6, ~8, ~0] as W))
+        NBKAssertMultiplicationByDigit(T(words:[~1, ~2, ~3, ~4] as W), -Int(2), T(words:[ 4,  4,  6,  8,  0] as W))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
+        func becauseThisCompilesSuccessfully(_ x: inout T) {
+            XCTAssertNotNil(x  *= 0)
+            XCTAssertNotNil(x.multiply(by: 0))
+            XCTAssertNotNil(x.multiply(by: 0, adding: 0))
+
+            XCTAssertNotNil(x  *  0)
+            XCTAssertNotNil(x.multiplied(by: 0))
+            XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
+        }
+    }
+}
 
 //*============================================================================*
 // MARK: * NBK x UIntXL x Multiplication
@@ -30,15 +94,15 @@ final class UIntXLTestsOnMultiplication: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplying() {
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as [UInt]), T(words:[2, 0, 0, 0] as [UInt]), T(words:[ 2,  4,  6,  8,  0,  0,  0,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as [UInt]), T(words:[0, 2, 0, 0] as [UInt]), T(words:[ 0,  2,  4,  6,  8,  0,  0,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as [UInt]), T(words:[0, 0, 2, 0] as [UInt]), T(words:[ 0,  0,  2,  4,  6,  8,  0,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as [UInt]), T(words:[0, 0, 0, 2] as [UInt]), T(words:[ 0,  0,  0,  2,  4,  6,  8,  0] as [UInt]))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), T(words:[2, 0, 0, 0] as W), T(words:[ 2,  4,  6,  8,  0,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), T(words:[0, 2, 0, 0] as W), T(words:[ 0,  2,  4,  6,  8,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0,  2,  4,  6,  8,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0,  2,  4,  6,  8,  0] as W))
         
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as [UInt]), T(words:[2, 0, 0, 0] as [UInt]), T(words:[~3, ~4, ~6, ~8,  1,  0,  0,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as [UInt]), T(words:[0, 2, 0, 0] as [UInt]), T(words:[ 0, ~3, ~4, ~6, ~8,  1,  0,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as [UInt]), T(words:[0, 0, 2, 0] as [UInt]), T(words:[ 0,  0, ~3, ~4, ~6, ~8,  1,  0] as [UInt]))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as [UInt]), T(words:[0, 0, 0, 2] as [UInt]), T(words:[ 0,  0,  0, ~3, ~4, ~6, ~8,  1] as [UInt]))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), T(words:[2, 0, 0, 0] as W), T(words:[~3, ~4, ~6, ~8,  1,  0,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), T(words:[0, 2, 0, 0] as W), T(words:[ 0, ~3, ~4, ~6, ~8,  1,  0,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0, ~3, ~4, ~6, ~8,  1,  0] as W))
+        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0, ~3, ~4, ~6, ~8,  1] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -46,13 +110,13 @@ final class UIntXLTestsOnMultiplication: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultipliedByDigit() {
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]),  UInt(0),  T(words:[0, 0, 0, 0,  0] as [UInt]))
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]),  UInt(1),  T(words:[1, 2, 3, 4,  0] as [UInt]))
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]),  UInt(2),  T(words:[2, 4, 6, 8,  0] as [UInt]))
-        
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]), ~UInt(0), ~T(words:[0, 1, 1, 1, ~3] as [UInt]))
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]), ~UInt(1), ~T(words:[1, 3, 4, 5, ~3] as [UInt]))
-        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as [UInt]), ~UInt(2), ~T(words:[2, 5, 7, 9, ~3] as [UInt]))
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W),  UInt(0),  T(words:[ 0,  0,  0,  0,  0] as W))
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W),  UInt(1),  T(words:[ 1,  2,  3,  4,  0] as W))
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W),  UInt(2),  T(words:[ 2,  4,  6,  8,  0] as W))
+
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W), ~UInt(0), ~T(words:[ 0,  1,  1,  1, ~3] as W))
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W), ~UInt(1), ~T(words:[ 1,  3,  4,  5, ~3] as W))
+        NBKAssertMultiplicationByDigit(T(words:[1, 2, 3, 4] as W), ~UInt(2), ~T(words:[ 2,  5,  7,  9, ~3] as W))
     }
     
     //=------------------------------------------------------------------------=
@@ -62,7 +126,12 @@ final class UIntXLTestsOnMultiplication: XCTestCase {
     func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
             XCTAssertNotNil(x  *= 0)
+            XCTAssertNotNil(x.multiply(by: 0))
+            XCTAssertNotNil(x.multiply(by: 0, adding: 0))
+
             XCTAssertNotNil(x  *  0)
+            XCTAssertNotNil(x.multiplied(by: 0))
+            XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
         }
     }
 }
