@@ -56,6 +56,18 @@ final class IntXLTestsOnNumbers: XCTestCase {
         NBKAssertNumbers(from: T(digit: Int.max), default:  T(words:[UInt(Int.max), 0, 0, 0] as [UInt]))
     }
     
+    func testFromIntAsDigitAtIndex() {
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(0)), default: T(words:[ 4,  0,  0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(1)), default: T(words:[ 0,  4,  0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(2)), default: T(words:[ 0,  0,  4,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int( 4), at: Int(3)), default: T(words:[ 0,  0,  0,  4] as [UInt]))
+        
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(0)), default: T(words:[~3, ~0, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(1)), default: T(words:[ 0, ~3, ~0, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(2)), default: T(words:[ 0,  0, ~3, ~0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: Int(-4), at: Int(3)), default: T(words:[ 0,  0,  0, ~3] as [UInt]))
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Int32
     //=------------------------------------------------------------------------=
@@ -324,8 +336,15 @@ final class UIntXLTestsOnNumbers: XCTestCase {
     }
 
     func testFromUIntAsDigit() {
-        XCTAssertEqual(T(digit: UInt.min), T(words:[UInt.min] as [UInt]))
-        XCTAssertEqual(T(digit: UInt.max), T(words:[UInt.max] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.min), default: T(words:[ 0, 0, 0, 0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.max), default: T(words:[~0, 0, 0, 0] as [UInt]))
+    }
+    
+    func testFromUIntAsDigitAtIndex() {
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(0)), default: T(words:[~0,  0,  0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(1)), default: T(words:[ 0, ~0,  0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(2)), default: T(words:[ 0,  0, ~0,  0] as [UInt]))
+        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(3)), default: T(words:[ 0,  0,  0, ~0] as [UInt]))
     }
     
     //=------------------------------------------------------------------------=

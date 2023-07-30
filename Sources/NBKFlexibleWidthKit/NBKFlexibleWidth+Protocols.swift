@@ -26,4 +26,10 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger {
     func compared(to other: Self.Digit) -> Int
     
     func compared(to other: Self.Digit, at index: Int) -> Int
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Numbers
+    //=------------------------------------------------------------------------=
+    
+    init(digit: Self.Digit, at index: Int)
 }

@@ -31,7 +31,6 @@ extension NBKFlexibleWidth {
         self.init(sign: Sign(sign), magnitude: magnitude)
     }
     
-    #warning("tests")
     @inlinable public init(digit: Int, at index: Int) {
         let sign = digit.isLessThanZero
         let magnitude = Magnitude(digit: digit.magnitude, at: index)
@@ -128,14 +127,12 @@ extension NBKFlexibleWidth.Magnitude {
         
     @inlinable public init(digit: UInt) {
         guard !digit.isZero else { self.init(); return }
-        self.init(unchecked: Storage(elements: [digit]))
+        self.init(unchecked: Storage(digit: digit))
     }
     
-    #warning("tests")
     @inlinable public init(digit: UInt, at index: Int) {
         guard !digit.isZero else { self.init(); return }
-        self.init(unchecked: Storage(repeating: UInt.zero, count: index + 1))
-        self.storage.elements[index] = digit
+        self.init(unchecked: Storage(digit: digit, at: index))
     }
     
     //=------------------------------------------------------------------------=

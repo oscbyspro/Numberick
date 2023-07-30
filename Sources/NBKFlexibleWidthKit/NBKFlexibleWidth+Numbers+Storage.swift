@@ -16,7 +16,20 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Initializers x Digit
+    //=------------------------------------------------------------------------=
+    
+    @inlinable init(digit: UInt) {
+        self.init(elements:[digit])
+    }
+    
+    @inlinable init(digit: UInt, at index: Int) {
+        self.init(repeating: UInt.zero, count: index + 1)
+        self.elements[index] = digit
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Literal
     //=------------------------------------------------------------------------=
         
     @inlinable init(truncating source: StaticBigInt) {
