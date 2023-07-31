@@ -54,9 +54,10 @@ extension NBK {
         var minorShift = Int.zero
         var majorIndex = majorLimbs.startIndex as B.Index
         
-        for minorLimb in minorLimbs {
-            majorLimbs[majorIndex] |= B.Element(truncatingIfNeeded: minorLimb.bitPattern) &<< minorShift
-            minorShift += A.Element.bitWidth
+        for minorLimbsIndex in minorLimbs.indices {
+            let minorLimb = A.Element.Magnitude(bitPattern: minorLimbs[minorLimbsIndex])
+            majorLimbs[majorIndex] |= B.Element(truncatingIfNeeded: minorLimb) &<< minorShift
+            minorShift   += A.Element.bitWidth
             
             if  minorShift >= B.Element.bitWidth {
                 minorShift -= B.Element.bitWidth
