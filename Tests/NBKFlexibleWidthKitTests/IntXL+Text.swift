@@ -18,6 +18,243 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
+// MARK: * NBK x IntXL x Text
+//*============================================================================*
+
+final class IntXLTestsOnText: XCTestCase {
+    
+    typealias T = IntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    let bit256 = 256
+    let min256 = T.min256
+    let max256 = T.max256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testInitDescription() {
+        XCTAssertEqual(T(   "10"),  10)
+        XCTAssertEqual(T(  "+10"),  10)
+        XCTAssertEqual(T(  "-10"), -10)
+        XCTAssertEqual(T(  " 10"), nil)
+        
+        XCTAssertEqual(T( "0x10"), nil)
+        XCTAssertEqual(T("+0x10"), nil)
+        XCTAssertEqual(T("-0x10"), nil)
+        XCTAssertEqual(T(" 0x10"), nil)
+    }
+    
+    func testInstanceDescriptionUsesRadix10() {
+        XCTAssertEqual("10", T(10).description)
+        XCTAssertEqual("10", String(describing: T(10)))
+    }
+    
+    func testMetaTypeDescriptionIsSimple() {
+        XCTAssertEqual("IntXL", T.description)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Decode
+    //=------------------------------------------------------------------------=
+
+    func testDecodingRadix02() {
+        NBKAssertDecodeText(min256, 02, "-1" + String(repeating: "0", count: bit256 / 1 - 1))
+        NBKAssertDecodeText(max256, 02,        String(repeating: "1", count: bit256 / 1 - 1))
+    }
+    
+    func testDecodingRadix03() {
+        NBKAssertDecodeText(min256, 03,       "-21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101022" )
+        NBKAssertDecodeText(max256, 03,         "21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101021" )
+    }
+    
+    func testDecodingRadix04() {
+        NBKAssertDecodeText(min256, 04, "-2" + String(repeating: "0", count: bit256 / 2 - 1))
+        NBKAssertDecodeText(max256, 04,  "1" + String(repeating: "3", count: bit256 / 2 - 1))
+    }
+
+    func testDecodingRadix08() {
+        NBKAssertDecodeText(min256, 08, "-1" + String(repeating: "0", count: 85))
+        NBKAssertDecodeText(max256, 08,        String(repeating: "7", count: 85))
+    }
+    
+    func testDecodingRadix10() {
+        NBKAssertDecodeText(min256, 10, "-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+        NBKAssertDecodeText(max256, 10,  "57896044618658097711785492504343953926634992332820282019728792003956564819967")
+    }
+    
+    func testDecodingRadix16() {
+        NBKAssertDecodeText(min256, 16, "-8" + String(repeating: "0", count: bit256 / 4 - 1))
+        NBKAssertDecodeText(max256, 16,  "7" + String(repeating: "f", count: bit256 / 4 - 1))
+    }
+    
+    func testDecodingRadix32() {
+        NBKAssertDecodeText(min256, 32, "-1" + String(repeating: "0", count: 51))
+        NBKAssertDecodeText(max256, 32,        String(repeating: "v", count: 51))
+    }
+    
+    func testDecodingRadix36() {
+        NBKAssertDecodeText(min256, 36, "-36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu8")
+        NBKAssertDecodeText(max256, 36,  "36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu7")
+    }
+
+    func testDecodingRadixLiteralAsNumber() {
+        NBKAssertDecodeText(T( 33), 36,  "0x")
+        NBKAssertDecodeText(T( 24), 36,  "0o")
+        NBKAssertDecodeText(T( 11), 36,  "0b")
+        
+        NBKAssertDecodeText(T( 33), 36, "+0x")
+        NBKAssertDecodeText(T( 24), 36, "+0o")
+        NBKAssertDecodeText(T( 11), 36, "+0b")
+        
+        NBKAssertDecodeText(T(-33), 36, "-0x")
+        NBKAssertDecodeText(T(-24), 36, "-0o")
+        NBKAssertDecodeText(T(-11), 36, "-0b")
+    }
+
+    func testDecodingRadixLiteralAsRadixReturnsNil() {
+        NBKAssertDecodeText(T?.none, 10,  "0x10")
+        NBKAssertDecodeText(T?.none, 10,  "0o10")
+        NBKAssertDecodeText(T?.none, 10,  "0b10")
+        
+        NBKAssertDecodeText(T?.none, 10, "+0x10")
+        NBKAssertDecodeText(T?.none, 10, "+0o10")
+        NBKAssertDecodeText(T?.none, 10, "+0b10")
+        
+        NBKAssertDecodeText(T?.none, 10, "-0x10")
+        NBKAssertDecodeText(T?.none, 10, "-0o10")
+        NBKAssertDecodeText(T?.none, 10, "-0b10")
+    }
+
+    func testDecodingStringsWithAndWithoutSign() {
+        NBKAssertDecodeText(T( 1234567890), 10,  "1234567890")
+        NBKAssertDecodeText(T( 1234567890), 10, "+1234567890")
+        NBKAssertDecodeText(T(-1234567890), 10, "-1234567890")
+    }
+    
+    func testDecodingStrategyIsCaseInsensitive() {
+        NBKAssertDecodeText(T(0xabcdef), 16, "abcdef")
+        NBKAssertDecodeText(T(0xABCDEF), 16, "ABCDEF")
+        NBKAssertDecodeText(T(0xaBcDeF), 16, "aBcDeF")
+        NBKAssertDecodeText(T(0xAbCdEf), 16, "AbCdEf")
+    }
+    
+    func testDecodingUnalignedStringsIsOK() {
+        NBKAssertDecodeText(T(1), 10, "1")
+        NBKAssertDecodeText(T(1), 16, "1")
+    }
+    
+    func testDecodingPrefixingZerosHasNoEffect() {
+        let zero = String(repeating: "0", count: bit256) + "0"
+        let one  = String(repeating: "0", count: bit256) + "1"
+        
+        for radix in 02 ... 36 {
+            NBKAssertDecodeText(T(0), radix, zero)
+            NBKAssertDecodeText(T(1), radix, one )
+        }
+    }
+    
+    func testDecodingInvalidCharactersReturnsNil() {
+        NBKAssertDecodeText(T?.none, 16, "/")
+        NBKAssertDecodeText(T?.none, 16, "G")
+
+        NBKAssertDecodeText(T?.none, 10, "/")
+        NBKAssertDecodeText(T?.none, 10, ":")
+
+        NBKAssertDecodeText(T?.none, 10, String(repeating: "1", count: 19) + "/")
+        NBKAssertDecodeText(T?.none, 10, String(repeating: "1", count: 19) + ":")
+    }
+
+    func testDecodingStringsWithoutDigitsReturnsNil() {
+        NBKAssertDecodeText(T?.none, 10,  "")
+        NBKAssertDecodeText(T?.none, 10, "+")
+        NBKAssertDecodeText(T?.none, 10, "-")
+        NBKAssertDecodeText(T?.none, 10, "~")
+        
+        NBKAssertDecodeText(T?.none, 16,  "")
+        NBKAssertDecodeText(T?.none, 16, "+")
+        NBKAssertDecodeText(T?.none, 16, "-")
+        NBKAssertDecodeText(T?.none, 16, "~")
+    }
+    
+    func testDecodingValuesOutsideOfRepresentableRangeReturnsNil() {
+        let positive = "+" + String(repeating: "1", count: bit256)
+        let negative = "-" + String(repeating: "1", count: bit256)
+        
+        for radix in 02 ... 36 {
+            XCTAssertNotNil(T(positive, radix: radix))
+            XCTAssertNotNil(T(negative, radix: radix))
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Encode
+    //=------------------------------------------------------------------------=
+
+    func testEncodingRadix02() {
+        NBKAssertEncodeText(min256, 02, false, "-1" + String(repeating: "0", count: bit256 / 1 - 1))
+        NBKAssertEncodeText(max256, 02, false,        String(repeating: "1", count: bit256 / 1 - 1))
+    }
+    
+    func testEncodingRadix03() {
+        NBKAssertEncodeText(min256, 03, false,"-21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101022" )
+        NBKAssertEncodeText(max256, 03, false, "21221122120" +
+        "12222212211110210202220000022211002111211122012220" +
+        "12122202101121021220012201000100012101202122101020" +
+        "20010111121211022111102111220220201211121011101021" )
+    }
+    
+    func testEncodingRadix04() {
+        NBKAssertEncodeText(min256, 04, false, "-2" + String(repeating: "0", count: bit256 / 2 - 1))
+        NBKAssertEncodeText(max256, 04, false,  "1" + String(repeating: "3", count: bit256 / 2 - 1))
+    }
+    
+    func testEncodingRadix08() {
+        NBKAssertEncodeText(min256, 08, false, "-1" + String(repeating: "0", count: 85))
+        NBKAssertEncodeText(max256, 08, false,        String(repeating: "7", count: 85))
+    }
+    
+    func testEncodingRadix10() {
+        NBKAssertEncodeText(min256, 10, false, "-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+        NBKAssertEncodeText(max256, 10, false,  "57896044618658097711785492504343953926634992332820282019728792003956564819967")
+    }
+    
+    func testEncodingRadix16() {
+        NBKAssertEncodeText(min256, 16, false, "-8" + String(repeating: "0", count: bit256 / 4 - 1))
+        NBKAssertEncodeText(min256, 16, true , "-8" + String(repeating: "0", count: bit256 / 4 - 1))
+        NBKAssertEncodeText(max256, 16, false,  "7" + String(repeating: "f", count: bit256 / 4 - 1))
+        NBKAssertEncodeText(max256, 16, true ,  "7" + String(repeating: "F", count: bit256 / 4 - 1))
+    }
+    
+    func testEncodingRadix32() {
+        NBKAssertEncodeText(min256, 32, false, "-1" + String(repeating: "0", count: 51))
+        NBKAssertEncodeText(min256, 32, true , "-1" + String(repeating: "0", count: 51))
+        NBKAssertEncodeText(max256, 32, false,        String(repeating: "v", count: 51))
+        NBKAssertEncodeText(max256, 32, true ,        String(repeating: "V", count: 51))
+    }
+    
+    func testEncodingRadix36() {
+        NBKAssertEncodeText(min256, 36, false, "-36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu8")
+        NBKAssertEncodeText(min256, 36, true , "-36UKV65J19B11MBVJYFUI963V4MY01KRTH19G3R3BK1OJLRWU8")
+        NBKAssertEncodeText(max256, 36, false,  "36ukv65j19b11mbvjyfui963v4my01krth19g3r3bk1ojlrwu7")
+        NBKAssertEncodeText(max256, 36, true ,  "36UKV65J19B11MBVJYFUI963V4MY01KRTH19G3R3BK1OJLRWU7")
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x UIntXL x Text
 //*============================================================================*
 
@@ -29,9 +266,9 @@ final class UIntXLTestsOnText: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    let bit256 = 256 as Int
-    let min256 = T(x64: X(repeating: UInt64.min, count: 4))
-    let max256 = T(x64: X(repeating: UInt64.max, count: 4))
+    let bit256 = 256
+    let min256 = T.min256
+    let max256 = T.max256
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

@@ -14,6 +14,8 @@
   "testTargets" : [
     {
       "skippedTests" : [
+        "IntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
+        "IntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()",
         "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
         "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
       ],

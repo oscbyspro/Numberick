@@ -9,7 +9,6 @@
 
 import NBKCoreKit
 
-// TODO: IntXL and UIntXL are similar
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Text x Radix x Signed
 //*============================================================================*
@@ -21,7 +20,17 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
-        fatalError("TODO")
+        var description = String(description)
+        
+        let value: Optional<Self> = description.withUTF8 { utf8 in
+            let (radix)  = NBK.AnyRadixUIntRoot(radix)
+            let (sign,body) = NBK.integerComponents(utf8: utf8)
+            let (digits) = NBK.UnsafeUTF8(rebasing: body)
+            let (magnitude) = Magnitude(digits: digits, radix: radix)
+            return magnitude.flatMap({ Self.exactly(sign: sign, magnitude: $0) })
+        }
+        
+        if let value { self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
@@ -29,7 +38,13 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
-        fatalError("TODO")
+        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
+            let radix  = NBK.AnyRadixUIntRoot(radix)
+            let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
+            let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
+            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
+            return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        }
     }
 }
 
@@ -72,9 +87,9 @@ extension NBKFlexibleWidth.Magnitude {
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Text x Radix x Unsigned
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
 
 extension NBKFlexibleWidth.Magnitude {
     

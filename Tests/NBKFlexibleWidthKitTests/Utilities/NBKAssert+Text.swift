@@ -15,19 +15,19 @@ import XCTest
 // MARK: * NBK x Assert x Text
 //*============================================================================*
 
-func NBKAssertDecodeText(
-_ integer: UIntXL?, _ radix: Int, _ text: String,
-file: StaticString = #file, line: UInt = #line) {
+func NBKAssertDecodeText<T: NBKBinaryInteger> (
+_ integer: T?, _ radix: Int, _ text: String,
+file: StaticString = #file, line: UInt = #line) where T: LosslessStringConvertible {
     //=------------------------------------------=
     if  radix == 10 {
-        XCTAssertEqual(UIntXL(text), integer, file: file, line: line)
+        XCTAssertEqual(T(text), integer, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(UIntXL(text, radix: radix), integer, file: file, line: line)
+    XCTAssertEqual(T(text, radix: radix), integer, file: file, line: line)
 }
 
-func NBKAssertEncodeText(
-_ integer: UIntXL, _ radix: Int, _ uppercase: Bool, _ text: String,
+func NBKAssertEncodeText<T: NBKBinaryInteger>(
+_ integer: T, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10, uppercase == false {
