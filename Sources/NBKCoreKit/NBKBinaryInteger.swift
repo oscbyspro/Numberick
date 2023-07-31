@@ -216,16 +216,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Forms the one's complement of `self`.
     ///
     /// ```
-    /// ┌─────────── → ───────────┐
-    /// │ self       │ ~self      │
-    /// ├─────────── → ───────────┤
-    /// │ Int256( 1) │ Int256( 0) │
-    /// │ Int256( 0) │ Int256(-1) │
-    /// │ Int256(-1) │ Int256(-2) │
-    /// ├─────────── → ───────────┤
-    /// | Int256.max | Int256.min |
-    /// | Int256.min | Int256.max |
-    /// └─────────── → ───────────┘
+    /// ┌─────────── → ───────────────┐
+    /// │ self       │ 1's complement │
+    /// ├─────────── → ───────────────┤
+    /// │ Int256( 1) │ Int256( 0)     │
+    /// │ Int256( 0) │ Int256(-1)     │
+    /// │ Int256(-1) │ Int256(-2)     │
+    /// ├─────────── → ───────────────┤
+    /// | Int256.max | Int256.min     |
+    /// | Int256.min | Int256.max     |
+    /// └─────────── → ───────────────┘
     /// ```
     ///
     /// ### Flexible Width Integers
@@ -238,16 +238,16 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns the one's complement of `self`.
     ///
     /// ```
-    /// ┌─────────── → ───────────┐
-    /// │ self       │ ~self      │
-    /// ├─────────── → ───────────┤
-    /// │ Int256( 1) │ Int256( 0) │
-    /// │ Int256( 0) │ Int256(-1) │
-    /// │ Int256(-1) │ Int256(-2) │
-    /// ├─────────── → ───────────┤
-    /// | Int256.max | Int256.min |
-    /// | Int256.min | Int256.max |
-    /// └─────────── → ───────────┘
+    /// ┌─────────── → ───────────────┐
+    /// │ self       │ 1's complement │
+    /// ├─────────── → ───────────────┤
+    /// │ Int256( 1) │ Int256( 0)     │
+    /// │ Int256( 0) │ Int256(-1)     │
+    /// │ Int256(-1) │ Int256(-2)     │
+    /// ├─────────── → ───────────────┤
+    /// | Int256.max | Int256.min     |
+    /// | Int256.min | Int256.max     |
+    /// └─────────── → ───────────────┘
     /// ```
     ///
     /// ### Flexible Width Integers
@@ -260,15 +260,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Forms the two's complement of `self`.
     ///
     /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ ~self + 1  │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
+    /// ┌─────────── → ───────────────┬──────────┐
+    /// │ self       │ 2's complement │ overflow │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1)     │ false    │
+    /// │ Int256( 0) │ Int256( 0)     │ false    │
+    /// │ Int256(-1) │ Int256( 1)     │ false    │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// | Int256.min | Int256.min     | true     |
+    /// └─────────── → ───────────────┴──────────┘
     /// ```
     ///
     /// - Note: In the case of `overflow`, the result is truncated.
@@ -283,15 +283,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns the two's complement of `self`.
     ///
     /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ ~self + 1  │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
+    /// ┌─────────── → ───────────────┬──────────┐
+    /// │ self       │ 2's complement │ overflow │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1)     │ false    │
+    /// │ Int256( 0) │ Int256( 0)     │ false    │
+    /// │ Int256(-1) │ Int256( 1)     │ false    │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// | Int256.min | Int256.min     | true     |
+    /// └─────────── → ───────────────┴──────────┘
     /// ```
     ///
     /// - Note: In the case of `overflow`, the result is truncated.
@@ -301,15 +301,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Forms the two's complement of `self`, along with an `overflow` indicator.
     ///
     /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ ~self + 1  │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
+    /// ┌─────────── → ───────────────┬──────────┐
+    /// │ self       │ 2's complement │ overflow │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1)     │ false    │
+    /// │ Int256( 0) │ Int256( 0)     │ false    │
+    /// │ Int256(-1) │ Int256( 1)     │ false    │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// | Int256.min | Int256.min     | true     |
+    /// └─────────── → ───────────────┴──────────┘
     /// ```
     ///
     /// - Note: In the case of `overflow`, the result is truncated.
@@ -324,15 +324,15 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// Returns the two's complement of `self`, along with an `overflow` indicator.
     ///
     /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ ~self + 1  │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
+    /// ┌─────────── → ───────────────┬──────────┐
+    /// │ self       │ 2's complement │ overflow │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// │ Int256( 1) │ Int256(-1)     │ false    │
+    /// │ Int256( 0) │ Int256( 0)     │ false    │
+    /// │ Int256(-1) │ Int256( 1)     │ false    │
+    /// ├─────────── → ───────────────┼──────────┤
+    /// | Int256.min | Int256.min     | true     |
+    /// └─────────── → ───────────────┴──────────┘
     /// ```
     ///
     /// - Note: In the case of `overflow`, the result is truncated.

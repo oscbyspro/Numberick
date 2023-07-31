@@ -32,12 +32,12 @@ extension NBKFlexibleWidth {
     // MARK: Details x Limbs
     //=------------------------------------------------------------------------=
     
-    init(x32 limbs: [UInt32]) {
-        self.init(words: makeWords(limbs: limbs))
+    init(x32: [UInt32]) {
+        self.init(words: NBK.limbs(x32, as: [UInt].self))
     }
     
-    init(x64 limbs: [UInt64]) {
-        self.init(words: makeWords(limbs: limbs))
+    init(x64: [UInt64]) {
+        self.init(words: NBK.limbs(x64, as: [UInt].self))
     }
 }
 
@@ -58,60 +58,11 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Limbs
     //=------------------------------------------------------------------------=
     
-    init(x32 limbs: [UInt32]) {
-        self.init(words: makeWords(limbs: limbs))
+    init(x32: [UInt32]) {
+        self.init(words: NBK.limbs(x32, as: [UInt].self))
     }
     
-    init(x64 limbs: [UInt64]) {
-        self.init(words: makeWords(limbs: limbs))
+    init(x64: [UInt64]) {
+        self.init(words: NBK.limbs(x64, as: [UInt].self))
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Initializers x Algorithms
-//*============================================================================*
-
-private func makeWords<Limb>(limbs: [Limb]) -> [UInt] where Limb: NBKCoreInteger {
-    switch Limb.bitWidth >= UInt.bitWidth {
-    case  true: return makeWords(majorLimbs: limbs)
-    case false: return makeWords(minorLimbs: limbs) }
-}
-
-private func makeWords<Limb>(majorLimbs: [Limb]) -> [UInt] where Limb: NBKCoreInteger {
-    precondition(Limb.bitWidth.isPowerOf2)
-    precondition(Limb.bitWidth >= UInt.bitWidth)
-    //=--------------------------------------=
-    let ratio = Limb.bitWidth / UInt.bitWidth
-    let count = majorLimbs.count * ratio
-    var words = [UInt](); words.reserveCapacity(count)
-    //=--------------------------------------=
-    for limb in majorLimbs {
-        words.append(contentsOf: limb.words)
-    }
-    //=--------------------------------------=
-    return words as [UInt]
-}
-
-private func makeWords<Limb>(minorLimbs: [Limb]) -> [UInt] where Limb: NBKCoreInteger {
-    precondition(Limb.bitWidth.isPowerOf2)
-    precondition(Limb.bitWidth <= UInt.bitWidth)
-    //=--------------------------------------=
-    let ratio = UInt.bitWidth / Limb.bitWidth
-    let count = minorLimbs.count / ratio
-    var words = [UInt](repeating: UInt.zero, count: count)
-    //=--------------------------------------=
-    var major = Int.zero
-    var minor = Int.zero
-    
-    for limb in minorLimbs {
-        words[major] |= UInt(truncatingIfNeeded: limb) &<< minor
-        minor += Limb.bitWidth
-        
-        if  minor >= UInt.bitWidth {
-            minor -= UInt.bitWidth
-            major += 1
-        }
-    }
-    //=--------------------------------------=
-    return words as [UInt]
 }
