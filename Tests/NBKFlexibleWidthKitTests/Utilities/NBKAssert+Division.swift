@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Division
 //*============================================================================*
 
-func NBKAssertDivision(
-_ lhs: UIntXL, _ rhs: UIntXL, _ quotient: UIntXL, _ remainder: UIntXL, _ overflow: Bool = false,
+func NBKAssertDivision<T: NBKBinaryInteger>(
+_ lhs: T, _ rhs: T, _ quotient: T, _ remainder: T, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
@@ -48,15 +48,17 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
     //=------------------------------------------=
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let quotient = quotient as? UIntXL, let remainder = remainder as? UIntXL else { return }
+    //=------------------------------------------=
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).partialValue.quotient,  quotient,  file: file, line: line)
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflowAsNormal(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
 }
 
-func NBKAssertDivisionByDigit(
-_ lhs: UIntXL, _ rhs: UIntXL.Digit, _ quotient: UIntXL, _ remainder: UIntXL.Digit, _ overflow: Bool = false,
+func NBKAssertDivisionByDigit<T: NBKBinaryInteger>(
+_ lhs: T, _ rhs: T.Digit, _ quotient: T, _ remainder: T.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
-    let extended = UIntXL(digit: remainder)
+    let extended = T(digit: remainder)
     //=------------------------------------------=
     XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
     //=------------------------------------------=

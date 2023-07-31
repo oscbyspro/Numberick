@@ -42,7 +42,10 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
-        fatalError("TODO")
+        let qro: PVO<QR<Magnitude, Magnitude>> = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)
+        let quotient  = Self(sign: self.sign ^ other.sign, magnitude: qro.partialValue.quotient )
+        let remainder = Self(sign: self.sign,  /*------*/  magnitude: qro.partialValue.remainder)
+        return PVO(QR(quotient, remainder), qro.overflow)
     }
 }
 
@@ -133,7 +136,7 @@ extension NBKFlexibleWidth.Magnitude {
         let shift = divisor.elements.last!.leadingZeroBitCount as Int
         divisor.bitshiftLeft(words: Int.zero, bits: shift)
         let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
-        assert(divisorLast0.mostSignificantBit, "divisor must be normalized")
+        assert(divisorLast0.mostSignificantBit)
         
         var remainderIndex = self.storage.elements.endIndex
         self.storage.elements.append(0)

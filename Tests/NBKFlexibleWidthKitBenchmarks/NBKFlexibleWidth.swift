@@ -11,11 +11,22 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
+private typealias W = [UInt]
+private typealias X = [UInt64]
+private typealias Y = [UInt32]
+
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Initializers x Signed
 //*============================================================================*
 
 extension NBKFlexibleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Numbers
+    //=------------------------------------------------------------------------=
+    
+    static let min256 = Self(x64:[ 0,  0,  0,  0/2 + 1] as X)
+    static let max256 = Self(x64:[~0, ~0, ~0, ~0/2 + 0] as X)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Limbs
@@ -35,6 +46,13 @@ extension NBKFlexibleWidth {
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Numbers
+    //=------------------------------------------------------------------------=
+    
+    static let min256 = Self(x64:[ 0,  0,  0,  0] as X)
+    static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Limbs
