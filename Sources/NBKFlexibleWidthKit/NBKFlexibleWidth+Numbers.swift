@@ -89,11 +89,16 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryFloatingPoint) {
-        fatalError("TODO")
+        guard let result = Self(exactly: source.rounded(.towardZero)) else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+        
+        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
-        fatalError("TODO")
+        guard let magnitude = Magnitude(exactly: source.magnitude) else { return nil }
+        self.init(sign: source.sign,  magnitude: magnitude)
     }
     
     //=------------------------------------------------------------------------=
@@ -162,7 +167,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     
-    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
+    @inlinable public init(_ source: some BinaryInteger) {
         guard let result = Self(exactly: source) else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
