@@ -15,8 +15,8 @@ import XCTest
 // MARK: * NBK x Assert x Shifts
 //*============================================================================*
 
-func NBKAssertShiftLeft(
-_ lhs: UIntXL, _ rhs:  Int, _ result: UIntXL,
+func NBKAssertShiftLeft<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  Int, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
@@ -47,8 +47,8 @@ file: StaticString = #file, line: UInt = #line) {
     }
 }
 
-func NBKAssertShiftRight(
-_ lhs: UIntXL, _ rhs:  Int, _ result: UIntXL,
+func NBKAssertShiftRight<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  Int, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)

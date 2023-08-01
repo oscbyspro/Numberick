@@ -23,7 +23,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
-        fatalError("TODO")
+        lhs.bitshiftLeftSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
     
     @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -35,7 +35,11 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func bitshiftLeftSmart(by distance: Int) {
-        fatalError("TODO")
+        if  distance >= 0 {
+            self.bitshiftLeft (by: distance)
+        }   else {
+            self.bitshiftRight(by: NBK.initOrBitCast(clamping: distance.magnitude, as: Int.self))
+        }
     }
     
     @inlinable public func bitshiftedLeftSmart(by distance: Int) -> Self {
@@ -54,7 +58,7 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
-        fatalError("TODO")
+        self.magnitude.bitshiftLeft(words: words, bits: bits)
     }
     
     @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
@@ -62,7 +66,7 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public mutating func bitshiftLeft(words: Int) {
-        fatalError("TODO")
+        self.magnitude.bitshiftLeft(words: words)
     }
     
     @inlinable public func bitshiftedLeft(words: Int) -> Self {
@@ -81,7 +85,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        fatalError("TODO")
+        lhs.bitshiftRightSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
 
     @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -93,7 +97,11 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func bitshiftRightSmart(by distance: Int) {
-        fatalError("TODO")
+        if  distance >= 0 {
+            self.bitshiftRight(by: distance)
+        }   else {
+            self.bitshiftLeft (by: NBK.initOrBitCast(clamping: distance.magnitude, as: Int.self))
+        }
     }
     
     @inlinable public func bitshiftedRightSmart(by distance: Int) -> Self {
@@ -112,7 +120,13 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
-        fatalError("TODO")
+        let minus = self.isLessThanZero
+        //=--------------------------------------=
+        self.magnitude.bitshiftRight(words: words, bits: bits)
+        //=--------------------------------------=
+        if  minus,  self.isZero  {
+            self.magnitude.assign(1 as UInt)
+        }
     }
     
     @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
@@ -120,14 +134,19 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public mutating func bitshiftRight(words: Int) {
-        fatalError("TODO")
+        let minus = self.isLessThanZero
+        //=--------------------------------------=
+        self.magnitude.bitshiftRight(words: words)
+        //=--------------------------------------=
+        if  minus,  self.isZero  {
+            self.magnitude.assign(1 as UInt)
+        }
     }
     
     @inlinable public func bitshiftedRight(words: Int) -> Self {
         var result = self; result.bitshiftRight(words: words); return result
     }
 }
-
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Shifts x Unsigned

@@ -31,7 +31,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         var carry = carry
         
         for index in self.elements.indices {
-            carry = self.elements[index].formTwosComplementSubsequence(carry)
+            carry =  self.elements[index].formTwosComplementSubsequence(carry)
         }
         
         return carry as Bool
