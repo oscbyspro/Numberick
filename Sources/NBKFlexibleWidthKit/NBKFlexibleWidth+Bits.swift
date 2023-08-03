@@ -29,22 +29,17 @@ extension NBKFlexibleWidth {
     
     /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
-        self.magnitude.bitWidth + self.extraBitWidthInBitWidth
+        self.magnitude.bitWidth + self.extraBitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        if !self.isLessThanZero {
-            return self.magnitude.nonzeroBitCount
-        }
-        
-        var nonzeroBitCount = self.bitWidth
-        nonzeroBitCount   &-= self.magnitude.nonzeroBitCount
-        nonzeroBitCount   &-= self.magnitude.trailingZeroBitCount
-        return nonzeroBitCount &+ 1 as Int
+        switch self.isLessThanZero {
+        case  true: return NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage.elements) + self.extraBitWidth
+        case false: return self.magnitude.nonzeroBitCount }
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.isLessThanZero ? Int.zero : self.magnitude.leadingZeroBitCount + self.extraBitWidthInBitWidth
+        self.isLessThanZero ? Int.zero : self.magnitude.leadingZeroBitCount + self.extraBitWidth
     }
     
     @inlinable public var trailingZeroBitCount: Int {
@@ -64,8 +59,8 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     /// The number of extra bits in `bitWidth` compared to `magnitude/bitWidth`.
-    @inlinable var extraBitWidthInBitWidth: Int {
-        self.wordsNeedsOneMoreWord ? UInt.bitWidth : Int.zero
+    @inlinable var extraBitWidth: Int {
+        self.storageNeedsOneMoreWord ? UInt.bitWidth : Int.zero
     }
 }
 

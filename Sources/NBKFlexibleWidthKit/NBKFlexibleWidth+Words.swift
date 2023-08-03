@@ -25,9 +25,7 @@ extension NBKFlexibleWidth {
     ///
     @inlinable public init(words: some RandomAccessCollection<UInt>) {
         //=--------------------------------------=
-        // default to zero by nil coalescing
-        //=--------------------------------------=
-        let last = words.last ?? UInt()
+        let last = words.last ?? UInt.zero
         //=--------------------------------------=
         self.init(sign: Sign.plus, magnitude: Magnitude(words: words))
         //=--------------------------------------=
@@ -49,8 +47,8 @@ extension NBKFlexibleWidth {
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable var wordsNeedsOneMoreWord: Bool {
-        guard !self.magnitude.isZero else { return true }
+    @inlinable var storageNeedsOneMoreWord: Bool {
+        guard !self.magnitude.storage.elements.isEmpty else { return true }
         let index = self.magnitude.storage.elements.count - 1
         let comparison = self.magnitude.compared(to: UInt(bitPattern: Int.min), at: index)
         return comparison >= Int(bit: self.sign.bit)
@@ -75,7 +73,7 @@ extension NBKFlexibleWidth {
         //=--------------------------------------------------------------------=
         
         @inlinable init(source: NBKFlexibleWidth) {
-            self.count   = Int(bit: source.wordsNeedsOneMoreWord)
+            self.count   = Int(bit: source.storageNeedsOneMoreWord)
             self.sign    = UInt(repeating: source.isLessThanZero)
             self.storage = source.magnitude.storage
             //=----------------------------------=
