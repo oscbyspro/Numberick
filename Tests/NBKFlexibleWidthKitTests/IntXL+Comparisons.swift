@@ -31,8 +31,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testIsZero() {
-        XCTAssertTrue (T(sign: .plus,  magnitude: M(  )).isZero)
-        XCTAssertTrue (T(sign: .minus, magnitude: M(  )).isZero)
+        XCTAssertTrue (T(sign: .plus,  magnitude: 0).isZero)
+        XCTAssertTrue (T(sign: .minus, magnitude: 0).isZero)
         
         XCTAssertTrue (T(words:[ 0] as W).isZero)
         XCTAssertFalse(T(words:[ 1] as W).isZero)
@@ -44,8 +44,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
 
     func testIsLessThanZero() {
-        XCTAssertFalse(T(sign: .plus,  magnitude: M(  )).isLessThanZero)
-        XCTAssertFalse(T(sign: .minus, magnitude: M(  )).isLessThanZero)
+        XCTAssertFalse(T(sign: .plus,  magnitude: 0).isLessThanZero)
+        XCTAssertFalse(T(sign: .minus, magnitude: 0).isLessThanZero)
         
         XCTAssertFalse(T(words:[ 0] as W).isLessThanZero)
         XCTAssertFalse(T(words:[ 1] as W).isLessThanZero)
@@ -57,8 +57,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
 
     func testIsMoreThanZero() {
-        XCTAssertFalse(T(sign: .plus,  magnitude: M(  )).isMoreThanZero)
-        XCTAssertFalse(T(sign: .minus, magnitude: M(  )).isMoreThanZero)
+        XCTAssertFalse(T(sign: .plus,  magnitude: 0).isMoreThanZero)
+        XCTAssertFalse(T(sign: .minus, magnitude: 0).isMoreThanZero)
         
         XCTAssertFalse(T(words:[ 0] as W).isMoreThanZero)
         XCTAssertTrue (T(words:[ 1] as W).isMoreThanZero)
@@ -70,8 +70,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
 
     func testIsOdd() {
-        XCTAssertFalse(T(sign: .plus,  magnitude: M(  )).isOdd)
-        XCTAssertFalse(T(sign: .minus, magnitude: M(  )).isOdd)
+        XCTAssertFalse(T(sign: .plus,  magnitude: 0).isOdd)
+        XCTAssertFalse(T(sign: .minus, magnitude: 0).isOdd)
         
         XCTAssertFalse(T(words:[ 0] as W).isOdd)
         XCTAssertTrue (T(words:[ 1] as W).isOdd)
@@ -83,8 +83,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
 
     func testIsEven() {
-        XCTAssertTrue (T(sign: .plus,  magnitude: M(  )).isEven)
-        XCTAssertTrue (T(sign: .minus, magnitude: M(  )).isEven)
+        XCTAssertTrue (T(sign: .plus,  magnitude: 0).isEven)
+        XCTAssertTrue (T(sign: .minus, magnitude: 0).isEven)
         
         XCTAssertTrue (T(words:[ 0] as W).isEven)
         XCTAssertFalse(T(words:[ 1] as W).isEven)
@@ -96,8 +96,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
 
     func testIsPowerOf2() {
-        XCTAssertFalse(T(sign: .plus,  magnitude: M(  )).isPowerOf2)
-        XCTAssertFalse(T(sign: .minus, magnitude: M(  )).isPowerOf2)
+        XCTAssertFalse(T(sign: .plus,  magnitude: 0).isPowerOf2)
+        XCTAssertFalse(T(sign: .minus, magnitude: 0).isPowerOf2)
 
         XCTAssertFalse(T(words:[~3] as W).isPowerOf2)
         XCTAssertFalse(T(words:[~2] as W).isPowerOf2)
@@ -119,8 +119,8 @@ final class IntXLTestsOnComparisons: XCTestCase {
     }
     
     func testSignum() {
-        NBKAssertSignum(T(sign: .plus,  magnitude: M(  )), Int( 0))
-        NBKAssertSignum(T(sign: .minus, magnitude: M(  )), Int( 0))
+        NBKAssertSignum(T(sign: .plus,  magnitude: 0), Int( 0))
+        NBKAssertSignum(T(sign: .minus, magnitude: 0), Int( 0))
         
         NBKAssertSignum(T(words:[ 0] as W), Int( 0))
         NBKAssertSignum(T(words:[ 1] as W), Int( 1))
@@ -312,6 +312,12 @@ final class IntXLTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguous() {
+        func becauseThisCompilesSuccessfully(_ x: inout T) {
+            XCTAssertNotNil(x.signum()) // Int
+        }
+    }
     
     func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
@@ -506,6 +512,12 @@ final class UIntXLTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
+    
+    func testOverloadsAreUnambiguous() {
+        func becauseThisCompilesSuccessfully(_ x: inout T) {
+            XCTAssertNotNil(x.signum()) // Int
+        }
+    }
     
     func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {

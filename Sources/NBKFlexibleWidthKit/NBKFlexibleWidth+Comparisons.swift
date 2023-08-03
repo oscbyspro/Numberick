@@ -31,12 +31,12 @@ extension NBKFlexibleWidth {
         self.sign == Sign.plus && !self.isZero
     }
     
-    @inlinable public func signum() -> Int {
-        self.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
-    }
-    
     @inlinable public var isPowerOf2: Bool {
         self.sign == Sign.plus && self.magnitude.isPowerOf2
+    }
+    
+    @inlinable public func signum() -> Int {
+        self.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
     }
     
     //=------------------------------------------------------------------------=
@@ -121,12 +121,12 @@ extension NBKFlexibleWidth.Magnitude {
         !self.isZero
     }
     
-    @inlinable public func signum() -> Int {
-        Int(bit: !self.isZero)
-    }
-    
     @inlinable public var isPowerOf2: Bool {
         NBK.nonzeroBitCount(of: self.storage.elements, equals: 1)
+    }
+    
+    @inlinable public func signum() -> Int {
+        Int(bit: !self.isZero)
     }
     
     //=------------------------------------------------------------------------=

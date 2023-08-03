@@ -48,10 +48,12 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable var storageNeedsOneMoreWord: Bool {
-        guard !self.magnitude.storage.elements.isEmpty else { return true }
-        let index = self.magnitude.storage.elements.count - 1
-        let comparison = self.magnitude.compared(to: UInt(bitPattern: Int.min), at: index)
-        return comparison >= Int(bit: self.sign.bit)
+        //=--------------------------------------=
+        if self.magnitude.storage.elements.isEmpty { return true }
+        //=--------------------------------------=
+        switch self.sign {
+        case .plus : return self.magnitude.storage.elements.last!.mostSignificantBit
+        case .minus: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage.elements) }
     }
     
     //*========================================================================*
