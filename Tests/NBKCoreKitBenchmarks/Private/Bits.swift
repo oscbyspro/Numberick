@@ -22,7 +22,20 @@ final class BitsBenchmarks: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testsNonzeroBitCount() {
+    func testMostSignificantBitTwosComplementOf() {
+        var abc = NBK.blackHoleIdentity([0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as [UInt64])
+                
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(NBK.mostSignificantBit(twosComplementOf: abc))
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Nonzero Bit Count
+    //=------------------------------------------------------------------------=
+    
+    func testNonzeroBitCount() {
         var abc = NBK.blackHoleIdentity([0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as [UInt64])
                 
         for _ in 0 ..< 5_000_000 {
