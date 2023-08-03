@@ -93,7 +93,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        self.storage.elements.reduce(0) { $0 + $1.nonzeroBitCount }
+        NBK.nonzeroBitCount(of: self.storage.elements)
     }
     
     @inlinable public var leadingZeroBitCount: Int {

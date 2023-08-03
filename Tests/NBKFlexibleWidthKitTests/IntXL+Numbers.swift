@@ -18,7 +18,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Numbers
+// MARK: * NBK x IntXL x Numbers
 //*============================================================================*
 
 final class IntXLTestsOnNumbers: XCTestCase {

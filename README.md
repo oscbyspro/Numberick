@@ -1,6 +1,6 @@
 # [Numberick][NBK/D]
 
-Large number arithmagick in Swift.
+✨ An arithmagick overhaul in Swift.
 
 | Package | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
 |:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
@@ -8,7 +8,7 @@ Large number arithmagick in Swift.
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
-Models, protocols, and utilities underpinning this package.
+A new protocol hierarchy that refines Swift's standard library.
 
 ### Protocols
 

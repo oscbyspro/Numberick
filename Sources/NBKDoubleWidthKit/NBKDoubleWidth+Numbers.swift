@@ -71,7 +71,7 @@ extension NBKDoubleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
+    @inlinable public init(_ source: some BinaryInteger) {
         guard let result = Self(exactly: source) else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }

@@ -63,6 +63,14 @@ extension NBKFlexibleWidth.Magnitude {
         lhs.subtracting(rhs, at: Int.zero)
     }
     
+    @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt) -> Bool {
+        self.subtractReportingOverflow(other, at: Int.zero)
+    }
+    
+    @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt) -> PVO<Self> {
+        self.subtractingReportingOverflow(other, at: Int.zero)
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=

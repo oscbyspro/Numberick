@@ -20,7 +20,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static prefix func ~(x: Self) -> Self {
-        -(x + Int(1))
+        x.onesComplement()
     }
     
     //=------------------------------------------------------------------------=
