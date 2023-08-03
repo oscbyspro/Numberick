@@ -39,6 +39,15 @@ final class BitsBenchmarks: XCTestCase {
             NBK.blackHoleInoutIdentity(&abc)
         }
     }
+    
+    func testNonzeroBitCountTwosComplementOf() {
+        var abc = NBK.blackHoleIdentity([0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as [UInt64])
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(NBK.nonzeroBitCount(twosComplementOf: abc))
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
 }
 
 #endif
