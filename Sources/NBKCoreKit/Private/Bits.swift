@@ -14,7 +14,7 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details
     //=------------------------------------------------------------------------=
     
     /// Returns the most significant bit for the two's complement of `limbs`.
@@ -28,7 +28,27 @@ extension NBK {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities x Nonzero Bit Count
+    // MARK: Details x Trailing Zero Bit Count
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the trailing zero bit count of `limbs`.
+    ///
+    /// - Note: The trailing zero bit count is zero when `limbs` is empty.
+    ///
+    @inlinable public static func trailingZeroBitCount<T: NBKFixedWidthInteger>(of limbs: some Collection<T>) -> Int {
+        var index = limbs.startIndex
+        var element = T.zero
+        
+        while index < limbs.endIndex, element.isZero {
+            element = limbs[index]
+            limbs.formIndex(after: &index)
+        }
+        
+        return limbs.distance(from: limbs.startIndex, to: index) * T.bitWidth - T.bitWidth + element.trailingZeroBitCount
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Nonzero Bit Count
     //=------------------------------------------------------------------------=
     
     /// Returns the nonzero bit count of `limbs`.

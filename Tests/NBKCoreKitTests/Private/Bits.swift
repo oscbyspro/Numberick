@@ -43,6 +43,28 @@ final class BitsTests: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Trailing Zero Bit Count
+    //=------------------------------------------------------------------------=
+    
+    func testTrailingZeroBitCount() {
+        NBKAssertTrailingZeroBitCount([              ] as U64, 000)
+        NBKAssertTrailingZeroBitCount([00            ] as U64, 064)
+        NBKAssertTrailingZeroBitCount([00, 00        ] as U64, 128)
+        NBKAssertTrailingZeroBitCount([00, 00, 00    ] as U64, 192)
+        NBKAssertTrailingZeroBitCount([00, 00, 00, 00] as U64, 256)
+        
+        NBKAssertTrailingZeroBitCount([02            ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00        ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00, 00    ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00, 00, 00] as U64, 001)
+        
+        NBKAssertTrailingZeroBitCount([02, 00, 00, 00] as U64, 001)
+        NBKAssertTrailingZeroBitCount([00, 02, 00, 00] as U64, 065)
+        NBKAssertTrailingZeroBitCount([00, 00, 02, 00] as U64, 129)
+        NBKAssertTrailingZeroBitCount([00, 00, 00, 02] as U64, 193)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Nonzero Bit Count
     //=------------------------------------------------------------------------=
     
@@ -112,6 +134,13 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(NBK.mostSignificantBit(twosComplementOf: limbs), bit, file: file, line: line)
 }
 
+private func NBKAssertTrailingZeroBitCount(
+_ limbs: [UInt64], _ result: Int,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssertEqual(NBK.trailingZeroBitCount(of: limbs), result, file: file, line: line)
+}
+
 //=----------------------------------------------------------------------------=
 // MARK: + Utilities x Nonzero Bit Count
 //=----------------------------------------------------------------------------=
@@ -130,10 +159,10 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertNonzeroBitCount(
-twosComplementOf limbs: [UInt64], _ comparand: Int,
+twosComplementOf limbs: [UInt64], _ result: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.nonzeroBitCount(twosComplementOf: limbs), comparand, file: file, line: line)
+    XCTAssertEqual(NBK.nonzeroBitCount(twosComplementOf: limbs), result, file: file, line: line)
 }
 
 #endif
