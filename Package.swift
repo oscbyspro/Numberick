@@ -89,7 +89,7 @@ let package = Package(
         //=--------------------------------------=
         .target(
         name: "NBKFlexibleWidthKit",
-        dependencies: ["NBKCoreKit"]),
+        dependencies: ["NBKCoreKit", "NBKResizableWidthKit"]),
         
         .testTarget(
         name: "NBKFlexibleWidthKitBenchmarks",
@@ -98,5 +98,11 @@ let package = Package(
         .testTarget(
         name: "NBKFlexibleWidthKitTests",
         dependencies: ["NBKFlexibleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Resizable Width Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKResizableWidthKit",
+        dependencies: ["NBKCoreKit"]),
     ]
 )
