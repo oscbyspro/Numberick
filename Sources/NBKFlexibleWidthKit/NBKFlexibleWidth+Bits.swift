@@ -31,7 +31,7 @@ extension NBKFlexibleWidth {
     @inlinable public var bitWidth: Int {
         self.magnitude.bitWidth + self.storageBitWidthNeeded
     }
-    
+        
     @inlinable public var nonzeroBitCount: Int {
         switch self.isLessThanZero {
         case false: return self.magnitude.nonzeroBitCount
@@ -96,15 +96,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        var index = self.storage.elements.startIndex
-        var element = UInt.zero
-        
-        while index < self.storage.elements.endIndex, element.isZero {
-            element = self.storage.elements[index]
-            self.storage.elements.formIndex(after: &index)
-        }
-        
-        return (index - 1) * UInt.bitWidth + element.trailingZeroBitCount
+        NBK.trailingZeroBitCount(of: self.storage.elements)
     }
     
     @inlinable public var mostSignificantBit: Bool {

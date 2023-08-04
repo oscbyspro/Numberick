@@ -36,11 +36,40 @@ final class BitsTests: XCTestCase {
         NBKAssertMostSignificantBit(twosComplementOf:[~0, ~0, ~0, ~0/2 + 0] as U64, true) // Int256.max
     }
     
+    func testMostSignificantBitTwosComplementOfReturnsNilWhenLimbsIsEmpty() {
+        NBKAssertMostSignificantBit(twosComplementOf:[  ] as U64, nil  )
+        NBKAssertMostSignificantBit(twosComplementOf:[ 0] as U64, false)
+        NBKAssertMostSignificantBit(twosComplementOf:[ 1] as U64, true )
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Trailing Zero Bit Count
+    //=------------------------------------------------------------------------=
+    
+    func testTrailingZeroBitCount() {
+        NBKAssertTrailingZeroBitCount([              ] as U64, 000)
+        NBKAssertTrailingZeroBitCount([00            ] as U64, 064)
+        NBKAssertTrailingZeroBitCount([00, 00        ] as U64, 128)
+        NBKAssertTrailingZeroBitCount([00, 00, 00    ] as U64, 192)
+        NBKAssertTrailingZeroBitCount([00, 00, 00, 00] as U64, 256)
+        
+        NBKAssertTrailingZeroBitCount([02            ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00        ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00, 00    ] as U64, 001)
+        NBKAssertTrailingZeroBitCount([02, 00, 00, 00] as U64, 001)
+        
+        NBKAssertTrailingZeroBitCount([02, 00, 00, 00] as U64, 001)
+        NBKAssertTrailingZeroBitCount([00, 02, 00, 00] as U64, 065)
+        NBKAssertTrailingZeroBitCount([00, 00, 02, 00] as U64, 129)
+        NBKAssertTrailingZeroBitCount([00, 00, 00, 02] as U64, 193)
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Nonzero Bit Count
     //=------------------------------------------------------------------------=
     
     func testNonzeroBitCountEquals() {
+        NBKAssertNonzeroBitCount([              ] as U64, 00)
         NBKAssertNonzeroBitCount([00, 00, 00, 00] as U64, 00)
         NBKAssertNonzeroBitCount([01, 00, 00, 00] as U64, 01)
         NBKAssertNonzeroBitCount([01, 03, 00, 00] as U64, 03)
@@ -73,6 +102,7 @@ final class BitsTests: XCTestCase {
     }
     
     func testNonzeroBitCountTwosComplementOf() {
+        NBKAssertNonzeroBitCount(twosComplementOf:[              ] as U64, 000)
         NBKAssertNonzeroBitCount(twosComplementOf:[00, 00, 00, 00] as U64, 000)
         NBKAssertNonzeroBitCount(twosComplementOf:[~0, ~0, ~0, ~0] as U64, 001)
         
@@ -98,10 +128,17 @@ final class BitsTests: XCTestCase {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMostSignificantBit(
-twosComplementOf limbs: [UInt64], _ bit: Bool,
+twosComplementOf limbs: [UInt64], _ bit: Bool?,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(NBK.mostSignificantBit(twosComplementOf: limbs), bit, file: file, line: line)
+}
+
+private func NBKAssertTrailingZeroBitCount(
+_ limbs: [UInt64], _ result: Int,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssertEqual(NBK.trailingZeroBitCount(of: limbs), result, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -122,10 +159,10 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertNonzeroBitCount(
-twosComplementOf limbs: [UInt64], _ comparand: Int,
+twosComplementOf limbs: [UInt64], _ result: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.nonzeroBitCount(twosComplementOf: limbs), comparand, file: file, line: line)
+    XCTAssertEqual(NBK.nonzeroBitCount(twosComplementOf: limbs), result, file: file, line: line)
 }
 
 #endif

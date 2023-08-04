@@ -53,7 +53,7 @@ extension NBKFlexibleWidth {
         //=--------------------------------------=
         switch self.sign {
         case .plus : return self.magnitude.storage.elements.last!.mostSignificantBit
-        case .minus: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage.elements) }
+        case .minus: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage.elements)! }
     }
     
     //*========================================================================*
