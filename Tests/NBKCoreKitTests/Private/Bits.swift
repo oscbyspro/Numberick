@@ -36,11 +36,18 @@ final class BitsTests: XCTestCase {
         NBKAssertMostSignificantBit(twosComplementOf:[~0, ~0, ~0, ~0/2 + 0] as U64, true) // Int256.max
     }
     
+    func testMostSignificantBitTwosComplementOfReturnsNilWhenLimbsIsEmpty() {
+        NBKAssertMostSignificantBit(twosComplementOf:[  ] as U64, nil  )
+        NBKAssertMostSignificantBit(twosComplementOf:[ 0] as U64, false)
+        NBKAssertMostSignificantBit(twosComplementOf:[ 1] as U64, true )
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Nonzero Bit Count
     //=------------------------------------------------------------------------=
     
     func testNonzeroBitCountEquals() {
+        NBKAssertNonzeroBitCount([              ] as U64, 00)
         NBKAssertNonzeroBitCount([00, 00, 00, 00] as U64, 00)
         NBKAssertNonzeroBitCount([01, 00, 00, 00] as U64, 01)
         NBKAssertNonzeroBitCount([01, 03, 00, 00] as U64, 03)
@@ -73,6 +80,7 @@ final class BitsTests: XCTestCase {
     }
     
     func testNonzeroBitCountTwosComplementOf() {
+        NBKAssertNonzeroBitCount(twosComplementOf:[              ] as U64, 000)
         NBKAssertNonzeroBitCount(twosComplementOf:[00, 00, 00, 00] as U64, 000)
         NBKAssertNonzeroBitCount(twosComplementOf:[~0, ~0, ~0, ~0] as U64, 001)
         
@@ -98,7 +106,7 @@ final class BitsTests: XCTestCase {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMostSignificantBit(
-twosComplementOf limbs: [UInt64], _ bit: Bool,
+twosComplementOf limbs: [UInt64], _ bit: Bool?,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(NBK.mostSignificantBit(twosComplementOf: limbs), bit, file: file, line: line)
