@@ -10,44 +10,37 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x Size x Unsigned
+// MARK: * NBK x Resizable Width x Multiplication x Digit x Unsigned
 //*============================================================================*
 
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Count
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func reserve(minCount: Int) {
-        self.storage.reserveCapacity(minCount)
+    @inlinable public mutating func multiply(by other: UInt, plus addend: UInt) -> UInt {
+        var overflow = addend
+        self.multiply(by: other, carrying: &overflow)
+        return overflow as UInt
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
     
-    @inlinable public mutating func resize(minCount: Int) {
-        self.reserve(minCount: minCount)
-        appending: while self.storage.count < minCount {
-            self.storage.append(UInt.zero)
-        }
-    }
-    
-    @inlinable public mutating func resize(maxCount: Int) {
-        precondition(!maxCount.isMoreThanZero, "\(Self.description) must contain at least one word")
-        if  self.storage.count > maxCount {
-            self.storage.removeSubrange(maxCount...)
-        }
-    }
-    
+extension NBKResizableWidth.Magnitude {
+
     //=------------------------------------------------------------------------=
-    // MARK: Details x Normalization
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public var isNormal: Bool {
-        self.storage.count == 1 || !self.last.isZero
-    }
-    
-    @inlinable public mutating func normalize() {
-        trimming: while self.storage.count > 1, self.last.isZero {
-            self.storage.removeLast()
+    @inlinable mutating func multiply(by other: UInt, carrying overflow: inout UInt) {
+        for index in self.storage.indices {
+            var subproduct = self.storage[index].multipliedFullWidth(by: other)
+            overflow = UInt(bit:   subproduct.low.addReportingOverflow(overflow)) &+ subproduct.high
+            self.storage[index] = subproduct.low as UInt
         }
     }
 }

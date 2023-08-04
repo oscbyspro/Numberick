@@ -19,7 +19,7 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(words: some RandomAccessCollection<UInt>) {
+    @inlinable public init(words: some Collection<UInt>) {
         self.init(storage: Storage(words))
     }
     
