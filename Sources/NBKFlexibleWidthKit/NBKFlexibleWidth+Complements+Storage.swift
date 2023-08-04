@@ -16,6 +16,20 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func formOnesComplement() {
+        for index in self.elements.indices {
+            self.elements[index].formOnesComplement()
+        }
+    }
+    
+    @inlinable public func onesComplement() -> Self {
+        Self(elements: self.elements.map(~))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     

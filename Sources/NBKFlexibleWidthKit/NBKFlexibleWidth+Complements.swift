@@ -68,14 +68,6 @@ extension NBKFlexibleWidth {
         let overflow = partialValue.negateReportingOverflow()
         return PVO(partialValue, overflow)
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    @inlinable var isTwosComplementMinValue: Bool {
-        !self.magnitude.isZero && self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero
-    }
 }
 
 //*============================================================================*
@@ -89,13 +81,12 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formOnesComplement() {
-        for index in self.storage.elements.indices {
-            self.storage.elements[index].formOnesComplement()
-        };  self.storage.normalize()
+        self.storage.formOnesComplement()
+        self.storage.normalize()
     }
 
     @inlinable public func onesComplement() -> Self {
-        Self(storage: Storage(elements: self.storage.elements.map(~)))
+        Self(storage: self.storage.onesComplement())
     }
     
     //=------------------------------------------------------------------------=

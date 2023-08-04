@@ -61,19 +61,28 @@ extension NBKFlexibleWidth {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        Self.compare(self, to: other, at: Int.zero, magnitude: { lhs, rhs, _  in lhs.compared(to: rhs) })
+        Self.compare(self, to: other, magnitude:{ $0.compared(to: $1) })
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        Self.compare(self, to: other, at: index, magnitude: { lhs, rhs, index in lhs.compared(to: rhs, at: index) })
+        Self.compare(self, to: other, magnitude:{ $0.compared(to: $1, at: index) })
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        Self.compare(self, to: other, at: Int.zero, magnitude: { lhs, rhs, _  in lhs.compared(to: rhs) })
+        Self.compare(self, to: other, magnitude:{ $0.compared(to: $1) })
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        Self.compare(self, to: other, at: index, magnitude: { lhs, rhs, index in lhs.compared(to: rhs, at: index) })
+        Self.compare(self, to: other, magnitude:{ $0.compared(to: $1, at: index) })
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var isTwosComplementMinValue: Bool {
+        guard !self.magnitude.storage.elements.isEmpty else { return false }
+        return self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero
     }
 }
 
@@ -87,14 +96,13 @@ extension NBKFlexibleWidth {
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable static func compare<T>(_ lhs: Self, to rhs: T, at index: Int,
-    magnitude: (Magnitude, T.Magnitude, Int) -> Int) -> Int where T: NBKBinaryInteger {
+    @inlinable static func compare<T>(_ lhs: Self, to rhs: T, magnitude: (Magnitude, T.Magnitude) -> Int) -> Int where T: NBKBinaryInteger {
         //=--------------------------------------=
         if  lhs.sign.bit != rhs.isLessThanZero {
             return lhs.isZero && rhs.isZero ? 0 : lhs.sign.bit ? -1 : 1
         }
         //=--------------------------------------=
-        let magnitude = magnitude(lhs.magnitude, rhs.magnitude, index)
+        let magnitude = magnitude(lhs.magnitude, rhs.magnitude)
         return lhs.sign.bit ? magnitude.negated()  : magnitude
     }
 }
