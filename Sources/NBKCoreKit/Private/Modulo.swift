@@ -33,4 +33,12 @@ extension NBK {
         
         return (minus && !residue.isZero) ? (modulus &- residue) : (residue)
     }
+    
+    /// Returns `value` modulo `source.bitWidth`.
+    ///
+    /// - Note: Numberick integers have positive, nonzero, bit widths.
+    ///
+    @inlinable public static func residue<T>(of value: some BinaryInteger, moduloBitWidthOf source: T.Type) -> Int where T: NBKFixedWidthInteger {
+        Int(bitPattern: NBK.residue(of: value, modulo: UInt(bitPattern: T.bitWidth)))
+    }
 }
