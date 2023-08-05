@@ -31,7 +31,7 @@ final class IntXLTestsOnWords: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testWords() {
-        NBKAssertWords(T(words:[          ]), [0         ])
+        NBKAssertWords(T(words:[0         ]), [0         ])
         NBKAssertWords(T(words:[1         ]), [1         ])
         NBKAssertWords(T(words:[1, 2      ]), [1, 2      ])
         NBKAssertWords(T(words:[1, 2, 3   ]), [1, 2, 3   ])
@@ -55,7 +55,7 @@ final class IntXLTestsOnWords: XCTestCase {
     func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x64:[          ] as X), [0         ])
+        NBKAssertWords(T(x64:[0         ] as X), [0         ])
         NBKAssertWords(T(x64:[1         ] as X), [1         ])
         NBKAssertWords(T(x64:[1, 2      ] as X), [1, 2      ])
         NBKAssertWords(T(x64:[1, 2, 3   ] as X), [1, 2, 3   ])
@@ -71,7 +71,7 @@ final class IntXLTestsOnWords: XCTestCase {
     func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x32:[                      ] as Y), [0                     ])
+        NBKAssertWords(T(x32:[0                     ] as Y), [0                     ])
         NBKAssertWords(T(x32:[1                     ] as Y), [1                     ])
         NBKAssertWords(T(x32:[1, 2                  ] as Y), [1, 2                  ])
         NBKAssertWords(T(x32:[1, 2, 3               ] as Y), [1, 2, 3               ])
@@ -102,18 +102,19 @@ final class UIntXLTestsOnWords: XCTestCase {
     typealias T = UIntXL
     typealias M = UIntXL
     
+    #warning("T.exactly(words:)")
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testWords() {
-        NBKAssertWords(T(words:[          ]), [          ])
+        NBKAssertWords(T(words:[0         ]), [0         ])
         NBKAssertWords(T(words:[1         ]), [1         ])
         NBKAssertWords(T(words:[1, 2      ]), [1, 2      ])
         NBKAssertWords(T(words:[1, 2, 3   ]), [1, 2, 3   ])
         NBKAssertWords(T(words:[1, 2, 3, 4]), [1, 2, 3, 4])
         
-        NBKAssertWords(T(words:[0, 0, 0, 0]), [          ])
+        NBKAssertWords(T(words:[0, 0, 0, 0]), [0         ])
         NBKAssertWords(T(words:[1, 0, 0, 0]), [1         ])
         NBKAssertWords(T(words:[1, 2, 0, 0]), [1, 2      ])
         NBKAssertWords(T(words:[1, 2, 3, 0]), [1, 2, 3   ])
@@ -123,13 +124,13 @@ final class UIntXLTestsOnWords: XCTestCase {
     func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x64:[          ] as X), [          ])
+        NBKAssertWords(T(x64:[0         ] as X), [0         ])
         NBKAssertWords(T(x64:[1         ] as X), [1         ])
         NBKAssertWords(T(x64:[1, 2      ] as X), [1, 2      ])
         NBKAssertWords(T(x64:[1, 2, 3   ] as X), [1, 2, 3   ])
         NBKAssertWords(T(x64:[1, 2, 3, 4] as X), [1, 2, 3, 4])
         
-        NBKAssertWords(T(x64:[0, 0, 0, 0] as X), [          ])
+        NBKAssertWords(T(x64:[0, 0, 0, 0] as X), [0         ])
         NBKAssertWords(T(x64:[1, 0, 0, 0] as X), [1         ])
         NBKAssertWords(T(x64:[1, 2, 0, 0] as X), [1, 2      ])
         NBKAssertWords(T(x64:[1, 2, 3, 0] as X), [1, 2, 3   ])
@@ -139,7 +140,7 @@ final class UIntXLTestsOnWords: XCTestCase {
     func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x32:[                      ] as Y), [                      ])
+        NBKAssertWords(T(x32:[0                     ] as Y), [0                     ])
         NBKAssertWords(T(x32:[1                     ] as Y), [1                     ])
         NBKAssertWords(T(x32:[1, 2                  ] as Y), [1, 2                  ])
         NBKAssertWords(T(x32:[1, 2, 3               ] as Y), [1, 2, 3               ])
@@ -149,7 +150,7 @@ final class UIntXLTestsOnWords: XCTestCase {
         NBKAssertWords(T(x32:[1, 2, 3, 4, 5, 6, 7   ] as Y), [1, 2, 3, 4, 5, 6, 7   ])
         NBKAssertWords(T(x32:[1, 2, 3, 4, 5, 6, 7, 8] as Y), [1, 2, 3, 4, 5, 6, 7, 8])
         
-        NBKAssertWords(T(x32:[0, 0, 0, 0, 0, 0, 0, 0] as Y), [                      ])
+        NBKAssertWords(T(x32:[0, 0, 0, 0, 0, 0, 0, 0] as Y), [0                     ])
         NBKAssertWords(T(x32:[1, 0, 0, 0, 0, 0, 0, 0] as Y), [1                     ])
         NBKAssertWords(T(x32:[1, 2, 0, 0, 0, 0, 0, 0] as Y), [1, 2                  ])
         NBKAssertWords(T(x32:[1, 2, 3, 0, 0, 0, 0, 0] as Y), [1, 2, 3               ])

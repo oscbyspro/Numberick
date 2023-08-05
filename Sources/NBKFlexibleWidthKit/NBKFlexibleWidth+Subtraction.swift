@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Subtraction
@@ -93,7 +94,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return false }
         //=--------------------------------------=
-        self.storage.resize(minCount: other.storage.elements.count + index)
+        self.storage.resize(minCount: other.storage.count + index)
         defer{ self.storage.normalize() }
         return self.storage.subtract(other.storage, plus: false, at: index)
     }

@@ -124,7 +124,7 @@ final class UIntXLTestsOnComplements: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testOnesComplement() {
-        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as W), T(words:[~0,  0,  0,  0] as W))
         NBKAssertOnesComplement(T(words:[ 1,  0,  0,  0] as W), T(words:[~1,  0,  0,  0] as W))
         NBKAssertOnesComplement(T(words:[~0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
         NBKAssertOnesComplement(T(words:[ 1,  1,  1,  1] as W), T(words:[~1, ~1, ~1, ~1] as W))

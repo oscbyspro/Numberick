@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Shifts x Signed
@@ -210,7 +211,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         let rollover = Int(bit: self.leadingZeroBitCount < bits)
-        self.storage.resize(minCount: self.storage.elements.count + words + rollover)
+        self.storage.resize(minCount: self.storage.count + words + rollover)
         self.storage.bitshiftLeft(words: words, atLeastOneBit: bits)
     }
     
@@ -231,7 +232,7 @@ extension NBKFlexibleWidth.Magnitude {
             return
         }
         //=--------------------------------------=
-        self.storage.resize(minCount: self.storage.elements.count + words)
+        self.storage.resize(minCount: self.storage.count + words)
         self.storage.bitshiftLeft(atLeastOneWord: words)
     }
     
@@ -294,13 +295,15 @@ extension NBKFlexibleWidth.Magnitude {
             return self.bitshiftRight(words: words)
         }
         //=--------------------------------------=
-        if  self.storage.elements.count <= words {
+        let rollover = Int(bit: bits + self.leadingZeroBitCount - UInt.bitWidth >= 0)
+        let maxCount = self.storage.count - words - rollover
+        //=--------------------------------------=
+        if  maxCount < 1 {
             return self.assignZeroValue()
         }
         //=--------------------------------------=
-        let rollover = Int(bit: bits + self.leadingZeroBitCount - UInt.bitWidth >= 0)
         self.storage.bitshiftRight(words: words, atLeastOneBit: bits)
-        self.storage.resize(maxCount: self.storage.elements.count - words - rollover)
+        self.storage.resize(maxCount: maxCount)
     }
     
     @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
@@ -316,12 +319,12 @@ extension NBKFlexibleWidth.Magnitude {
             return
         }
         //=--------------------------------------=
-        if  self.storage.elements.count <= words {
+        if  self.storage.count <= words {
             return self.assignZeroValue()
         }
         //=--------------------------------------=
-        self.storage.bitshiftRight(atLeastOneWord: words)
-        self.storage.resize(maxCount: self.storage.elements.count - words)
+        self.storage.bitshiftRight(words: words)
+        self.storage.resize(maxCount: self.storage.count - words)
     }
     
     @inlinable public func bitshiftedRight(words: Int) -> Self {

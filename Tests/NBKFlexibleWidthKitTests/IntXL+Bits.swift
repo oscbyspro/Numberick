@@ -84,8 +84,8 @@ final class IntXLTestsOnBits: XCTestCase {
     }
     
     func testTrailingZeroBitCount() {
-        XCTAssertEqual(T(sign: .minus, magnitude:  0).trailingZeroBitCount, UInt.bitWidth * 0)
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(sign: .minus, magnitude:  0).trailingZeroBitCount, UInt.bitWidth * 1)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 1)
         XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).trailingZeroBitCount, UInt.bitWidth * 0)
         XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
         
@@ -149,7 +149,7 @@ final class UIntXLTestsOnBits: XCTestCase {
     }
     
     func testBitWidth() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).bitWidth, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).bitWidth, UInt.bitWidth * 1)
         XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).bitWidth, UInt.bitWidth * 4)
     }
     
@@ -159,7 +159,7 @@ final class UIntXLTestsOnBits: XCTestCase {
     }
     
     func testLeadingZeroBitCount() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1)
         XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).leadingZeroBitCount,  UInt.bitWidth * 0)
         
         XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).leadingZeroBitCount,  UInt.bitWidth * 1 - 2)
@@ -169,7 +169,7 @@ final class UIntXLTestsOnBits: XCTestCase {
     }
     
     func testTrailingZeroBitCount() {
-        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
+        XCTAssertEqual(T(words:[ 0,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 1)
         XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).trailingZeroBitCount, UInt.bitWidth * 0)
         
         XCTAssertEqual(T(words:[ 2,  0,  0,  0] as W).trailingZeroBitCount, UInt.bitWidth * 0 + 1)

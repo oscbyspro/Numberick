@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Division x Signed
@@ -112,8 +113,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
-        if  other.storage.elements.count == 1 {
-            let qr = self.quotientAndRemainder(dividingBy: other.storage.elements.first!)
+        if  other.storage.count == 1 {
+            let qr = self.quotientAndRemainder(dividingBy: other.storage.first)
             self.assign(qr.remainder)
             return PVO(qr.quotient, false)
         }
@@ -133,23 +134,23 @@ extension NBKFlexibleWidth.Magnitude {
         // shift to clamp approximation
         //=--------------------------------------=
         var divisor = other.storage
-        let shift = divisor.elements.last!.leadingZeroBitCount as Int
+        let shift = divisor.last.leadingZeroBitCount as Int
         divisor.bitshiftLeft(words: Int.zero, bits: shift)
-        let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
+        let divisorLast0 = divisor[divisor.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit)
         
-        var remainderIndex = self.storage.elements.endIndex
-        self.storage.elements.append(0)
+        var remainderIndex = self.storage.endIndex
+        self.storage.append(0)
         self.storage.bitshiftLeft(words: Int.zero, bits: shift)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
-        var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
+        var quotientIndex = remainderIndex - divisor.endIndex as Int
         var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
             loop: repeat {
-                let remainderLast0 = self.storage.elements[remainderIndex]
-                self.storage.elements.formIndex(before:   &remainderIndex)
-                let remainderLast1 = self.storage.elements[remainderIndex]
+                let remainderLast0 = self.storage[remainderIndex]
+                self.storage.formIndex(before:   &remainderIndex)
+                let remainderLast1 = self.storage[remainderIndex]
                 //=------------------------------=
                 var digit: UInt
                 if  divisorLast0 == remainderLast0 {
@@ -160,8 +161,8 @@ extension NBKFlexibleWidth.Magnitude {
                 //=------------------------------=
                 if !digit.isZero {
                     var overflow = self.storage.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
-                    while overflow {
-                        let _ = digit.subtractReportingOverflow(1 as UInt)
+                    decrement: while overflow {
+                        _ = digit.subtractReportingOverflow(1 as UInt)
                         overflow = !self.storage.add(divisor, plus: false, at: quotientIndex)
                     }
                 }

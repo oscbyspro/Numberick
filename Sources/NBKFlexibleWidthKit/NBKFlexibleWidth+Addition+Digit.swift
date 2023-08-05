@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Addition x Digit x Signed
@@ -74,9 +75,9 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.isZero { return }
         //=--------------------------------------=
-        self.storage.resize(minCount:   index  + 1)
+        self.storage.resize(minCount: index + 1)
         let overflow = self.storage.add(other, plus: false, at: index)
-        if  overflow { self.storage.elements.append(1) }
+        if  overflow { self.storage.append(1) }
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {

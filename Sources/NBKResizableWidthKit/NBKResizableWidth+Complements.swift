@@ -26,7 +26,7 @@ extension NBKResizableWidth.Magnitude {
     }
     
     @inlinable public func onesComplement() -> Self {
-        Self(unchecked: self.storage.map(~))
+        Self(unchecked: Storage(self.storage.lazy.map(~)))
     }
     
     //=------------------------------------------------------------------------=

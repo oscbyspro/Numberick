@@ -16,8 +16,12 @@ import NBKCoreKit
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Count
+    // MARK: Details x Resize
     //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func append(_ word: UInt) {
+        self.storage.append(word)
+    }
     
     @inlinable public mutating func reserve(minCount: Int) {
         self.storage.reserveCapacity(minCount)
@@ -31,10 +35,12 @@ extension NBKResizableWidth.Magnitude {
     }
     
     @inlinable public mutating func resize(maxCount: Int) {
-        precondition(!maxCount.isMoreThanZero, "\(Self.description) must contain at least one word")
+        //=--------------------------------------=
         if  self.storage.count > maxCount {
             self.storage.removeSubrange(maxCount...)
         }
+        //=--------------------------------------=
+        precondition(self.isOK, Self.callsiteInvariantsInfo())
     }
     
     //=------------------------------------------------------------------------=
@@ -49,5 +55,10 @@ extension NBKResizableWidth.Magnitude {
         trimming: while self.storage.count > 1, self.last.isZero {
             self.storage.removeLast()
         }
+    }
+    
+    @inlinable public mutating func normalize(assign value: UInt) {
+        self.storage.removeAll(keepingCapacity: true)
+        self.storage.append(value)
     }
 }

@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Text x Radix x Signed
@@ -110,6 +111,8 @@ extension NBKFlexibleWidth.Magnitude {
         let division = digits.count.quotientAndRemainder(dividingBy: radix.exponent)
         let count = division.quotient + Int(bit: !division.remainder.isZero)
         //=--------------------------------------=
+        guard count.isMoreThanZero else { self = Self.zero; return }
+        //=--------------------------------------=
         var error = false
         let value = Storage.uninitialized(count: count) { storage in
             for index in storage.indices {
@@ -162,7 +165,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        return self.storage.elements.withUnsafeBufferPointer { buffer in
+        return self.storage.withContiguousStorage { buffer in
             let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from: buffer, while: { $0.isZero }))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }

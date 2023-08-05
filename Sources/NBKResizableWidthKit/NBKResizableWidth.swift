@@ -18,7 +18,9 @@ import NBKCoreKit
     
     public typealias Digit = Int
     
-    @usableFromInline typealias Storage = Array<UInt>
+    public typealias Words = Self
+    
+    @usableFromInline typealias Storage = ContiguousArray<UInt>
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -32,12 +34,26 @@ import NBKCoreKit
     
     @inlinable init(storage: Storage) {
         self.storage = storage
-        precondition(!self.storage.isEmpty, "\(Self.description) must contain at least one word")
+        precondition(self.isOK, Self.callsiteInvariantsInfo())
     }
     
     @inlinable init(unchecked storage: Storage) {
         self.storage = storage
-        Swift.assert(!self.storage.isEmpty, "\(Self.description) must contain at least one word")
+        Swift.assert(self.isOK, Self.callsiteInvariantsInfo())
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Invariants
+    //=------------------------------------------------------------------------=
+    
+    /// Returns whether its invariants are kept.
+    @inlinable var isOK: Bool {
+        !self.storage.isEmpty
+    }
+    
+    /// Returns a description of the invariants that must be kept.
+    @inlinable static func callsiteInvariantsInfo() -> String {
+        "\(Self.description) must contain at least one word"
     }
     
     //*========================================================================*
@@ -45,9 +61,11 @@ import NBKCoreKit
     //*========================================================================*
     
     /// An unsigned, resizable-width, binary integer of at least one word.
-    @frozen public struct Magnitude: MutableCollection, RandomAccessCollection, Sendable {
+    @frozen public struct Magnitude: Hashable, MutableCollection, RandomAccessCollection, Sendable {
                 
         public typealias Digit = UInt
+        
+        public typealias Words = Self
         
         @usableFromInline typealias Storage = NBKResizableWidth.Storage
         
@@ -63,12 +81,26 @@ import NBKCoreKit
         
         @inlinable init(storage: Storage) {
             self.storage = storage
-            precondition(!self.storage.isEmpty, "\(Self.description) must contain at least one word")
+            precondition(self.isOK, Self.callsiteInvariantsInfo())
         }
         
         @inlinable init(unchecked storage: Storage) {
             self.storage = storage
-            Swift.assert(!self.storage.isEmpty, "\(Self.description) must contain at least one word")
+            Swift.assert(self.isOK, Self.callsiteInvariantsInfo())
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Invariants
+        //=--------------------------------------------------------------------=
+        
+        /// Returns whether its invariants are kept.
+        @inlinable var isOK: Bool {
+            !self.storage.isEmpty
+        }
+        
+        /// Returns a description of the invariants that must be kept.
+        @inlinable static func callsiteInvariantsInfo() -> String {
+            "\(Self.description) must contain at least one word"
         }
     }
 }

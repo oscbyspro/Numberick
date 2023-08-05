@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Miscellaneous x Unsigned
@@ -20,12 +21,11 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func assignZeroValue() {
-        self.storage.elements.removeAll(keepingCapacity: true)
+        self.assign(UInt.zero)
     }
     
-    @inlinable mutating func assign(_ other: UInt) {
-        self.storage.elements.removeAll(keepingCapacity: true)
-        guard !other.isZero else { return }
-        self.storage.elements.append(other)
+    @inlinable mutating func assign(_  value: UInt) {
+        self.storage.normalize(assign: value)
+        Swift.assert(self.storage.isNormal)
     }
 }

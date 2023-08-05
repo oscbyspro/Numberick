@@ -10,23 +10,27 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Pointers
+// MARK: * NBK x Collection
 //*============================================================================*
 
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Drop
     //=------------------------------------------------------------------------=
     
-    @inlinable static func merge<T>(into result: UnsafeMutableBufferPointer<T>,
-    from x0: UnsafeBufferPointer<T>, _ x1: UnsafeBufferPointer<T>, each element: (T, T) -> T) {
-        //=--------------------------------------=
-        precondition(result.count == x0.count, NBK.callsiteOutOfBoundsInfo())
-        precondition(result.count == x1.count, NBK.callsiteOutOfBoundsInfo())
-        //=--------------------------------------=
-        for index in result.indices {
-            result[index] = element(x0[index], x1[index])
+    /// Drops elements that the satisfy the predicate from the end of the given `collection`.
+    @_transparent @usableFromInline static func dropLast<T>(
+    from collection: T, while predicate: (T.Element) -> Bool)
+    -> T.SubSequence where T: BidirectionalCollection {
+        var newEndIndex = collection.endIndex
+        
+        backwards: while newEndIndex > collection.startIndex {
+            let newLastIndex = collection.index(before: newEndIndex)
+            guard predicate(collection[newLastIndex]) else { break }
+            newEndIndex = newLastIndex
         }
+        
+        return collection.prefix(upTo: newEndIndex)
     }
 }

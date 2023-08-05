@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x Digit x Signed
@@ -74,10 +75,10 @@ extension NBKFlexibleWidth.Magnitude {
             return self.assign(addend)
         }
         //=--------------------------------------=
-        self.storage.reserve(minCount: self.storage.elements.count + 1)
+        self.storage.reserve(minCount: self.storage.count + 1)
         let overflow = self.storage.multiply(by: multiplicand, plus: addend)
         if !overflow.isZero {
-            self.storage.elements.append(overflow)
+            self.storage.append(overflow)
         }
     }
     

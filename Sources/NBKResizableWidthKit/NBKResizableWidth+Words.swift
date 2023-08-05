@@ -144,3 +144,20 @@ extension NBKResizableWidth.Magnitude {
         _modify { yield &self.storage[index] }
     }
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKResizableWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func withUnsafeWords<T>(of digit: Digit, perform body: (NBK.UnsafeWords) -> T) -> T {
+        Swift.withUnsafePointer(to: digit) {
+            body(NBK.UnsafeWords(start: $0, count: 1))
+        }
+    }
+}

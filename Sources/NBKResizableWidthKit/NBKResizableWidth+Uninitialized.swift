@@ -20,7 +20,7 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     // TODO: measure (inout Self) -> Void
-    @inlinable static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
+    @inlinable public static func uninitialized(count: Int, body: (NBK.UnsafeMutableWords) -> Void) -> Self {
         let storage = Storage(unsafeUninitializedCapacity: count) {
             storage,  endIndex in
             body(NBK.UnsafeMutableWords(rebasing: storage.prefix(upTo: count)))

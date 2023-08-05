@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Bits x Signed
@@ -35,7 +36,7 @@ extension NBKFlexibleWidth {
     @inlinable public var nonzeroBitCount: Int {
         switch self.isLessThanZero {
         case false: return self.magnitude.nonzeroBitCount
-        case  true: return NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage.elements) + self.storageBitWidthNeeded }
+        case  true: return NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage) + self.storageBitWidthNeeded }
     }
     
     @inlinable public var leadingZeroBitCount: Int {
@@ -84,26 +85,26 @@ extension NBKFlexibleWidth.Magnitude {
     
     /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
-        self.storage.elements.count * UInt.bitWidth
+        self.storage.count * UInt.bitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        NBK.nonzeroBitCount(of: self.storage.elements)
+        NBK.nonzeroBitCount(of: self.storage)
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage.elements.last?.leadingZeroBitCount ?? Int.zero
+        self.storage.last.leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        NBK.trailingZeroBitCount(of: self.storage.elements)
+        NBK.trailingZeroBitCount(of: self.storage)
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        self.storage.elements.last?.mostSignificantBit ?? false
+        self.storage.last.mostSignificantBit
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        self.storage.elements.first?.leastSignificantBit ?? false
+        self.storage.first.leastSignificantBit
     }
 }

@@ -29,6 +29,15 @@ final class UIntXLBenchmarksOnLogic: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testNotInout() {
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.formOnesComplement())
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
     func testNot() {
         var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         

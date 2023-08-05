@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Division x Digit x Signed
@@ -98,13 +99,13 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         if  other.isZero {
-            return NBK.bitCast(PVO(self.storage.elements.first ?? UInt.zero, true))
+            return NBK.bitCast(PVO(self.storage.first, true))
         }
         //=--------------------------------------=
         var remainder = UInt.zero
         
-        for index in self.storage.elements.indices.reversed() {
-            (self.storage.elements[index], remainder) = other.dividingFullWidth(HL(remainder, self.storage.elements[index]))
+        for index in self.storage.indices.reversed() {
+            (self.storage[index], remainder) = other.dividingFullWidth(HL(remainder, self.storage[index]))
         }
         
         self.storage.normalize()

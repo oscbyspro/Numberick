@@ -19,12 +19,13 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func formInIntersection(of other: Self, each element: (UInt, UInt) -> UInt) {
+    // TODO: internal
+    @inlinable public mutating func formInIntersection(of other: Self, each element: (UInt, UInt) -> UInt) {
         self .storage.withUnsafeMutableBufferPointer { lhs in
         other.storage.withUnsafeBufferPointer { rhs in
             let endIndex = Swift.min(lhs.endIndex, rhs.endIndex)
-            let lhsIntersection = NBK.UnsafeMutableWords(rebasing: lhs.prefix(upTo: endIndex))
-            let rhsIntersection = /*---*/NBK.UnsafeWords(rebasing: rhs.prefix(upTo: endIndex))
+            let lhsIntersection = NBK.UnsafeMutableWords(rebasing: lhs.prefix(upTo:  endIndex))
+            let rhsIntersection = /*---*/NBK.UnsafeWords(rebasing: rhs.prefix(upTo:  endIndex))
             NBK.merge(into: lhsIntersection, from: NBK.UnsafeWords(lhsIntersection), rhsIntersection, each: element)
         }}
     }

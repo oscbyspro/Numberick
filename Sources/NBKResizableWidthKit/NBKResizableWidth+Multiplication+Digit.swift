@@ -39,7 +39,7 @@ extension NBKResizableWidth.Magnitude {
     @inlinable mutating func multiply(by other: UInt, carrying overflow: inout UInt) {
         for index in self.storage.indices {
             var subproduct = self.storage[index].multipliedFullWidth(by: other)
-            overflow = UInt(bit:   subproduct.low.addReportingOverflow(overflow)) &+ subproduct.high
+            overflow = UInt(bit:  subproduct.low.addReportingOverflow(overflow)) &+ subproduct.high
             self.storage[index] = subproduct.low as UInt
         }
     }

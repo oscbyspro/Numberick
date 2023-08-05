@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Logic x Signed
@@ -83,7 +84,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.resize(maxCount: rhs.storage.elements.count)
+        lhs.storage.resize(maxCount: rhs.storage.count)
         lhs.storage.formInIntersection(of: rhs.storage, each: &)
         lhs.storage.normalize()
     }
@@ -101,7 +102,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.resize(minCount: rhs.storage.elements.count)
+        lhs.storage.resize(minCount: rhs.storage.count)
         lhs.storage.formInIntersection(of: rhs.storage, each: |)
     }
     
@@ -118,7 +119,7 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(lhs.storage.isNormal)
         }
         //=--------------------------------------=
-        lhs.storage.resize(minCount: rhs.storage.elements.count)
+        lhs.storage.resize(minCount: rhs.storage.count)
         lhs.storage.formInIntersection(of: rhs.storage, each: ^)
         lhs.storage.normalize()
     }

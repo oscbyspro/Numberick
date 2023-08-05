@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Comparisons x Signed
@@ -81,8 +82,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable var isTwosComplementMinValue: Bool {
-        guard !self.magnitude.storage.elements.isEmpty else { return false }
-        return self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero
+        self.compared(to: Int.min, at: self.magnitude.storage.lastIndex).isZero
     }
 }
 
@@ -118,23 +118,23 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        self.storage.elements.isEmpty
+        self.storage.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
-        false
+        self.storage.isLessThanZero
     }
     
     @inlinable public var isMoreThanZero: Bool {
-        !self.isZero
+        self.storage.isMoreThanZero
     }
     
     @inlinable public var isPowerOf2: Bool {
-        NBK.nonzeroBitCount(of: self.storage.elements, equals: 1)
+        self.storage.isPowerOf2
     }
     
     @inlinable public func signum() -> Int {
-        Int(bit: !self.isZero)
+        self.storage.signum()
     }
     
     //=------------------------------------------------------------------------=
@@ -158,76 +158,18 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        other.storage.elements.withUnsafeBufferPointer { rhs in
-            Self.compareWordsUnchecked(lhs, to: rhs)
-        }}
+        self.storage.compared(to: other.storage)
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        other.storage.elements.withUnsafeBufferPointer { rhs in
-            Self.compareWordsUnchecked(lhs, to: rhs, at: index)
-        }}
+        self.storage.compared(to: other.storage, at: index)
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        self.storage.elements.withUnsafeBufferPointer { lhs in
-        Self.withUnsafeWords(of: other) { rhs in
-            Self.compareWordsUnchecked(lhs, to: rhs)
-        }}
+        self.storage.compared(to: other)
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        self.storage.elements.withUnsafeBufferPointer { lhs in
-        Self.withUnsafeWords(of: other) { rhs in
-            Self.compareWordsUnchecked(lhs, to: rhs, at: index)
-        }}
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-
-extension NBKFlexibleWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    /// A three-way comparison of `lhs` against `rhs`.
-    ///
-    /// - Requires: The last element in `lhs` and `rhs` must not be zero.
-    ///
-    @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        assert(lhs.last != 0 && rhs.last != 0)
-        //=--------------------------------------=
-        if  lhs.count != rhs.count {
-            return lhs.count < rhs.count ? -1 : 1
-        }
-        //=--------------------------------------=
-        for index in lhs.indices.reversed() {
-            let lhsWord  = lhs[index] as UInt
-            let rhsWord  = rhs[index] as UInt
-            if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
-        }
-        
-        return Int.zero
-    }
-    
-    /// A three-way comparison of `lhs` against `rhs` at `index`.
-    ///
-    /// - Requires: The last element in `lhs` and `rhs` must not be zero.
-    ///
-    @inlinable static func compareWordsUnchecked(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
-        assert(lhs.last != 0 && rhs.last != 0 && index >= 0)
-        //=--------------------------------------=
-        let partition = Swift.min(index, lhs.endIndex)
-        let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = Self.compareWordsUnchecked(suffix, to: rhs)
-        if !comparison.isZero { return comparison }
-        let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+        self.storage.compared(to: other, at: index)
     }
 }

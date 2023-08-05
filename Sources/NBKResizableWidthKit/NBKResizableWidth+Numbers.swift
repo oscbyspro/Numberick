@@ -19,11 +19,11 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Initializers x Digit
     //=------------------------------------------------------------------------=
     
-    @inlinable init(digit: UInt) {
+    @inlinable public init(digit: UInt) {
         self.init(unchecked:[digit])
     }
     
-    @inlinable init(digit: UInt, at index: Int) {
+    @inlinable public init(digit: UInt, at index: Int) {
         self.init(repeating: UInt.zero, count: index + 1)
         self.storage[index] = digit
     }
@@ -31,8 +31,9 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Literal
     //=------------------------------------------------------------------------=
-        
-    @inlinable init(truncating source: StaticBigInt) {
+    
+    // TODO: internal
+    @inlinable public init(truncating source: StaticBigInt) {
         //=--------------------------------------=
         let bitWidth = source.bitWidth
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)

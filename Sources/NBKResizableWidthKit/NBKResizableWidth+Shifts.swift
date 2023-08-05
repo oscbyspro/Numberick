@@ -65,13 +65,15 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations x Int x Private
     //=------------------------------------------------------------------------=
 
-    @inlinable mutating func bitshiftLeft(words: Int, atLeastOneBit bits: Int) {
+    // TODO: internal
+    @inlinable public mutating func bitshiftLeft(words: Int, atLeastOneBit bits: Int) {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
         }
     }
 
-    @inlinable mutating func bitshiftLeft(atLeastOneWord words: Int) {
+    // TODO: internal
+    @inlinable public mutating func bitshiftLeft(atLeastOneWord words: Int) {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, atLeastOneLimb: words)
         }
@@ -131,13 +133,15 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations x Int x Private
     //=------------------------------------------------------------------------=
 
-    @inlinable mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
+    // TODO: internal
+    @inlinable public mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
         }
     }
     
-    @inlinable mutating func bitshiftRight(atLeastOneWord words: Int) {
+    // TODO: internal
+    @inlinable public mutating func bitshiftRight(atLeastOneWord words: Int) {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: false, atLeastOneLimb: words)
         }
