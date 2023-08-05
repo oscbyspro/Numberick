@@ -48,6 +48,20 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NBKResizableWidthKitBenchmarks"
+               BuildableName = "NBKResizableWidthKitBenchmarks"
+               BlueprintName = "NBKResizableWidthKitBenchmarks"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -68,6 +82,9 @@
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKFlexibleWidthKit-Benchmarks.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:.swiftpm/NBKResizableWidthKit-Benchmarks.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

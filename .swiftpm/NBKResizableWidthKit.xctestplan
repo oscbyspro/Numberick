@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "6FC9897F-2BF3-4836-8372-787CE5195F87",
+      "name" : "Main",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKResizableWidthKit",
+          "name" : "NBKResizableWidthKit"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKResizableWidthKitTests",
+        "name" : "NBKResizableWidthKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
