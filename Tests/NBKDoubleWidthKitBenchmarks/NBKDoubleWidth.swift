@@ -7,8 +7,68 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+#if !DEBUG
+
 import NBKCoreKit
 import NBKDoubleWidthKit
+import XCTest
+
+private typealias X = NBK.U256X64
+private typealias Y = NBK.U256X32
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Int256
+//*============================================================================*
+
+final class NBKDoubleWidthBenchmarksAsInt256: XCTestCase {
+    
+    typealias T =  Int256
+    typealias M = UInt256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testFromComponents() {
+        var abc = NBK.blackHoleIdentity(LH( T.Low .zero, T.High.zero ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High.zero, T.Low .zero ))
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(T(ascending:  abc))
+            NBK.blackHole(T(descending: xyz))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Double Width x UInt256
+//*============================================================================*
+
+final class NBKDoubleWidthBenchmarksAsUInt256: XCTestCase {
+    
+    typealias T = UInt256
+    typealias M = UInt256
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testFromComponents() {
+        var abc = NBK.blackHoleIdentity(LH( T.Low .zero, T.High.zero ))
+        var xyz = NBK.blackHoleIdentity(HL( T.High.zero, T.Low .zero ))
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(T(ascending:  abc))
+            NBK.blackHole(T(descending: xyz))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+}
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Initializers
@@ -52,3 +112,5 @@ extension NBKDoubleWidth {
         #endif
     }
 }
+
+#endif
