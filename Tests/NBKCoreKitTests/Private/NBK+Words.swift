@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Words
 //*============================================================================*
 
-final class WordsTests: XCTestCase {
+final class NBKTestsOnWords: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -45,9 +45,9 @@ final class WordsTests: XCTestCase {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Utilities
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Words x Assertions
+//*============================================================================*
 
 private func NBKAssertWithUnsafeWordsOf(
 _ lhs: some NBKCoreInteger<UInt>, _ rhs: [UInt],

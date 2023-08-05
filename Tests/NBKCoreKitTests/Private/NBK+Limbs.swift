@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Limbs
 //*============================================================================*
 
-final class LimbsTests: XCTestCase {
+final class NBKTestsOnLimbs: XCTestCase {
     
     private typealias S64 = [Int64]
     private typealias S32 = [Int32]
@@ -108,9 +108,9 @@ final class LimbsTests: XCTestCase {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Utilities
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Limbs x Assertions
+//*============================================================================*
 
 private func NBKAssertLimbs<A: NBKCoreInteger, B: NBKCoreInteger>(
 _ lhs: [A], _ rhs: [B], isSigned: Bool? = nil,

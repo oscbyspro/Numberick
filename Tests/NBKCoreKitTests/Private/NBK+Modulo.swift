@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Modulo x Binary Integer
+// MARK: * NBK x Modulo
 //*============================================================================*
 
-final class ModuloTestsOnBinaryInteger: XCTestCase {
+final class NBKTestsOnModulo: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -100,9 +100,9 @@ final class ModuloTestsOnBinaryInteger: XCTestCase {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Utilities
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Modulo x Assertions
+//*============================================================================*
 
 private func NBKAssertModuloBitWidthOf(
 _ value: some BinaryInteger, _ source: (some NBKFixedWidthInteger).Type, _ result: Int,

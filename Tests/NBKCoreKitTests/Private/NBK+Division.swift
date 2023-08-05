@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Division x Int or UInt
 //*============================================================================*
 
-final class DivisionTestsOnIntOrUInt: XCTestCase {
+final class NBKTestsOnDivisionAsIntOrUInt: XCTestCase {
     
     typealias T = UInt
     
@@ -51,9 +51,9 @@ final class DivisionTestsOnIntOrUInt: XCTestCase {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Utilities
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Division x Assertions
+//*============================================================================*
 
 private func NBKAssertDividingByBitWidthAsIntOrUInt(
 _ value: UInt, _ quotient: UInt, _ remainder: UInt,

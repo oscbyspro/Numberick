@@ -17,20 +17,6 @@ extension NBK {
     // MARK: Details
     //=------------------------------------------------------------------------=
     
-    /// Returns the most significant bit for the two's complement of `limbs`.
-    ///
-    /// - Note: The most significant bit does not exist when `limbs` is empty.
-    ///
-    @inlinable public static func mostSignificantBit(twosComplementOf limbs: some BidirectionalCollection<some NBKFixedWidthInteger>) -> Bool? {
-        guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return limbs.isEmpty ? nil : false }
-        let lastIndex = limbs.index(before: limbs.endIndex)
-        return limbs[lastIndex].twosComplementSubsequence(index == lastIndex).partialValue.mostSignificantBit
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Trailing Zero Bit Count
-    //=------------------------------------------------------------------------=
-    
     /// Returns the trailing zero bit count of `limbs`.
     ///
     /// - Note: The trailing zero bit count is zero when `limbs` is empty.
@@ -45,6 +31,16 @@ extension NBK {
         }
         
         return limbs.distance(from: limbs.startIndex, to: index) * T.bitWidth - T.bitWidth + element.trailingZeroBitCount
+    }
+    
+    /// Returns the most significant bit for the two's complement of `limbs`.
+    ///
+    /// - Note: The most significant bit does not exist when `limbs` is empty.
+    ///
+    @inlinable public static func mostSignificantBit(twosComplementOf limbs: some BidirectionalCollection<some NBKFixedWidthInteger>) -> Bool? {
+        guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return limbs.isEmpty ? nil : false }
+        let lastIndex = limbs.index(before: limbs.endIndex)
+        return limbs[lastIndex].twosComplementSubsequence(index == lastIndex).partialValue.mostSignificantBit
     }
     
     //=------------------------------------------------------------------------=

@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Radix UInt Root
+// MARK: * NBK x Text x Radix UInt Root
 //*============================================================================*
 
-final class NBKRadixUIntRootTests: XCTestCase {
+final class NBKTestsOnTextByRadixUIntRoot: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

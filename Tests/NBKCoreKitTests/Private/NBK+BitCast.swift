@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Bit Cast x Integers
+// MARK: * NBK x Bit Cast
 //*============================================================================*
 
-final class BitCastTestsOnIntegers: XCTestCase {
+final class NBKTestsOnBitCast: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -157,9 +157,9 @@ final class BitCastTestsOnIntegers: XCTestCase {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: Utilities
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Bit Cast x Assertions
+//*============================================================================*
 
 private func NBKAssertInitOrBitCast<I: NBKFixedWidthInteger, O: NBKFixedWidthInteger>(
 _ source: I, exactly: O?, clamping: O, truncating: O,

@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Limbs
 //*============================================================================*
 
-final class LimbsBenchmarks: XCTestCase {
+final class NBKBenchmarksOnLimbs: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

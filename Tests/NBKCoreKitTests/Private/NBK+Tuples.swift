@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Tuples
 //*============================================================================*
 
-final class TuplesTests: XCTestCase {
+final class NBKTestsOnTuples: XCTestCase {
     
     typealias S  = Int64
     typealias S2 = NBK.Wide2<S>
@@ -137,9 +137,12 @@ final class TuplesTests: XCTestCase {
     }
 }
 
-//=------------------------------------------------------------------------=
-// MARK: + Utilities x Complements
-//=------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Tuples x Assertions
+//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Complements
+//=----------------------------------------------------------------------------=
 
 private func NBKAssertMagnitude<T: NBKFixedWidthInteger>(
 _ value: NBK.Wide2<T>, _ magnitude: NBK.Wide2<T.Magnitude>,
@@ -155,7 +158,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Comparisons
+// MARK: + Comparisons
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertComparisons22S<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
@@ -171,7 +174,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Addition
+// MARK: + Addition
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertAdding32B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
@@ -197,7 +200,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Subtraction
+// MARK: + Subtraction
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertSubtraction32B<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
@@ -223,7 +226,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Multiplication
+// MARK: + Multiplication
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMultiplication213<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
@@ -236,7 +239,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Division
+// MARK: + Division
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertDivision3212MSB<T: NBKFixedWidthInteger & NBKUnsignedInteger>(

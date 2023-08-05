@@ -16,7 +16,7 @@ import XCTest
 // MARK: * NBK x Collection
 //*============================================================================*
 
-final class CollectionTests: XCTestCase {
+final class NBKTestsOnCollection: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Drop
@@ -84,8 +84,11 @@ final class CollectionTests: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Collection x Assertions
+//*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Drop
+// MARK: + Drop
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertDropLastWhile(
@@ -96,7 +99,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Remove Count
+// MARK: + Remove Count
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertRemovePrefixCount(
@@ -120,7 +123,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Utilities x Remove Max Length
+// MARK: + Remove Max Length
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertRemovePrefixMaxLength(
