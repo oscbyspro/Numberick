@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Int x Division
+// MARK: * NBK x Core Integer x Division x Int
 //*============================================================================*
 
-final class IntBenchmarksOnDivision: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnDivisionAsInt: XCTestCase {
     
     typealias T =  Int
     typealias M = UInt
@@ -86,10 +86,10 @@ final class IntBenchmarksOnDivision: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UInt x Division
+// MARK: * NBK x Core Integer x Division x UInt
 //*============================================================================*
 
-final class UIntBenchmarksOnDivision: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnDivisionAsUInt: XCTestCase {
     
     typealias T = UInt
     typealias M = UInt

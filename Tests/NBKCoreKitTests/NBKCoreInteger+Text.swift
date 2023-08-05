@@ -207,4 +207,33 @@ final class NBKCoreIntegerTestsOnText: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Core Integer x Text x Assertions
+//*============================================================================*
+
+private func NBKAssertDecodeText<T: NBKCoreInteger>(
+_ integer: T?, _ radix: Int, _ text: String,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  radix == 10 {
+        XCTAssertEqual(T(text), integer)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(T(text, radix: radix), integer)
+}
+
+private func NBKAssertEncodeText<T: NBKCoreInteger>(
+_ integer: T, _ radix: Int, _ uppercase: Bool, _ text: String,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  radix == 10, uppercase == false {
+        XCTAssertEqual(String(integer),       text, file: file, line: line)
+        XCTAssertEqual(integer.description(), text, file: file, line: line)
+        XCTAssertEqual(integer.description,   text, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
+    XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
+}
+
 #endif

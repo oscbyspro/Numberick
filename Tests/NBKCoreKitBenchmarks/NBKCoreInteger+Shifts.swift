@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Int x Rotations
+// MARK: * NBK x Core Integer x Shifts x Int
 //*============================================================================*
 
-final class IntBenchmarksOnRotations: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnShiftsAsInt: XCTestCase {
     
     typealias T = Int
     
@@ -24,12 +24,12 @@ final class IntBenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitrotatingLeft() {
+    func testBitshiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitrotatedLeft(by: rhs))
+            NBK.blackHole(lhs.bitshiftedLeft(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -39,12 +39,12 @@ final class IntBenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitrotatingRight() {
+    func testBitshiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitrotatedRight(by: rhs))
+            NBK.blackHole(lhs.bitshiftedRight(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -52,10 +52,10 @@ final class IntBenchmarksOnRotations: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UInt x Rotations
+// MARK: * NBK x Core Integer x Shifts x UInt
 //*============================================================================*
 
-final class UIntBenchmarksOnRotations: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnShiftsAsUInt: XCTestCase {
     
     typealias T = UInt
     
@@ -63,12 +63,12 @@ final class UIntBenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitrotatingLeft() {
+    func testBitshiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitrotatedLeft(by: rhs))
+            NBK.blackHole(lhs.bitshiftedLeft(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -78,12 +78,12 @@ final class UIntBenchmarksOnRotations: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitrotatingRight() {
+    func testBitshiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitrotatedRight(by: rhs))
+            NBK.blackHole(lhs.bitshiftedRight(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

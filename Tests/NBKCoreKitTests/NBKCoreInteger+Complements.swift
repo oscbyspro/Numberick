@@ -199,4 +199,62 @@ final class NBKCoreIntegerTestsOnComplements: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Core Integer x Complements x Assertions
+//*============================================================================*
+
+private func NBKAssertBitPattern<T: NBKCoreInteger>(
+_ integer: T, _ bitPattern: T.BitPattern,
+file: StaticString = #file, line: UInt = #line) where T.BitPattern: Equatable {
+    typealias B = T.BitPattern
+    //=------------------------------------------=
+    XCTAssertEqual(integer   .bitPattern,  bitPattern,  file: file, line: line)
+    XCTAssertEqual(integer, T(bitPattern:  bitPattern), file: file, line: line)
+    XCTAssertEqual(bitPattern.bitPattern,  bitPattern,  file: file, line: line)
+    XCTAssertEqual(B(bitPattern: integer), bitPattern,  file: file, line: line)
+}
+
+private func NBKAssertOnesComplement<T: NBKCoreInteger>(
+_ integer: T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(integer.onesComplement(),                               result, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(false).partialValue,  result, file: file, line: line)
+    
+    XCTAssertEqual({ var x = integer; let _ = x.formOnesComplement();                  return x }(), result, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(false);  return x }(), result, file: file, line: line)
+}
+
+private func NBKAssertTwosComplement<T: NBKCoreInteger>(
+_ integer: T, _ partialValue: T, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(integer.twosComplement(),                               partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementReportingOverflow().partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementReportingOverflow().overflow,     overflow,     file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(true  ).partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(integer.twosComplementSubsequence(true  ).overflow,     overflow,     file: file, line: line)
+    
+    XCTAssertEqual({ var x = integer;         x.formTwosComplement();                  return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementReportingOverflow(); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let o = x.formTwosComplementReportingOverflow(); return o }(), overflow,     file: file, line: line)
+    XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(true  ); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = integer; let o = x.formTwosComplementSubsequence(true  ); return o }(), overflow,     file: file, line: line)
+}
+
+private func NBKAssertAdditiveInverse<T: NBKCoreInteger & NBKSignedInteger>(
+_ operand: T, _ partialValue: T, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if !overflow {
+        XCTAssertEqual(-operand,                                    partialValue, file: file, line: line)
+        XCTAssertEqual((operand).negated(),                         partialValue, file: file, line: line)
+        XCTAssertEqual({ var x = operand; x.negate(); return x }(), partialValue, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(operand.negatedReportingOverflow().partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(operand.negatedReportingOverflow().overflow,     overflow,     file: file, line: line)
+    
+    XCTAssertEqual({ var x = operand; let _ = x.negateReportingOverflow(); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = operand; let o = x.negateReportingOverflow(); return o }(), overflow,     file: file, line: line)
+}
+
 #endif

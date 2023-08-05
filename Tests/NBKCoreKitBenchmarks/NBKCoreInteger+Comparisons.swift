@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Int x Comparisons
+// MARK: * NBK x Core Integer x Comparisons x Int
 //*============================================================================*
 
-final class IntBenchmarksOnComparisons: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnComparisonsAsInt: XCTestCase {
     
     typealias T =  Int
     typealias M = UInt
@@ -53,10 +53,10 @@ final class IntBenchmarksOnComparisons: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UInt x Comparisons
+// MARK: * NBK x Core Integer x Comparisons x UInt
 //*============================================================================*
 
-final class UIntBenchmarksOnComparisons: XCTestCase {
+final class NBKCoreIntegerBenchmarksOnComparisonsAsUInt: XCTestCase {
     
     typealias T = UInt
     typealias M = UInt
