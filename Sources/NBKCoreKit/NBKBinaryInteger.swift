@@ -66,11 +66,119 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable init(bit: Bool)
     
-    /// Returns the least significant bit (`LSB`).
+    /// The number of bits in its binary representation.
+    ///
+    /// The bit width of a valid binary integer is positive and nonzero.
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    @inlinable var bitWidth: Int { get }
+    
+    /// The number of bits equal to 1 in its binary representation.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ────────┐
+    /// │ self                     │ n.z.b.c │
+    /// ├─────────── = ─────────── → ────────┤
+    /// │ Int256( 3) │ 0........11 │ 2       │
+    /// │ Int256( 2) │ 0........10 │ 1       │
+    /// │ Int256( 1) │ 0.........1 │ 1       │
+    /// │ Int256( 0) │ 0.......... │ 0       │
+    /// │ Int256(-1) │ 1.......... │ 256     │
+    /// │ Int256(-2) │ 1.........0 │ 255     │
+    /// │ Int256(-3) │ 1........01 │ 255     │
+    /// │ Int256(-4) │ 1........00 │ 254     │
+    /// └─────────── = ─────────── → ────────┘
+    /// ```
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// This value refers to the bits within the range of its bit width.
+    ///
+    @inlinable var nonzeroBitCount: Int { get }
+    
+    /// The number of leading zeros in its binary representation.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ────────┐
+    /// │ self                     │ l.z.b.c │
+    /// ├─────────── = ─────────── → ────────┤
+    /// │ Int256( 3) │ 0........11 │ 254     │
+    /// │ Int256( 2) │ 0........10 │ 254     │
+    /// │ Int256( 1) │ 0.........1 │ 255     │
+    /// │ Int256( 0) │ 0.......... │ 256     │
+    /// │ Int256(-1) │ 1.......... │ 0       │
+    /// │ Int256(-2) │ 1.........0 │ 0       │
+    /// │ Int256(-3) │ 1........01 │ 0       │
+    /// │ Int256(-4) │ 1........00 │ 0       │
+    /// └─────────── = ─────────── → ────────┘
+    /// ```
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// This value refers to the bits within the range of its bit width.
+    ///
+    @inlinable var leadingZeroBitCount: Int { get }
+
+    /// The number of trailing zeros in its binary representation.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ────────┐
+    /// │ self                     │ t.z.b.c │
+    /// ├─────────── = ─────────── → ────────┤
+    /// │ Int256( 3) │ 0........11 │ 0       │
+    /// │ Int256( 2) │ 0........10 │ 1       │
+    /// │ Int256( 1) │ 0.........1 │ 0       │
+    /// │ Int256( 0) │ 0.......... │ 256     │
+    /// │ Int256(-1) │ 1.......... │ 0       │
+    /// │ Int256(-2) │ 1.........0 │ 1       │
+    /// │ Int256(-3) │ 1........01 │ 0       │
+    /// │ Int256(-4) │ 1........00 │ 2       │
+    /// └─────────── = ─────────── → ────────┘
+    /// ```
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// This value refers to the bits within the range of its bit width.
+    ///
+    @inlinable var trailingZeroBitCount: Int { get }
+    
+    /// Returns the most significant bit in its binary representation.
     ///
     /// ```
     /// ┌───────────────────────── → ──────┐
-    /// │ self                     │ LSB   │
+    /// │ self                     │ m.s.b │
+    /// ├─────────── = ─────────── → ──────┤
+    /// │ Int256( 3) │ 0........11 │ false │
+    /// │ Int256( 2) │ 0........10 │ false │
+    /// │ Int256( 1) │ 0.........1 │ false │
+    /// │ Int256( 0) │ 0.......... │ false │
+    /// │ Int256(-1) │ 1.......... │ true  │
+    /// │ Int256(-2) │ 1.........0 │ true  │
+    /// │ Int256(-3) │ 1........01 │ true  │
+    /// │ Int256(-4) │ 1........00 │ true  │
+    /// └─────────── = ─────────── → ──────┘
+    /// ```
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// This value refers to the bits within the range of its bit width.
+    ///
+    @inlinable var mostSignificantBit: Bool { get }
+    
+    /// Returns the least significant bit in its binary representation.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ──────┐
+    /// │ self                     │ l.s.b │
     /// ├─────────── = ─────────── → ──────┤
     /// │ Int256( 3) │ 0........11 │ true  │
     /// │ Int256( 2) │ 0........10 │ false │
@@ -84,6 +192,10 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     /// ```
     ///
     /// - Note: This member has two's complement semantics.
+    ///
+    /// ### Flexible Width Integers
+    ///
+    /// This value refers to the bits within the range of its bit width.
     ///
     @inlinable var leastSignificantBit: Bool { get }
     
