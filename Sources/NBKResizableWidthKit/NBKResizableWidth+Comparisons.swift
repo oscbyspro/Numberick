@@ -63,14 +63,14 @@ extension NBKResizableWidth.Magnitude {
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
         self.withContiguousStorage { lhs in
-        Self.withUnsafeWords(of: other) { rhs in
+        NBK .withUnsafeWords(of: other) { rhs in
             Self.compareWordsUnchecked(lhs, to: rhs)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
         self.withContiguousStorage { lhs in
-        Self.withUnsafeWords(of: other) { rhs in
+        NBK .withUnsafeWords(of: other) { rhs in
             Self.compareWordsUnchecked(lhs, to: rhs, at: index)
         }}
     }
