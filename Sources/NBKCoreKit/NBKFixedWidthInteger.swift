@@ -46,27 +46,6 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     ///
     @inlinable init(repeating bit: Bool)
     
-    /// Returns the most significant bit (`MSB`).
-    ///
-    /// ```
-    /// ┌───────────────────────── → ──────┐
-    /// │ self                     │ MSB   │
-    /// ├─────────── = ─────────── → ──────┤
-    /// │ Int256( 3) │ 0........11 │ false │
-    /// │ Int256( 2) │ 0........10 │ false │
-    /// │ Int256( 1) │ 0.........1 │ false │
-    /// │ Int256( 0) │ 0.......... │ false │
-    /// │ Int256(-1) │ 1.......... │ true  │
-    /// │ Int256(-2) │ 1.........0 │ true  │
-    /// │ Int256(-3) │ 1........01 │ true  │
-    /// │ Int256(-4) │ 1........00 │ true  │
-    /// └─────────── = ─────────── → ──────┘
-    /// ```
-    ///
-    /// - Note: This member has two's complement semantics.
-    ///
-    @inlinable var mostSignificantBit: Bool { get }
-    
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
