@@ -32,7 +32,7 @@ extension NBKFlexibleWidth {
             magnitude.formTwosComplement()
         }
         //=--------------------------------------=
-        magnitude.normalize()
+        magnitude.normalize() // TODO: consuming
         //=--------------------------------------=
         self.init(sign: sign, magnitude: Magnitude(unchecked: magnitude))
     }

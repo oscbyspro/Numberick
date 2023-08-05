@@ -102,7 +102,6 @@ final class UIntXLTestsOnWords: XCTestCase {
     typealias T = UIntXL
     typealias M = UIntXL
     
-    #warning("T.exactly(words:)")
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
