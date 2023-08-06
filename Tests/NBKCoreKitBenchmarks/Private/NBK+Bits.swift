@@ -25,6 +25,19 @@ final class NBKBenchmarksOnBits: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testLeadingZeroBitCount() {
+        var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
+        var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
+                
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(NBK.leadingZeroBitCount(of: abc))
+            NBK.blackHole(NBK.leadingZeroBitCount(of: xyz))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
     func testTrailingZeroBitCount() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)

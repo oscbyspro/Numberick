@@ -17,6 +17,22 @@ extension NBK {
     // MARK: Details
     //=------------------------------------------------------------------------=
     
+    /// Returns the leading zero bit count of `limbs`.
+    ///
+    /// - Note: The leading zero bit count is zero when `limbs` is empty.
+    ///
+    @inlinable public static func leadingZeroBitCount<T: NBKFixedWidthInteger>(of limbs: some BidirectionalCollection<T>) -> Int {
+        var index = limbs.endIndex
+        var element = T.zero
+        
+        while index > limbs.startIndex, element.isZero {
+            limbs.formIndex(before: &index)
+            element = limbs[index]
+        }
+        
+        return limbs.distance(from: index, to: limbs.endIndex) * T.bitWidth - T.bitWidth + element.leadingZeroBitCount
+    }
+    
     /// Returns the trailing zero bit count of `limbs`.
     ///
     /// - Note: The trailing zero bit count is zero when `limbs` is empty.
