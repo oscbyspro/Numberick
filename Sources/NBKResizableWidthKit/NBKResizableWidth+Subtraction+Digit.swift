@@ -44,24 +44,6 @@ extension NBKResizableWidth.Magnitude {
         self.subtract(other, at: &index, borrowing: &overflow)
         return overflow as Bool
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Multiplication By UInt
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func subtract(_ other: Self, times multiplicand: UInt, plus addend: UInt, at index: Int) -> Bool {
-        var index    = index
-        var overflow = false
-        var last = addend as UInt
-        
-        for otherIndex in other.storage.indices {
-            var subproduct = other.storage[otherIndex].multipliedFullWidth(by: multiplicand)
-            last = UInt(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
-            self.subtractWithoutGoingBeyond(subproduct.low, at: &index, borrowing: &overflow)
-        }
-        
-        return self.subtract(last, plus: overflow, at: index)
-    }
 }
 
 //=----------------------------------------------------------------------------=

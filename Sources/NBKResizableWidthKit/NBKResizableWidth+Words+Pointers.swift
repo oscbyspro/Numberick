@@ -43,7 +43,6 @@ extension NBKResizableWidth.Magnitude {
     ///
     @inlinable public mutating func withContiguousMutableStorage<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
         try self.storage.withUnsafeMutableBufferPointer(body)
-
     }
     
     /// Grants unsafe access to the collection's contiguous mutable storage.

@@ -33,7 +33,11 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(integerLiteral source: StaticBigInt) {
-        fatalError("TODO")
+        guard let value = Self(exactlyIntegerLiteral: source) else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+        
+        self = value
     }
     
     // TODO: internal

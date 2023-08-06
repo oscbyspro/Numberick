@@ -8,33 +8,35 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
+import XCTest
+
+private typealias W = [UInt]
+private typealias X = [UInt64]
+private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x IntXR or UIntXR
+// MARK: * NBK x Resizable Width x Initializers x UIntXR
 //*============================================================================*
 
-public protocol IntXROrUIntXR: NBKBinaryInteger, LosslessStringConvertible, MutableCollection,
-RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int> {
+extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Words
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
-    @inlinable var first: UInt { get set }
-    
-    @inlinable var last:  UInt { get set }
-    
-    @inlinable var tail: Digit { get set }
+    static let min256 = Self(x64:[ 0,  0,  0,  0] as X)
+    static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X)
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Words x Pointers
+    // MARK: Details x Limbs
     //=------------------------------------------------------------------------=
     
-    @inlinable func withContiguousStorage<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T
-        
-    @inlinable func withContiguousStorageIfAvailable<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T?
+    init(x32: [UInt32]) {
+        self.init(words: NBK.limbs(x32, as: [UInt].self))
+    }
     
-    @inlinable mutating func withContiguousMutableStorage<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T
-    
-    @inlinable mutating func withContiguousMutableStorageIfAvailable<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T?
+    init(x64: [UInt64]) {
+        self.init(words: NBK.limbs(x64, as: [UInt].self))
+    }
 }
