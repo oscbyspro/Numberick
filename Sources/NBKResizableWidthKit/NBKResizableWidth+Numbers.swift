@@ -68,19 +68,24 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
-        fatalError("TODO")
+        guard let result = Self(exactly: source) else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+        
+        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
-        fatalError("TODO")
+        guard source.signum() >= 0 else { return nil }
+        self.init(words: source.words)
     }
     
     @inlinable public init(clamping source: some BinaryInteger) {
-        fatalError("TODO")
+        self = Self(exactly: source) ?? (0 as Self)
     }
     
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
-        fatalError("TODO")
+        self.init(words: source.words)
     }
     
     //=------------------------------------------------------------------------=

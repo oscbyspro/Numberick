@@ -17,6 +17,14 @@ public protocol IntXROrUIntXR: NBKBinaryInteger, LosslessStringConvertible, Muta
 RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int> {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Comparisons
+    //=------------------------------------------------------------------------=
+ 
+    func compared(to other: Self,  at index: Int) -> Int
+        
+    func compared(to other: Digit, at index: Int) -> Int
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Words
     //=------------------------------------------------------------------------=
     

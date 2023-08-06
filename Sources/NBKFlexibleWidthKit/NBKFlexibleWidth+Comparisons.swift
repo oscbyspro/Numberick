@@ -54,7 +54,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.compared(to: rhs) ==  0
+        lhs.compared(to: rhs).isZero
     }
     
     @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
@@ -150,7 +150,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.compared(to: rhs) ==  0
+        lhs.compared(to: rhs).isZero
     }
     
     @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {

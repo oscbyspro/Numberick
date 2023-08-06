@@ -213,9 +213,9 @@ final class NBKCoreIntegerTestsOnComparisons: XCTestCase {
     
     func testOverloadsAreUnambiguousWhenUsingSignum() {
         func becauseThisCompilesSuccessfully(_ x: inout some NBKCoreInteger, _ s: inout Int, _ u: inout UInt) {
-            XCTAssertNotNil(x.signum()) //  Int
-            XCTAssertNotNil(s.signum()) //  Int
-            XCTAssertNotNil(u.signum()) // UInt, stdlib
+            XCTAssertNotNil(x.signum())
+            XCTAssertNotNil(s.signum())
+            XCTAssertNotNil(u.signum())
         }
     }
 }

@@ -315,7 +315,7 @@ final class NBKFlexibleWidthTestsOnComparisonsAsIntXL: XCTestCase {
     
     func testOverloadsAreUnambiguous() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
-            XCTAssertNotNil(x.signum()) // Int
+            XCTAssertNotNil(x.signum())
         }
     }
     
@@ -515,7 +515,7 @@ final class NBKFlexibleWidthTestsOnComparisonsAsUIntXL: XCTestCase {
     
     func testOverloadsAreUnambiguous() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
-            XCTAssertNotNil(x.signum()) // Int
+            XCTAssertNotNil(x.signum())
         }
     }
     
