@@ -25,6 +25,11 @@
           "containerPath" : "container:",
           "identifier" : "NBKFlexibleWidthKit",
           "name" : "NBKFlexibleWidthKit"
+        },
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKResizableWidthKit",
+          "name" : "NBKResizableWidthKit"
         }
       ]
     }

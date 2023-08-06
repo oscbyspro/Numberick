@@ -28,7 +28,6 @@ extension NBKFlexibleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
         self.magnitude.bitWidth + self.storageBitWidthNeeded
     }
@@ -83,28 +82,27 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of bits in ``words``.
     @inlinable public var bitWidth: Int {
-        self.storage.count * UInt.bitWidth
+        self.storage.bitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        NBK.nonzeroBitCount(of: self.storage)
+        self.storage.nonzeroBitCount
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage.last.leadingZeroBitCount
+        self.storage.leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        NBK.trailingZeroBitCount(of: self.storage)
+        self.storage.trailingZeroBitCount
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        self.storage.last.mostSignificantBit
+        self.storage.mostSignificantBit
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        self.storage.first.leastSignificantBit
+        self.storage.leastSignificantBit
     }
 }

@@ -19,7 +19,19 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func add(_ other: UInt, plus addend: Bool, at index: Int) -> Bool {
+    @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: UInt) {
+        fatalError("TODO")
+    }
+    
+    @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: UInt) -> Self {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func add(_ other: UInt, plus addend: Bool, at index: Int) -> Bool {
         var index = index, overflow = addend
         self.add(other, at: &index, carrying: &overflow)
         return overflow as Bool

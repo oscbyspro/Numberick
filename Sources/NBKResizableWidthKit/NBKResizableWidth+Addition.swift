@@ -19,6 +19,18 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    @inlinable public static func +=(lhs: inout Self, rhs: Self) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
     @inlinable public mutating func add(_ other: Self, plus addend: Bool, at index: Int) -> Bool {
         var index = index, overflow = addend
         self.add(other, at: &index, carrying: &overflow)

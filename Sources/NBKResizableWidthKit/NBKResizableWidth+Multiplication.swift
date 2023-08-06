@@ -16,7 +16,19 @@ import NBKCoreKit
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Self
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
     @inlinable public func multipliedFullWidth(by multiplicand: Self) -> Self {

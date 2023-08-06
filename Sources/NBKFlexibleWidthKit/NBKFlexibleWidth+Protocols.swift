@@ -12,7 +12,7 @@ import NBKCoreKit
 // TODO: consider a public NBKCoreKit/NBKFlexibleWidthInteger protocol
 // TODO: consider a primary associated type similar to NBKCoreKit/NBKCoreInteger
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Protocol
+// MARK: * NBK x Flexible Width x IntXL or UIntXL
 //*============================================================================*
 
 public protocol IntXLOrUIntXL: NBKBinaryInteger, LosslessStringConvertible {
@@ -21,17 +21,15 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, LosslessStringConvertible {
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  
-    func compared(to other: Self, at index: Int) -> Int
-    
-    func compared(to other: Self.Digit) -> Int
-    
-    func compared(to other: Self.Digit, at index: Int) -> Int
+    func compared(to other: Self,  at index: Int) -> Int
+        
+    func compared(to other: Digit, at index: Int) -> Int
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
-    init(digit: Self.Digit, at index: Int)
+    init(digit: Digit, at index: Int)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition

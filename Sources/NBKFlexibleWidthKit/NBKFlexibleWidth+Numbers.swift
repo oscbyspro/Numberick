@@ -161,7 +161,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable init(truncatingIntegerLiteral source: StaticBigInt) {
-        self.init(storage: Storage(truncating: source))
+        self.init(storage: Storage(truncatingIntegerLiteral: source))
     }
     
     //=------------------------------------------------------------------------=

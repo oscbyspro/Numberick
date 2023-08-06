@@ -61,7 +61,7 @@ import NBKCoreKit
     //*========================================================================*
     
     /// An unsigned, resizable-width, binary integer of at least one word.
-    @frozen public struct Magnitude: Hashable, MutableCollection, RandomAccessCollection, Sendable {
+    @frozen public struct Magnitude: NBKUnsignedInteger, IntXROrUIntXR {
                 
         public typealias Digit = UInt
         

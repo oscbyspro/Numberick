@@ -32,8 +32,20 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Initializers x Literal
     //=------------------------------------------------------------------------=
     
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        fatalError("TODO")
+    }
+    
     // TODO: internal
-    @inlinable public init(truncating source: StaticBigInt) {
+    @inlinable public init?(exactlyIntegerLiteral source: StaticBigInt) {
+        //=--------------------------------------=
+        if source.signum() == -1 { return nil }
+        //=--------------------------------------=
+        self.init(truncatingIntegerLiteral: source)
+    }
+    
+    // TODO: internal
+    @inlinable public init(truncatingIntegerLiteral source: StaticBigInt) {
         //=--------------------------------------=
         let bitWidth = source.bitWidth
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
@@ -45,5 +57,37 @@ extension NBKResizableWidth.Magnitude {
                 storage[index] = source[index]
             }
         }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Binary Integer
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init?(exactly source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init(clamping source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Binary Floating Point
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ source: some BinaryFloatingPoint) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public init?(exactly source: some BinaryFloatingPoint) {
+        fatalError("TODO")
     }
 }

@@ -16,6 +16,57 @@ import NBKCoreKit
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
+    // MARK: Transformations x NOT
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static prefix func ~(x: Self) -> Self {
+        x.onesComplement()
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x AND
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func &=(lhs: inout Self, rhs: Self) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
+        var lhs = lhs; lhs &= rhs; return lhs
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x OR
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func |=(lhs: inout Self, rhs: Self) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
+        var lhs = lhs; lhs |= rhs; return lhs
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x XOR
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
+        var lhs = lhs; lhs ^= rhs; return lhs
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKResizableWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     

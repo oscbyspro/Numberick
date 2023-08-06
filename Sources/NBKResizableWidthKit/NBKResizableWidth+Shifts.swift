@@ -19,6 +19,18 @@ import NBKCoreKit
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError("TODO")
+    }
+    
+    @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
+        var lhs = lhs; lhs <<= rhs; return lhs
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
@@ -87,7 +99,19 @@ extension NBKResizableWidth.Magnitude {
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Right
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
+        fatalError("TODO")
+    }
+
+    @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
+        var lhs = lhs; lhs >>= rhs; return lhs
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Int
     //=------------------------------------------------------------------------=
     
     /// Performs an un/signed right shift.
