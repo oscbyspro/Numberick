@@ -17,7 +17,7 @@ private typealias X = NBK.U256X64
 private typealias Y = NBK.U256X32
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Endianness x UInt256
+// MARK: * NBK x Double Width x Endianness x Int256
 //*============================================================================*
 
 final class NBKDoubleWidthTestsOnEndiannessAsInt256: XCTestCase {

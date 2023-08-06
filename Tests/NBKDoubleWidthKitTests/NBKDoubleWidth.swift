@@ -99,7 +99,7 @@ final class NBKDoubleWidthTestsAsInt256: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Int256
+// MARK: * NBK x Double Width x UInt256
 //*============================================================================*
 
 final class NBKDoubleWidthTestsAsUInt256: XCTestCase {
