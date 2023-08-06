@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x UntXL x Bits
+// MARK: * NBK x Flexible Width x Bits x IntXL
 //*============================================================================*
 
-final class IntXLBenchmarksOnBits: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnBitsAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -122,10 +122,10 @@ final class IntXLBenchmarksOnBits: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Bits
+// MARK: * NBK x Flexible Width x Bits x UIntXL
 //*============================================================================*
 
-final class UIntXLBenchmarksOnBits: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     

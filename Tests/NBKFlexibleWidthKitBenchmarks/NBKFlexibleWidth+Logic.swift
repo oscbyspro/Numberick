@@ -18,71 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Subtraction
+// MARK: * NBK x Flexible Width x Logic x UIntXL
 //*============================================================================*
 
-final class IntXLBenchmarksOnSubtraction: XCTestCase {
-    
-    typealias T = IntXL
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests
-    //=------------------------------------------------------------------------=
-    
-    func testSubtract() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs -= rhs)
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testSubtracting() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs - rhs)
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
-    //=------------------------------------------------------------------------=
-    
-    func testSubtractDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(Int.max)
-        
-        for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs -= rhs)
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-    
-    func testSubtractingDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(Int.max)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs - rhs)
-            NBK.blackHoleInoutIdentity(&lhs)
-            NBK.blackHoleInoutIdentity(&rhs)
-        }
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x UIntXL x Subtraction
-//*============================================================================*
-
-final class UIntXLBenchmarksOnSubtraction: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -90,49 +29,85 @@ final class UIntXLBenchmarksOnSubtraction: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSubtract() {
+    func testNotInout() {
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(abc.formOnesComplement())
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
+    func testNot() {
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(~abc)
+            NBK.blackHoleInoutIdentity(&abc)
+        }
+    }
+    
+    func testAndInout() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs -= rhs)
+            NBK.blackHole(lhs &= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testSubtracting() {
+    func testAnd() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs - rhs)
+            NBK.blackHole(lhs & rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
-    //=------------------------------------------------------------------------=
-    
-    func testSubtractDigit() {
+    func testOrInout() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(UInt.max)
-        
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs -= rhs)
+            NBK.blackHole(lhs |= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testSubtractingDigit() {
+    func testOr() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(UInt.max)
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs - rhs)
+            NBK.blackHole(lhs | rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testXorInout() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs ^= rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testXor() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(lhs ^ rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

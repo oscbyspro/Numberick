@@ -21,7 +21,7 @@ private typealias Y = [UInt32]
 // MARK: * NBK x UntXL x Words
 //*============================================================================*
 
-final class IntXLBenchmarksOnWords: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnWordsAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -44,10 +44,10 @@ final class IntXLBenchmarksOnWords: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Words
+// MARK: * NBK x Flexible Width x Words x UIntXL
 //*============================================================================*
 
-final class UIntXLBenchmarksOnWords: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnWordsAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     

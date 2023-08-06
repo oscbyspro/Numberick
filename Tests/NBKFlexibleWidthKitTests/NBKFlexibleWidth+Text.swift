@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Text
+// MARK: * NBK x Flexible Width x Text x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnText: XCTestCase {
+final class NBKFlexibleWidthTestsOnTextAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -255,10 +255,10 @@ final class IntXLTestsOnText: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Text
+// MARK: * NBK x Flexible Width x Text x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnText: XCTestCase {
+final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -474,6 +474,35 @@ final class UIntXLTestsOnText: XCTestCase {
         NBKAssertEncodeText(max256, 36, false, "6dp5qcb22im238nr3wvp0ic7q99w035jmy2iw7i6n43d37jtof")
         NBKAssertEncodeText(max256, 36, true , "6DP5QCB22IM238NR3WVP0IC7Q99W035JMY2IW7I6N43D37JTOF")
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Text x Assertions
+//*============================================================================*
+
+private func NBKAssertDecodeText<T: NBKBinaryInteger> (
+_ integer: T?, _ radix: Int, _ text: String,
+file: StaticString = #file, line: UInt = #line) where T: LosslessStringConvertible {
+    //=------------------------------------------=
+    if  radix == 10 {
+        XCTAssertEqual(T(text), integer, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(T(text, radix: radix), integer, file: file, line: line)
+}
+
+private func NBKAssertEncodeText<T: NBKBinaryInteger>(
+_ integer: T, _ radix: Int, _ uppercase: Bool, _ text: String,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  radix == 10, uppercase == false {
+        XCTAssertEqual(String(integer),       text, file: file, line: line)
+        XCTAssertEqual(integer.description,   text, file: file, line: line)
+        XCTAssertEqual(integer.description(), text, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
+    XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
 
 #endif

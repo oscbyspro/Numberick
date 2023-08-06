@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Words
+// MARK: * NBK x Flexible Width x Words x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnWords: XCTestCase {
+final class NBKFlexibleWidthTestsOnWordsAsIntXL: XCTestCase {
     
     typealias T =  IntXL
     typealias M = UIntXL
@@ -94,10 +94,10 @@ final class IntXLTestsOnWords: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Words
+// MARK: * NBK x Flexible Width x Words x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnWords: XCTestCase {
+final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     typealias M = UIntXL
@@ -159,6 +159,17 @@ final class UIntXLTestsOnWords: XCTestCase {
         NBKAssertWords(T(x32:[1, 2, 3, 4, 5, 6, 7, 0] as Y), [1, 2, 3, 4, 5, 6, 7   ])
         NBKAssertWords(T(x32:[1, 2, 3, 4, 5, 6, 7, 8] as Y), [1, 2, 3, 4, 5, 6, 7, 8])
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Words x Assertions
+//*============================================================================*
+
+private func NBKAssertWords<T: NBKBinaryInteger>(
+_ integer: T, _ words: [UInt],
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(Array(integer.words),            Array(words),            file: file, line: line)
+    XCTAssertEqual(Array(integer.words.reversed()), Array(words.reversed()), file: file, line: line)
 }
 
 #endif

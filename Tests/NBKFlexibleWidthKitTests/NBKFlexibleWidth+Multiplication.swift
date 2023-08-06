@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Multiplication
+// MARK: * NBK x Flexible Width x Multiplication x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnMultiplication: XCTestCase {
+final class NBKFlexibleWidthTestsOnMultiplicationAsIntXL: XCTestCase {
     
     typealias T =  IntXL
     typealias M = UIntXL
@@ -81,10 +81,10 @@ final class IntXLTestsOnMultiplication: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Multiplication
+// MARK: * NBK x Flexible Width x Multiplication x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnMultiplication: XCTestCase {
+final class NBKFlexibleWidthTestsOnMultiplicationAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     typealias M = UIntXL
@@ -134,6 +134,30 @@ final class UIntXLTestsOnMultiplication: XCTestCase {
             XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
         }
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Multiplication x Assertions
+//*============================================================================*
+
+private func NBKAssertMultiplication<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    
+    XCTAssertEqual(lhs.multiplied(by: rhs), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs); return lhs }(), result, file: file, line: line)
+}
+
+private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs:  T.Digit, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    
+    XCTAssertEqual(lhs.multiplied(by: rhs, adding: UInt.zero), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, adding: UInt.zero); return lhs }(), result, file: file, line: line)
 }
 
 #endif

@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Addition
+// MARK: * NBK x Flexible Width x Subtraction x IntXL
 //*============================================================================*
 
-final class IntXLBenchmarksOnAddition: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnSubtractionAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -29,23 +29,23 @@ final class IntXLBenchmarksOnAddition: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testAdd() {
+    func testSubtract() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
-
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs += rhs)
+            NBK.blackHole(lhs -= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testAdding() {
+    func testSubtracting() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
-
+        
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs + rhs)
+            NBK.blackHole(lhs - rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -55,23 +55,23 @@ final class IntXLBenchmarksOnAddition: XCTestCase {
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
     
-    func testAddDigit() {
+    func testSubtractDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs += rhs)
+            NBK.blackHole(lhs -= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testAddingDigit() {
+    func testSubtractingDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs + rhs)
+            NBK.blackHole(lhs - rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -79,10 +79,10 @@ final class IntXLBenchmarksOnAddition: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Addition
+// MARK: * NBK x Flexible Width x Subtraction x UIntXL
 //*============================================================================*
 
-final class UIntXLBenchmarksOnAddition: XCTestCase {
+final class NBKFlexibleWidthBenchmarksOnSubtractionAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -90,23 +90,23 @@ final class UIntXLBenchmarksOnAddition: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testAdd() {
+    func testSubtract() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs += rhs)
+            NBK.blackHole(lhs -= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testAdding() {
+    func testSubtracting() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs + rhs)
+            NBK.blackHole(lhs - rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -116,23 +116,23 @@ final class UIntXLBenchmarksOnAddition: XCTestCase {
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
     
-    func testAddDigit() {
+    func testSubtractDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs += rhs)
+            NBK.blackHole(lhs -= rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testAddingDigit() {
+    func testSubtractingDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(lhs + rhs)
+            NBK.blackHole(lhs - rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

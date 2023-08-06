@@ -16,7 +16,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Initializers x Signed
+// MARK: * NBK x Flexible Width x Initializers x IntXL
 //*============================================================================*
 
 extension NBKFlexibleWidth {
@@ -42,7 +42,7 @@ extension NBKFlexibleWidth {
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Initializers x Unsigned
+// MARK: * NBK x Flexible Width x Initializers x UIntXL
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {

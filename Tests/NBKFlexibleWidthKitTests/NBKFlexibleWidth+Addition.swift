@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Addition
+// MARK: * NBK x Flexible Width x Addition x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnAddition: XCTestCase {
+final class NBKFlexibleWidthTestsOnAdditionAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -113,10 +113,10 @@ final class IntXLTestsOnAddition: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Addition
+// MARK: * NBK x Flexible Width x Addition x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnAddition: XCTestCase {
+final class NBKFlexibleWidthTestsOnAdditionAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -185,6 +185,36 @@ final class UIntXLTestsOnAddition: XCTestCase {
             XCTAssertNotNil(x.adding(0, at: 0))
         }
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Addition x Assertions
+//*============================================================================*
+
+private func NBKAssertAddition<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T, _ index: Int, _ partialValue: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  index.isZero {
+        XCTAssertEqual(                 lhs +  rhs,                 partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs += rhs; return lhs }(), partialValue, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.adding(rhs, at: index), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let _ = x.add(rhs, at: index); return x }(), partialValue, file: file, line: line)
+}
+
+private func NBKAssertAdditionByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ index: Int, _ partialValue: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  index.isZero {
+        XCTAssertEqual(                 lhs +  rhs,                 partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs += rhs; return lhs }(), partialValue, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.adding(rhs, at: index), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let _ = x.add(rhs, at: index); return x }(), partialValue, file: file, line: line)
 }
 
 #endif

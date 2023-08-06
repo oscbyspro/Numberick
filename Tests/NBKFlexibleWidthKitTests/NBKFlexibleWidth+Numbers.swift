@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Numbers
+// MARK: * NBK x Flexible Width x Numbers x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnNumbers: XCTestCase {
+final class NBKFlexibleWidthTestsOnNumbersAsIntXL: XCTestCase {
     
     typealias S =  IntXL
     typealias T =  IntXL
@@ -304,10 +304,10 @@ final class IntXLTestsOnNumbers: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Numbers
+// MARK: * NBK x Flexible Width x Numbers x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnNumbers: XCTestCase {
+final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
     
     typealias S =  IntXL
     typealias T = UIntXL
@@ -571,6 +571,47 @@ final class UIntXLTestsOnNumbers: XCTestCase {
         
         XCTAssertNil(T(exactlyIntegerLiteral: -1))
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Numbers x Assertions
+//*============================================================================*
+
+private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
+from value: I, default: O,
+file: StaticString = #file, line: UInt = #line) {
+    NBKAssertNumbers(from: value, exactly: `default`, clamping: `default`, truncating: `default`, file: file, line: line)
+}
+
+private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
+from value: I, default: O, exactly: O?,
+file: StaticString = #file, line: UInt = #line) {
+    NBKAssertNumbers(from: value, exactly: exactly, clamping: `default`, truncating: `default`, file: file, line: line)
+}
+
+private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
+from value: I, default: O, clamping: O,
+file: StaticString = #file, line: UInt = #line) {
+    NBKAssertNumbers(from: value, exactly: `default`, clamping: clamping, truncating: `default`, file: file, line: line)
+}
+
+private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
+from value: I, default: O, truncating: O,
+file: StaticString = #file, line: UInt = #line) {
+    NBKAssertNumbers(from: value, exactly: `default`, clamping: `default`, truncating: truncating, file: file, line: line)
+}
+
+private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
+from value: I, exactly: O?, clamping: O, truncating: O,
+file: StaticString = #file, line: UInt = #line) {
+    //=--------------------------------------=
+    if  let exactly = exactly {
+        XCTAssertEqual(O(value), exactly, file: file, line: line)
+    }
+    //=--------------------------------------=
+    XCTAssertEqual(O(exactly:            value), exactly,    file: file, line: line)
+    XCTAssertEqual(O(clamping:           value), clamping,   file: file, line: line)
+    XCTAssertEqual(O(truncatingIfNeeded: value), truncating, file: file, line: line)
 }
 
 #endif

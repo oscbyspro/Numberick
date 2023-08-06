@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Subtraction
+// MARK: * NBK x Flexible Width x Subtraction x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnSubtraction: XCTestCase {
+final class NBKFlexibleWidthTestsOnSubtractionAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -113,10 +113,10 @@ final class IntXLTestsOnSubtraction: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Subtraction
+// MARK: * NBK x Flexible Width x Subtraction x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnSubtraction: XCTestCase {
+final class NBKFlexibleWidthTestsOnSubtractionAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -208,6 +208,68 @@ final class UIntXLTestsOnSubtraction: XCTestCase {
             XCTAssertNotNil(x.subtractingReportingOverflow(0, at: 0))
         }
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Assertions
+//*============================================================================*
+
+private func NBKAssertSubtraction<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T, _ index: Int, _ partialValue: T, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if !overflow, index.isZero {
+        XCTAssertEqual(                 lhs -  rhs,                 partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs -= rhs; return lhs }(), partialValue, file: file, line: line)
+        
+        XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
+    }
+    //=------------------------------------------=
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let partialValue = partialValue as? UIntXL else { return }
+    //=------------------------------------------=
+    if  index.isZero {
+        XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).partialValue, partialValue, file: file, line: line)
+        XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).overflow,     overflow,     file: file, line: line)
+        
+        XCTAssertEqual({ var x = lhs; let _ = x.subtractReportingOverflow(rhs); return x }(), partialValue, file: file, line: line)
+        XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs); return o }(), overflow,     file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).overflow,     overflow,     file: file, line: line)
+    
+    XCTAssertEqual({ var x = lhs; let _ = x.subtractReportingOverflow(rhs, at: index); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs, at: index); return o }(), overflow,     file: file, line: line)
+}
+
+private func NBKAssertSubtractionByDigit<T: IntXLOrUIntXL>(
+_ lhs: T, _ rhs: T.Digit, _ index: Int, _ partialValue: T, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if !overflow, index.isZero {
+        XCTAssertEqual(                 lhs -  rhs,                 partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs -= rhs; return lhs }(), partialValue, file: file, line: line)
+        
+        XCTAssertEqual(lhs.subtracting(rhs, at: Int.zero), partialValue, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
+    }
+    //=------------------------------------------=
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL.Digit, let partialValue = partialValue as? UIntXL else { return }
+    //=------------------------------------------=
+    if  index.isZero {
+        XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).partialValue, partialValue, file: file, line: line)
+        XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).overflow,     overflow,     file: file, line: line)
+        
+        XCTAssertEqual({ var x = lhs; let _ = x.subtractReportingOverflow(rhs); return x }(), partialValue, file: file, line: line)
+        XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs); return o }(), overflow,     file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(lhs.subtractingReportingOverflow(rhs, at: index).overflow,     overflow,     file: file, line: line)
+    
+    XCTAssertEqual({ var x = lhs; let _ = x.subtractReportingOverflow(rhs, at: index); return x }(), partialValue, file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs, at: index); return o }(), overflow,     file: file, line: line)
 }
 
 #endif

@@ -18,10 +18,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x IntXL x Logic
+// MARK: * NBK x Flexible Width x Logic x IntXL
 //*============================================================================*
 
-final class IntXLTestsOnLogic: XCTestCase {
+final class NBKFlexibleWidthTestsOnLogicAsIntXL: XCTestCase {
     
     typealias T = IntXL
     
@@ -51,10 +51,10 @@ final class IntXLTestsOnLogic: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x UIntXL x Logic
+// MARK: * NBK x Flexible Width x Logic x UIntXL
 //*============================================================================*
 
-final class UIntXLTestsOnLogic: XCTestCase {
+final class NBKFlexibleWidthTestsOnLogicAsUIntXL: XCTestCase {
     
     typealias T = UIntXL
     
@@ -102,6 +102,48 @@ final class UIntXLTestsOnLogic: XCTestCase {
         NBKAssertXor(T(words:[ 0,  1,  2,  3] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 1,  0,  3,  2] as W))
         NBKAssertXor(T(words:[ 3,  2,  1,  0] as W), T(words:[ 1,  1,  1,  1] as W), T(words:[ 2,  3,  0,  1] as W))
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Logic x Assertions
+//*============================================================================*
+
+private func NBKAssertNot<T: NBKBinaryInteger>(
+_ operand: T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    if  operand.words.last != UInt.max {
+        XCTAssertEqual(~operand, result, file: file, line: line)
+        XCTAssertEqual(~result, operand, file: file, line: line)
+    }   else {
+        XCTAssertEqual(~operand, result, file: file, line: line)
+    }
+}
+
+private func NBKAssertAnd<T: NBKBinaryInteger>(
+_ lhs: T, _ rhs: T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(                 lhs &  rhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs &= rhs; return lhs }(), result, file: file, line: line)
+    XCTAssertEqual(                 rhs &  lhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var rhs = rhs; rhs &= lhs; return rhs }(), result, file: file, line: line)
+}
+
+private func NBKAssertOr<T: NBKBinaryInteger>(
+_ lhs: T, _ rhs: T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(                 lhs |  rhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs |= rhs; return lhs }(), result, file: file, line: line)
+    XCTAssertEqual(                 rhs |  lhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var rhs = rhs; rhs |= lhs; return rhs }(), result, file: file, line: line)
+}
+
+private func NBKAssertXor<T: NBKBinaryInteger>(
+_ lhs: T, _ rhs: T, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(                 lhs ^  rhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs ^= rhs; return lhs }(), result, file: file, line: line)
+    XCTAssertEqual(                 rhs ^  lhs,                 result, file: file, line: line)
+    XCTAssertEqual({ var rhs = rhs; rhs ^= lhs; return rhs }(), result, file: file, line: line)
 }
 
 #endif
