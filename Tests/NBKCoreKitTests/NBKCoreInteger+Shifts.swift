@@ -126,4 +126,72 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Core Integer x Shifts x Assertions
+//*============================================================================*
+
+private func NBKAssertShiftLeft<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssertEqual(                 lhs <<   rhs,                 result, file: file, line: line)
+    XCTAssertEqual(                 lhs >>  -rhs,                 result, file: file, line: line)
+    
+    XCTAssertEqual({ var lhs = lhs; lhs <<=  rhs; return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs >>= -rhs; return lhs }(), result, file: file, line: line)
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(                 lhs &<<  rhs,                 result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs &<<= rhs; return lhs }(), result, file: file, line: line)
+    }
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
+    }
+}
+
+private func NBKAssertShiftRight<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssertEqual(                 lhs >>   rhs,                 result, file: file, line: line)
+    XCTAssertEqual(                 lhs <<  -rhs,                 result, file: file, line: line)
+    
+    XCTAssertEqual({ var lhs = lhs; lhs >>=  rhs; return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs <<= -rhs; return lhs }(), result, file: file, line: line)
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(                 lhs &>>  rhs,                 result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs &>>= rhs; return lhs }(), result, file: file, line: line)
+    }
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Masking
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertShiftLeftByMasking<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line){
+    //=------------------------------------------=
+    XCTAssertEqual(lhs &<< (rhs),                result, file: file, line: line)
+    XCTAssertEqual(lhs &<< (rhs + lhs.bitWidth), result, file: file, line: line)
+    XCTAssertEqual(lhs &<< (rhs - lhs.bitWidth), result, file: file, line: line)
+}
+
+private func NBKAssertShiftRightByMasking<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line){
+    //=------------------------------------------=
+    XCTAssertEqual(lhs &>> (rhs),                result, file: file, line: line)
+    XCTAssertEqual(lhs &>> (rhs + lhs.bitWidth), result, file: file, line: line)
+    XCTAssertEqual(lhs &>> (rhs - lhs.bitWidth), result, file: file, line: line)
+}
+
 #endif

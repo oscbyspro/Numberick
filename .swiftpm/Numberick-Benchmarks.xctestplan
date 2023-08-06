@@ -21,14 +21,14 @@
     },
     {
       "skippedTests" : [
-        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
-        "Int256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
-        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
-        "Int256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()",
-        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix10()",
-        "UInt256BenchmarksOnText\/testDecodingUsingSwiftStdlibRadix16()",
-        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
-        "UInt256BenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+        "NBKDoubleWidthBenchmarksOnTextAsInt256\/testDecodingUsingSwiftStdlibRadix10()",
+        "NBKDoubleWidthBenchmarksOnTextAsInt256\/testDecodingUsingSwiftStdlibRadix16()",
+        "NBKDoubleWidthBenchmarksOnTextAsInt256\/testEncodingUsingSwiftStdlibRadix10()",
+        "NBKDoubleWidthBenchmarksOnTextAsInt256\/testEncodingUsingSwiftStdlibRadix16()",
+        "NBKDoubleWidthBenchmarksOnTextAsUInt256\/testDecodingUsingSwiftStdlibRadix10()",
+        "NBKDoubleWidthBenchmarksOnTextAsUInt256\/testDecodingUsingSwiftStdlibRadix16()",
+        "NBKDoubleWidthBenchmarksOnTextAsUInt256\/testEncodingUsingSwiftStdlibRadix10()",
+        "NBKDoubleWidthBenchmarksOnTextAsUInt256\/testEncodingUsingSwiftStdlibRadix16()"
       ],
       "target" : {
         "containerPath" : "container:",

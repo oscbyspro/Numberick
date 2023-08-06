@@ -71,4 +71,32 @@ final class NBKCoreIntegerTestsOnRotations: XCTestCase {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Core Integer x Rotations x Assertions
+//*============================================================================*
+
+private func NBKAssertRotateLeft<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitrotatedLeft(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(by: rhs); return lhs }(), result, file: file, line: line)
+    }
+}
+
+private func NBKAssertRotateRight<T: NBKCoreInteger>(
+_ lhs: T, _ rhs:  Int, _ result: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
+    //=------------------------------------------=
+    if  0 ..< lhs.bitWidth ~= rhs {
+        XCTAssertEqual(lhs.bitrotatedRight(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(by: rhs); return lhs }(), result, file: file, line: line)
+    }
+}
+
 #endif
