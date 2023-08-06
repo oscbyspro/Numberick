@@ -36,7 +36,7 @@ extension NBKResizableWidth.Magnitude {
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.last.leadingZeroBitCount
+        NBK.leadingZeroBitCount(of: self.storage)
     }
     
     @inlinable public var trailingZeroBitCount: Int {

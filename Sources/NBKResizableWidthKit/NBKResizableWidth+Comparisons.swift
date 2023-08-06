@@ -47,6 +47,18 @@ extension NBKResizableWidth.Magnitude {
         hasher.combine(self.storage)
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.compared(to: rhs) ==  0
+    }
+    
+    @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
+        lhs.compared(to: rhs) == -1
+    }
+    
     @inlinable public func compared(to other: Self) -> Int {
         self .withContiguousStorage { lhs in
         other.withContiguousStorage { rhs in

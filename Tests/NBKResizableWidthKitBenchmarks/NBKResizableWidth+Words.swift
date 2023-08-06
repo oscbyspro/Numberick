@@ -10,7 +10,7 @@
 #if !DEBUG
 
 import NBKCoreKit
-import NBKFlexibleWidthKit
+import NBKResizableWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -18,12 +18,12 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Words x IntXL
+// MARK: * NBK x Resizable Width x Words x UIntXR
 //*============================================================================*
 
-final class NBKFlexibleWidthBenchmarksOnWordsAsIntXL: XCTestCase {
+final class NBKResizableWidthBenchmarksOnWordsAsUIntXR: XCTestCase {
     
-    typealias T = IntXL
+    typealias T = UIntXR
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -33,33 +33,7 @@ final class NBKFlexibleWidthBenchmarksOnWordsAsIntXL: XCTestCase {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0] as W)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0] as W)
         
-        for _ in 0 ..< 250_000 {
-            NBK.blackHole(T(words: abc))
-            NBK.blackHole(T(words: xyz))
-            
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Words x UIntXL
-//*============================================================================*
-
-final class NBKFlexibleWidthBenchmarksOnWordsAsUIntXL: XCTestCase {
-    
-    typealias T = UIntXL
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests
-    //=------------------------------------------------------------------------=
-    
-    func testFromWords() {
-        var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0] as W)
-        var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0] as W)
-        
-        for _ in 0 ..< 250_000 {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(words: abc))
             NBK.blackHole(T(words: xyz))
             

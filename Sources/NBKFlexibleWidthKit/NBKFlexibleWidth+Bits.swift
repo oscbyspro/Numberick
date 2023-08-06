@@ -91,7 +91,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage.leadingZeroBitCount
+        self.storage.last.leadingZeroBitCount
     }
     
     @inlinable public var trailingZeroBitCount: Int {
