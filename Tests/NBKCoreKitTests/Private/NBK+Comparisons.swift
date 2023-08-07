@@ -23,111 +23,111 @@ private typealias Y = [UInt32]
 final class NBKTestsOnComparisons: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Binary Integer Limbs
     //=------------------------------------------------------------------------=
     
-    func testCompareWordsAsSignedInteger() {
-        NBKAssertCompareWordsAsSignedInteger([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
-        NBKAssertCompareWordsAsSignedInteger([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, -Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W,  Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
+    func testCompareSignedIntegerLimbs() {
+        NBKAssertCompareSignedIntegerLimb([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
+        NBKAssertCompareSignedIntegerLimb([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
         
-        NBKAssertCompareWordsAsSignedInteger([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsSignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
+        NBKAssertCompareSignedIntegerLimb([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
     }
     
-    func testCompareWordsAsSignedIntegerAtIndex() {
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
+    func testCompareSignedIntegerLimbsAtIndex() {
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
 
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
 
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
 
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
         
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1), -Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(0))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
-        NBKAssertCompareWordsAsSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1), -Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
     }
     
-    func testCompareWordsAsUnsignedInteger() {
-        NBKAssertCompareWordsAsUnsignedInteger([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
-        NBKAssertCompareWordsAsUnsignedInteger([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W,  Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W, -Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
+    func testCompareUnsignedIntegerLimbs() {
+        NBKAssertCompareUnsignedIntegerLimbs([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbs([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W, -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
         
-        NBKAssertCompareWordsAsUnsignedInteger([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
-        NBKAssertCompareWordsAsUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
     }
     
-    func testCompareWordsAsUnsignedIntegerAtIndex() {
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
+    func testCompareUnsignedIntegerLimbsAtIndex() {
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
 
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
 
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
 
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
         
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
-        NBKAssertCompareWordsAsUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
     }
 }
 
@@ -135,39 +135,39 @@ final class NBKTestsOnComparisons: XCTestCase {
 // MARK: * NBK x Comparisons x Assertions
 //*============================================================================*
 
-private func NBKAssertCompareWordsAsSignedInteger(
+private func NBKAssertCompareSignedIntegerLimb(
 _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareAsSignedIntegers(lhs, to: rhs), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs), signum, file: file, line: line)
     }}
 }
 
-private func NBKAssertCompareWordsAsSignedIntegerAtIndex(
+private func NBKAssertCompareSignedIntegerLimbsAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareAsSignedIntegers(lhs, to: rhs, at: index), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
 }
 
-private func NBKAssertCompareWordsAsUnsignedInteger(
+private func NBKAssertCompareUnsignedIntegerLimbs(
 _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareAsUnsignedIntegers(lhs, to: rhs), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs), signum, file: file, line: line)
     }}
 }
 
-private func NBKAssertCompareWordsAsUnsignedIntegerAtIndex(
+private func NBKAssertCompareUnsignedIntegerLimbsAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareAsUnsignedIntegers(lhs, to: rhs, at: index), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
 }
 
