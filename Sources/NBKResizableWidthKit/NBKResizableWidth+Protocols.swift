@@ -37,6 +37,42 @@ RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int
     func compared(to other: Digit, at index: Int) -> Int
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Shifts
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func bitshiftLeftSmart(by distance: Int)
+    
+    @inlinable func bitshiftedLeftSmart(by distance: Int) -> Self
+    
+    @inlinable mutating func bitshiftLeft(by distance: Int)
+    
+    @inlinable func bitshiftedLeft(by distance: Int) -> Self
+    
+    @inlinable mutating func bitshiftLeft(words: Int, bits: Int)
+    
+    @inlinable func bitshiftedLeft(words: Int, bits: Int) -> Self
+    
+    @inlinable mutating func bitshiftLeft(words: Int)
+    
+    @inlinable func bitshiftedLeft(words: Int) -> Self
+    
+    @inlinable mutating func bitshiftRightSmart(by distance: Int)
+    
+    @inlinable func bitshiftedRightSmart(by distance: Int) -> Self
+    
+    @inlinable mutating func bitshiftRight(by distance: Int)
+    
+    @inlinable func bitshiftedRight(by distance: Int) -> Self
+    
+    @inlinable mutating func bitshiftRight(words: Int, bits: Int)
+    
+    @inlinable func bitshiftedRight(words: Int, bits: Int) -> Self
+    
+    @inlinable mutating func bitshiftRight(words: Int)
+    
+    @inlinable func bitshiftedRight(words: Int) -> Self
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Words
     //=------------------------------------------------------------------------=
     
