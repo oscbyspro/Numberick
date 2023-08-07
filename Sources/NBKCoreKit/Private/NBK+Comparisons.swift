@@ -26,14 +26,16 @@ extension NBK {
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
     @inlinable public static func compareSignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
-        let partition = Swift.min(index, lhs.endIndex)
-        let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = NBK.compareSignedIntegerLimbs(suffix, to: rhs)
+        let lhs = NBK.makeSuccinctSignedIntegerLimbs(lhs)
+        let rhs = NBK.makeSuccinctSignedIntegerLimbs(rhs)
+        //=--------------------------------------=
+        let partition = Swift.min(index, lhs.body.endIndex)
+        let suffix = NBK.UnsafeWords(rebasing: lhs.body.suffix(from: partition))
+        let comparison = NBK.compareSuccinctSignedIntegerLimbsUnchecked((body: suffix, sign: lhs.sign), to: rhs)
         if !comparison.isZero { return comparison }
-        let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-        switch lhs.last!.mostSignificantBit {
-        case  true: return -Int(bit: !prefix.allSatisfy({ $0 == UInt.max }))
-        case false: return  Int(bit: !prefix.allSatisfy({ $0 == UInt.min })) }
+        //=--------------------------------------=
+        let prefix = NBK.UnsafeWords(rebasing: lhs.body.prefix(upTo: partition))
+        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
     }
     
     //=------------------------------------------------------------------------=
@@ -46,31 +48,20 @@ extension NBK {
     to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
         assert(lhs.body.last != UInt(repeating: lhs.sign))
         assert(rhs.body.last != UInt(repeating: rhs.sign))
-        //=---------------------------------------=
-        // Long & Short
-        //=---------------------------------------=
-        if  lhs.body.count   !=  rhs.body.count {
-            return lhs.sign  != (lhs.body.count < rhs.body.count) ? -1 : 1
-        }
-        //=--------------------------------------=
-        return NBK.compareSameSizeSuccinctSignedIntegerLimbsUnchecked(lhs, to: rhs)
-    }
-    
-    /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable static func compareSameSizeSuccinctSignedIntegerLimbsUnchecked(
-    _  lhs: (body: NBK.UnsafeWords, sign: Bool),
-    to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
-        assert(lhs.body.count == rhs.body.count)
-        assert(lhs.body.last  != UInt(repeating: lhs.sign))
-        assert(rhs.body.last  != UInt(repeating: rhs.sign))
         //=--------------------------------------=
         // Plus & Minus
         //=--------------------------------------=
         if  lhs.sign != rhs.sign {
             return lhs.sign ? -1 : 1
         }
+        //=---------------------------------------=
+        // Long & Short
+        //=---------------------------------------=
+        if  lhs.body.count  !=  rhs.body.count {
+            return lhs.sign != (lhs.body.count < rhs.body.count) ? -1 : 1
+        }
         //=--------------------------------------=
-        // Word By Word In Reverse Order
+        // Word By Word, Back To Front
         //=--------------------------------------=
         for index in lhs.body.indices.reversed() {
             let lhsWord  = lhs.body[index] as UInt
@@ -108,7 +99,7 @@ extension NBK {
         let comparison = NBK.compareUnsignedIntegerLimbs(suffix,to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-        return Int(bit: !prefix.allSatisfy({ $0 == UInt.min }))
+        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
     }
     
     //=------------------------------------------------------------------------=
@@ -139,7 +130,7 @@ extension NBK {
         assert(lhs.body.last  != UInt(repeating: false))
         assert(rhs.body.last  != UInt(repeating: false))
         //=--------------------------------------=
-        // Word By Word In Reverse Order
+        // Word By Word, Back To Front
         //=--------------------------------------=
         for index in lhs.body.indices.reversed() {
             let lhsWord  = lhs.body[index] as UInt

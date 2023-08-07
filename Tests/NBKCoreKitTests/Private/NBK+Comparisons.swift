@@ -27,6 +27,11 @@ final class NBKTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testCompareSignedIntegerLimbs() {
+        NBKAssertCompareSignedIntegerLimb([ 2,  2        ] as W, [ 1            ] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([ 2,  2        ] as W, [~1            ] as W,  Int(1))
+        NBKAssertCompareSignedIntegerLimb([~2, ~2        ] as W, [ 1            ] as W, -Int(1))
+        NBKAssertCompareSignedIntegerLimb([~2, ~2        ] as W, [~1            ] as W, -Int(1))
+        
         NBKAssertCompareSignedIntegerLimb([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
         NBKAssertCompareSignedIntegerLimb([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, -Int(1))
         NBKAssertCompareSignedIntegerLimb([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W,  Int(1))
@@ -73,12 +78,17 @@ final class NBKTestsOnComparisons: XCTestCase {
         
         NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0), -Int(1))
         NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1), -Int(1))
-        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(0))
+        NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
         NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
         NBKAssertCompareSignedIntegerLimbsAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
     }
     
     func testCompareUnsignedIntegerLimbs() {
+        NBKAssertCompareUnsignedIntegerLimbs([ 2,  2        ] as W, [ 1            ] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([ 2,  2        ] as W, [~1            ] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([~2, ~2        ] as W, [ 1            ] as W,  Int(1))
+        NBKAssertCompareUnsignedIntegerLimbs([~2, ~2        ] as W, [~1            ] as W,  Int(1))
+        
         NBKAssertCompareUnsignedIntegerLimbs([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
         NBKAssertCompareUnsignedIntegerLimbs([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W,  Int(1))
         NBKAssertCompareUnsignedIntegerLimbs([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W, -Int(1))
@@ -140,17 +150,21 @@ _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs),  signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareSignedIntegerLimbs(rhs, to: lhs), -signum, file: file, line: line)
     }}
 }
 
 private func NBKAssertCompareSignedIntegerLimbsAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs, at: index), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareSignedIntegerLimbs(lhs, to: rhs, at: index),  signum, file: file, line: line)
     }}
+    //=------------------------------------------=
+    NBKAssertCompareSignedIntegerLimb(lhs, Array(repeating: UInt.zero, count: index) + rhs, signum)
 }
 
 private func NBKAssertCompareUnsignedIntegerLimbs(
@@ -158,17 +172,21 @@ _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs), signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs),  signum, file: file, line: line)
+        XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(rhs, to: lhs), -signum, file: file, line: line)
     }}
 }
 
 private func NBKAssertCompareUnsignedIntegerLimbsAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
         XCTAssertEqual(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
+    //=------------------------------------------=
+    NBKAssertCompareUnsignedIntegerLimbs(lhs, Array(repeating: UInt.zero, count: index) + rhs, signum)
 }
 
 #endif
