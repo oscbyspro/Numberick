@@ -12,45 +12,46 @@
 import NBKCoreKit
 import XCTest
 
+private typealias W = [UInt]
+private typealias X = [UInt64]
+private typealias Y = [UInt32]
+
 //*============================================================================*
 // MARK: * NBK x Complements
 //*============================================================================*
 
 final class NBKTestsOnComplements: XCTestCase {
     
-    private typealias S64 = [Int64]
-    private typealias S32 = [Int32]
-    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Succinct Binary Integer
     //=------------------------------------------------------------------------=
     
     func testSuccinctSignedInteger() {
-        NBKAssertSuccinctSignedInteger([   0,  0,  0,  0], [              ], false)
-        NBKAssertSuccinctSignedInteger([   1,  0,  0,  0], [ 1            ], false)
-        NBKAssertSuccinctSignedInteger([   1,  2,  0,  0], [ 1,  2        ], false)
-        NBKAssertSuccinctSignedInteger([   1,  2,  3,  0], [ 1,  2,  3    ], false)
-        NBKAssertSuccinctSignedInteger([   1,  2,  3,  4], [ 1,  2,  3,  4], false)
+        NBKAssertSuccinctSignedInteger([   0,  0,  0,  0] as W, [              ] as W, false)
+        NBKAssertSuccinctSignedInteger([   1,  0,  0,  0] as W, [ 1            ] as W, false)
+        NBKAssertSuccinctSignedInteger([   1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
+        NBKAssertSuccinctSignedInteger([   1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
+        NBKAssertSuccinctSignedInteger([   1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
         
-        NBKAssertSuccinctSignedInteger([  ~0, ~0, ~0, ~0], [              ], true )
-        NBKAssertSuccinctSignedInteger([  ~1, ~0, ~0, ~0], [~1            ], true )
-        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~0, ~0], [~1, ~2        ], true )
-        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~3, ~0], [~1, ~2, ~3    ], true )
-        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~3, ~4], [~1, ~2, ~3, ~4], true )
+        NBKAssertSuccinctSignedInteger([  ~0, ~0, ~0, ~0] as W, [              ] as W, true )
+        NBKAssertSuccinctSignedInteger([  ~1, ~0, ~0, ~0] as W, [~1            ] as W, true )
+        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~0, ~0] as W, [~1, ~2        ] as W, true )
+        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~3, ~0] as W, [~1, ~2, ~3    ] as W, true )
+        NBKAssertSuccinctSignedInteger([  ~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, true )
     }
     
     func testSuccinctUnsignedInteger() {
-        NBKAssertSuccinctUnsignedInteger([ 0,  0,  0,  0], [              ], false)
-        NBKAssertSuccinctUnsignedInteger([ 1,  0,  0,  0], [ 1            ], false)
-        NBKAssertSuccinctUnsignedInteger([ 1,  2,  0,  0], [ 1,  2        ], false)
-        NBKAssertSuccinctUnsignedInteger([ 1,  2,  3,  0], [ 1,  2,  3    ], false)
-        NBKAssertSuccinctUnsignedInteger([ 1,  2,  3,  4], [ 1,  2,  3,  4], false)
+        NBKAssertSuccinctUnsignedInteger([ 0,  0,  0,  0] as W, [              ] as W, false)
+        NBKAssertSuccinctUnsignedInteger([ 1,  0,  0,  0] as W, [ 1            ] as W, false)
+        NBKAssertSuccinctUnsignedInteger([ 1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
+        NBKAssertSuccinctUnsignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
+        NBKAssertSuccinctUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
         
-        NBKAssertSuccinctUnsignedInteger([~0, ~0, ~0, ~0], [~0, ~0, ~0, ~0], false)
-        NBKAssertSuccinctUnsignedInteger([~1, ~0, ~0, ~0], [~1, ~0, ~0, ~0], false)
-        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~0, ~0], [~1, ~2, ~0, ~0], false)
-        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~3, ~0], [~1, ~2, ~3, ~0], false)
-        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~3, ~4], [~1, ~2, ~3, ~4], false)
+        NBKAssertSuccinctUnsignedInteger([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W, false)
+        NBKAssertSuccinctUnsignedInteger([~1, ~0, ~0, ~0] as W, [~1, ~0, ~0, ~0] as W, false)
+        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~0, ~0] as W, [~1, ~2, ~0, ~0] as W, false)
+        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~3, ~0] as W, [~1, ~2, ~3, ~0] as W, false)
+        NBKAssertSuccinctUnsignedInteger([~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, false)
     }
 }
 

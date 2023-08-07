@@ -22,7 +22,7 @@ final class NBKCoreIntegerBenchmarksOnComparisonsAsInt: XCTestCase {
     typealias M = UInt
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Signum
     //=------------------------------------------------------------------------=
     
     func testSignumAsInt() {
@@ -62,7 +62,7 @@ final class NBKCoreIntegerBenchmarksOnComparisonsAsUInt: XCTestCase {
     typealias M = UInt
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Signum
     //=------------------------------------------------------------------------=
     
     func testSignumAsInt() {
