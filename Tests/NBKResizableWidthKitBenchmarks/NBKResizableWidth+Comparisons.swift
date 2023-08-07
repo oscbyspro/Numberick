@@ -111,12 +111,36 @@ final class NBKResizableWidthBenchmarksOnComparisonsAsUIntXR: XCTestCase {
         }
     }
     
+    func testComparedToAtIndex() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[1, 2, 3, 0] as X))
+        let xyz = NBK.blackHoleIdentity(1 as Int)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.compared(to: rhs, at: xyz))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
     func testComparedToDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.compared(to: rhs))
+            NBK.blackHoleInoutIdentity(&lhs)
+            NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    func testComparedToDigitAtIndex() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var rhs = NBK.blackHoleIdentity(UInt( 3))
+        let xyz = NBK.blackHoleIdentity(3 as Int)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(lhs.compared(to: rhs, at: xyz))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
