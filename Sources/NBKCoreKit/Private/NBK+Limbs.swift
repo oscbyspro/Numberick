@@ -133,37 +133,41 @@ extension NBK {
     /// Returns the `sign` bit, along with the `body` of significant limbs.
     ///
     /// ```
-    /// ┌─────────────── → ───────────────┬──────┐
-    /// │ source         │ body           │ sign │
-    /// ├─────────────── → ───────────────┼──────┤
-    /// │  0,  0,  0,  0 │                │ 0    │
-    /// │  1,  2,  0,  0 │  1,  2         │ 0    │
-    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2         │ 1    │
-    /// │ ~0, ~0, ~0, ~0 │                │ 1    │
-    /// └─────────────── → ───────────────┴──────┘
+    /// ┌─────────────── → ───────────────┬───────┐
+    /// │ source         │ body           │ sign  │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │  0,  0,  0,  0 │                │ false │
+    /// │  1,  2,  0,  0 │  1,  2         │ false │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2         │ true  │
+    /// │ ~0, ~0, ~0, ~0 │                │ true  │
+    /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
     @_transparent public static func makeSuccinctSignedIntegerLimbs(_ source: NBK.UnsafeWords) -> (body: NBK.UnsafeWords, sign: Bool) {
         let sign = source.last!.mostSignificantBit
         let bits = UInt(repeating: sign)
         let body = NBK.UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0 == bits }))
-        return (body: body, sign: sign)
+        return (body:  body, sign: sign)
     }
     
     /// Returns the `sign` bit, along with the `body` of significant limbs.
     ///
     /// ```
-    /// ┌─────────────── → ───────────────┬──────┐
-    /// │ source         │ body           │ sign │
-    /// ├─────────────── → ───────────────┼──────┤
-    /// │  0,  0,  0,  0 │                │ 0    │
-    /// │  1,  2,  0,  0 │  1,  2         │ 0    │
-    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2, ~0, ~0 │ 0    │
-    /// │ ~0, ~0, ~0, ~0 │ ~0, ~0, ~0, ~0 │ 0    │
-    /// └─────────────── → ───────────────┴──────┘
+    /// ┌─────────────── → ───────────────┬───────┐
+    /// │ source         │ body           │ sign  │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │  0,  0,  0,  0 │                │ false │
+    /// │  1,  2,  0,  0 │  1,  2         │ false │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2, ~0, ~0 │ false │
+    /// │ ~0, ~0, ~0, ~0 │ ~0, ~0, ~0, ~0 │ false │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │                │                │ false │
+    /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
-    @_transparent public static func makeSuccinctUnsignedIntegerLimbs(_ source: NBK.UnsafeWords) -> (body: NBK.UnsafeWords, sign: Void) {
-        return (body: NBK.UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: Void())
+    /// - Note: This operation interprets empty collections as zero.
+    ///
+    @_transparent public static func makeSuccinctUnsignedIntegerLimbsLenient(_ source: NBK.UnsafeWords) -> (body: NBK.UnsafeWords, sign: Bool) {
+        return (body: NBK.UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
     }
 }

@@ -115,7 +115,7 @@ final class NBKTestsOnLimbs: XCTestCase {
     // MARK: Tests x Succinct
     //=------------------------------------------------------------------------=
     
-    func testSuccinctSignedInteger() {
+    func testMakeSuccinctSignedIntegerLimbs() {
         NBKAssertMakeSuccinctSignedIntegerLimbs([   0,  0,  0,  0] as W, [              ] as W, false)
         NBKAssertMakeSuccinctSignedIntegerLimbs([   1,  0,  0,  0] as W, [ 1            ] as W, false)
         NBKAssertMakeSuccinctSignedIntegerLimbs([   1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
@@ -129,18 +129,18 @@ final class NBKTestsOnLimbs: XCTestCase {
         NBKAssertMakeSuccinctSignedIntegerLimbs([  ~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, true )
     }
     
-    func testSuccinctUnsignedInteger() {
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([ 0,  0,  0,  0] as W, [              ] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([ 1,  0,  0,  0] as W, [ 1            ] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([ 1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([ 1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([ 1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
+    func testMakeSuccinctUnsignedIntegerLimbsLenient() {
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([ 0,  0,  0,  0] as W, [              ] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([ 1,  0,  0,  0] as W, [ 1            ] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([ 1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([ 1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([ 1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
         
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([~1, ~0, ~0, ~0] as W, [~1, ~0, ~0, ~0] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([~1, ~2, ~0, ~0] as W, [~1, ~2, ~0, ~0] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([~1, ~2, ~3, ~0] as W, [~1, ~2, ~3, ~0] as W, false)
-        NBKAssertMakeSuccinctUnsignedIntegerLimbs([~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([~1, ~0, ~0, ~0] as W, [~1, ~0, ~0, ~0] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([~1, ~2, ~0, ~0] as W, [~1, ~2, ~0, ~0] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([~1, ~2, ~3, ~0] as W, [~1, ~2, ~3, ~0] as W, false)
+        NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient([~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, false)
     }
 }
 
@@ -233,13 +233,13 @@ file: StaticString = #file, line: UInt = #line) {
     }
 }
 
-private func NBKAssertMakeSuccinctUnsignedIntegerLimbs(
+private func NBKAssertMakeSuccinctUnsignedIntegerLimbsLenient(
 _ source: [UInt], _ body: [UInt], _ sign: Bool,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(sign, false, file: file, line: line)
     source.withUnsafeBufferPointer {
-        XCTAssert(           NBK.makeSuccinctUnsignedIntegerLimbs($0).sign ==  (), file: file, line: line)
-        XCTAssertEqual(Array(NBK.makeSuccinctUnsignedIntegerLimbs($0).body), body, file: file, line: line)
+        XCTAssertEqual(      NBK.makeSuccinctUnsignedIntegerLimbsLenient($0).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(NBK.makeSuccinctUnsignedIntegerLimbsLenient($0).body), body, file: file, line: line)
     }
 }
 

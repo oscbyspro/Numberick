@@ -72,15 +72,15 @@ final class NBKBenchmarksOnLimbs: XCTestCase {
         }
     }
     
-    func testMakeSuccinctUnsignedIntegerLimbs() {
+    func testMakeSuccinctUnsignedIntegerLimbsLenient() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbs(abc))
-                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbs(xyz))
+                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbsLenient(abc))
+                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbsLenient(xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)
