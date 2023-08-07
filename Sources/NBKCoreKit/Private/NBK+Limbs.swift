@@ -119,3 +119,51 @@ extension NBK {
         return (majorLimbsIndex) as B.Index
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Limbs x Succinct
+//*============================================================================*
+
+extension NBK {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the `sign` bit, along with the `body` of significant limbs.
+    ///
+    /// ```
+    /// ┌─────────────── → ───────────────┬──────┐
+    /// │ source         │ body           │ sign │
+    /// ├─────────────── → ───────────────┼──────┤
+    /// │  0,  0,  0,  0 │                │ 0    │
+    /// │  1,  2,  0,  0 │  1,  2         │ 0    │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2         │ 1    │
+    /// │ ~0, ~0, ~0, ~0 │                │ 1    │
+    /// └─────────────── → ───────────────┴──────┘
+    /// ```
+    ///
+    @_transparent public static func makeSuccinctSignedIntegerLimbs(_ source: NBK.UnsafeWords) -> (body: NBK.UnsafeWords, sign: Bool) {
+        let sign = source.last!.mostSignificantBit
+        let bits = UInt(repeating: sign)
+        let body = NBK.UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0 == bits }))
+        return (body: body, sign: sign)
+    }
+    
+    /// Returns the `sign` bit, along with the `body` of significant limbs.
+    ///
+    /// ```
+    /// ┌─────────────── → ───────────────┬──────┐
+    /// │ source         │ body           │ sign │
+    /// ├─────────────── → ───────────────┼──────┤
+    /// │  0,  0,  0,  0 │                │ 0    │
+    /// │  1,  2,  0,  0 │  1,  2         │ 0    │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2, ~0, ~0 │ 0    │
+    /// │ ~0, ~0, ~0, ~0 │ ~0, ~0, ~0, ~0 │ 0    │
+    /// └─────────────── → ───────────────┴──────┘
+    /// ```
+    ///
+    @_transparent public static func makeSuccinctUnsignedIntegerLimbs(_ source: NBK.UnsafeWords) -> (body: NBK.UnsafeWords, sign: Void) {
+        return (body: NBK.UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: Void())
+    }
+}

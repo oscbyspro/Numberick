@@ -96,8 +96,8 @@ extension NBK {
     
     /// A three-way comparison of `lhs` against `rhs`.
     @inlinable public static func compareUnsignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        let lhs = NBK.makeSuccinctUnsignedInteger(lhs)
-        let rhs = NBK.makeSuccinctUnsignedInteger(rhs)
+        let lhs = NBK.makeSuccinctUnsignedIntegerLimbs(lhs)
+        let rhs = NBK.makeSuccinctUnsignedIntegerLimbs(rhs)
         return NBK.compareSuccinctUnsignedIntegerLimbsUnchecked(lhs, to: rhs)
     }
     
