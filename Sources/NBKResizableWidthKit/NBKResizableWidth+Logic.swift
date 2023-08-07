@@ -28,7 +28,7 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+        lhs.upsizeThenFormInIntersection(of: rhs, each: &)
     }
     
     @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
@@ -40,7 +40,7 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+        lhs.upsizeThenFormInIntersection(of: rhs, each: |)
     }
     
     @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
@@ -52,7 +52,7 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+        lhs.upsizeThenFormInIntersection(of: rhs, each: ^)
     }
     
     @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
@@ -70,14 +70,25 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    // TODO: internal
-    @inlinable public mutating func formInIntersection(of other: Self, each element: (UInt, UInt) -> UInt) {
-        self .storage.withUnsafeMutableBufferPointer { lhs in
-        other.storage.withUnsafeBufferPointer { rhs in
-            let endIndex = Swift.min(lhs.endIndex, rhs.endIndex)
-            let lhsIntersection = NBK.UnsafeMutableWords(rebasing: lhs.prefix(upTo:  endIndex))
-            let rhsIntersection = /*---*/NBK.UnsafeWords(rebasing: rhs.prefix(upTo:  endIndex))
-            NBK.merge(into: lhsIntersection, from: NBK.UnsafeWords(lhsIntersection), rhsIntersection, each: element)
-        }}
+    @inlinable public mutating func upsizeThenFormInIntersection(of other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(minCount: other.storage.count)
+        self.withContiguousMutableStorage { lhs in
+            other.withContiguousStorage   { rhs in
+                for index in rhs.indices  {
+                    lhs[index] = element(lhs[index], rhs[index])
+                }
+            }
+        }
+    }
+        
+    @inlinable public mutating func downsizeThenFormInIntersection(of other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(maxCount: other.storage.count)
+        self.withContiguousMutableStorage { lhs in
+            other.withContiguousStorage   { rhs in
+                for index in lhs.indices  {
+                    lhs[index] = element(lhs[index], rhs[index])
+                }
+            }
+        }
     }
 }

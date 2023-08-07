@@ -23,12 +23,8 @@ extension NBKResizableWidth.Magnitude {
         self.storage.append(word)
     }
     
-    @inlinable public mutating func reserve(minCount: Int) {
-        self.storage.reserveCapacity(minCount)
-    }
-    
     @inlinable public mutating func resize(minCount: Int) {
-        self.reserve(minCount: minCount)
+        self.reserveCapacity(minCount)
         appending: while self.storage.count < minCount {
             self.storage.append(UInt.zero)
         }
@@ -41,6 +37,10 @@ extension NBKResizableWidth.Magnitude {
         }
         //=--------------------------------------=
         precondition(self.isOK, Self.callsiteInvariantsInfo())
+    }
+    
+    @inlinable public mutating func reserveCapacity(_ minCapacity: Int) {
+        self.storage.reserveCapacity(minCapacity)
     }
     
     //=------------------------------------------------------------------------=

@@ -33,16 +33,6 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Details x Two's Complement
     //=------------------------------------------------------------------------=
     
-    // TODO: use NBKBinaryInteger default
-    @inlinable public mutating func formTwosComplement() {
-        _ = self.formTwosComplementReportingOverflow()
-    }
-    
-    // TODO: use NBKBinaryInteger default
-    @inlinable public func twosComplement() -> Self {
-        self.twosComplementReportingOverflow().partialValue
-    }
-    
     @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
         self.formTwosComplementSubsequence(true)
     }

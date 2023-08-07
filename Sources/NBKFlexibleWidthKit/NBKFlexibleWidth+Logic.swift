@@ -80,13 +80,9 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        defer {
-            Swift.assert(lhs.storage.isNormal)
-        }
-        //=--------------------------------------=
-        lhs.storage.resize(maxCount: rhs.storage.count)
-        lhs.storage.formInIntersection(of: rhs.storage, each: &)
+        lhs.storage.downsizeThenFormInIntersection(of: rhs.storage, each: &)
         lhs.storage.normalize()
+        Swift.assert(lhs.storage.isNormal)
     }
     
     @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
@@ -98,12 +94,8 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        defer {
-            Swift.assert(lhs.storage.isNormal)
-        }
-        //=--------------------------------------=
-        lhs.storage.resize(minCount: rhs.storage.count)
-        lhs.storage.formInIntersection(of: rhs.storage, each: |)
+        lhs.storage |= rhs.storage
+        Swift.assert(lhs.storage.isNormal)
     }
     
     @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
@@ -115,13 +107,9 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        defer {
-            Swift.assert(lhs.storage.isNormal)
-        }
-        //=--------------------------------------=
-        lhs.storage.resize(minCount: rhs.storage.count)
-        lhs.storage.formInIntersection(of: rhs.storage, each: ^)
+        lhs.storage ^= rhs.storage
         lhs.storage.normalize()
+        Swift.assert(lhs.storage.isNormal)
     }
     
     @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {

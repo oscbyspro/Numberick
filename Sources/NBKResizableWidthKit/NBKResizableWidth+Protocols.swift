@@ -17,6 +17,18 @@ public protocol IntXROrUIntXR: NBKBinaryInteger, LosslessStringConvertible, Muta
 RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int> {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Size
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func append(_ word: UInt)
+    
+    @inlinable mutating func resize(minCount: Int)
+    
+    @inlinable mutating func resize(maxCount: Int)
+    
+    @inlinable mutating func reserveCapacity(_ minCapacity: Int)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  

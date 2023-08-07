@@ -18,6 +18,12 @@ import NBKCoreKit
 public protocol IntXLOrUIntXL: NBKBinaryInteger, LosslessStringConvertible {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Size
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func reserveCapacity(_ minCapacity: Int)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  

@@ -99,4 +99,16 @@ extension NBKResizableWidth.Magnitude {
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
         fatalError("TODO")
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+        
+    @inlinable public static func exactly(sign: FloatingPointSign, magnitude: Magnitude) -> Self? {
+        if sign == FloatingPointSign.plus || magnitude.isZero { return magnitude } else { return nil }
+    }
+    
+    @inlinable public static func clamping(sign: FloatingPointSign, magnitude: Magnitude) -> Self {
+        if sign == FloatingPointSign.plus { return magnitude } else { return Self.zero }
+    }
 }
