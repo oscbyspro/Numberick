@@ -23,7 +23,7 @@ private typealias Y = [UInt32]
 final class NBKTestsOnComplements: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Succinct Binary Integer
+    // MARK: Tests x Binary Integer Limbs x Succinct
     //=------------------------------------------------------------------------=
     
     func testSuccinctSignedInteger() {
@@ -63,8 +63,8 @@ private func NBKAssertSuccinctSignedInteger(
 _ source: [UInt], _ body: [UInt], _ sign: Bool,
 file: StaticString = #file, line: UInt = #line) {
     source.withUnsafeBufferPointer {
-        XCTAssertEqual(      NBK.succinctSignedInteger($0).sign,  sign, file: file, line: line)
-        XCTAssertEqual(Array(NBK.succinctSignedInteger($0).body), body, file: file, line: line)
+        XCTAssertEqual(      NBK.makeSuccinctSignedIntegerLimbs($0).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(NBK.makeSuccinctSignedIntegerLimbs($0).body), body, file: file, line: line)
     }
 }
 
@@ -73,8 +73,8 @@ _ source: [UInt], _ body: [UInt], _ sign: Bool,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(sign, false, file: file, line: line)
     source.withUnsafeBufferPointer {
-        XCTAssert(           NBK.succinctUnsignedInteger($0).sign ==  (), file: file, line: line)
-        XCTAssertEqual(Array(NBK.succinctUnsignedInteger($0).body), body, file: file, line: line)
+        XCTAssert(           NBK.makeSuccinctUnsignedInteger($0).sign ==  (), file: file, line: line)
+        XCTAssertEqual(Array(NBK.makeSuccinctUnsignedInteger($0).body), body, file: file, line: line)
     }
 }
 

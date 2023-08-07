@@ -23,10 +23,10 @@ private typealias Y = [UInt32]
 final class NBKBenchmarksOnComparisons: XCTestCase {
  
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Words As Binary Integer
+    // MARK: Tests x Binary Integer Limbs
     //=------------------------------------------------------------------------=
     
-    func testCompareWordsAsSignedInteger() {
+    func testCompareSignedIntegerLimbs() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var rhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
@@ -34,7 +34,7 @@ final class NBKBenchmarksOnComparisons: XCTestCase {
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareAsSignedIntegers(lhs, to: rhs))
+                NBK.blackHole(NBK.compareSignedIntegerLimbs(lhs, to: rhs))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)
@@ -43,15 +43,15 @@ final class NBKBenchmarksOnComparisons: XCTestCase {
         }
     }
     
-    func testCompareWordsAsSignedIntegerAtIndex() {
+    func testCompareSignedIntegerLimbsAtIndex() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        var rhs = NBK.blackHoleIdentity([0, 2, 3, 4] as W)
+        var rhs = NBK.blackHoleIdentity([2, 3, 4, 0] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
         
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareAsSignedIntegers(lhs, to: rhs, at: xyz))
+                NBK.blackHole(NBK.compareSignedIntegerLimbs(lhs, to: rhs, at: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)
@@ -60,7 +60,7 @@ final class NBKBenchmarksOnComparisons: XCTestCase {
         }
     }
     
-    func testCompareWordsAsUnsignedInteger() {
+    func testCompareUnsignedIntegerLimbs() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var rhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
@@ -68,7 +68,7 @@ final class NBKBenchmarksOnComparisons: XCTestCase {
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareAsUnsignedIntegers(lhs, to: rhs))
+                NBK.blackHole(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)
@@ -77,15 +77,15 @@ final class NBKBenchmarksOnComparisons: XCTestCase {
         }
     }
     
-    func testCompareWordsAsUnsignedIntegerAtIndex() {
+    func testCompareUnsignedIntegerLimbsAtIndex() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        var rhs = NBK.blackHoleIdentity([0, 2, 3, 4] as W)
+        var rhs = NBK.blackHoleIdentity([2, 3, 4, 0] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
         
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareAsUnsignedIntegers(lhs, to: rhs, at: xyz))
+                NBK.blackHole(NBK.compareUnsignedIntegerLimbs(lhs, to: rhs, at: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)

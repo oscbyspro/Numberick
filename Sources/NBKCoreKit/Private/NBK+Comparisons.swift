@@ -14,21 +14,21 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Succinct Binary Integer
+    // MARK: Details x Binary Integer Limbs
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable public static func compareAsSignedIntegers(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        let lhs = NBK.succinctSignedInteger(lhs)
-        let rhs = NBK.succinctSignedInteger(rhs)
-        return NBK.compareAsSuccinctSignedIntegers(lhs, to: rhs)
+    @inlinable public static func compareSignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
+        let lhs = NBK.makeSuccinctSignedIntegerLimbs(lhs)
+        let rhs = NBK.makeSuccinctSignedIntegerLimbs(rhs)
+        return NBK.compareSuccinctSignedIntegerLimbsUnchecked(lhs, to: rhs)
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
-    @inlinable public static func compareAsSignedIntegers(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
+    @inlinable public static func compareSignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
         let partition = Swift.min(index, lhs.endIndex)
         let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = NBK.compareAsSignedIntegers(suffix, to: rhs)
+        let comparison = NBK.compareSignedIntegerLimbs(suffix, to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
         switch lhs.last!.mostSignificantBit {
@@ -37,27 +37,37 @@ extension NBK {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Succinct Binary Integer x Private
+    // MARK: Details x Binary Integer Limbs x Succinct
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    ///
-    /// - Requires: `lhs` and `rhs` must only contain significant words.
-    ///
-    @inlinable static func compareAsSuccinctSignedIntegers(
+    @inlinable static func compareSuccinctSignedIntegerLimbsUnchecked(
     _  lhs: (body: NBK.UnsafeWords, sign: Bool),
     to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
+        assert(lhs.body.last != UInt(repeating: lhs.sign))
+        assert(rhs.body.last != UInt(repeating: rhs.sign))
+        //=---------------------------------------=
+        // Long & Short
+        //=---------------------------------------=
+        if  lhs.body.count   !=  rhs.body.count {
+            return lhs.sign  != (lhs.body.count < rhs.body.count) ? -1 : 1
+        }
+        //=--------------------------------------=
+        return NBK.compareSameSizeSuccinctSignedIntegerLimbsUnchecked(lhs, to: rhs)
+    }
+    
+    /// A three-way comparison of `lhs` against `rhs`.
+    @inlinable static func compareSameSizeSuccinctSignedIntegerLimbsUnchecked(
+    _  lhs: (body: NBK.UnsafeWords, sign: Bool),
+    to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
+        assert(lhs.body.count == rhs.body.count)
+        assert(lhs.body.last  != UInt(repeating: lhs.sign))
+        assert(rhs.body.last  != UInt(repeating: rhs.sign))
         //=--------------------------------------=
         // Plus & Minus
         //=--------------------------------------=
         if  lhs.sign != rhs.sign {
             return lhs.sign ? -1 : 1
-        }
-        //=---------------------------------------=
-        // Long & Short
-        //=---------------------------------------=
-        if  lhs.body.count  !=  rhs.body.count {
-            return lhs.sign != (lhs.body.count < rhs.body.count) ? -1 : 1
         }
         //=--------------------------------------=
         // Word By Word In Reverse Order
@@ -81,43 +91,53 @@ extension NBK {
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Succinct Binary Integer
+    // MARK: Details x Binary Integer Limbs
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable public static func compareAsUnsignedIntegers(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        let lhs = NBK.succinctUnsignedInteger(lhs)
-        let rhs = NBK.succinctUnsignedInteger(rhs)
-        return NBK.compareAsSuccinctUnsignedIntegers(lhs, to: rhs)
+    @inlinable public static func compareUnsignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
+        let lhs = NBK.makeSuccinctUnsignedInteger(lhs)
+        let rhs = NBK.makeSuccinctUnsignedInteger(rhs)
+        return NBK.compareSuccinctUnsignedIntegerLimbsUnchecked(lhs, to: rhs)
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
-    @inlinable public static func compareAsUnsignedIntegers(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
+    @inlinable public static func compareUnsignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
         let partition = Swift.min(index, lhs.endIndex)
         let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = NBK.compareAsUnsignedIntegers(suffix, to: rhs)
-        guard comparison.isZero else { return comparison }
+        let comparison = NBK.compareUnsignedIntegerLimbs(suffix,to: rhs)
+        if !comparison.isZero { return comparison }
         let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
         return Int(bit: !prefix.allSatisfy({ $0 == UInt.min }))
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Succinct Binary Integer x Private
+    // MARK: Details x Binary Integer Limbs x Succinct
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    ///
-    /// - Requires: `lhs` and `rhs` must only contain significant words.
-    ///
-    @inlinable static func compareAsSuccinctUnsignedIntegers(
+    @inlinable static func compareSuccinctUnsignedIntegerLimbsUnchecked(
     _  lhs: (body: NBK.UnsafeWords, sign: Void),
     to rhs: (body: NBK.UnsafeWords, sign: Void)) -> Int {
+        assert(lhs.body.last  != UInt(repeating: false))
+        assert(rhs.body.last  != UInt(repeating: false))
         //=---------------------------------------=
         // Long & Short
         //=---------------------------------------=
         if  lhs.body.count != rhs.body.count {
             return lhs.body.count < rhs.body.count ? -1 : 1
         }
+        //=--------------------------------------=
+        return NBK.compareSameSizeSuccinctUnsignedIntegerLimbsUnchecked(lhs, to: rhs)
+    }
+
+    /// A three-way comparison of `lhs` against `rhs`.
+    @inlinable static func compareSameSizeSuccinctUnsignedIntegerLimbsUnchecked(
+    _  lhs: (body: NBK.UnsafeWords, sign: Void),
+    to rhs: (body: NBK.UnsafeWords, sign: Void)) -> Int {
+        assert(lhs.body.count == rhs.body.count)
+        assert(lhs.body.last  != UInt(repeating: false))
+        assert(rhs.body.last  != UInt(repeating: false))
         //=--------------------------------------=
         // Word By Word In Reverse Order
         //=--------------------------------------=
