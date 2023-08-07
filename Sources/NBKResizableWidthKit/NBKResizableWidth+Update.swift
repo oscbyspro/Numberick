@@ -19,11 +19,15 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func assignZeroValue() {
-        self.assign(repeating: false)
+    @inlinable public mutating func updateZeroValue() {
+        self.update(repeating: false)
     }
     
-    @inlinable public mutating func assign(repeating bit: Bool) {
-        self.withContiguousMutableStorage({ $0.update(repeating: UInt(repeating: bit)) })
+    @inlinable public mutating func update(repeating bit: Bool) {
+        self.update(repeating: UInt(repeating: bit))
+    }
+    
+    @inlinable public mutating func update(repeating word: UInt) {
+        self.withContiguousMutableStorage({ $0.update(repeating: word) })
     }
 }

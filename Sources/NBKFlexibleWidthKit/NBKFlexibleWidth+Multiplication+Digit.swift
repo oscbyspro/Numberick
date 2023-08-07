@@ -72,7 +72,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         if  multiplicand.isZero {
-            return self.assign(addend)
+            return self.update(addend)
         }
         //=--------------------------------------=
         self.storage.reserveCapacity(self.storage.count + 1)

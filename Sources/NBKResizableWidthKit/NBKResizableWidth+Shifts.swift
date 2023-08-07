@@ -43,9 +43,9 @@ extension NBKResizableWidth.Magnitude {
         let size = distance.magnitude as UInt
         switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
         case (true,  true ): self.bitshiftLeft (by: Int(bitPattern: size))
-        case (true,  false): self.assign(repeating: false)
+        case (true,  false): self.update(repeating: false)
         case (false, true ): self.bitshiftRight(by: Int(bitPattern: size))
-        case (false, false): self.assign(repeating: self.isLessThanZero) }
+        case (false, false): self.update(repeating: self.isLessThanZero) }
     }
     
     /// Performs a smart left shift.
@@ -183,9 +183,9 @@ extension NBKResizableWidth.Magnitude {
         let size = distance.magnitude as UInt
         switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
         case (true,  true ): self.bitshiftRight(by: Int(bitPattern: size))
-        case (true,  false): self.assign(repeating: self.isLessThanZero)
+        case (true,  false): self.update(repeating: self.isLessThanZero)
         case (false, true ): self.bitshiftLeft (by: Int(bitPattern: size))
-        case (false, false): self.assign(repeating: false) }
+        case (false, false): self.update(repeating: false) }
     }
     
     /// Performs an un/signed, smart, right shift.

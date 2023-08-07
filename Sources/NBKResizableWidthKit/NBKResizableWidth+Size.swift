@@ -57,8 +57,7 @@ extension NBKResizableWidth.Magnitude {
         }
     }
     
-    @inlinable public mutating func normalize(assign value: UInt) {
-        self.storage.removeAll(keepingCapacity: true)
-        self.storage.append(value)
+    @inlinable public mutating func normalize(update value: UInt) {
+        self.storage.replaceSubrange(self.storage.indices, with: CollectionOfOne(value))
     }
 }

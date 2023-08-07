@@ -73,6 +73,16 @@ RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int
     @inlinable func bitshiftedRight(words: Int) -> Self
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Update
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func updateZeroValue()
+    
+    @inlinable mutating func update(repeating bit:  Bool)
+    
+    @inlinable mutating func update(repeating word: UInt)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Words
     //=------------------------------------------------------------------------=
     

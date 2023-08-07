@@ -108,4 +108,12 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, LosslessStringConvertible {
     @inlinable mutating func bitshiftRight(words: Int)
     
     @inlinable func bitshiftedRight(words: Int) -> Self
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Update
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func updateZeroValue()
+    
+    @inlinable mutating func update(_ value: Digit)
 }

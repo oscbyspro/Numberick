@@ -115,7 +115,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  other.storage.count == 1 {
             let qr = self.quotientAndRemainder(dividingBy: other.storage.first)
-            self.assign(qr.remainder)
+            self.update(qr.remainder)
             return PVO(qr.quotient, false)
         }
         //=--------------------------------------=
@@ -124,7 +124,7 @@ extension NBKFlexibleWidth.Magnitude {
         let comparison  = other.compared(to: self)
         if  comparison >= 0 {
             if  comparison.isZero {
-                self.assign(UInt.zero)
+                self.update(UInt.zero)
                 return PVO(001, false)
             }   else {
                 return PVO(000, false)

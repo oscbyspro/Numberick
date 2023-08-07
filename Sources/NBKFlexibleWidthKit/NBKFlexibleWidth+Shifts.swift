@@ -126,7 +126,7 @@ extension NBKFlexibleWidth {
         self.magnitude.bitshiftRight(words: words, bits: bits)
         //=--------------------------------------=
         if  minus,  self.isZero  {
-            self.magnitude.assign(1 as UInt)
+            self.magnitude.update(1 as UInt)
         }
     }
     
@@ -140,7 +140,7 @@ extension NBKFlexibleWidth {
         self.magnitude.bitshiftRight(words: words)
         //=--------------------------------------=
         if  minus,  self.isZero  {
-            self.magnitude.assign(1 as UInt)
+            self.magnitude.update(1 as UInt)
         }
     }
     
@@ -354,7 +354,7 @@ extension NBKFlexibleWidth.Magnitude {
         let maxCount = self.storage.count - words - rollover
         //=--------------------------------------=
         if  maxCount <= 0 {
-            return self.assignZeroValue()
+            return self.updateZeroValue()
         }
         //=--------------------------------------=
         self.storage.withContiguousMutableStorage {
@@ -375,7 +375,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         if  self.storage.count <= words {
-            return self.assignZeroValue()
+            return self.updateZeroValue()
         }
         //=--------------------------------------=
         self.storage.withContiguousMutableStorage {
