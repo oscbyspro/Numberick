@@ -32,7 +32,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     Digit.Digit == Digit, Digit.Magnitude == Magnitude.Digit
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance from the given digit.
@@ -47,6 +47,29 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// ```
     ///
     @inlinable init(digit: Digit)
+    
+    /// Tries to create a value equal to the given `sign` and `magnitude` pair.
+    ///
+    /// If the `sign` and `magnitude` pair is not representable, the result is nil.
+    ///
+    /// ```
+    /// ┌───────┬───────────────────── → ───────────┐
+    /// │ sign  │ magnitude            │ self       │
+    /// │───────┤───────────────────── → ───────────┤
+    /// │ plus  │ UInt256( 1)          │ Int256( 1) │
+    /// │ minus │ UInt256( 1)          │ Int256(-1) │
+    /// │───────┤───────────────────── → ───────────┤
+    /// │ plus  │ Int256.max.magnitude │ Int256.max │
+    /// │ minus │ Int256.min.magnitude │ Int256.min │
+    /// │───────┤───────────────────── → ───────────┤
+    /// │ plus  │ UInt256.max          │ nil        │
+    /// │ minus │ UInt256.max          │ nil        │
+    /// └───────┴───────────────────── → ───────────┘
+    /// ```
+    ///
+    /// - Note: The `sign` and `magnitude` pair (minus, zero) is represented by zero.
+    ///
+    @inlinable init?(sign: FloatingPointSign, magnitude: Magnitude)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits
