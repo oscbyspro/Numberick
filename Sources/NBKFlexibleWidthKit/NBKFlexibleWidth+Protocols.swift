@@ -9,13 +9,11 @@
 
 import NBKCoreKit
 
-// TODO: consider a public NBKCoreKit/NBKFlexibleWidthInteger protocol
-// TODO: consider a primary associated type similar to NBKCoreKit/NBKCoreInteger
 //*============================================================================*
 // MARK: * NBK x Flexible Width x IntXL or UIntXL
 //*============================================================================*
 
-public protocol IntXLOrUIntXL: NBKBinaryInteger {
+public protocol IntXLOrUIntXL: NBKBinaryInteger where Magnitude == UIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Size

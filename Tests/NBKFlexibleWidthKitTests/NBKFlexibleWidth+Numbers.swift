@@ -272,19 +272,13 @@ final class NBKFlexibleWidthTestsOnNumbersAsIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testsFromSignAndMagnitude() {
-        NBKAssertIdentical(T.exactly (sign: .plus,  magnitude: M(1)),  T(1))
-        NBKAssertIdentical(T.clamping(sign: .plus,  magnitude: M(1)),  T(1))
-
-        NBKAssertIdentical(T.exactly (sign: .minus, magnitude: M(1)), -T(1))
-        NBKAssertIdentical(T.clamping(sign: .minus, magnitude: M(1)), -T(1))
+        NBKAssertIdentical(T(sign: .plus,  magnitude: M(1)),  T(1))
+        NBKAssertIdentical(T(sign: .minus, magnitude: M(1)), -T(1))
     }
     
     func testsFromSignAndMagnitudeAsPlusMinusZero() {
-        NBKAssertIdentical(T.exactly (sign: .plus,  magnitude: M( )),  T(  ))
-        NBKAssertIdentical(T.clamping(sign: .plus,  magnitude: M( )),  T(  ))
-        
-        NBKAssertIdentical(T.exactly (sign: .minus, magnitude: M( )), -T(  ))
-        NBKAssertIdentical(T.clamping(sign: .minus, magnitude: M( )), -T(  ))
+        NBKAssertIdentical(T(sign: .plus,  magnitude: M( )),  T(  ))
+        NBKAssertIdentical(T(sign: .minus, magnitude: M( )), -T(  ))
     }
     
     //=------------------------------------------------------------------------=
@@ -540,19 +534,13 @@ final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testsFromSignAndMagnitude() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M( 1)), T( 1))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M( 1)), T( 1))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M( 1)), nil)
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M( 1)), T(  ))
+        XCTAssertEqual(T(sign: .plus,  magnitude: M( 1)), T( 1))
+        XCTAssertEqual(T(sign: .minus, magnitude: M( 1)),   nil)
     }
     
     func testsFromSignAndMagnitudeAsPlusMinusZero() {
-        XCTAssertEqual(T.exactly (sign: .plus,  magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .plus,  magnitude: M(  )), T(  ))
-        
-        XCTAssertEqual(T.exactly (sign: .minus, magnitude: M(  )), T(  ))
-        XCTAssertEqual(T.clamping(sign: .minus, magnitude: M(  )), T(  ))
+        XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
+        XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
     }
     
     //=------------------------------------------------------------------------=

@@ -831,60 +831,14 @@ extension NBKFixedWidthInteger {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Tries to create a representable value equal to the given `sign` and `magnitude`.
-    ///
-    /// If the `sign` and `magnitude` are is not representable, the result is nil.
-    ///
-    /// ```
-    /// ┌───────┬───────────────────── → ───────────┐
-    /// │ sign  │ magnitude            │ self       │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ UInt256( 1)          │ Int256( 1) │
-    /// │ minus │ UInt256( 1)          │ Int256(-1) │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ Int256.max.magnitude │ Int256.max │
-    /// │ minus │ Int256.min.magnitude │ Int256.min │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ UInt256.max          │ nil        │
-    /// │ minus │ UInt256.max          │ nil        │
-    /// └───────┴───────────────────── → ───────────┘
-    /// ```
-    ///
-    /// - Note: The `sign` and `magnitude` pair (minus, zero) is represented as zero.
-    ///
-    @inlinable public static func exactly(sign: FloatingPointSign, magnitude: Magnitude) -> Self? {
+    @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
         var bitPattern = magnitude as Magnitude
         var isLessThanZero = (sign == FloatingPointSign.minus)
         if  isLessThanZero {
             isLessThanZero = !bitPattern.formTwosComplementSubsequence(true)
         }
         
-        let value = Self(bitPattern: bitPattern)
-        return value.isLessThanZero == isLessThanZero ? value : nil
-    }
-    
-    /// Creates the representable value closest to the given `sign` and `magnitude`.
-    ///
-    /// If the `sign` and `magnitude` are greater than the maximum representable value,
-    /// the result is this type’s largest value. If the `sign` and `magnitude` are less
-    /// than the smallest representable value, the result is this type’s smallest value.
-    ///
-    /// ```
-    /// ┌───────┬───────────────────── → ───────────┐
-    /// │ sign  │ magnitude            │ self       │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ UInt256( 1)          │ Int256( 1) │
-    /// │ minus │ UInt256( 1)          │ Int256(-1) │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ Int256.max.magnitude │ Int256.max │
-    /// │ minus │ Int256.min.magnitude │ Int256.min │
-    /// │───────┤───────────────────── → ───────────┤
-    /// │ plus  │ UInt256.max          │ Int256.max │
-    /// │ minus │ UInt256.max          │ Int256.min │
-    /// └───────┴───────────────────── → ───────────┘
-    /// ```
-    ///
-    @inlinable public static func clamping(sign: FloatingPointSign, magnitude: Magnitude) -> Self {
-        self.exactly(sign: sign, magnitude: magnitude) ?? (sign == FloatingPointSign.minus ? Self.min : Self.max)
+        self.init(bitPattern: bitPattern)
+        guard self.isLessThanZero == isLessThanZero else { return nil }
     }
 }

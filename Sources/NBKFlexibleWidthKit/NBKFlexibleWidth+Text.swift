@@ -28,7 +28,7 @@ extension NBKFlexibleWidth {
             let components = NBK.makeIntegerComponents(utf8: utf8)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self.exactly(sign: components.sign, magnitude: magnitude)
+            return Self(sign: components.sign, magnitude: magnitude)
         }
         
         if let value { self = value } else { return nil }
@@ -67,7 +67,7 @@ extension NBKFlexibleWidth.Magnitude {
             let components = NBK.makeIntegerComponents(utf8: utf8)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self.exactly(sign: components.sign, magnitude: magnitude)
+            return Self(sign: components.sign, magnitude: magnitude)
         }
         
         if let value { self = value } else { return nil }

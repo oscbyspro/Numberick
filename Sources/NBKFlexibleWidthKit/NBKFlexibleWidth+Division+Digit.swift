@@ -45,8 +45,8 @@ extension NBKFlexibleWidth {
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         let otherSign = Sign(other.isLessThanZero)
         let qro: PVO<QR<Magnitude, Magnitude.Digit>> = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)
-        let quotient  = Self(sign: self.sign ^   otherSign, magnitude: qro.partialValue.quotient )
-        let remainder = Self.Digit.exactly(sign: self.sign, magnitude: qro.partialValue.remainder)!
+        let quotient  = Self(sign: self.sign ^ otherSign, magnitude: qro.partialValue.quotient )
+        let remainder = Self.Digit.init(sign:  self.sign, magnitude: qro.partialValue.remainder)!
         return PVO(QR(quotient, remainder), qro.overflow)
     }
 }

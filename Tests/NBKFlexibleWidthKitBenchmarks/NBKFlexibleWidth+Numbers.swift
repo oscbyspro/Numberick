@@ -406,12 +406,10 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsIntXL: XCTestCase {
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64:[0, 1, 2, 3] as X)))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T.exactly (sign: abc.sign, magnitude: abc.magnitude))
-            NBK.blackHole(T.clamping(sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
             NBK.blackHoleInoutIdentity(&abc)
             
-            NBK.blackHole(T.exactly (sign: xyz.sign, magnitude: xyz.magnitude))
-            NBK.blackHole(T.clamping(sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
@@ -806,12 +804,10 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
         var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64:[0, 1, 2, 3] as X)))
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T.exactly (sign: abc.sign, magnitude: abc.magnitude))
-            NBK.blackHole(T.clamping(sign: abc.sign, magnitude: abc.magnitude))
+            NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))
             NBK.blackHoleInoutIdentity(&abc)
             
-            NBK.blackHole(T.exactly (sign: xyz.sign, magnitude: xyz.magnitude))
-            NBK.blackHole(T.clamping(sign: xyz.sign, magnitude: xyz.magnitude))
+            NBK.blackHole(T(sign: xyz.sign, magnitude: xyz.magnitude))
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }

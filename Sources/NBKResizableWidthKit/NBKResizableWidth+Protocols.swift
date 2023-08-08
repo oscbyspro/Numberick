@@ -13,8 +13,8 @@ import NBKCoreKit
 // MARK: * NBK x Resizable Width x IntXR or UIntXR
 //*============================================================================*
 
-public protocol IntXROrUIntXR: NBKBinaryInteger, MutableCollection,
-RandomAccessCollection where Element == UInt, Index == Int, Indices == Range<Int> {
+public protocol IntXROrUIntXR: NBKBinaryInteger, MutableCollection, RandomAccessCollection
+where Magnitude == UIntXR, Element == UInt, Index == Int, Indices == Range<Int> {
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Size
