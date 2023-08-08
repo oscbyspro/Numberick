@@ -24,7 +24,8 @@
 ///
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
-public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUnsignedInteger, Words: Sendable {
+public protocol NBKBinaryInteger: BinaryInteger, LosslessStringConvertible, Sendable
+where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
     associatedtype Digit: NBKBinaryInteger = Self where
@@ -1160,6 +1161,29 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
+    /// Creates a new instance from the given `description`.
+    ///
+    /// The `description` may contain a plus or minus sign (+ or -), followed
+    /// by one or more numeric digits (0-9). If the description uses an invalid
+    /// format, or its value cannot be represented, the result is nil.
+    ///
+    /// ```
+    /// ┌──────────── → ─────────────┐
+    /// │ description │ self         │
+    /// ├──────────── → ─────────────┤
+    /// │  "123"      │ Int256( 123) │
+    /// │ "+123"      │ Int256( 123) │
+    /// │ "-123"      │ Int256(-123) │
+    /// │ "~123"      │ nil          │
+    /// └──────────── → ─────────────┘
+    /// ```
+    ///
+    /// - Note: The decoding strategy is case insensitive.
+    ///
+    /// - Note: This member is required by `Swift.LosslessStringConvertible`.
+    ///
+    @inlinable init?(_ description: String)
+
     /// Creates a new instance from the given `description` and `radix`.
     ///
     /// The `description` may contain a plus or minus sign (+ or -), followed by one
@@ -1182,7 +1206,22 @@ public protocol NBKBinaryInteger: BinaryInteger, Sendable where Magnitude: NBKUn
     ///
     @inlinable init?(_ description: some StringProtocol, radix: Int)
     
-    /// Creates a `description` representing this value, in the given format.
+    /// A `description` of this value in base 10 ASCII.
+    ///
+    /// ```
+    /// ┌───────────── → ────────────┐
+    /// │ self         │ description │
+    /// ├───────────── → ────────────┤
+    /// │ Int256( 123) │  "123"      │
+    /// │ Int256(-123) │ "-123"      │
+    /// └───────────── → ────────────┘
+    /// ```
+    ///
+    /// - Note: This member is required by `Swift.CustomStringConvertible`.
+    ///
+    @inlinable var description: String { get }
+    
+    /// A `description` of this value in the given ASCII format.
     ///
     /// ```
     /// ┌──────────────┬───────┬─────────── → ────────────┐
@@ -1344,6 +1383,18 @@ extension NBKBinaryInteger {
         let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         precondition(!qro.overflow, NBK.callsiteOverflowInfo())
         return qro.partialValue as  QR<Self, Digit>
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(_ description: String) {
+        self.init(description, radix: 10)
+    }
+    
+    @inlinable public var description: String {
+        self.description(radix: 10, uppercase: false)
     }
 }
 

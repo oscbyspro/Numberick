@@ -193,6 +193,26 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
         get { (high: self.high, low: self.low) }
         set { (self.high, self.low) = newValue }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// A `description` of this type.
+    ///
+    /// ```
+    /// ┌──────────────────────── → ────────────┐
+    /// │ type                    │ description │
+    /// ├──────────────────────── → ────────────┤
+    /// │ NBKDoubleWidth< Int128> │  "Int256"   │
+    /// │ NBKDoubleWidth<UInt256> │ "UInt512"   │
+    /// └──────────────────────── → ────────────┘
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        let signedness = Self.isSigned ? "" : "U"
+        return "\(signedness)Int\(Self.bitWidth)"
+    }
 }
 
 //*============================================================================*

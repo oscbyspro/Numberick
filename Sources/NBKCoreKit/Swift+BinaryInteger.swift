@@ -17,7 +17,7 @@ extension Swift.BinaryInteger {
     // MARK: Details x Text
     //=------------------------------------------------------------------------=
     
-    /// Creates a `description` representing this value, in the given format.
+    /// A `description` of this value in the given ASCII format.
     ///
     /// ```
     /// ┌──────────────┬───────┬─────────── → ────────────┐
