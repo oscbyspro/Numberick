@@ -482,7 +482,7 @@ final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
 
 private func NBKAssertDecodeText<T: NBKBinaryInteger> (
 _ integer: T?, _ radix: Int, _ text: String,
-file: StaticString = #file, line: UInt = #line) where T: LosslessStringConvertible {
+file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10 {
         XCTAssertEqual(T(text), integer, file: file, line: line)

@@ -15,7 +15,7 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width x IntXL or UIntXL
 //*============================================================================*
 
-public protocol IntXLOrUIntXL: NBKBinaryInteger, LosslessStringConvertible {
+public protocol IntXLOrUIntXL: NBKBinaryInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Size

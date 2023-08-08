@@ -8,8 +8,8 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKResizableWidthKit
 
-// TODO: IntXL and UIntXL are similar
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Text x Signed
 //*============================================================================*
@@ -20,63 +20,32 @@ extension NBKFlexibleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given `description`.
-    ///
-    /// The `description` may contain a plus or minus sign (+ or -), followed
-    /// by one or more numeric digits (0-9). If the description uses an invalid
-    /// format, or its value cannot be represented, the result is nil.
-    ///
-    /// ```
-    /// ┌──────────── → ─────────────┐
-    /// │ description │ self         │
-    /// ├──────────── → ─────────────┤
-    /// │  "123"      │ Int256( 123) │
-    /// │ "+123"      │ Int256( 123) │
-    /// │ "-123"      │ Int256(-123) │
-    /// │ "~123"      │ nil          │
-    /// └──────────── → ─────────────┘
-    /// ```
-    ///
-    /// - Note: This member is required by `Swift.LosslessStringConvertible`.
-    ///
-    @inlinable public init?(_ description: String) {
-        self.init(description, radix: 10)
+    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+        var description = String(description)
+        
+        let value: Optional<Self> = description.withUTF8 { utf8 in
+            let radix  = NBK.AnyRadixUIntRoot(radix)
+            let components = NBK.makeIntegerComponents(utf8: utf8)
+            let digits = NBK.UnsafeUTF8(rebasing: components.body)
+            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
+            return Self.exactly(sign: components.sign, magnitude: magnitude)
+        }
+        
+        if let value { self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    /// The `description` of this value.
-    ///
-    /// ```
-    /// ┌───────────── → ────────────┐
-    /// │ self         │ description │
-    /// ├───────────── → ────────────┤
-    /// │ Int256( 123) │  "123"      │
-    /// │ Int256(-123) │ "-123"      │
-    /// └───────────── → ────────────┘
-    /// ```
-    ///
-    /// - Note: This member is required by `Swift.CustomStringConvertible`.
-    ///
-    @inlinable public var description: String {
-        self.description(radix: 10, uppercase: false)
-    }
-    
-    /// The `description` of this type.
-    ///
-    /// ```
-    /// ┌───────────── → ────────────┐
-    /// │ self         │ description │
-    /// ├───────────── → ────────────┤
-    /// │  Int256.self │  "Int256"   │
-    /// │ UInt512.self │ "UInt512"   │
-    /// └───────────── → ────────────┘
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        "IntXL"
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
+            let radix  = NBK.AnyRadixUIntRoot(radix)
+            let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
+            let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
+            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
+            return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        }
     }
 }
 
@@ -90,62 +59,139 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance from the given `description`.
-    ///
-    /// The `description` may contain a plus or minus sign (+ or -), followed
-    /// by one or more numeric digits (0-9). If the description uses an invalid
-    /// format, or its value cannot be represented, the result is nil.
-    ///
-    /// ```
-    /// ┌──────────── → ─────────────┐
-    /// │ description │ self         │
-    /// ├──────────── → ─────────────┤
-    /// │  "123"      │ Int256( 123) │
-    /// │ "+123"      │ Int256( 123) │
-    /// │ "-123"      │ Int256(-123) │
-    /// │ "~123"      │ nil          │
-    /// └──────────── → ─────────────┘
-    /// ```
-    ///
-    /// - Note: This member is required by `Swift.LosslessStringConvertible`.
-    ///
-    @inlinable public init?(_ description: String) {
-        self.init(description, radix: 10)
+    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+        var description = String(description)
+        
+        let value: Optional<Self> = description.withUTF8 { utf8 in
+            let radix  = NBK.AnyRadixUIntRoot(radix)
+            let components = NBK.makeIntegerComponents(utf8: utf8)
+            let digits = NBK.UnsafeUTF8(rebasing: components.body)
+            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
+            return Self.exactly(sign: components.sign, magnitude: magnitude)
+        }
+        
+        if let value { self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    /// The `description` of this value.
-    ///
-    /// ```
-    /// ┌───────────── → ────────────┐
-    /// │ self         │ description │
-    /// ├───────────── → ────────────┤
-    /// │ Int256( 123) │  "123"      │
-    /// │ Int256(-123) │ "-123"      │
-    /// └───────────── → ────────────┘
-    /// ```
-    ///
-    /// - Note: This member is required by `Swift.CustomStringConvertible`.
-    ///
-    @inlinable public var description: String {
-        self.description(radix: 10, uppercase: false)
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
+            let radix  = NBK.AnyRadixUIntRoot(radix)
+            let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
+            let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
+            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
+            return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Decode x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.AnyRadixUIntRoot) {
+        switch radix.power.isZero {
+        case  true: self.init(digits: digits, radix: NBK  .PerfectRadixUIntRoot(unchecked: radix))
+        case false: self.init(digits: digits, radix: NBK.ImperfectRadixUIntRoot(unchecked: radix)) }
     }
     
-    /// The `description` of this type.
-    ///
-    /// ```
-    /// ┌───────────── → ────────────┐
-    /// │ self         │ description │
-    /// ├───────────── → ────────────┤
-    /// │  Int256.self │  "Int256"   │
-    /// │ UInt512.self │ "UInt512"   │
-    /// └───────────── → ────────────┘
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        "UIntXL"
+    @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.PerfectRadixUIntRoot) {
+        guard !digits.isEmpty else { return nil }
+        //=--------------------------------------=
+        var digits = digits.drop(while:{ $0 == 48 })
+        let division = digits.count.quotientAndRemainder(dividingBy: radix.exponent)
+        let count = division.quotient + Int(bit: !division.remainder.isZero)
+        //=--------------------------------------=
+        guard count.isMoreThanZero else { self = Self.zero; return }
+        //=--------------------------------------=
+        var error = false
+        let value = Storage.uninitialized(count: count) { storage in
+            for index in storage.indices {
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
+                storage[index] = word
+            }
+            
+            Swift.assert(digits.isEmpty)
+        }
+        
+        if !error { self.init(unchecked: value) } else { return nil }
+    }
+    
+    @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.ImperfectRadixUIntRoot) {
+        guard !digits.isEmpty else { return nil }
+        //=--------------------------------------=
+        var digits = digits.drop(while:{ $0 == 48 })
+        let alignment = digits.count % radix.exponent
+        //=--------------------------------------=
+        self.init()
+        guard let _ = { // this closure makes it 10% faster for some reason
+            
+            forwards: if !alignment.isZero {
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+                self  +=  word
+            }
+            
+            forwards: while !digits.isEmpty {
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
+                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+                self.multiply(by: radix.power,  adding: word)
+            }
+            
+        }() as Void? else { return nil }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func description(radix: NBK.AnyRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+        switch radix.power.isZero {
+        case  true: return self.description(radix: NBK  .PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix, suffix: suffix)
+        case false: return self.description(radix: NBK.ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix, suffix: suffix) }
+    }
+    
+    @inlinable func description(radix: NBK.PerfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+        //=--------------------------------------=
+        // with one buffer pointer specialization
+        //=--------------------------------------=
+        return self.storage.withContiguousStorage { buffer in
+            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from: buffer, while: { $0.isZero }))
+            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        }
+    }
+    
+    @inlinable func description(radix: NBK.ImperfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+        //=--------------------------------------=
+        // with one buffer pointer specialization
+        //=--------------------------------------=
+        let capacity: Int = radix.divisibilityByPowerUpperBound(self)
+        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
+            //=----------------------------------=
+            // de/init: pointee is trivial
+            //=----------------------------------=
+            var magnitude: Magnitude = self
+            var index: Int = buffer.startIndex
+            //=----------------------------------=
+            rebasing: while !magnitude.isZero {
+                let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)
+                buffer[index] = remainder
+                buffer.formIndex(after: &index)
+                assert(!overflow)
+            }
+            //=----------------------------------=
+            let chunks =  NBK.UnsafeWords(rebasing: buffer[..<index])
+            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        }
     }
 }

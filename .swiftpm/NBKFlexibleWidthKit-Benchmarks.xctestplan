@@ -14,10 +14,10 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "IntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
-        "IntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()",
-        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix10()",
-        "UIntXLBenchmarksOnText\/testEncodingUsingSwiftStdlibRadix16()"
+        "NBKFlexibleWidthBenchmarksOnTextAsIntXL\/testEncodingUsingSwiftStdlibRadix10()",
+        "NBKFlexibleWidthBenchmarksOnTextAsIntXL\/testEncodingUsingSwiftStdlibRadix16()",
+        "NBKFlexibleWidthBenchmarksOnTextAsUIntXL\/testEncodingUsingSwiftStdlibRadix10()",
+        "NBKFlexibleWidthBenchmarksOnTextAsUIntXL\/testEncodingUsingSwiftStdlibRadix16()"
       ],
       "target" : {
         "containerPath" : "container:",

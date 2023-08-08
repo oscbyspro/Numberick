@@ -56,6 +56,25 @@ import NBKCoreKit
         "\(Self.description) must contain at least one word"
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// A `description` of this type.
+    ///
+    /// ```
+    /// ┌──────────────────────────── → ────────────┐
+    /// │ type                        │ description │
+    /// ├──────────────────────────── → ────────────┤
+    /// │ NBKResizableWidth           │  "IntXR"    │
+    /// │ NBKResizableWidth.Magnitude │ "UIntXR"    │
+    /// └──────────────────────────── → ────────────┘
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        "IntXR"
+    }
+    
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*
@@ -101,6 +120,25 @@ import NBKCoreKit
         /// Returns a description of the invariants that must be kept.
         @inlinable static func callsiteInvariantsInfo() -> String {
             "\(Self.description) must contain at least one word"
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        /// A `description` of this type.
+        ///
+        /// ```
+        /// ┌──────────────────────────── → ────────────┐
+        /// │ type                        │ description │
+        /// ├──────────────────────────── → ────────────┤
+        /// │ NBKResizableWidth           │  "IntXR"    │
+        /// │ NBKResizableWidth.Magnitude │ "UIntXR"    │
+        /// └──────────────────────────── → ────────────┘
+        /// ```
+        ///
+        @inlinable public static var description: String {
+            "UIntXR"
         }
     }
 }

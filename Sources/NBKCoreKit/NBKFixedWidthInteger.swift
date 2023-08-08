@@ -790,6 +790,16 @@ extension NBKFixedWidthInteger {
         let pushed = Magnitude(bitPattern: self) &>> (distance)
         return Self(bitPattern: pushed) | pulled
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    // required because Swift.FixedWidthInteger does not refine NBKBinaryInteger
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(_ description: String) {
+        self.init(description, radix: 10)
+    }
 }
 
 //=----------------------------------------------------------------------------=

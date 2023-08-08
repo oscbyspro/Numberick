@@ -18,7 +18,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Division x IntXL
+// MARK: * NBK x Flexible Width x Text x IntXL
 //*============================================================================*
 
 final class NBKFlexibleWidthBenchmarksOnTextAsIntXL: XCTestCase {
@@ -108,7 +108,7 @@ final class NBKFlexibleWidthBenchmarksOnTextAsIntXL: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Division x UIntXL
+// MARK: * NBK x Flexible Width x Text x UIntXL
 //*============================================================================*
 
 final class NBKFlexibleWidthBenchmarksOnTextAsUIntXL: XCTestCase {

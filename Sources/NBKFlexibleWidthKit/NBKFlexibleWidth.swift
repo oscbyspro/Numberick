@@ -40,6 +40,25 @@ import NBKResizableWidthKit
         self.magnitude = magnitude
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// A `description` of this type.
+    ///
+    /// ```
+    /// ┌─────────────────────────── → ────────────┐
+    /// │ type                       │ description │
+    /// ├─────────────────────────── → ────────────┤
+    /// │ NBKFlexibleWidth           │  "IntXL"    │
+    /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
+    /// └─────────────────────────── → ────────────┘
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        "IntXL"
+    }
+    
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*
@@ -75,6 +94,25 @@ import NBKResizableWidthKit
         @inlinable init(unchecked: Storage) {
             self.storage = unchecked
             Swift.assert(self.storage.isNormal)
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        /// A `description` of this type.
+        ///
+        /// ```
+        /// ┌─────────────────────────── → ────────────┐
+        /// │ type                       │ description │
+        /// ├─────────────────────────── → ────────────┤
+        /// │ NBKFlexibleWidth           │  "IntXL"    │
+        /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
+        /// └─────────────────────────── → ────────────┘
+        /// ```
+        ///
+        @inlinable public static var description: String {
+            "UIntXL"
         }
     }
 }
