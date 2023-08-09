@@ -93,22 +93,8 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations x Private
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
-        //=--------------------------------------=
-        if  other.isZero {
-            return NBK.bitCast(PVO(self.storage.first, true))
-        }
-        //=--------------------------------------=
-        var remainder = UInt.zero
-        
-        for index in self.storage.indices.reversed() {
-            (self.storage[index], remainder) = other.dividingFullWidth(HL(remainder, self.storage[index]))
-        }
-        
-        self.storage.normalize()
-        return PVO(remainder, false)
+    @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
+        defer{ self.storage.normalize() }
+        return self.storage.formQuotientWithRemainderReportingOverflow(dividingBy: other)
     }
 }

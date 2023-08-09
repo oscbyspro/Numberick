@@ -51,7 +51,7 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations x Private
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        fatalError("TODO")
+    @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
+        NBK.formQuotientWithRemainderReportingOverflowAsUnsigned(&self.storage, dividingBy: other)
     }
 }
