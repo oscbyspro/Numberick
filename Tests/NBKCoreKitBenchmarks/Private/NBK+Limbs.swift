@@ -56,15 +56,15 @@ final class NBKBenchmarksOnLimbs: XCTestCase {
     // MARK: Tests x Succinct
     //=------------------------------------------------------------------------=
     
-    func testMakeSuccinctSignedIntegerLimbs() {
+    func testMakeSuccinctSignedInteger() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctSignedIntegerLimbs(abc))
-                NBK.blackHole(NBK.makeSuccinctSignedIntegerLimbs(xyz))
+                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: abc))
+                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)
@@ -72,15 +72,15 @@ final class NBKBenchmarksOnLimbs: XCTestCase {
         }
     }
     
-    func testMakeSuccinctUnsignedIntegerLimbsLenient() {
+    func testMakeSuccinctUnsignedInteger() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbsLenient(abc))
-                NBK.blackHole(NBK.makeSuccinctUnsignedIntegerLimbsLenient(xyz))
+                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: abc))
+                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)
