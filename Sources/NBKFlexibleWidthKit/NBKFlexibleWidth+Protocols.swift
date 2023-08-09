@@ -60,18 +60,6 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger where Magnitude == UIntXL {
     @_disfavoredOverload @inlinable func subtracting(_ other: Digit, at index: Int) -> Self
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Multiplication
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func multiply(by multiplicand: Self)
-    
-    @_disfavoredOverload @inlinable mutating func multiply(by multiplicand: Digit, adding addend: UInt)
-    
-    @inlinable func multiplied(by multiplicand: Self) -> Self
-    
-    @_disfavoredOverload @inlinable func multiplied(by multiplicand: Digit, adding addend: UInt) -> Self
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Shifts
     //=------------------------------------------------------------------------=
     

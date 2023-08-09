@@ -31,28 +31,7 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func multiply(by other: UInt, plus addend: UInt) -> UInt {
-        var overflow = addend
-        self.multiply(by: other, carrying: &overflow)
-        return overflow as UInt
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-    
-extension NBKResizableWidth.Magnitude {
-
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func multiply(by other: UInt, carrying overflow: inout UInt) {
-        for index in self.storage.indices {
-            var subproduct = self.storage[index].multipliedFullWidth(by: other)
-            overflow = UInt(bit:  subproduct.low.addReportingOverflow(overflow)) &+ subproduct.high
-            self.storage[index] = subproduct.low as UInt
-        }
+    @_disfavoredOverload @inlinable public mutating func multiply(by other: UInt, add addend: UInt) -> UInt {
+        NBK.multiplyFullWidthAsUnsigned(&self, by: other, add: addend)
     }
 }

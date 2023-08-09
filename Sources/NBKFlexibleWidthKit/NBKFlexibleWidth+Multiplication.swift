@@ -21,26 +21,12 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.multiply(by: rhs)
+        lhs.sign ^= rhs.sign
+        lhs.magnitude *= rhs.magnitude as Magnitude
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multiplied(by: rhs)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func multiply(by multiplicand: Self) {
-        self.sign = self.sign ^ multiplicand.sign
-        self.magnitude.multiply(by: multiplicand.magnitude)
-    }
-    
-    @inlinable public func multiplied(by multiplicand: Self) -> Self {
-        let sign = self.sign ^ Sign(multiplicand.isLessThanZero)
-        let magnitude = self.magnitude.multiplied(by: multiplicand.magnitude)
-        return Self(sign: sign, magnitude: magnitude)
+        Self(sign: lhs.sign ^ Sign(rhs.isLessThanZero), magnitude: lhs.magnitude * rhs.magnitude)
     }
 }
 
@@ -55,22 +41,10 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.multiply(by: rhs)
+        lhs = lhs * rhs
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multiplied(by: rhs)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func multiply(by multiplicand: Self) {
-        self = self.multiplied(by: multiplicand)
-    }
-    
-    @inlinable public func multiplied(by multiplicand: Self) -> Self {
-        Self(storage: self.storage.multipliedFullWidth(by: multiplicand.storage))
+        Self(storage: lhs.storage.multipliedFullWidth(by: rhs.storage))
     }
 }

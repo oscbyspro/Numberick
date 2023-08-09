@@ -103,8 +103,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
                 guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                guard !self.multiplyReportingOverflow(by: radix.power) else { return nil }
-                guard !self.addReportingOverflow(word)/*------------*/ else { return nil }
+                guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
             }
             
         }() as Void? else { return nil }

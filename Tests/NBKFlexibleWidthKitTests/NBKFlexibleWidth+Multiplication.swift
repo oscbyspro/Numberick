@@ -70,12 +70,7 @@ final class NBKFlexibleWidthTestsOnMultiplicationAsIntXL: XCTestCase {
     func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
             XCTAssertNotNil(x  *= 0)
-            XCTAssertNotNil(x.multiply(by: 0))
-            XCTAssertNotNil(x.multiply(by: 0, adding: 0))
-
             XCTAssertNotNil(x  *  0)
-            XCTAssertNotNil(x.multiplied(by: 0))
-            XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
         }
     }
 }
@@ -120,17 +115,26 @@ final class NBKFlexibleWidthTestsOnMultiplicationAsUIntXL: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit x Addition
+    //=------------------------------------------------------------------------=
+    
+    func testMultiplicationByDigitWithAddition() {
+        NBKAssertMultiplicationByDigitWithAddition(T(words:[~0, ~0, ~0, ~0] as W),  0,  0, T(words:[ 0,  0,  0,  0,  0] as W))
+        NBKAssertMultiplicationByDigitWithAddition(T(words:[~0, ~0, ~0, ~0] as W),  0, ~0, T(words:[~0,  0,  0,  0,  0] as W))
+        NBKAssertMultiplicationByDigitWithAddition(T(words:[~0, ~0, ~0, ~0] as W), ~0,  0, T(words:[ 1, ~0, ~0, ~0, ~1] as W))
+        NBKAssertMultiplicationByDigitWithAddition(T(words:[~0, ~0, ~0, ~0] as W), ~0, ~0, T(words:[ 0,  0,  0,  0, ~0] as W))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
     func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
             XCTAssertNotNil(x  *= 0)
-            XCTAssertNotNil(x.multiply(by: 0))
-            XCTAssertNotNil(x.multiply(by: 0, adding: 0))
+            XCTAssertNotNil(x.multiply(by: 0, add: 0))
 
             XCTAssertNotNil(x  *  0)
-            XCTAssertNotNil(x.multiplied(by: 0))
             XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
         }
     }
@@ -145,9 +149,6 @@ _ lhs: T, _ rhs:  T, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs.multiplied(by: rhs), result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs); return lhs }(), result, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
@@ -155,9 +156,17 @@ _ lhs: T, _ rhs:  T.Digit, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
-    
-    XCTAssertEqual(lhs.multiplied(by: rhs, adding: UInt.zero), result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, adding: UInt.zero); return lhs }(), result, file: file, line: line)
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Unsigned
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertMultiplicationByDigitWithAddition(
+_ lhs: UIntXL, _ rhs:  UInt, _ carry: UInt, _ product: UIntXL,
+file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqual(lhs.multiplied(by: rhs, adding: carry),                             product, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: carry); return lhs }(), product, file: file, line: line)
 }
 
 #endif

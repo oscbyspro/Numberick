@@ -21,26 +21,12 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Int) {
-        lhs.multiply(by: rhs, adding: UInt.zero)
+        lhs.sign ^= Sign(rhs.isLessThanZero)
+        lhs.magnitude *= rhs.magnitude as UInt
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Int) -> Self {
-        lhs.multiplied(by: rhs, adding: UInt.zero)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: Int, adding addend: UInt) {
-        self.sign = self.sign ^ Sign(multiplicand.isLessThanZero)
-        return self.magnitude.multiply(by: multiplicand.magnitude, adding: addend)
-    }
-    
-    @_disfavoredOverload @inlinable public func multiplied(by multiplicand: Int, adding addend: UInt) -> Self {
-        let sign = self.sign ^ Sign(multiplicand.isLessThanZero)
-        let magnitude = self.magnitude.multiplied(by: multiplicand.magnitude, adding: addend)
-        return Self(sign: sign, magnitude: magnitude)
+        Self(sign: lhs.sign ^ Sign(rhs.isLessThanZero), magnitude: lhs.magnitude * rhs.magnitude)
     }
 }
 
@@ -55,7 +41,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: UInt) {
-        lhs.multiply(by: rhs, adding: UInt.zero)
+        lhs.multiply(by: rhs, add: UInt.zero)
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: UInt) -> Self {
@@ -66,7 +52,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: UInt, adding addend: UInt) {
+    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: UInt, add addend: UInt) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
@@ -76,13 +62,13 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         self.storage.reserveCapacity(self.storage.count + 1)
-        let overflow = self.storage.multiply(by: multiplicand, plus: addend)
+        let overflow = self.storage.multiply(by: multiplicand, add: addend)
         if !overflow.isZero {
             self.storage.append(overflow)
         }
     }
     
     @_disfavoredOverload @inlinable public func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
-        var result = self; result.multiply(by: multiplicand, adding: addend); return result
+        var result = self; result.multiply(by: multiplicand, add: addend); return result
     }
 }

@@ -139,13 +139,13 @@ extension NBKFlexibleWidth.Magnitude {
             forwards: if !alignment.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
                 guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self  +=  word
+                self.storage.first = word
             }
             
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
                 guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.multiply(by: radix.power,  adding: word)
+                self.multiply(by: radix.power, add: word)
             }
             
         }() as Void? else { return nil }

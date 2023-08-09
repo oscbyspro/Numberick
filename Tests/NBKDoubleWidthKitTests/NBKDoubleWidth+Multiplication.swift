@@ -207,6 +207,17 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit x Addition
+    //=------------------------------------------------------------------------=
+    
+    func testMultiplicationByDigitWithAddition() {
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)),  0,  0, T(x64: X( 0,  0,  0,  0)),  0, false)
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)),  0, ~0, T(x64: X(~0,  0,  0,  0)),  0, false)
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)), ~0,  0, T(x64: X( 1, ~0, ~0, ~0)), ~1, true )
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)), ~0, ~0, T(x64: X( 0,  0,  0,  0)), ~0, true )
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
@@ -214,13 +225,19 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
             XCTAssertNotNil(x  *= 0)
             XCTAssertNotNil(x &*= 0)
+            XCTAssertNotNil(x.multiply(by: 0,  add: 0))
             XCTAssertNotNil(x.multiplyReportingOverflow(by: 0))
+            XCTAssertNotNil(x.multiplyReportingOverflow(by: 0, add: 0))
             XCTAssertNotNil(x.multiplyFullWidth(by: 0))
+            XCTAssertNotNil(x.multiplyFullWidth(by: 0, add: 0))
             
             XCTAssertNotNil(x  *  0)
             XCTAssertNotNil(x &*  0)
+            XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
             XCTAssertNotNil(x.multipliedReportingOverflow(by: 0))
+            XCTAssertNotNil(x.multipliedReportingOverflow(by: 0, adding: 0))
             XCTAssertNotNil(x.multipliedFullWidth(by: 0))
+            XCTAssertNotNil(x.multipliedFullWidth(by: 0, adding: 0))
         }
     }
 }
@@ -285,6 +302,30 @@ file: StaticString = #file, line: UInt = #line) {
     
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyFullWidth(by: rhs); return x }(), low,  file: file, line: line)
     XCTAssertEqual({ var x = lhs; let o = x.multiplyFullWidth(by: rhs); return o }(), high, file: file, line: line)
+}
+
+private func NBKAssertMultiplicationByDigitWithAddition<H: NBKFixedWidthInteger>(
+_ lhs: NBKDoubleWidth<H>, _ rhs:  UInt, _ carry: UInt,
+_ low: NBKDoubleWidth<H>, _ high: UInt, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) where H == H.Magnitude {
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    if !overflow {
+        XCTAssertEqual(lhs.multiplied(by: rhs, adding: carry), low, file: file, line: line)
+        XCTAssertEqual({ var x = lhs; x.multiply(by: rhs, add: carry); return x }(), low, file: file, line: line)
+    }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.multipliedReportingOverflow(by: rhs, adding: carry).partialValue, low,      file: file, line: line)
+    XCTAssertEqual(lhs.multipliedReportingOverflow(by: rhs, adding: carry).overflow,     overflow, file: file, line: line)
+    
+    XCTAssertEqual({ var x = lhs; let _ = x.multiplyReportingOverflow(by: rhs, add: carry); return x }(), low,      file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let o = x.multiplyReportingOverflow(by: rhs, add: carry); return o }(), overflow, file: file, line: line)
+    
+    XCTAssertEqual(T(bitPattern: lhs.multipliedFullWidth(by: rhs, adding: carry).low), low,  file: file, line: line)
+    XCTAssertEqual(/*---------*/ lhs.multipliedFullWidth(by: rhs, adding: carry).high, high, file: file, line: line)
+    
+    XCTAssertEqual({ var x = lhs; let _ = x.multiplyFullWidth(by: rhs, add: carry); return x }(), low,  file: file, line: line)
+    XCTAssertEqual({ var x = lhs; let o = x.multiplyFullWidth(by: rhs, add: carry); return o }(), high, file: file, line: line)
 }
 
 #endif
