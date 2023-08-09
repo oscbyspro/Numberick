@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiplyReportingOverflow(by other: Digit) -> Bool {
@@ -30,13 +30,13 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         let minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude)) as PVO<Self>
+        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude, adding: UInt.zero)) as PVO<Self>
         //=--------------------------------------=
         var suboverflow = (pvo.partialValue.isLessThanZero)
         if  minus {
             suboverflow = !pvo.partialValue.formTwosComplementReportingOverflow() && suboverflow
         }
-        
+
         pvo.overflow = pvo.overflow || suboverflow as Bool
         //=--------------------------------------=
         return pvo  as PVO<Self>
@@ -57,7 +57,7 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         var minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var product = self.magnitude.multipliedFullWidth(by: other.magnitude) as HL<UInt, Magnitude>
+        var product = self.magnitude.multipliedFullWidth(by: other.magnitude, adding: UInt.zero) as HL<UInt, Magnitude>
         //=--------------------------------------=
         if  minus {
             minus = product.low .formTwosComplementSubsequence(minus)
@@ -68,9 +68,9 @@ extension NBKDoubleWidth {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Double Width x Multiplication x Digit x Unsigned
+//*============================================================================*
 
 extension NBKDoubleWidth where High == High.Magnitude {
     
@@ -78,35 +78,42 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func multiplyReportingOverflow(by other: Digit) -> Bool {
-        !self.multiplyFullWidth(by: other).isZero
+    @_disfavoredOverload @inlinable public mutating func multiply(by other: Digit, add carry: Digit) {
+        let overflow: Bool = self.multiplyReportingOverflow(by: other, add: carry)
+        precondition(!overflow, NBK.callsiteOverflowInfo())
+    }
+
+    @_disfavoredOverload @inlinable public func multiplied(by other: Digit, adding carry: Digit) -> Self {
+        let pvo: PVO<Self> = self.multipliedReportingOverflow(by: other, adding: carry)
+        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
+        return pvo.partialValue as Self
     }
     
-    @_disfavoredOverload @inlinable func multipliedReportingOverflow(by other: Digit) -> PVO<Self> {
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Overflow
+    //=------------------------------------------------------------------------=
+
+    @_disfavoredOverload @inlinable public mutating func multiplyReportingOverflow(by other: Digit, add carry: Digit) -> Bool {
+        !self.multiplyFullWidth(by: other, add: carry).isZero
+    }
+
+    @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by other: Digit, adding carry: Digit) -> PVO<Self> {
         var pvo = PVO(self, false)
-        pvo.overflow = pvo.partialValue.multiplyReportingOverflow(by: other)
+        pvo.overflow = pvo.partialValue.multiplyReportingOverflow(by: other, add: carry)
         return pvo  as PVO<Self>
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable mutating func multiplyFullWidth(by other: Digit) -> Digit {
-        var carry = UInt.zero
-        
-        for index in self.indices {
-            var subproduct = self[index].multipliedFullWidth(by: other)
-            subproduct.high &+= UInt(bit: subproduct.low.addReportingOverflow(carry))
-            (carry, self[index]) = subproduct as HL<UInt, UInt>
-        }
-        
-        return carry as Digit
+
+    @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by other: Digit, add carry: Digit) -> Digit {
+        NBK.multiplyFullWidthAsUnsigned(&self, by: other, add: carry)
     }
     
-    @_disfavoredOverload @inlinable func multipliedFullWidth(by other: Digit) -> HL<Digit, Magnitude> {
+    @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit, adding carry: Digit) -> HL<Digit, Magnitude> {
         var product  = HL(UInt.zero, self)
-        product.high = product.low.multiplyFullWidth(by: other)
+        product.high = product.low.multiplyFullWidth(by: other, add: carry)
         return product as HL<Digit, Magnitude>
     }
 }
