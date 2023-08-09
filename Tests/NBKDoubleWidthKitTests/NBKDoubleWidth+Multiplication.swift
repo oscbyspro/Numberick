@@ -225,13 +225,19 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
         func becauseThisCompilesSuccessfully(_ x: inout T) {
             XCTAssertNotNil(x  *= 0)
             XCTAssertNotNil(x &*= 0)
+            XCTAssertNotNil(x.multiply(by: 0,  add: 0))
             XCTAssertNotNil(x.multiplyReportingOverflow(by: 0))
+            XCTAssertNotNil(x.multiplyReportingOverflow(by: 0, add: 0))
             XCTAssertNotNil(x.multiplyFullWidth(by: 0))
+            XCTAssertNotNil(x.multiplyFullWidth(by: 0, add: 0))
             
             XCTAssertNotNil(x  *  0)
             XCTAssertNotNil(x &*  0)
+            XCTAssertNotNil(x.multiplied(by: 0, adding: 0))
             XCTAssertNotNil(x.multipliedReportingOverflow(by: 0))
+            XCTAssertNotNil(x.multipliedReportingOverflow(by: 0, adding: 0))
             XCTAssertNotNil(x.multipliedFullWidth(by: 0))
+            XCTAssertNotNil(x.multipliedFullWidth(by: 0, adding: 0))
         }
     }
 }
