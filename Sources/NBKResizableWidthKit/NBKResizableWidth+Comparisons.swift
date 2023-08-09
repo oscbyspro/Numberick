@@ -62,28 +62,28 @@ extension NBKResizableWidth.Magnitude {
     @inlinable public func compared(to other: Self) -> Int {
         self .withContiguousStorage { lhs in
         other.withContiguousStorage { rhs in
-            NBK.compareUnsignedIntegerLimbsLenient(lhs, to: rhs)
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
         }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
         self .withContiguousStorage { lhs in
         other.withContiguousStorage { rhs in
-            NBK.compareUnsignedIntegerLimbsLenient(lhs, to: rhs, at: index)
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
         self.withContiguousStorage { lhs in
         NBK .withUnsafeWords(of: other) { rhs in
-            NBK.compareUnsignedIntegerLimbsLenient(lhs, to: rhs)
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
         self.withContiguousStorage { lhs in
         NBK .withUnsafeWords(of: other) { rhs in
-            NBK.compareUnsignedIntegerLimbsLenient(lhs, to: rhs, at: index)
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
         }}
     }
 }

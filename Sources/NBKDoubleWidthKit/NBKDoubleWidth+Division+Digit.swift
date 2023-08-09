@@ -81,17 +81,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        //=--------------------------------------=
-        if  other.isZero {
-            return NBK.bitCast(PVO(self.first, true))            
-        }
-        //=--------------------------------------=
-        var remainder = UInt.zero
-        
-        for index in self.indices.reversed() {
-            (self[index], remainder) = other.dividingFullWidth(HL(remainder, self[index]))
-        }
-        
-        return PVO(remainder, false)
+        NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(&self, dividingBy: other)
     }
 }

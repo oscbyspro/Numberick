@@ -14,23 +14,23 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Binary Integer Limbs
+    // MARK: Details x Binary Integer x Strict
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable public static func compareSignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        let lhs = NBK.makeSuccinctSignedIntegerLimbs(lhs)
-        let rhs = NBK.makeSuccinctSignedIntegerLimbs(rhs)
-        return NBK.compareSuccinctBinaryIntegerLimbsUnchecked(lhs, to: rhs)
+    @inlinable public static func compareStrictSignedInteger(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
+        let lhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: lhs)
+        let rhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: rhs)
+        return NBK.compareSuccinctBinaryIntegerUnchecked(lhs, to: rhs)
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
-    @inlinable public static func compareSignedIntegerLimbs(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
-        let lhs = NBK.makeSuccinctSignedIntegerLimbs(lhs)
-        let rhs = NBK.makeSuccinctSignedIntegerLimbs(rhs)
+    @inlinable public static func compareStrictSignedInteger(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
+        let lhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: lhs)
+        let rhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: rhs)
         let partition = Swift.min(index, lhs.body.endIndex)
         let suffix = NBK.UnsafeWords(rebasing: lhs.body.suffix(from: partition))
-        let comparison = NBK.compareSuccinctBinaryIntegerLimbsUnchecked((body: suffix, sign: lhs.sign), to: rhs)
+        let comparison = NBK.compareSuccinctBinaryIntegerUnchecked((body: suffix, sign: lhs.sign), to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = NBK.UnsafeWords(rebasing: lhs.body.prefix(upTo: partition))
         return Int(bit: !prefix.allSatisfy({ $0.isZero }))
@@ -44,27 +44,27 @@ extension NBK {
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Binary Integer Limbs
+    // MARK: Details x Binary Integer x Lenient
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compareUnsignedIntegerLimbsLenient(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
-        let lhs = NBK.makeSuccinctUnsignedIntegerLimbsLenient(lhs)
-        let rhs = NBK.makeSuccinctUnsignedIntegerLimbsLenient(rhs)
-        return NBK.compareSameSignSuccinctBinaryIntegerLimbsUnchecked(lhs, to: rhs)
+    @inlinable public static func compareLenientUnsignedInteger(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords) -> Int {
+        let lhs = NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: lhs)
+        let rhs = NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: rhs)
+        return NBK.compareSameSignSuccinctBinaryIntegerUnchecked(lhs,to: rhs)
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compareUnsignedIntegerLimbsLenient(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
+    @inlinable public static func compareLenientUnsignedInteger(_ lhs: NBK.UnsafeWords, to rhs: NBK.UnsafeWords, at index: Int) -> Int {
         let partition = Swift.min(index, lhs.endIndex)
         let suffix = NBK.UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = NBK.compareUnsignedIntegerLimbsLenient(suffix, to: rhs)
+        let comparison = NBK.compareLenientUnsignedInteger(suffix, to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = NBK.UnsafeWords(rebasing: lhs.prefix(upTo: partition))
         return Int(bit: !prefix.allSatisfy({ $0.isZero }))
@@ -82,7 +82,7 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable static func compareSuccinctBinaryIntegerLimbsUnchecked(
+    @inlinable static func compareSuccinctBinaryIntegerUnchecked(
     _  lhs: (body: NBK.UnsafeWords, sign: Bool),
     to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
         //=--------------------------------------=
@@ -95,11 +95,11 @@ extension NBK {
             return lhs.sign ? -1 : 1
         }
         //=---------------------------------------=
-        return NBK.compareSameSignSuccinctBinaryIntegerLimbsUnchecked(lhs, to: rhs)
+        return NBK.compareSameSignSuccinctBinaryIntegerUnchecked(lhs, to: rhs)
     }
     
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable static func compareSameSignSuccinctBinaryIntegerLimbsUnchecked(
+    @inlinable static func compareSameSignSuccinctBinaryIntegerUnchecked(
     _  lhs: (body: NBK.UnsafeWords, sign: Bool),
     to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
         //=--------------------------------------=
@@ -113,11 +113,11 @@ extension NBK {
             return lhs.sign == (lhs.body.count > rhs.body.count) ? -1 : 1
         }
         //=--------------------------------------=
-        return NBK.compareSameSizeSameSignSuccinctBinaryIntegerLimbsUnchecked(lhs, to: rhs)
+        return NBK.compareSameSizeSameSignSuccinctBinaryIntegerUnchecked(lhs, to: rhs)
     }
 
     /// A three-way comparison of `lhs` against `rhs`.
-    @inlinable static func compareSameSizeSameSignSuccinctBinaryIntegerLimbsUnchecked(
+    @inlinable static func compareSameSizeSameSignSuccinctBinaryIntegerUnchecked(
     _  lhs: (body: NBK.UnsafeWords, sign: Bool),
     to rhs: (body: NBK.UnsafeWords, sign: Bool)) -> Int {
         //=--------------------------------------=

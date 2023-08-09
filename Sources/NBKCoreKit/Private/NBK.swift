@@ -36,6 +36,9 @@
     /// An unsafe pointer to a mutable collection of `UInt` machine words.
     public typealias UnsafeMutableWords = UnsafeMutableBufferPointer<UInt>
     
+    /// An unsafe pointer to a collection of succinct `UInt` machine words.
+    public typealias UnsafeSuccinctWords = (body: NBK.UnsafeWords, sign: Bool)
+    
     //=------------------------------------------------------------------------=
     // MARK: Aliases x Tuples
     //=------------------------------------------------------------------------=
