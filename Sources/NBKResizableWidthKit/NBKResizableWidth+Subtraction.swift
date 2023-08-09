@@ -39,26 +39,17 @@ extension NBKResizableWidth.Magnitude {
         fatalError("TODO")
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    // TODO: rename
     @inlinable public mutating func subtract(_ other: Self, plus subtrahend: Bool, at index: Int) -> Bool {
         NBK.decrementAsUnsigned(&self, by: other, plus: subtrahend, at: index).overflow
     }
     
-    // TODO: NBK algorithm
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Product
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func subtract(_ other: Self, times multiplicand: UInt, plus addend: UInt, at index: Int) -> Bool {
-        var index    = index
-        var overflow = false
-        var last = addend as UInt
-        
-        for otherIndex in other.storage.indices {
-            var subproduct = other.storage[otherIndex].multipliedFullWidth(by: multiplicand)
-            last = UInt(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
-            NBK.decrementAsUnsignedInIntersection(&self, by: subproduct.low, at: &index, borrowing: &overflow)
-        }
-        
-        return self.subtract(last, plus: overflow, at: index)
+    // TODO: rename
+    @inlinable public mutating func subtract(_ other: Self, times multiplicand: UInt, plus subtrahend: UInt, at index: Int) -> Bool {
+        NBK.decrementAsUnsigned(&self, by: other, times: multiplicand, plus: subtrahend, and: false, at: index).overflow
     }
 }

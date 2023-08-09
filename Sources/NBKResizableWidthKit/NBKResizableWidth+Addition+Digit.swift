@@ -31,6 +31,7 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    // TODO: rename
     @_disfavoredOverload @inlinable public mutating func add(_ other: UInt, plus carry: Bool, at index: Int) -> Bool {
         NBK.incrementAsUnsigned(&self, by: other, plus: carry, at: index).overflow
     }

@@ -184,3 +184,42 @@ extension NBK {
         }
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Subtraction x Product
+//*============================================================================*
+
+extension NBK {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_transparent public static func decrementAsUnsigned<T>(
+    _ limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
+    and overflow: Bool, at index: T.Index) -> IO<T.Index>
+    where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
+        var index: T.Index = index, overflow: Bool = overflow
+        NBK.decrementAsUnsigned(&limbs, by: other, times: multiplicand, plus: subtrahend, at: &index, borrowing: &overflow)
+        return IO(index: index as T.Index, overflow: overflow as Bool)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Inout
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func decrementAsUnsigned<T>(
+    _  limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
+    at index: inout T.Index, borrowing overflow: inout Bool)
+    where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
+        var last: T.Element = subtrahend
+        
+        for otherIndex in other.indices {
+            var subproduct = other[otherIndex].multipliedFullWidth(by: multiplicand)
+            last = T.Element(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
+            NBK.decrementAsUnsignedInIntersection(&limbs, by: subproduct.low, at: &index, borrowing: &overflow)
+        }
+        
+        NBK.decrementAsUnsigned(&limbs, by: last, at: &index, borrowing: &overflow)
+    }
+}

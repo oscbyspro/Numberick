@@ -39,6 +39,11 @@ extension NBKResizableWidth.Magnitude {
         fatalError("TODO")
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    // TODO: rename
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, plus subtrahend: Bool, at index: Int) -> Bool {
         NBK.decrementAsUnsigned(&self, by: other, plus: subtrahend, at: index).overflow
     }
