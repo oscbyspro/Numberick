@@ -39,39 +39,7 @@ extension NBKResizableWidth.Magnitude {
         fatalError("TODO")
     }
     
-    @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, plus addend: Bool, at index: Int) -> Bool {
-        var index = index, overflow = addend
-        self.subtract(other, at: &index, borrowing: &overflow)
-        return overflow as Bool
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-
-extension NBKResizableWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func subtract(_ other: UInt, at index: inout Int, borrowing overflow: inout Bool) {
-        self.subtractWithoutGoingBeyond(other, at: &index, borrowing: &overflow)
-        self.subtract((), at: &index, borrowing: &overflow)
-    }
-    
-    @inlinable mutating func subtractWithoutGoingBeyond(_ other: UInt, at index: inout Int, borrowing overflow: inout Bool) {
-        var other = other as UInt
-        
-        if  overflow {
-            overflow = other.addReportingOverflow(1 as UInt)
-        }
-        
-        if !overflow {
-            overflow = self.storage[index].subtractReportingOverflow(other)
-        }
-        
-        self.storage.formIndex(after: &index)
+    @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, plus subtrahend: Bool, at index: Int) -> Bool {
+        NBK.decrementAsUnsigned(&self, by: other, plus: subtrahend, at: index).overflow
     }
 }

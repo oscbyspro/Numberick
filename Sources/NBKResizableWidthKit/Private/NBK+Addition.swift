@@ -27,7 +27,7 @@ extension NBK {
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
 
-    @_transparent public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @_transparent public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
@@ -42,15 +42,15 @@ extension NBK {
     @inlinable public static func incrementAsUnsigned<T>(
     _ limbs: inout T, by addend: T, at index: inout T.Index, carrying overflow: inout Bool)
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend, at: &index, carrying: &overflow)
+        NBK.incrementAsUnsignedInIntersection(&limbs, by: addend, at: &index, carrying: &overflow)
         NBK.incrementAsUnsigned(&limbs, by: Void(), at: &index, carrying: &overflow)
     }
     
-    @inlinable public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @inlinable public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T, at index: inout T.Index, carrying overflow: inout Bool)
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         for addendIndex in addend.indices { // for-index-in >= for-element-in
-            NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend[addendIndex], at: &index, carrying: &overflow)
+            NBK.incrementAsUnsignedInIntersection(&limbs, by: addend[addendIndex], at: &index, carrying: &overflow)
         }
     }
 }
@@ -68,11 +68,11 @@ extension NBK {
     @_transparent public static func incrementAsUnsigned<T>(
     _ limbs: inout T, by addend: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        let (index, overflow) = NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend, at: index)
+        let (index, overflow) = NBK.incrementAsUnsignedInIntersection(&limbs, by: addend, at: index)
         return NBK.incrementAsUnsigned(&limbs, by: overflow, at: index) as IO
     }
     
-    @_transparent public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @_transparent public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         let overflow = limbs[index].addReportingOverflow(addend)
@@ -86,19 +86,15 @@ extension NBK {
     @inlinable public static func incrementAsUnsigned<T>(
     _ limbs: inout T, by addend: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var overflow = NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend, at: &index)
+        var overflow = NBK.incrementAsUnsignedInIntersection(&limbs, by: addend, at: &index)
         NBK.incrementAsUnsigned(&limbs, by: Void(), at: &index, carrying: &overflow)
         return overflow as Bool
     }
     
-    @inlinable public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @inlinable public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        //=--------------------------------------=
-        defer {
-            limbs.formIndex(after: &index)
-        }
-        //=--------------------------------------=
+        defer{ limbs.formIndex(after: &index) }
         return limbs[index].addReportingOverflow(addend)
     }
 }
@@ -121,11 +117,11 @@ extension NBK {
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
-    @_transparent public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @_transparent public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T.Element, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend, at: &index, carrying: &overflow)
+        NBK.incrementAsUnsignedInIntersection(&limbs, by: addend, at: &index, carrying: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
@@ -136,11 +132,11 @@ extension NBK {
     @inlinable public static func incrementAsUnsigned<T>(
     _ limbs: inout T, by addend: T.Element, at index: inout T.Index, carrying overflow: inout Bool)
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.incrementWithoutGoingBeyondAsUnsigned(&limbs, by: addend, at: &index, carrying: &overflow)
+        NBK.incrementAsUnsignedInIntersection(&limbs, by: addend, at: &index, carrying: &overflow)
         NBK.incrementAsUnsigned(&limbs, by: Void(), at: &index, carrying: &overflow)
     }
     
-    @inlinable public static func incrementWithoutGoingBeyondAsUnsigned<T>(
+    @inlinable public static func incrementAsUnsignedInIntersection<T>(
     _ limbs: inout T, by addend: T.Element, at index: inout T.Index, carrying overflow: inout Bool)
     where T: MutableCollection,  T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var addend: T.Element = addend

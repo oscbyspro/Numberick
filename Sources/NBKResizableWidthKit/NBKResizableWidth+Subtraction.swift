@@ -39,12 +39,11 @@ extension NBKResizableWidth.Magnitude {
         fatalError("TODO")
     }
     
-    @inlinable public mutating func subtract(_ other: Self, plus addend: Bool, at index: Int) -> Bool {
-        var index = index, overflow = addend
-        self.subtract(other, at: &index, borrowing: &overflow)
-        return overflow as Bool
+    @inlinable public mutating func subtract(_ other: Self, plus subtrahend: Bool, at index: Int) -> Bool {
+        NBK.decrementAsUnsigned(&self, by: other, plus: subtrahend, at: index).overflow
     }
     
+    // TODO: NBK algorithm
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Product
     //=------------------------------------------------------------------------=
@@ -57,31 +56,9 @@ extension NBKResizableWidth.Magnitude {
         for otherIndex in other.storage.indices {
             var subproduct = other.storage[otherIndex].multipliedFullWidth(by: multiplicand)
             last = UInt(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
-            self.subtractWithoutGoingBeyond(subproduct.low, at: &index, borrowing: &overflow)
+            NBK.decrementAsUnsignedInIntersection(&self, by: subproduct.low, at: &index, borrowing: &overflow)
         }
         
         return self.subtract(last, plus: overflow, at: index)
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-
-extension NBKResizableWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func subtract(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        self.subtractWithoutGoingBeyond(other, at: &index, borrowing: &overflow)
-        self.subtract((), at: &index, borrowing: &overflow)
-    }
-    
-    @inlinable mutating func subtractWithoutGoingBeyond(_ other: Self, at index: inout Int, borrowing overflow: inout Bool) {
-        for otherIndex in other.storage.indices { // for-index-in >= for-element-in
-            self.subtractWithoutGoingBeyond(other.storage[otherIndex], at: &index, borrowing: &overflow)
-        }
     }
 }
