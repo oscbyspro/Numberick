@@ -51,8 +51,8 @@ extension NBKFlexibleWidth {
     
     @inlinable var storageNeedsOneMoreWord: Bool {
         switch self.isLessThanZero {
-        case false: return self.magnitude.storage.last.mostSignificantBit
-        case  true: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage)! }
+        case  true: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage)!
+        case false: return self.magnitude.storage.last.mostSignificantBit }
     }
     
     //*========================================================================*
@@ -74,8 +74,8 @@ extension NBKFlexibleWidth {
         //=--------------------------------------------------------------------=
         
         @inlinable init(source: NBKFlexibleWidth) {
-            self.count   = Int(bit: source.storageNeedsOneMoreWord)
-            self.sign    = UInt(repeating: source.isLessThanZero)
+            self.count = Int(bit: source.storageNeedsOneMoreWord)
+            self.sign = UInt(repeating: source.isLessThanZero)
             self.storage = source.magnitude.storage
             //=----------------------------------=
             if !self.sign.isZero {

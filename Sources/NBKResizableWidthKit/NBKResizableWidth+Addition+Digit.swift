@@ -31,39 +31,7 @@ extension NBKResizableWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func add(_ other: UInt, plus addend: Bool, at index: Int) -> Bool {
-        var index = index, overflow = addend
-        self.add(other, at: &index, carrying: &overflow)
-        return overflow as Bool
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-
-extension NBKResizableWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func add(_ other: UInt, at index: inout Int, carrying overflow: inout Bool) {
-        self.addWithoutGoingBeyond(other, at: &index, carrying: &overflow)
-        self.add((), at: &index, carrying: &overflow)
-    }
-    
-    @inlinable mutating func addWithoutGoingBeyond(_ other: UInt, at index: inout Int, carrying overflow: inout Bool) {
-        var other = other as UInt
-        
-        if  overflow {
-            overflow = other.addReportingOverflow(1 as UInt)
-        }
-        
-        if !overflow {
-            overflow = self.storage[index].addReportingOverflow(other)
-        }
-
-        self.storage.formIndex(after: &index)
+    @_disfavoredOverload @inlinable public mutating func add(_ other: UInt, plus carry: Bool, at index: Int) -> Bool {
+        NBK.incrementAsUnsigned(&self, by: other, plus: carry, at: index).overflow
     }
 }
