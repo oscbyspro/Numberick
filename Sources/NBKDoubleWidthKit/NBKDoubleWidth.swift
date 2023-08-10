@@ -102,6 +102,12 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     /// The bit pattern of this type.
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
     
+#if swift(>=5.8)
+    /// Typealias for ExpressibleByIntegerLiteral
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
+    public typealias IntegerLiteralType = StaticBigInt
+#endif
+    
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
