@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Multiplication x Unsigned
+// MARK: * NBK x Limbs x Multiplication x Unsigned
 //*============================================================================*
 
-final class NBKTestsOnMultiplicationAsUnsigned: XCTestCase {
+final class NBKTestsOnLimbsByMultiplicationAsUnsigned: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Digit
@@ -35,14 +35,14 @@ final class NBKTestsOnMultiplicationAsUnsigned: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Multiplication x Assertions
+// MARK: * NBK x Limbs x Multiplication x Assertions
 //*============================================================================*
 
 private func NBKAssertMultiplicationByDigitWithAdditionAsUnsigned(
 _ limbs: [UInt], _ multiplicand: UInt, _ addend: UInt, _ product: [UInt],
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    var result = limbs; result.append(NBK.multiplyFullWidthAsUnsigned(&result, by: multiplicand, add: addend))
+    var result = limbs; result.append(NBK.multiplyFullWidthLenientUnsignedInteger(&result, by: multiplicand, add: addend))
     //=------------------------------------------=
     XCTAssertEqual(result, product, file: file, line: line)
 }

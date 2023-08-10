@@ -108,7 +108,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
 
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by other: Digit, add carry: Digit) -> Digit {
-        NBK.multiplyFullWidthAsUnsigned(&self, by: other, add: carry)
+        NBK.multiplyFullWidthLenientUnsignedInteger(&self, by: other, add: carry)
     }
     
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit, adding carry: Digit) -> HL<Digit, Magnitude> {

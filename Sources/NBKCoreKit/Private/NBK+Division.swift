@@ -55,38 +55,3 @@ extension NBK {
         value & UInt(bitPattern: UInt.bitWidth &- 1)
     }
 }
-
-//*============================================================================*
-// MARK: * NBK x Division x Digit
-//*============================================================================*
-
-extension NBK {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the `quotient` of dividing the `dividend` by the `divisor`, and
-    /// returns the `remainder` along with an `overflow` indicator.
-    ///
-    /// - Note: This operation interprets empty collections as zero.
-    ///
-    /// - Note: In the case of `overflow`, the result is `dividend` and `dividend.first`.
-    ///
-    @inlinable public static func formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger<T>(
-    _ dividend: inout T, dividingBy divisor: T.Element) -> PVO<T.Element>
-    where T: BidirectionalCollection & MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        //=--------------------------------------=
-        if  divisor.isZero {
-            return PVO(dividend.first ?? T.Element.zero, true)
-        }
-        //=--------------------------------------=
-        var remainder = T.Element.zero
-        
-        for index in dividend.indices.reversed() {
-            (dividend[index], remainder) = divisor.dividingFullWidth(HL(remainder, dividend[index]))
-        }
-        
-        return PVO(remainder, false)
-    }
-}

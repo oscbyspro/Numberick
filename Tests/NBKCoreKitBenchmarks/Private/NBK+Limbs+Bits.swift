@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Bits
+// MARK: * NBK x Limbs x Bits
 //*============================================================================*
 
-final class NBKBenchmarksOnBits: XCTestCase {
+final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     
     private typealias U64 = [UInt64]
     private typealias U32 = [UInt32]
