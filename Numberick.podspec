@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Numberick'
   s.version          = '0.8.0'
-  s.summary          = 'A composable, large, fixed-width, two's complement, binary integer.'
+  s.summary          = "A composable, large, fixed-width, two's complement, binary integer."
 
   s.description      = <<-DESC
   A generic software model for working with fixed-width integers larger 
