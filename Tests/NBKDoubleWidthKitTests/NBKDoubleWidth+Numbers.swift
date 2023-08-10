@@ -158,6 +158,7 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     }
 
 #if swift(>=5.8)
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
     func testFromUInt64() {
         NBKAssertNumbers(from: UInt64.min, default: T())
         NBKAssertNumbers(from: UInt64.max, default: T(18446744073709551615))
@@ -336,6 +337,7 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
 
 #if swift(>=5.8)
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
     func testFromLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
@@ -652,6 +654,7 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     // MARK: Tests x Literal
     //=------------------------------------------------------------------------=
 #if swift(>=5.8)
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
     func testFromLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)

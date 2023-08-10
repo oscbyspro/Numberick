@@ -44,11 +44,12 @@ extension NBKDoubleWidth {
         self.init(low: Low(_truncatingBits: source))
     }
     
-#if swift(>=5.8)
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
-    
+
+#if swift(>=5.8)
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
     @inlinable public init(integerLiteral source: StaticBigInt) {
         guard let value = Self(exactlyIntegerLiteral: source) else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
@@ -57,6 +58,7 @@ extension NBKDoubleWidth {
         self = value
     }
     
+    @available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
@@ -69,11 +71,11 @@ extension NBKDoubleWidth {
             }
         }
     }
-#else
-    @inlinable public init(integerLiteral source: Int) {
+#endif
+
+    @inlinable public init(integerLiteral source: Int64) {
         self.init(source)
     }
-#endif
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
