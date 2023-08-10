@@ -66,7 +66,7 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the least positive `residue` of `dividend` divided by `modulus`.
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
     ///
     /// - Note: In the case of `overflow`, the result is the truncated `dividend`.
     ///
@@ -82,7 +82,7 @@ extension NBK {
         return PVO((minus && !pvo.partialValue.isZero) ? (divisor &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
     }
     
-    /// Returns the least positive `residue` of `dividend` divided by `source.bitWidth`.
+    /// Returns the least positive `residue` of dividing the `dividend` by `source.bitWidth`.
     ///
     /// - Note: Numberick integers have positive, nonzero, bit widths.
     ///

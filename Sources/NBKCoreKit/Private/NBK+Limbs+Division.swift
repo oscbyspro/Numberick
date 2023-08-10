@@ -17,7 +17,8 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the remainder of `dividend` divided by `divisor`, along with an `overflow` indicator.
+    /// Returns the `remainder` of dividing the `dividend` by the `divisor`,
+    /// along with an `overflow` indicator.
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
@@ -40,8 +41,8 @@ extension NBK {
         return PVO(remainder, false)
     }
     
-    /// Forms the `quotient` of dividing the `dividend` by the `divisor`, and
-    /// returns the `remainder` along with an `overflow` indicator.
+    /// Forms the `quotient` of dividing the `dividend` by the `divisor`,
+    /// and returns the `remainder` along with an `overflow` indicator.
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
