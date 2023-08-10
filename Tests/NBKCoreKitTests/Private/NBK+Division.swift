@@ -65,102 +65,96 @@ final class NBKTestsOnDivisionAsBinaryInteger: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testResidueModuloPowerOf2AsInt8() {
-        NBKAssertResidueModulo( Int8.min, UInt(8), UInt(0))
-        NBKAssertResidueModulo( Int8.max, UInt(8), UInt(7))
+    func testLeastPositiveResidueDividingByPowerOf2() {
+        NBKAssertLeastPositiveResidue( Int8.min, UInt(8), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8.max, UInt(8), UInt(7))
         
-        NBKAssertResidueModulo( Int8(-4), UInt(4), UInt(0))
-        NBKAssertResidueModulo( Int8(-3), UInt(4), UInt(1))
-        NBKAssertResidueModulo( Int8(-2), UInt(4), UInt(2))
-        NBKAssertResidueModulo( Int8(-1), UInt(4), UInt(3))
-        NBKAssertResidueModulo( Int8( 0), UInt(4), UInt(0))
-        NBKAssertResidueModulo( Int8( 1), UInt(4), UInt(1))
-        NBKAssertResidueModulo( Int8( 2), UInt(4), UInt(2))
-        NBKAssertResidueModulo( Int8( 3), UInt(4), UInt(3))
-        NBKAssertResidueModulo( Int8( 4), UInt(4), UInt(0))
-    }
-    
-    func testResidueModuloPowerOf2AsUInt8() {
-        NBKAssertResidueModulo(UInt8.min, UInt(8), UInt(0))
-        NBKAssertResidueModulo(UInt8.max, UInt(8), UInt(7))
+        NBKAssertLeastPositiveResidue( Int8(-4), UInt(4), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8(-3), UInt(4), UInt(1))
+        NBKAssertLeastPositiveResidue( Int8(-2), UInt(4), UInt(2))
+        NBKAssertLeastPositiveResidue( Int8(-1), UInt(4), UInt(3))
+        NBKAssertLeastPositiveResidue( Int8( 0), UInt(4), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8( 1), UInt(4), UInt(1))
+        NBKAssertLeastPositiveResidue( Int8( 2), UInt(4), UInt(2))
+        NBKAssertLeastPositiveResidue( Int8( 3), UInt(4), UInt(3))
+        NBKAssertLeastPositiveResidue( Int8( 4), UInt(4), UInt(0))
         
-        NBKAssertResidueModulo(UInt8( 0), UInt(4), UInt(0))
-        NBKAssertResidueModulo(UInt8( 1), UInt(4), UInt(1))
-        NBKAssertResidueModulo(UInt8( 2), UInt(4), UInt(2))
-        NBKAssertResidueModulo(UInt8( 3), UInt(4), UInt(3))
-        NBKAssertResidueModulo(UInt8( 4), UInt(4), UInt(0))
-        NBKAssertResidueModulo(UInt8( 5), UInt(4), UInt(1))
-        NBKAssertResidueModulo(UInt8( 6), UInt(4), UInt(2))
-        NBKAssertResidueModulo(UInt8( 7), UInt(4), UInt(3))
-        NBKAssertResidueModulo(UInt8( 8), UInt(4), UInt(0))
-    }
-    
-    func testResidueModuloNonPowerOf2Int8() {
-        NBKAssertResidueModulo( Int8.min, UInt(7), UInt(5))
-        NBKAssertResidueModulo( Int8.max, UInt(7), UInt(1))
+        NBKAssertLeastPositiveResidue(UInt8.min, UInt(8), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8.max, UInt(8), UInt(7))
         
-        NBKAssertResidueModulo( Int8(-3), UInt(3), UInt(0))
-        NBKAssertResidueModulo( Int8(-2), UInt(3), UInt(1))
-        NBKAssertResidueModulo( Int8(-1), UInt(3), UInt(2))
-        NBKAssertResidueModulo( Int8( 0), UInt(3), UInt(0))
-        NBKAssertResidueModulo( Int8( 1), UInt(3), UInt(1))
-        NBKAssertResidueModulo( Int8( 2), UInt(3), UInt(2))
-        NBKAssertResidueModulo( Int8( 3), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8( 0), UInt(4), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8( 1), UInt(4), UInt(1))
+        NBKAssertLeastPositiveResidue(UInt8( 2), UInt(4), UInt(2))
+        NBKAssertLeastPositiveResidue(UInt8( 3), UInt(4), UInt(3))
+        NBKAssertLeastPositiveResidue(UInt8( 4), UInt(4), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8( 5), UInt(4), UInt(1))
+        NBKAssertLeastPositiveResidue(UInt8( 6), UInt(4), UInt(2))
+        NBKAssertLeastPositiveResidue(UInt8( 7), UInt(4), UInt(3))
+        NBKAssertLeastPositiveResidue(UInt8( 8), UInt(4), UInt(0))
     }
     
-    func testResidueModuloNonPowerOf2AsUInt8() {
-        NBKAssertResidueModulo(UInt8.min, UInt(7), UInt(0))
-        NBKAssertResidueModulo(UInt8.max, UInt(7), UInt(3))
+    func testLeastPositiveResidueDividingByNonPowerOf2() {
+        NBKAssertLeastPositiveResidue( Int8.min, UInt(7), UInt(5))
+        NBKAssertLeastPositiveResidue( Int8.max, UInt(7), UInt(1))
         
-        NBKAssertResidueModulo(UInt8( 0), UInt(3), UInt(0))
-        NBKAssertResidueModulo(UInt8( 1), UInt(3), UInt(1))
-        NBKAssertResidueModulo(UInt8( 2), UInt(3), UInt(2))
-        NBKAssertResidueModulo(UInt8( 3), UInt(3), UInt(0))
-        NBKAssertResidueModulo(UInt8( 4), UInt(3), UInt(1))
-        NBKAssertResidueModulo(UInt8( 5), UInt(3), UInt(2))
-        NBKAssertResidueModulo(UInt8( 6), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8(-3), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8(-2), UInt(3), UInt(1))
+        NBKAssertLeastPositiveResidue( Int8(-1), UInt(3), UInt(2))
+        NBKAssertLeastPositiveResidue( Int8( 0), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue( Int8( 1), UInt(3), UInt(1))
+        NBKAssertLeastPositiveResidue( Int8( 2), UInt(3), UInt(2))
+        NBKAssertLeastPositiveResidue( Int8( 3), UInt(3), UInt(0))
+        
+        NBKAssertLeastPositiveResidue(UInt8.min, UInt(7), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8.max, UInt(7), UInt(3))
+        
+        NBKAssertLeastPositiveResidue(UInt8( 0), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8( 1), UInt(3), UInt(1))
+        NBKAssertLeastPositiveResidue(UInt8( 2), UInt(3), UInt(2))
+        NBKAssertLeastPositiveResidue(UInt8( 3), UInt(3), UInt(0))
+        NBKAssertLeastPositiveResidue(UInt8( 4), UInt(3), UInt(1))
+        NBKAssertLeastPositiveResidue(UInt8( 5), UInt(3), UInt(2))
+        NBKAssertLeastPositiveResidue(UInt8( 6), UInt(3), UInt(0))
     }
     
-    func testResidueReportingOverflowAsInt8() {
-        NBKAssertResidueModulo( Int8(-4), UInt(0), ~3 as UInt, true)
-        NBKAssertResidueModulo( Int8(-3), UInt(0), ~2 as UInt, true)
-        NBKAssertResidueModulo( Int8(-2), UInt(0), ~1 as UInt, true)
-        NBKAssertResidueModulo( Int8(-1), UInt(0), ~0 as UInt, true)
-        NBKAssertResidueModulo( Int8( 0), UInt(0),  0 as UInt, true)
-        NBKAssertResidueModulo( Int8( 1), UInt(0),  1 as UInt, true)
-        NBKAssertResidueModulo( Int8( 2), UInt(0),  2 as UInt, true)
-        NBKAssertResidueModulo( Int8( 3), UInt(0),  3 as UInt, true)
-    }
-    
-    func testResidueReportingOverflowAsUInt8() {
-        NBKAssertResidueModulo(UInt8( 0), UInt(0),  0 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 1), UInt(0),  1 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 2), UInt(0),  2 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 3), UInt(0),  3 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 4), UInt(0),  4 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 5), UInt(0),  5 as UInt, true)
-        NBKAssertResidueModulo(UInt8( 6), UInt(0),  6 as UInt, true)
+    func testLeastPositiveResidueReportingOverflow() {
+        NBKAssertLeastPositiveResidue( Int8(-4), UInt(0), ~3 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8(-3), UInt(0), ~2 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8(-2), UInt(0), ~1 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8(-1), UInt(0), ~0 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8( 0), UInt(0),  0 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8( 1), UInt(0),  1 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8( 2), UInt(0),  2 as UInt, true)
+        NBKAssertLeastPositiveResidue( Int8( 3), UInt(0),  3 as UInt, true)
+        
+        NBKAssertLeastPositiveResidue(UInt8( 0), UInt(0),  0 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 1), UInt(0),  1 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 2), UInt(0),  2 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 3), UInt(0),  3 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 4), UInt(0),  4 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 5), UInt(0),  5 as UInt, true)
+        NBKAssertLeastPositiveResidue(UInt8( 6), UInt(0),  6 as UInt, true)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Modulo Bit Width Of
+    // MARK: Tests x Least Positive Residue Dividing By Bit Width Of
     //=------------------------------------------------------------------------=
     
-    func testResidueModuloBitWidthOf() {
-        NBKAssertResidueModuloBitWidthOf(Int8.max,  Int8 .self, 07)
-        NBKAssertResidueModuloBitWidthOf(Int8.max,  Int16.self, 15)
-        NBKAssertResidueModuloBitWidthOf(Int8.max,  Int32.self, 31)
-        NBKAssertResidueModuloBitWidthOf(Int8.max,  Int64.self, 63)
+    func testLeastPositiveResidueDividingByBitWidthOf() {
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8.max,  Int8 .self, 07)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8.max,  Int16.self, 15)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8.max,  Int32.self, 31)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8.max,  Int64.self, 63)
         
-        NBKAssertResidueModuloBitWidthOf(Int8( 21), Int8 .self, 05)
-        NBKAssertResidueModuloBitWidthOf(Int8( 21), Int16.self, 05)
-        NBKAssertResidueModuloBitWidthOf(Int8( 21), Int32.self, 21)
-        NBKAssertResidueModuloBitWidthOf(Int8( 21), Int64.self, 21)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8( 21), Int8 .self, 05)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8( 21), Int16.self, 05)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8( 21), Int32.self, 21)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8( 21), Int64.self, 21)
         
-        NBKAssertResidueModuloBitWidthOf(Int8(-21), Int8 .self, 03)
-        NBKAssertResidueModuloBitWidthOf(Int8(-21), Int16.self, 11)
-        NBKAssertResidueModuloBitWidthOf(Int8(-21), Int32.self, 11)
-        NBKAssertResidueModuloBitWidthOf(Int8(-21), Int64.self, 43)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8(-21), Int8 .self, 03)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8(-21), Int16.self, 11)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8(-21), Int32.self, 11)
+        NBKAssertLeastPositiveResidueDividingByBitWidthOf(Int8(-21), Int64.self, 43)
     }
 }
 
@@ -169,32 +163,33 @@ final class NBKTestsOnDivisionAsBinaryInteger: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertDividingByBitWidthAsIntOrUInt(
-_ value: UInt, _ quotient: UInt, _ remainder: UInt,
+_ dividend: UInt, _ quotient: UInt, _ remainder: UInt,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK .quotientDividingByBitWidth(value), quotient,  file: file, line: line)
-    XCTAssertEqual(NBK.remainderDividingByBitWidth(value), remainder, file: file, line: line)
+    XCTAssertEqual(NBK .quotientDividingByBitWidth(dividend), quotient,  file: file, line: line)
+    XCTAssertEqual(NBK.remainderDividingByBitWidth(dividend), remainder, file: file, line: line)
     //=------------------------------------------=
-    if  let value = Int(exactly: value), let quotient = Int(exactly: quotient), let remainder = Int(exactly: remainder) {
+    if  let value = Int(exactly: dividend), let quotient = Int(exactly:  quotient), let remainder = Int(exactly: remainder) {
         XCTAssertEqual(NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(value), quotient,  file: file, line: line)
         XCTAssertEqual(NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(value), remainder, file: file, line: line)
     }
 }
 
-private func NBKAssertResidueModulo(
-_ value: some BinaryInteger, _ modulus: UInt, _ partialValue: UInt, _ overflow: Bool = false,
+private func NBKAssertLeastPositiveResidue(
+_ dividend: some BinaryInteger, _ divisor: UInt, _ partialValue: UInt, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.residueReportingOverflow(of: value, modulo: modulus).partialValue, partialValue, file: file, line: line)
-    XCTAssertEqual(NBK.residueReportingOverflow(of: value, modulo: modulus).overflow,     overflow,     file: file, line: line)
+    let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: divisor)
+    XCTAssertEqual(leastPositiveResidue.partialValue, partialValue, file: file, line: line)
+    XCTAssertEqual(leastPositiveResidue.overflow,     overflow,     file: file, line: line)
 }
 
-private func NBKAssertResidueModuloBitWidthOf(
-_ value: some BinaryInteger, _ source: (some NBKFixedWidthInteger).Type, _ result: Int,
+private func NBKAssertLeastPositiveResidueDividingByBitWidthOf(
+_ dividend: some BinaryInteger, _ source: (some NBKFixedWidthInteger).Type, _ result: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.residue(of: value, moduloBitWidthOf: source),                result, file: file, line: line)
-    XCTAssertEqual(NBK.residue(of: value, moduloBitWidthOf: source.Magnitude.self), result, file: file, line: line)
+    let leastPositiveResidue = NBK.leastPositiveResidue(of: dividend, dividingByBitWidthOf: source)
+    XCTAssertEqual(leastPositiveResidue, result, file: file, line: line)
 }
 
 #endif

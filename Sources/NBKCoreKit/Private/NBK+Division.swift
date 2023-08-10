@@ -66,26 +66,28 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the least `residue` of `value` modulo `modulus`.
+    /// Returns the least positive `residue` of `dividend` divided by `modulus`.
     ///
-    /// - Note: In the case of `overflow`, the result is `value.first`.
+    /// - Note: In the case of `overflow`, the result is the truncated `dividend`.
     ///
-    @inlinable public static func residueReportingOverflow<T>(of value: T, modulo modulus: UInt) -> PVO<UInt> where T: BinaryInteger {
+    @inlinable public static func leastPositiveResidueReportingOverflow<T>(
+    of dividend: T, dividingBy divisor: UInt) -> PVO<UInt> where T: BinaryInteger {
         //=--------------------------------------=
-        if  modulus.isPowerOf2 {
-            return PVO(value._lowWord & (modulus &- 1), false)
+        if  divisor.isPowerOf2 {
+            return PVO(dividend._lowWord & (divisor &- 1), false)
         }
         //=--------------------------------------=
-        let minus = T.isSigned && value < T.zero
-        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: value.magnitude.words, dividingBy: modulus)
-        return PVO((minus && !pvo.partialValue.isZero) ? (modulus &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
+        let minus = T.isSigned && dividend < T.zero
+        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: dividend.magnitude.words, dividingBy: divisor)
+        return PVO((minus && !pvo.partialValue.isZero) ? (divisor &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
     }
     
-    /// Returns `value` modulo `source.bitWidth`.
+    /// Returns the least positive `residue` of `dividend` divided by `source.bitWidth`.
     ///
     /// - Note: Numberick integers have positive, nonzero, bit widths.
     ///
-    @inlinable public static func residue<T>(of value: some BinaryInteger, moduloBitWidthOf source: T.Type) -> Int where T: NBKFixedWidthInteger {
-        Int(bitPattern: NBK.residueReportingOverflow(of: value, modulo: UInt(bitPattern: T.bitWidth)).partialValue)
+    @inlinable public static func leastPositiveResidue<T: NBKFixedWidthInteger>(
+    of dividend: some BinaryInteger, dividingByBitWidthOf source: T.Type) -> Int {
+        Int(bitPattern: NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: UInt(bitPattern: T.bitWidth)).partialValue)
     }
 }
