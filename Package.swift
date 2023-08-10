@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.7
 //=----------------------------------------------------------------------------=
 // This source file is part of the Numberick open source project.
 //
@@ -17,11 +17,11 @@ import PackageDescription
 let package = Package(
     name: "Numberick",
     platforms: [
-        .iOS("16.4"),
-        .macCatalyst("16.4"),
-        .macOS("13.3"),
-        .tvOS("16.4"),
-        .watchOS("9.4"),
+        .iOS("11.0"),
+        .macCatalyst("13.0"),
+        .macOS("10.13"),
+        .tvOS("11.0"),
+        .watchOS("6.0"),
     ],
     products: [
         //=--------------------------------------=
