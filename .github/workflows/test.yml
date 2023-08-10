@@ -4,7 +4,7 @@ jobs:
   macos:
     strategy:
       matrix:
-        xcode: ['14.2', '14.3']
+        xcode: ['14.2', '14.3.1']
     runs-on: macos-13
     steps:
       - name: Checkout
