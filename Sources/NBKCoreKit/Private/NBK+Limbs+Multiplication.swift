@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Multiplication x Digit x Unsigned
+// MARK: * NBK x Limbs x Multiplication x Digit x Unsigned
 //*============================================================================*
 
 extension NBK {
@@ -18,17 +18,20 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Multiplies `limbs` by `multiplicand` and adds `addend`.
-    @inlinable public static func multiplyFullWidthAsUnsigned<Limb>(
-    _ limbs: inout some MutableCollection<Limb>, by multiplicand: Limb, add addend: Limb)
-    -> Limb where Limb: NBKFixedWidthInteger & NBKUnsignedInteger {
+    ///
+    /// - Note: In the case where `limbs` is empty, the `addend` is returned.
+    ///
+    @inlinable public static func multiplyFullWidthLenientUnsignedInteger<T>(
+    _ limbs: inout T, by multiplicand: T.Element, add addend: T.Element)
+    -> T.Element where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var carry = addend
         
         for index in limbs.indices {
             var subproduct = limbs[index].multipliedFullWidth(by: multiplicand)
-            subproduct.high &+= Limb(bit: subproduct.low.addReportingOverflow(carry))
-            (carry, limbs[index]) = subproduct as HL<Limb, Limb>
+            subproduct.high &+= T.Element(bit: subproduct.low.addReportingOverflow(carry))
+            (carry, limbs[index]) = subproduct as HL<T.Element, T.Element>
         }
         
-        return carry as Limb
+        return carry as T.Element
     }
 }

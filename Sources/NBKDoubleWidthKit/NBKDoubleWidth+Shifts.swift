@@ -28,7 +28,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeft(by: NBK.residue(of: rhs, moduloBitWidthOf: Self.self))
+        lhs.bitshiftLeft(by: NBK.leastPositiveResidue(of: rhs, dividingByBitWidthOf: Self.self))
     }
     
     @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -149,7 +149,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRight(by: NBK.residue(of: rhs, moduloBitWidthOf: Self.self))
+        lhs.bitshiftRight(by: NBK.leastPositiveResidue(of: rhs, dividingByBitWidthOf: Self.self))
     }
     
     @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {

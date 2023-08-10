@@ -32,6 +32,6 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiply(by other: UInt, add addend: UInt) -> UInt {
-        NBK.multiplyFullWidthAsUnsigned(&self, by: other, add: addend)
+        NBK.multiplyFullWidthLenientUnsignedInteger(&self, by: other, add: addend)
     }
 }

@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Bits
+// MARK: * NBK x Limbs x Bits
 //*============================================================================*
 
-final class NBKTestsOnBits: XCTestCase {
+final class NBKTestsOnLimbsByBits: XCTestCase {
     
     private typealias U64 = [UInt64]
     private typealias U32 = [UInt32]
@@ -148,7 +148,7 @@ final class NBKTestsOnBits: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Bits x Assertions
+// MARK: * NBK x Limbs x Bits x Assertions
 //*============================================================================*
 
 private func NBKAssertLeadingZeroBitCount(

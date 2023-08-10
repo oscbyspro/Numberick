@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Comparisons
+// MARK: * NBK x Limbs x Comparisons
 //*============================================================================*
 
-final class NBKTestsOnComparisons: XCTestCase {
+final class NBKTestsOnLimbsByComparisons: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Binary Integer Limbs
@@ -160,7 +160,7 @@ final class NBKTestsOnComparisons: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Comparisons x Assertions
+// MARK: * NBK x Limbs x Comparisons x Assertions
 //*============================================================================*
 
 private func NBKAssertCompareStrictSignedInteger(

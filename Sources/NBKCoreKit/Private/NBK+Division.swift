@@ -57,7 +57,7 @@ extension NBK {
 }
 
 //*============================================================================*
-// MARK: * NBK x Division x Digit
+// MARK: * NBK x Division x Binary Integer
 //*============================================================================*
 
 extension NBK {
@@ -66,27 +66,28 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Forms the `quotient` of dividing the `dividend` by the `divisor`, and
-    /// returns the `remainder` along with an `overflow` indicator.
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
     ///
-    /// - Note: This operation interprets empty collections as zero.
+    /// - Note: In the case of `overflow`, the result is the truncated `dividend`.
     ///
-    /// - Note: In the case of `overflow`, the result is `dividend` and `dividend.first`.
-    ///
-    @inlinable public static func formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger<T>(
-    _ dividend: inout T, dividingBy divisor: T.Element) -> PVO<T.Element>
-    where T: BidirectionalCollection & MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
+    @inlinable public static func leastPositiveResidueReportingOverflow<T>(
+    of dividend: T, dividingBy divisor: UInt) -> PVO<UInt> where T: BinaryInteger {
         //=--------------------------------------=
-        if  divisor.isZero {
-            return PVO(dividend.first ?? T.Element.zero, true)
+        if  divisor.isPowerOf2 {
+            return PVO(dividend._lowWord & (divisor &- 1), false)
         }
         //=--------------------------------------=
-        var remainder = T.Element.zero
-        
-        for index in dividend.indices.reversed() {
-            (dividend[index], remainder) = divisor.dividingFullWidth(HL(remainder, dividend[index]))
-        }
-        
-        return PVO(remainder, false)
+        let minus = T.isSigned && dividend < T.zero
+        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: dividend.magnitude.words, dividingBy: divisor)
+        return PVO((minus && !pvo.partialValue.isZero) ? (divisor &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
+    }
+    
+    /// Returns the least positive `residue` of dividing the `dividend` by `source.bitWidth`.
+    ///
+    /// - Note: Numberick integers have positive, nonzero, bit widths.
+    ///
+    @inlinable public static func leastPositiveResidue<T: NBKFixedWidthInteger>(
+    of dividend: some BinaryInteger, dividingByBitWidthOf source: T.Type) -> Int {
+        Int(bitPattern: NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: UInt(bitPattern: T.bitWidth)).partialValue)
     }
 }
