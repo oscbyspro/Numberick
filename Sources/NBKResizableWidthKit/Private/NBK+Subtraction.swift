@@ -19,19 +19,19 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public static func decrementAsUnsigned<T>(
+    @_transparent public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementAsUnsigned(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
 
-    @_transparent public static func decrementAsUnsignedInIntersection<T>(
+    @_transparent public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementAsUnsigned(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
@@ -39,18 +39,18 @@ extension NBK {
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func decrementAsUnsigned<T>(
+    @inlinable public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T, at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        NBK.decrementAsUnsigned(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
     }
     
-    @inlinable public static func decrementAsUnsignedInIntersection<T>(
+    @inlinable public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T, at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         for subtrahendIndex in subtrahend.indices { // for-index-in >= for-element-in
-            NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend[subtrahendIndex], at: &index, borrowing: &overflow)
+            NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend[subtrahendIndex], at: &index, borrowing: &overflow)
         }
     }
 }
@@ -65,14 +65,14 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public static func decrementAsUnsigned<T>(
+    @_transparent public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        let (index, overflow) = NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend, at: index)
-        return NBK.decrementAsUnsigned(&limbs, by: overflow, at: index) as IO
+        let (index, overflow) = NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: index)
+        return NBK.decrementUnsignedInteger(&limbs, by: overflow, at: index) as IO
     }
     
-    @_transparent public static func decrementAsUnsignedInIntersection<T>(
+    @_transparent public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         let overflow = limbs[index].addReportingOverflow(subtrahend)
@@ -83,15 +83,15 @@ extension NBK {
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
         
-    @inlinable public static func decrementAsUnsigned<T>(
+    @inlinable public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var overflow = NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend, at: &index)
-        NBK.decrementAsUnsigned(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        var overflow = NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index)
+        NBK.decrementUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
         return overflow as Bool
     }
     
-    @inlinable public static func decrementAsUnsignedInIntersection<T>(
+    @inlinable public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         defer{ limbs.formIndex(after: &index) }
@@ -109,19 +109,19 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public static func decrementAsUnsigned<T>(
+    @_transparent public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T.Element, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementAsUnsigned(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
-    @_transparent public static func decrementAsUnsignedInIntersection<T>(
+    @_transparent public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T.Element, plus overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
@@ -129,14 +129,14 @@ extension NBK {
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func decrementAsUnsigned<T>(
+    @inlinable public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.decrementAsUnsignedInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        NBK.decrementAsUnsigned(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
     }
     
-    @inlinable public static func decrementAsUnsignedInIntersection<T>(
+    @inlinable public static func decrementUnsignedIntegerInIntersection<T>(
     _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var subtrahend: T.Element = subtrahend
@@ -163,11 +163,11 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public static func decrementAsUnsigned<T>(
+    @_transparent public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = subtrahend
-        NBK.decrementAsUnsigned(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
@@ -175,7 +175,7 @@ extension NBK {
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func decrementAsUnsigned<T>(
+    @inlinable public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by subtrahend: Void, at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         while overflow && index < limbs.endIndex {
@@ -195,12 +195,12 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_transparent public static func decrementAsUnsigned<T>(
+    @_transparent public static func decrementUnsignedInteger<T>(
     _ limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
     and overflow: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementAsUnsigned(&limbs, by: other, times: multiplicand, plus: subtrahend, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: other, times: multiplicand, plus: subtrahend, at: &index, borrowing: &overflow)
         return IO(index: index as T.Index, overflow: overflow as Bool)
     }
     
@@ -208,7 +208,7 @@ extension NBK {
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func decrementAsUnsigned<T>(
+    @inlinable public static func decrementUnsignedInteger<T>(
     _  limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
     at index: inout T.Index, borrowing overflow: inout Bool)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
@@ -217,9 +217,9 @@ extension NBK {
         for otherIndex in other.indices {
             var subproduct = other[otherIndex].multipliedFullWidth(by: multiplicand)
             last = T.Element(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
-            NBK.decrementAsUnsignedInIntersection(&limbs, by: subproduct.low, at: &index, borrowing: &overflow)
+            NBK.decrementUnsignedIntegerInIntersection(&limbs, by: subproduct.low, at: &index, borrowing: &overflow)
         }
         
-        NBK.decrementAsUnsigned(&limbs, by: last, at: &index, borrowing: &overflow)
+        NBK.decrementUnsignedInteger(&limbs, by: last, at: &index, borrowing: &overflow)
     }
 }
