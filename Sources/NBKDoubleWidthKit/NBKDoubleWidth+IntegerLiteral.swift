@@ -19,35 +19,32 @@ extension NBKDoubleWidth {
     }
 }
 
-#if swift(>=5.8)
-
-@available (iOS 16.4, tvOS 16.4, macOS 13.3, watchOS 9.4, macCatalyst 16.4, *)
-extension NBKDoubleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = value
-    }
-    
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        guard Self.isSigned
-        ? source.bitWidth <= Self.bitWidth
-        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-        else { return nil }
-        
-        self = Self.uninitialized { value in
-            for index in value.indices {
-                value[unchecked: index] = source[index]
-            }
-        }
-    }
-}
-
-#endif
+// StaticBigInt available only from macOS 13.3.
+// Enable when drop old OS support
+//extension NBKDoubleWidth {
+//
+//    //=------------------------------------------------------------------------=
+//    // MARK: Initializers
+//    //=------------------------------------------------------------------------=
+//
+//    @inlinable public init(integerLiteral source: StaticBigInt) {
+//        guard let value = Self(exactlyIntegerLiteral: source) else {
+//            preconditionFailure("\(Self.description) cannot represent \(source)")
+//        }
+//
+//        self = value
+//    }
+//
+//    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+//        guard Self.isSigned
+//        ? source.bitWidth <= Self.bitWidth
+//        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
+//        else { return nil }
+//
+//        self = Self.uninitialized { value in
+//            for index in value.indices {
+//                value[unchecked: index] = source[index]
+//            }
+//        }
+//    }
+//}
