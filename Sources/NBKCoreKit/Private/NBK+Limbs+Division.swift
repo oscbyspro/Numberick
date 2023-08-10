@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Division x Digit
+// MARK: * NBK x Limbs x Division x Digit x Unsigned
 //*============================================================================*
 
 extension NBK {
@@ -16,6 +16,29 @@ extension NBK {
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
+    
+    /// Returns the remainder of `dividend` divided by `divisor`, along with an `overflow` indicator.
+    ///
+    /// - Note: This operation interprets empty collections as zero.
+    ///
+    /// - Note: In the case of `overflow`, the result is `dividend.first`.
+    ///
+    @inlinable public static func remainderReportingOverflowAsLenientUnsignedInteger<T>(
+    of dividend: T, dividingBy divisor: T.Element) -> PVO<T.Element>
+    where T: BidirectionalCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
+        //=--------------------------------------=
+        if  divisor.isZero {
+            return PVO(dividend.first ?? T.Element.zero, true)
+        }
+        //=--------------------------------------=
+        var remainder = T.Element.zero
+        
+        for index in dividend.indices.reversed() {
+            remainder = divisor.dividingFullWidth(HL(remainder, dividend[index])).remainder
+        }
+        
+        return PVO(remainder, false)
+    }
     
     /// Forms the `quotient` of dividing the `dividend` by the `divisor`, and
     /// returns the `remainder` along with an `overflow` indicator.
@@ -25,7 +48,7 @@ extension NBK {
     /// - Note: In the case of `overflow`, the result is `dividend` and `dividend.first`.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger<T>(
-    _ dividend: inout T, dividingBy divisor: T.Element) -> PVO<T.Element>
+    of dividend: inout T, dividingBy divisor: T.Element) -> PVO<T.Element>
     where T: BidirectionalCollection & MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         //=--------------------------------------=
         if  divisor.isZero {

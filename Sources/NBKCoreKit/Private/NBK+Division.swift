@@ -55,3 +55,37 @@ extension NBK {
         value & UInt(bitPattern: UInt.bitWidth &- 1)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Division x Binary Integer
+//*============================================================================*
+
+extension NBK {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the least `residue` of `value` modulo `modulus`.
+    ///
+    /// - Note: In the case of `overflow`, the result is `value.first`.
+    ///
+    @inlinable public static func residueReportingOverflow<T>(of value: T, modulo modulus: UInt) -> PVO<UInt> where T: BinaryInteger {
+        //=--------------------------------------=
+        if  modulus.isPowerOf2 {
+            return PVO(value._lowWord & (modulus &- 1), false)
+        }
+        //=--------------------------------------=
+        let minus = T.isSigned && value < T.zero
+        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: value.magnitude.words, dividingBy: modulus)
+        return PVO((minus && !pvo.partialValue.isZero) ? (modulus &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
+    }
+    
+    /// Returns `value` modulo `source.bitWidth`.
+    ///
+    /// - Note: Numberick integers have positive, nonzero, bit widths.
+    ///
+    @inlinable public static func residue<T>(of value: some BinaryInteger, moduloBitWidthOf source: T.Type) -> Int where T: NBKFixedWidthInteger {
+        Int(bitPattern: NBK.residueReportingOverflow(of: value, modulo: UInt(bitPattern: T.bitWidth)).partialValue)
+    }
+}

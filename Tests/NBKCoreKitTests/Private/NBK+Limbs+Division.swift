@@ -57,11 +57,14 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brrrrrrrrrrr: do {
         var lhs = lhs
-        let pvo = NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(&lhs, dividingBy: rhs)
+        let pvo = NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &lhs, dividingBy: rhs)
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
+    //=------------------------------------------=
+    XCTAssertEqual(NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: lhs, dividingBy: rhs).partialValue, remainder, file: file, line: line)
+    XCTAssertEqual(NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: lhs, dividingBy: rhs).overflow,     overflow,  file: file, line: line)
 }
 
 #endif
