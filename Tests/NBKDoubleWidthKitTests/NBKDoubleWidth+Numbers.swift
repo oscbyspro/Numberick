@@ -152,11 +152,13 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), exactly: nil, clamping: ~0, truncating: UInt64( 1))
         NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping:  0, truncating: UInt64.max)
     }
-    
+
+#if swift(>=5.8)
     func testFromUInt64() {
         NBKAssertNumbers(from: UInt64.min, default: T())
         NBKAssertNumbers(from: UInt64.max, default: T(18446744073709551615))
     }
+#endif
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Signitude
@@ -328,7 +330,8 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Literal
     //=------------------------------------------------------------------------=
-    
+
+#if swift(>=5.8)
     func testFromLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
@@ -344,6 +347,7 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral:   -0x8000000000000000000000000000000000000000000000000000000000000000), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral:   -0x8000000000000000000000000000000000000000000000000000000000000001),   nil)
     }
+#endif
 }
 
 //*============================================================================*
@@ -643,7 +647,7 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Literal
     //=------------------------------------------------------------------------=
-    
+#if swift(>=5.8)
     func testFromLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
@@ -659,6 +663,7 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral:  0x000000000000000000000000000000000000000000000000000000000000000000), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral: -0x000000000000000000000000000000000000000000000000000000000000000001),   nil)
     }
+#endif
 }
 
 //*============================================================================*

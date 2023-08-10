@@ -19,7 +19,7 @@ let package = Package(
     platforms: [
         .iOS("11.0"),
         .macCatalyst("13.0"),
-        .macOS("10.13"),
+        .macOS("11.0"),
         .tvOS("11.0"),
         .watchOS("6.0"),
     ],

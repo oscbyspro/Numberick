@@ -83,10 +83,12 @@ extension NBKDoubleWidth {
     @inlinable public func dividingFullWidthReportingOverflow(_ other: HL<Self, Magnitude>) -> PVO<QR<Self, Self>> {
         self.dividingFullWidthReportingOverflow(NBKDoubleWidth<Self>(descending: other))
     }
-    
+
+#if swift(>=5.8)
     @_specialize(where Self == UInt128) @_specialize(where Self == Int128)
     @_specialize(where Self == UInt256) @_specialize(where Self == Int256)
     @_specialize(where Self == UInt512) @_specialize(where Self == Int512)
+#endif
     @inlinable public func dividingFullWidthReportingOverflow(_ other: NBKDoubleWidth<Self>) -> PVO<QR<Self, Self>> {
         let lhsIsLessThanZero: Bool = other.isLessThanZero
         let rhsIsLessThanZero: Bool = self .isLessThanZero

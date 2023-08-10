@@ -42,6 +42,7 @@ extension NBKDoubleWidth {
         self.init(low: Low(_truncatingBits: source))
     }
     
+#if swift(>=5.8)
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
@@ -66,6 +67,11 @@ extension NBKDoubleWidth {
             }
         }
     }
+#else
+    @inlinable public init(integerLiteral source: Int) {
+        self.init(source)
+    }
+#endif
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
