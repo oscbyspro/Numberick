@@ -7,7 +7,9 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+#if !COCOAPODS
 import NBKCoreKit
+#endif
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Endianness

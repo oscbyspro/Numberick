@@ -9,8 +9,12 @@
 
 #if DEBUG
 
-import NBKCoreKit
 import XCTest
+#if !COCOAPODS
+import NBKCoreKit
+#else
+import Numberick
+#endif
 
 //*============================================================================*
 // MARK: * NBK x Core Integer x Text

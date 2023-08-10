@@ -9,9 +9,13 @@
 
 #if !DEBUG
 
+import XCTest
+#if !COCOAPODS
 import NBKCoreKit
 import NBKDoubleWidthKit
-import XCTest
+#else
+import Numberick
+#endif
 
 private typealias X = NBK.U256X64
 private typealias Y = NBK.U256X32
@@ -365,6 +369,7 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsInt256: XCTestCase {
     // MARK: Tests x Float
     //=------------------------------------------------------------------------=
     
+#if swift(>=5.8)
     // TODO: brrr
     func testToFloat16() {
         var abc = NBK.blackHoleIdentity(T.max)
@@ -385,6 +390,7 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsInt256: XCTestCase {
             NBK.blackHoleInoutIdentity(&abc)
         }
     }
+#endif
     
     // TODO: brrr
     func testToFloat32() {
@@ -794,7 +800,8 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x Float
     //=------------------------------------------------------------------------=
-    
+
+#if swift(>=5.8)
     // TODO: brrr
     func testToFloat16() {
         var abc = NBK.blackHoleIdentity(T.max)
@@ -815,6 +822,7 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsUInt256: XCTestCase {
             NBK.blackHoleInoutIdentity(&abc)
         }
     }
+#endif
     
     // TODO: brrr
     func testToFloat32() {

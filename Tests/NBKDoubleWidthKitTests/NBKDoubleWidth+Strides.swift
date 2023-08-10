@@ -9,9 +9,13 @@
 
 #if DEBUG
 
+import XCTest
+#if !COCOAPODS
 import NBKCoreKit
 import NBKDoubleWidthKit
-import XCTest
+#else
+import Numberick
+#endif
 
 private typealias X = [UInt64]
 private typealias Y = [UInt64]

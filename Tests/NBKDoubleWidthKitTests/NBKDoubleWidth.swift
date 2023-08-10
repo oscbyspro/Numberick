@@ -7,9 +7,13 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import XCTest
+#if !COCOAPODS
 import NBKCoreKit
 import NBKDoubleWidthKit
-import XCTest
+#else
+import Numberick
+#endif
 
 private typealias X = NBK.U256X64
 private typealias Y = NBK.U256X32
