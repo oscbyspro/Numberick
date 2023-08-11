@@ -78,21 +78,86 @@ final class NBKTestsOnLimbsBySubtractionAsUnsigned: XCTestCase {
         NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(2), [ 3,  2, ~2, ~0] as W, true)
         NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(3), [ 3,  2,  1, ~3] as W, true)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Product
+    //=------------------------------------------------------------------------=
+    
+    func testSubtractingProductAtIndex() {
+        NBKAssertSubtractionByProductAtIndex([ 0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [ 0] as W)
+        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [~0] as W)
+        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), true,  Int(0), [~1] as W)
+        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), false, Int(0), [~2] as W)
+        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), true,  Int(0), [~3] as W)
+    }
+    
+    func testSubtractingProductAtIndexReportingOverflow() {
+        var pointee: W, limbs: W
+        //=--------------------------------------=
+        pointee = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; limbs = [ 1,  2,  3,  4] as W
+         
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [~2, ~4, ~6, ~8, ~0, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [~0, ~2, ~4, ~6, ~8, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [~0, ~0, ~2, ~4, ~6, ~8, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0, ~2, ~4, ~6, ~8,  0] as W)
+
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [~2, ~5, ~6, ~8, ~0, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [~0, ~2, ~5, ~6, ~8, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [~0, ~0, ~2, ~5, ~6, ~8, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0, ~2, ~5, ~6, ~8,  0] as W)
+        //=--------------------------------------=
+        pointee = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; limbs = [~1, ~2, ~3, ~4] as W
+         
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [ 3,  4,  6,  8, ~1, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [~0,  3,  4,  6,  8, ~1, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [~0, ~0,  3,  4,  6,  8, ~1,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0,  3,  4,  6,  8, ~0] as W, true)
+        
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [ 3,  3,  6,  8, ~1, ~0, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [~0,  3,  3,  6,  8, ~1, ~0,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [~0, ~0,  3,  3,  6,  8, ~1,  0] as W)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0,  3,  3,  6,  8, ~0] as W, true)
+        //=--------------------------------------=
+        pointee = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; limbs = [ 1,  2,  3,  4] as W
+        
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [ 0, ~1, ~4, ~6, ~8, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [ 0,  0, ~1, ~4, ~6, ~8, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0, ~1, ~4, ~6, ~8, ~0] as W, true)
+        
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [ 0, ~1, ~5, ~6, ~8, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [ 0,  0, ~1, ~5, ~6, ~8, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0, ~1, ~5, ~6, ~8, ~0] as W, true)
+        //=--------------------------------------=
+        pointee = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; limbs = [~1, ~2, ~3, ~4] as W
+        
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [ 0,  4,  4,  6,  8, ~1, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [ 0,  0,  4,  4,  6,  8, ~1, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0,  4,  4,  6,  8, ~1] as W, true)
+        
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [ 0,  4,  3,  6,  8, ~1, ~0, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [ 0,  0,  4,  3,  6,  8, ~1, ~0] as W, true)
+        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0,  4,  3,  6,  8, ~1] as W, true)
+    }
 }
 
 //*============================================================================*
 // MARK: * NBK x Limbs x Subtraction x Assertions
 //*============================================================================*
 
-// TODO: with initial bit set
 private func NBKAssertSubtractionAtIndex(
-_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    // decrement: limbs + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: rhs, plus: false, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -100,20 +165,30 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs, rhs = rhs
+        let min = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
+        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let max = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
 
-// TODO: with initial bit set
 private func NBKAssertSubtractionByDigitAtIndex(
-_ lhs: [UInt], _ rhs: UInt, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    // decrement: digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: rhs, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -121,14 +196,16 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, at: index)
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
+    //=------------------------------------------=
+    // decrement: digit + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: rhs, plus: false, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -136,6 +213,29 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs, rhs = rhs
+        let min = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
+        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let max = NBK.decrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+    }
+}
+
+private func NBKAssertSubtractionByProductAtIndex(
+_ lhs: [UInt], _ limbs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ bit: Bool, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    // decrement: limbs × digit + digit + bit
+    //=------------------------------------------=
+    brr: do {
+        var lhs = lhs
+        let max = NBK.decrementSufficientUnsignedInteger(&lhs, by: limbs, times: multiplicand, plus: digit, plus: bit, at: index)
         XCTAssertEqual(lhs,          product,  file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }

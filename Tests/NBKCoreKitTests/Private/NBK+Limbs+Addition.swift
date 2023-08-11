@@ -84,15 +84,16 @@ final class NBKTestsOnLimbsByAdditionAsUnsigned: XCTestCase {
 // MARK: * NBK x Limbs x Addition x Assertions
 //*============================================================================*
 
-// TODO: with initial bit set
 private func NBKAssertAdditionAtIndex(
-_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    // increment: limbs + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: rhs, plus: false, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -100,20 +101,30 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs, rhs = rhs
+        let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
+        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let max = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
 
-// TODO: with initial bit set
 private func NBKAssertAdditionByDigitAtIndex(
-_ lhs: [UInt], _ rhs: UInt, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    // increment: digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: rhs, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -121,14 +132,16 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, at: index)
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
+    //=------------------------------------------=
+    // increment: digit + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: rhs, plus: false, at: index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
@@ -136,7 +149,16 @@ file: StaticString = #file, line: UInt = #line) {
         var lhs = lhs
         let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = NBK.incrementSufficientUnsignedInteger(&lhs, by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs, rhs = rhs
+        let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
+        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let max = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
