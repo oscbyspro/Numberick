@@ -39,27 +39,30 @@ jobs:
           git clone "$COCOAPODS_LOCAL_REPO" git_temp_dir
           cd git_temp_dir
           touch .gitignore && git add .gitignore && git commit -a -m "repo init" && git push
-          cd ../ && rm -r git_temp_dir
+          cd ../ && rm -rf git_temp_dir
           pod repo add local "${COCOAPODS_LOCAL_REPO}"
           pod repo update
           echo "COCOAPODS_LOCAL_REPO=${COCOAPODS_LOCAL_REPO}" >> "$GITHUB_ENV"
       - name: CocoaPods 'Numberick-CoreKit' Lint & Local Push 
         run: |
-          sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-CoreKit.podspec
+          sed -i '' "s|[[:blank:]]*s\.source[[:blank:]].*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-CoreKit.podspec
           pod repo push --allow-warnings local pods/Numberick-CoreKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick-DoubleWidthKit' Lint & Local Push 
         run: |
-          sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-DoubleWidthKit.podspec
+          sed -i '' "s|[[:blank:]]*s\.source[[:blank:]].*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-DoubleWidthKit.podspec
           pod repo push --allow-warnings local pods/Numberick-DoubleWidthKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick' Lint
-        run: pod lib lint --allow-warnings --fail-fast --sources="local,https://cdn.cocoapods.org" pods/Numberick.podspec
+        run: |
+          cp pods/Numberick.podspec ./
+          pod lib lint --allow-warnings --fail-fast --sources="local,https://cdn.cocoapods.org" Numberick.podspec
       - name: Cleanup
         if: always()
         run: |
           [ -f "${SOURCES_ZIP}" ] && rm -f "${SOURCES_ZIP}"
           [ -d "${COCOAPODS_LOCAL_REPO}" ] && rm -rf "${COCOAPODS_LOCAL_REPO}"
+          rm -f Numberick.podspec
           pod repo remove local
   linux:
     strategy:

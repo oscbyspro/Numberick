@@ -15,9 +15,9 @@ jobs:
           VERSION_TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION=$(echo "${VERSION_TAG}" | sed "s|^v\(.*\)$|\1|g")
-          sed -i '' "s|[[:blank:]]*s\.version.*|s.version = '${VERSION}'|g" pods/Numberick-CoreKit.podspec
-          sed -i '' "s|[[:blank:]]*s\.version.*|s.version = '${VERSION}'|g" pods/Numberick-DoubleWidthKit.podspec
-          sed -i '' "s|[[:blank:]]*s\.version.*|s.version = '${VERSION}'|g" pods/Numberick.podspec
+          sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-CoreKit.podspec
+          sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-DoubleWidthKit.podspec
+          sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick.podspec
       - name: Publish 'Numberick-CoreKit' Pod
         run: pod trunk push --allow-warnings --synchronous pods/Numberick-CoreKit.podspec
         env:
