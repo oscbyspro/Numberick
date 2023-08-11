@@ -366,25 +366,28 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     // TODO: brrr
-    func testToFloat16() {
-        var abc = NBK.blackHoleIdentity(T.max)
-        
-        for _ in 0 ..< 1_000 {
-            NBK.blackHole(Float16(abc))
-            NBK.blackHole(Float16(exactly: abc))
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
-    func testFromFloat16() {
-        var abc = NBK.blackHoleIdentity(Float16(123))
-        
-        for _ in 0 ..< 250_000 {
-            NBK.blackHole(T(abc))
-            NBK.blackHole(T(exactly: abc))
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
+    // Float16 doesn't have BinaryInteger initializers
+//#if swift(>=5.8)
+//    func testToFloat16() {
+//        var abc = NBK.blackHoleIdentity(T.max)
+//
+//        for _ in 0 ..< 1_000 {
+//            NBK.blackHole(Float16(abc))
+//            NBK.blackHole(Float16(exactly: abc))
+//            NBK.blackHoleInoutIdentity(&abc)
+//        }
+//    }
+//
+//    func testFromFloat16() {
+//        var abc = NBK.blackHoleIdentity(Float16(123))
+//
+//        for _ in 0 ..< 250_000 {
+//            NBK.blackHole(T(abc))
+//            NBK.blackHole(T(exactly: abc))
+//            NBK.blackHoleInoutIdentity(&abc)
+//        }
+//    }
+//#endif
     
     // TODO: brrr
     func testToFloat32() {
@@ -796,25 +799,28 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     // TODO: brrr
-    func testToFloat16() {
-        var abc = NBK.blackHoleIdentity(T.max)
-        
-        for _ in 0 ..< 1_000 {
-            NBK.blackHole(Float16(abc))
-            NBK.blackHole(Float16(exactly: abc))
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
-    
-    func testFromFloat16() {
-        var abc = NBK.blackHoleIdentity(Float16(123))
-        
-        for _ in 0 ..< 250_000 {
-            NBK.blackHole(T(abc))
-            NBK.blackHole(T(exactly: abc))
-            NBK.blackHoleInoutIdentity(&abc)
-        }
-    }
+    // Float16 doesn't have BinaryInteger initializers
+//#if swift(>=5.8)
+//    func testToFloat16() {
+//        var abc = NBK.blackHoleIdentity(T.max)
+//
+//        for _ in 0 ..< 1_000 {
+//            NBK.blackHole(Float16(abc))
+//            NBK.blackHole(Float16(exactly: abc))
+//            NBK.blackHoleInoutIdentity(&abc)
+//        }
+//    }
+//
+//    func testFromFloat16() {
+//        var abc = NBK.blackHoleIdentity(Float16(123))
+//
+//        for _ in 0 ..< 250_000 {
+//            NBK.blackHole(T(abc))
+//            NBK.blackHole(T(exactly: abc))
+//            NBK.blackHoleInoutIdentity(&abc)
+//        }
+//    }
+//#endif
     
     // TODO: brrr
     func testToFloat32() {

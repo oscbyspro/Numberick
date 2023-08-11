@@ -46,31 +46,6 @@ extension NBKDoubleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = value
-    }
-    
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        guard Self.isSigned
-        ? source.bitWidth <= Self.bitWidth
-        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-        else { return nil }
-        
-        self = Self.uninitialized { value in
-            for index in value.indices {
-                value[unchecked: index] = source[index]
-            }
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
     @inlinable public init(_ source: some BinaryInteger) {
         guard let result = Self(exactly: source) else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
