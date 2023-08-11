@@ -8,9 +8,9 @@
 //=----------------------------------------------------------------------------=
 
 //=----------------------------------------------------------------------------=
-// TODO: see whether consuming arguments removes need for inout versions in 5.9
+// TODO: see if consuming the arguments removes the need for inout in Swift 5.9
 //*============================================================================*
-// MARK: * NBK x Limbs x Addition x Limbs
+// MARK: * NBK x Limbs x Addition x Limbs + Bit
 //*============================================================================*
 
 extension NBK {
@@ -21,12 +21,10 @@ extension NBK {
     
     /// Increments `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedInteger<T>(
-    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, bit: Bool = bit
         NBK.incrementSufficientUnsignedInteger(&pointee, by: limbs, plus: &bit, at: &index)
@@ -36,12 +34,11 @@ extension NBK {
     /// Partially increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedIntegerInIntersection<T>(
-    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, bit: Bool = bit
         NBK.incrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
@@ -54,12 +51,10 @@ extension NBK {
     
     /// Increments `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedInteger<T>(
-    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         NBK.incrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
         NBK.incrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
@@ -68,12 +63,11 @@ extension NBK {
     /// Partially increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedIntegerInIntersection<T>(
-    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         for limbsIndex in limbs.indices {
             NBK.incrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs[limbsIndex], plus: &bit, at: &index)
@@ -93,8 +87,6 @@ extension NBK {
     
     /// Increments `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func incrementSufficientUnsignedInteger<T>(
@@ -108,7 +100,6 @@ extension NBK {
     /// Partially increments `pointee` by `digit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -126,8 +117,6 @@ extension NBK {
     
     /// Increments `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedInteger<T>(
@@ -141,7 +130,6 @@ extension NBK {
     /// Partially increments `pointee` by `digit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -165,8 +153,6 @@ extension NBK {
     
     /// Increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func incrementSufficientUnsignedInteger<T>(
@@ -180,7 +166,6 @@ extension NBK {
     /// Partially increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -198,8 +183,6 @@ extension NBK {
     
     /// Increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func incrementSufficientUnsignedInteger<T>(
@@ -212,7 +195,6 @@ extension NBK {
     /// Partially increments `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -245,8 +227,6 @@ extension NBK {
     
     /// Increments `pointee` by `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func incrementSufficientUnsignedInteger<T>(
@@ -262,8 +242,6 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Increments `pointee` by `bit` at `index`.
-    ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///

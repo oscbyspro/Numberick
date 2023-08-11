@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //=----------------------------------------------------------------------------=
-// TODO: see whether consuming arguments removes need for inout versions in 5.9
+// TODO: see if consuming the arguments removes the need for inout in Swift 5.9
 //*============================================================================*
 // MARK: * NBK x Limbs x Subtraction x Limbs + Bit
 //*============================================================================*
@@ -21,12 +21,10 @@ extension NBK {
     
     /// Decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
-    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, bit: Bool = bit
         NBK.decrementSufficientUnsignedInteger(&pointee, by: limbs, plus: &bit, at: &index)
@@ -35,13 +33,12 @@ extension NBK {
     
     /// Partially decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, bit: Bool = bit
         NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
@@ -54,12 +51,10 @@ extension NBK {
     
     /// Decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
         NBK.decrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
@@ -67,13 +62,12 @@ extension NBK {
     
     /// Partially decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
+    _ pointee: inout T, by limbs: some Collection<T.Element>, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         for limbsIndex in limbs.indices {
             NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs[limbsIndex], plus: &bit, at: &index)
@@ -93,8 +87,6 @@ extension NBK {
     
     /// Decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
@@ -107,8 +99,7 @@ extension NBK {
     
     /// Partially decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -126,8 +117,6 @@ extension NBK {
     
     /// Decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
@@ -140,8 +129,7 @@ extension NBK {
     
     /// Partially decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -165,8 +153,6 @@ extension NBK {
     
     /// Decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
@@ -179,8 +165,7 @@ extension NBK {
     
     /// Partially decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -198,8 +183,6 @@ extension NBK {
     
     /// Decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
@@ -211,8 +194,7 @@ extension NBK {
     
     /// Partially decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    /// This operation does not continue beyond the `pointee` subsequence intersection.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -245,8 +227,6 @@ extension NBK {
     
     /// Decrements `pointee` by `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
@@ -262,8 +242,6 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Decrements `pointee` by `bit` at `index`.
-    ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
@@ -290,8 +268,6 @@ extension NBK {
     /// Decrements `pointee` by the product of `limbs` and `multiplicand` at `index`,
     /// and the sum of `subtrahend` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
-    ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
@@ -308,8 +284,6 @@ extension NBK {
     
     /// Decrements `pointee` by the product of `limbs` and `multiplicand` at `index`,
     /// and the sum of `subtrahend` and `bit` at `index`.
-    ///
-    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
