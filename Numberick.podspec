@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
   
   s.source_files = 'Sources/NBKCoreKit/**/*.swift', 'Sources/NBKDoubleWidthKit/*.swift'
   
-  s.test_spec 'Tests' do |test_spec|
-    # test_spec.platforms = {:ios => '11.0', :osx => '10.13', :tvos => '11.0'}
-    test_spec.source_files = 'Tests/NBKCoreKitTests/**/*.swift', 'Tests/NBKDoubleWidthKitTests/*.swift'
+  s.test_spec 'Tests' do |ts|
+    ts.platforms = {:ios => '14.0', :osx => '11.0', :tvos => '14.0'}
+    ts.source_files = 'Tests/NBKCoreKitTests/**/*.swift', 'Tests/NBKDoubleWidthKitTests/*.swift'
   end
 end
