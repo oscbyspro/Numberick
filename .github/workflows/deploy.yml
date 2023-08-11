@@ -30,5 +30,3 @@ jobs:
         run: pod trunk push --allow-warnings --synchronous pods/Numberick.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-      
-       
