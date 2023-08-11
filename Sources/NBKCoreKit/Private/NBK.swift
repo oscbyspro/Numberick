@@ -39,6 +39,9 @@
     /// An unsafe pointer to a collection of succinct `UInt` machine words.
     public typealias UnsafeSuccinctWords = (body: NBK.UnsafeWords, sign: Bool)
     
+    /// An index and an overflow indicator.
+    public typealias IO<I> = (index: I, overflow: Bool)
+    
     //=------------------------------------------------------------------------=
     // MARK: Aliases x Tuples
     //=------------------------------------------------------------------------=
