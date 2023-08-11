@@ -16,22 +16,22 @@ jobs:
             echo "SOURCES_ZIP=${tempfile}" >> "$GITHUB_ENV"
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
-      # - name: Build and Test macOS
-      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=macOS"
-      # - name: Benchmarks macOS
-      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=macOS"
-      # - name: Build and Test iOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=iOS Simulator,name=iPhone 14"
-      # - name: Benchmarks iOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=iOS Simulator,name=iPhone 14"
-      # - name: Build and Test tvOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=tvOS Simulator,name=Apple TV"
-      # - name: Benchmarks tvOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=tvOS Simulator,name=Apple TV"
-      # - name: Build and Test watchOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
-      # - name: Benchmarks watchOS Simulator
-      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
+      - name: Build and Test macOS
+        run: xcodebuild test -scheme 'Numberick' -destination "platform=macOS"
+      - name: Benchmarks macOS
+        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=macOS"
+      - name: Build and Test iOS Simulator
+        run: xcodebuild test -scheme 'Numberick' -destination "platform=iOS Simulator,name=iPhone 14"
+      - name: Benchmarks iOS Simulator
+        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=iOS Simulator,name=iPhone 14"
+      - name: Build and Test tvOS Simulator
+        run: xcodebuild test -scheme 'Numberick' -destination "platform=tvOS Simulator,name=Apple TV"
+      - name: Benchmarks tvOS Simulator
+        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=tvOS Simulator,name=Apple TV"
+      - name: Build and Test watchOS Simulator
+        run: xcodebuild test -scheme 'Numberick' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
+      - name: Benchmarks watchOS Simulator
+        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
       - name: Setup Local CocoaPods Repo
         run: |
           COCOAPODS_LOCAL_REPO=$(mktemp -d)
