@@ -33,6 +33,6 @@ extension NBKResizableWidth.Magnitude {
     
     // TODO: rename
     @inlinable public mutating func add(_ other: Self, plus carry: Bool, at index: Int) -> Bool {
-        NBK.incrementUnsignedInteger(&self, by: other, plus: carry, at: index).overflow
+        NBK.incrementSufficientUnsignedInteger(&self, by: other, at: index, carrying: carry).overflow
     }
 }

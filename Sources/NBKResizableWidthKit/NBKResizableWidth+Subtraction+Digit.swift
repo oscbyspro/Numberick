@@ -45,6 +45,6 @@ extension NBKResizableWidth.Magnitude {
     
     // TODO: rename
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, plus subtrahend: Bool, at index: Int) -> Bool {
-        NBK.decrementUnsignedInteger(&self, by: other, plus: subtrahend, at: index).overflow
+        NBK.decrementSufficientUnsignedInteger(&self, by: other, at: index, borrowing: subtrahend).overflow
     }
 }
