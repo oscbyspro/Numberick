@@ -44,12 +44,12 @@ extension NBKResizableWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     // TODO: rename
-    @inlinable public mutating func subtract(_ other: Self, plus subtrahend: Bool, at index: Int) -> Bool {
-        NBK.decrementSufficientUnsignedInteger(&self, by: other, at: index, borrowing: subtrahend).overflow
+    @inlinable public mutating func subtract(_ other: Self, plus borrow: Bool, at index: Int) -> Bool {
+        NBK.decrementSufficientUnsignedInteger(&self, by: other, plus: borrow, at: index).overflow
     }
     
     // TODO: rename
-    @inlinable public mutating func subtract(_ other: Self, times multiplicand: UInt, plus subtrahend: UInt, at index: Int) -> Bool {
-        NBK.decrementSufficientUnsignedInteger(&self, by: other, times: multiplicand, plus: subtrahend, at: index, borrowing: false).overflow
+    @inlinable public mutating func subtract(_ other: Self, times multiplicand: UInt, plus  subtrahend: UInt, plus borrow: Bool, at index: Int) -> Bool {
+        NBK.decrementSufficientUnsignedInteger(&self, by: other, times: multiplicand, plus: subtrahend, plus: borrow, at: index).overflow
     }
 }

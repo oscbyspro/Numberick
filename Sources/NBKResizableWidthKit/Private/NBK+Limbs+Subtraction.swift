@@ -9,70 +9,76 @@
 
 import NBKCoreKit
 
+//=----------------------------------------------------------------------------=
+// TODO: see whether consuming arguments removes need for inout versions in 5.9
 //*============================================================================*
-// MARK: * NBK x Limbs x Subtraction
+// MARK: * NBK x Limbs x Subtraction x Limbs + Bit
 //*============================================================================*
 
 extension NBK {
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T, at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
+    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: limbs, plus: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
-    /// Partially decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Partially decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T, at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedIntegerInIntersection<T>(
+    _ pointee: inout T, by limbs: T, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T, at index: inout T.Index, borrowing overflow: inout Bool)
+    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs, plus: &bit, at: &index)
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
     }
     
-    /// Partially decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Partially decrements `pointee` by the sum of `limbs` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T, at index: inout T.Index, borrowing overflow: inout Bool)
+    _ pointee: inout T, by limbs: T, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        for subtrahendIndex in subtrahend.indices { // for-index-in >= for-element-in
-            NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend[subtrahendIndex], at: &index, borrowing: &overflow)
+        for limbsIndex in limbs.indices {
+            NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: limbs[limbsIndex], plus: &bit, at: &index)
         }
     }
 }
@@ -82,72 +88,75 @@ extension NBK {
 //*============================================================================*
 
 extension NBK {
-        
+
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by `subtrahend` at `index`.
+    /// Decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: T.Index) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
+    _ pointee: inout T, by digit: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        let (index, overflow) = NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: index)
-        return NBK.decrementSufficientUnsignedInteger(&limbs, by: Void(), at: index, borrowing: overflow) as IO
+        var index: T.Index = index, bit: Bool
+        bit =  NBK.decrementSufficientUnsignedInteger(&pointee, by: digit, at: &index)
+        return IO(index as T.Index, overflow: bit as Bool)
     }
     
-    /// Partially decrements `limbs` by `subtrahend` at `index`.
+    /// Partially decrements `pointee` by `digit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: T.Index) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedIntegerInIntersection<T>(
+    _ pointee: inout T, by digit: T.Element, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        let overflow = limbs[index].subtractReportingOverflow(subtrahend)
-        return IO(limbs.index(after: index), overflow)
+        var index: T.Index = index, bit: Bool
+        bit =  NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: digit, at: &index)
+        return IO(index as T.Index, overflow: bit as Bool)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by `subtrahend` at `index`.
+    /// Decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index) -> Bool
+    _ pointee: inout T, by digit: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var overflow = NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index)
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
-        return overflow as Bool
+        var bit = NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: digit, at: &index)
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
+        return bit as Bool
     }
     
-    /// Partially decrements `limbs` by `subtrahend` at `index`.
+    /// Partially decrements `pointee` by `digit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation does not continue beyond the operand intersection.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index) -> Bool
+    _ pointee: inout T, by digit: T.Element, at index: inout T.Index) -> Bool
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        defer{ limbs.formIndex(after: &index) }
-        return limbs[index].subtractReportingOverflow(subtrahend)
+        defer{ pointee.formIndex(after: &index) }
+        return pointee[index].subtractReportingOverflow(digit)
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Subtraction x Digit x Carry
+// MARK: * NBK x Limbs x Subtraction x Digit + Bit
 //*============================================================================*
 
 extension NBK {
@@ -156,74 +165,78 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
+    _ pointee: inout T, by digit: T.Element, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: digit, plus: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
-    /// Partially decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Partially decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedIntegerInIntersection<T>(
+    _ pointee: inout T, by digit: T.Element, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: digit, plus: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index, borrowing overflow: inout Bool)
+    _ pointee: inout T, by digit: T.Element, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subtrahend, at: &index, borrowing: &overflow)
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
+        NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee, by: digit, plus: &bit, at: &index)
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
     }
     
-    /// Partially decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Partially decrements `pointee` by the sum of `digit` and `bit` at `index`.
     ///
     /// - This operation does not continue beyond the operand intersection.
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedIntegerInIntersection<T>(
-    _ limbs: inout T, by subtrahend: T.Element, at index: inout T.Index, borrowing overflow: inout Bool)
+    _ pointee: inout T, by digit: T.Element, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var subtrahend: T.Element = subtrahend
-        
-        if  overflow {
-            overflow = subtrahend.addReportingOverflow(1 as T.Element.Digit)
+        var digit: T.Element = digit
+
+        if  bit {
+            bit = digit.addReportingOverflow(1 as T.Element.Digit)
         }
         
-        if !overflow {
-            overflow = limbs[index].subtractReportingOverflow(subtrahend)
+        if !bit {
+            bit = pointee[index].subtractReportingOverflow(digit)
         }
         
-        limbs.formIndex(after: &index)
+        pointee.formIndex(after: &index)
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Subtraction x Void
+// MARK: * NBK x Limbs x Subtraction x Bit
 //*============================================================================*
 
 extension NBK {
@@ -232,40 +245,42 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: Void, at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
+    _ pointee: inout T, by bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: Void(), at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of `subtrahend` and `overflow` at `index`.
+    /// Decrements `pointee` by `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _ limbs: inout T, by subtrahend: Void, at index: inout T.Index, borrowing overflow: inout Bool)
+    _ pointee: inout T, by bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        while overflow && index < limbs.endIndex {
-            overflow = limbs[index].subtractReportingOverflow(1 as T.Element.Digit)
-            limbs.formIndex(after: &index)
+        while bit && index < pointee.endIndex {
+            bit = pointee[index].subtractReportingOverflow(1 as T.Element.Digit)
+            pointee.formIndex(after: &index)
         }
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Subtraction x Product
+// MARK: * NBK x Limbs x Subtraction x Limbs × Digit + Digit + Bit
 //*============================================================================*
 
 extension NBK {
@@ -274,43 +289,43 @@ extension NBK {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of the `subtrahend`, the `overflow`, and
-    /// the product of `other` and `multiplicand` at `index`.
+    /// Decrements `pointee` by the product of `limbs` and `multiplicand` at `index`,
+    /// and the sum of `subtrahend` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
     ///
-    /// - Returns: An overflow indicator and its index in `limbs`.
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
-    @_transparent public static func decrementSufficientUnsignedInteger<T>(
-    _  limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
-    at index: T.Index, borrowing overflow: Bool) -> IO<T.Index>
+    @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
+    _  pointee: inout T, by limbs: T, times multiplicand: T.Element, plus subtrahend: T.Element, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
-        var index: T.Index = index, overflow: Bool = overflow
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: other, times: multiplicand, plus: subtrahend, at: &index, borrowing: &overflow)
-        return IO(index: index as T.Index, overflow: overflow as Bool)
+        var index: T.Index = index, bit: Bool = bit
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: limbs, times: multiplicand, plus: subtrahend, plus: &bit, at: &index)
+        return IO(index: index as T.Index, overflow: bit as Bool)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Decrements `limbs` by the sum of the `subtrahend`, the `overflow`, and
-    /// the product of `other` and `multiplicand` at `index`.
+    /// Decrements `pointee` by the product of `limbs` and `multiplicand` at `index`,
+    /// and the sum of `subtrahend` and `bit` at `index`.
     ///
-    /// - This operation must not overflow the `limbs` subsequence by more than one bit.
+    /// - This operation must not overflow the `pointee` subsequence by more than one bit.
+    ///
+    /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _  limbs: inout T, by other: T, times multiplicand: T.Element, plus subtrahend: T.Element,
-    at index: inout T.Index, borrowing overflow: inout Bool)
+    _  pointee: inout T, by limbs: T, times multiplicand: T.Element, plus subtrahend: T.Element, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var last: T.Element = subtrahend
         
-        for otherIndex in other.indices {
-            var subproduct = other[otherIndex].multipliedFullWidth(by: multiplicand)
+        for limbsIndex in limbs.indices {
+            var subproduct = limbs[limbsIndex].multipliedFullWidth(by: multiplicand)
             last = T.Element(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
-            NBK.decrementSufficientUnsignedIntegerInIntersection(&limbs, by: subproduct.low, at: &index, borrowing: &overflow)
+            NBK.decrementSufficientUnsignedIntegerInIntersection(&pointee,  by: subproduct.low, plus: &bit, at: &index)
         }
         
-        NBK.decrementSufficientUnsignedInteger(&limbs, by: last, at: &index, borrowing: &overflow)
+        NBK.decrementSufficientUnsignedInteger(&pointee, by: last, plus: &bit, at: &index)
     }
 }

@@ -160,7 +160,7 @@ extension NBKFlexibleWidth.Magnitude {
                 }
                 //=------------------------------=
                 if !digit.isZero {
-                    var overflow = self.storage.subtract(divisor, times: digit, plus: UInt.zero, at: quotientIndex)
+                    var overflow = self.storage.subtract(divisor, times: digit, plus: UInt.zero, plus: false, at: quotientIndex)
                     decrement: while overflow {
                         _ = digit.subtractReportingOverflow(1 as UInt)
                         overflow = !self.storage.add(divisor, plus: false, at: quotientIndex)
