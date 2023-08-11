@@ -46,12 +46,12 @@ jobs:
       - name: CocoaPods 'Numberick-CoreKit' Lint & Local Push 
         run: |
           sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-CoreKit.podspec
-          pod repo push --allow-warnings --synchronous local pods/Numberick-CoreKit.podspec
+          pod repo push --allow-warnings local pods/Numberick-CoreKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick-DoubleWidthKit' Lint & Local Push 
         run: |
           sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-DoubleWidthKit.podspec
-          pod repo push --allow-warnings --synchronous local pods/Numberick-DoubleWidthKit.podspec
+          pod repo push --allow-warnings local pods/Numberick-DoubleWidthKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick' Lint
         run: pod lib lint --allow-warnings --fail-fast --sources="local,https://cdn.cocoapods.org" pods/Numberick.podspec
