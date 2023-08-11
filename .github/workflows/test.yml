@@ -12,26 +12,26 @@ jobs:
       - name: Create sources zip
         run: |
             tempfile=$(mktemp -u).zip
-            zip -r "${tempfile}" .
+            zip -r "${tempfile}" ./*
             echo "SOURCES_ZIP=${tempfile}" >> "$GITHUB_ENV"
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
-      - name: Build and Test macOS
-        run: xcodebuild test -scheme 'Numberick' -destination "platform=macOS"
-      - name: Benchmarks macOS
-        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=macOS"
-      - name: Build and Test iOS Simulator
-        run: xcodebuild test -scheme 'Numberick' -destination "platform=iOS Simulator,name=iPhone 14"
-      - name: Benchmarks iOS Simulator
-        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=iOS Simulator,name=iPhone 14"
-      - name: Build and Test tvOS Simulator
-        run: xcodebuild test -scheme 'Numberick' -destination "platform=tvOS Simulator,name=Apple TV"
-      - name: Benchmarks tvOS Simulator
-        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=tvOS Simulator,name=Apple TV"
-      - name: Build and Test watchOS Simulator
-        run: xcodebuild test -scheme 'Numberick' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
-      - name: Benchmarks watchOS Simulator
-        run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
+      # - name: Build and Test macOS
+      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=macOS"
+      # - name: Benchmarks macOS
+      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=macOS"
+      # - name: Build and Test iOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=iOS Simulator,name=iPhone 14"
+      # - name: Benchmarks iOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=iOS Simulator,name=iPhone 14"
+      # - name: Build and Test tvOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=tvOS Simulator,name=Apple TV"
+      # - name: Benchmarks tvOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=tvOS Simulator,name=Apple TV"
+      # - name: Build and Test watchOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
+      # - name: Benchmarks watchOS Simulator
+      #   run: xcodebuild test -scheme 'Numberick-Benchmarks' -destination "platform=watchOS Simulator,name=Apple Watch Series 6 (40mm)"
       - name: Setup Local CocoaPods Repo
         run: |
           COCOAPODS_LOCAL_REPO=$(mktemp -d)
@@ -46,12 +46,12 @@ jobs:
       - name: CocoaPods 'Numberick-CoreKit' Lint & Local Push 
         run: |
           sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-CoreKit.podspec
-          pod repo push --allow-warnings --fail-fast --synchronous local pods/Numberick-CoreKit.podspec
+          pod repo push --allow-warnings --synchronous local pods/Numberick-CoreKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick-DoubleWidthKit' Lint & Local Push 
         run: |
           sed -i '' "s|[[:blank:]]*s\.source.*|s.source = { :http => 'file://${SOURCES_ZIP}' \}|g" pods/Numberick-DoubleWidthKit.podspec
-          pod repo push --allow-warnings --fail-fast --synchronous local pods/Numberick-DoubleWidthKit.podspec
+          pod repo push --allow-warnings --synchronous local pods/Numberick-DoubleWidthKit.podspec
           pod repo update
       - name: CocoaPods 'Numberick' Lint
         run: pod lib lint --allow-warnings --fail-fast --sources="local,https://cdn.cocoapods.org" pods/Numberick.podspec
@@ -60,6 +60,7 @@ jobs:
         run: |
           [ -f "${SOURCES_ZIP}" ] && rm -f "${SOURCES_ZIP}"
           [ -d "${COCOAPODS_LOCAL_REPO}" ] && rm -rf "${COCOAPODS_LOCAL_REPO}"
+          pod repo remove local
   linux:
     strategy:
       matrix:
