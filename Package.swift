@@ -13,35 +13,21 @@ import PackageDescription
 //*============================================================================*
 // MARK: * Numberick
 //*============================================================================*
-// The poor man's feature flag:
-//
-// FIND...: \/([*/-])([*/-])(FLAG)([*/-])\/
-// REPLACE: \/$2$1$3$4\/
-//
-// LINE...: //*FLAG*/ or /*/FLAG*/
-// HEAD...: //*FLAG-/ or /*/FLAG-/
-// TAIL...: //-FLAG*/ or /-/FLAG*/
+
+let withStaticBigInt = true
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version < iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
 
-let package = Package(
+var package = Package(
     name: "Numberick",
     platforms: [
-        //=--------------------------------------=
-        // Static Big Int x Yay
-        //=--------------------------------------=
-        /*/SBI*/.iOS("16.4"),
-        /*/SBI*/.macCatalyst("16.4"),
-        /*/SBI*/.macOS("13.3"),
-        /*/SBI*/.tvOS("16.4"),
-        /*/SBI*/.watchOS("9.4"),
-        //=--------------------------------------=
-        // Static Big Int x Nay
-        //=--------------------------------------=
-        //*SBI*/.iOS(.v14),
-        //*SBI*/.macCatalyst(.v14),
-        //*SBI*/.macOS(.v11),
-        //*SBI*/.tvOS(.v14),
-        //*SBI*/.watchOS(.v7),
+        .iOS(.v14),
+        .macCatalyst(.v14),
+        .macOS(.v11),
+        .tvOS(.v14),
+        .watchOS(.v7),
     ],
     products: [
         //=--------------------------------------=
@@ -100,3 +86,22 @@ let package = Package(
         dependencies: ["NBKDoubleWidthKit"]),
     ]
 )
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version ≥ iOS 16.4, macOS 13.3
+//=----------------------------------------------------------------------------=
+
+if  withStaticBigInt  {
+    package.platforms = [
+        .iOS("16.4"),
+        .macCatalyst("16.4"),
+        .macOS("13.3"),
+        .tvOS("16.4"),
+        .watchOS("9.4")
+    ]
+    
+    let flag = SwiftSetting.define("SBI")
+    for target in package.targets where target.name.hasPrefix("NBKDoubleWidthKit") {
+        target.swiftSettings?.append(flag) ?? (target.swiftSettings = [flag])
+    }
+}

@@ -22,8 +22,8 @@ private typealias Y = NBK.U256X32
 //=----------------------------------------------------------------------------=
 // MARK: + Version ≥ iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
-//*SBI-/
- 
+#if swift(>=5.8) && SBI
+
 final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
 
     typealias T = Int256
@@ -49,11 +49,10 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
     }
 }
 
-//-SBI*/
+#else
 //=----------------------------------------------------------------------------=
 // MARK: + Version < iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
-/*/SBI-/
 
 final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
 
@@ -72,23 +71,23 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
     }
 }
 
-/-/SBI*/
+#endif
 //*============================================================================*
 // MARK: * NBK x Double Width x Literals x UInt256
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Version ≥ iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
-//*SBI-/
+#if swift(>=5.8) && SBI
 
 final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
-
+    
     typealias T = UInt256
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
-
+    
     func testFromIntegerLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
@@ -98,7 +97,7 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         XCTAssertEqual(T(x64: X( 0, ~0, ~0, ~0)),  0xffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000)
         XCTAssertEqual(T(x64: X( 0,  0, ~0, ~0)),  0xffffffffffffffffffffffffffffffff00000000000000000000000000000000)
         XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)),  0xffffffffffffffff000000000000000000000000000000000000000000000000)
-
+        
         XCTAssertEqual(T(exactlyIntegerLiteral:  0x010000000000000000000000000000000000000000000000000000000000000000),   nil)
         XCTAssertEqual(T(exactlyIntegerLiteral:  0x00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff), T.max)
         XCTAssertEqual(T(exactlyIntegerLiteral:  0x000000000000000000000000000000000000000000000000000000000000000000), T.min)
@@ -106,21 +105,20 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
     }
 }
 
-//-SBI*/
+#else
 //=----------------------------------------------------------------------------=
 // MARK: + Version < iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
-/*/SBI-/
 
 final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
-
+    
     typealias T = UInt256
     typealias L = UInt256.IntegerLiteralType
-
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
-
+    
     func testFromIntegerLiteral() {
         XCTAssertEqual(T(integerLiteral:  0x7fffffffffffffff as L), T(x64: X(UInt64(L.max), 0, 0, 0)))
         XCTAssertEqual(T(integerLiteral:  0x0000000000000000 as L), T(x64: X(UInt64(L(  )), 0, 0, 0)))
@@ -129,5 +127,5 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
     }
 }
 
-/-/SBI*/
+#endif
 #endif
