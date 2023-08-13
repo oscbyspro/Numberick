@@ -13,44 +13,49 @@
 //=----------------------------------------------------------------------------=
 // MARK: + Version ≥ iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
+//*SBI-/
 
-/*/SBI*/extension NBKDoubleWidth {
-/*/SBI*/
-/*/SBI*/   //=-----------------------------------------------------------------=
-/*/SBI*/   // MARK: Initializers
-/*/SBI*/   //=-----------------------------------------------------------------=
-/*/SBI*/
-/*/SBI*/   @inlinable public init(integerLiteral source: StaticBigInt) {
-/*/SBI*/       if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
-/*/SBI*/           preconditionFailure("\(Self.description) cannot represent \(source)")
-/*/SBI*/       }
-/*/SBI*/   }
-/*/SBI*/
-/*/SBI*/   @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-/*/SBI*/       guard Self.isSigned
-/*/SBI*/       ? source.bitWidth <= Self.bitWidth
-/*/SBI*/       : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-/*/SBI*/       else { return nil }
-/*/SBI*/
-/*/SBI*/       self = Self.uninitialized { value in
-/*/SBI*/           for index in value.indices {
-/*/SBI*/               value[unchecked: index] = source[index]
-/*/SBI*/           }
-/*/SBI*/       }
-/*/SBI*/   }
-/*/SBI*/}
+extension NBKDoubleWidth {
 
+   //=-------------------------------------------------------------------------=
+   // MARK: Initializers
+   //=-------------------------------------------------------------------------=
+
+   @inlinable public init(integerLiteral source: StaticBigInt) {
+       if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
+           preconditionFailure("\(Self.description) cannot represent \(source)")
+       }
+   }
+
+   @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+       guard Self.isSigned
+       ? source.bitWidth <= Self.bitWidth
+       : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
+       else { return nil }
+
+       self = Self.uninitialized { value in
+           for index in value.indices {
+               value[unchecked: index] = source[index]
+           }
+       }
+   }
+}
+
+//-SBI*/
 //=----------------------------------------------------------------------------=
 // MARK: + Version < iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
+/*/SBI-/
 
-//*SBI*/extension NBKDoubleWidth {
-//*SBI*/
-//*SBI*/    //=----------------------------------------------------------------=
-//*SBI*/    // MARK: Initializers
-//*SBI*/    //=----------------------------------------------------------------=
-//*SBI*/
-//*SBI*/    @inlinable public init(integerLiteral source: Int64) {
-//*SBI*/        self.init(source)
-//*SBI*/    }
-//*SBI*/}
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(integerLiteral source: Int64) {
+        self.init(source)
+    }
+}
+
+/-/SBI*/

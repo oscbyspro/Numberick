@@ -14,8 +14,13 @@ import PackageDescription
 // MARK: * Numberick
 //*============================================================================*
 // The poor man's feature flag:
-// FIND...: /([*/])([*/])(flag)\*/
-// REPLACE: /$2$1$3*/
+//
+// FIND...: \/([*/-])([*/-])(FLAG)([*/-])\/
+// REPLACE: \/$2$1$3$4\/
+//
+// LINE...: //*FLAG*/ or /*/FLAG*/
+// HEAD...: //*FLAG-/ or /*/FLAG-/
+// TAIL...: //-FLAG*/ or /-/FLAG*/
 //=----------------------------------------------------------------------------=
 
 let package = Package(
