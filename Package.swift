@@ -97,11 +97,11 @@ if  withStaticBigInt  {
         .macCatalyst("16.4"),
         .macOS("13.3"),
         .tvOS("16.4"),
-        .watchOS("9.4")
+        .watchOS("9.4"),
     ]
     
     let flag = SwiftSetting.define("SBI")
-    for target in package.targets where target.name.hasPrefix("NBKDoubleWidthKit") {
+    for target in package.targets {
         target.swiftSettings?.append(flag) ?? (target.swiftSettings = [flag])
     }
 }
