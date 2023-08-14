@@ -40,10 +40,12 @@ Pod::Spec.new do |s|
     s.test_spec 'Tests' do |ts|
         ts.platforms = base_platforms
         ts.source_files = 'Tests/NBKDoubleWidthKitTests/**/*.swift'
+        ts.pod_target_xcconfig = { 'SWIFT_ACTIVE_COMPILATION_CONDITIONS' => swift_custom_flags }
     end
 
     s.test_spec 'Benchmarks' do |ts|
         ts.platforms = base_platforms
         ts.source_files = 'Tests/NBKDoubleWidthKitBenchmarks/**/*.swift'
+        ts.pod_target_xcconfig = { 'SWIFT_ACTIVE_COMPILATION_CONDITIONS' => swift_custom_flags }
     end
 end
