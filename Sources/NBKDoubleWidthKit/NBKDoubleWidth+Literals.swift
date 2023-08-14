@@ -16,29 +16,29 @@
 #if swift(>=5.8) && SBI
 
 extension NBKDoubleWidth {
-
-   //=-------------------------------------------------------------------------=
-   // MARK: Initializers
-   //=-------------------------------------------------------------------------=
-
-   @inlinable public init(integerLiteral source: StaticBigInt) {
-       if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
-           preconditionFailure("\(Self.description) cannot represent \(source)")
-       }
-   }
-
-   @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-       guard Self.isSigned
-       ? source.bitWidth <= Self.bitWidth
-       : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-       else { return nil }
-
-       self = Self.uninitialized { value in
-           for index in value.indices {
-               value[unchecked: index] = source[index]
-           }
-       }
-   }
+    
+    //=-------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=-------------------------------------------------------------------------=
+    
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+    }
+    
+    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+        guard Self.isSigned
+        ? source.bitWidth <= Self.bitWidth
+        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
+        else { return nil }
+        
+        self = Self.uninitialized { value in
+            for index in value.indices {
+                value[unchecked: index] = source[index]
+            }
+        }
+    }
 }
 
 #else
