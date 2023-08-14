@@ -14,7 +14,13 @@ import PackageDescription
 // MARK: * Numberick
 //*============================================================================*
 
-let package = Package(
+let withStaticBigInt = true
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version < iOS 16.4, macOS 13.3
+//=----------------------------------------------------------------------------=
+
+var package = Package(
     name: "Numberick",
     platforms: [
         .iOS(.v14),
@@ -80,3 +86,22 @@ let package = Package(
         dependencies: ["NBKDoubleWidthKit"]),
     ]
 )
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version ≥ iOS 16.4, macOS 13.3
+//=----------------------------------------------------------------------------=
+
+if  withStaticBigInt  {
+    package.platforms = [
+        .iOS("16.4"),
+        .macCatalyst("16.4"),
+        .macOS("13.3"),
+        .tvOS("16.4"),
+        .watchOS("9.4")
+    ]
+    
+    let flag = SwiftSetting.define("SBI")
+    for target in package.targets where target.name.hasPrefix("NBKDoubleWidthKit") {
+        target.swiftSettings?.append(flag) ?? (target.swiftSettings = [flag])
+    }
+}

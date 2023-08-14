@@ -47,11 +47,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
-        guard let result = Self(exactly: source) else {
+        if  let value = Self(exactly: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {

@@ -17,7 +17,7 @@ extension NBK {
     // MARK: Transformations x Drop
     //=------------------------------------------------------------------------=
     
-    /// Drops elements that the satisfy the predicate from the end of the given `collection`.
+    /// Drops elements that satisfy the predicate from the end of the given `collection`.
     @_transparent public static func dropLast<T>(from collection: T, while predicate: (T.Element) -> Bool)
     -> T.SubSequence where T: BidirectionalCollection {
         var newEndIndex = collection.endIndex
