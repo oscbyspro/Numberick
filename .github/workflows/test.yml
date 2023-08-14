@@ -37,6 +37,7 @@ jobs:
             sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
             echo "SWIFT_FEATURE_${feature}=false" >> "$GITHUB_ENV"
           done
+          cat Package.swift
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.env.xcode }}.app
       - name: Build and Test macOS
@@ -119,6 +120,7 @@ jobs:
             [ ! -z "${feature}" ] || continue
             sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
           done
+          cat Package.swift
       - name: Build and Test
         run: swift test
       - name: Run Benchmarks
