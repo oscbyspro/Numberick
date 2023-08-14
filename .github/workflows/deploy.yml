@@ -20,10 +20,11 @@ jobs:
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-CoreKit.podspec
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-DoubleWidthKit.podspec
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick.podspec
-      - name: Set enabled features in this branch
+      - name: Set enabled features in this branch for CocoaPods
         run: |
           for feature in "${{ env.SWIFT_CUSTOM_FEATURES }}"
           do
+            [ ! -z "${feature}" ] || continue
             status=$(cat Package.swift | sed -n "s|^.*with${feature}[[:blank:]]*=[[:blank:]]\(.*\)$|\1|p")
             echo "SWIFT_FEATURE_${feature}=${status}" >> "$GITHUB_ENV"
           done

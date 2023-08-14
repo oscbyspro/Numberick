@@ -27,11 +27,13 @@ jobs:
         run: |
           for feature in "${{ matrix.env.enabled_features }}"
           do
+            [ ! -z "${feature}" ] || continue
             sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
             echo "SWIFT_FEATURE_${feature}=true" >> "$GITHUB_ENV"
           done
           for feature in "${{ matrix.env.disabled_features }}"
           do
+            [ ! -z "${feature}" ] || continue
             sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
             echo "SWIFT_FEATURE_${feature}=false" >> "$GITHUB_ENV"
           done
@@ -109,11 +111,13 @@ jobs:
         run: |
           for feature in "${{ matrix.env.enabled_features }}"
           do
-            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
+            [ ! -z "${feature}" ] || continue
+            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
           done
           for feature in "${{ matrix.env.disabled_features }}"
           do
-            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
+            [ ! -z "${feature}" ] || continue
+            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
           done
       - name: Build and Test
         run: swift test
