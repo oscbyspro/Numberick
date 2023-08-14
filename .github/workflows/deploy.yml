@@ -5,6 +5,9 @@ on:
 jobs:
   publish:
     runs-on: macos-13
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -21,7 +24,7 @@ jobs:
           echo "Updated version to: ${VERSION}"
       - name: Set enabled features in this branch for CocoaPods
         run: |
-          features=$(cat Package.swift | sed -n "s|^let[[:blank:]]*with\([a-zA-Z0-9\_]*\)[[:blank:]]*=[[:blank:]]*\(.*\)$|SWIFT_FEATURE_\1=\2|p")
+          features=$(cat Package.swift | sed -n "s|^let[[:blank:]]*with\([a-zA-Z0-9\_]*\)[[:blank:]]*=[[:blank:]]*\(.*\)$|NBK_FEATURE_\1=\2|p")
           echo "${features}" >> "$GITHUB_ENV"
           echo "${features}"
       - name: Publish 'Numberick-CoreKit' Pod

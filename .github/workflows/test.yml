@@ -12,6 +12,9 @@ jobs:
           - xcode: '14.3.1'
             features: '+StaticBigInt'
     runs-on: macos-13
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,11 +27,11 @@ jobs:
         run: |
           for feature in "${{ matrix.tests.features }}"
           do
-            [ ! -z "${feature}" ] || continue
+            [ "${feature}" ] || continue
             status=$([[ "${feature}" = -* ]] && echo "false" || echo "true")
             feature="${feature:1}"
             sed -i '' "s|^let[[:blank:]]*with${feature}[[:blank:]]*=.*$|let with${feature} = ${status}|g" Package.swift
-            echo "SWIFT_FEATURE_${feature}=${status}" >> "$GITHUB_ENV"
+            echo "NBK_FEATURE_${feature}=${status}" >> "$GITHUB_ENV"
             echo "${feature} = ${status}"
           done
       - name: Select Xcode
@@ -92,6 +95,9 @@ jobs:
           - swift: '5.8'
             features: '+StaticBigInt'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     container:
       image: swift:${{ matrix.tests.swift }}
       options: --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --security-opt apparmor=unconfined
@@ -102,7 +108,7 @@ jobs:
         run: |
           for feature in "${{ matrix.tests.features }}"
           do
-            [ ! -z "${feature}" ] || continue
+            [ "${feature}" ] || continue
             status=$([[ "${feature}" = -* ]] && echo "false" || echo "true")
             feature="${feature:1}"
             sed -i "s|^let[[:blank:]]*with${feature}[[:blank:]]*=.*$|let with${feature} = ${status}|g" Package.swift

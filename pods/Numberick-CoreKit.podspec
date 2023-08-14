@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
     swift_custom_flags = ''
     
-    if ENV['SWIFT_FEATURE_StaticBigInt'] == 'true'
+    if ENV['NBK_FEATURE_StaticBigInt'] == 'true'
         base_platforms     = { :ios => '16.4', :osx => '13.3', :tvos => '16.4' }
         s.platforms        = base_platforms.merge({ :watchos => '9.4' })
         s.swift_version    = '5.8'
