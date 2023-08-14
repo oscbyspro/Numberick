@@ -14,11 +14,19 @@ Pod::Spec.new do |s|
     s.author           = { 'Oscar Byström Ericsson' => 'oscbyspro@protonmail.com' }
     s.source           = { :git => 'https://github.com/oscbyspro/Numberick.git', :tag => "v#{s.version}" }
 
-    s.platforms = { :ios => '14.0', :osx => '11.0', :tvos => '14.0', :watchos => '7.0' }
+    s.platforms        = { :ios => '14.0', :osx => '11.0', :tvos => '14.0', :watchos => '7.0' }
 
-    s.swift_version = '5.7'
+    s.swift_version    = '5.7'
 
-    s.source_files = 'Sources/Numberick/**/*.swift'
+    s.source_files     = 'Sources/Numberick/**/*.swift'
+
+    s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '' }
+
+    if ENV['SWIFT_FEATURE_StaticBigInt'] == 'true'
+        s.platforms     = { :ios => '16.4', :osx => '13.3', :tvos => '16.4', :watchos => '9.4' }
+        s.swift_version = '5.8'
+        s.pod_target_xcconfig['OTHER_SWIFT_FLAGS'] += '-DSBI '
+    end
     
     s.dependency 'Numberick-CoreKit', "#{s.version}"
     s.dependency 'Numberick-DoubleWidthKit', "#{s.version}"

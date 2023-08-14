@@ -1,7 +1,9 @@
 name: Publish CocoaPods package
 on:
   release:
-    types: [created]
+    types: [created]  
+env:
+  SWIFT_CUSTOM_FEATURES: 'StaticBigInt' 
 jobs:
   publish:
     runs-on: macos-13
@@ -18,6 +20,13 @@ jobs:
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-CoreKit.podspec
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick-DoubleWidthKit.podspec
           sed -i '' "s|[[:blank:]]*s\.version[[:blank:]].*|s.version = '${VERSION}'|g" pods/Numberick.podspec
+      - name: Set enabled features in this branch
+        run: |
+          for feature in "${{ env.SWIFT_CUSTOM_FEATURES }}"
+          do
+            status=$(cat Package.swift | sed -n "s|^.*with${feature}[[:blank:]]*=[[:blank:]]\(.*\)$|\1|p")
+            echo "SWIFT_FEATURE_${feature}=${status}" >> "$GITHUB_ENV"
+          done
       - name: Publish 'Numberick-CoreKit' Pod
         run: pod trunk push --allow-warnings --synchronous pods/Numberick-CoreKit.podspec
         env:

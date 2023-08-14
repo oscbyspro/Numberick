@@ -13,15 +13,24 @@ Pod::Spec.new do |s|
     s.author           = { 'Oscar Byström Ericsson' => 'oscbyspro@protonmail.com' }
     s.source           = { :git => 'https://github.com/oscbyspro/Numberick.git', :tag => "v#{s.version}" }
   
-    base_platforms = { :ios => '14.0', :osx => '11.0', :tvos => '14.0' }
+    base_platforms     = { :ios => '14.0', :osx => '11.0', :tvos => '14.0' }
 
-    s.platforms = base_platforms.merge({ :watchos => '7.0' })
+    s.platforms        = base_platforms.merge({ :watchos => '7.0' })
 
-    s.module_name = 'NBKCoreKit'
+    s.module_name      = 'NBKCoreKit'
     
-    s.swift_version = '5.7'
+    s.swift_version    = '5.7'
     
-    s.source_files = 'Sources/NBKCoreKit/**/*.swift'
+    s.source_files     = 'Sources/NBKCoreKit/**/*.swift'
+
+    s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '' }
+
+    if ENV['SWIFT_FEATURE_StaticBigInt'] == 'true'
+        base_platforms  = { :ios => '16.4', :osx => '13.3', :tvos => '16.4' }
+        s.platforms     = base_platforms.merge({ :watchos => '9.4' })
+        s.swift_version = '5.8'
+        s.pod_target_xcconfig['OTHER_SWIFT_FLAGS'] += '-DSBI '
+    end
     
     s.test_spec 'Tests' do |ts|
         ts.platforms = base_platforms

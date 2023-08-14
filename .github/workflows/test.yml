@@ -4,7 +4,16 @@ jobs:
   macos:
     strategy:
       matrix:
-        xcode: ['14.2', '14.3.1']
+        env: 
+          - xcode: '14.2'
+            enabled_features: ''
+            disabled_features: 'StaticBigInt'
+          - xcode: '14.3.1'
+            enabled_features: ''
+            disabled_features: 'StaticBigInt'
+          - xcode: '14.3.1'
+            enabled_features: 'StaticBigInt'
+            disabled_features: ''
     runs-on: macos-13
     steps:
       - name: Checkout
@@ -14,8 +23,20 @@ jobs:
             tempfile=$(mktemp -u).zip
             zip -r "${tempfile}" ./*
             echo "SOURCES_ZIP=${tempfile}" >> "$GITHUB_ENV"
+      - name: Select Swift custom features
+        run: |
+          for feature in "${{ matrix.env.enabled_features }}"
+          do
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
+            echo "SWIFT_FEATURE_${feature}=true" >> "$GITHUB_ENV"
+          done
+          for feature in "${{ matrix.env.disabled_features }}"
+          do
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
+            echo "SWIFT_FEATURE_${feature}=false" >> "$GITHUB_ENV"
+          done
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.env.xcode }}.app
       - name: Build and Test macOS
         run: xcodebuild test -scheme 'Numberick' -destination "platform=macOS"
       - name: Benchmarks macOS
@@ -67,14 +88,33 @@ jobs:
   linux:
     strategy:
       matrix:
-        swift: ['5.7', '5.8']
+        env: 
+          - swift: '5.7'
+            enabled_features: ''
+            disabled_features: 'StaticBigInt'
+          - swift: '5.8'
+            enabled_features: ''
+            disabled_features: 'StaticBigInt'
+          - swift: '5.8'
+            enabled_features: 'StaticBigInt'
+            disabled_features: ''
     runs-on: ubuntu-latest
     container:
-      image: swift:${{ matrix.swift }}
+      image: swift:${{ matrix.env.swift }}
       options: --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --security-opt apparmor=unconfined
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Select Swift custom features
+        run: |
+          for feature in "${{ matrix.env.enabled_features }}"
+          do
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
+          done
+          for feature in "${{ matrix.env.disabled_features }}"
+          do
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
+          done
       - name: Build and Test
         run: swift test
       - name: Run Benchmarks
