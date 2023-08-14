@@ -27,6 +27,7 @@ jobs:
             [ ! -z "${feature}" ] || continue
             status=$(cat Package.swift | sed -n "s|^.*with${feature}[[:blank:]]*=[[:blank:]]\(.*\)$|\1|p")
             echo "SWIFT_FEATURE_${feature}=${status}" >> "$GITHUB_ENV"
+            echo "${feature} = ${status}"
           done
       - name: Publish 'Numberick-CoreKit' Pod
         run: pod trunk push --allow-warnings --synchronous pods/Numberick-CoreKit.podspec

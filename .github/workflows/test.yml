@@ -28,16 +28,17 @@ jobs:
           for feature in "${{ matrix.env.enabled_features }}"
           do
             [ ! -z "${feature}" ] || continue
-            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1with${feature} = true|g" Package.swift
             echo "SWIFT_FEATURE_${feature}=true" >> "$GITHUB_ENV"
+            echo "${feature} = true"
           done
           for feature in "${{ matrix.env.disabled_features }}"
           do
             [ ! -z "${feature}" ] || continue
-            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
+            sed -i '' "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1with${feature} = false|g" Package.swift
             echo "SWIFT_FEATURE_${feature}=false" >> "$GITHUB_ENV"
+            echo "${feature} = false"
           done
-          cat Package.swift
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.env.xcode }}.app
       - name: Build and Test macOS
@@ -113,12 +114,14 @@ jobs:
           for feature in "${{ matrix.env.enabled_features }}"
           do
             [ ! -z "${feature}" ] || continue
-            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = true|g" Package.swift
+            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1with${feature} = true|g" Package.swift
+            echo "${feature} = true"
           done
           for feature in "${{ matrix.env.disabled_features }}"
           do
             [ ! -z "${feature}" ] || continue
-            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1 with${feature} = false|g" Package.swift
+            sed -i "s|^\(.*\)with${feature}[[:blank:]]*=[[:blank:]].*$|\1with${feature} = false|g" Package.swift
+            echo "${feature} = false"
           done
           cat Package.swift
       - name: Build and Test
