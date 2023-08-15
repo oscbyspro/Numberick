@@ -6,12 +6,15 @@ jobs:
       matrix:
         tests: 
           - xcode: '14.2'
+            machine: macos-12
+            features: '-StaticBigInt'
+          - xcode: '14.3'
+            machine: macos-13
             features: '-StaticBigInt'
           - xcode: '14.3.1'
-            features: '-StaticBigInt'
-          - xcode: '14.3.1'
+            machine: macos-13
             features: '+StaticBigInt'
-    runs-on: macos-13
+    runs-on: ${{ matrix.tests.machine }}
     defaults:
       run:
         shell: bash
