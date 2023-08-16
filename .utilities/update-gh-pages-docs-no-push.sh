@@ -11,13 +11,12 @@
 #
 # PROJECT/
 # │
-# ├─── .../
+# ├─── DIRECTORY/
 # │    │
 # │    └─── SCRIPT.sh
 # │
-# └─── .../
-#      │
-#      └─── PROJECT.xcodescheme
+# └─── .swiftpm/xcode/xcshareddata/PROJECT.xcscheme
+#
 #=-----------------------------------------------------------------------------=
 
 set -eu
@@ -29,8 +28,6 @@ XCODE_SCHEME_NAME=$PROJECT_NAME
 
 PROJECT_PATH=$(dirname $(dirname $(realpath $0)))
 CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
-
-# Variables x Environment
 
 export DOCC_JSON_PRETTYPRINT="YES" # nondeterministic :(
 
