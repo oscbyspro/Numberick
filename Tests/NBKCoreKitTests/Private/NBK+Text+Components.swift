@@ -32,6 +32,20 @@ final class NBKTestsOnTextByComponents: XCTestCase {
         NBKAssertRemoveSignPrefix("~123",  nil,   "~123")
     }
     
+    func testRemoveRadixPrefix() {
+        NBKAssertRemoveRadixPrefix(     "",  nil,      "")
+        NBKAssertRemoveRadixPrefix(   "0b",  002,      "")
+        NBKAssertRemoveRadixPrefix(   "0o",  008,      "")
+        NBKAssertRemoveRadixPrefix(   "0x",  016,      "")
+        NBKAssertRemoveRadixPrefix(   "1x",  nil,    "1x")
+        NBKAssertRemoveRadixPrefix(   "0X",  nil,    "0X")
+        NBKAssertRemoveRadixPrefix("0b123",  002,   "123")
+        NBKAssertRemoveRadixPrefix("0o123",  008,   "123")
+        NBKAssertRemoveRadixPrefix("0x123",  016,   "123")
+        NBKAssertRemoveRadixPrefix("1x123",  nil, "1x123")
+        NBKAssertRemoveRadixPrefix("0X123",  nil, "0X123")
+    }
+    
     func testMakeIntegerComponents() {
         NBKAssertMakeIntegerComponents(    "", .plus,      "")
         NBKAssertMakeIntegerComponents(   "+", .plus,      "")
@@ -52,16 +66,25 @@ _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
     var componentsBody = text.utf8[...]
     let componentsSign = NBK.removeSignPrefix(utf8: &componentsBody)
-    XCTAssertEqual(componentsSign, sign)
-    XCTAssertEqual(Array(componentsBody), Array(body.utf8))
+    XCTAssertEqual(componentsSign, sign,  file: file, line: line)
+    XCTAssertEqual(Array(componentsBody), Array(body.utf8), file: file, line: line)
+}
+
+private func NBKAssertRemoveRadixPrefix(
+_ text: String, _ radix: Int?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    var componentsBody = text.utf8[...]
+    let componentsSign = NBK.removeRadixPrefix(utf8: &componentsBody)
+    XCTAssertEqual(componentsSign, radix, file: file, line: line)
+    XCTAssertEqual(Array(componentsBody), Array(body.utf8), file: file, line: line)
 }
 
 private func NBKAssertMakeIntegerComponents(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
     let components = NBK.makeIntegerComponents(utf8: text.utf8)
-    XCTAssertEqual(components.sign, sign)
-    XCTAssertEqual(Array(components.body), Array(body.utf8))
+    XCTAssertEqual(components.sign, sign,  file: file, line: line)
+    XCTAssertEqual(Array(components.body), Array(body.utf8), file: file, line: line)
 }
 
 #endif

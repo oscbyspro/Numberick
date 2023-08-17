@@ -21,7 +21,7 @@ extension NBK {
     ///
     /// ```
     /// ┌─────── → ──────┬────────┐
-    /// │ self   │ sign  │  self  │
+    /// │ body   │ sign  │   body │
     /// ├─────── → ──────┼────────┤
     /// │ "+123" │ plus  │  "123" │
     /// │ "-123" │ minus │  "123" │
@@ -36,11 +36,44 @@ extension NBK {
         default: return nil  }
     }
     
+    #warning("tests")
+    /// Removes and returns an `UTF-8` encoded `radix` prefix, if it exists.
+    ///
+    /// ```
+    /// ┌──────── → ──────┬─────────┐
+    /// │ body    │ radix │    body │
+    /// ├──────── → ──────┼─────────┤
+    /// │ "0b123" │ 002   │   "123" │
+    /// │ "0o123" │ 008   │   "123" │
+    /// │ "0x123" │ 016   │   "123" │
+    /// ├──────── → ──────┼─────────┤
+    /// │ "1x123" │ nil   │ "1x123" │
+    /// │ "0X123" │ nil   │ "0X123" │
+    /// └──────── → ──────┴─────────┘
+    /// ```
+    ///
+    @inlinable public static func removeRadixPrefix<T>(utf8: inout T) -> Int? where T: Collection<UInt8>, T == T.SubSequence {
+        var radix: Int?
+        
+        var index = utf8.startIndex
+        if  index < utf8.endIndex, utf8[index] == UInt8(ascii: "0") {
+            utf8.formIndex(after: &index)
+            
+            switch utf8[index] {
+            case UInt8(ascii: "x"): radix = 0x10; utf8 = utf8[utf8.index(after: index)...]
+            case UInt8(ascii: "o"): radix = 0o10; utf8 = utf8[utf8.index(after: index)...]
+            case UInt8(ascii: "b"): radix = 0b10; utf8 = utf8[utf8.index(after: index)...]
+            default: break }
+        }
+        
+        return radix as Int?
+    }
+    
     /// Returns an `UTF-8` encoded integer's `sign` and `body`.
     ///
     /// ```
     /// ┌─────── → ──────┬────────┐
-    /// │ utf8   │ sign  │  body  │
+    /// │ body   │ sign  │   body │
     /// ├─────── → ──────┼────────┤
     /// │ "+123" │ plus  │  "123" │
     /// │ "-123" │ minus │  "123" │
