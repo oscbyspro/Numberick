@@ -81,7 +81,7 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
-@frozen public struct NBKDoubleWidth<High>:
+@frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     

@@ -29,15 +29,15 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDescriptionInit() {
-        NBKAssertDescriptionInit(T?( 10),    "10")
-        NBKAssertDescriptionInit(T?( 10),   "+10")
-        NBKAssertDescriptionInit(T?(-10),   "-10")
-        NBKAssertDescriptionInit(T?(nil),   " 10")
-        NBKAssertDescriptionInit(T?(nil),  "0x10")
-        NBKAssertDescriptionInit(T?(nil), "+0x10")
-        NBKAssertDescriptionInit(T?(nil), "-0x10")
-        NBKAssertDescriptionInit(T?(nil), " 0x10")
+    func testFromDescription() {
+        NBKAssertFromDescription(T?( 10),    "10")
+        NBKAssertFromDescription(T?( 10),   "+10")
+        NBKAssertFromDescription(T?(-10),   "-10")
+        NBKAssertFromDescription(T?(nil),   " 10")
+        NBKAssertFromDescription(T?(nil),  "0x10")
+        NBKAssertFromDescription(T?(nil), "+0x10")
+        NBKAssertFromDescription(T?(nil), "-0x10")
+        NBKAssertFromDescription(T?(nil), " 0x10")
     }
     
     func testDescriptionUsesRadix10() {
@@ -267,15 +267,15 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDescriptionInit() {
-        NBKAssertDescriptionInit(T?( 10),    "10")
-        NBKAssertDescriptionInit(T?( 10),   "+10")
-        NBKAssertDescriptionInit(T?(nil),   "-10")
-        NBKAssertDescriptionInit(T?(nil),   " 10")
-        NBKAssertDescriptionInit(T?(nil),  "0x10")
-        NBKAssertDescriptionInit(T?(nil), "+0x10")
-        NBKAssertDescriptionInit(T?(nil), "-0x10")
-        NBKAssertDescriptionInit(T?(nil), " 0x10")
+    func testFromDescription() {
+        NBKAssertFromDescription(T?( 10),    "10")
+        NBKAssertFromDescription(T?( 10),   "+10")
+        NBKAssertFromDescription(T?(nil),   "-10")
+        NBKAssertFromDescription(T?(nil),   " 10")
+        NBKAssertFromDescription(T?(nil),  "0x10")
+        NBKAssertFromDescription(T?(nil), "+0x10")
+        NBKAssertFromDescription(T?(nil), "-0x10")
+        NBKAssertFromDescription(T?(nil), " 0x10")
     }
     
     func testInstanceDescriptionUsesRadix10() {
@@ -476,7 +476,7 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Text x Assertions
 //*============================================================================*
 
-private func NBKAssertDescriptionInit<H>(
+private func NBKAssertFromDescription<H>(
 _ integer: NBKDoubleWidth<H>?,  _ description: String,
 file: StaticString = #file, line: UInt = #line) {
     typealias T = NBKDoubleWidth<H>
