@@ -76,7 +76,7 @@ extension NBK {
     // MARK: * Perfect
     //*========================================================================*
     
-    /// A ``RadixUIntRoot`` with a power that is zero.
+    /// A `RadixUIntRoot` with a power that is zero.
     @frozen public struct PerfectRadixUIntRoot: _NBKRadixUIntRoot {
         
         //=--------------------------------------------------------------------=
@@ -127,7 +127,7 @@ extension NBK {
     // MARK: * NBK x Imperfect
     //*========================================================================*
     
-    /// A ``RadixUIntRoot`` with a power that is non-zero.
+    /// A `RadixUIntRoot` with a power that is non-zero.
     @frozen public struct ImperfectRadixUIntRoot: _NBKRadixUIntRoot {
         
         //=--------------------------------------------------------------------=
@@ -176,7 +176,7 @@ extension NBK {
     // MARK: * Any
     //*========================================================================*
     
-    /// A ``RadixUIntRoot`` with a power that may be zero.
+    /// A `RadixUIntRoot` with a power that may be zero.
     @frozen public struct AnyRadixUIntRoot: _NBKRadixUIntRoot {
         
         @usableFromInline typealias Solution = (exponent: UInt, power: UInt)
