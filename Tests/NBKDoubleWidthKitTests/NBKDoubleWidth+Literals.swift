@@ -69,6 +69,22 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
         XCTAssertEqual(T(integerLiteral: -0x0000000000000001 as L), ~T(x64: X(UInt64(L(  )), 0, 0, 0)))
         XCTAssertEqual(T(integerLiteral: -0x8000000000000000 as L), ~T(x64: X(UInt64(L.max), 0, 0, 0)))
     }
+    
+    func testFromStringLiteral() {
+        XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  "0x0000000000000000000000000000000000000000000000000000000000000000")
+        XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  "0x000000000000000000000000000000000000000000000000ffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)),  "0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0,  0)),  "0x0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0, ~0)), "-0x0000000000000000000000000000000000000000000000000000000000000001")
+        XCTAssertEqual(T(x64: X( 0, ~0, ~0, ~0)), "-0x0000000000000000000000000000000000000000000000010000000000000000")
+        XCTAssertEqual(T(x64: X( 0,  0, ~0, ~0)), "-0x0000000000000000000000000000000100000000000000000000000000000000")
+        XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)), "-0x0000000000000001000000000000000000000000000000000000000000000000")
+        
+        XCTAssertEqual(T(exactlyStringLiteral:     "0x8000000000000000000000000000000000000000000000000000000000000000"),   nil)
+        XCTAssertEqual(T(exactlyStringLiteral:     "0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"), T.max)
+        XCTAssertEqual(T(exactlyStringLiteral:    "-0x8000000000000000000000000000000000000000000000000000000000000000"), T.min)
+        XCTAssertEqual(T(exactlyStringLiteral:    "-0x8000000000000000000000000000000000000000000000000000000000000001"),   nil)
+    }
 }
 
 #endif
@@ -124,6 +140,22 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         XCTAssertEqual(T(integerLiteral:  0x0000000000000000 as L), T(x64: X(UInt64(L(  )), 0, 0, 0)))
         XCTAssertEqual(T(exactly:        -0x0000000000000001 as L), nil)
         XCTAssertEqual(T(exactly:        -0x8000000000000000 as L), nil)
+    }
+    
+    func testFromStringLiteral() {
+        XCTAssertEqual(T(x64: X( 0,  0,  0,  0)), "0x0000000000000000000000000000000000000000000000000000000000000000")
+        XCTAssertEqual(T(x64: X(~0,  0,  0,  0)), "0x000000000000000000000000000000000000000000000000ffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)), "0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0,  0)), "0x0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff")
+        XCTAssertEqual(T(x64: X(~0, ~0, ~0, ~0)), "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+        XCTAssertEqual(T(x64: X( 0, ~0, ~0, ~0)), "0xffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000")
+        XCTAssertEqual(T(x64: X( 0,  0, ~0, ~0)), "0xffffffffffffffffffffffffffffffff00000000000000000000000000000000")
+        XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)), "0xffffffffffffffff000000000000000000000000000000000000000000000000")
+        
+        XCTAssertEqual(T(exactlyStringLiteral:  "0x010000000000000000000000000000000000000000000000000000000000000000"),   nil)
+        XCTAssertEqual(T(exactlyStringLiteral:  "0x00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"), T.max)
+        XCTAssertEqual(T(exactlyStringLiteral:  "0x000000000000000000000000000000000000000000000000000000000000000000"), T.min)
+        XCTAssertEqual(T(exactlyStringLiteral: "-0x000000000000000000000000000000000000000000000000000000000000000001"),   nil)
     }
 }
 
