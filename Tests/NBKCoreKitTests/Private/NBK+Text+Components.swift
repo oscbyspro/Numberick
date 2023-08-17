@@ -55,6 +55,27 @@ final class NBKTestsOnTextByComponents: XCTestCase {
         NBKAssertMakeIntegerComponents("-123", .minus,  "123")
         NBKAssertMakeIntegerComponents("~123", .plus,  "~123")
     }
+    
+    func testMakeIntegerComponentsWithRadix() {
+        NBKAssertMakeIntegerComponentsWithRadix(      "", .plus,  10,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(     "+", .plus,  10,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(     "-", .minus, 10,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(     "~", .plus,  10,      "~")
+        NBKAssertMakeIntegerComponentsWithRadix(    "0b", .plus,  02,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(    "0o", .plus,  08,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(    "0x", .plus,  16,       "")
+        NBKAssertMakeIntegerComponentsWithRadix(    "1x", .plus,  10,     "1x")
+        NBKAssertMakeIntegerComponentsWithRadix(    "0X", .plus,  10,     "0X")
+        NBKAssertMakeIntegerComponentsWithRadix(   "123", .plus,  10,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("+0b123", .plus,  02,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("+0o123", .plus,  08,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("+0x123", .plus,  16,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("-0b123", .minus, 02,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("-0o123", .minus, 08,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("-0x123", .minus, 16,    "123")
+        NBKAssertMakeIntegerComponentsWithRadix("~1x123", .plus,  10, "~1x123")
+        NBKAssertMakeIntegerComponentsWithRadix("~0X123", .plus,  10, "~0X123")
+    }
 }
 
 //*============================================================================*
@@ -85,6 +106,15 @@ file: StaticString = #file, line: UInt = #line) {
     let components = NBK.makeIntegerComponents(utf8: text.utf8)
     XCTAssertEqual(components.sign, sign,  file: file, line: line)
     XCTAssertEqual(Array(components.body), Array(body.utf8), file: file, line: line)
+}
+
+private func NBKAssertMakeIntegerComponentsWithRadix(
+_ text: String, _ sign: FloatingPointSign?, _ radix: Int?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    let components = NBK.makeIntegerComponentsWithRadix(utf8: text.utf8)
+    XCTAssertEqual(components.sign,  sign,  file: file, line: line)
+    XCTAssertEqual(components.radix, radix, file: file, line: line)
+    XCTAssertEqual(Array(components.body),  Array(body.utf8), file: file, line: line)
 }
 
 #endif

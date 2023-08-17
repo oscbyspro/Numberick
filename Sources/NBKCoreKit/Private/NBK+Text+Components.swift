@@ -36,7 +36,6 @@ extension NBK {
         default: return nil  }
     }
     
-    #warning("tests")
     /// Removes and returns an `UTF-8` encoded `radix` prefix, if it exists.
     ///
     /// ```
@@ -77,6 +76,7 @@ extension NBK {
     /// ├─────── → ──────┼────────┤
     /// │ "+123" │ plus  │  "123" │
     /// │ "-123" │ minus │  "123" │
+    /// ├─────── → ──────┼────────┤
     /// │ "~123" │ plus  │ "~123" │
     /// └─────── → ──────┴────────┘
     /// ```
@@ -87,5 +87,31 @@ extension NBK {
         var body = utf8[...] as T.SubSequence
         let sign = NBK.removeSignPrefix(utf8: &body) ?? Sign.plus
         return (sign: sign, body: body)
+    }
+    
+    /// Returns an `UTF-8` encoded integer's `sign`, `radix`, and `body`.
+    ///
+    /// ```
+    /// ┌───────── → ──────┬───────┬──────────┐
+    /// │ body     │ sign  │ radix │   body   │
+    /// ├───────── → ──────┼───────┼──────────┤
+    /// │ "+0b123" │ plus  │ 002   │    "123" │
+    /// │ "-0x123" │ minus │ 016   │    "123" │
+    /// ├───────── → ──────┼───────┼──────────┤
+    /// │    "123" │ plus  │ 010   │    "123" │
+    /// │ "~1x123" │ plus  │ 010   │ "~1x123" │
+    /// │ "~0X123" │ plus  │ 010   │ "~0X123" │
+    /// └───────── → ──────┴───────┴──────────┘
+    /// ```
+    ///
+    /// - Note: Integers without sign are interpreted as positive.
+    ///
+    /// - Note: Integers without radix are interpreted as base 10.
+    ///
+    @inlinable public static func makeIntegerComponentsWithRadix<T>(utf8: T) -> (sign: Sign, radix: Int, body: T.SubSequence) where T: Collection<UInt8> {
+        var body = utf8[...] as T.SubSequence
+        let sign = NBK.removeSignPrefix(utf8: &body) ?? Sign.plus
+        let radix  = NBK.removeRadixPrefix(utf8: &body) ?? 10 as Int
+        return (sign: sign, radix: radix, body: body)
     }
 }
