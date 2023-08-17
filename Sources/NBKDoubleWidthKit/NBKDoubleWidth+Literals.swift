@@ -36,7 +36,7 @@ extension NBKDoubleWidth {
         var source = source
         
         let value: Optional<Self> = source.withUTF8 { utf8 in
-            let components = NBK.makeIntegerComponentsWithRadix(utf8: utf8)
+            let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
             let radix  = NBK.AnyRadixUIntRoot(components.radix)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
