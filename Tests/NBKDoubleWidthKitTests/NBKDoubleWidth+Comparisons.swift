@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Comparisons x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnComparisonsAsInt256: XCTestCase {
     
     typealias T = Int256
@@ -218,6 +221,9 @@ final class NBKDoubleWidthTestsOnComparisonsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Comparisons x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnComparisonsAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -378,6 +384,9 @@ final class NBKDoubleWidthTestsOnComparisonsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Comparisons x Assertions
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertSignum<H: NBKFixedWidthInteger>(
 _ operand: NBKDoubleWidth<H>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
@@ -387,6 +396,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(Int(operand.signum() as T  ), signum, file: file, line: line) // stdlib
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertComparisons<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
@@ -402,6 +414,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.compared(to: rhs), signum, file: file, line: line)
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertComparisonsByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {

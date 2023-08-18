@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Literals x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
 
     typealias T = Int256
@@ -29,7 +32,7 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testFromIntegerLiteral() {
-        #if swift(>=5.8) && SBI
+        #if SBI && swift(>=5.8)
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
         XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)),  0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff)
@@ -51,7 +54,7 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
         #endif
     }
     
-    #if swift(>=5.8) && SBI
+    #if SBI && swift(>=5.8)
     @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
     #endif
     func testFromStringLiteral() {
@@ -75,6 +78,9 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Literals x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -84,7 +90,7 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromIntegerLiteral() {
-        #if swift(>=5.8) && SBI
+        #if SBI && swift(>=5.8)
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  0x0000000000000000000000000000000000000000000000000000000000000000)
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
         XCTAssertEqual(T(x64: X(~0, ~0,  0,  0)),  0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff)
@@ -106,7 +112,7 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         #endif
     }
     
-    #if swift(>=5.8) && SBI
+    #if SBI && swift(>=5.8)
     @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
     #endif
     func testFromStringLiteral() {

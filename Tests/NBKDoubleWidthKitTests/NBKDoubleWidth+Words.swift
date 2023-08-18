@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Words x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnWordsAsInt256: XCTestCase {
     
     typealias T = Int256
@@ -99,6 +102,9 @@ final class NBKDoubleWidthTestsOnWordsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Words x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -178,6 +184,9 @@ final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Words x Assertions
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertWords<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
@@ -204,6 +213,9 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: + Indices
 //=----------------------------------------------------------------------------=
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertIndexOffsetByLimitedBy<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ index: Int, _ distance: Int, _ limit: Int, _ expectation: Int?,
 file: StaticString = #file, line: UInt = #line) {
@@ -218,6 +230,9 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: + Elements x First, Last, Tail
 //=----------------------------------------------------------------------------=
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertFirstLastTail<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, first: UInt, last: UInt, tail: H.Digit,
 file: StaticString = #file, line: UInt = #line) {

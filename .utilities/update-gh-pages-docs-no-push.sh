@@ -16,7 +16,6 @@
 # │    └─── SCRIPT.sh
 # │
 # └─── .swiftpm/xcode/xcshareddata/PROJECT.xcscheme
-#
 #=-----------------------------------------------------------------------------=
 
 set -eu

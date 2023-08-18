@@ -14,7 +14,7 @@ import PackageDescription
 // MARK: * Numberick
 //*============================================================================*
 
-let withStaticBigInt = true
+let withStaticBigInt = false
 
 //=----------------------------------------------------------------------------=
 // MARK: + Version < iOS 16.4, macOS 13.3

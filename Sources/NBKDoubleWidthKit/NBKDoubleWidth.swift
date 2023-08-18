@@ -81,6 +81,21 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
+/// ### Feature: StaticBigInt (v0.10.0+)
+///
+/// Because `StaticBigInt` does not back-deploy, it is gated by availability and
+/// the compiler flag `SBI`. Setting the constant `withStaticBigInt` to `true` in
+/// `Package.swift` enables it. Alternatively, you can use the command line:
+///
+/// ```
+/// swift build -Xswiftc -DSBI
+/// ```
+///
+/// - Note: You can use `init(stringLiteral:)` until `StaticBigInt` becomes available.
+///
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 @frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
@@ -219,7 +234,14 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
 // MARK: * NBK x Double Width x Conditional Conformances
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
+
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }
 
 //*============================================================================*
@@ -229,17 +251,29 @@ extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ whe
 #if arch(i386) || arch(arm) || arch(arm64_32) || arch(wasm32) || arch(powerpc)
 
 /// A signed, 128-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int128 = NBKDoubleWidth<NBKDoubleWidth<Int>>
 
 /// An unsigned, 128-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt128 = NBKDoubleWidth<NBKDoubleWidth<UInt>>
 
 #elseif arch(x86_64) || arch(arm64) || arch(powerpc64) || arch(powerpc64le) || arch(s390x)
 
 /// A signed, 128-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int128 = NBKDoubleWidth<Int>
 
 /// An unsigned, 128-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt128 = NBKDoubleWidth<UInt>
 
 #else
@@ -253,9 +287,15 @@ public typealias UInt128 = NBKDoubleWidth<UInt>
 //*============================================================================*
 
 /// A signed, 256-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int256 = NBKDoubleWidth<Int128>
 
 /// An unsigned, 256-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt256 = NBKDoubleWidth<UInt128>
 
 //*============================================================================*
@@ -263,9 +303,15 @@ public typealias UInt256 = NBKDoubleWidth<UInt128>
 //*============================================================================*
 
 /// A signed, 512-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int512 = NBKDoubleWidth<Int256>
 
 /// An unsigned, 512-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt512 = NBKDoubleWidth<UInt256>
 
 //*============================================================================*
@@ -273,9 +319,15 @@ public typealias UInt512 = NBKDoubleWidth<UInt256>
 //*============================================================================*
 
 /// A signed, 1024-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int1024 = NBKDoubleWidth<Int512>
 
 /// An unsigned, 1024-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt1024 = NBKDoubleWidth<UInt512>
 
 //*============================================================================*
@@ -283,9 +335,15 @@ public typealias UInt1024 = NBKDoubleWidth<UInt512>
 //*============================================================================*
 
 /// A signed, 2048-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int2048 = NBKDoubleWidth<Int1024>
 
 /// An unsigned, 2048-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt2048 = NBKDoubleWidth<UInt1024>
 
 //*============================================================================*
@@ -293,7 +351,13 @@ public typealias UInt2048 = NBKDoubleWidth<UInt1024>
 //*============================================================================*
 
 /// A signed, 4096-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias Int4096 = NBKDoubleWidth<Int2048>
 
 /// An unsigned, 4096-bit, integer.
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 public typealias UInt4096 = NBKDoubleWidth<UInt2048>

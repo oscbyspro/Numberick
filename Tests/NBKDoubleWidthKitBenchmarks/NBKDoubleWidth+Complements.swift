@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Complements x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     
     typealias T =  Int256
@@ -167,6 +170,9 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Complements x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     
     typealias T = UInt256

@@ -85,6 +85,18 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
+### Feature: StaticBigInt (v0.10.0+)
+
+Because `StaticBigInt` does not back-deploy, it is gated by availability and
+the compiler flag `SBI`. Setting the constant `withStaticBigInt` to `true` in
+`Package.swift` enables it. Alternatively, you can use the command line:
+
+```
+swift build -Xswiftc -DSBI
+```
+
+- Note: You can use `init(stringLiteral:)` until `StaticBigInt` becomes available.
+
 ## Topics
 
 ### Protocols

@@ -13,51 +13,16 @@ import NBKCoreKit
 // MARK: * NBK x Double Width x Literals
 //*============================================================================*
 
-extension NBKDoubleWidth {
-    
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x String Literal Type
-    //=------------------------------------------------------------------------=
-    
-    #if swift(>=5.8) && SBI
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
-    @inlinable public init(stringLiteral source: StringLiteralType) {
-        if  let value = Self(exactlyStringLiteral: source) { self = value } else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-    }
-    
-    #if swift(>=5.8) && SBI
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
-    @inlinable init?(exactlyStringLiteral source: StringLiteralType) {
-        var source = source
-        
-        let value: Optional<Self> = source.withUTF8 { utf8 in
-            let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
-            let radix  = NBK.AnyRadixUIntRoot(components.radix)
-            let digits = NBK.UnsafeUTF8(rebasing: components.body)
-            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self(sign: components.sign, magnitude: magnitude)
-        }
-        
-        if  let value { self = value } else { return nil }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Version ≥ iOS 16.4, macOS 13.3
-//=----------------------------------------------------------------------------=
-#if swift(>=5.8) && SBI
-
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 extension NBKDoubleWidth {
     
     //=-------------------------------------------------------------------------=
     // MARK: Details x Integer Literal Type
     //=-------------------------------------------------------------------------=
-    
+    #if SBI && swift(>=5.8)
+
     @inlinable public init(integerLiteral source: StaticBigInt) {
         if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
@@ -76,22 +41,41 @@ extension NBKDoubleWidth {
             }
         }
     }
-}
-
-#else
-//=----------------------------------------------------------------------------=
-// MARK: + Version < iOS 16.4, macOS 13.3
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth {
     
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Integer Literal Type
-    //=------------------------------------------------------------------------=
+    #else
     
-    @inlinable public init(integerLiteral source: Int64) {
+    @inlinable public init(integerLiteral source: Swift.Int64) {
         self.init(source)
     }
+    
+    #endif
+    //=------------------------------------------------------------------------=
+    // MARK: Details x String Literal Type
+    //=------------------------------------------------------------------------=
+    
+    #if SBI && swift(>=5.8)
+    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
+    #endif
+    @inlinable public init(stringLiteral source: StringLiteralType) {
+        if  let value = Self(exactlyStringLiteral: source) { self = value } else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+    }
+    
+    #if SBI && swift(>=5.8)
+    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
+    #endif
+    @inlinable init?(exactlyStringLiteral source: StringLiteralType) {
+        var source = source
+        
+        let value: Optional<Self> = source.withUTF8 { utf8 in
+            let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
+            let radix  = NBK.AnyRadixUIntRoot(components.radix)
+            let digits = NBK.UnsafeUTF8(rebasing: components.body)
+            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
+            return Self(sign: components.sign, magnitude: magnitude)
+        }
+        
+        if  let value { self = value } else { return nil }
+    }
 }
-
-#endif

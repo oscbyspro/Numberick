@@ -18,6 +18,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTests: XCTestCase {
     
     typealias T = any NBKFixedWidthInteger.Type
@@ -59,6 +62,9 @@ final class NBKDoubleWidthTests: XCTestCase {
 // MARK: * NBK x Double Width x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsAsInt256: XCTestCase {
     
     typealias T =  Int256
@@ -102,6 +108,9 @@ final class NBKDoubleWidthTestsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -145,6 +154,9 @@ final class NBKDoubleWidthTestsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Assertions
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertHalvesGetSetInit<H: NBKFixedWidthInteger>(
 _ value: NBKDoubleWidth<H>, _ low: H.Magnitude, _ high: H,
 file: StaticString = #file, line: UInt = #line) {
@@ -182,6 +194,9 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: * NBK x Double Width x Initializers
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=

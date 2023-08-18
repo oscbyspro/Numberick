@@ -20,6 +20,9 @@ private typealias Y = [UInt64]
 // MARK: * NBK x Double Width x Strides x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnStridesAsInt256: XCTestCase {
     
     typealias T = Int256
@@ -51,6 +54,9 @@ final class NBKDoubleWidthTestsOnStridesAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Strides x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnStridesAsUInt256: XCTestCase {
     
     typealias T = UInt256

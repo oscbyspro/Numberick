@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Shifts x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
     
     typealias S = Int256
@@ -143,6 +146,9 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Shifts x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
     
     typealias S =  Int256
@@ -266,6 +272,9 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Shifts x Assertions
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertShiftLeft<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
@@ -303,6 +312,9 @@ file: StaticString = #file, line: UInt = #line) {
     }
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertShiftRight<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
@@ -344,6 +356,9 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: + Masking
 //=----------------------------------------------------------------------------=
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertShiftLeftByMasking<H: NBKFixedWidthInteger, S: NBKFixedWidthInteger & NBKSignedInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>, signitude: S.Type,
 file: StaticString = #file, line: UInt = #line) where S.Digit: NBKCoreInteger<UInt> {
@@ -383,6 +398,9 @@ file: StaticString = #file, line: UInt = #line) where S.Digit: NBKCoreInteger<UI
     NBKAssertWithProtocolWitnessesOf(lhs, rhs - lhs.bitWidth, result)
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertShiftRightByMasking<H: NBKFixedWidthInteger, S: NBKFixedWidthInteger & NBKSignedInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>, signitude: S.Type,
 file: StaticString = #file, line: UInt = #line) where S.Digit: NBKCoreInteger<UInt> {

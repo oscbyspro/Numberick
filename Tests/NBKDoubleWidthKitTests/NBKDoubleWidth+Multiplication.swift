@@ -20,6 +20,9 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Multiplication x Int256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnMultiplicationAsInt256: XCTestCase {
     
     typealias T =  Int256
@@ -154,6 +157,9 @@ final class NBKDoubleWidthTestsOnMultiplicationAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Multiplication x UInt256
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -246,6 +252,9 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Multiplication x Assertions
 //*============================================================================*
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertMultiplication<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  NBKDoubleWidth<H>,
 _ low: NBKDoubleWidth<H>, _ high: NBKDoubleWidth<H>? = nil, _ overflow: Bool = false,
@@ -275,6 +284,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let o = x.multiplyFullWidth(by: rhs); return o }(), high, file: file, line: line)
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertMultiplicationByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  NBKDoubleWidth<H>.Digit,
 _ low: NBKDoubleWidth<H>, _ high: NBKDoubleWidth<H>.Digit? = nil, _ overflow: Bool = false,
@@ -304,6 +316,9 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let o = x.multiplyFullWidth(by: rhs); return o }(), high, file: file, line: line)
 }
 
+#if SBI && swift(>=5.8)
+@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
+#endif
 private func NBKAssertMultiplicationByDigitWithAddition<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  UInt, _ carry: UInt,
 _ low: NBKDoubleWidth<H>, _ high: UInt, _ overflow: Bool = false,
