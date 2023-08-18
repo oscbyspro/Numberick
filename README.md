@@ -101,7 +101,7 @@ you can use the command line:
 swift build -Xswiftc -DSBI
 ```
 
-> **Note**: You can use `init(stringLiteral:)` until `StaticBigInt` becomes available. 
+> **Note**: You can use `StaticString` until `StaticBigInt` becomes available. 
 
 ## Acknowledgements
 

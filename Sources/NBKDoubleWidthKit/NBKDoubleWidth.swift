@@ -91,7 +91,7 @@ import NBKCoreKit
 /// swift build -Xswiftc -DSBI
 /// ```
 ///
-/// - Note: You can use `init(stringLiteral:)` until `StaticBigInt` becomes available.
+/// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 ///
 #if SBI && swift(>=5.8)
 @available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)

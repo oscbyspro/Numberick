@@ -95,7 +95,7 @@ the compiler flag `SBI`. Setting the constant `withStaticBigInt` to `true` in
 swift build -Xswiftc -DSBI
 ```
 
-- Note: You can use `init(stringLiteral:)` until `StaticBigInt` becomes available.
+- Note: You can use `StaticString` until `StaticBigInt` becomes available.
 
 ## Topics
 

@@ -56,7 +56,7 @@ extension NBKDoubleWidth {
     #if SBI && swift(>=5.8)
     @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
     #endif
-    @inlinable public init(stringLiteral source: StringLiteralType) {
+    @inlinable public init(stringLiteral source: StaticString) {
         if  let value = Self(exactlyStringLiteral: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
@@ -65,10 +65,8 @@ extension NBKDoubleWidth {
     #if SBI && swift(>=5.8)
     @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
     #endif
-    @inlinable init?(exactlyStringLiteral source: StringLiteralType) {
-        var source = source
-        
-        let value: Optional<Self> = source.withUTF8 { utf8 in
+    @inlinable init?(exactlyStringLiteral source: StaticString) {
+        let value: Optional<Self> = source.withUTF8Buffer { utf8 in
             let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
             let radix  = NBK.AnyRadixUIntRoot(components.radix)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
