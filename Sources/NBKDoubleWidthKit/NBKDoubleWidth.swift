@@ -81,7 +81,7 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
-/// ### Feature: StaticBigInt (v0.10.0+)
+/// ### ⭐️ Feature: StaticBigInt (v0.10.0+)
 ///
 /// Because `StaticBigInt` does not back-deploy, it is gated by availability
 /// and a build condition. Setting the constant `withStaticBigInt` to `true`

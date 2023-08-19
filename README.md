@@ -90,7 +90,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
-### Feature: StaticBigInt (v0.10.0+)
+### ⭐️ Feature: StaticBigInt (v0.10.0)
 
 Because `StaticBigInt` [does not back-deploy][Apple/StaticBigInt/SE], it is gated
 by [availability][Apple/StaticBigInt] and a build condition. Setting the constant
@@ -116,7 +116,7 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
 
-<!-- Links x Features -->
+<!-- Links x StaticBigInt -->
 
 [Apple/StaticBigInt]: https://developer.apple.com/documentation/swift/staticbigint
 [Apple/StaticBigInt/SE]: https://github.com/apple/swift-evolution/blob/main/proposals/0368-staticbigint.md

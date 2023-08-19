@@ -41,8 +41,8 @@ extension NBKDoubleWidth {
     
     #else
     
-    @inlinable public init(integerLiteral source: Swift.Int64) {
-        self.init(source)
+    @inlinable public init(integerLiteral source: Digit.IntegerLiteralType) {
+        self.init(digit: Digit(integerLiteral: source))
     }
     
     #endif
@@ -50,18 +50,12 @@ extension NBKDoubleWidth {
     // MARK: Details x String Literal Type
     //=------------------------------------------------------------------------=
     
-    #if SBI && swift(>=5.8)
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
     @inlinable public init(stringLiteral source: StaticString) {
         if  let value = Self(exactlyStringLiteral: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
     }
     
-    #if SBI && swift(>=5.8)
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
     @inlinable init?(exactlyStringLiteral source: StaticString) {
         let value: Optional<Self> = source.withUTF8Buffer { utf8 in
             let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)

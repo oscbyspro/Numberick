@@ -44,16 +44,11 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral:   -0x8000000000000000000000000000000000000000000000000000000000000000), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral:   -0x8000000000000000000000000000000000000000000000000000000000000001),   nil)
         #else
-        XCTAssertEqual(T(integerLiteral:  0x7fffffffffffffff as Int64),  T(x64: X(UInt64(Int64.max), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral:  0x0000000000000000 as Int64),  T(x64: X(UInt64(Int64(  )), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral: -0x0000000000000001 as Int64), ~T(x64: X(UInt64(Int64(  )), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral: -0x8000000000000000 as Int64), ~T(x64: X(UInt64(Int64.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: Int.max),  T(x64: X(UInt64(Int.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: Int.min), ~T(x64: X(UInt64(Int.max), 0, 0, 0)))
         #endif
     }
     
-    #if SBI && swift(>=5.8)
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
     func testFromStringLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)),  "0x0000000000000000000000000000000000000000000000000000000000000000")
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)),  "0x000000000000000000000000000000000000000000000000ffffffffffffffff")
@@ -99,16 +94,11 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral:  0x000000000000000000000000000000000000000000000000000000000000000000), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral: -0x000000000000000000000000000000000000000000000000000000000000000001),   nil)
         #else
-        XCTAssertEqual(T(integerLiteral:  0x7fffffffffffffff as Int64), T(x64: X(UInt64(Int64.max), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral:  0x0000000000000000 as Int64), T(x64: X(UInt64(Int64(  )), 0, 0, 0)))
-        XCTAssertEqual(T(exactly:        -0x0000000000000001 as Int64), nil)
-        XCTAssertEqual(T(exactly:        -0x8000000000000000 as Int64), nil)
+        XCTAssertEqual(T(integerLiteral: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
         #endif
     }
     
-    #if SBI && swift(>=5.8)
-    @available(swift, deprecated: 5.8, message: "Use an integer literal instead.")
-    #endif
     func testFromStringLiteral() {
         XCTAssertEqual(T(x64: X( 0,  0,  0,  0)), "0x0000000000000000000000000000000000000000000000000000000000000000")
         XCTAssertEqual(T(x64: X(~0,  0,  0,  0)), "0x000000000000000000000000000000000000000000000000ffffffffffffffff")
