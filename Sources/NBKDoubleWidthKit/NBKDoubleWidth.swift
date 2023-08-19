@@ -253,14 +253,18 @@ extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ whe
 /// A signed, 128-bit, integer.
 #if SBI && swift(>=5.8)
 @available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 public typealias Int128 = NBKDoubleWidth<NBKDoubleWidth<Int>>
+#else  // because Swift 5.7 cannot parse it otherwise
+public typealias Int128 = NBKDoubleWidth<NBKDoubleWidth<Int>>
+#endif
 
 /// An unsigned, 128-bit, integer.
 #if SBI && swift(>=5.8)
 @available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 public typealias UInt128 = NBKDoubleWidth<NBKDoubleWidth<UInt>>
+#else  // because Swift 5.7 cannot parse it otherwise
+public typealias UInt128 = NBKDoubleWidth<NBKDoubleWidth<UInt>>
+#endif
 
 #elseif arch(x86_64) || arch(arm64) || arch(powerpc64) || arch(powerpc64le) || arch(s390x)
 
