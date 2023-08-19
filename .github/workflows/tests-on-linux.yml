@@ -1,0 +1,31 @@
+name: Tests on Linux
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+        
+jobs:
+  linux:
+    strategy:
+      matrix:
+        element:
+          - swift: '5.7'
+            withStaticBigInt: false
+          - swift: '5.8'
+            withStaticBigInt: true
+    
+    runs-on: ubuntu-latest
+    container:
+      image: swift:${{ matrix.element.swift }}
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test
+        run: swift test
+      - name: Test with StaticBigInt
+        if: matrix.element.withStaticBigInt
+        run: swift test -Xswiftc -DSBI
