@@ -1,4 +1,4 @@
-name: Tests on Linux
+name: Run tests on macOS
 
 on:
   workflow_dispatch:
@@ -6,24 +6,26 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-        
+
 jobs:
-  linux:
+  macos:
     strategy:
       matrix:
         element:
-          - swift: '5.7'
+          - xcode: '14.2'
+            machine: macos-12
             withStaticBigInt: false
-          - swift: '5.8'
+          - xcode: '14.3'
+            machine: macos-13
             withStaticBigInt: true
+            
+    runs-on: ${{ matrix.element.machine }}
     
-    runs-on: ubuntu-latest
-    container:
-      image: swift:${{ matrix.element.swift }}
-      
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.element.xcode }}.app
       - name: Test
         run: swift test
       - name: Test with StaticBigInt
