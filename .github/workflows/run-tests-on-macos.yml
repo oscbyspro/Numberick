@@ -14,20 +14,15 @@ jobs:
         element:
           - xcode: '14.2'
             machine: macos-12
-            withStaticBigInt: false
           - xcode: '14.3'
             machine: macos-13
-            withStaticBigInt: true
             
     runs-on: ${{ matrix.element.machine }}
     
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Select Xcode
+      - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.element.xcode }}.app
       - name: Test
-        run: swift test
-      - name: Test with StaticBigInt
-        if: matrix.element.withStaticBigInt
-        run: swift test -Xswiftc -DSBI
+        run: xcrun swift test

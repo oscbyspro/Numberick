@@ -83,13 +83,9 @@ import NBKCoreKit
 ///
 /// ### Feature: StaticBigInt (v0.10.0+)
 ///
-/// Because `StaticBigInt` does not back-deploy, it is gated by availability and
-/// the compiler flag `SBI`. Setting the constant `withStaticBigInt` to `true` in
-/// `Package.swift` enables it. Alternatively, you can use the command line:
-///
-/// ```
-/// swift build -Xswiftc -DSBI
-/// ```
+/// Because `StaticBigInt` does not back-deploy, it is gated by availability
+/// and a build condition. Setting the constant `withStaticBigInt` to `true`
+/// in `Package.swift` enables it.
 ///
 /// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 ///
