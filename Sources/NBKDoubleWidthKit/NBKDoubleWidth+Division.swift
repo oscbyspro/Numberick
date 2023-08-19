@@ -13,9 +13,6 @@ import NBKCoreKit
 // MARK: * NBK x Double Width x Division
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 extension NBKDoubleWidth {
 
     //=------------------------------------------------------------------------=
@@ -117,9 +114,6 @@ extension NBKDoubleWidth {
 // MARK: + Unsigned
 //=----------------------------------------------------------------------------=
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 extension NBKDoubleWidth where High == High.Magnitude {
     
     //=------------------------------------------------------------------------=
