@@ -20,9 +20,6 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Subtraction x Int256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
     
     typealias T = Int256
@@ -143,9 +140,6 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Subtraction x UInt256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnSubtractionAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -217,9 +211,6 @@ final class NBKDoubleWidthTestsOnSubtractionAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Subtraction x Assertions
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertSubtraction<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>,
 _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
@@ -240,9 +231,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let o = x.subtractReportingOverflow(rhs); return o }(), overflow,     file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertSubtractionByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,

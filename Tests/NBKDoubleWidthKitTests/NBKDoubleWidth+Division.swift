@@ -20,9 +20,6 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Division x Int256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnDivisionAsInt256: XCTestCase {
     
     typealias T =  Int256
@@ -226,9 +223,6 @@ final class NBKDoubleWidthTestsOnDivisionAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Division x UInt256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -382,9 +376,6 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Division x UInt256 x Code Coverage
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
     
     typealias T = UInt256
@@ -413,9 +404,6 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
 // MARK: * NBK x Double Width x Division x Assertions
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertDivision<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool = false,
@@ -453,9 +441,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertDivisionByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>.Digit, _ overflow: Bool = false,
@@ -498,9 +483,6 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: + Full Width
 //=----------------------------------------------------------------------------=
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertDivisionFullWidth<H: NBKFixedWidthInteger>(
 _ lhs: HL<NBKDoubleWidth<H>, NBKDoubleWidth<H>.Magnitude>, _ rhs: NBKDoubleWidth<H>,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool = false,

@@ -20,9 +20,6 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Numbers x Int256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     
     typealias S  =  Int256
@@ -281,9 +278,6 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Numbers x UInt256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     
     typealias S  =  Int256
@@ -527,45 +521,30 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Numbers x Assertions
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, default: O,
 file: StaticString = #file, line: UInt = #line) {
     NBKAssertNumbers(from: value, exactly: `default`, clamping: `default`, truncating: `default`, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, default: O, exactly: O?,
 file: StaticString = #file, line: UInt = #line) {
     NBKAssertNumbers(from: value, exactly: exactly, clamping: `default`, truncating: `default`, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, default: O, clamping: O,
 file: StaticString = #file, line: UInt = #line) {
     NBKAssertNumbers(from: value, exactly: `default`, clamping: clamping, truncating: `default`, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, default: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {
     NBKAssertNumbers(from: value, exactly: `default`, clamping: `default`, truncating: truncating, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, exactly: O?, clamping: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {

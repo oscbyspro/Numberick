@@ -20,9 +20,6 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Text x Int256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
     
     typealias T  = Int256
@@ -261,9 +258,6 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Text x UInt256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
     
     typealias T  = UInt256
@@ -482,9 +476,6 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Text x Assertions
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertFromDescription<H>(
 _ integer: NBKDoubleWidth<H>?,  _ description: String,
 file: StaticString = #file, line: UInt = #line) {
@@ -494,9 +485,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(T(description, radix: 10), integer, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertDecodeText<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>?, _ radix: Int, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
@@ -509,9 +497,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(T(text, radix: radix), integer, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertEncodeText<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {

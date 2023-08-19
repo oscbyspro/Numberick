@@ -20,9 +20,6 @@ private typealias Y = NBK.U256X32
 // MARK: * NBK x Double Width x Complements x Int256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnComplementsAsInt256: XCTestCase {
     
     typealias T =  Int256
@@ -104,9 +101,6 @@ final class NBKDoubleWidthTestsOnComplementsAsInt256: XCTestCase {
 // MARK: * NBK x Double Width x Complements x UInt256
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 final class NBKDoubleWidthTestsOnComplementsAsUInt256: XCTestCase {
     
     typealias T = UInt256
@@ -167,9 +161,6 @@ final class NBKDoubleWidthTestsOnComplementsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Complements x Assertions
 //*============================================================================*
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertBitPattern<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ bitPattern: NBKDoubleWidth<H>.BitPattern,
 file: StaticString = #file, line: UInt = #line) {
@@ -182,9 +173,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(B(bitPattern: integer), bitPattern,  file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertBitPattern<T: NBKFixedWidthInteger>(
 _ integer: T, _ bitPattern: T.BitPattern,
 file: StaticString = #file, line: UInt = #line) where T.BitPattern: Equatable {
@@ -194,9 +182,6 @@ file: StaticString = #file, line: UInt = #line) where T.BitPattern: Equatable {
     XCTAssertEqual(T.BitPattern(bitPattern:  integer), bitPattern, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertOnesComplement<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
@@ -207,9 +192,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = integer; let _ = x.formTwosComplementSubsequence(false);  return x }(), result, file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertTwosComplement<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
@@ -226,9 +208,6 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = integer; let o = x.formTwosComplementSubsequence(true  ); return o }(), overflow,     file: file, line: line)
 }
 
-#if SBI && swift(>=5.8)
-@available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *)
-#endif
 private func NBKAssertAdditiveInverse<H: NBKFixedWidthInteger & NBKSignedInteger>(
 _ operand: NBKDoubleWidth<H>, _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
