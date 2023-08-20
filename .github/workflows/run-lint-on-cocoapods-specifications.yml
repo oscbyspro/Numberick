@@ -1,0 +1,25 @@
+name: Run lint on CocoaPods specifications
+
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        element:
+          - xcode: '14.3.1'
+        
+    runs-on: macOS-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Select Xcode ${{ matrix.element.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.element.xcode }}.app
+      - name: Lint Numberick-NBKCoreKit.podspec
+        run: pod lib lint --allow-warnings --fail-fast Numberick-NBKCoreKit.podspec
+      - name: Lint Numberick-NBKDoubleWidthKit.podspec
+        run: pod lib lint --allow-warnings --fail-fast Numberick-NBKDoubleWidthKit.podspec
+      - name: Lint Numberick.podspec
+        run: pod lib lint --allow-warnings --fail-fast Numberick.podspec
