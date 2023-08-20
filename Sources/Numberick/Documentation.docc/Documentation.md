@@ -87,8 +87,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 ### ⭐️ Feature: StaticBigInt (v0.10.0+)
 
-`StaticBigInt` does not back-deploy and is disabled by default. 
-Set `withStaticBigInt` in `Package.swift` to enable it.
+`StaticBigInt` is disabled by default. You enable it in `Package.swift`.
 
 - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 

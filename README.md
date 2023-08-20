@@ -92,8 +92,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 ### ⭐️ Feature: StaticBigInt (v0.10.0)
 
-`StaticBigInt` [does not back-deploy][Apple/StaticBigInt/SE] and is disabled by default. 
-Set `withStaticBigInt` in `Package.swift` to enable it.
+`StaticBigInt` is disabled by default. You enable it in `Package.swift`.
 
 > **Note**: You can use `StaticString` until `StaticBigInt` becomes available. 
 
@@ -119,4 +118,3 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 
 [Apple/Int128]: https://github.com/apple/swift/blob/main/stdlib/public/core/Int128.swift.gyb
 [Apple/DoubleWidth]: https://github.com/apple/swift/blob/main/test/Prototypes/DoubleWidth.swift.gyb
-[Apple/StaticBigInt/SE]: https://github.com/apple/swift-evolution/blob/main/proposals/0368-staticbigint.md
