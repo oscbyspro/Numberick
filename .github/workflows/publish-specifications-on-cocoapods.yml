@@ -1,0 +1,31 @@
+name: Publish specifications on CocoaPods
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+    
+jobs:
+  publish:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Select Xcode 14.3.1
+        run: sudo xcode-select --switch /Applications/Xcode_14.3.1.app
+        
+      - name: Publish 'Numberick-NBKCoreKit'
+        run: pod trunk push --allow-warnings --synchronous Numberick-NBKCoreKit.podspec
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        
+      - name: Publish 'Numberick-NBKDoubleWidthKit'
+        run: pod trunk push --allow-warnings --synchronous Numberick-NBKDoubleWidthKit.podspec
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+          
+      - name: Publish 'Numberick'
+        run: pod trunk push --allow-warnings --synchronous Numberick.podspec
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
