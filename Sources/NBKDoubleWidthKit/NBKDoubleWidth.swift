@@ -83,9 +83,8 @@ import NBKCoreKit
 ///
 /// ### ⭐️ Feature: StaticBigInt (v0.10.0+)
 ///
-/// Because `StaticBigInt` does not back-deploy, it is gated by availability
-/// and a build condition. Setting the constant `withStaticBigInt` to `true`
-/// in `Package.swift` enables it.
+/// `StaticBigInt` does not back-deploy and is disabled by default.
+/// Set `withStaticBigInt` in `Package.swift` to enable it.
 ///
 /// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 ///

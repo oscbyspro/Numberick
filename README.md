@@ -4,8 +4,8 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.10.0  | 5.7+  | 14.0+ | 14.0+        | 11.0+ | 14.0+ | 7.0+    |
-|  0.9.0  | 5.7+  | 16.4+ | 16.4+        | 13.3+ | 16.4+ | 9.4+    |
+| 0.10.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+|  0.9.0  | 5.7   | 16.4  | 16.4         | 13.3  | 16.4  | 9.4     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
@@ -92,9 +92,8 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 ### ⭐️ Feature: StaticBigInt (v0.10.0)
 
-Because `StaticBigInt` [does not back-deploy][Apple/StaticBigInt/SE], it is gated
-by [availability][Apple/StaticBigInt] and a build condition. Setting the constant
-`withStaticBigInt` to `true` in `Package.swift` enables it.
+`StaticBigInt` [does not back-deploy][Apple/StaticBigInt/SE] and is disabled by default. 
+Set `withStaticBigInt` in `Package.swift` to enable it.
 
 > **Note**: You can use `StaticString` until `StaticBigInt` becomes available. 
 
@@ -116,12 +115,8 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
 
-<!-- Links x StaticBigInt -->
-
-[Apple/StaticBigInt]: https://developer.apple.com/documentation/swift/staticbigint
-[Apple/StaticBigInt/SE]: https://github.com/apple/swift-evolution/blob/main/proposals/0368-staticbigint.md
-
-<!-- Links x Acknowledgements -->
+<!-- Links x Miscellaneous -->
 
 [Apple/Int128]: https://github.com/apple/swift/blob/main/stdlib/public/core/Int128.swift.gyb
 [Apple/DoubleWidth]: https://github.com/apple/swift/blob/main/test/Prototypes/DoubleWidth.swift.gyb
+[Apple/StaticBigInt/SE]: https://github.com/apple/swift-evolution/blob/main/proposals/0368-staticbigint.md
