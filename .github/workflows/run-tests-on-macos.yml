@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Select Xcode Version
+      - name: Select Xcode ${{ matrix.element.xcode }}
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.element.xcode }}.app
       - name: Test
         run: xcrun swift test
