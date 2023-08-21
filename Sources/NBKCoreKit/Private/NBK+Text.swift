@@ -20,9 +20,9 @@ extension NBK {
     /// Creates a new instance by truncating the given `digits` and `radix`.
     ///
     /// The sequence passed as `digits` may contain one or more numeric digits
-    /// (0-9) or letters (a-z or A-Z), according to the `radix`. If the sequence
-    /// passed as `digits` uses an invalid format, the result is nil. If the
-    /// sequence passed as `digits` cannot be represented, the result is truncated.
+    /// (0-9) or letters (a-z or A-Z). If the sequence passed as `digits` uses
+    /// an invalid format, the result is nil. If the sequence passed as `digits`
+    /// cannot be represented, the result is truncated.
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///

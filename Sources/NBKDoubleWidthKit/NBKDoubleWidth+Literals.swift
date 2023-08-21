@@ -50,6 +50,26 @@ extension NBKDoubleWidth {
     // MARK: Details x String Literal Type
     //=------------------------------------------------------------------------=
     
+    /// Creates a new instance from the given string literal.
+    ///
+    /// The string literal may contain a plus or minus sign (+ or -), followed
+    /// by an optional radix indicator (0b, 0o or 0x), then one or more numeric
+    /// digits (0-9) or letters (a-z or A-Z). If the string literal uses an
+    /// invalid format, or its value cannot be represented, the result is nil.
+    /// 
+    /// ```
+    /// ┌───────── → ─────────────┐
+    /// │ literal  │ self         │
+    /// ├───────── → ─────────────┤
+    /// │    "123" │ Int256( 123) │
+    /// │ "+0x123" │ Int256( 291) │
+    /// │ "-0x123" │ Int256(-291) │
+    /// │ "~OX123" │ nil          │
+    /// └───────── → ─────────────┘
+    /// ```
+    ///
+    /// - Note: The decoding strategy is case insensitive.
+    ///
     @inlinable public init(stringLiteral source: StaticString) {
         if  let value = Self(exactlyStringLiteral: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")

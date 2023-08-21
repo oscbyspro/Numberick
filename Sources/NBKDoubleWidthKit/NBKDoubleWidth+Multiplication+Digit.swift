@@ -78,11 +78,19 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    /// Forms the result of multiplication and addition.
+    ///
+    /// - Note: In the case of `overflow`, a runtime error may occur.
+    ///
     @_disfavoredOverload @inlinable public mutating func multiply(by other: Digit, add carry: Digit) {
         let overflow: Bool = self.multiplyReportingOverflow(by: other, add: carry)
         precondition(!overflow, NBK.callsiteOverflowInfo())
     }
 
+    /// Returns the result of multiplication and addition.
+    ///
+    /// - Note: In the case of `overflow`, a runtime error may occur.
+    ///
     @_disfavoredOverload @inlinable public func multiplied(by other: Digit, adding carry: Digit) -> Self {
         let pvo: PVO<Self> = self.multipliedReportingOverflow(by: other, adding: carry)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
@@ -93,10 +101,18 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
 
+    /// Forms the result of multiplication and addition, and returns an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
     @_disfavoredOverload @inlinable public mutating func multiplyReportingOverflow(by other: Digit, add carry: Digit) -> Bool {
         !self.multiplyFullWidth(by: other, add: carry).isZero
     }
 
+    /// Returns the result of multiplication and addition, along with an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is truncated.
+    ///
     @_disfavoredOverload @inlinable public func multipliedReportingOverflow(by other: Digit, adding carry: Digit) -> PVO<Self> {
         var pvo = PVO(self, false)
         pvo.overflow = pvo.partialValue.multiplyReportingOverflow(by: other, add: carry)
@@ -107,10 +123,18 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
 
+    /// Forms the `low` part of multiplication and addition, and returns the `high`.
+    ///
+    /// - Note: The `high` and `low` parts contain the entire `overflow` from `low` to `high`.
+    ///
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by other: Digit, add carry: Digit) -> Digit {
         NBK.multiplyFullWidthLenientUnsignedInteger(&self, by: other, add: carry)
     }
     
+    /// Returns the `low` and `high` parts of multiplication and addition.
+    ///
+    /// - Note: The `high` and `low` parts contain the entire `overflow` from `low` to `high`.
+    ///
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit, adding carry: Digit) -> HL<Digit, Magnitude> {
         var product  = HL(UInt.zero, self)
         product.high = product.low.multiplyFullWidth(by: other, add: carry)

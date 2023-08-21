@@ -15,17 +15,17 @@ jobs:
       - name: Select Xcode 14.3.1
         run: sudo xcode-select --switch /Applications/Xcode_14.3.1.app
         
-      - name: Publish 'Numberick-NBKCoreKit'
+      - name: Publish 'Numberick-NBKCoreKit.podspec'
         run: pod trunk push --allow-warnings --synchronous Numberick-NBKCoreKit.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         
-      - name: Publish 'Numberick-NBKDoubleWidthKit'
+      - name: Publish 'Numberick-NBKDoubleWidthKit.podspec'
         run: pod trunk push --allow-warnings --synchronous Numberick-NBKDoubleWidthKit.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
           
-      - name: Publish 'Numberick'
+      - name: Publish 'Numberick.podspec'
         run: pod trunk push --allow-warnings --synchronous Numberick.podspec
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

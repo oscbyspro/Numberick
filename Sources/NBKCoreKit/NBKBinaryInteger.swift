@@ -1210,9 +1210,8 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Creates a new instance from the given `description` and `radix`.
     ///
     /// The `description` may contain a plus or minus sign (+ or -), followed by one
-    /// or more numeric digits (0-9) or letters (a-z or A-Z), according to the `radix`.
-    /// If the description uses an invalid format, or its value cannot be represented,
-    /// the result is nil.
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). If the description uses
+    /// an invalid format, or its value cannot be represented, the result is nil.
     ///
     /// ```
     /// ┌─────────────┬────── → ─────────────┐

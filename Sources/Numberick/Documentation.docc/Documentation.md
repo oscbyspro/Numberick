@@ -1,10 +1,10 @@
 # ``Numberick``
 
-Large number arithmagick in Swift.
+✨ An arithmagick overhaul in Swift.
 
 ## NBKCoreKit
 
-Models, protocols, and utilities underpinning this package.
+A new protocol hierarchy that refines Swift's standard library.
 
 ### Protocols
 

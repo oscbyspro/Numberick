@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Select Xcode ${{ matrix.element.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.element.xcode }}.app
-      - name: Lint Numberick.podspec
+      - name: Run lint on 'Numberick.podspec'
         run: |
           DEPENDENCIES=''
           DEPENDENCIES+=Numberick-NBKCoreKit.podspec,
