@@ -12,7 +12,7 @@
 #*=============================================================================*
 
 Pod::Spec.new do |spec|
-    spec.version = "0.10.0"
+    spec.version = "0.10.0-alpha"
     spec.name = "Numberick"
     spec.module_name = "Numberick"
     spec.summary = "✨ An arithmagick overhaul in Swift."
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
     spec.readme = "https://raw.githubusercontent.com/oscbyspro/Numberick/v#{spec.version}/README.md"
     spec.documentation_url = "https://oscbyspro.github.io/Numberick/documentation/numberick/"
     
-    spec.source = { :git => "https://github.com/oscbyspro/Numberick.git", :tag => "v#{spec.version}" }
+    spec.source = { :git => "https://github.com/oscbyspro/Numberick.git", :tag => "CocoaPods-v#{spec.version}" }
     spec.source_files = "Sources/#{spec.module_name}/**/*.swift"
     
     #=-------------------------------------------------------------------------=
@@ -33,6 +33,15 @@ Pod::Spec.new do |spec|
     
     spec.swift_version = "5.7"
     spec.platforms = { :ios => "14.0", :osx => "11.0", :tvos => "14.0", :watchos => "7.0" }
+    
+    #=-------------------------------------------------------------------------=
+    # MARK: Tests
+    #=-------------------------------------------------------------------------=
+    
+    spec.test_spec "Tests" do |test_spec|
+        test_spec.source_files = "Tests/*Tests/**/*.swift"
+        test_spec.platforms = { :ios => "14.0", :osx => "11.0", :tvos => "14.0" }
+    end
     
     #=-------------------------------------------------------------------------=
     # MARK: Dependencies

@@ -2,24 +2,32 @@ name: Run lint on CocoaPods specifications
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'CocoaPods-v[0-9]+.[0-9]+.[0-9]+'
+      - 'CocoaPods-v[0-9]+.[0-9]+.[0-9]+-*'
 
 jobs:
-  lint:
+  macos:
     strategy:
       matrix:
         element:
-          - xcode: '14.3.1'
-        
-    runs-on: macOS-latest
+          - xcode: '14.3'
+            machine: macos-13
+            
+    runs-on: ${{ matrix.element.machine }}
     
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Select Xcode ${{ matrix.element.xcode }}
         run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.element.xcode }}.app
-      - name: Lint Numberick-NBKCoreKit.podspec
-        run: pod lib lint --allow-warnings --fail-fast Numberick-NBKCoreKit.podspec
-      - name: Lint Numberick-NBKDoubleWidthKit.podspec
-        run: pod lib lint --allow-warnings --fail-fast Numberick-NBKDoubleWidthKit.podspec
       - name: Lint Numberick.podspec
-        run: pod lib lint --allow-warnings --fail-fast Numberick.podspec
+        run: |
+          DEPENDENCIES=''
+          DEPENDENCIES+=Numberick-NBKCoreKit.podspec,
+          DEPENDENCIES+=Numberick-NBKDoubleWidthKit.podspec,
+          pod lib lint  Numberick.podspec \
+          --allow-warnings \
+          --fail-fast \
+          --include-podspecs=\{$DEPENDENCIES\}

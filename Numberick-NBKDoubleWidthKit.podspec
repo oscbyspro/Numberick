@@ -12,7 +12,7 @@
 #*=============================================================================*
 
 Pod::Spec.new do |spec|
-    spec.version = "0.10.0"
+    spec.version = "0.10.0-alpha"
     spec.module_name = "NBKDoubleWidthKit"
     spec.name = "Numberick-#{spec.module_name}"
     spec.summary = "A composable, large, fixed-width, two's complement, binary integer."
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
     spec.readme = "https://raw.githubusercontent.com/oscbyspro/Numberick/v#{spec.version}/README.md"
     spec.documentation_url = "https://oscbyspro.github.io/Numberick/documentation/numberick/"
     
-    spec.source = { :git => "https://github.com/oscbyspro/Numberick.git", :tag => "v#{spec.version}" }
+    spec.source = { :git => "https://github.com/oscbyspro/Numberick.git", :tag => "CocoaPods-v#{spec.version}" }
     spec.source_files = "Sources/#{spec.module_name}/**/*.swift"
     
     #=-------------------------------------------------------------------------=
