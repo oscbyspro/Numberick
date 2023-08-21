@@ -52,10 +52,10 @@ extension NBKDoubleWidth {
     
     /// Creates a new instance from the given string literal.
     ///
-    /// The string literal may contain a plus or minus sign (+ or -), followed
-    /// by an optional radix indicator (0b, 0o or 0x), then one or more numeric
-    /// digits (0-9) or letters (a-z or A-Z). If the string literal uses an
-    /// invalid format, or its value cannot be represented, the result is nil.
+    /// The string literal may contain a plus or minus sign (+ or -), followed by
+    /// an optional radix indicator (0b, 0o or 0x), then one or more numeric digits
+    /// (0-9) or letters (a-z or A-Z). If the string literal uses an invalid format,
+    /// or its value cannot be represented, a runtime error may occur.
     /// 
     /// ```
     /// ┌───────── → ─────────────┐
@@ -64,7 +64,7 @@ extension NBKDoubleWidth {
     /// │    "123" │ Int256( 123) │
     /// │ "+0x123" │ Int256( 291) │
     /// │ "-0x123" │ Int256(-291) │
-    /// │ "~OX123" │ nil          │
+    /// │ "~OX123" │ error        │
     /// └───────── → ─────────────┘
     /// ```
     ///
