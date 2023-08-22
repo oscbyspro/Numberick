@@ -49,6 +49,7 @@ extension NBK {
         }
     }
     
+    // TODO: trivial type de/init is req.
     @discardableResult @inlinable static func minorLimbs<A, B>(_ minorLimbs: inout B, majorLimbs: A, isSigned: Bool)
     ->  B.Index where A: Collection, A.Element: NBKCoreInteger, B: MutableCollection, B.Element: NBKCoreInteger {
         precondition(A.Element.bitWidth.isPowerOf2)
@@ -86,6 +87,7 @@ extension NBK {
         }
     }
     
+    // TODO: trivial type de/init is req.
     @discardableResult @inlinable static func majorLimbs<A, B>(_ majorLimbs: inout B, minorLimbs: A, isSigned: Bool)
     ->  B.Index where A: Collection, A.Element: NBKCoreInteger, B: MutableCollection, B.Element: NBKCoreInteger {
         precondition(A.Element.bitWidth.isPowerOf2)

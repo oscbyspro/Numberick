@@ -246,32 +246,35 @@ extension NBK {
             //=--------------------------------------=
             let capacity: Int = UInt.bitWidth.trailingZeroBitCount - 1
             return Swift.withUnsafeTemporaryAllocation(of: Solution.self, capacity: capacity) { squares in
-                //=----------------------------------=
-                // de/init: pointee is trivial
-                //=----------------------------------=
                 var solution = Solution(1, radix)
-                var index = squares.startIndex as Int
-                
-                loop: while index  < squares.endIndex {
-                    squares[index] = solution
+                let start = squares.baseAddress!
+                var position = start as UnsafeMutablePointer<Solution>
+                //=----------------------------------=
+                // pointee: initialization
+                //=----------------------------------=
+                loop: while true {
+                    position.initialize(to: solution)
                     let product = solution.power.multipliedReportingOverflow(by: solution.power)
                     if  product.overflow { break loop }
                     
                     solution.exponent &<<= 1 as UInt
                     solution.power = product.partialValue
-                    squares.formIndex(after: &index)
+                    position = position.successor()
                 }
-                    
-                loop: while index  > squares.startIndex {
-                    squares.formIndex(before: &index)
-                    let square  = squares[index]
+                //=----------------------------------=
+                // pointee: deinitialization by move
+                //=----------------------------------=
+                assert(position <= start.advanced(by: squares.count))
+                loop: while position > start {
+                    position = position.predecessor()
+                    let square  = position.move()
                     let product = solution.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     
                     solution.exponent &+= square.exponent
                     solution.power = product.partialValue
                 }
-                
+                //=----------------------------------=
                 return solution as Solution
             }
         }

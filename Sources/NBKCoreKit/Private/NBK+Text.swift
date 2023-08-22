@@ -64,20 +64,20 @@ extension NBK {
         //=--------------------------------------=
         var remainders = chunks[...]
         let mostSignificantChunk = remainders.popLast() ?? UInt()
-        return NBK.withIntegerTextUnchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
+        return NBK.withUnsafeTemporaryIntegerTextUnchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
             var count: Int
             count  = prefix.count
             count += first .count
             count += remainders.count * radix.exponent
             count += suffix.count
             return String(unsafeUninitializedCapacity: count) { utf8 in
+                var position = utf8.baseAddress!.advanced(by: count)
                 //=------------------------------=
-                // de/init: pointee is trivial
+                // pointee: initialization
                 //=------------------------------=
-                var index = count as Int
                 func pull(_ unit: UInt8) {
-                    utf8.formIndex(before: &index)
-                    utf8[index] = unit
+                    position = position.predecessor()
+                    position.initialize(to: unit)
                 }
                 //=------------------------------=
                 suffix.reversed().forEach(pull)
@@ -93,9 +93,8 @@ extension NBK {
                 first .reversed().forEach(pull)
                 prefix.reversed().forEach(pull)
                 //=------------------------------=
-                assert(utf8.startIndex == index)
-                assert(utf8[index..<count].count == count)
-                return count
+                assert(position == utf8.baseAddress!)
+                return count as Int
             }
         }
     }
@@ -104,24 +103,28 @@ extension NBK {
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable public static func withIntegerTextUnchecked<T>(chunk: UInt, radix: some _NBKRadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
+    @inlinable public static func withUnsafeTemporaryIntegerTextUnchecked<T>(
+    chunk: UInt, radix: some _NBKRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
-            //=----------------------------------=
-            // de/init: pointee is trivial
-            //=----------------------------------=
             var chunk = chunk as UInt
-            var index = radix.exponent as Int
+            let end   = utf8.baseAddress!.advanced(by: radix.exponent)
+            var start = end as UnsafeMutablePointer<UInt8>
+            //=----------------------------------=
+            // pointee: initialization
             //=----------------------------------=
             backwards: repeat {
                 let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
-                utf8.formIndex(before: &index)
-                utf8[index] = alphabet.encode(UInt8(truncatingIfNeeded: digit))!
+                start = start.predecessor()
+                start.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
             }   while !chunk.isZero
             //=----------------------------------=
-            return body(NBK.UnsafeUTF8(rebasing: utf8[index...]))
+            // pointee: deferred deinitialization
+            //=----------------------------------=
+            let count: Int = start.distance(to: end)
+            defer{ start.deinitialize (count: count) }
+            return body(NBK.UnsafeUTF8(start: start, count: count))
         }
     }
 }

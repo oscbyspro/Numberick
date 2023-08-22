@@ -136,19 +136,25 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let capacity: Int = radix.divisibilityByPowerUpperBound(self)
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
             //=----------------------------------=
-            // de/init: pointee is trivial
-            //=----------------------------------=
             var magnitude: Magnitude = self
-            var index: Int = buffer.startIndex
+            let start = buffer.baseAddress!
+            var position = start as UnsafeMutablePointer<UInt>
+            //=----------------------------------=
+            // pointee: initialization
             //=----------------------------------=
             rebasing: while !magnitude.isZero {
                 let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)
-                buffer[index] = remainder
-                buffer.formIndex(after: &index)
+                position.initialize(to: remainder)
+                position = position.successor()
                 assert(!overflow)
             }
             //=----------------------------------=
-            let chunks  = NBK.UnsafeWords(rebasing: buffer[..<index])
+            // pointee: deferred deinitialization
+            //=----------------------------------=
+            let count = start.distance(to: position)
+            defer { start.deinitialize(count: count) }
+            //=----------------------------------=
+            let chunks = NBK.UnsafeWords(start: start, count: count)
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
