@@ -21,14 +21,14 @@ extension NBK {
     ->  Array<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
         switch A.Element.bitWidth >= BE.bitWidth {
         case  true: return NBK.minorLimbs(majorLimbs: source, isSigned: isSigned, as: type)
-        case false: return NBK.majorLimbs(minorLimbs: source, isSigned: isSigned, as: type) }
+        case false: return Array(MajorLimbs(minorLimbs: source, isSigned: isSigned, as: BE.self)) }
     }
     
     @inlinable public static func limbs<A, BE>(_ source: A, isSigned: Bool = false, as type: ContiguousArray<BE>.Type = ContiguousArray<BE>.self)
     ->  ContiguousArray<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
         switch A.Element.bitWidth >= BE.bitWidth {
         case  true: return NBK.minorLimbs(majorLimbs: source, isSigned: isSigned, as: type)
-        case false: return NBK.majorLimbs(minorLimbs: source, isSigned: isSigned, as: type) }
+        case false: return ContiguousArray(MajorLimbs(minorLimbs: source, isSigned: isSigned, as: BE.self)) }
     }
     
     //=------------------------------------------------------------------------=
@@ -67,57 +67,96 @@ extension NBK {
         return (minorLimbsIndex) as B.Index
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Major
-    //=------------------------------------------------------------------------=
+    //*========================================================================*
+    // MARK: * Major Limbs
+    //*========================================================================*
+    
+    @frozen @usableFromInline struct MajorLimbs<MajorLimb,  MinorLimbs>: Sequence where
+    MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInteger {
         
-    @inlinable static func majorLimbs<A, BE>(minorLimbs: A, isSigned: Bool, as type: Array<BE>.Type)
-    ->  Array<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
-        let count = minorLimbs.count.quotientAndRemainder(dividingBy: BE.bitWidth / A.Element.bitWidth)
-        return Array(unsafeUninitializedCapacity: count.quotient + Int(bit: !count.remainder.isZero)) {
-            $1 = NBK.majorLimbs(&$0, minorLimbs: minorLimbs, isSigned: isSigned)
+        @usableFromInline typealias MinorLimb = MinorLimbs.Element
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline let minorLimbs: MinorLimbs
+        @usableFromInline let isSigned: Bool
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(minorLimbs: MinorLimbs, isSigned: Bool, as type: MajorLimb.Type = MajorLimb.self) {
+            //=--------------------------------------=
+            precondition(MinorLimb.bitWidth.isPowerOf2)
+            precondition(MajorLimb.bitWidth.isPowerOf2)
+            precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
+            //=--------------------------------------=
+            self.isSigned   = isSigned
+            self.minorLimbs = minorLimbs
         }
-    }
-    
-    @inlinable static func majorLimbs<A, BE>(minorLimbs: A, isSigned: Bool, as type: ContiguousArray<BE>.Type)
-    ->  ContiguousArray<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
-        let count = minorLimbs.count.quotientAndRemainder(dividingBy: BE.bitWidth / A.Element.bitWidth)
-        return ContiguousArray(unsafeUninitializedCapacity: count.quotient + Int(bit: !count.remainder.isZero)) {
-            $1 = NBK.majorLimbs(&$0, minorLimbs: minorLimbs, isSigned: isSigned)
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        /// Returns the exact count when `minorLimbs.underestimatedCount` does.
+        @inlinable var underestimatedCount: Int {
+            let ratio = MajorLimb.bitWidth / MinorLimb.bitWidth
+            let division = minorLimbs.underestimatedCount.quotientAndRemainder(dividingBy: ratio)
+            return division.quotient + Int(bit: !division.remainder.isZero)
         }
-    }
-    
-    // TODO: trivial type de/init is req.
-    @discardableResult @inlinable static func majorLimbs<A, B>(_ majorLimbs: inout B, minorLimbs: A, isSigned: Bool)
-    ->  B.Index where A: Collection, A.Element: NBKCoreInteger, B: MutableCollection, B.Element: NBKCoreInteger {
-        precondition(A.Element.bitWidth.isPowerOf2)
-        precondition(B.Element.bitWidth.isPowerOf2)
-        precondition(A.Element.bitWidth <= B.Element.bitWidth)
-        //=--------------------------------------=
-        var majorLimb = B.Element.zero
-        var minorLimb = A.Element.Magnitude.zero
-        var minorLimbsShift =  Int.zero
-        var majorLimbsIndex =  majorLimbs.startIndex
-        for minorLimbsIndex in minorLimbs.indices {
-            minorLimb  = A.Element.Magnitude(bitPattern: minorLimbs[minorLimbsIndex])
-            majorLimb |= B.Element(truncatingIfNeeded: minorLimb) &<< minorLimbsShift
+        
+        @inlinable func makeIterator() -> Iterator {
+            Iterator(minorLimbs: self.minorLimbs, isSigned: self.isSigned)
+        }
+        
+        //*====================================================================*
+        // MARK: * Iterator
+        //*====================================================================*
+        
+        @frozen @usableFromInline struct Iterator: IteratorProtocol {
             
-            do{ minorLimbsShift += A.Element.bitWidth }
-            if  minorLimbsShift == B.Element.bitWidth {
-                majorLimbs[majorLimbsIndex] = majorLimb
-                majorLimbs.formIndex(after: &majorLimbsIndex)
-                majorLimb = B.Element.zero
-                minorLimbsShift = Int.zero
+            //=----------------------------------------------------------------=
+            // MARK: State
+            //=----------------------------------------------------------------=
+            
+            @usableFromInline var minorLimbs: MinorLimbs.Iterator
+            @usableFromInline let isSigned: Bool
+            
+            //=----------------------------------------------------------------=
+            // MARK: Initializers
+            //=----------------------------------------------------------------=
+            
+            @inlinable init(minorLimbs: MinorLimbs, isSigned: Bool) {
+                self.isSigned = isSigned
+                self.minorLimbs = minorLimbs.makeIterator()
+            }
+            
+            //=----------------------------------------------------------------=
+            // MARK: Utilities
+            //=----------------------------------------------------------------=
+            
+            @inlinable mutating func next() -> MajorLimb? {
+                var majorLimb = MajorLimb.zero
+                var minorLimb = MinorLimb.Magnitude.zero
+                var minorLimbsShift = Int.zero
+                
+                while let next = self.minorLimbs.next() {
+                    minorLimb  = MinorLimb.Magnitude(bitPattern: next)
+                    majorLimb |= MajorLimb(truncatingIfNeeded: minorLimb) &<< minorLimbsShift
+                    
+                    do{ minorLimbsShift += MinorLimb.bitWidth }
+                    if  minorLimbsShift == MajorLimb.bitWidth {
+                        return majorLimb
+                    }
+                }
+                
+                guard !minorLimbsShift.isZero else { return nil }
+                majorLimb |= (MajorLimb(repeating: self.isSigned && minorLimb.mostSignificantBit) &<< minorLimbsShift)
+                return majorLimb as MajorLimb
             }
         }
-        
-        if !minorLimbsShift.isZero {
-            let sign   = B.Element(repeating: isSigned && minorLimb.mostSignificantBit)
-            majorLimb |= (sign &<< minorLimbsShift)
-            majorLimbs[majorLimbsIndex] = majorLimb
-            majorLimbs.formIndex(after: &majorLimbsIndex)
-        }
-        
-        return (majorLimbsIndex) as B.Index
     }
 }
