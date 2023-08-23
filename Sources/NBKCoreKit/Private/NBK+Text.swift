@@ -108,23 +108,23 @@ extension NBK {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             var chunk = chunk as UInt
-            let end   = utf8.baseAddress!.advanced(by: radix.exponent)
-            var start = end as UnsafeMutablePointer<UInt8>
+            let end   = utf8.baseAddress!.advanced(by: utf8.count)
+            var position = end as UnsafeMutablePointer<UInt8>
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
             backwards: repeat {
                 let digit: UInt
                 (chunk,  digit) = radix.dividing(chunk)
-                start = start.predecessor()
-                start.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+                position = position.predecessor()
+                position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
             }   while !chunk.isZero
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
-            let count: Int = start.distance(to: end)
-            defer{ start.deinitialize (count: count) }
-            return body(NBK.UnsafeUTF8(start: start, count: count))
+            let count: Int = position.distance(to: end)
+            defer{ position.deinitialize(count:  count) }
+            return body(NBK.UnsafeUTF8(start: position, count: count))
         }
     }
 }

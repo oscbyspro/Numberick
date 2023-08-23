@@ -27,7 +27,7 @@ extension NBK {
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
-        // note: parallel optionals appears to be faster than a combined enum
+        // note: two parallel options appear to be faster than a combined enum
         //=--------------------------------------------------------------------=
         
         @usableFromInline let minorLimbs: MinorLimbs?
@@ -37,7 +37,7 @@ extension NBK {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable public init(_ source: Source, isSigned: Bool = false) {
+        @inlinable public init(_ source: Source, isSigned: Bool = false, as limb: Limb.Type = Limb.self) {
             if  Limb.bitWidth < Source.Element.bitWidth {
                 self.minorLimbs = MinorLimbs(majorLimbs: source)
                 self.majorLimbs = nil
@@ -107,10 +107,12 @@ extension NBK {
     // MARK: * Major Limbs Sequence
     //*========================================================================*
     
-    @frozen public struct MajorLimbsSequence<MajorLimb, MinorLimbs>: Sequence
-    where MajorLimb: NBKCoreInteger, MinorLimbs: Sequence,  MinorLimbs.Element: NBKCoreInteger {
+    @frozen public struct MajorLimbsSequence<MajorLimb, MinorLimbs>: Sequence where
+    MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInteger {
         
-        @usableFromInline typealias MinorLimb = MinorLimbs.Element
+        public typealias MajorLimb = MajorLimb
+                
+        public typealias MinorLimb = MinorLimbs.Element
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -202,10 +204,12 @@ extension NBK {
     
     @frozen public struct MinorLimbsSequence<MinorLimb, MajorLimbs>: Sequence where
     MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInteger {
-                
+        
         public typealias MajorLimb = MajorLimbs.Element
         
-        public typealias MinorLimbsSubSequence = NBK.MinorLimbsSubSequence<MinorLimb, MajorLimbs.Element>
+        public typealias MinorLimb = MinorLimb
+        
+        public typealias MinorLimbsSubSequence = NBK.MinorLimbsSubSequence<MinorLimb, MajorLimb>
         
         public typealias Iterator = FlattenSequence<LazyMapSequence<MajorLimbs, MinorLimbsSubSequence>>.Iterator
                 
@@ -237,8 +241,8 @@ extension NBK {
             MajorLimb.bitWidth / MinorLimb.bitWidth * self.majorLimbs.underestimatedCount
         }
         
-        @inlinable public func makeIterator()  -> Iterator {
-            // this type is not opaque because the type inferance seeems to fail otherwise :(
+        @inlinable public func makeIterator() -> Iterator {
+            // this type is not opaque because the type inference seems to fail otherwise :(
             self.majorLimbs.lazy.flatMap({ MinorLimbsSubSequence(majorLimb: $0) }).makeIterator()
         }
     }
@@ -249,6 +253,10 @@ extension NBK {
     
     @frozen public struct MinorLimbsSubSequence<MinorLimb, MajorLimb>:
     Sequence where MinorLimb: NBKCoreInteger, MajorLimb: NBKCoreInteger {
+        
+        public typealias MajorLimb = MajorLimb
+        
+        public typealias MinorLimb = MinorLimb
                 
         //=--------------------------------------------------------------------=
         // MARK: State

@@ -143,10 +143,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
             // pointee: initialization
             //=----------------------------------=
             rebasing: while !magnitude.isZero {
-                let (remainder, overflow) = magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power)
-                position.initialize(to: remainder)
+                position.initialize(to: magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power).partialValue)
                 position = position.successor()
-                assert(!overflow)
             }
             //=----------------------------------=
             // pointee: deferred deinitialization
