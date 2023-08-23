@@ -31,8 +31,8 @@ final class NBKBenchmarksOnLimbs: XCTestCase {
         var xyz = NBK.blackHoleIdentity([~1, ~2, ~3, ~4] as X)
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(NBK.limbs(abc, as: Y.self))
-            NBK.blackHole(NBK.limbs(xyz, as: Y.self))
+            NBK.blackHole(Y(NBK.MajorOrMinorLimbsSequence(abc)))
+            NBK.blackHole(Y(NBK.MajorOrMinorLimbsSequence(xyz)))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -44,8 +44,8 @@ final class NBKBenchmarksOnLimbs: XCTestCase {
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(NBK.limbs(abc, as: X.self))
-            NBK.blackHole(NBK.limbs(xyz, as: X.self))
+            NBK.blackHole(X(NBK.MajorOrMinorLimbsSequence(abc)))
+            NBK.blackHole(X(NBK.MajorOrMinorLimbsSequence(xyz)))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)

@@ -159,35 +159,27 @@ file: StaticString = #file, line: UInt  = #line) {
     let rhsUnsigned = rhs.map(B.Magnitude.init(bitPattern:))
     //=------------------------------------------=
     if  isSigned == nil || isSigned == true {
-        XCTAssertEqual(NBK.limbs( (lhs),         isSigned: true ),  (rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (lhsUnsigned), isSigned: true ),  (rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhs),         isSigned: true ), X(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhsUnsigned), isSigned: true ), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhs),         isSigned: true ), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhsUnsigned), isSigned: true ), Y(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhs),         isSigned: true )), X(rhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhsUnsigned), isSigned: true )), X(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhs),         isSigned: true )), Y(rhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhsUnsigned), isSigned: true )), Y(rhsUnsigned), file: file, line: line)
         
-        XCTAssertEqual(NBK.limbs( (rhs),         isSigned: true ),  (lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (rhsUnsigned), isSigned: true ),  (lhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(rhs),         isSigned: true ), X(lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(rhsUnsigned), isSigned: true ), X(lhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(rhs),         isSigned: true ), Y(lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(rhsUnsigned), isSigned: true ), Y(lhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(rhs),         isSigned: true )), X(lhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(rhsUnsigned), isSigned: true )), X(lhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(rhs),         isSigned: true )), Y(lhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(rhsUnsigned), isSigned: true )), Y(lhsUnsigned), file: file, line: line)
     }
     
     if  isSigned == nil || isSigned == false {
-        XCTAssertEqual(NBK.limbs( (lhs),         isSigned: true ),  (rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (lhsUnsigned), isSigned: true ),  (rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhs),         isSigned: true ), X(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhsUnsigned), isSigned: true ), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhs),         isSigned: true ), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhsUnsigned), isSigned: true ), Y(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhs),         isSigned: true )), X(rhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhsUnsigned), isSigned: true )), X(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhs),         isSigned: true )), Y(rhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhsUnsigned), isSigned: true )), Y(rhsUnsigned), file: file, line: line)
 
-        XCTAssertEqual(NBK.limbs( (rhs),         isSigned: false),  (lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (rhsUnsigned), isSigned: false),  (lhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(rhs),         isSigned: false), X(lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(rhsUnsigned), isSigned: false), X(lhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(rhs),         isSigned: false), Y(lhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(rhsUnsigned), isSigned: false), Y(lhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(rhs),         isSigned: false)), X(lhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(rhsUnsigned), isSigned: false)), X(lhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(rhs),         isSigned: false)), Y(lhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(rhsUnsigned), isSigned: false)), Y(lhsUnsigned), file: file, line: line)
     }
 }
 
@@ -202,21 +194,17 @@ file: StaticString = #file, line: UInt  = #line) {
     let rhsUnsigned = rhs.map(B.Magnitude.init(bitPattern:))
     //=------------------------------------------=
     if  isSigned == nil || isSigned == true {
-        XCTAssertEqual(NBK.limbs( (lhs),         isSigned: true ),  (rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (lhsUnsigned), isSigned: true ),  (rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhs),         isSigned: true ), X(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhsUnsigned), isSigned: true ), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhs),         isSigned: true ), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhsUnsigned), isSigned: true ), Y(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhs),         isSigned: true )), X(rhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhsUnsigned), isSigned: true )), X(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhs),         isSigned: true )), Y(rhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhsUnsigned), isSigned: true )), Y(rhsUnsigned), file: file, line: line)
     }
     
     if  isSigned == nil || isSigned == false {
-        XCTAssertEqual(NBK.limbs( (lhs),         isSigned: false),  (rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs( (lhsUnsigned), isSigned: false),  (rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhs),         isSigned: false), X(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(X(lhsUnsigned), isSigned: false), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhs),         isSigned: false), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(NBK.limbs(Y(lhsUnsigned), isSigned: false), Y(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhs),         isSigned: false)), X(rhs),         file: file, line: line)
+        XCTAssertEqual(X(NBK.MajorOrMinorLimbsSequence(X(lhsUnsigned), isSigned: false)), X(rhsUnsigned), file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhs),         isSigned: false)), Y(rhs),         file: file, line: line)
+        XCTAssertEqual(Y(NBK.MajorOrMinorLimbsSequence(Y(lhsUnsigned), isSigned: false)), Y(rhsUnsigned), file: file, line: line)
     }
 }
 
