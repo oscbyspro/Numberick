@@ -20,51 +20,130 @@ extension NBK {
     @inlinable public static func limbs<A, BE>(_ source: A, isSigned: Bool = false, as type: Array<BE>.Type = Array<BE>.self)
     ->  Array<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
         switch A.Element.bitWidth >= BE.bitWidth {
-        case  true: return NBK.minorLimbs(majorLimbs: source, isSigned: isSigned, as: type)
-        case false: return Array(MajorLimbs(minorLimbs: source, isSigned: isSigned, as: BE.self)) }
+        case  true: return Array(MinorLimbs(majorLimbs: source))
+        case false: return Array(MajorLimbs(minorLimbs: source, isSigned: isSigned)) }
     }
     
     @inlinable public static func limbs<A, BE>(_ source: A, isSigned: Bool = false, as type: ContiguousArray<BE>.Type = ContiguousArray<BE>.self)
     ->  ContiguousArray<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
         switch A.Element.bitWidth >= BE.bitWidth {
-        case  true: return NBK.minorLimbs(majorLimbs: source, isSigned: isSigned, as: type)
-        case false: return ContiguousArray(MajorLimbs(minorLimbs: source, isSigned: isSigned, as: BE.self)) }
+        case  true: return ContiguousArray(MinorLimbs(majorLimbs: source))
+        case false: return ContiguousArray(MajorLimbs(minorLimbs: source, isSigned: isSigned)) }
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Minor
-    //=------------------------------------------------------------------------=
+    //*========================================================================*
+    // MARK: * Minor Limbs
+    //*========================================================================*
     
-    @inlinable static func minorLimbs<A, BE>(majorLimbs: A, isSigned: Bool, as type: Array<BE>.Type)
-    ->  Array<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
-        Array(unsafeUninitializedCapacity: A.Element.bitWidth / BE.bitWidth * majorLimbs.count) {
-            $1 = NBK.minorLimbs(&$0, majorLimbs: majorLimbs, isSigned: isSigned)
-        }
-    }
-    
-    @inlinable static func minorLimbs<A, BE>(majorLimbs: A, isSigned: Bool, as type: ContiguousArray<BE>.Type)
-    ->  ContiguousArray<BE> where A: Collection, A.Element: NBKCoreInteger, BE: NBKCoreInteger {
-        ContiguousArray(unsafeUninitializedCapacity: A.Element.bitWidth / BE.bitWidth * majorLimbs.count) {
-            $1 = NBK.minorLimbs(&$0, majorLimbs: majorLimbs, isSigned: isSigned)
-        }
-    }
-    
-    // TODO: trivial type de/init is req.
-    @discardableResult @inlinable static func minorLimbs<A, B>(_ minorLimbs: inout B, majorLimbs: A, isSigned: Bool)
-    ->  B.Index where A: Collection, A.Element: NBKCoreInteger, B: MutableCollection, B.Element: NBKCoreInteger {
-        precondition(A.Element.bitWidth.isPowerOf2)
-        precondition(B.Element.bitWidth.isPowerOf2)
-        precondition(A.Element.bitWidth >= B.Element.bitWidth)
-        //=--------------------------------------=
-        var minorLimbsIndex = minorLimbs.startIndex
-        for majorLimb in majorLimbs {
-            for majorLimbsShift in stride(from: Int.zero, to: A.Element.bitWidth, by:  B.Element.bitWidth) {
-                minorLimbs[minorLimbsIndex] = B.Element(truncatingIfNeeded: majorLimb &>> majorLimbsShift)
-                minorLimbs.formIndex(after: &minorLimbsIndex)
-            }
+    @frozen @usableFromInline struct MinorLimbs<MinorLimb,  MajorLimbs>: Sequence where
+    MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInteger {
+                
+        @usableFromInline typealias MajorLimb = MajorLimbs.Element
+                
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline let majorLimbs: MajorLimbs
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(majorLimbs: MajorLimbs, as type: MinorLimb.Type = MinorLimb.self) {
+            //=--------------------------------------=
+            precondition(MinorLimb.bitWidth.isPowerOf2)
+            precondition(MajorLimb.bitWidth.isPowerOf2)
+            precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
+            //=--------------------------------------=
+            self.majorLimbs = majorLimbs
         }
         
-        return (minorLimbsIndex) as B.Index
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        /// Returns the exact count when `minorLimbs.underestimatedCount` does.
+        @inlinable var underestimatedCount: Int {
+            MajorLimb.bitWidth / MinorLimb.bitWidth * self.majorLimbs.underestimatedCount
+        }
+        
+        @inlinable func makeIterator() -> some IteratorProtocol<MinorLimb> {
+            self.majorLimbs.lazy.flatMap({ MinorLimbsSubSequence(majorLimb: $0) }).makeIterator()
+        }
+    }
+    
+    //*========================================================================*
+    // MARK: * Minor Limbs Sub Sequence
+    //*========================================================================*
+    
+    @frozen @usableFromInline struct MinorLimbsSubSequence<MinorLimb, MajorLimb>:
+    Sequence where MinorLimb: NBKCoreInteger, MajorLimb: NBKCoreInteger {
+                
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline let majorLimb: MajorLimb
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(majorLimb: MajorLimb, as type: MinorLimb.Type = MinorLimb.self) {
+            //=--------------------------------------=
+            precondition(MinorLimb.bitWidth.isPowerOf2)
+            precondition(MajorLimb.bitWidth.isPowerOf2)
+            precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
+            //=--------------------------------------=
+            self.majorLimb = majorLimb
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        /// Returns the exact count.
+        @inlinable var underestimatedCount: Int {
+            MajorLimb.bitWidth / MinorLimb.bitWidth
+        }
+        
+        @inlinable func makeIterator() -> Iterator {
+            Iterator(majorLimb: self.majorLimb)
+        }
+        
+        //*====================================================================*
+        // MARK: * Iterator
+        //*====================================================================*
+        
+        @frozen @usableFromInline struct Iterator: IteratorProtocol {
+            
+            //=----------------------------------------------------------------=
+            // MARK: State
+            //=----------------------------------------------------------------=
+            
+            @usableFromInline let majorLimb: MajorLimb
+            @usableFromInline var majorLimbShift: Int
+            
+            //=----------------------------------------------------------------=
+            // MARK: Initializers
+            //=----------------------------------------------------------------=
+            
+            @inlinable init(majorLimb: MajorLimb) {
+                self.majorLimb = majorLimb
+                self.majorLimbShift = Int.zero
+            }
+            
+            //=----------------------------------------------------------------=
+            // MARK: Utilities
+            //=----------------------------------------------------------------=
+            
+            @inlinable mutating func next() -> MinorLimb? {
+                guard  self.majorLimbShift <   MajorLimb.bitWidth else { return nil }
+                defer{ self.majorLimbShift +=  MinorLimb.bitWidth }
+                return MinorLimb(truncatingIfNeeded: self.majorLimb &>> self.majorLimbShift)
+            }
+        }
     }
     
     //*========================================================================*
