@@ -239,7 +239,7 @@ extension NBKDoubleWidth {
             yield &self[unchecked: index, as: T.self]
         }
     }
-        
+    
     /// Accesses the word at the given index, from least significant to most.
     ///
     /// - Parameter index: The machine word index.
@@ -247,14 +247,14 @@ extension NBKDoubleWidth {
     ///
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
-            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
+            let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
             return Swift.withUnsafeBytes(of: self) { data in
                 data.load(fromByteOffset: offset, as: T.self)
             }
         }
         
         set {
-            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
+            let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
             Swift.withUnsafeMutableBytes(of: &self) { data in
                 data.storeBytes(of: newValue, toByteOffset: offset, as: T.self)
             }
@@ -262,9 +262,9 @@ extension NBKDoubleWidth {
     }
 }
 
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
+//*============================================================================*
+// MARK: * NBK x Double Width x Words x Unsigned
+//*============================================================================*
 
 extension NBKDoubleWidth where High == High.Magnitude {
     
@@ -272,16 +272,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
-        assert(self.indices ~= index, NBK.callsiteOutOfBoundsInfo())
+    /// Returns the in-memory byte offset of the word at the given index.
+    ///
+    /// - Note: This operation is unchecked.
+    ///
+    @inlinable static func endiannessSensitiveByteOffset(at index: Int) -> Int {
         #if _endian(big)
-        return self.lastIndex - index
+        return MemoryLayout<UInt>.stride * ~index + MemoryLayout<Self>.size
         #else
-        return index
+        return MemoryLayout<UInt>.stride * (index)
         #endif
-    }
-    
-    @inlinable static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
-        self.endiannessSensitiveIndex(unchecked: index) * MemoryLayout<UInt>.stride
     }
 }

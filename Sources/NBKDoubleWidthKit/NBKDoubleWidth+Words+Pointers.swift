@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Trivial UInt Collection
+    // MARK: Details x Contiguous UInt Collection
     //=------------------------------------------------------------------------=
     
     /// Grants unsafe access to the collection's contiguous storage.
