@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of words.
+    /// The number of words in this type of integer.
     @inlinable public static var count: Int {
         assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
         assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
@@ -50,43 +50,23 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     /// The index of the least significant word.
-    @inlinable public static var startIndex: Int {
+    @inlinable public var startIndex: Int {
         0
     }
     
     /// The index of the most significant word.
-    @inlinable public static var lastIndex: Int {
+    @inlinable public var lastIndex: Int {
         self.count - 1
     }
     
     /// The index after the last valid subscript argument.
-    @inlinable public static var endIndex: Int {
+    @inlinable public var endIndex: Int {
         self.count
     }
     
     /// A collection of each valid subscript argument, in ascending order.
-    @inlinable public static var indices: Range<Int> {
-        0 ..< self.count
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var startIndex: Int {
-        Self.startIndex
-    }
-    
-    @inlinable public var lastIndex: Int {
-        Self.lastIndex
-    }
-    
-    @inlinable public var endIndex: Int {
-        Self.endIndex
-    }
-    
     @inlinable public var indices: Range<Int> {
-        Self.indices
+        0 ..< self.count
     }
     
     //=------------------------------------------------------------------------=
