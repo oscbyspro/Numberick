@@ -20,17 +20,10 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: Digit) -> Bool {
-        let minus: Bool = other.isLessThanZero
-        var carry: Bool = self.first.subtractReportingOverflow(UInt(bitPattern: other))
-        //=----------------------------------=
-        if  carry == minus { return false }
-        let extra =  UInt(bitPattern: minus ? -1 : 1)
-        //=----------------------------------=
-        for index in 1 ..< self.lastIndex {
-            carry = self[index].subtractReportingOverflow(extra)
-            if carry == minus { return false }
-        }
-        //=----------------------------------=
+        let minus = other.isLessThanZero as Bool
+        if  self.first.subtractReportingOverflow(UInt(bitPattern: other)) == minus { return false }
+        let extra = UInt(bitPattern: minus ? -1 : 1)
+        for index in 1 ..< self.lastIndex where self[index].subtractReportingOverflow(extra) == minus { return false }
         return self.tail.subtractReportingOverflow(Digit(bitPattern: extra))
     }
     

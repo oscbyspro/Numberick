@@ -27,7 +27,7 @@ extension NBK {
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
-        // note: two parallel options appear to be faster than a combined enum
+        // NOTE: Two parallel options appear to be faster than a combined enum.
         //=--------------------------------------------------------------------=
         
         @usableFromInline let minorLimbs: MinorLimbs?
