@@ -31,7 +31,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var count: Int {
-        Self.count
+        Self.count as Int
     }
     
     @inlinable public var words: Self {
@@ -228,15 +228,17 @@ extension NBKDoubleWidth {
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
             let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
-            return Swift.withUnsafeBytes(of: self) { data in
-                data.load(fromByteOffset: offset, as: T.self)
+            assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            return Swift.withUnsafePointer(to: self) { pointer in
+                UnsafeRawPointer(pointer).load(fromByteOffset: offset, as: T.self)
             }
         }
         
         set {
             let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
-            Swift.withUnsafeMutableBytes(of: &self) { data in
-                data.storeBytes(of: newValue, toByteOffset: offset, as: T.self)
+            assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            Swift.withUnsafeMutablePointer(to: &self) { pointer in
+                UnsafeMutableRawPointer(pointer).storeBytes(of: newValue, toByteOffset: offset, as: T.self)
             }
         }
     }
