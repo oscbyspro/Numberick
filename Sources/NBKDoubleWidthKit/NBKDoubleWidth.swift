@@ -221,9 +221,9 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Double Width x Conditional Conformances
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Conditional Conformances
+//=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
 
