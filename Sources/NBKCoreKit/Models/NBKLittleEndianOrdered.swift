@@ -27,7 +27,14 @@
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline var storage: Storage
+    /// A collection based on the platform's endianness.
+    ///
+    /// ```
+    /// BE: base.reversed() (back-to-front)
+    /// LE: base            (front-to-back)
+    /// ```
+    ///
+    @usableFromInline let storage: Storage
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -73,10 +80,6 @@
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func makeIterator() -> Iterator {
-        Iterator(self.storage.makeIterator())
-    }
-    
     @inlinable public func distance(from start: Index, to end: Index) -> Int {
         self.storage.distance(from: start.storageIndex, to: end.storageIndex)
     }
@@ -113,6 +116,10 @@
         #endif
     }
     
+    @inlinable public func makeIterator() -> some IteratorProtocol<Base.Element> {
+        self.storage.makeIterator()
+    }
+    
     //*========================================================================*
     // MARK: * Index
     //*========================================================================*
@@ -123,7 +130,7 @@
         // MARK: State
         //=--------------------------------------------------------------------=
         
-        /// An index depending on the platform's endianness.
+        /// An index based on the platform's endianness.
         ///
         /// ```
         /// BE: base.endIndex ..< base.startIndex (back-to-front)
@@ -162,35 +169,6 @@
             #else
             return self.storageIndex
             #endif
-        }
-    }
-    
-    //*========================================================================*
-    // MARK: * Iterator
-    //*========================================================================*
-    
-    @frozen public struct Iterator: IteratorProtocol {
-        
-        //=--------------------------------------------------------------------=
-        // MARK: State
-        //=--------------------------------------------------------------------=
-        
-        @usableFromInline var storageIterator: Storage.Iterator
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Initializers
-        //=--------------------------------------------------------------------=
-        
-        @inlinable init(_ storageIterator: Storage.Iterator) {
-            self.storageIterator = storageIterator
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public mutating func next() -> Base.Element? {
-            self.storageIterator.next()
         }
     }
 }

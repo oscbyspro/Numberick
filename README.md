@@ -22,7 +22,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 ### Models
 
-- [NBKLittleEndianOrdered](Sources/NBKCoreKit/NBKLittleEndianOrdered.swift)
+- [NBKLittleEndianOrdered](Sources/NBKCoreKit/Models/NBKLittleEndianOrdered.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
