@@ -105,6 +105,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 ### Models
 
 - ``NBKDoubleWidth``
+- ``NBKLittleEndianOrdered``
 
 ### Integers
 

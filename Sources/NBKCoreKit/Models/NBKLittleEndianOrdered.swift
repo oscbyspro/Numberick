@@ -123,7 +123,7 @@
         // MARK: State
         //=--------------------------------------------------------------------=
         
-        /// An index depending on platform endianness.
+        /// An index depending on the platform's endianness.
         ///
         /// ```
         /// BE: base.endIndex ..< base.startIndex (back-to-front)
@@ -169,7 +169,7 @@
     // MARK: * Iterator
     //*========================================================================*
     
-    @frozen public struct Iterator: Sequence, IteratorProtocol {
+    @frozen public struct Iterator: IteratorProtocol {
         
         //=--------------------------------------------------------------------=
         // MARK: State

@@ -18,8 +18,7 @@ import XCTest
 
 final class NBKLittleEndianOrderedTests: XCTestCase {
     
-    typealias T<Base> = NBKLittleEndianOrdered<Base> where
-    Base: RandomAccessCollection, Base.Indices == Range<Int>
+    typealias T<Base> = NBKLittleEndianOrdered<Base> where Base: BidirectionalCollection
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

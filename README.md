@@ -20,6 +20,10 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
 
+### Models
+
+- [NBKLittleEndianOrdered](Sources/NBKCoreKit/NBKLittleEndianOrdered.swift)
+
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
 A composable, large, fixed-width, two's complement, binary integer.
