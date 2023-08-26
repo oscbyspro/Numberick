@@ -12,7 +12,7 @@
 #*=============================================================================*
 
 Pod::Spec.new do |spec|
-    spec.version = "0.10.0-alpha"
+    spec.version = "0.10.0"
     spec.module_name = "NBKCoreKit"
     spec.name = "Numberick-#{spec.module_name}"
     spec.summary = "A new protocol hierarchy that refines Swift's standard library."

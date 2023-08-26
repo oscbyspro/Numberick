@@ -12,7 +12,7 @@
 #*=============================================================================*
 
 Pod::Spec.new do |spec|
-    spec.version = "0.10.0-alpha"
+    spec.version = "0.10.0"
     spec.name = "Numberick"
     spec.module_name = "Numberick"
     spec.summary = "✨ An arithmagick overhaul in Swift."
