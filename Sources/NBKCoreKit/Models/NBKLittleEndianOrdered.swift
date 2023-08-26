@@ -36,10 +36,44 @@
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a view presenting the collection's elements in an endianness-dependent order.
+    /// Creates a view presenting the collection's elements in an endianness-sensitive order.
     @inlinable public init(_ base: Base) {
         self.base = base
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the iteration direction as 1 (front-to-back) or -1 (back-to-front).
+    @inlinable public var direction: Int {
+        #if _endian(big)
+        return -1
+        #else
+        return (1)
+        #endif
+    }
+    
+    /// Returns the corresponding base index, assuming it exists.
+    ///
+    /// - Note: This operation is unchecked.
+    ///
+    /// - Parameter index: `self.startIndex <= index < self.endIndex`
+    ///
+    @inlinable public func baseIndex(_ index: Int) -> Base.Index {
+        #if _endian(big)
+        return self.base.index(self.base.endIndex,   offsetBy: ~index)
+        #else
+        return self.base.index(self.base.startIndex, offsetBy:  index)
+        #endif
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Indices
+//=----------------------------------------------------------------------------=
+
+extension NBKLittleEndianOrdered {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -98,6 +132,7 @@
         index + distance
     }
     
+    // TODO: NBK.arrayIndex(_:offsetBy:limitedBy:)
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
         let distanceLimit: Int = self.distance(from: index, to: limit)
         
@@ -107,20 +142,6 @@
         else { return nil }
         
         return self.index(index, offsetBy: distance) as Int
-    }
-    
-    /// Returns the corresponding base index, assuming it exists.
-    ///
-    /// - Note: This operation is unchecked.
-    ///
-    /// - Parameter index: `self.startIndex <= index < self.endIndex`
-    ///
-    @inlinable public func baseIndex(_ index: Int) -> Base.Index {
-        #if _endian(big)
-        return self.base.index(self.base.endIndex,   offsetBy: ~index)
-        #else
-        return self.base.index(self.base.startIndex, offsetBy:  index)
-        #endif
     }
 }
 

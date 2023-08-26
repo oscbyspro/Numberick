@@ -31,10 +31,16 @@ extension NBKDoubleWidth {
         ? source.bitWidth <= Self.bitWidth
         : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
         else { return nil }
-        
+        //=--------------------------------------=
+        // gets outlined without manual iteration
+        //=--------------------------------------=
         self = Self.uninitialized { value in
-            for index in value.indices {
-                value[unchecked: index] = source[index]
+            var index   = value.startIndex
+            var pointer = value.base.baseAddress!.advanced(by: value.baseIndex(index))
+            while index < value.endIndex {
+                pointer.initialize(to: source[index])
+                pointer = pointer.advanced(by: value.direction)
+                value.formIndex(after: &index)
             }
         }
     }

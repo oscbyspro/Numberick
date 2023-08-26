@@ -94,7 +94,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
-### ⭐️ Swift.StaticBigInt (v0.10.0)
+### ⭐️ Feature: Swift.StaticBigInt
 
 `StaticBigInt` is disabled by default. You enable it in `Package.swift`.
 

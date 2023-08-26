@@ -53,6 +53,14 @@ file: StaticString = #file, line: UInt  = #line) where B.Element: Equatable, B.I
     XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)
     
     do {
+        var rhsIndex =  lhs.baseIndex(lhs.startIndex)
+        for lhsIndex in lhs.indices {
+            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
+            rhs.formIndex(&rhsIndex, offsetBy: lhs.direction)
+        }
+    }
+    
+    do {
         var lhsIndex = lhs.startIndex
         var rhsIndex = rhs.startIndex
         while lhsIndex < lhs.endIndex {

@@ -73,11 +73,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let value = Self.uninitialized { value in
             for index in value.indices {
                 if  digits.isEmpty {
-                    value[index] = UInt.zero
+                    value.base.baseAddress!.advanced(by: value.baseIndex(index)).initialize(to: 0000)
                 }   else {
                     let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
                     guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
-                    value[index] = word
+                    value.base.baseAddress!.advanced(by: value.baseIndex(index)).initialize(to: word)
                 }
             }
         }

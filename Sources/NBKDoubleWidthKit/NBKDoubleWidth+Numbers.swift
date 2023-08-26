@@ -73,9 +73,11 @@ extension NBKDoubleWidth {
         let isLessThanZero: Bool = T.isSigned && words.last?.mostSignificantBit == true
         let sign = UInt(repeating: isLessThanZero)
         //=--------------------------------------=
-        let value = Self.uninitialized  { value in
-            for index in value.indices  {
-                value[unchecked: index] = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
+        let value = Self.uninitialized { value in
+            let start =  value.base.baseAddress!
+            for index in value.indices {
+                let word = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
+                start.advanced(by: value.baseIndex(index)).initialize(to: word)
             }
         }
         //=--------------------------------------=

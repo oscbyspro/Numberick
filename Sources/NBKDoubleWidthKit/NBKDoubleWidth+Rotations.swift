@@ -69,13 +69,13 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         return Self.uninitialized { result in
             var (word) = self.last as UInt
-            var destination = words
+            var destination = result.index(result.startIndex, offsetBy: words)
             for source in self.indices {
                 //=------------------------------=
                 let pulled = word &>> pull
                 (word) = self[source]
                 let pushed = word &<< push
-                result[destination] = pulled | pushed
+                result.base.baseAddress!.advanced(by: result.baseIndex(destination)).initialize(to: pulled | pushed)
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -105,10 +105,10 @@ extension NBKDoubleWidth {
         if  words.isZero { return self }
         //=--------------------------------------=
         return Self.uninitialized { result in
-            var destination = words
+            var destination = result.index(result.startIndex, offsetBy: words)
             for source in self.indices {
                 //=------------------------------=
-                result[destination] = self[source]
+                result.base.baseAddress!.advanced(by: result.baseIndex(destination)).initialize(to: self[source])
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -179,14 +179,14 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         return Self.uninitialized { result in
             var (word) = self.last as UInt
-            var destination =  result.endIndex &+ ~(words)
-            precondition(0 ..< result.endIndex ~= destination)
+            var destination = result.index(result.endIndex, offsetBy:  ~words)
+            precondition(result.startIndex ..< result.endIndex ~= destination)
             for source in self.indices {
                 //=------------------------------=
                 let pulled = word &>> push
                 (word) = self[source]
                 let pushed = word &<< pull
-                result[destination] = pulled | pushed
+                result.base.baseAddress!.advanced(by: result.baseIndex(destination)).initialize(to: pulled | pushed)
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -216,11 +216,11 @@ extension NBKDoubleWidth {
         if  words.isZero { return self }
         //=--------------------------------------=
         return Self.uninitialized { result in
-            var destination =  result.endIndex &- words
-            precondition(0 ..< result.endIndex ~= destination)
-            for source in self {
+            var destination = result.index(result.endIndex, offsetBy:  -words)
+            precondition(result.startIndex ..< result.endIndex ~= destination)
+            for source in self.indices {
                 //=------------------------------=
-                result[destination] = source
+                result.base.baseAddress!.advanced(by: result.baseIndex(destination)).initialize(to: self[source])
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
