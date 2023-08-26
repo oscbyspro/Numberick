@@ -18,7 +18,7 @@ import XCTest
 
 final class NBKLittleEndianOrderedTests: XCTestCase {
     
-    typealias T<Base> = NBKLittleEndianOrdered<Base> where Base: BidirectionalCollection
+    typealias T<Base> = NBKLittleEndianOrdered<Base> where Base: RandomAccessCollection
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -80,8 +80,7 @@ file: StaticString = #file, line: UInt  = #line) where B.Element: Equatable, B.I
     
     do {
         for lhsIndex in lhs.indices {
-            XCTAssertEqual(lhs[lhsIndex], lhs.base[lhsIndex.baseSubscriptIndex()],  file: file, line: line)
-            XCTAssertEqual(lhs[lhsIndex], lhs.base[lhs.baseSubscriptIndex(at: lhsIndex)], file: file, line: line)
+            XCTAssertEqual(lhs[lhsIndex], lhs.base[lhs.baseIndex(lhsIndex)], file: file, line: line)
         }
     }
     

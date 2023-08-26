@@ -15,161 +15,112 @@
 ///
 /// It iterates front-to-back on little-endian platforms, and back-to-front otherwise.
 ///
-@frozen public struct NBKLittleEndianOrdered<Base>: BidirectionalCollection where Base: BidirectionalCollection {
-    
-    #if _endian(big)
-    @usableFromInline typealias Storage = ReversedCollection<Base>
-    #else
-    @usableFromInline typealias Storage = Base
-    #endif
+/// ```swift
+/// let value = Int256.uninitialized { words in
+///     for index in words.indices {
+///         words.base.initializeElement(at: words.baseIndex(index), to: UInt.zero)
+///     }
+/// }
+/// ```
+///
+@frozen public struct NBKLittleEndianOrdered<Base>: RandomAccessCollection where Base: RandomAccessCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    /// A collection based on the platform's endianness.
-    ///
-    /// ```
-    /// BE: base.reversed() (back-to-front)
-    /// LE: base            (front-to-back)
-    /// ```
-    ///
-    @usableFromInline let storage: Storage
+    /// The collection wrapped by this instance.
+    public var base: Base
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
+    /// Creates a view presenting the collection's elements in an endianness-dependent order.
     @inlinable public init(_ base: Base) {
-        #if _endian(big)
-        self.storage = base.reversed()
-        #else
-        self.storage = base
-        #endif
+        self.base = base
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var base: Base {
-        #if _endian(big)
-        return self.storage.reversed() // from >= Swift 4.2
-        #else
-        return self.storage
-        #endif
-    }
-    
     @inlinable public var count: Int {
-        self.storage.count
+        self.base.count
     }
     
-    @inlinable public var startIndex: Index {
-        Index(self.storage.startIndex)
+    @inlinable public var startIndex: Int {
+        Int.zero
     }
     
-    @inlinable public var endIndex: Index {
-        Index(self.storage.endIndex)
+    @inlinable public var endIndex: Int {
+        self.base.count
     }
     
-    @inlinable public subscript(index: Index) -> Base.Element {
-        _read { yield self.storage[index.storageIndex] }
+    @inlinable public var indices: Range<Int> {
+        Range(uncheckedBounds:(self.startIndex, self.endIndex))
+    }
+    
+    @inlinable public subscript(index: Int) -> Base.Element {
+        _read   { yield  self.base[self.baseIndex(index)] }
+    }
+    
+    @inlinable public subscript(index: Int) -> Base.Element where Base: MutableCollection {
+        _read   { yield  self.base[self.baseIndex(index)] }
+        _modify { yield &self.base[self.baseIndex(index)] }
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func distance(from start: Index, to end: Index) -> Int {
-        self.storage.distance(from: start.storageIndex, to: end.storageIndex)
+    @inlinable public func distance(from start: Int, to end: Int) -> Int {
+        end - start
     }
     
-    @inlinable public func index(after  index: Index) -> Index {
-        Index(self.storage.index(after: index.storageIndex))
+    @inlinable public func index(after index: Int) -> Int {
+        index +  1
     }
     
-    @inlinable public func formIndex(after index: inout Index) {
-        self.storage.formIndex(after: &index.storageIndex)
+    @inlinable public func formIndex(after index: inout Int) {
+        index += 1
     }
     
-    @inlinable public func index(before  index: Index) -> Index {
-        Index(self.storage.index(before: index.storageIndex))
+    @inlinable public func index(before index: Int) -> Int {
+        index -  1
     }
     
-    @inlinable public func formIndex(before index: inout Index) {
-        self.storage.formIndex(before: &index.storageIndex)
+    @inlinable public func formIndex(before index: inout Int) {
+        index -= 1
     }
     
-    @inlinable public func index(_ index: Index, offsetBy distance: Int) -> Index {
-        Index(self.storage.index(index.storageIndex, offsetBy: distance))
+    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        index + distance
     }
     
-    @inlinable public func index(_ index: Index, offsetBy distance: Int, limitedBy limit: Index) -> Index? {
-        self.storage.index(index.storageIndex, offsetBy: distance, limitedBy: limit.storageIndex).map(Index.init)
+    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+        let distanceLimit: Int = self.distance(from: index, to: limit)
+        
+        guard distance >= 0
+        ? distance <= distanceLimit || distanceLimit < 0
+        : distance >= distanceLimit || distanceLimit > 0
+        else { return nil }
+        
+        return self.index(index, offsetBy: distance) as Int
     }
     
-    @inlinable public func baseSubscriptIndex(at index: Index) -> Base.Index {
+    /// Returns the corresponding base index, assuming it exists.
+    ///
+    /// - Note: This operation is unchecked.
+    ///
+    /// - Parameter index: `self.startIndex <= index < self.endIndex`
+    ///
+    @inlinable public func baseIndex(_ index: Int) -> Base.Index {
         #if _endian(big)
-        return self.storage.index(after: index.storageIndex).base
+        return self.base.index(self.base.endIndex,   offsetBy: ~index)
         #else
-        return index.storageIndex
+        return self.base.index(self.base.startIndex, offsetBy:  index)
         #endif
-    }
-    
-    @inlinable public func makeIterator() -> some IteratorProtocol<Base.Element> {
-        self.storage.makeIterator()
-    }
-    
-    //*========================================================================*
-    // MARK: * Index
-    //*========================================================================*
-    
-    @frozen public struct Index: Comparable {
-        
-        //=--------------------------------------------------------------------=
-        // MARK: State
-        //=--------------------------------------------------------------------=
-        
-        /// An index based on the platform's endianness.
-        ///
-        /// ```
-        /// BE: base.endIndex ..< base.startIndex (back-to-front)
-        /// LE: base.startIndex ..< base.endIndex (front-to-back)
-        /// ```
-        ///
-        @usableFromInline var storageIndex: Storage.Index
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Initializers
-        //=--------------------------------------------------------------------=
-        
-        @inlinable init(_ storageIndex: Storage.Index) {
-            self.storageIndex = storageIndex
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-            lhs.storageIndex == rhs.storageIndex
-        }
-        
-        @inlinable public static func < (lhs: Self, rhs: Self) -> Bool {
-            lhs.storageIndex <  rhs.storageIndex
-        }
-        
-        /// Returns the subscript index of the corresponding collection, assuming it exists.
-        ///
-        /// - Note: This operation is unchecked.
-        ///
-        @inlinable public func baseSubscriptIndex<T: Strideable>() -> Base.Index where Base.Indices == Range<T> {
-            #if _endian(big)
-            return self.storageIndex.base.advanced(by: -1)
-            #else
-            return self.storageIndex
-            #endif
-        }
     }
 }
 
@@ -177,5 +128,4 @@
 // MARK: + Conditional Conformances
 //=----------------------------------------------------------------------------=
 
-extension NBKLittleEndianOrdered.Index: Hashable         where Base.Index: Hashable         { }
-extension NBKLittleEndianOrdered: RandomAccessCollection where Base: RandomAccessCollection { }
+extension NBKLittleEndianOrdered: MutableCollection where Base: MutableCollection { }
