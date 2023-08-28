@@ -14,6 +14,8 @@
 /// A collection that iterates forwards or backwards in a dynamic but branchless way.
 @frozen public struct NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
     
+    public typealias Base = Base
+    
     public typealias Index = Int
     
     public typealias Indices = Range<Int>
@@ -38,8 +40,18 @@
     ///   - base: The collection viewed through this instance.
     ///   - reversed: A value indicating whether the direction should be reversed.
     ///
-    @inlinable public init(_ other: Self, reversed: Bool = false) {
-        self.init(other.base, reversed: other.mask.isLessThanZero != reversed)
+    @inlinable public init(_ other: Self, reversed:  Bool =  false) {
+        self.init(other.base, reversed: other.mask.isZero == reversed)
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool = false) {
+        self.init(other.reversed(), reversed: !reversed)
     }
     
     /// Creates a view presenting the collection's elements in a dynamic order.
@@ -54,9 +66,9 @@
         self.edge = self.base.startIndex
         if reversed { self.reverse() }
     }
-        
+    
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
     /// Forms this collection but reversed.

@@ -1,3 +1,12 @@
+//=----------------------------------------------------------------------------=
+// This source file is part of the Numberick open source project.
+//
+// Copyright (c) 2023 Oscar Byström Ericsson
+// Licensed under Apache License, Version 2.0
+//
+// See http://www.apache.org/licenses/LICENSE-2.0 for license information.
+//=----------------------------------------------------------------------------=
+
 #if DEBUG
 
 import NBKCoreKit
@@ -12,11 +21,14 @@ final class NBKTwinHeadedTests: XCTestCase {
     typealias T<Base> = NBKTwinHeaded<Base> where Base: RandomAccessCollection
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Initializers
     //=------------------------------------------------------------------------=
     
-    func testInit() {
+    func testFromBase() {
         let base = [0, 1, 2, 3]
+        
+        NBKAssertIteration(  T(base),  [0, 1, 2, 3])
+        NBKAssertIteration(T(T(base)), [0, 1, 2, 3])
         
         NBKAssertIteration(  T(base, reversed: false), [0, 1, 2, 3])
         NBKAssertIteration(  T(base, reversed: true ), [3, 2, 1, 0])
@@ -24,14 +36,30 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(T(T(base, reversed: false), reversed: true ), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
+        
+        XCTAssert(T<[Int]>.self == type(of:   T(base) ))
+        XCTAssert(T<[Int]>.self == type(of: T(T(base))))
     }
     
-    func testInitDoesNotReverseByDefault() {
-        let base = [0, 1, 2, 3]
+    func testFromReversedCollection() {
+        let base = [3, 2, 1, 0].reversed() as ReversedCollection<[Int]>
         
         NBKAssertIteration(  T(base),  [0, 1, 2, 3])
         NBKAssertIteration(T(T(base)), [0, 1, 2, 3])
+        
+        NBKAssertIteration(  T(base, reversed: false), [0, 1, 2, 3])
+        NBKAssertIteration(  T(base, reversed: true ), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, reversed: false), reversed: false), [0, 1, 2, 3])
+        NBKAssertIteration(T(T(base, reversed: false), reversed: true ), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
+        
+        XCTAssert(T<[Int]>.self == type(of: T(base)))
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Transformations
+    //=------------------------------------------------------------------------=
     
     func testReversed() {
         let base = [0, 1, 2, 3]
@@ -44,8 +72,8 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(T(base, reversed: true ).reversed(),            [0, 1, 2, 3])
         NBKAssertIteration(T(base, reversed: true ).reversed().reversed(), [3, 2, 1, 0])
         
-        XCTAssert(type(of: T(base)) == type(of: T(T(base))))
-        XCTAssert(type(of: T(base)) == type(of: T(base).reversed()))
+        XCTAssert(T<[Int]>.self == type(of: T(base)))
+        XCTAssert(T<[Int]>.self == type(of: T(base).reversed()))
     }
 }
 
