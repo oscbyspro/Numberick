@@ -15,6 +15,11 @@ A new protocol hierarchy that refines Swift's standard library.
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 
+### Models
+
+- ``NBKEndianness``
+- ``NBKLittleEndianOrdered``
+
 ## NBKDoubleWidthKit
 
 A composable, large, fixed-width, two's complement, binary integer.
@@ -105,6 +110,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 ### Models
 
 - ``NBKDoubleWidth``
+- ``NBKEndianness``
 - ``NBKLittleEndianOrdered``
 
 ### Integers

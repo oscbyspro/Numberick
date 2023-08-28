@@ -11,7 +11,7 @@
 // MARK: * NBK x Endianness
 //*============================================================================*
 
-/// An enumeration of big and little endianness.
+/// An enumeration of little and big endianness.
 ///
 /// ### Static vs Dynamic
 ///
@@ -24,12 +24,14 @@
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
+    // NOTE: The raw value is equal to the case index.
+    //=------------------------------------------------------------------------=
     
-    /// A value representing big endianness.
-    case big
+    /// A value representing a least-to-most-significant byte order.
+    case little // 0x00
     
-    /// A value representing little endianness.
-    case little
+    /// A value representing a most-to-least-significant byte order.
+    case big    // 0x01
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -37,10 +39,10 @@
     
     /// Returns the endianness of the current system.
     @inlinable public static var system: Self {
-        #if _endian(big)
-        return .big
-        #else
+        #if _endian(little)
         return .little
+        #else
+        return .big
         #endif
     }
     
@@ -50,6 +52,6 @@
     
     /// Returns the opposite endianness.
     @inlinable public static prefix func !(operand: Self) -> Self {
-        switch operand { case .big: return .little; case .little: return .big }
+        switch operand { case .little: return .big; case .big: return .little }
     }
 }

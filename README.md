@@ -21,6 +21,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 ### Models
 
+- [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
 - [NBKLittleEndianOrdered](Sources/NBKCoreKit/Models/NBKLittleEndianOrdered.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
