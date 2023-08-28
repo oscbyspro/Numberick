@@ -34,7 +34,7 @@ extension NBKDoubleWidth {
             }
         }
     }
-        
+    
     /// Grants unsafe access to the collection's contiguous storage.
     ///
     /// The elements of the contiguous storage appear in the order of the collection.

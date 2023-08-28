@@ -113,13 +113,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Details x Encode x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable func description(radix: NBK.AnyRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+    @inlinable func description(radix: NBK.AnyRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder,
+    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         switch radix.power.isZero {
         case  true: return self.description(radix: NBK  .PerfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix, suffix: suffix)
         case false: return self.description(radix: NBK.ImperfectRadixUIntRoot(unchecked: radix), alphabet: alphabet, prefix: prefix, suffix: suffix) }
     }
     
-    @inlinable func description(radix: NBK.PerfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+    @inlinable func description(radix: NBK.PerfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder,
+    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
@@ -129,7 +131,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         }
     }
     
-    @inlinable func description(radix: NBK.ImperfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+    @inlinable func description(radix: NBK.ImperfectRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder,
+    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
