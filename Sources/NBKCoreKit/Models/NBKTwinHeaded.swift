@@ -22,13 +22,29 @@
     
     public typealias Element = Base.Element
     
+    public typealias SubSequence = Slice<Self>
+    
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    public var base: Base
+    /// The base collection that is viewed through this instance.
+    ///
+    /// - Note: The base collection must be private if one of its indices is stored.
+    ///
+    @usableFromInline var body: Base
+    
+    /// The bit-mask used to change the offset based on the current direction.
+    ///
+    /// It is equal to zero when front-to-back, and minus one otherwise.
+    ///
     @usableFromInline var mask: Self.Index
-    @usableFromInline var edge: Base.Index
+    
+    /// The base index to be offset.
+    ///
+    /// It is the base's start index when front-to-back, and its end index otherwise.
+    ///
+    @usableFromInline var head: Base.Index
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -40,8 +56,8 @@
     ///   - base: The collection viewed through this instance.
     ///   - reversed: A value indicating whether the direction should be reversed.
     ///
-    @inlinable public init(_ other: Self, reversed:  Bool =  false) {
-        self.init(other.base, reversed: other.mask.isZero == reversed)
+    @inlinable public init(_ other: Self, reversed: Bool = false) {
+        self.init(other.base, reversed: other.isFrontToBack == reversed)
     }
     
     /// Creates a view presenting the collection's elements in a dynamic order.
@@ -61,10 +77,39 @@
     ///   - reversed: A value indicating whether the direction should be reversed.
     ///
     @_disfavoredOverload @inlinable public init(_ base: Base, reversed: Bool = false) {
-        self.base = base
-        self.mask = Int.zero
-        self.edge = self.base.startIndex
+        self.body = base
+        self.mask = Int .zero
+        self.head = self.body.startIndex
         if reversed { self.reverse() }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    /// The base collection that is viewed through this instance.
+    @inlinable public var base: Base {
+        self.body as Base
+    }
+    
+    /// Returns whether the base collection's elements are presented front-to-back.
+    @inlinable public var isFrontToBack: Bool {
+        self.mask == ( 0) as Int
+    }
+    
+    /// Returns the base collection, if its elements matches this collection.
+    @inlinable public var asFrontToBack: Base? {
+        self.isFrontToBack ? self.base : nil
+    }
+    
+    /// Returns whether the base collection's elements are presented back-to-front.
+    @inlinable public var isBackToFront: Bool {
+        self.mask == (-1) as Int
+    }
+    
+    /// Returns the base collection but reversed, if its elements matches this collection.
+    @inlinable public var asBackToFront: ReversedCollection<Base>? {
+        self.isBackToFront ? self.base.reversed() : nil
     }
     
     //=------------------------------------------------------------------------=
@@ -76,7 +121,7 @@
     /// - Complexity: O(1).
     ///
     @inlinable public mutating func reverse() {
-        self.edge =  self.base.index(self.edge, offsetBy: self.mask ^ self.count - self.mask)
+        self.head =  self.baseIndex(self.endIndex)
         self.mask = ~self.mask
     }
     
@@ -92,13 +137,39 @@
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
-    /// Returns the corresponding index in the base collection.
+    /// Returns the base collection's corresponding subscript index.
     ///
     /// - Parameter index: `self.startIndex <= index < self.endIndex`
     ///
     @inlinable func baseSubscriptIndex(_ index: Int) -> Base.Index {
         assert(self.startIndex <= index && index <  self.endIndex)
-        return self.base.index(self.edge, offsetBy: self.mask ^ index)
+        return self.base.index(self.head, offsetBy: self.mask ^ index)
+    }
+    
+    /// Returns the base collection's corresponding index.
+    ///
+    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
+    ///
+    @inlinable func baseIndex(_ index: Int) -> Base.Index {
+        assert(self.startIndex <= index && index <= self.endIndex)
+        return self.base.index(self.head, offsetBy: self.mask ^ index - self.mask)
+    }
+    
+    /// Returns the base collection's corresponding indices.
+    ///
+    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
+    ///
+    @inlinable func baseIndices(_ indices: Range<Int>) -> Range<Base.Index> {
+        assert(self.startIndex <= indices.lowerBound && indices.upperBound <= self.endIndex)
+
+        var lowerBound = self.baseIndex(indices.lowerBound)
+        var upperBound = self.baseIndex(indices.upperBound)
+        
+        if  self.isBackToFront {
+            Swift.swap(&lowerBound, &upperBound)
+        }
+        
+        return Range(uncheckedBounds:(lowerBound, upperBound))
     }
 }
 
@@ -128,17 +199,8 @@ extension NBKTwinHeaded {
         Range(uncheckedBounds:(self.startIndex, self.endIndex))
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors x Element
-    //=------------------------------------------------------------------------=
-    
     @inlinable public subscript(index: Int) -> Element {
-        _read   { yield  self.base[self.baseSubscriptIndex(index)] }
-    }
-    
-    @inlinable public subscript(index: Int) -> Element where Base: MutableCollection {
-        _read   { yield  self.base[self.baseSubscriptIndex(index)] }
-        _modify { yield &self.base[self.baseSubscriptIndex(index)] }
+        _read { yield self.base[self.baseSubscriptIndex(index)] }
     }
     
     //=------------------------------------------------------------------------=
@@ -183,7 +245,42 @@ extension NBKTwinHeaded {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Conditional Conformances
+// MARK: + Mutable Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded: MutableCollection where Base: MutableCollection { }
+extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public subscript(index: Int) -> Element {
+        _read   { yield  self.body[self.baseSubscriptIndex(index)] }
+        _modify { yield &self.body[self.baseSubscriptIndex(index)] }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
+
+extension NBKTwinHeaded {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a collection with the same data and direction as the given subsequence.
+    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeBufferPointer<T> {
+        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
+        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
+        self.init(base, reversed: subsequence.base.isBackToFront)
+    }
+    
+    /// Creates a collection with the same data and direction as the given subsequence.
+    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeMutableBufferPointer<T> {
+        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
+        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
+        self.init(base, reversed: subsequence.base.isBackToFront)
+    }
+}

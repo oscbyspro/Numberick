@@ -57,6 +57,37 @@ final class NBKTwinHeadedTests: XCTestCase {
         XCTAssert(T<[Int]>.self == type(of: T(base)))
     }
     
+    func testFromEmpty() {
+        NBKAssertIteration(T(Array<UInt>(), reversed:  false), [ ])
+        NBKAssertIteration(T(Array<UInt>(), reversed:  true ), [ ])
+        
+        NBKAssertIteration(T(Array<UInt>().reversed(), reversed: false), [ ])
+        NBKAssertIteration(T(Array<UInt>().reversed(), reversed: true ), [ ])
+        
+        NBKAssertIteration(T(EmptyCollection<UInt>(),  reversed: false), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt>(),  reversed: true ), [ ])
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Accessors
+    //=------------------------------------------------------------------------=
+    
+    func testIsFrontToBackOrBackToFront() {
+        let base = [0, 1, 2, 3]
+        
+        XCTAssertEqual(T(base, reversed: false).isFrontToBack, true )
+        XCTAssertEqual(T(base, reversed: true ).isFrontToBack, false)
+        
+        XCTAssertEqual(T(base, reversed: false).asFrontToBack, base )
+        XCTAssertEqual(T(base, reversed: true ).asFrontToBack, nil  )
+        
+        XCTAssertEqual(T(base, reversed: false).isBackToFront, false)
+        XCTAssertEqual(T(base, reversed: true ).isBackToFront, true )
+        
+        XCTAssertEqual(T(base, reversed: false).asBackToFront.map(Array.init), nil)
+        XCTAssertEqual(T(base, reversed: true ).asBackToFront.map(Array.init), base.reversed())
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Transformations
     //=------------------------------------------------------------------------=
@@ -75,6 +106,42 @@ final class NBKTwinHeadedTests: XCTestCase {
         XCTAssert(T<[Int]>.self == type(of: T(base)))
         XCTAssert(T<[Int]>.self == type(of: T(base).reversed()))
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Rebasing Unsafe Buffer Pointers
+    //=------------------------------------------------------------------------=
+    
+    func testFromSubSequenceByRebasingUnsafeBufferPointer() {
+        let frontToBack = [0, 1, 2, 3]
+        let backToFront = [3, 2, 1, 0]
+        
+        frontToBack.withUnsafeBufferPointer { frontToBack in
+        backToFront.withUnsafeBufferPointer { backToFront in
+            for i in 0 ... 4 {
+            for j in i ... 4 {
+                XCTAssert(T(rebasing: T(frontToBack, reversed: false)[i ..< j]).elementsEqual(frontToBack[i ..< j]))
+                XCTAssert(T(rebasing: T(frontToBack, reversed: true )[i ..< j]).elementsEqual(backToFront[i ..< j]))
+                XCTAssert(T(rebasing: T(backToFront, reversed: false)[i ..< j]).elementsEqual(backToFront[i ..< j]))
+                XCTAssert(T(rebasing: T(backToFront, reversed: true )[i ..< j]).elementsEqual(frontToBack[i ..< j]))
+            }}
+        }}
+    }
+    
+    func testFromSubSequenceByRebasingUnsafeMutableBufferPointer() {
+        var frontToBack = [0, 1, 2, 3]
+        var backToFront = [3, 2, 1, 0]
+        
+        frontToBack.withUnsafeMutableBufferPointer { frontToBack in
+        backToFront.withUnsafeMutableBufferPointer { backToFront in
+            for i in 0 ... 4 {
+            for j in i ... 4 {
+                XCTAssert(T(rebasing: T(frontToBack, reversed: false)[i ..< j]).elementsEqual(frontToBack[i ..< j]))
+                XCTAssert(T(rebasing: T(frontToBack, reversed: true )[i ..< j]).elementsEqual(backToFront[i ..< j]))
+                XCTAssert(T(rebasing: T(backToFront, reversed: false)[i ..< j]).elementsEqual(backToFront[i ..< j]))
+                XCTAssert(T(rebasing: T(backToFront, reversed: true )[i ..< j]).elementsEqual(frontToBack[i ..< j]))
+            }}
+        }}
+    }
 }
 
 //*============================================================================*
@@ -82,41 +149,73 @@ final class NBKTwinHeadedTests: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertIteration<B: RandomAccessCollection & MutableCollection>(
-_ lhs: B, _ rhs: [B.Element],
+_ lhs: NBKTwinHeaded<B>, _ rhs: [B.Element],
 file: StaticString = #file, line: UInt  = #line) where B.Element: FixedWidthInteger, B.Element: Equatable {
     XCTAssertEqual(Array(lhs),            rhs,            file: file, line: line)
     XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)
     XCTAssertEqual(Array({ var x = lhs; x.reverse(); return x }()), rhs.reversed(), file: file, line: line)
     
-    do {
-        var lhsIndex = lhs.startIndex
-        var rhsIndex = rhs.startIndex
-        while lhsIndex < lhs.endIndex {
-            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
-            lhsIndex = lhs.index(after: lhsIndex)
-            rhsIndex = rhs.index(after: rhsIndex)
-        }
-    }
-    
-    do {
-        var lhsIndex = lhs.endIndex
-        var rhsIndex = rhs.endIndex
-        while lhsIndex > lhs.startIndex {
-            lhsIndex = lhs.index(before: lhsIndex)
-            rhsIndex = rhs.index(before: rhsIndex)
-            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
-        }
-    }
-    
-    do {
+    testIndices: do {
         for lhsIndex in lhs.indices.enumerated() {
             XCTAssertEqual(lhs[lhsIndex.element], rhs[lhsIndex.offset], file: file, line: line)
         }
     }
     
-    do {
+    testFrontToBack: do {
+        var lhsIndex = lhs.startIndex
+        var rhsIndex = rhs.startIndex
+        while lhsIndex < lhs.endIndex {
+            let lhsIndexAfter = lhs.index(after: lhsIndex)
+            let rhsIndexAfter = rhs.index(after: lhsIndex)
+            
+            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
+            XCTAssertEqual(lhsIndexAfter, rhsIndexAfter, file: file, line: line)
+            
+            lhs.formIndex(after: &lhsIndex)
+            rhs.formIndex(after: &rhsIndex)
+        }
+    }
+    
+    testBackToFront: do {
+        var lhsIndex = lhs.endIndex
+        var rhsIndex = rhs.endIndex
+        while lhsIndex > lhs.startIndex {
+            let lhsIndexBefore = lhs.index(before: lhsIndex)
+            let rhsIndexBefore = rhs.index(before: lhsIndex)
+            
+            lhs.formIndex(before: &lhsIndex)
+            rhs.formIndex(before: &rhsIndex)
+            
+            XCTAssertEqual(lhs[lhsIndex],  rhs[rhsIndex],  file: file, line: line)
+            XCTAssertEqual(lhsIndexBefore, rhsIndexBefore, file: file, line: line)
+        }
+    }
+    
+    testAsMutableCollection: do {
+        var lhs = lhs, lhsIndex = lhs.startIndex
+        var rhs = rhs, rhsIndex = rhs.startIndex
+        while lhsIndex < lhs.endIndex {
+            lhs[lhsIndex] &+= 1
+            rhs[rhsIndex] &+= 1
+            
+            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
+            
+            lhs.formIndex(after: &lhsIndex)
+            rhs.formIndex(after: &rhsIndex)
+        }
+    }
+    
+    testDropFirst: do {
         for dropFirst in 0 ..< (2 * lhs.count) {
-            XCTAssertEqual(Array(lhs.dropFirst(dropFirst)), Array(rhs.dropFirst(dropFirst)), file: file, line: line)
+            let lhsDropFirst = lhs.dropFirst(dropFirst)
+            let rhsDropFirst = rhs.dropFirst(dropFirst)
+
+            let lhsDropFirstIndices = lhs.indices[lhsDropFirst.indices]
+            let rhsDropFirstIndices = rhs.indices[rhsDropFirst.indices]
+            
+            XCTAssertEqual(Array(lhsDropFirst),             Array(rhsDropFirst),             file: file, line: line)
+            XCTAssertEqual(Array(lhs[lhsDropFirstIndices]), Array(rhs[rhsDropFirstIndices]), file: file, line: line)
+            
             if  let first = lhs.dropFirst(dropFirst).first {
                 let firstIndex = lhs.index(lhs.startIndex, offsetBy: dropFirst)
                 XCTAssertEqual(first, lhs[firstIndex],  file: file, line: line)
@@ -124,25 +223,21 @@ file: StaticString = #file, line: UInt  = #line) where B.Element: FixedWidthInte
         }
     }
     
-    do {
+    testDropLast: do {
         for dropLast in 0 ..< (2 * lhs.count) {
-            XCTAssertEqual(Array(lhs.dropLast(dropLast)), Array(rhs.dropLast(dropLast)), file: file, line: line)
+            let lhsDropLast = lhs.dropFirst(dropLast)
+            let rhsDropLast = rhs.dropFirst(dropLast)
+
+            let lhsDropLastIndices = lhs.indices[lhsDropLast.indices]
+            let rhsDropLastIndices = rhs.indices[rhsDropLast.indices]
+            
+            XCTAssertEqual(Array(lhsDropLast),             Array(rhsDropLast),             file: file, line: line)
+            XCTAssertEqual(Array(lhs[lhsDropLastIndices]), Array(rhs[rhsDropLastIndices]), file: file, line: line)
+            
             if  let last = lhs.dropLast(dropLast).last {
                 let lastIndex = lhs.index(lhs.endIndex, offsetBy: ~dropLast)
                 XCTAssertEqual(last, lhs[lastIndex], file: file, line: line)
             }
-        }
-    }
-    
-    do {
-        var lhs = lhs, lhsIndex = lhs.startIndex
-        var rhs = rhs, rhsIndex = rhs.startIndex
-        while lhsIndex < lhs.endIndex {
-            lhs[lhsIndex] &+= 1
-            rhs[rhsIndex] &+= 1
-            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
-            lhs.formIndex(after: &lhsIndex)
-            rhs.formIndex(after: &rhsIndex)
         }
     }
 }
