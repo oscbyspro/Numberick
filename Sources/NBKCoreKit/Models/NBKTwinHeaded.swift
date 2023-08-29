@@ -30,19 +30,19 @@
     
     /// The base collection that is viewed through this instance.
     ///
-    /// - Note: The base collection must be private if one of its indices is stored.
+    /// - Note: It is private so the head index stays valid.
     ///
     @usableFromInline var body: Base
     
     /// The bit-mask used to change the offset based on the current direction.
     ///
-    /// It is equal to zero when front-to-back, and minus one otherwise.
+    /// It equals zero when front-to-back, and minus one otherwise.
     ///
     @usableFromInline var mask: Self.Index
     
     /// The base index to be offset.
     ///
-    /// It is the base's start index when front-to-back, and its end index otherwise.
+    /// It equals the base's start index when front-to-back, and the end index otherwise.
     ///
     @usableFromInline var head: Base.Index
     
@@ -54,33 +54,31 @@
     ///
     /// - Parameters:
     ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
     ///
-    @inlinable public init(_ other: Self, reversed: Bool = false) {
-        self.init(other.base, reversed: other.isFrontToBack == reversed)
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
-    ///
-    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool = false) {
-        self.init(other.reversed(), reversed: !reversed)
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
-    ///
-    @_disfavoredOverload @inlinable public init(_ base: Base, reversed: Bool = false) {
+    @_disfavoredOverload @inlinable public init(_ base: Base) {
         self.body = base
         self.mask = Int .zero
         self.head = self.body.startIndex
-        if reversed { self.reverse() }
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @_disfavoredOverload @inlinable public init(_ base: Base, reversed: Bool) {
+        self.init(base); if reversed { self.reverse() }
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - head: The direction of the collection in terms of endianness.
+    ///
+    @_disfavoredOverload @inlinable public init(_ base: Base, head: NBKEndianness) {
+        self.init(base,  reversed: head == NBKEndianness.big)
     }
     
     //=------------------------------------------------------------------------=
@@ -174,6 +172,97 @@
 }
 
 //=----------------------------------------------------------------------------=
+// MARK: + Initializers
+//=----------------------------------------------------------------------------=
+
+extension NBKTwinHeaded {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Self
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///
+    @inlinable public init(_ other: Self) {
+        self = other
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @inlinable public init(_ other: Self, reversed: Bool) {
+        self.init(other.base, reversed: other.isFrontToBack == reversed)
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - head: The direction of the collection in terms of endianness.
+    ///
+    @inlinable public init(_ other: Self, head: NBKEndianness) {
+        self.init(other,  reversed: head == NBKEndianness.big)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Reversed Collection
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///
+    @inlinable public init(_ other: ReversedCollection<Base>) {
+        self.init(other.reversed(), reversed: true)
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool) {
+        self.init(other.reversed(), reversed: !reversed)
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - head: The direction of the collection in terms of endianness.
+    ///
+    @inlinable public init(_ other: ReversedCollection<Base>, head: NBKEndianness) {
+        self.init(other.reversed(), reversed: head == NBKEndianness.little)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Unsafe Buffer Pointers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a collection with the same data and direction as the given subsequence.
+    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeBufferPointer<T> {
+        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
+        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
+        self.init(base, reversed: subsequence.base.isBackToFront)
+    }
+    
+    /// Creates a collection with the same data and direction as the given subsequence.
+    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeMutableBufferPointer<T> {
+        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
+        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
+        self.init(base, reversed: subsequence.base.isBackToFront)
+    }
+}
+
+//=----------------------------------------------------------------------------=
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
@@ -257,30 +346,5 @@ extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
     @inlinable public subscript(index: Int) -> Element {
         _read   { yield  self.body[self.baseSubscriptIndex(index)] }
         _modify { yield &self.body[self.baseSubscriptIndex(index)] }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + where Base is Unsafe Buffer Pointer
-//=----------------------------------------------------------------------------=
-
-extension NBKTwinHeaded {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a collection with the same data and direction as the given subsequence.
-    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeBufferPointer<T> {
-        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
-        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
-        self.init(base, reversed: subsequence.base.isBackToFront)
-    }
-    
-    /// Creates a collection with the same data and direction as the given subsequence.
-    @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeMutableBufferPointer<T> {
-        let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
-        let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
-        self.init(base, reversed: subsequence.base.isBackToFront)
     }
 }

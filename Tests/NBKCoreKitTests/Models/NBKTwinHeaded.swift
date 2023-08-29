@@ -30,12 +30,19 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(  T(base),  [0, 1, 2, 3])
         NBKAssertIteration(T(T(base)), [0, 1, 2, 3])
         
-        NBKAssertIteration(  T(base, reversed: false), [0, 1, 2, 3])
-        NBKAssertIteration(  T(base, reversed: true ), [3, 2, 1, 0])
+        NBKAssertIteration(  T(base, reversed: false),                   [0, 1, 2, 3])
+        NBKAssertIteration(  T(base, reversed: true ),                   [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: false), reversed: false), [0, 1, 2, 3])
         NBKAssertIteration(T(T(base, reversed: false), reversed: true ), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
+        
+        NBKAssertIteration(  T(base, head:   .little),                   [0, 1, 2, 3])
+        NBKAssertIteration(  T(base, head:   .big   ),                   [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .little), head:   .little), [0, 1, 2, 3])
+        NBKAssertIteration(T(T(base, head:   .little), head:   .big   ), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .big   ), head:   .little), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .big   ), head:   .big   ), [0, 1, 2, 3])
         
         XCTAssert(T<[Int]>.self == type(of:   T(base) ))
         XCTAssert(T<[Int]>.self == type(of: T(T(base))))
@@ -47,25 +54,41 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(  T(base),  [0, 1, 2, 3])
         NBKAssertIteration(T(T(base)), [0, 1, 2, 3])
         
-        NBKAssertIteration(  T(base, reversed: false), [0, 1, 2, 3])
-        NBKAssertIteration(  T(base, reversed: true ), [3, 2, 1, 0])
+        NBKAssertIteration(  T(base, reversed: false),                   [0, 1, 2, 3])
+        NBKAssertIteration(  T(base, reversed: true ),                   [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: false), reversed: false), [0, 1, 2, 3])
         NBKAssertIteration(T(T(base, reversed: false), reversed: true ), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
         
+        NBKAssertIteration(  T(base, head:   .little),                   [0, 1, 2, 3])
+        NBKAssertIteration(  T(base, head:   .big   ),                   [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .little), head:   .little), [0, 1, 2, 3])
+        NBKAssertIteration(T(T(base, head:   .little), head:   .big   ), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .big   ), head:   .little), [3, 2, 1, 0])
+        NBKAssertIteration(T(T(base, head:   .big   ), head:   .big   ), [0, 1, 2, 3])
+        
         XCTAssert(T<[Int]>.self == type(of: T(base)))
     }
     
-    func testFromEmpty() {
-        NBKAssertIteration(T(Array<UInt>(), reversed:  false), [ ])
-        NBKAssertIteration(T(Array<UInt>(), reversed:  true ), [ ])
+    func testFromNoElements() {
+        NBKAssertIteration(T(Array<UInt>()),            [ ])
+        NBKAssertIteration(T(Array<UInt>().reversed()), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt> ()), [ ])
         
+        NBKAssertIteration(T(Array<UInt>(),            reversed: false), [ ])
+        NBKAssertIteration(T(Array<UInt>(),            reversed: true ), [ ])
         NBKAssertIteration(T(Array<UInt>().reversed(), reversed: false), [ ])
         NBKAssertIteration(T(Array<UInt>().reversed(), reversed: true ), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt> (), reversed: false), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt> (), reversed: true ), [ ])
         
-        NBKAssertIteration(T(EmptyCollection<UInt>(),  reversed: false), [ ])
-        NBKAssertIteration(T(EmptyCollection<UInt>(),  reversed: true ), [ ])
+        NBKAssertIteration(T(Array<UInt>(),            head:   .little), [ ])
+        NBKAssertIteration(T(Array<UInt>(),            head:   .big   ), [ ])
+        NBKAssertIteration(T(Array<UInt>().reversed(), head:   .little), [ ])
+        NBKAssertIteration(T(Array<UInt>().reversed(), head:   .big   ), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt> (), head:   .little), [ ])
+        NBKAssertIteration(T(EmptyCollection<UInt> (), head:   .big   ), [ ])
     }
     
     //=------------------------------------------------------------------------=
