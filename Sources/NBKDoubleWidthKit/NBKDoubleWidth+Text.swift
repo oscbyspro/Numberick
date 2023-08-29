@@ -112,6 +112,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Details x Encode x Private
     //=------------------------------------------------------------------------=
+    // NOTE: Both branches specialize NBKTwinHeaded<UnsafeBufferPointer<UInt>>.
+    //=------------------------------------------------------------------------=
     
     @inlinable func description(radix: NBK.AnyRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
@@ -125,9 +127,9 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        self.withContiguousStorage { buffer in
-            let chunks =  NBK.UnsafeWords(rebasing: NBK.dropLast(from: buffer, while: { $0.isZero }))
-            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        return self.withUnsafeData(as: UInt.self) { data in
+            let chunks = NBKTwinHeaded(rebasing: NBK.dropLast(from: NBKTwinHeaded(data, head: .system), while: { $0.isZero }))
+            return NBK.integerTextUnchecked(chunks: chunks,  radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
     
@@ -155,7 +157,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             let count = start.distance(to: position)
             defer { start.deinitialize(count: count) }
             //=----------------------------------=
-            let chunks = NBK.UnsafeWords(start: start, count: count)
+            let chunks = NBKTwinHeaded(NBK.UnsafeWords(start: start, count: count))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }

@@ -24,14 +24,11 @@ extension NBKDoubleWidth {
     /// The elements of the contiguous storage appear in the order of the collection.
     ///
     @inlinable public func withContiguousStorage<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T {
-        var base = self; return try Swift.withUnsafeMutablePointer(to: &base) { value in
-            try value.withMemoryRebound(to: UInt.self, capacity:  Self.count) { start in
-                var words = UnsafeMutableBufferPointer(start: start, count: Self.count)
-                #if _endian(big)
-                words.reverse()
-                #endif
-                return try body(UnsafeBufferPointer(words))
-            }
+        var base = self; return try base.withUnsafeMutableData(as: UInt.self) { data in
+            #if _endian(big)
+            data.reverse()
+            #endif
+            return try body(UnsafeBufferPointer(data))
         }
     }
     
@@ -50,15 +47,12 @@ extension NBKDoubleWidth {
     /// The elements of the contiguous mutable storage appear in the order of the collection.
     ///
     @inlinable public mutating func withContiguousMutableStorage<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
-        try Swift.withUnsafeMutablePointer(to:  &self) { value in
-            try value.withMemoryRebound(to: UInt.self, capacity: Self.count) { start in
-                var words = UnsafeMutableBufferPointer(start: start, count: Self.count)
-                #if _endian(big)
-                do    { words.reverse() }
-                defer { words.reverse() }
-                #endif
-                return try body(&words)
-            }
+        return try self.withUnsafeMutableData(as: UInt.self) { data in
+            #if _endian(big)
+            do    { data.reverse() }
+            defer { data.reverse() }
+            #endif
+            return try body(&data)
         }
     }
     
