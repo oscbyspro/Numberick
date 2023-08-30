@@ -37,13 +37,6 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
         
-        NBKAssertIteration(  T(base, head:   .little),                   [0, 1, 2, 3])
-        NBKAssertIteration(  T(base, head:   .big   ),                   [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .little), head:   .little), [0, 1, 2, 3])
-        NBKAssertIteration(T(T(base, head:   .little), head:   .big   ), [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .big   ), head:   .little), [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .big   ), head:   .big   ), [0, 1, 2, 3])
-        
         XCTAssert(T<[Int]>.self == type(of:   T(base) ))
         XCTAssert(T<[Int]>.self == type(of: T(T(base))))
     }
@@ -61,13 +54,6 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(T(T(base, reversed: true ), reversed: false), [3, 2, 1, 0])
         NBKAssertIteration(T(T(base, reversed: true ), reversed: true ), [0, 1, 2, 3])
         
-        NBKAssertIteration(  T(base, head:   .little),                   [0, 1, 2, 3])
-        NBKAssertIteration(  T(base, head:   .big   ),                   [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .little), head:   .little), [0, 1, 2, 3])
-        NBKAssertIteration(T(T(base, head:   .little), head:   .big   ), [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .big   ), head:   .little), [3, 2, 1, 0])
-        NBKAssertIteration(T(T(base, head:   .big   ), head:   .big   ), [0, 1, 2, 3])
-        
         XCTAssert(T<[Int]>.self == type(of: T(base)))
     }
     
@@ -82,33 +68,35 @@ final class NBKTwinHeadedTests: XCTestCase {
         NBKAssertIteration(T(Array<UInt>().reversed(), reversed: true ), [ ])
         NBKAssertIteration(T(EmptyCollection<UInt> (), reversed: false), [ ])
         NBKAssertIteration(T(EmptyCollection<UInt> (), reversed: true ), [ ])
-        
-        NBKAssertIteration(T(Array<UInt>(),            head:   .little), [ ])
-        NBKAssertIteration(T(Array<UInt>(),            head:   .big   ), [ ])
-        NBKAssertIteration(T(Array<UInt>().reversed(), head:   .little), [ ])
-        NBKAssertIteration(T(Array<UInt>().reversed(), head:   .big   ), [ ])
-        NBKAssertIteration(T(EmptyCollection<UInt> (), head:   .little), [ ])
-        NBKAssertIteration(T(EmptyCollection<UInt> (), head:   .big   ), [ ])
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Accessors
     //=------------------------------------------------------------------------=
     
-    func testIsFrontToBackOrBackToFront() {
-        let base = [0, 1, 2, 3]
-        
-        XCTAssertEqual(T(base, reversed: false).isFrontToBack, true )
-        XCTAssertEqual(T(base, reversed: true ).isFrontToBack, false)
-        
-        XCTAssertEqual(T(base, reversed: false).asFrontToBack, base )
-        XCTAssertEqual(T(base, reversed: true ).asFrontToBack, nil  )
-        
-        XCTAssertEqual(T(base, reversed: false).isBackToFront, false)
-        XCTAssertEqual(T(base, reversed: true ).isBackToFront, true )
-        
-        XCTAssertEqual(T(base, reversed: false).asBackToFront.map(Array.init), nil)
-        XCTAssertEqual(T(base, reversed: true ).asBackToFront.map(Array.init), base.reversed())
+    func testDirection() {
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).direction,  1)
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).direction, -1)
+    }
+    
+    func testIsFrontToBack() {
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).isFrontToBack, true )
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).isFrontToBack, false)
+    }
+    
+    func testAsFrontToBack() {
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).asFrontToBack, [0, 1, 2, 3])
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).asFrontToBack, nil)
+    }
+    
+    func testIsBackToFront() {
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).isBackToFront, false)
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).isBackToFront, true )
+    }
+    
+    func testAsBackToFront() {
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).asBackToFront.map(Array.init), nil)
+        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).asBackToFront.map(Array.init), [0, 1, 2, 3].reversed())
     }
     
     //=------------------------------------------------------------------------=

@@ -21,9 +21,7 @@ extension NBKDoubleWidth {
     
     /// The number of words in this type of integer.
     @inlinable public static var count: Int {
-        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
-        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
-        return MemoryLayout<Self>.size / MemoryLayout<UInt>.stride
+        BitPattern.count(UInt.self)
     }
     
     //=------------------------------------------------------------------------=
@@ -227,7 +225,7 @@ extension NBKDoubleWidth {
     ///
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
-            let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
+            let offset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
             assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
             return Swift.withUnsafePointer(to: self) { pointer in
                 UnsafeRawPointer(pointer).load(fromByteOffset: offset, as: T.self)
@@ -235,34 +233,11 @@ extension NBKDoubleWidth {
         }
         
         set {
-            let offset = BitPattern.endiannessSensitiveByteOffset(at: index)
+            let offset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
             assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
             Swift.withUnsafeMutablePointer(to: &self) { pointer in
                 UnsafeMutableRawPointer(pointer).storeBytes(of: newValue, toByteOffset: offset, as: T.self)
             }
         }
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Double Width x Words x Unsigned
-//*============================================================================*
-
-extension NBKDoubleWidth where High == High.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the in-memory byte offset of the word at the given index.
-    ///
-    /// - Note: This operation is unchecked.
-    ///
-    @inlinable static func endiannessSensitiveByteOffset(at index: Int) -> Int {
-        #if _endian(big)
-        return MemoryLayout<UInt>.stride * ~index + MemoryLayout<Self>.size
-        #else
-        return MemoryLayout<UInt>.stride * (index)
-        #endif
     }
 }

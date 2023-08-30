@@ -16,36 +16,20 @@ import XCTest
 // MARK: * NBK x Endianness
 //*============================================================================*
 
-final class NBKEndiannessTests: XCTestCase {
-    
-    typealias T = NBKEndianness
+final class NBKTestsOnEndianness: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSystemValue() {
-        #if  _endian(little)
-        XCTAssertEqual(T.system, T.little)
-        #elseif _endian(big)
-        XCTAssertEqual(T.system, T.big)
+    func testIsLittleOrBigEndian() {
+        #if _endian(big)
+        XCTAssertTrue (NBK.isBigEndian)
+        XCTAssertFalse(NBK.isLittleEndian)
+        #elseif _endian(little)
+        XCTAssertFalse(NBK.isBigEndian)
+        XCTAssertTrue (NBK.isLittleEndian)
         #endif
-    }
-    
-    func testOppositeValue() {
-        XCTAssertEqual(!T.big, T.little)
-        XCTAssertEqual(!T.little, T.big)
-    }
-    
-    func testToRawValue() {
-        XCTAssertEqual(0x00 as UInt8, T.little.rawValue)
-        XCTAssertEqual(0x01 as UInt8, T.big.rawValue)
-    }
-    
-    func testFromRawValue() {
-        XCTAssertEqual(T(rawValue: 0x00 as UInt8), T.little)
-        XCTAssertEqual(T(rawValue: 0x01 as UInt8), T.big)
-        XCTAssertEqual(T(rawValue: 0x02 as UInt8), nil)
     }
 }
 

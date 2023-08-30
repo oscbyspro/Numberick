@@ -55,30 +55,11 @@
     /// - Parameters:
     ///   - base: The collection viewed through this instance.
     ///
-    @_disfavoredOverload @inlinable public init(_ base: Base) {
+    @_disfavoredOverload @inlinable public init(_ base: Base, reversed: Bool = false) {
         self.body = base
         self.mask = Int .zero
         self.head = self.body.startIndex
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
-    ///
-    @_disfavoredOverload @inlinable public init(_ base: Base, reversed: Bool) {
-        self.init(base); if reversed { self.reverse() }
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - head: The direction of the collection in terms of endianness.
-    ///
-    @_disfavoredOverload @inlinable public init(_ base: Base, head: NBKEndianness) {
-        self.init(base,  reversed: head == NBKEndianness.big)
+        if reversed { self.reverse() }
     }
     
     //=------------------------------------------------------------------------=
@@ -111,6 +92,70 @@
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the direction of iteratorn as 1 (front-to-back) or -1 (back-to-front).
+    ///
+    /// ```
+    /// isFrontToBack:  1
+    /// isBackToFront: -1
+    /// ```
+    ///
+    @inlinable public var direction: Int {
+        self.mask &<< (1 as Int) | (1 as Int)
+    }
+    
+    /// Returns the base collection's corresponding subscript index.
+    ///
+    /// ```
+    /// isFrontToBack: base.index(base.startIndex, offsetBy:  index +  0)
+    /// isBackToFront: base.index(base.endIndex,   offsetBy: -index + -1)
+    /// ```
+    ///
+    /// - Parameter index: `self.startIndex <= index < self.endIndex`
+    ///
+    @inlinable public func baseSubscriptIndex(_ index: Int) -> Base.Index {
+        assert(self.startIndex <= index && index <  self.endIndex)
+        return self.base.index(self.head, offsetBy: self.mask ^ index)
+    }
+    
+    /// Returns the base collection's corresponding index.
+    ///
+    /// ```
+    /// isFrontToBack: base.index(base.startIndex, offsetBy:  index)
+    /// isBackToFront: base.index(base.endIndex,   offsetBy: -index)
+    /// ```
+    ///
+    /// - Note: Use ``baseSubscriptIndex(_:)`` to subscript the base collection.
+    ///
+    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
+    ///
+    @inlinable public func baseIndex(_ index: Int) -> Base.Index {
+        assert(self.startIndex <= index && index <= self.endIndex)
+        return self.base.index(self.head, offsetBy: self.mask ^ index - self.mask)
+    }
+    
+    /// Returns the base collection's corresponding indices.
+    ///
+    /// - Note: Use ``baseSubscriptIndex(_:)`` to subscript the base collection.
+    ///
+    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
+    ///
+    @inlinable public func baseIndices(_ indices: Range<Int>) -> Range<Base.Index> {
+        assert(self.startIndex <= indices.lowerBound && indices.upperBound <= self.endIndex)
+
+        var lowerBound = self.baseIndex(indices.lowerBound)
+        var upperBound = self.baseIndex(indices.upperBound)
+        
+        if  self.isBackToFront {
+            Swift.swap(&lowerBound, &upperBound)
+        }
+        
+        return Range(uncheckedBounds:(lowerBound, upperBound))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
@@ -130,45 +175,6 @@
     @inlinable public func reversed() -> Self {
         var result = self; result.reverse(); return result
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the base collection's corresponding subscript index.
-    ///
-    /// - Parameter index: `self.startIndex <= index < self.endIndex`
-    ///
-    @inlinable func baseSubscriptIndex(_ index: Int) -> Base.Index {
-        assert(self.startIndex <= index && index <  self.endIndex)
-        return self.base.index(self.head, offsetBy: self.mask ^ index)
-    }
-    
-    /// Returns the base collection's corresponding index.
-    ///
-    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
-    ///
-    @inlinable func baseIndex(_ index: Int) -> Base.Index {
-        assert(self.startIndex <= index && index <= self.endIndex)
-        return self.base.index(self.head, offsetBy: self.mask ^ index - self.mask)
-    }
-    
-    /// Returns the base collection's corresponding indices.
-    ///
-    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
-    ///
-    @inlinable func baseIndices(_ indices: Range<Int>) -> Range<Base.Index> {
-        assert(self.startIndex <= indices.lowerBound && indices.upperBound <= self.endIndex)
-
-        var lowerBound = self.baseIndex(indices.lowerBound)
-        var upperBound = self.baseIndex(indices.upperBound)
-        
-        if  self.isBackToFront {
-            Swift.swap(&lowerBound, &upperBound)
-        }
-        
-        return Range(uncheckedBounds:(lowerBound, upperBound))
-    }
 }
 
 //=----------------------------------------------------------------------------=
@@ -178,17 +184,8 @@
 extension NBKTwinHeaded {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Self
+    // MARK: Details x Flattened Conversions
     //=------------------------------------------------------------------------=
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///
-    @inlinable public init(_ other: Self) {
-        self = other
-    }
     
     /// Creates a view presenting the collection's elements in a dynamic order.
     ///
@@ -196,7 +193,7 @@ extension NBKTwinHeaded {
     ///   - base: The collection viewed through this instance.
     ///   - reversed: A value indicating whether the direction should be reversed.
     ///
-    @inlinable public init(_ other: Self, reversed: Bool) {
+    @inlinable public init(_ other: Self, reversed: Bool = false) {
         self.init(other.base, reversed: other.isFrontToBack == reversed)
     }
     
@@ -204,43 +201,10 @@ extension NBKTwinHeaded {
     ///
     /// - Parameters:
     ///   - base: The collection viewed through this instance.
-    ///   - head: The direction of the collection in terms of endianness.
-    ///
-    @inlinable public init(_ other: Self, head: NBKEndianness) {
-        self.init(other,  reversed: head == NBKEndianness.big)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Reversed Collection
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///
-    @inlinable public init(_ other: ReversedCollection<Base>) {
-        self.init(other.reversed(), reversed: true)
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
     ///   - reversed: A value indicating whether the direction should be reversed.
     ///
-    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool) {
+    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool = false) {
         self.init(other.reversed(), reversed: !reversed)
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - head: The direction of the collection in terms of endianness.
-    ///
-    @inlinable public init(_ other: ReversedCollection<Base>, head: NBKEndianness) {
-        self.init(other.reversed(), reversed: head == NBKEndianness.little)
     }
     
     //=------------------------------------------------------------------------=

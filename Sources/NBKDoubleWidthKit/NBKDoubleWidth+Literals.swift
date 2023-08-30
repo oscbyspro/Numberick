@@ -34,9 +34,10 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         // gets outlined without manual iteration
         //=--------------------------------------=
-        self = Self.uninitialized { value in
+        self = Self.uninitialized(as: UInt.self) {
+            let value   = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
             var index   = value.startIndex
-            var pointer = value.base.baseAddress!.advanced(by: value.baseIndex(index))
+            var pointer = value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index))
             while index < value.endIndex {
                 pointer.initialize(to: source[index])
                 pointer = pointer.advanced(by: value.direction)

@@ -13,25 +13,28 @@
 
 /// An enumeration of little and big endianness.
 ///
+/// ```swift
+/// NBKEndianness.little.rawValue // 0x00
+/// NBKEndianness.big   .rawValue // 0x01
+/// ```
+///
 /// ### Static vs Dynamic
 ///
 /// Some algorithms differ depending on endianness. Generic type parameterization
 /// can express the difference, but dynamic solutions are often viable. This type
 /// encurages the latter.
 ///
-@frozen public enum NBKEndianness: Hashable {
+@frozen public enum NBKEndianness: UInt8, Hashable {
     
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
-    // NOTE: The raw value is equal to the case index.
-    //=------------------------------------------------------------------------=
     
     /// A value representing a least-to-most-significant byte order.
-    case little // 0x00
+    case little = 0x00
     
     /// A value representing a most-to-least-significant byte order.
-    case big    // 0x01
+    case big = 0x01
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers

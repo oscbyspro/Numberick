@@ -70,14 +70,15 @@ extension NBKDoubleWidth where High == High.Magnitude {
         var digits = digits.drop(while:{ $0 == 48 })
         //=--------------------------------------=
         var error = false
-        let value = Self.uninitialized { value in
+        let value = Self.uninitialized(as: UInt.self) {
+            let value =  NBKTwinHeaded($0, reversed: NBK.isBigEndian)
             for index in value.indices {
                 if  digits.isEmpty {
-                    value.base.baseAddress!.advanced(by: value.baseIndex(index)).initialize(to: 0000)
+                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: 0000)
                 }   else {
                     let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
                     guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
-                    value.base.baseAddress!.advanced(by: value.baseIndex(index)).initialize(to: word)
+                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
                 }
             }
         }
@@ -127,9 +128,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        return self.withUnsafeData(as: UInt.self) { data in
-            let chunks = NBKTwinHeaded(rebasing: NBK.dropLast(from: NBKTwinHeaded(data, head: .system), while: { $0.isZero }))
-            return NBK.integerTextUnchecked(chunks: chunks,  radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        self.withUnsafeData(as: UInt.self) { data in
+            let words  = NBKTwinHeaded(data, reversed: NBK.isBigEndian)
+            let chunks = NBKTwinHeaded(rebasing:NBK.dropLast(from: words, while:{ $0.isZero }))
+            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
     
@@ -157,7 +159,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             let count = start.distance(to: position)
             defer { start.deinitialize(count: count) }
             //=----------------------------------=
-            let chunks = NBKTwinHeaded(NBK.UnsafeWords(start: start, count: count))
+            let chunks = NBKTwinHeaded(UnsafeBufferPointer( start: start, count: count))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }

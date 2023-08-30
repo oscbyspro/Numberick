@@ -23,7 +23,8 @@ extension NBKDoubleWidth {
     ///
     /// The elements of the contiguous storage appear in the order of the collection.
     ///
-    @inlinable public func withContiguousStorage<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T {
+    @inlinable public func withContiguousStorage<T>(
+    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         var base = self; return try base.withUnsafeMutableData(as: UInt.self) { data in
             #if _endian(big)
             data.reverse()
@@ -38,7 +39,8 @@ extension NBKDoubleWidth {
     ///
     /// - Note: This member is required by `Swift.Sequence`.
     ///
-    @inlinable public func withContiguousStorageIfAvailable<T>(_ body: (NBK.UnsafeWords) throws -> T) rethrows -> T? {
+    @inlinable public func withContiguousStorageIfAvailable<T>(
+    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T? {
         try self.withContiguousStorage(body)
     }
     
@@ -46,7 +48,8 @@ extension NBKDoubleWidth {
     ///
     /// The elements of the contiguous mutable storage appear in the order of the collection.
     ///
-    @inlinable public mutating func withContiguousMutableStorage<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+    @inlinable public mutating func withContiguousMutableStorage<T>(
+    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         return try self.withUnsafeMutableData(as: UInt.self) { data in
             #if _endian(big)
             do    { data.reverse() }
@@ -62,7 +65,8 @@ extension NBKDoubleWidth {
     ///
     /// - Note: This member is required by `Swift.MutableCollection`.
     ///
-    @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(_ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T? {
-        try self.withContiguousMutableStorage(body)
+    @inlinable public mutating func withContiguousMutableStorageIfAvailable<T>(
+    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T? {
+        try  self.withContiguousMutableStorage(body)
     }
 }
