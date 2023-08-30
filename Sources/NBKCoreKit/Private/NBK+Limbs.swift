@@ -161,15 +161,15 @@ extension NBK {
             //=----------------------------------------------------------------=
             
             @usableFromInline var minorLimbs: MinorLimbs.Iterator
-            @usableFromInline let isSigned: Bool
+            @usableFromInline let minorLimbsIsSigned: Bool
             
             //=----------------------------------------------------------------=
             // MARK: Initializers
             //=----------------------------------------------------------------=
             
             @inlinable init(minorLimbs: MinorLimbs, isSigned: Bool) {
-                self.isSigned = isSigned
                 self.minorLimbs = minorLimbs.makeIterator()
+                self.minorLimbsIsSigned = isSigned
             }
             
             //=----------------------------------------------------------------=
@@ -178,22 +178,20 @@ extension NBK {
             
             @inlinable public mutating func next() -> MajorLimb? {
                 var majorLimb = MajorLimb.zero
+                var majorLimbShift =  Int.zero
                 var minorLimb = MinorLimb.Magnitude.zero
-                var minorLimbsShift = Int.zero
                 
                 while let next = self.minorLimbs.next() {
                     minorLimb  = MinorLimb.Magnitude(bitPattern: next)
-                    majorLimb |= MajorLimb(truncatingIfNeeded: minorLimb) &<< minorLimbsShift
+                    majorLimb |= MajorLimb(truncatingIfNeeded: minorLimb) &<< majorLimbShift
                     
-                    do{ minorLimbsShift += MinorLimb.bitWidth }
-                    if  minorLimbsShift == MajorLimb.bitWidth {
-                        return majorLimb
-                    }
+                    do {  majorLimbShift += MinorLimb.bitWidth }
+                    guard majorLimbShift <  MajorLimb.bitWidth else { return  majorLimb }
                 }
                 
-                guard !minorLimbsShift.isZero else { return nil }
-                majorLimb |= (MajorLimb(repeating: self.isSigned && minorLimb.mostSignificantBit) &<< minorLimbsShift)
-                return majorLimb as MajorLimb
+                guard !majorLimbShift.isZero else { return nil }
+                let bit: Bool = self.minorLimbsIsSigned && minorLimb.mostSignificantBit
+                return majorLimb | MajorLimb(repeating: bit) &<< majorLimbShift
             }
         }
     }
@@ -211,8 +209,6 @@ extension NBK {
         
         public typealias MinorLimbsSubSequence = NBK.MinorLimbsSubSequence<MinorLimb, MajorLimb>
         
-        public typealias Iterator = FlattenSequence<LazyMapSequence<MajorLimbs, MinorLimbsSubSequence>>.Iterator
-                
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
@@ -242,8 +238,48 @@ extension NBK {
         }
         
         @inlinable public func makeIterator() -> Iterator {
-            // this type is not opaque because the type inference seems to fail otherwise :(
-            self.majorLimbs.lazy.flatMap({ MinorLimbsSubSequence(majorLimb: $0) }).makeIterator()
+            Iterator(self.majorLimbs.makeIterator())
+        }
+        
+        //*====================================================================*
+        // MARK: * Iterator
+        //*====================================================================*
+        
+        @frozen public struct Iterator: IteratorProtocol {
+            
+            //=----------------------------------------------------------------=
+            // MARK: State
+            //=----------------------------------------------------------------=
+            
+            @usableFromInline var majorLimbs: MajorLimbs.Iterator
+            @usableFromInline var minorLimbs: MinorLimbsSubSequence.Iterator?
+            
+            //=----------------------------------------------------------------=
+            // MARK: Initializers
+            //=----------------------------------------------------------------=
+            
+            @inlinable init(_ majorLimbs: MajorLimbs.Iterator) {
+                self.majorLimbs = majorLimbs
+                self.minorLimbs = nil
+            }
+            
+            //=----------------------------------------------------------------=
+            // MARK: Utilities
+            //=----------------------------------------------------------------=
+            
+            @inlinable mutating public func next() -> MinorLimb? {
+                repeat {
+                                        
+                    if  let minorLimb = self.minorLimbs?.next() {
+                        return minorLimb
+                    }   else if let majorLimb = self.majorLimbs.next() {
+                        self.minorLimbs = MinorLimbsSubSequence.Iterator(majorLimb: majorLimb)
+                    }   else {
+                        return nil
+                    }
+                    
+                } while true
+            }
         }
     }
     
@@ -257,7 +293,7 @@ extension NBK {
         public typealias MajorLimb = MajorLimb
         
         public typealias MinorLimb = MinorLimb
-                
+        
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=

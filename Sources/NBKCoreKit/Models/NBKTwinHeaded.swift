@@ -71,6 +71,11 @@
         self.body as Base
     }
     
+    /// Returns the direction of iteratorn as 1 (front-to-back) or -1 (back-to-front).
+    @inlinable public var direction: Int {
+        self.mask &<< (1 as Int) | (1 as Int)
+    }
+    
     /// Returns whether the base collection's elements are presented front-to-back.
     @inlinable public var isFrontToBack: Bool {
         self.mask == ( 0) as Int
@@ -92,19 +97,29 @@
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the direction of iteratorn as 1 (front-to-back) or -1 (back-to-front).
+    /// Forms this collection but reversed.
     ///
-    /// ```
-    /// isFrontToBack:  1
-    /// isBackToFront: -1
-    /// ```
+    /// - Complexity: O(1).
     ///
-    @inlinable public var direction: Int {
-        self.mask &<< (1 as Int) | (1 as Int)
+    @inlinable public mutating func reverse() {
+        self.head =  self.baseIndex(self.endIndex)
+        self.mask = ~self.mask
     }
+    
+    /// Returns this collection but reversed.
+    ///
+    /// - Complexity: O(1).
+    ///
+    @inlinable public func reversed() -> Self {
+        var result = self; result.reverse(); return result
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
     
     /// Returns the base collection's corresponding subscript index.
     ///
@@ -153,27 +168,6 @@
         }
         
         return Range(uncheckedBounds:(lowerBound, upperBound))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Forms this collection but reversed.
-    ///
-    /// - Complexity: O(1).
-    ///
-    @inlinable public mutating func reverse() {
-        self.head =  self.baseIndex(self.endIndex)
-        self.mask = ~self.mask
-    }
-    
-    /// Returns this collection but reversed.
-    ///
-    /// - Complexity: O(1).
-    ///
-    @inlinable public func reversed() -> Self {
-        var result = self; result.reverse(); return result
     }
 }
 
