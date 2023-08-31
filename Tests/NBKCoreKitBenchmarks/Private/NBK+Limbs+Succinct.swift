@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs
+// MARK: * NBK x Limbs x Succinct
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbs: XCTestCase {
+final class NBKBenchmarksOnLimbsBySuccinct: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

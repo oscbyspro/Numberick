@@ -23,7 +23,7 @@ private typealias Y = [UInt32]
 final class NBKBenchmarksOnLimbsByComparisons: XCTestCase {
  
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Binary Integer Limbs
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testCompareStrictSignedInteger() {

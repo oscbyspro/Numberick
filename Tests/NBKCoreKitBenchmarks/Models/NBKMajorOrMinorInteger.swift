@@ -17,12 +17,12 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Major Or Minor Integer Limbs
+// MARK: * NBK x Major Or Minor Integer
 //*============================================================================*
 
-final class NBKMajorOrMinorIntegerLimbsBenchmarks: XCTestCase {
+final class NBKMajorOrMinorIntegerBenchmarks: XCTestCase {
     
-    typealias T = NBKMajorOrMinorIntegerLimbs
+    typealias T = NBKMajorOrMinorInteger
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

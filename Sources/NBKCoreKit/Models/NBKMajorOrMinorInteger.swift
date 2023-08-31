@@ -8,25 +8,25 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Major Or Minor Integer Limbs
+// MARK: * NBK x Major Or Minor Integer
 //*============================================================================*
 
-/// A sequence that merges or splits another sequence of un/signed integer limbs.
+/// A sequence that merges or splits components of an un/signed integer sequence.
 ///
 /// ### Binary Integer Order
 ///
-/// This sequence is binary integer ordered, so it merges or splits limbs
-/// from least significant to most. You can reorder it by reversing the input,
-/// the output, or both.
+/// This sequence is ordered like a binary integer, meaning it merges and splits
+/// its components from least significant to most. You can reorder it by reversing
+/// the input, the output, or both.
 ///
-@frozen public struct NBKMajorOrMinorIntegerLimbs<Limb, Source>: Sequence where
+@frozen public struct NBKMajorOrMinorInteger<Limb, Source>: Sequence where
 Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
     
     public typealias Source = Source
     
-    public typealias MajorLimbs = NBKMajorIntegerLimbs<Limb, Source>
+    public typealias MajorLimbs = NBKMajorInteger<Limb, Source>
     
-    public typealias MinorLimbs = NBKMinorIntegerLimbs<Limb, Source>
+    public typealias MinorLimbs = NBKMinorInteger<Limb, Source>
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -111,11 +111,18 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
 }
 
 //*============================================================================*
-// MARK: * NBK x Major Integer Limbs
+// MARK: * NBK x Major Integer
 //*============================================================================*
 
-// TODO: documentation
-@frozen public struct NBKMajorIntegerLimbs<MajorLimb, MinorLimbs>: Sequence where
+/// A sequence that merges components of an un/signed integer sequence.
+///
+/// ### Binary Integer Order
+///
+/// This sequence is ordered like a binary integer, meaning it merges and splits
+/// its components from least significant to most. You can reorder it by reversing
+/// the input, the output, or both.
+///
+@frozen public struct NBKMajorInteger<MajorLimb, MinorLimbs>: Sequence where
 MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInteger {
     
     public typealias MajorLimb = MajorLimb
@@ -207,18 +214,25 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
 }
 
 //*============================================================================*
-// MARK: * NBK x Minor Integer Limbs
+// MARK: * NBK x Minor Integer
 //*============================================================================*
 
-// TODO: documentation
-@frozen public struct NBKMinorIntegerLimbs<MinorLimb, MajorLimbs>: Sequence where
+/// A sequence that splits components of an un/signed integer sequence.
+///
+/// ### Binary Integer Order
+///
+/// This sequence is ordered like a binary integer, meaning it merges and splits
+/// its components from least significant to most. You can reorder it by reversing
+/// the input, the output, or both.
+///
+@frozen public struct NBKMinorInteger<MinorLimb, MajorLimbs>: Sequence where
 MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInteger {
     
     public typealias MajorLimb = MajorLimbs.Element
     
     public typealias MinorLimb = MinorLimb
     
-    @usableFromInline typealias MinorLimbsOfOne = NBKMinorIntegerLimbsOfOne<MinorLimb, MajorLimb>
+    @usableFromInline typealias MinorLimbsOfOne = NBKMinorIntegerOfOne<MinorLimb, MajorLimb>
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -286,7 +300,7 @@ MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInte
                 if  let minorLimb = self.minorLimbs?.next() {
                     return minorLimb
                 }   else if let majorLimb = self.majorLimbs.next() {
-                    self.minorLimbs = MinorLimbsOfOne.Iterator(majorLimb)
+                    self.minorLimbs = MinorLimbsOfOne(majorLimb).makeIterator()
                 }   else {
                     return nil
                 }
@@ -297,11 +311,18 @@ MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInte
 }
 
 //*============================================================================*
-// MARK: * NBK x Minor Integer Limbs Of One
+// MARK: * NBK x Minor Integer Of One
 //*============================================================================*
 
-// TODO: documentation
-@frozen public struct NBKMinorIntegerLimbsOfOne<MinorLimb, MajorLimb>:
+/// A sequence that splits components of an un/signed integer sequence.
+///
+/// ### Binary Integer Order
+///
+/// This sequence is ordered like a binary integer, meaning it merges and splits
+/// its components from least significant to most. You can reorder it by reversing
+/// the input, the output, or both.
+///
+@frozen public struct NBKMinorIntegerOfOne<MinorLimb, MajorLimb>:
 Sequence where MinorLimb: NBKCoreInteger, MajorLimb: NBKCoreInteger {
     
     public typealias MajorLimb = MajorLimb

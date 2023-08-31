@@ -22,10 +22,10 @@ A new protocol hierarchy that refines Swift's standard library.
 ### Models
 
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
-- [NBKMajorIntegerLimbs](Sources/NBKCoreKit/Models/NBKMajorOrMinorIntegerLimbs.swift)
-- [NBKMajorOrMinorIntegerLimbs](Sources/NBKCoreKit/Models/NBKMajorOrMinorIntegerLimbs.swift)
-- [NBKMinorIntegerLimbs](Sources/NBKCoreKit/Models/NBKMajorOrMinorIntegerLimbs.swift)
-- [NBKMinorIntegerLimbsOfOne](Sources/NBKCoreKit/Models/NBKMajorOrMinorIntegerLimbs.swift)
+- [NBKMajorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
+- [NBKMajorOrMinorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
+- [NBKMinorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
+- [NBKMinorIntegerOfOne](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
 - [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
