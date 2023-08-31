@@ -26,7 +26,7 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
     public typealias Source = Source
     
     // TODO: with public models
-    public typealias MajorLimbs = NBK.MajorLimbsSequence<Limb, Source>
+    public typealias MajorLimbs = NBKMajorIntegerLimbs<Limb, Source>
     
     // TODO: with public models
     public typealias MinorLimbs = NBK.MinorLimbsSequence<Limb, Source>
@@ -51,7 +51,7 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
             self.majorLimbs = nil
         }   else {
             self.minorLimbs = nil
-            self.majorLimbs = MajorLimbs(minorLimbs: source, isSigned: isSigned)
+            self.majorLimbs = MajorLimbs(source, isSigned: isSigned)
         }
     }
     
@@ -107,6 +107,99 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
             }   else {
                 return self.majorLimbs!.next()
             }
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Major Integer Limbs
+//*============================================================================*
+
+@frozen public struct NBKMajorIntegerLimbs<MajorLimb, MinorLimbs>: Sequence where
+MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInteger {
+    
+    public typealias MajorLimb = MajorLimb
+            
+    public typealias MinorLimb = MinorLimbs.Element
+    
+    //=--------------------------------------------------------------------=
+    // MARK: State
+    //=--------------------------------------------------------------------=
+    
+    @usableFromInline let minorLimbs: MinorLimbs
+    @usableFromInline let minorLimbsIsSigned: Bool
+    
+    //=--------------------------------------------------------------------=
+    // MARK: Initializers
+    //=--------------------------------------------------------------------=
+    
+    @inlinable public init(_ minorLimbs: MinorLimbs, isSigned: Bool = false, as majorLimb: MajorLimb.Type = MajorLimb.self) {
+        //=--------------------------------------=
+        precondition(MinorLimb.bitWidth.isPowerOf2)
+        precondition(MajorLimb.bitWidth.isPowerOf2)
+        precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
+        //=--------------------------------------=
+        self.minorLimbs = minorLimbs
+        self.minorLimbsIsSigned = isSigned
+    }
+    
+    //=--------------------------------------------------------------------=
+    // MARK: Utilities
+    //=--------------------------------------------------------------------=
+    
+    /// Returns the exact count when `minorLimbs.underestimatedCount` does.
+    @inlinable public var underestimatedCount: Int {
+        let ratio = MajorLimb.bitWidth / MinorLimb.bitWidth
+        let division = minorLimbs.underestimatedCount.quotientAndRemainder(dividingBy: ratio)
+        return division.quotient + Int(bit: !division.remainder.isZero)
+    }
+    
+    @inlinable public func makeIterator() ->  Iterator  {
+        Iterator(minorLimbs: self.minorLimbs, isSigned: self.minorLimbsIsSigned)
+    }
+    
+    //*====================================================================*
+    // MARK: * Iterator
+    //*====================================================================*
+    
+    @frozen public struct Iterator: IteratorProtocol {
+        
+        //=----------------------------------------------------------------=
+        // MARK: State
+        //=----------------------------------------------------------------=
+        
+        @usableFromInline var minorLimbs: MinorLimbs.Iterator
+        @usableFromInline let minorLimbsIsSigned: Bool
+        
+        //=----------------------------------------------------------------=
+        // MARK: Initializers
+        //=----------------------------------------------------------------=
+        
+        @inlinable init(minorLimbs: MinorLimbs, isSigned: Bool) {
+            self.minorLimbs = minorLimbs.makeIterator()
+            self.minorLimbsIsSigned = isSigned
+        }
+        
+        //=----------------------------------------------------------------=
+        // MARK: Utilities
+        //=----------------------------------------------------------------=
+        
+        @inlinable public mutating func next() -> MajorLimb? {
+            var majorLimb = MajorLimb.zero
+            var majorLimbShift =  Int.zero
+            var minorLimb = MinorLimb.Magnitude.zero
+            
+            while let next = self.minorLimbs.next() {
+                minorLimb  = MinorLimb.Magnitude(bitPattern: next)
+                majorLimb |= MajorLimb(truncatingIfNeeded: minorLimb) &<< majorLimbShift
+                
+                do {  majorLimbShift += MinorLimb.bitWidth }
+                guard majorLimbShift <  MajorLimb.bitWidth else { return  majorLimb }
+            }
+            
+            guard !majorLimbShift.isZero else { return nil }
+            let bit: Bool = self.minorLimbsIsSigned && minorLimb.mostSignificantBit
+            return majorLimb | MajorLimb(repeating: bit) &<< majorLimbShift
         }
     }
 }
