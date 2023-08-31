@@ -29,25 +29,25 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
     public typealias MajorLimbs = NBKMajorIntegerLimbs<Limb, Source>
     
     // TODO: with public models
-    public typealias MinorLimbs = NBK.MinorLimbsSequence<Limb, Source>
+    public typealias MinorLimbs = NBKMinorIntegerLimbs<Limb, Source>
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: State
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // NOTE: Two parallel options appear to be faster than a combined enum.
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     @usableFromInline let minorLimbs: MinorLimbs?
     @usableFromInline let majorLimbs: MajorLimbs?
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Initializers
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     /// Creates a sequence of the given type, from an un/signed source.
     @inlinable public init(_ source: Source, isSigned: Bool = false, as limb: Limb.Type = Limb.self) {
         if  Limb.bitWidth < Source.Element.bitWidth {
-            self.minorLimbs = MinorLimbs(majorLimbs: source)
+            self.minorLimbs = MinorLimbs(source, isSigned: isSigned)
             self.majorLimbs = nil
         }   else {
             self.minorLimbs = nil
@@ -55,9 +55,9 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
         }
     }
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Utilities
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     @inlinable public var underestimatedCount: Int {
         if  Limb.bitWidth < Source.Element.bitWidth {
@@ -81,25 +81,25 @@ Limb: NBKCoreInteger, Source: Sequence, Source.Element: NBKCoreInteger {
     
     @frozen public struct Iterator: IteratorProtocol {
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: State
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @usableFromInline var minorLimbs: MinorLimbs.Iterator?
         @usableFromInline var majorLimbs: MajorLimbs.Iterator?
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: Initializers
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @inlinable init(minorLimbs: MinorLimbs.Iterator? = nil, majorLimbs: MajorLimbs.Iterator? = nil) {
             self.minorLimbs = minorLimbs
             self.majorLimbs = majorLimbs
         }
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: Utilities
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @inlinable public mutating func next() -> Limb? {
             if  Limb.bitWidth < Source.Element.bitWidth {
@@ -122,16 +122,16 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
             
     public typealias MinorLimb = MinorLimbs.Element
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: State
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     @usableFromInline let minorLimbs: MinorLimbs
     @usableFromInline let minorLimbsIsSigned: Bool
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Initializers
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     @inlinable public init(_ minorLimbs: MinorLimbs, isSigned: Bool = false, as majorLimb: MajorLimb.Type = MajorLimb.self) {
         //=--------------------------------------=
@@ -143,9 +143,9 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
         self.minorLimbsIsSigned = isSigned
     }
     
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     // MARK: Utilities
-    //=--------------------------------------------------------------------=
+    //=------------------------------------------------------------------------=
     
     /// Returns the exact count when `minorLimbs.underestimatedCount` does.
     @inlinable public var underestimatedCount: Int {
@@ -158,31 +158,31 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
         Iterator(minorLimbs: self.minorLimbs, isSigned: self.minorLimbsIsSigned)
     }
     
-    //*====================================================================*
+    //*========================================================================*
     // MARK: * Iterator
-    //*====================================================================*
+    //*========================================================================*
     
     @frozen public struct Iterator: IteratorProtocol {
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: State
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @usableFromInline var minorLimbs: MinorLimbs.Iterator
         @usableFromInline let minorLimbsIsSigned: Bool
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: Initializers
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @inlinable init(minorLimbs: MinorLimbs, isSigned: Bool) {
             self.minorLimbs = minorLimbs.makeIterator()
             self.minorLimbsIsSigned = isSigned
         }
         
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: Utilities
-        //=----------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         
         @inlinable public mutating func next() -> MajorLimb? {
             var majorLimb = MajorLimb.zero
@@ -200,6 +200,94 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
             guard !majorLimbShift.isZero else { return nil }
             let bit: Bool = self.minorLimbsIsSigned && minorLimb.mostSignificantBit
             return majorLimb | MajorLimb(repeating: bit) &<< majorLimbShift
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Minor Integer Limbs
+//*============================================================================*
+
+@frozen public struct NBKMinorIntegerLimbs<MinorLimb, MajorLimbs>: Sequence where
+MinorLimb: NBKCoreInteger, MajorLimbs: Sequence, MajorLimbs.Element: NBKCoreInteger {
+    
+    public typealias MajorLimb = MajorLimbs.Element
+    
+    public typealias MinorLimb = MinorLimb
+    
+    // TODO: with public models
+    @usableFromInline typealias MinorLimbsOfOne = NBK.MinorLimbsSubSequence<MinorLimb, MajorLimb>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    @usableFromInline let majorLimbs: MajorLimbs
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ majorLimbs: MajorLimbs, isSigned: Bool = false, as minorLimb: MinorLimb.Type = MinorLimb.self) {
+        //=--------------------------------------=
+        precondition(MinorLimb.bitWidth.isPowerOf2)
+        precondition(MajorLimb.bitWidth.isPowerOf2)
+        precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
+        //=--------------------------------------=
+        self.majorLimbs = majorLimbs
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the exact count when `majorLimbs.underestimatedCount` does.
+    @inlinable public var underestimatedCount: Int {
+        MajorLimb.bitWidth / MinorLimb.bitWidth * self.majorLimbs.underestimatedCount
+    }
+    
+    @inlinable public func makeIterator() -> Iterator {
+        Iterator(self.majorLimbs.makeIterator())
+    }
+    
+    //*========================================================================*
+    // MARK: * Iterator
+    //*========================================================================*
+    
+    @frozen public struct Iterator: IteratorProtocol {
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline var majorLimbs: MajorLimbs.Iterator
+        @usableFromInline var minorLimbs: MinorLimbsOfOne.Iterator?
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(_ majorLimbs: MajorLimbs.Iterator) {
+            self.majorLimbs = majorLimbs
+            self.minorLimbs = nil
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        @inlinable mutating public func next() -> MinorLimb? {
+            repeat {
+                                    
+                if  let minorLimb = self.minorLimbs?.next() {
+                    return minorLimb
+                }   else if let majorLimb = self.majorLimbs.next() {
+                    self.minorLimbs = MinorLimbsOfOne.Iterator(majorLimb: majorLimb)
+                }   else {
+                    return nil
+                }
+                
+            } while true
         }
     }
 }
