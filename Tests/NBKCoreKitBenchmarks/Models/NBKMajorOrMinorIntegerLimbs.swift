@@ -17,41 +17,37 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs
+// MARK: * NBK x Major Or Minor Integer Limbs
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbs: XCTestCase {
+final class NBKMajorOrMinorIntegerLimbsBenchmarks: XCTestCase {
+    
+    typealias T = NBKMajorOrMinorIntegerLimbs
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMakeSuccinctSignedInteger() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
+    func testUInt64AsUInt32() {
+        var abc = NBK.blackHoleIdentity([ 1,  2,  3,  4] as X)
+        var xyz = NBK.blackHoleIdentity([~1, ~2, ~3, ~4] as X)
         
-        for _ in 0 ..< 5_000_000 {
-            abc.withUnsafeBufferPointer { abc in
-            xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: abc))
-                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: xyz))
-            }}
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(Y(T(abc)))
+            NBK.blackHole(Y(T(xyz)))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
-    func testMakeSuccinctUnsignedInteger() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
+    func testUInt32AsUInt64() {
+        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as Y)
+        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
         
-        for _ in 0 ..< 5_000_000 {
-            abc.withUnsafeBufferPointer { abc in
-            xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: abc))
-                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: xyz))
-            }}
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(X(T(abc)))
+            NBK.blackHole(X(T(xyz)))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)

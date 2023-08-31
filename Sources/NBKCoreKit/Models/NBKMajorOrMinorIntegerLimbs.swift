@@ -7,7 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-// TODO: Use input to output parameter order?
 //*============================================================================*
 // MARK: * NBK x Major Or Minor Integer Limbs
 //*============================================================================*
@@ -17,7 +16,7 @@
 /// ### Binary Integer Order
 ///
 /// This sequence is binary integer ordered, so it merges or splits limbs
-/// from least to most significant. You can reorder it by reversing the input,
+/// from least significant to most. You can reorder it by reversing the input,
 /// the output, or both.
 ///
 @frozen public struct NBKMajorOrMinorIntegerLimbs<Limb, Source>: Sequence where
