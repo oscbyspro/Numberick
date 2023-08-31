@@ -115,7 +115,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// - Note: This operation is unchecked.
     ///
     @inlinable static func endiannessSensitiveByteOffset<T>(of type: T.Type, at index: Int) -> Int where T: NBKCoreInteger {
-        assert(0 <= index && index < BitPattern.count(T.BitPattern.self))
+        assert(0 <= index && index < BitPattern.count(T.self))
         #if _endian(big)
         return MemoryLayout<T>.stride * ~index + MemoryLayout<BitPattern>.size
         #else

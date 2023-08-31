@@ -119,7 +119,7 @@ extension NBK {
         //=--------------------------------------------------------------------=
         
         @usableFromInline let minorLimbs: MinorLimbs
-        @usableFromInline let isSigned: Bool
+        @usableFromInline let minorLimbsIsSigned: Bool
         
         //=--------------------------------------------------------------------=
         // MARK: Initializers
@@ -131,8 +131,8 @@ extension NBK {
             precondition(MajorLimb.bitWidth.isPowerOf2)
             precondition(MinorLimb.bitWidth <= MajorLimb.bitWidth)
             //=--------------------------------------=
-            self.isSigned   = isSigned
             self.minorLimbs = minorLimbs
+            self.minorLimbsIsSigned = isSigned
         }
         
         //=--------------------------------------------------------------------=
@@ -146,8 +146,8 @@ extension NBK {
             return division.quotient + Int(bit: !division.remainder.isZero)
         }
         
-        @inlinable public func makeIterator() -> Iterator {
-            Iterator(minorLimbs: self.minorLimbs, isSigned: self.isSigned)
+        @inlinable public func makeIterator() ->  Iterator  {
+            Iterator(minorLimbs: self.minorLimbs, isSigned: self.minorLimbsIsSigned)
         }
         
         //*====================================================================*

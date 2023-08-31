@@ -68,7 +68,7 @@ extension NBKDoubleWidth {
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
-            var word = self.last as UInt
+            var (word) = self.last as  UInt
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.startIndex, offsetBy: words)
             //=----------------------------------=
@@ -183,7 +183,7 @@ extension NBKDoubleWidth {
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
-            var word = self.last as UInt
+            var (word) = self.last as  UInt
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.endIndex, offsetBy: ~words)
             //=----------------------------------=

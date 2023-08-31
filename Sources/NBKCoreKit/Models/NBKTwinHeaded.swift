@@ -155,7 +155,7 @@
     ///
     /// - Note: Use ``baseSubscriptIndex(_:)`` to subscript the base collection.
     ///
-    /// - Parameter index: `self.startIndex <= index <= self.endIndex`
+    /// - Parameter indices: `self.startIndex <= index <= self.endIndex`
     ///
     @inlinable public func baseIndices(_ indices: Range<Int>) -> Range<Base.Index> {
         assert(self.startIndex <= indices.lowerBound && indices.upperBound <= self.endIndex)
