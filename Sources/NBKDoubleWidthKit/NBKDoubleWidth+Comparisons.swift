@@ -69,7 +69,7 @@ extension NBKDoubleWidth {
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
         
-        return Int.zero
+        return 0 as Int
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {

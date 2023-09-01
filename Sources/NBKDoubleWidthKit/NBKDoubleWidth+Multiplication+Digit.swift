@@ -30,7 +30,7 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         let minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude, adding: UInt.zero)) as PVO<Self>
+        var pvo = NBK.bitCast(self.magnitude.multipliedReportingOverflow(by: other.magnitude, adding: 0 as UInt)) as PVO<Self>
         //=--------------------------------------=
         var suboverflow = (pvo.partialValue.isLessThanZero)
         if  minus {
@@ -57,7 +57,7 @@ extension NBKDoubleWidth {
         let rhsIsLessThanZero: Bool = other.isLessThanZero
         var minus = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var product = self.magnitude.multipliedFullWidth(by: other.magnitude, adding: UInt.zero) as HL<UInt, Magnitude>
+        var product = self.magnitude.multipliedFullWidth(by: other.magnitude, adding: 0 as UInt) as HL<UInt, Magnitude>
         //=--------------------------------------=
         if  minus {
             minus = product.low .formTwosComplementSubsequence(minus)
@@ -136,7 +136,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// - Note: The `high` and `low` parts contain the entire `overflow` from `low` to `high`.
     ///
     @_disfavoredOverload @inlinable public func multipliedFullWidth(by other: Digit, adding carry: Digit) -> HL<Digit, Magnitude> {
-        var product  = HL(UInt.zero, self)
+        var product  = HL(0 as UInt, self)
         product.high = product.low.multiplyFullWidth(by: other, add: carry)
         return product as HL<Digit, Magnitude>
     }

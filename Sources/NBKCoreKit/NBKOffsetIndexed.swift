@@ -33,9 +33,9 @@ extension NBK {
     @inlinable public static func offset(_ index: Int, by distance: Int, limit: Int) -> Int? {
         let distanceLimit = limit - index
         
-        guard distance >= Int.zero
-        ? distance <= distanceLimit || distanceLimit < Int.zero
-        : distance >= distanceLimit || distanceLimit > Int.zero
+        guard distance >= 0 as Int
+        ? distance <= distanceLimit || distanceLimit < 0 as Int
+        : distance >= distanceLimit || distanceLimit > 0 as Int
         else { return nil }
         
         return index + distance as Int

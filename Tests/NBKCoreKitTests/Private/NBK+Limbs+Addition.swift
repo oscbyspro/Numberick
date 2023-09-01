@@ -108,7 +108,7 @@ file: StaticString = #file, line: UInt = #line) {
     brr: do {
         var lhs = lhs, rhs = rhs
         let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let sfx = Array(repeating: 0 as UInt, count: lhs.suffix(from: min.index).count)
         let max = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
@@ -156,7 +156,7 @@ file: StaticString = #file, line: UInt = #line) {
     brr: do {
         var lhs = lhs, rhs = rhs
         let min = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt.zero, count: lhs.suffix(from: min.index).count)
+        let sfx = Array(repeating: 0 as UInt, count: lhs.suffix(from: min.index).count)
         let max = NBK.incrementSufficientUnsignedIntegerInIntersection(&lhs, by: sfx, plus: min.overflow, at: min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)

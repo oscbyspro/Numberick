@@ -42,7 +42,7 @@ extension NBKDoubleWidth {
             let radix  = NBK.AnyRadixUIntRoot(radix)
             let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
             let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
-            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
+            let suffix = NBK.UnsafeUTF8(start: nil,   count: 0 as Int)
             return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }

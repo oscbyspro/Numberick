@@ -68,7 +68,7 @@ extension NBK {
     /// - Note: The nonzero bit count is zero when `limbs` is empty.
     ///
     @inlinable public static func nonzeroBitCount(of limbs: some Collection<some NBKFixedWidthInteger>) -> Int {
-        limbs.reduce(Int.zero) { $0 + $1.nonzeroBitCount }
+        limbs.reduce(0 as Int) { $0 + $1.nonzeroBitCount }
     }
     
     /// Returns whether the nonzero bit count of `limbs` equals `comparand`.
@@ -92,7 +92,7 @@ extension NBK {
     /// - Note: The nonzero bit count is zero when `limbs` is empty.
     ///
     @inlinable public static func nonzeroBitCount(twosComplementOf limbs: some Collection<some NBKFixedWidthInteger>) -> Int {
-        guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return Int.zero }
+        guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return 0 as Int }
         return limbs.indices[index...].reduce(1 - limbs[index].trailingZeroBitCount) { $0 + limbs[$1].onesComplement().nonzeroBitCount }
     }
 }

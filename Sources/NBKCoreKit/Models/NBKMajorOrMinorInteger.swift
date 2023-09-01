@@ -195,7 +195,7 @@ MajorLimb: NBKCoreInteger, MinorLimbs: Sequence, MinorLimbs.Element: NBKCoreInte
         
         @inlinable public mutating func next() -> MajorLimb? {
             var majorLimb = MajorLimb.zero
-            var majorLimbShift =  Int.zero
+            var majorLimbShift = 0 as Int
             var minorLimb = MinorLimb.Magnitude.zero
             
             while let next = self.minorLimbs.next() {
@@ -382,7 +382,7 @@ Sequence where MinorLimb: NBKCoreInteger, MajorLimb: NBKCoreInteger {
         
         @inlinable init(_ majorLimb: MajorLimb) {
             self.majorLimb = majorLimb
-            self.majorLimbShift = Int.zero
+            self.majorLimbShift = 0 as Int
         }
         
         //=--------------------------------------------------------------------=
