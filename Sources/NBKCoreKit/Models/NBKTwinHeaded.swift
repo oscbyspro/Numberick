@@ -12,7 +12,7 @@
 //*============================================================================*
 
 /// A collection that iterates forwards or backwards in a dynamic but branchless way.
-@frozen public struct NBKTwinHeaded<Base>: NBKOffsetIndexed where Base: RandomAccessCollection {
+@frozen public struct NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
     
     public typealias Base = Base
     
@@ -250,7 +250,7 @@ extension NBKTwinHeaded {
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        NBK.offset(index, by: distance, limit: limit)
+        NBK.arrayIndex(index, offsetBy: distance, limitedBy: limit)
     }
 }
 

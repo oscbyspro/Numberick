@@ -96,7 +96,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        NBK.offset(index, by: distance, limit: limit)
+        NBK.arrayIndex(index, offsetBy: distance, limitedBy: limit)
     }
 }
 

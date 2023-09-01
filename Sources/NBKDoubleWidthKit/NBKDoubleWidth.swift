@@ -88,7 +88,7 @@ import NBKCoreKit
 /// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 ///
 @frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
-NBKFixedWidthInteger, MutableCollection, NBKOffsetIndexed where
+NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// The most  significant half of this type.
