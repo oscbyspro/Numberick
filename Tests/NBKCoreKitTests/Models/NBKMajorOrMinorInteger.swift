@@ -91,6 +91,28 @@ final class NBKMajorOrMinorIntegerTests: XCTestCase {
     // MARK: Tests x Signed or Unsigned
     //=------------------------------------------------------------------------=
     
+    func testSubscriptSignExtension() {
+        XCTAssertEqual(T([ 0] as S32, isSigned: false, as: Int32.self)[144],  0)
+        XCTAssertEqual(T([ 0] as S32, isSigned: true,  as: Int32.self)[144],  0)
+        XCTAssertEqual(T([~0] as S32, isSigned: false, as: Int32.self)[144],  0)
+        XCTAssertEqual(T([~0] as S32, isSigned: true,  as: Int32.self)[144], ~0)
+        
+        XCTAssertEqual(T([ 0] as S32, isSigned: false, as: Int64.self)[144],  0)
+        XCTAssertEqual(T([ 0] as S32, isSigned: true,  as: Int64.self)[144],  0)
+        XCTAssertEqual(T([~0] as S32, isSigned: false, as: Int64.self)[144],  0)
+        XCTAssertEqual(T([~0] as S32, isSigned: true,  as: Int64.self)[144], ~0)
+        
+        XCTAssertEqual(T([ 0] as S64, isSigned: false, as: Int32.self)[144],  0)
+        XCTAssertEqual(T([ 0] as S64, isSigned: true,  as: Int32.self)[144],  0)
+        XCTAssertEqual(T([~0] as S64, isSigned: false, as: Int32.self)[144],  0)
+        XCTAssertEqual(T([~0] as S64, isSigned: true,  as: Int32.self)[144], ~0)
+        
+        XCTAssertEqual(T([ 0] as S64, isSigned: false, as: Int64.self)[144],  0)
+        XCTAssertEqual(T([ 0] as S64, isSigned: true,  as: Int64.self)[144],  0)
+        XCTAssertEqual(T([~0] as S64, isSigned: false, as: Int64.self)[144],  0)
+        XCTAssertEqual(T([~0] as S64, isSigned: true,  as: Int64.self)[144], ~0)
+    }
+    
     func testMajorLimbsFromIncompleteMinorLimbs() {
         NBKAssertMajorOrMinorIntegerOneWay([                          ] as S32, [                       ] as S64, isSigned: true )
         NBKAssertMajorOrMinorIntegerOneWay([ 1                        ] as S32, [ 1                     ] as S64, isSigned: true )
@@ -144,8 +166,8 @@ private func NBKAssertMajorOrMinorInteger<A: NBKCoreInteger, B: NBKCoreInteger>(
 _ lhs: [A], _ rhs: [B], isSigned: Bool? = nil,
 file: StaticString = #file, line: UInt  = #line) {
     
-    NBKAssertMajorOrMinorIntegerOneWay(lhs, rhs, isSigned: isSigned)
-    NBKAssertMajorOrMinorIntegerOneWay(rhs, lhs, isSigned: isSigned)
+    NBKAssertMajorOrMinorIntegerOneWay(lhs, rhs, isSigned: isSigned, file: file, line: line)
+    NBKAssertMajorOrMinorIntegerOneWay(rhs, lhs, isSigned: isSigned, file: file, line: line)
 }
 
 private func NBKAssertMajorOrMinorIntegerOneWay<A: NBKCoreInteger, B: NBKCoreInteger>(

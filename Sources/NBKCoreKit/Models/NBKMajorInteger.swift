@@ -8,10 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Major Or Minor Integer
+// MARK: * NBK x Major Integer
 //*============================================================================*
 
-/// A sequence that merges or splits components of an un/signed integer sequence.
+/// A sequence that merges components of an un/signed integer sequence.
 ///
 /// ### Binary Integer Order
 ///
@@ -19,32 +19,32 @@
 /// its components from least significant to most. You can reorder it by reversing
 /// the input, the output, or both.
 ///
-@frozen public struct NBKMajorOrMinorInteger<Base, Element>: RandomAccessCollection where
+@frozen public struct NBKMajorInteger<Base, Element>:  RandomAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
-    public typealias Base = Base
+    @inlinable static var ratio: Int { Self.Element.bitWidth / Base.Element.bitWidth }
     
-    public typealias MajorLimbs = NBKMajorInteger<Base, Element>
-    
-    public typealias MinorLimbs = NBKMinorInteger<Base, Element>
-        
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline let storage: Storage
-    
+    @usableFromInline let base: Base
+    @usableFromInline let sign: Element
+        
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a sequence of the given type, from an un/signed source.
-    @inlinable public init(_ source: Base, isSigned: Bool = false, as limb: Element.Type = Element.self) {
-        if  Element.bitWidth > Base.Element.bitWidth {
-            self.storage = .majorLimbs(MajorLimbs(source, isSigned: isSigned))
-        }   else {
-            self.storage = .minorLimbs(MinorLimbs(source, isSigned: isSigned))
-        }
+    // TODO: documentation
+    @inlinable public init(_ minorLimbs: Base, isSigned: Bool = false, as majorLimb: Element.Type = Element.self) {
+        //=--------------------------------------=
+        Swift.assert(Self.Element.bitWidth.isPowerOf2) // core
+        Swift.assert(Base.Element.bitWidth.isPowerOf2) // core
+        precondition(Self.Element.bitWidth >= Base.Element.bitWidth)
+        //=--------------------------------------=
+        self.base = minorLimbs
+        let  bit  = isSigned && self.base.last?.mostSignificantBit == true
+        self.sign = Self.Element(repeating: bit)
     }
     
     //=------------------------------------------------------------------------=
@@ -52,24 +52,24 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     //=------------------------------------------------------------------------=
     
     @inlinable public var count: Int {
-        switch storage {
-        case let .majorLimbs(limbs): return limbs.count
-        case let .minorLimbs(limbs): return limbs.count }
+        let division = base.count.quotientAndRemainder(dividingBy: Self.ratio)
+        return division.quotient + Int(bit: !division.remainder.isZero)
     }
     
     @inlinable public subscript(index: Int) -> Element {
-        switch storage {
-        case let .majorLimbs(limbs): return limbs[index]
-        case let .minorLimbs(limbs): return limbs[index] }
-    }
-    
-    //*========================================================================*
-    // MARK: * Storage
-    //*========================================================================*
-    
-    @frozen @usableFromInline enum Storage {
-        case majorLimbs(MajorLimbs)
-        case minorLimbs(MinorLimbs)
+        var shift = 0 as Int
+        var major = 0 as Self.Element
+        //=--------------------------------------=
+        var   baseIndex = self.base.index(self.base.startIndex, offsetBy: index * Self.ratio)
+        while baseIndex < self.base.endIndex && shift < Self.Element.bitWidth {
+            major |= Self.Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: self.base[baseIndex])) &<< shift
+            shift += Base.Element.bitWidth as Int
+            self.base.formIndex(after: &baseIndex)
+        }
+        //=--------------------------------------=
+        if  shift <  Self.Element.bitWidth { major |= self.sign &<< shift }
+        //=--------------------------------------=
+        return major
     }
 }
 
@@ -77,7 +77,7 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKMajorOrMinorInteger {
+extension NBKMajorInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors

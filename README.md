@@ -25,7 +25,6 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKMajorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
 - [NBKMajorOrMinorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
 - [NBKMinorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
-- [NBKMinorIntegerOfOne](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
 - [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
