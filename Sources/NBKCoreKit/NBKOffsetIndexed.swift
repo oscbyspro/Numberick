@@ -20,63 +20,8 @@
 public protocol NBKOffsetIndexed: RandomAccessCollection where Indices == Range<Int> { }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Details
+// MARK: + Algorithms
 //=----------------------------------------------------------------------------=
-
-extension NBKOffsetIndexed {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @_transparent public var startIndex: Int {
-        Int.zero
-    }
-    
-    @_transparent public var endIndex: Int {
-        self.count
-    }
-    
-    @_transparent public var indices: Range<Int> {
-        Range(uncheckedBounds:(self.startIndex, self.endIndex))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @_transparent public func distance(from start: Int, to end: Int) -> Int {
-        end - start
-    }
-    
-    @_transparent public func index(after index: Int) -> Int {
-        index +  1
-    }
-    
-    @_transparent public func formIndex(after index: inout Int) {
-        index += 1
-    }
-    
-    @_transparent public func index(before index: Int) -> Int {
-        index -  1
-    }
-    
-    @_transparent public func formIndex(before index: inout Int) {
-        index -= 1
-    }
-    
-    @_transparent public func index(_ index: Int, offsetBy distance: Int) -> Int {
-        index + distance
-    }
-    
-    @_transparent public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        NBK.offset(index, by: distance, limit: limit)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Offset Indexed x Algorithms
-//*============================================================================*
 
 extension NBK {
     

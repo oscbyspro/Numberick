@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of words in this integer type.
+    /// The number of words that fit in this integer type.
     @inlinable public static var count: Int {
         BitPattern.count(UInt.self)
     }
@@ -28,18 +28,17 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: Self {
-        _read { yield self }
-    }
-    
-    /// The number of words in this integer type.
     @inlinable public var count: Int {
         Self.count as Int
+    }
+    
+    @inlinable public var words: Self {
+        _read { yield self }
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Collection
+// MARK: + Collection x Indices
 //=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth {
@@ -48,10 +47,68 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The index of the least significant word.
+    @inlinable public var startIndex: Int {
+        0 as Int
+    }
+    
     /// The index of the most significant word.
     @inlinable public var lastIndex: Int {
-        self.count as Int - 1
+        self.count - 1 as Int
     }
+    
+    /// The index after the last valid subscript argument.
+    @inlinable public var endIndex: Int {
+        self.count
+    }
+    
+    /// A collection of each valid subscript argument, in ascending order.
+    @inlinable public var indices: Range<Int> {
+        0 as Int ..< self.count
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func distance(from start: Int, to end: Int) -> Int {
+        end - start
+    }
+    
+    @inlinable public func index(after index: Int) -> Int {
+        index +  1 as Int
+    }
+    
+    @inlinable public func formIndex(after index: inout Int) {
+        index += 1 as Int
+    }
+    
+    @inlinable public func index(before index: Int) -> Int {
+        index -  1 as Int
+    }
+    
+    @inlinable public func formIndex(before index: inout Int) {
+        index -= 1 as Int
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        index + distance
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+        NBK.offset(index, by: distance, limit: limit)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Collection x Elements
+//=----------------------------------------------------------------------------=
+
+extension NBKDoubleWidth {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
     
     /// The least significant word.
     ///
@@ -80,7 +137,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors x Subscripts
+    // MARK: Accessors
     //=------------------------------------------------------------------------=
     
     /// Accesses the word at the given index, from least significant to most.
@@ -134,7 +191,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors x Subscripts x Private
+    // MARK: Accessors x Private
     //=------------------------------------------------------------------------=
     
     /// Accesses the word at the given index, from least significant to most.
@@ -161,18 +218,18 @@ extension NBKDoubleWidth {
     ///
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
-            let offset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
-            assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            let byteOffset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
+            assert(0 <= byteOffset && byteOffset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
             return Swift.withUnsafePointer(to: self) { pointer in
-                UnsafeRawPointer(pointer).load(fromByteOffset: offset, as: T.self)
+                UnsafeRawPointer(pointer).load(fromByteOffset: byteOffset, as: T.self)
             }
         }
         
         set {
-            let offset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
-            assert(0 <= offset && offset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            let byteOffset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
+            assert(0 <= byteOffset && byteOffset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
             Swift.withUnsafeMutablePointer(to: &self) { pointer in
-                UnsafeMutableRawPointer(pointer).storeBytes(of: newValue, toByteOffset: offset, as: T.self)
+                UnsafeMutableRawPointer(pointer).storeBytes(of: newValue, toByteOffset: byteOffset, as: T.self)
             }
         }
     }

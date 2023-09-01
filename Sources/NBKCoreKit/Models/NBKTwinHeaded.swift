@@ -91,6 +91,10 @@
         self.body as Base
     }
     
+    @inlinable public var count: Int {
+        self.base.count
+    }
+    
     /// Returns the direction of iteratorn as 1 (front-to-back) or -1 (back-to-front).
     @inlinable public var direction: Int {
         self.mask &<< (1 as Int) | (1 as Int)
@@ -114,14 +118,6 @@
     /// Returns the base collection but reversed, if its elements matches this collection.
     @inlinable public var asBackToFront: ReversedCollection<Base>? {
         self.isBackToFront ? self.base.reversed() : nil
-    }
-    
-    @inlinable public var count: Int {
-        self.base.count
-    }
-    
-    @inlinable public subscript(index: Int) -> Element {
-        _read { yield self.base[self.baseSubscriptIndex(index)] }
     }
     
     //=------------------------------------------------------------------------=
@@ -196,6 +192,65 @@
         }
         
         return Range(uncheckedBounds:(lowerBound, upperBound))
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Collection
+//=----------------------------------------------------------------------------=
+
+extension NBKTwinHeaded {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var startIndex: Int {
+        0 as Int
+    }
+    
+    @inlinable public var endIndex: Int {
+        self.count
+    }
+    
+    @inlinable public var indices: Range<Int> {
+        Range(uncheckedBounds:(0 as Int, self.count))
+    }
+    
+    @inlinable public subscript(index: Int) -> Element {
+        _read { yield self.base[self.baseSubscriptIndex(index)] }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func distance(from start: Int, to end: Int) -> Int {
+        end - start
+    }
+    
+    @inlinable public func index(after index: Int) -> Int {
+        index +  1 as Int
+    }
+    
+    @inlinable public func formIndex(after index: inout Int) {
+        index += 1 as Int
+    }
+    
+    @inlinable public func index(before index: Int) -> Int {
+        index -  1 as Int
+    }
+    
+    @inlinable public func formIndex(before index: inout Int) {
+        index -= 1 as Int
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        index + distance
+    }
+    
+    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+        NBK.offset(index, by: distance, limit: limit)
     }
 }
 
