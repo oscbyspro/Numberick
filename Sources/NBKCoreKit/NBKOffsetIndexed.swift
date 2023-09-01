@@ -29,15 +29,15 @@ extension NBKOffsetIndexed {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var startIndex: Int {
+    @_transparent public var startIndex: Int {
         Int.zero
     }
     
-    @inlinable public var endIndex: Int {
+    @_transparent public var endIndex: Int {
         self.count
     }
     
-    @inlinable public var indices: Range<Int> {
+    @_transparent public var indices: Range<Int> {
         Range(uncheckedBounds:(Int.zero, self.count))
     }
     
@@ -45,31 +45,31 @@ extension NBKOffsetIndexed {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func distance(from start: Int, to end: Int) -> Int {
+    @_transparent public func distance(from start: Int, to end: Int) -> Int {
         end - start
     }
     
-    @inlinable public func index(after index: Int) -> Int {
+    @_transparent public func index(after index: Int) -> Int {
         index +  1
     }
     
-    @inlinable public func formIndex(after index: inout Int) {
+    @_transparent public func formIndex(after index: inout Int) {
         index += 1
     }
     
-    @inlinable public func index(before index: Int) -> Int {
+    @_transparent public func index(before index: Int) -> Int {
         index -  1
     }
     
-    @inlinable public func formIndex(before index: inout Int) {
+    @_transparent public func formIndex(before index: inout Int) {
         index -= 1
     }
     
-    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
+    @_transparent public func index(_ index: Int, offsetBy distance: Int) -> Int {
         index + distance
     }
     
-    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+    @_transparent public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
         NBK.offset(index, by: distance, limit: limit)
     }
 }

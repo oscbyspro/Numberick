@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of words in this type of integer.
+    /// The number of words in this integer type.
     @inlinable public static var count: Int {
         BitPattern.count(UInt.self)
     }
@@ -28,17 +28,18 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var count: Int {
-        Self.count as Int
-    }
-    
     @inlinable public var words: Self {
         _read { yield self }
     }
+    
+    /// The number of words in this integer type.
+    @inlinable public var count: Int {
+        Self.count as Int
+    }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Collection x Indices
+// MARK: + Collection
 //=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth {
@@ -46,76 +47,11 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
-    
-    /// The index of the least significant word.
-    @inlinable public var startIndex: Int {
-        0
-    }
     
     /// The index of the most significant word.
     @inlinable public var lastIndex: Int {
-        self.count - 1
+        self.count as Int - 1
     }
-    
-    /// The index after the last valid subscript argument.
-    @inlinable public var endIndex: Int {
-        self.count
-    }
-    
-    /// A collection of each valid subscript argument, in ascending order.
-    @inlinable public var indices: Range<Int> {
-        0 ..< self.count
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func distance(from start: Int, to end: Int) -> Int {
-        end - start
-    }
-    
-    @inlinable public func index(after index: Int) -> Int {
-        index +  1
-    }
-    
-    @inlinable public func formIndex(after index: inout Int) {
-        index += 1
-    }
-    
-    @inlinable public func index(before index: Int) -> Int {
-        index -  1
-    }
-    
-    @inlinable public func formIndex(before index: inout Int) {
-        index -= 1
-    }
-    
-    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
-        index + distance
-    }
-    
-    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        let distanceLimit: Int = self.distance(from: index, to: limit)
-        
-        guard distance >= 0
-        ? distance <= distanceLimit || distanceLimit < 0
-        : distance >= distanceLimit || distanceLimit > 0
-        else { return nil }
-        
-        return self.index(index, offsetBy: distance) as Int
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Collection x Elements
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
     
     /// The least significant word.
     ///
@@ -144,7 +80,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Accessors x Subscripts
     //=------------------------------------------------------------------------=
     
     /// Accesses the word at the given index, from least significant to most.
@@ -198,7 +134,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors x Private
+    // MARK: Accessors x Subscripts x Private
     //=------------------------------------------------------------------------=
     
     /// Accesses the word at the given index, from least significant to most.
