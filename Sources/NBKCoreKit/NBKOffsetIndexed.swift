@@ -38,7 +38,7 @@ extension NBKOffsetIndexed {
     }
     
     @_transparent public var indices: Range<Int> {
-        Range(uncheckedBounds:(Int.zero, self.count))
+        Range(uncheckedBounds:(self.startIndex, self.endIndex))
     }
     
     //=------------------------------------------------------------------------=
