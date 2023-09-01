@@ -12,7 +12,7 @@
 //*============================================================================*
 
 /// A collection that iterates forwards or backwards in a dynamic but branchless way.
-@frozen public struct NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
+@frozen public struct NBKTwinHeaded<Base>: NBKOffsetIndexed where Base: RandomAccessCollection {
     
     public typealias Base = Base
     
@@ -49,6 +49,26 @@
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @inlinable public init(_ other: Self, reversed: Bool = false) {
+        self.init(other.base, reversed: other.isFrontToBack == reversed)
+    }
+    
+    /// Creates a view presenting the collection's elements in a dynamic order.
+    ///
+    /// - Parameters:
+    ///   - base: The collection viewed through this instance.
+    ///   - reversed: A value indicating whether the direction should be reversed.
+    ///
+    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool = false) {
+        self.init(other.reversed(), reversed: !reversed)
+    }
     
     /// Creates a view presenting the collection's elements in a dynamic order.
     ///
@@ -94,6 +114,14 @@
     /// Returns the base collection but reversed, if its elements matches this collection.
     @inlinable public var asBackToFront: ReversedCollection<Base>? {
         self.isBackToFront ? self.base.reversed() : nil
+    }
+    
+    @inlinable public var count: Int {
+        self.base.count
+    }
+    
+    @inlinable public subscript(index: Int) -> Element {
+        _read { yield self.base[self.baseSubscriptIndex(index)] }
     }
     
     //=------------------------------------------------------------------------=
@@ -172,37 +200,29 @@
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Initializers
+// MARK: + Mutable Collection
+//=----------------------------------------------------------------------------=
+
+extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public subscript(index: Int) -> Element {
+        _read   { yield  self.body[self.baseSubscriptIndex(index)] }
+        _modify { yield &self.body[self.baseSubscriptIndex(index)] }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Sub Sequence
 //=----------------------------------------------------------------------------=
 
 extension NBKTwinHeaded {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Flattened Conversions
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
-    ///
-    @inlinable public init(_ other: Self, reversed: Bool = false) {
-        self.init(other.base, reversed: other.isFrontToBack == reversed)
-    }
-    
-    /// Creates a view presenting the collection's elements in a dynamic order.
-    ///
-    /// - Parameters:
-    ///   - base: The collection viewed through this instance.
-    ///   - reversed: A value indicating whether the direction should be reversed.
-    ///
-    @inlinable public init(_ other: ReversedCollection<Base>, reversed: Bool = false) {
-        self.init(other.reversed(), reversed: !reversed)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Unsafe Buffer Pointers
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     /// Creates a collection with the same data and direction as the given subsequence.
@@ -217,92 +237,5 @@ extension NBKTwinHeaded {
         let subindices = Range(uncheckedBounds:(subsequence.startIndex, subsequence.endIndex))
         let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
         self.init(base, reversed: subsequence.base.isBackToFront)
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Collection
-//=----------------------------------------------------------------------------=
-
-extension NBKTwinHeaded {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var count: Int {
-        self.base.count
-    }
-    
-    @inlinable public var startIndex: Int {
-        Int.zero
-    }
-    
-    @inlinable public var endIndex: Int {
-        self.count
-    }
-    
-    @inlinable public var indices: Range<Int> {
-        Range(uncheckedBounds:(self.startIndex, self.endIndex))
-    }
-    
-    @inlinable public subscript(index: Int) -> Element {
-        _read { yield self.base[self.baseSubscriptIndex(index)] }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func distance(from start: Int, to end: Int) -> Int {
-        end - start
-    }
-    
-    @inlinable public func index(after index: Int) -> Int {
-        index +  1
-    }
-    
-    @inlinable public func formIndex(after index: inout Int) {
-        index += 1
-    }
-    
-    @inlinable public func index(before index: Int) -> Int {
-        index -  1
-    }
-    
-    @inlinable public func formIndex(before index: inout Int) {
-        index -= 1
-    }
-    
-    @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
-        index + distance
-    }
-    
-    // TODO: NBK.arrayIndex(_:offsetBy:limitedBy:)
-    @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        let distanceLimit: Int = self.distance(from: index, to: limit)
-        
-        guard distance >= 0
-        ? distance <= distanceLimit || distanceLimit < 0
-        : distance >= distanceLimit || distanceLimit > 0
-        else { return nil }
-        
-        return self.index(index, offsetBy: distance) as Int
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Mutable Collection
-//=----------------------------------------------------------------------------=
-
-extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public subscript(index: Int) -> Element {
-        _read   { yield  self.body[self.baseSubscriptIndex(index)] }
-        _modify { yield &self.body[self.baseSubscriptIndex(index)] }
     }
 }
