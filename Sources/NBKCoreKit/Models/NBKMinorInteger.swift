@@ -22,6 +22,8 @@
 @frozen public struct NBKMinorInteger<Base, Element>: RandomAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
+    public typealias Base = Base
+    
     @inlinable static var ratio: Int { Base.Element.bitWidth / Self.Element.bitWidth }
     
     //=------------------------------------------------------------------------=
@@ -35,14 +37,14 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    // TODO: documentation
-    @inlinable public init(_ majorLimbs: Base, isSigned: Bool, as minorLimb: Element.Type = Element.self) {
+    /// Creates a sequence of the given type, from an un/signed source.
+    @inlinable public init(_ base: Base, isSigned: Bool = false, as element: Element.Type = Element.self) {
         //=--------------------------------------=
-        Swift.assert(Base.Element.bitWidth.isPowerOf2) // core
-        Swift.assert(Self.Element.bitWidth.isPowerOf2) // core
+        Swift.assert(Base.Element.bitWidth.isPowerOf2)
+        Swift.assert(Self.Element.bitWidth.isPowerOf2)
         precondition(Base.Element.bitWidth >= Self.Element.bitWidth)
         //=--------------------------------------=
-        self.base = majorLimbs
+        self.base = base
         let  bit  = isSigned && self.base.last?.mostSignificantBit == true
         self.sign = Self.Element(repeating: bit)
     }
@@ -55,11 +57,12 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
         Self.ratio * self.base.count
     }
     
+    /// The elements are ordered from least significant to most, with an infinite sign extension.
     @inlinable public subscript(index: Int) -> Element {
         guard index < self.count else { return self.sign }
         let indices = index.quotientAndRemainder(dividingBy: Self.ratio)
-        let major = self.base[self.base.index(self.base.startIndex, offsetBy: indices.quotient)]
-        return Element(truncatingIfNeeded: major &>> (indices.remainder * Element.bitWidth))
+        let major = self.base[self.base.index(self.base.startIndex,  offsetBy: indices.quotient)]
+        return Self.Element(truncatingIfNeeded: major &>> (indices.remainder * Element.bitWidth))
     }
 }
 

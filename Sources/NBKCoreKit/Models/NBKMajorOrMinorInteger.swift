@@ -24,9 +24,11 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     
     public typealias Base = Base
     
-    public typealias MajorLimbs = NBKMajorInteger<Base, Element>
+    public typealias Major = NBKMajorInteger<Base, Element>
     
-    public typealias MinorLimbs = NBKMinorInteger<Base, Element>
+    public typealias Minor = NBKMinorInteger<Base, Element>
+    
+    @frozen @usableFromInline enum Storage { case major(Major), minor(Minor) }
         
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -39,12 +41,10 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     //=------------------------------------------------------------------------=
     
     /// Creates a sequence of the given type, from an un/signed source.
-    @inlinable public init(_ source: Base, isSigned: Bool = false, as limb: Element.Type = Element.self) {
-        if  Element.bitWidth > Base.Element.bitWidth {
-            self.storage = .majorLimbs(MajorLimbs(source, isSigned: isSigned))
-        }   else {
-            self.storage = .minorLimbs(MinorLimbs(source, isSigned: isSigned))
-        }
+    @inlinable public init(_ base: Base, isSigned: Bool = false, as element: Element.Type = Element.self) {
+        switch Self.Element.bitWidth > Base.Element.bitWidth {
+        case  true: self.storage = .major(Major(base, isSigned: isSigned))
+        case false: self.storage = .minor(Minor(base, isSigned: isSigned)) }
     }
     
     //=------------------------------------------------------------------------=
@@ -53,23 +53,15 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     
     @inlinable public var count: Int {
         switch storage {
-        case let .majorLimbs(limbs): return limbs.count
-        case let .minorLimbs(limbs): return limbs.count }
+        case let .major(base): return base.count
+        case let .minor(base): return base.count }
     }
     
+    /// The elements are ordered from least significant to most, with an infinite sign extension.
     @inlinable public subscript(index: Int) -> Element {
         switch storage {
-        case let .majorLimbs(limbs): return limbs[index]
-        case let .minorLimbs(limbs): return limbs[index] }
-    }
-    
-    //*========================================================================*
-    // MARK: * Storage
-    //*========================================================================*
-    
-    @frozen @usableFromInline enum Storage {
-        case majorLimbs(MajorLimbs)
-        case minorLimbs(MinorLimbs)
+        case let .major(base): return base[index]
+        case let .minor(base): return base[index] }
     }
 }
 
