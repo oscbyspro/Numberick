@@ -13,6 +13,10 @@
 
 /// A sequence that splits components of an un/signed integer sequence.
 ///
+/// ```swift
+/// for byte in NBKMinorInteger(source, isSigned: false, count: nil, as: Int8.self) { ... }
+/// ```
+///
 /// ### Binary Integer Order
 ///
 /// This sequence is ordered like a binary integer, meaning it merges and splits
@@ -23,46 +27,57 @@
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
     public typealias Base = Base
-    
-    @inlinable static var ratio: Int { Base.Element.bitWidth / Self.Element.bitWidth }
-    
+        
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
     @usableFromInline let base: Base
     @usableFromInline let sign: Self.Element
+    public let count: Int
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     /// Creates a sequence of the given type, from an un/signed source.
-    @inlinable public init(_ base: Base, isSigned: Bool = false, as element: Element.Type = Element.self) {
+    @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
         //=--------------------------------------=
         Swift.assert(Base.Element.bitWidth.isPowerOf2)
         Swift.assert(Self.Element.bitWidth.isPowerOf2)
         precondition(Base.Element.bitWidth >= Self.Element.bitWidth)
         //=--------------------------------------=
-        self.base = base
-        let  bit  = isSigned && self.base.last?.mostSignificantBit == true
-        self.sign = Self.Element(repeating: bit)
+        self.base  = base
+        self.sign  = Self.Element(repeating: isSigned && self.base.last?.mostSignificantBit == true)
+        self.count = count ?? Self.count(of: self.base)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var count: Int {
-        Self.ratio * self.base.count
+    /// Returns the element at the given index.
+    ///
+    /// Its elements are ordered from least significant to most, with infinite sign extension.
+    ///
+    @inlinable public subscript(index:  Int) -> Element {
+        precondition(index >= 0 as Int, NBK.callsiteOutOfBoundsInfo())
+        let  (quotient, remainder) = index.quotientAndRemainder(dividingBy: Self.ratio)
+        guard quotient < self.base.count else { return self.sign }
+        let major = self.base[self.base.index(self.base.startIndex,  offsetBy: quotient)]
+        return Self.Element(truncatingIfNeeded: major &>> (remainder * Element.bitWidth))
     }
     
-    /// The elements are ordered from least significant to most, with an infinite sign extension.
-    @inlinable public subscript(index: Int) -> Element {
-        guard index < self.count else { return self.sign }
-        let indices = index.quotientAndRemainder(dividingBy: Self.ratio)
-        let major = self.base[self.base.index(self.base.startIndex,  offsetBy: indices.quotient)]
-        return Self.Element(truncatingIfNeeded: major &>> (indices.remainder * Element.bitWidth))
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static var ratio: Int {
+        Base.Element.bitWidth / Self.Element.bitWidth
+    }
+    
+    @inlinable static func count(of base: Base) -> Int {
+        Self.ratio *  base.count
     }
 }
 

@@ -13,6 +13,11 @@
 
 /// A sequence that merges or splits components of an un/signed integer sequence.
 ///
+/// ```swift
+/// for word in NBKMajorOrMinorInteger(source, isSigned: false, count: nil, as: UInt.self) { ... }
+/// for byte in NBKMajorOrMinorInteger(source, isSigned: false, count: nil, as: Int8.self) { ... }
+/// ```
+///
 /// ### Binary Integer Order
 ///
 /// This sequence is ordered like a binary integer, meaning it merges and splits
@@ -41,10 +46,10 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     //=------------------------------------------------------------------------=
     
     /// Creates a sequence of the given type, from an un/signed source.
-    @inlinable public init(_ base: Base, isSigned: Bool = false, as element: Element.Type = Element.self) {
+    @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
         switch Self.Element.bitWidth > Base.Element.bitWidth {
-        case  true: self.storage = .major(Major(base, isSigned: isSigned))
-        case false: self.storage = .minor(Minor(base, isSigned: isSigned)) }
+        case  true: self.storage = .major(Major(base, isSigned: isSigned, count: count))
+        case false: self.storage = .minor(Minor(base, isSigned: isSigned, count: count)) }
     }
     
     //=------------------------------------------------------------------------=
@@ -57,7 +62,10 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
         case let .minor(base): return base.count }
     }
     
-    /// The elements are ordered from least significant to most, with an infinite sign extension.
+    /// Returns the element at the given index.
+    ///
+    /// Its elements are ordered from least significant to most, with infinite sign extension.
+    ///
     @inlinable public subscript(index: Int) -> Element {
         switch storage {
         case let .major(base): return base[index]

@@ -88,6 +88,29 @@ final class NBKMajorOrMinorIntegerTests: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Tests x Count
+    //=------------------------------------------------------------------------=
+    
+    func testUInt32AsUInt64WithCustomCount() {
+        XCTAssertEqual([1, 2   ], Array(T([1, 0, 2, 0] as S32, count: nil, as: Int64.self)))
+        XCTAssertEqual([       ], Array(T([1, 0, 2, 0] as S32, count: 000, as: Int64.self)))
+        XCTAssertEqual([1      ], Array(T([1, 0, 2, 0] as S32, count: 001, as: Int64.self)))
+        XCTAssertEqual([1, 2   ], Array(T([1, 0, 2, 0] as S32, count: 002, as: Int64.self)))
+        XCTAssertEqual([1, 2, 0], Array(T([1, 0, 2, 0] as S32, count: 003, as: Int64.self)))
+    }
+    
+    func testUInt64AsUInt32WithCustomCount() {
+        XCTAssertEqual([1, 0, 2, 0      ], Array(T([1, 2] as S64, count: nil, as: Int32.self)))
+        XCTAssertEqual([                ], Array(T([1, 2] as S64, count: 000, as: Int32.self)))
+        XCTAssertEqual([1               ], Array(T([1, 2] as S64, count: 001, as: Int32.self)))
+        XCTAssertEqual([1, 0            ], Array(T([1, 2] as S64, count: 002, as: Int32.self)))
+        XCTAssertEqual([1, 0, 2         ], Array(T([1, 2] as S64, count: 003, as: Int32.self)))
+        XCTAssertEqual([1, 0, 2, 0      ], Array(T([1, 2] as S64, count: 004, as: Int32.self)))
+        XCTAssertEqual([1, 0, 2, 0, 0   ], Array(T([1, 2] as S64, count: 005, as: Int32.self)))
+        XCTAssertEqual([1, 0, 2, 0, 0, 0], Array(T([1, 2] as S64, count: 006, as: Int32.self)))
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Tests x Signed or Unsigned
     //=------------------------------------------------------------------------=
     
@@ -173,27 +196,26 @@ file: StaticString = #file, line: UInt  = #line) {
 private func NBKAssertMajorOrMinorIntegerOneWay<A: NBKCoreInteger, B: NBKCoreInteger>(
 _ lhs: [A], _ rhs: [B], isSigned: Bool? = nil,
 file: StaticString = #file, line: UInt  = #line) {
-    //=------------------------------------------=
-    typealias X = Array
-    typealias Y = ContiguousArray
     typealias T = NBKMajorOrMinorInteger
     //=------------------------------------------=
     let lhsUnsigned = lhs.map(A.Magnitude.init(bitPattern:))
     let rhsUnsigned = rhs.map(B.Magnitude.init(bitPattern:))
     //=------------------------------------------=
-    if  isSigned == nil || isSigned == true {
-        XCTAssertEqual(X(T(X(lhs),         isSigned: true )), X(rhs),         file: file, line: line)
-        XCTAssertEqual(X(T(X(lhsUnsigned), isSigned: true )), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(Y(T(Y(lhs),         isSigned: true )), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(Y(T(Y(lhsUnsigned), isSigned: true )), Y(rhsUnsigned), file: file, line: line)
+    func with(isSigned: Bool) {
+        do {
+            XCTAssertEqual(Array(T.init (lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
+            XCTAssertEqual(Array(T.init (lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
+        };  if B.bitWidth >= A.bitWidth {
+            XCTAssertEqual(Array(T.Major(lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
+            XCTAssertEqual(Array(T.Major(lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
+        };  if B.bitWidth <= A.bitWidth {
+            XCTAssertEqual(Array(T.Minor(lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
+            XCTAssertEqual(Array(T.Minor(lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
+        }
     }
-    
-    if  isSigned == nil || isSigned == false {
-        XCTAssertEqual(X(T(X(lhs),         isSigned: false)), X(rhs),         file: file, line: line)
-        XCTAssertEqual(X(T(X(lhsUnsigned), isSigned: false)), X(rhsUnsigned), file: file, line: line)
-        XCTAssertEqual(Y(T(Y(lhs),         isSigned: false)), Y(rhs),         file: file, line: line)
-        XCTAssertEqual(Y(T(Y(lhsUnsigned), isSigned: false)), Y(rhsUnsigned), file: file, line: line)
-    }
+    //=------------------------------------------=
+    if isSigned == nil || isSigned == true  { with(isSigned: true ) }
+    if isSigned == nil || isSigned == false { with(isSigned: false) }
 }
 
 #endif
