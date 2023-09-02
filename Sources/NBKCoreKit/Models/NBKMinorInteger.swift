@@ -11,7 +11,7 @@
 // MARK: * NBK x Minor Integer
 //*============================================================================*
 
-/// A sequence that splits components of an un/signed integer sequence.
+/// A sequence that splits elements of an un/signed integer sequence.
 ///
 /// To use this sequence, its element type must fit in the base sequence's element type.
 ///
@@ -22,7 +22,7 @@
 /// ### Binary Integer Order
 ///
 /// This sequence is ordered like a binary integer, meaning it merges and splits
-/// its components from least significant to most. You can reorder it by reversing
+/// its elements from least significant to most. You can reorder it by reversing
 /// the input, the output, or both.
 ///
 @frozen public struct NBKMinorInteger<Base, Element>: RandomAccessCollection where
@@ -42,7 +42,14 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a sequence of the given type, from an un/signed source.
+    /// Creates a sequence of the given type from an un/signed source.
+    ///
+    /// - Parameters:
+    ///   - base: The base sequence viewed through this model.
+    ///   - isSigned: A value indicating whether the base sequence is signed.
+    ///   - count: A value used to extend or truncate the base sequence.
+    ///   - element: The type of element produced by this model.
+    ///
     @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
         //=--------------------------------------=
         Swift.assert(Base.Element.bitWidth.isPowerOf2)

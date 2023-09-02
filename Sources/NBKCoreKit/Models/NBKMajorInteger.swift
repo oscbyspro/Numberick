@@ -11,7 +11,7 @@
 // MARK: * NBK x Major Integer
 //*============================================================================*
 
-/// A sequence that merges components of an un/signed integer sequence.
+/// A sequence that merges elements of an un/signed integer sequence.
 ///
 /// To use this sequence, the base sequence's element type must fit in its element type.
 ///
@@ -22,7 +22,7 @@
 /// ### Binary Integer Order
 ///
 /// This sequence is ordered like a binary integer, meaning it merges and splits
-/// its components from least significant to most. You can reorder it by reversing
+/// its elements from least significant to most. You can reorder it by reversing
 /// the input, the output, or both.
 ///
 @frozen public struct NBKMajorInteger<Base, Element>:  RandomAccessCollection where
@@ -37,12 +37,19 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     @usableFromInline let base: Base
     @usableFromInline let sign: Element
     public let count: Int
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a sequence of the given type, from an un/signed source.
+    /// Creates a sequence of the given type from an un/signed source.
+    ///
+    /// - Parameters:
+    ///   - base: The base sequence viewed through this model.
+    ///   - isSigned: A value indicating whether the base sequence is signed.
+    ///   - count: A value used to extend or truncate the base sequence.
+    ///   - element: The type of element produced by this model.
+    ///
     @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
         //=--------------------------------------=
         Swift.assert(Self.Element.bitWidth.isPowerOf2)
@@ -67,27 +74,23 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
         //=--------------------------------------=
         var shift = 0 as Int
         var major = 0 as Element
+        let minorindex = index * Self.ratio
         
-        if  var   baseIndex = self.baseSubscriptIndex(index) {
-            while baseIndex < self.base.endIndex, shift < Self.Element.bitWidth {
-                major |= Self.Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: self.base[baseIndex])) &<< shift
+        if  minorindex < base.count {
+            var   baseIndex = base.index(base.startIndex, offsetBy: minorindex)
+            while baseIndex < base.endIndex, shift < Element.bitWidth {
+                major |= Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: base[baseIndex])) &<< shift
                 shift += Base.Element.bitWidth
-                self.base.formIndex(after: &baseIndex)
+                base.formIndex(after: &baseIndex)
             }
         }
         
-        return shift >= Self.Element.bitWidth ? major : major | self.sign &<< shift
+        return shift >= Element.bitWidth ? major : major | sign &<< shift
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
-    
-    @inlinable func baseSubscriptIndex(_ index: Int) -> Base.Index? {
-        let    position = Self.ratio   * index
-        guard  position < self.base.count else { return nil }
-        return self.base.index(self.base.startIndex, offsetBy: position)
-    }
     
     @inlinable static var ratio: Int {
         Self.Element.bitWidth / Base.Element.bitWidth

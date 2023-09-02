@@ -13,11 +13,6 @@
 
 /// An enumeration of little and big endianness.
 ///
-/// ```swift
-/// NBKEndianness.little.rawValue // 0x00
-/// NBKEndianness.big   .rawValue // 0x01
-/// ```
-///
 /// ### Static vs Dynamic
 ///
 /// Some algorithms differ depending on endianness. Generic type parameterization
