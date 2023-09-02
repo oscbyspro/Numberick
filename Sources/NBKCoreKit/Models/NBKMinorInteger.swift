@@ -13,6 +13,8 @@
 
 /// A sequence that splits components of an un/signed integer sequence.
 ///
+/// To use this sequence, its element type must fit in the base sequence's element type.
+///
 /// ```swift
 /// for byte in NBKMinorInteger(source, isSigned: false, count: nil, as: Int8.self) { ... }
 /// ```

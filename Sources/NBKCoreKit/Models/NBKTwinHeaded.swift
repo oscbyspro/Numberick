@@ -105,19 +105,9 @@
         self.mask == ( 0) as Int
     }
     
-    /// Returns the base collection, if its elements matches this collection.
-    @inlinable public var asFrontToBack: Base? {
-        self.isFrontToBack ? self.base : nil
-    }
-    
     /// Returns whether the base collection's elements are presented back-to-front.
     @inlinable public var isBackToFront: Bool {
         self.mask == (-1) as Int
-    }
-    
-    /// Returns the base collection but reversed, if its elements matches this collection.
-    @inlinable public var asBackToFront: ReversedCollection<Base>? {
-        self.isBackToFront ? self.base.reversed() : nil
     }
     
     //=------------------------------------------------------------------------=

@@ -13,6 +13,8 @@
 
 /// A sequence that merges components of an un/signed integer sequence.
 ///
+/// To use this sequence, the base sequence's element type must fit in its element type.
+///
 /// ```swift
 /// for word in NBKMajorInteger(source, isSigned: false, count: nil, as: UInt.self) { ... }
 /// ```
@@ -63,10 +65,10 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     @inlinable public subscript(index: Int) -> Element {
         precondition(index >= 0 as Int, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        var major = 0 as Element
         var shift = 0 as Int
+        var major = 0 as Element
         
-        if  var   baseIndex = self.baseIndex(index) {
+        if  var   baseIndex = self.baseSubscriptIndex(index) {
             while baseIndex < self.base.endIndex, shift < Self.Element.bitWidth {
                 major |= Self.Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: self.base[baseIndex])) &<< shift
                 shift += Base.Element.bitWidth
@@ -81,8 +83,8 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     // MARK: Utilities x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable func baseIndex(_ index: Int) -> Base.Index? {
-        let    position = Self.ratio * index
+    @inlinable func baseSubscriptIndex(_ index: Int) -> Base.Index? {
+        let    position = Self.ratio   * index
         guard  position < self.base.count else { return nil }
         return self.base.index(self.base.startIndex, offsetBy: position)
     }

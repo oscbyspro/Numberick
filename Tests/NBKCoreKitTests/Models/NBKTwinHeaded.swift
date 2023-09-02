@@ -84,19 +84,9 @@ final class NBKTwinHeadedTests: XCTestCase {
         XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).isFrontToBack, false)
     }
     
-    func testAsFrontToBack() {
-        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).asFrontToBack, [0, 1, 2, 3])
-        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).asFrontToBack, nil)
-    }
-    
     func testIsBackToFront() {
         XCTAssertEqual(T([0, 1, 2, 3], reversed: false).isBackToFront, false)
         XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).isBackToFront, true )
-    }
-    
-    func testAsBackToFront() {
-        XCTAssertEqual(T([0, 1, 2, 3], reversed: false).asBackToFront.map(Array.init), nil)
-        XCTAssertEqual(T([0, 1, 2, 3], reversed: true ).asBackToFront.map(Array.init), [0, 1, 2, 3].reversed())
     }
     
     //=------------------------------------------------------------------------=
