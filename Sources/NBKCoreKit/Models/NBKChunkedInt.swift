@@ -11,7 +11,7 @@
 // MARK: * NBK x Chunked Int
 //*============================================================================*
 
-/// A sequence that merges or splits elements of an un/signed integer sequence.
+/// A sequence that chunks elements of an un/signed source.
 ///
 /// ```swift
 /// for word in NBKChunkedInt(source, isSigned: false, count: nil, as: UInt.self) { ... }
@@ -57,12 +57,13 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     ///   - element: The type of element produced by this sequence.
     ///
     @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
-        Swift.assert(Self.Element.bitWidth.isPowerOf2)
-        Swift.assert(Base.Element.bitWidth.isPowerOf2)
-        
         self.base  = base
         self.sign  = Self.Element(repeating: isSigned && self.base.last?.mostSignificantBit == true)
         self.count = count ?? Self.count(of: self.base)
+        
+        precondition(self.count >= 0 as Int)
+        Swift.assert(Self.Element.bitWidth.isPowerOf2)
+        Swift.assert(Base.Element.bitWidth.isPowerOf2)
     }
     
     //=------------------------------------------------------------------------=
@@ -201,7 +202,7 @@ extension NBKChunkedInt {
     }
     
     @inlinable public var indices: Range<Int> {
-        Range(uncheckedBounds:(0 as Int, self.count))
+        0 as Int ..< self.count
     }
     
     //=------------------------------------------------------------------------=
