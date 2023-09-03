@@ -202,16 +202,8 @@ file: StaticString = #file, line: UInt  = #line) {
     let rhsUnsigned = rhs.map(B.Magnitude.init(bitPattern:))
     //=------------------------------------------=
     func with(isSigned: Bool) {
-        do {
-            XCTAssertEqual(Array(T.init (lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
-            XCTAssertEqual(Array(T.init (lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
-        };  if B.bitWidth >= A.bitWidth {
-            XCTAssertEqual(Array(T.Major(lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
-            XCTAssertEqual(Array(T.Major(lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
-        };  if B.bitWidth <= A.bitWidth {
-            XCTAssertEqual(Array(T.Minor(lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
-            XCTAssertEqual(Array(T.Minor(lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
-        }
+        XCTAssertEqual(Array(T(lhs,         isSigned: isSigned)), rhs,         file: file, line: line)
+        XCTAssertEqual(Array(T(lhsUnsigned, isSigned: isSigned)), rhsUnsigned, file: file, line: line)
     }
     //=------------------------------------------=
     if isSigned == nil || isSigned == true  { with(isSigned: true ) }

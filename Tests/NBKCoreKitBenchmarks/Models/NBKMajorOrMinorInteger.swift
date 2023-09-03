@@ -28,6 +28,19 @@ final class NBKMajorOrMinorIntegerBenchmarks: XCTestCase {
     // MARK: Tests x Major
     //=------------------------------------------------------------------------=
     
+    func testUInt32AsUInt32() {
+        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as Y)
+        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(Y(T(abc)))
+            NBK.blackHole(Y(T(xyz)))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
     func testUInt32AsUInt64() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as Y)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
@@ -40,23 +53,6 @@ final class NBKMajorOrMinorIntegerBenchmarks: XCTestCase {
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
-    
-    func testUInt32AsUInt64AsMajor() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as Y)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(X(T.Major(abc)))
-            NBK.blackHole(X(T.Major(xyz)))
-            
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Minor
-    //=------------------------------------------------------------------------=
     
     func testUInt64AsUInt32() {
         var abc = NBK.blackHoleIdentity([ 1,  2,  3,  4] as X)
@@ -71,13 +67,13 @@ final class NBKMajorOrMinorIntegerBenchmarks: XCTestCase {
         }
     }
     
-    func testUInt64AsUInt32AsMinor() {
+    func testUInt64AsUInt64() {
         var abc = NBK.blackHoleIdentity([ 1,  2,  3,  4] as X)
         var xyz = NBK.blackHoleIdentity([~1, ~2, ~3, ~4] as X)
         
         for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(Y(T.Minor(abc)))
-            NBK.blackHole(Y(T.Minor(xyz)))
+            NBK.blackHole(X(T(abc)))
+            NBK.blackHole(X(T(xyz)))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)

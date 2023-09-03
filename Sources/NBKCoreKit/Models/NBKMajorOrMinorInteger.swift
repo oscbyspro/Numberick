@@ -29,17 +29,19 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     
     public typealias Base = Base
     
-    public typealias Major = NBKMajorInteger<Base, Element>
+    @frozen @usableFromInline enum Major { }
     
-    public typealias Minor = NBKMinorInteger<Base, Element>
+    @frozen @usableFromInline enum Minor { }
     
-    @frozen @usableFromInline enum Storage { case major(Major), minor(Minor) }
-        
+    @frozen @usableFromInline enum Equal { }
+    
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline let storage: Storage
+    @usableFromInline let base: Base
+    @usableFromInline let sign: Element
+    public let count: Int
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -48,35 +50,132 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     /// Creates a sequence of the given type from an un/signed source.
     ///
     /// - Parameters:
-    ///   - base: The base sequence viewed through this model.
-    ///   - isSigned: A value indicating whether the base sequence is signed.
-    ///   - count: A value used to extend or truncate the base sequence.
-    ///   - element: The type of element produced by this model.
+    ///   - base: The base sequence viewed through this sequence.
+    ///   - isSigned: The signedness of the base sequence.
+    ///   - count: An optionally chosen number of elements to view.
+    ///   - element: The type of element produced by this sequence.
     ///
     @inlinable public init(_ base: Base, isSigned: Bool = false, count: Int? = nil, as element: Element.Type = Element.self) {
-        switch Self.Element.bitWidth > Base.Element.bitWidth {
-        case  true: self.storage = .major(Major(base, isSigned: isSigned, count: count))
-        case false: self.storage = .minor(Minor(base, isSigned: isSigned, count: count)) }
+        Swift.assert(Self.Element.bitWidth.isPowerOf2)
+        Swift.assert(Base.Element.bitWidth.isPowerOf2)
+        
+        self.base  = base
+        self.sign  = Self.Element(repeating: isSigned && self.base.last?.mostSignificantBit == true)
+        self.count = count ?? Self.count(of: self.base)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var count: Int {
-        switch storage {
-        case let .major(base): return base.count
-        case let .minor(base): return base.count }
+    @inlinable static func count(of base: Base) -> Int {
+        if  Self.Element.bitWidth > Base.Element.bitWidth {
+            return Major.count(of: base)
+        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
+            return Minor.count(of: base)
+        }   else {
+            return Equal.count(of: base)
+        }
     }
     
     /// Returns the element at the given index.
     ///
-    /// Its elements are ordered from least significant to most, with infinite sign extension.
+    /// The elements are ordered from least significant to most, with infinite sign extension.
     ///
     @inlinable public subscript(index: Int) -> Element {
-        switch storage {
-        case let .major(base): return base[index]
-        case let .minor(base): return base[index] }
+        if  Self.Element.bitWidth > Base.Element.bitWidth {
+            return Major.element(index, base: self.base, sign: self.sign)
+        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
+            return Minor.element(index, base: self.base, sign: self.sign)
+        }   else {
+            return Equal.element(index, base: self.base, sign: self.sign)
+        }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Major
+//=----------------------------------------------------------------------------=
+
+extension NBKMajorOrMinorInteger.Major {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static var ratio: Int {
+        Element.bitWidth / Base.Element.bitWidth
+    }
+    
+    @inlinable static func count(of base: Base) -> Int {
+        let division = base.count.quotientAndRemainder(dividingBy: self.ratio)
+        return division.quotient + Int(bit: !division.remainder.isZero)
+    }
+    
+    @inlinable static func element(_ index: Int, base: Base, sign: Element) -> Element {
+        precondition(index >= 0 as Int, NBK.callsiteOutOfBoundsInfo())
+        
+        var shift = 0 as Int
+        var major = 0 as Element
+        let minorindex = index * self.ratio
+        
+        if  minorindex < base.count {
+            var   baseIndex = base.index(base.startIndex, offsetBy: minorindex)
+            while baseIndex < base.endIndex, shift < Element.bitWidth {
+                major |= Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: base[baseIndex])) &<< shift
+                shift += Base.Element.bitWidth
+                base.formIndex(after: &baseIndex)
+            }
+        }
+        
+        return shift >= Element.bitWidth ? major : major | sign &<< shift
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Minor
+//=----------------------------------------------------------------------------=
+
+extension NBKMajorOrMinorInteger.Minor {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static var ratio: Int {
+        Base.Element.bitWidth / Element.bitWidth
+    }
+    
+    @inlinable static func count(of base: Base) -> Int {
+        base.count *  self.ratio
+    }
+    
+    @inlinable static func element(_ index: Int, base: Base, sign: Element) -> Element {
+        precondition(index >= 0 as Int, NBK.callsiteOutOfBoundsInfo())
+        let  (quotient, remainder) = index.quotientAndRemainder(dividingBy: self.ratio)
+        guard quotient < base.count else { return sign }
+        let major = base[base.index(base.startIndex,  offsetBy: quotient)]
+        return Element(truncatingIfNeeded: major &>> (remainder * Element.bitWidth))
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Equal
+//=----------------------------------------------------------------------------=
+
+extension NBKMajorOrMinorInteger.Equal {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func count(of base: Base) -> Int {
+        base.count
+    }
+    
+    @inlinable static func element(_ index: Int, base: Base, sign: Element) -> Element {
+        guard  index < base.count else { return  sign }
+        return NBK.initOrBitCast(truncating: base[base.index(base.startIndex, offsetBy: index)])
     }
 }
 

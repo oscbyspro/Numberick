@@ -18,9 +18,7 @@ A new protocol hierarchy that refines Swift's standard library.
 ### Models
 
 - ``NBKEndianness``
-- ``NBKMajorInteger``
 - ``NBKMajorOrMinorInteger``
-- ``NBKMinorInteger``
 - ``NBKTwinHeaded``
 
 ## NBKDoubleWidthKit
@@ -114,9 +112,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 - ``NBKDoubleWidth``
 - ``NBKEndianness``
-- ``NBKMajorInteger``
 - ``NBKMajorOrMinorInteger``
-- ``NBKMinorInteger``
 - ``NBKTwinHeaded``
 
 ### Integers
