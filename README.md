@@ -21,8 +21,8 @@ A new protocol hierarchy that refines Swift's standard library.
 
 ### Models
 
+- [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
-- [NBKMajorOrMinorInteger](Sources/NBKCoreKit/Models/NBKMajorOrMinorInteger.swift)
 - [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])

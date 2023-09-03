@@ -149,9 +149,9 @@ final class NBKTwinHeadedTests: XCTestCase {
 // MARK: * NBK x Twin Headed x Assertions
 //*============================================================================*
 
-private func NBKAssertIteration<B: RandomAccessCollection & MutableCollection>(
-_ lhs: NBKTwinHeaded<B>, _ rhs: [B.Element],
-file: StaticString = #file, line: UInt  = #line) where B.Element: FixedWidthInteger, B.Element: Equatable {
+private func NBKAssertIteration<T: RandomAccessCollection & MutableCollection>(
+_ lhs: NBKTwinHeaded<T>, _ rhs: [T.Element],
+file: StaticString = #file, line: UInt  = #line) where T.Element: FixedWidthInteger, T.Element: Equatable {
     XCTAssertEqual(Array(lhs),            rhs,            file: file, line: line)
     XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)
     XCTAssertEqual(Array({ var x = lhs; x.reverse(); return x }()), rhs.reversed(), file: file, line: line)
@@ -192,20 +192,6 @@ file: StaticString = #file, line: UInt  = #line) where B.Element: FixedWidthInte
         }
     }
     
-    testAsMutableCollection: do {
-        var lhs = lhs, lhsIndex = lhs.startIndex
-        var rhs = rhs, rhsIndex = rhs.startIndex
-        while lhsIndex < lhs.endIndex {
-            lhs[lhsIndex] &+= 1
-            rhs[rhsIndex] &+= 1
-            
-            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
-            
-            lhs.formIndex(after: &lhsIndex)
-            rhs.formIndex(after: &rhsIndex)
-        }
-    }
-    
     testDropFirst: do {
         for dropFirst in 0 ..< (2 * lhs.count) {
             let lhsDropFirst = lhs.dropFirst(dropFirst)
@@ -239,6 +225,20 @@ file: StaticString = #file, line: UInt  = #line) where B.Element: FixedWidthInte
                 let lastIndex = lhs.index(lhs.endIndex, offsetBy: ~dropLast)
                 XCTAssertEqual(last, lhs[lastIndex], file: file, line: line)
             }
+        }
+    }
+    
+    testAsMutableCollection: do {
+        var lhs = lhs, lhsIndex = lhs.startIndex
+        var rhs = rhs, rhsIndex = rhs.startIndex
+        while lhsIndex < lhs.endIndex {
+            lhs[lhsIndex] &+= 1
+            rhs[rhsIndex] &+= 1
+            
+            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
+            
+            lhs.formIndex(after: &lhsIndex)
+            rhs.formIndex(after: &rhsIndex)
         }
     }
 }

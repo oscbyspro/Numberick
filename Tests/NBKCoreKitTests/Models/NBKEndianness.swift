@@ -24,28 +24,12 @@ final class NBKEndiannessTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSystemValue() {
-        #if  _endian(little)
+    func testSystem() {
+        #if _endian(little)
         XCTAssertEqual(T.system, T.little)
         #elseif _endian(big)
         XCTAssertEqual(T.system, T.big)
         #endif
-    }
-    
-    func testOppositeValue() {
-        XCTAssertEqual(!T.big, T.little)
-        XCTAssertEqual(!T.little, T.big)
-    }
-    
-    func testToRawValue() {
-        XCTAssertEqual(0x00 as UInt8, T.little.rawValue)
-        XCTAssertEqual(0x01 as UInt8, T.big.rawValue)
-    }
-    
-    func testFromRawValue() {
-        XCTAssertEqual(T(rawValue: 0x00 as UInt8), T.little)
-        XCTAssertEqual(T(rawValue: 0x01 as UInt8), T.big)
-        XCTAssertEqual(T(rawValue: 0x02 as UInt8), nil)
     }
 }
 

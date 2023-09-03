@@ -19,17 +19,17 @@
 /// can express the difference, but dynamic solutions are often viable. This type
 /// encurages the latter.
 ///
-@frozen public enum NBKEndianness: UInt8, Hashable {
+@frozen public enum NBKEndianness: Hashable {
     
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
     /// A value representing a least-to-most-significant byte order.
-    case little = 0x00
+    case little
     
     /// A value representing a most-to-least-significant byte order.
-    case big = 0x01
+    case big
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -39,17 +39,8 @@
     @inlinable public static var system: Self {
         #if _endian(little)
         return .little
-        #else
+        #elseif _endian(big)
         return .big
         #endif
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the opposite endianness.
-    @inlinable public static prefix func !(operand: Self) -> Self {
-        switch operand { case .little: return .big; case .big: return .little }
     }
 }

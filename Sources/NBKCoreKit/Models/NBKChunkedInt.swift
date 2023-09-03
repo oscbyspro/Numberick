@@ -8,14 +8,14 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Major Or Minor Integer
+// MARK: * NBK x Chunked Int
 //*============================================================================*
 
 /// A sequence that merges or splits elements of an un/signed integer sequence.
 ///
 /// ```swift
-/// for word in NBKMajorOrMinorInteger(source, isSigned: false, count: nil, as: UInt.self) { ... }
-/// for byte in NBKMajorOrMinorInteger(source, isSigned: false, count: nil, as: Int8.self) { ... }
+/// for word in NBKChunkedInt(source, isSigned: false, count: nil, as: UInt.self) { ... }
+/// for byte in NBKChunkedInt(source, isSigned: false, count: nil, as: Int8.self) { ... }
 /// ```
 ///
 /// ### Binary Integer Order
@@ -24,9 +24,10 @@
 /// its elements from least significant to most. You can reorder it by reversing
 /// the input, the output, or both.
 ///
-@frozen public struct NBKMajorOrMinorInteger<Base, Element>: RandomAccessCollection where
+@frozen public struct NBKChunkedInt<Base, Element>: RandomAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
+    /// The base sequence type.
     public typealias Base = Base
     
     @frozen @usableFromInline enum Major { }
@@ -68,16 +69,6 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable static func count(of base: Base) -> Int {
-        if  Self.Element.bitWidth > Base.Element.bitWidth {
-            return Major.count(of: base)
-        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
-            return Minor.count(of: base)
-        }   else {
-            return Equal.count(of: base)
-        }
-    }
-    
     /// Returns the element at the given index.
     ///
     /// The elements are ordered from least significant to most, with infinite sign extension.
@@ -91,13 +82,27 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
             return Equal.element(index, base: self.base, sign: self.sign)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func count(of base: Base) -> Int {
+        if  Self.Element.bitWidth > Base.Element.bitWidth {
+            return Major.count(of:  base)
+        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
+            return Minor.count(of:  base)
+        }   else {
+            return Equal.count(of:  base)
+        }
+    }
 }
 
 //=----------------------------------------------------------------------------=
 // MARK: + Major
 //=----------------------------------------------------------------------------=
 
-extension NBKMajorOrMinorInteger.Major {
+extension NBKChunkedInt.Major {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -113,14 +118,12 @@ extension NBKMajorOrMinorInteger.Major {
     }
     
     @inlinable static func element(_ index: Int, base: Base, sign: Element) -> Element {
-        precondition(index >= 0 as Int, NBK.callsiteOutOfBoundsInfo())
-        
         var shift = 0 as Int
         var major = 0 as Element
-        let minorindex = index * self.ratio
+        let minor = index as Int * self.ratio
         
-        if  minorindex < base.count {
-            var   baseIndex = base.index(base.startIndex, offsetBy: minorindex)
+        if  minor < base.count {
+            var   baseIndex = base.index(base.startIndex, offsetBy: minor)
             while baseIndex < base.endIndex, shift < Element.bitWidth {
                 major |= Element(truncatingIfNeeded: Base.Element.Magnitude(bitPattern: base[baseIndex])) &<< shift
                 shift += Base.Element.bitWidth
@@ -136,7 +139,7 @@ extension NBKMajorOrMinorInteger.Major {
 // MARK: + Minor
 //=----------------------------------------------------------------------------=
 
-extension NBKMajorOrMinorInteger.Minor {
+extension NBKChunkedInt.Minor {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -163,7 +166,7 @@ extension NBKMajorOrMinorInteger.Minor {
 // MARK: + Equal
 //=----------------------------------------------------------------------------=
 
-extension NBKMajorOrMinorInteger.Equal {
+extension NBKChunkedInt.Equal {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -183,7 +186,7 @@ extension NBKMajorOrMinorInteger.Equal {
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKMajorOrMinorInteger {
+extension NBKChunkedInt {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
