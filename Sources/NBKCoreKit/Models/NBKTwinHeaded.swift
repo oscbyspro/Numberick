@@ -16,14 +16,6 @@
     
     public typealias Base = Base
     
-    public typealias Index = Int
-    
-    public typealias Indices = Range<Int>
-    
-    public typealias Element = Base.Element
-    
-    public typealias SubSequence = Slice<Self>
-    
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
@@ -38,7 +30,7 @@
     ///
     /// It equals zero when front-to-back, and minus one otherwise.
     ///
-    @usableFromInline var mask: Self.Index
+    @usableFromInline var mask: Int
     
     /// The base index to be offset.
     ///
@@ -207,7 +199,7 @@ extension NBKTwinHeaded {
         Range(uncheckedBounds:(0 as Int, self.count))
     }
     
-    @inlinable public subscript(index: Int) -> Element {
+    @inlinable public subscript(index: Int) -> Base.Element {
         _read { yield self.base[self.baseSubscriptIndex(index)] }
     }
     
@@ -254,7 +246,7 @@ extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public subscript(index: Int) -> Element {
+    @inlinable public subscript(index: Int) -> Base.Element {
         _read   { yield  self.body[self.baseSubscriptIndex(index)] }
         _modify { yield &self.body[self.baseSubscriptIndex(index)] }
     }

@@ -35,7 +35,7 @@
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Returns the endianness of the current system.
+    /// Returns the current system's byte order.
     @inlinable public static var system: Self {
         #if _endian(little)
         return .little

@@ -81,7 +81,7 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
-/// ### ⭐️ Feature: StaticBigInt (v0.10.0+)
+/// ### ⭐️ Feature: StaticBigInt
 ///
 /// `StaticBigInt` is disabled by default. You enable it in `Package.swift`.
 ///

@@ -27,7 +27,6 @@
 @frozen public struct NBKChunkedInt<Base, Element>: RandomAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
-    /// The base sequence type.
     public typealias Base = Base
     
     @frozen @usableFromInline enum Major { }
