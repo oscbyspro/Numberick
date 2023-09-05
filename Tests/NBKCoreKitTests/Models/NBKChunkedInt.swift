@@ -182,7 +182,7 @@ final class NBKChunkedIntTests: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Chunked Int  x Assertions
+// MARK: * NBK x Chunked Int x Assertions
 //*============================================================================*
 
 private func NBKAssertChunkedInt<A: NBKCoreInteger, B: NBKCoreInteger>(

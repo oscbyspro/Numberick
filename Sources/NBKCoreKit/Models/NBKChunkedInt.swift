@@ -24,6 +24,18 @@
 /// its elements from least significant to most. You can reorder it by reversing
 /// the input, the output, or both.
 ///
+/// ```swift
+/// [1, 2, 3, 4] == Array(NBKChunkedInt(([0x0201, 0x0403] as [Int16]),            as: UInt8.self))
+/// [2, 1, 4, 3] == Array(NBKChunkedInt(([0x0201, 0x0403] as [Int16]).reversed(), as: UInt8.self).reversed())
+/// [3, 4, 1, 2] == Array(NBKChunkedInt(([0x0201, 0x0403] as [Int16]).reversed(), as: UInt8.self))
+/// [4, 3, 2, 1] == Array(NBKChunkedInt(([0x0201, 0x0403] as [Int16]),            as: UInt8.self).reversed())
+///
+/// [0x0201, 0x0403] == Array(NBKChunkedInt(([1, 2, 3, 4] as [UInt8]),            as: Int16.self))
+/// [0x0102, 0x0304] == Array(NBKChunkedInt(([1, 2, 3, 4] as [UInt8]).reversed(), as: Int16.self).reversed())
+/// [0x0403, 0x0201] == Array(NBKChunkedInt(([1, 2, 3, 4] as [UInt8]),            as: Int16.self).reversed())
+/// [0x0304, 0x0102] == Array(NBKChunkedInt(([1, 2, 3, 4] as [UInt8]).reversed(), as: Int16.self))
+/// ```
+///
 @frozen public struct NBKChunkedInt<Base, Element>: RandomAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     

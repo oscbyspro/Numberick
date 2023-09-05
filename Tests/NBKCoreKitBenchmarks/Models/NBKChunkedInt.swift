@@ -81,12 +81,12 @@ final class NBKChunkedIntBenchmarks: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Miscellaneous
+    // MARK: Tests x Versus Other Collections
     //=------------------------------------------------------------------------=
-    // Note: The array conversions call Sequence/_copyToContiguousArray().
+    // NOTE: The array conversions call Sequence/_copyToContiguousArray().
     //=------------------------------------------------------------------------=
     
-    func testUInt32AsUInt32ByReversedCollection() {
+    func testWithReversedCollectionUInt32AsUInt32() {
         var abc = NBK.blackHoleIdentity(Y(repeating: .min, count: 144))
         var xyz = NBK.blackHoleIdentity(Y(repeating: .max, count: 144))
         
@@ -99,20 +99,7 @@ final class NBKChunkedIntBenchmarks: XCTestCase {
         }
     }
     
-    func testUInt32AsUInt32ByUnsafeBufferPointer() {
-        var abc = NBK.blackHoleIdentity(Y(repeating: .min, count: 144))
-        var xyz = NBK.blackHoleIdentity(Y(repeating: .max, count: 144))
-        
-        for _ in 0 ..< 144_000 {
-            NBK.blackHole(abc.withUnsafeBufferPointer(Y.init))
-            NBK.blackHole(xyz.withUnsafeBufferPointer(Y.init))
-                        
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    func testUInt64AsUInt64ByReversedCollection() {
+    func testWithReversedCollectionUInt64AsUInt64() {
         var abc = NBK.blackHoleIdentity(X(repeating: .min, count: 144))
         var xyz = NBK.blackHoleIdentity(X(repeating: .max, count: 144))
         
@@ -125,13 +112,93 @@ final class NBKChunkedIntBenchmarks: XCTestCase {
         }
     }
     
-    func testUInt64AsUInt64ByUnsafeBufferPointer() {
+    func testWithUnsafeBufferPointerUInt32AsUInt32() {
+        var abc = NBK.blackHoleIdentity(Y(repeating: .min, count: 144))
+        var xyz = NBK.blackHoleIdentity(Y(repeating: .max, count: 144))
+        
+        for _ in 0 ..< 144_000 {
+            NBK.blackHole(abc.withUnsafeBufferPointer(Y.init))
+            NBK.blackHole(xyz.withUnsafeBufferPointer(Y.init))
+                        
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testWithUnsafeBufferPointerUInt64AsUInt64() {
         var abc = NBK.blackHoleIdentity(X(repeating: .min, count: 144))
         var xyz = NBK.blackHoleIdentity(X(repeating: .max, count: 144))
         
         for _ in 0 ..< 144_000 {
             NBK.blackHole(abc.withUnsafeBufferPointer(X.init))
             NBK.blackHole(xyz.withUnsafeBufferPointer(X.init))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Chunked Int x Reordering
+//*============================================================================*
+
+final class NBKChunkedIntBenchmarksByReordering: XCTestCase {
+    
+    typealias T = NBKChunkedInt
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    // NOTE: Makes arrays from lazily reversed inputs and outputs.
+    //=------------------------------------------------------------------------=
+    
+    func testUInt32AsUInt32() {
+        var abc = NBK.blackHoleIdentity(Y(repeating: .min, count: 144))
+        var xyz = NBK.blackHoleIdentity(Y(repeating: .max, count: 144))
+        
+        for _ in 0 ..< 144_000 {
+            NBK.blackHole(Y(T(abc.reversed()).reversed()))
+            NBK.blackHole(Y(T(xyz.reversed()).reversed()))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testUInt32AsUInt64() {
+        var abc = NBK.blackHoleIdentity(Y(repeating: .min, count: 144))
+        var xyz = NBK.blackHoleIdentity(Y(repeating: .max, count: 144))
+        
+        for _ in 0 ..< 144_000 {
+            NBK.blackHole(X(T(abc.reversed()).reversed()))
+            NBK.blackHole(X(T(xyz.reversed()).reversed()))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testUInt64AsUInt32() {
+        var abc = NBK.blackHoleIdentity(X(repeating: .min, count: 144))
+        var xyz = NBK.blackHoleIdentity(X(repeating: .max, count: 144))
+        
+        for _ in 0 ..< 144_000 {
+            NBK.blackHole(Y(T(abc.reversed()).reversed()))
+            NBK.blackHole(Y(T(xyz.reversed()).reversed()))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testUInt64AsUInt64() {
+        var abc = NBK.blackHoleIdentity(X(repeating: .min, count: 144))
+        var xyz = NBK.blackHoleIdentity(X(repeating: .max, count: 144))
+        
+        for _ in 0 ..< 144_000 {
+            NBK.blackHole(X(T(abc.reversed()).reversed()))
+            NBK.blackHole(X(T(xyz.reversed()).reversed()))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
