@@ -30,7 +30,8 @@ extension NBK {
     ///
     /// Creating a new decoder is faster than passing one as an argument.
     ///
-    @inlinable public static func truncating<T>(digits: NBK.UnsafeUTF8, radix: Int, as type: T.Type = T.self) -> T? where T: NBKCoreInteger {
+    @inlinable public static func truncating<T: NBKCoreInteger>(
+    digits: UnsafeUTF8, radix: Int, as type: T.Type = T.self) -> T? {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
@@ -57,14 +58,18 @@ extension NBK {
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable public static func integerTextUnchecked(chunks: some RandomAccessCollection<UInt>, radix: some _NBKRadixUIntRoot,
-    alphabet: MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
+    /// - Note: `@inlinable` is not needed.
+    ///
+    public static func integerTextUnchecked(
+    chunks:   NBKTwinHeaded<NBK.UnsafeWords>,  radix: AnyRadixSolution<Int>,
+    alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeUTF8, suffix: UnsafeUTF8) -> String {
         assert(chunks.count <= 1  || chunks.last != 0, "chunks must not contain redundant zeros")
         assert(radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
         var remainders = chunks[...]
         let mostSignificantChunk = remainders.popLast() ?? UInt()
-        return NBK.withUnsafeTemporaryIntegerTextUnchecked(chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
+        return NBK.withUnsafeTemporaryIntegerTextUnchecked(
+        chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
             var count: Int
             count  = prefix.count
             count += first .count
@@ -81,15 +86,28 @@ extension NBK {
                 }
                 //=------------------------------=
                 suffix.reversed().forEach(pull)
-                
-                for var chunk in remainders {
-                    for _ in 0 ..< radix.exponent {
-                        let digit: UInt
-                        (chunk,  digit) = radix.dividing(chunk)
-                        pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+                //=------------------------------=
+                // dynamic: loop unswitch perf.
+                //=------------------------------=
+                if  radix.power.isZero {
+                    let divisor = PerfectRadixSolution(radix)!.divisor()
+                    for var chunk in remainders {
+                        for _ in 0 as  UInt ..< radix.exponent {
+                            let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
+                            pull(alphabet.encode(UInt8(truncatingIfNeeded:  digit))!)
+                        }
+                    }
+                    
+                }   else {
+                    let divisor = ImperfectRadixSolution(radix)!.divisor()
+                    for var chunk in remainders {
+                        for _ in 0 as  UInt ..< radix.exponent {
+                            let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
+                            pull(alphabet.encode(UInt8(truncatingIfNeeded:  digit))!)
+                        }
                     }
                 }
-                
+                //=------------------------------=
                 first .reversed().forEach(pull)
                 prefix.reversed().forEach(pull)
                 //=------------------------------=
@@ -103,8 +121,10 @@ extension NBK {
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    @inlinable public static func withUnsafeTemporaryIntegerTextUnchecked<T>(
-    chunk: UInt, radix: some _NBKRadixUIntRoot, alphabet: MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T {
+    /// - Note: `@inlinable` is not needed.
+    ///
+    public static func withUnsafeTemporaryIntegerTextUnchecked<T>(
+    chunk: UInt, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, body:(UnsafeUTF8) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
             var chunk = chunk as UInt
@@ -113,9 +133,9 @@ extension NBK {
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
+            let divisor = radix.divisor()
             backwards: repeat {
-                let digit: UInt
-                (chunk,  digit) = radix.dividing(chunk)
+                let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
                 position = position.predecessor()
                 position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
             }   while !chunk.isZero
