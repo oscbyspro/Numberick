@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 #=-----------------------------------------------------------------------------=
 # This source file is part of the Numberick open source project.
 #
@@ -17,8 +17,6 @@
 # │
 # └─── .swiftpm/xcode/xcshareddata/PROJECT.xcscheme
 #=-----------------------------------------------------------------------------=
-
-set -eu
 
 # Variables
 

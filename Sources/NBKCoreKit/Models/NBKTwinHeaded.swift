@@ -130,8 +130,8 @@
     /// Returns the base collection's corresponding subscript index.
     ///
     /// ```
-    /// isFrontToBack: base.index(base.startIndex, offsetBy:  index +  0)
-    /// isBackToFront: base.index(base.endIndex,   offsetBy: -index + -1)
+    /// front-to-back: base.index(base.startIndex, offsetBy:  index +  0)
+    /// back-to-front: base.index(base.endIndex,   offsetBy: -index + -1)
     /// ```
     ///
     /// - Parameter index: `self.startIndex <= index < self.endIndex`
@@ -144,8 +144,8 @@
     /// Returns the base collection's corresponding index.
     ///
     /// ```
-    /// isFrontToBack: base.index(base.startIndex, offsetBy:  index)
-    /// isBackToFront: base.index(base.endIndex,   offsetBy: -index)
+    /// front-to-back: base.index(base.startIndex, offsetBy:  index)
+    /// back-to-front: base.index(base.endIndex,   offsetBy: -index)
     /// ```
     ///
     /// - Note: Use ``baseSubscriptIndex(_:)`` to subscript the base collection.

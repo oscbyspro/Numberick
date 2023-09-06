@@ -85,6 +85,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
             // pointee: initialization by callee
             //=----------------------------------=
             pointer.withMemoryRebound(to: T.self, capacity: BitPattern.count(T.self)) { start in
+                // wrapping this in a binary integer words convenience requires inline(always)
                 body(UnsafeMutableBufferPointer(start: start, count: BitPattern.count(T.self)))
             }
             //=----------------------------------=
