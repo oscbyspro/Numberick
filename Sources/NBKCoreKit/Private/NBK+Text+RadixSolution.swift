@@ -14,16 +14,10 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Protocols
+    // MARK: Aliases
     //=------------------------------------------------------------------------=
     
     public typealias RadixSolution = _NBKRadixSolution
-    
-    public typealias RadixSolutionDivisor = _NBKRadixSolutionDivisor
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Models
-    //=------------------------------------------------------------------------=
     
     public typealias AnyRadixSolution = _NBKAnyRadixSolution
     
@@ -44,21 +38,23 @@ extension NBK {
 ///
 public protocol _NBKRadixSolution<Size> {
     
-    typealias Element = Size.Magnitude
-    
+    typealias Element  = Size.Magnitude
+
     associatedtype Size: NBKCoreInteger & NBKSignedInteger
-    
-    associatedtype Divisor: NBK.RadixSolutionDivisor where Divisor.Size == Size
     
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @inlinable var base: Element { get }
+    @inlinable var base:     Element { get }
     
     @inlinable var exponent: Element { get }
     
-    @inlinable var power: Element { get }
+    @inlinable var power:    Element { get }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
     
     @inlinable var solution: NBK.AnyRadixSolution<Size> { get }
     
@@ -66,7 +62,7 @@ public protocol _NBKRadixSolution<Size> {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable func divisor() -> Divisor
+    @inlinable func division() -> (Element) -> QR<Element, Element>
 }
 
 //=----------------------------------------------------------------------------=
@@ -88,25 +84,6 @@ extension NBK.RadixSolution {
         assert((self.exponent as Element) <= Element.bitWidth)
         return Size(bitPattern: self.exponent)
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Radix Solution x Divisor
-//*============================================================================*
-
-/// An radix solution helper model allowing efficient repeated division.
-public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKSignedInteger {
-    
-    typealias Element = Size.Magnitude
-    
-    associatedtype Size: NBKCoreInteger & NBKSignedInteger
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the `quotient` and `remainder` of dividing `dividend` by `self`.
-    @inlinable func dividing(_ dividend: Element) -> QR<Element, Element>
 }
 
 //*============================================================================*
@@ -152,15 +129,15 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func divisor() -> Divisor {
-        Divisor(self)
+    @inlinable public func division() -> (Element) -> QR<Element, Element> {
+        Division(self).callAsFunction
     }
     
     //*========================================================================*
-    // MARK: * Divisor
+    // MARK: * Division
     //*========================================================================*
     
-    @frozen public struct Divisor: NBK.RadixSolutionDivisor {
+    @frozen @usableFromInline struct Division {
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -175,14 +152,14 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         
         @inlinable init(_ solution: NBK.PerfectRadixSolution<Size>) {
             self.quotientShift = NBK.initOrBitCast(truncating: solution.base.trailingZeroBitCount)
-            self.remainderMask = solution.base &- (1 as Element)
+            self.remainderMask = solution.base &+  Element.max // &- 1
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
+        @inlinable func callAsFunction(_ dividend: Element) -> QR<Element, Element> {
             QR(dividend &>> self.quotientShift, dividend & self.remainderMask)
         }
     }
@@ -231,8 +208,8 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func divisor() -> Divisor {
-        Divisor(self)
+    @inlinable public func division() -> (Element) -> QR<Element, Element> {
+        Division(self).callAsFunction
     }
     
     /// Overestimates how many times its power divides the magnitude.
@@ -241,10 +218,10 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     }
     
     //*========================================================================*
-    // MARK: * Divisor
+    // MARK: * Division
     //*========================================================================*
     
-    @frozen public struct Divisor: NBK.RadixSolutionDivisor {
+    @frozen @usableFromInline struct Division {
                 
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -264,8 +241,8 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
-            QR(dividend.quotientAndRemainder(dividingBy: self.base))
+        @inlinable func callAsFunction(_ dividend: Element) -> QR<Element, Element> {
+            dividend.quotientAndRemainder(dividingBy: self.base)
         }
     }
 }
@@ -321,15 +298,15 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable public func divisor() -> Divisor {
-        Divisor(self)
+    @inlinable public func division() -> (Element) -> QR<Element, Element> {
+        Division(self).callAsFunction
     }
     
     //*========================================================================*
-    // MARK: * Divisor
+    // MARK: * Division
     //*========================================================================*
     
-    @frozen public struct Divisor: NBK.RadixSolutionDivisor {
+    @frozen @usableFromInline struct Division {
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -357,7 +334,7 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
+        @inlinable func callAsFunction(_ dividend: Element) -> QR<Element, Element> {
             switch self.zeroOrRemainderMask.isZero {
             case  true: return QR(dividend.quotientAndRemainder(dividingBy:         self.baseOrQuotientShift) )
             case false: return QR(dividend &>> self.baseOrQuotientShift, dividend & self.zeroOrRemainderMask) }
@@ -396,7 +373,7 @@ extension _NBKAnyRadixSolution {
             value.power = (1 as Element) &<<  (zeros &* value.exponent)
         }
         
-        return value as Value
+        return value as Value as Value as Value
     }
     
     /// Returns the largest exponent in `pow(radix, exponent) <= Element.max + 1`.
@@ -437,7 +414,7 @@ extension _NBKAnyRadixSolution {
                 value.power = product.partialValue
             }
             
-            return value as Value
+            return value as Value as Value as Value
         }
     }
 }

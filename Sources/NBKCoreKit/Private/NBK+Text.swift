@@ -129,7 +129,7 @@ extension NBK {
     chunk: UInt, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, body:(UnsafeUTF8) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
-            let end = utf8.baseAddress!.advanced(by:   utf8.count)
+            let end = utf8.baseAddress!.advanced  (by: utf8.count)
             var position = end as UnsafeMutablePointer<UInt8>
             //=----------------------------------=
             // pointee: initialization
@@ -173,11 +173,11 @@ extension NBK {
     tail: UInt, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
         assert(radix.power.isZero || tail <  radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
-        var chunk   = tail  as UInt
-        let divisor = radix.divisor()
+        var chunk = tail as UInt
+        let division = radix.division()
         //=--------------------------------------=
         backwards: repeat {
-            let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
+            let digit: UInt; (chunk,digit) = division(chunk)
             perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
         }   while !chunk.isZero
     }
@@ -194,11 +194,11 @@ extension NBK {
     body: some Collection<UInt>, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
         assert(radix.power.isZero || body.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
-        let divisor = radix.divisor()
+        let division = radix.division()
         //=--------------------------------------=
         for var chunk in body {
             for _  in 0 as UInt ..< radix.exponent {
-                let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
+                let digit: UInt; (chunk,digit) = division(chunk)
                 perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
             }
         }
