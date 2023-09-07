@@ -72,52 +72,49 @@ extension NBK {
         let mostSignificantChunk = remainders.popLast() ?? 0 as UInt
         return NBK.withUnsafeTemporaryIntegerTextUnchecked(
         chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
+            //=----------------------------------=
             var count: Int
             count  = prefix.count
             count += first .count
             count += remainders.count * radix.exponent
             count += suffix.count
+            //=----------------------------------=
             return String(unsafeUninitializedCapacity: count) { utf8 in
                 var position = utf8.baseAddress!.advanced(by: count)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
-                func pull(_ unit: UInt8) {
+                func pull(_ element: UInt8) {
                     position = position.predecessor()
-                    position.initialize(to: unit)
+                    position.initialize(to:  element)
                 }
                 //=------------------------------=
                 for index in suffix.indices.reversed() {
-                    pull(suffix[index]) // loop: index >= element
+                    pull(suffix[index]) // loop: index > element
                 }
                 //=------------------------------=
                 // dynamic: unswitch perf.
                 //=------------------------------=
                 if  radix.power.isZero {
-                    let divisor = PerfectRadixSolution(radix)!.divisor()
-                    for var chunk in remainders {
-                        for _ in 0 as  UInt ..< radix.exponent {
-                            let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
-                            pull(alphabet.encode(UInt8(truncatingIfNeeded:  digit))!)
-                        }
-                    }
-                    
+                    NBK.integerTextUncheckedForEachCodeBlock(
+                    remainders: remainders,
+                    radix: PerfectRadixSolution(radix)!,
+                    alphabet: alphabet,
+                    perform:  pull(_:))
                 }   else {
-                    let divisor = ImperfectRadixSolution(radix)!.divisor()
-                    for var chunk in remainders {
-                        for _ in 0 as  UInt ..< radix.exponent {
-                            let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
-                            pull(alphabet.encode(UInt8(truncatingIfNeeded:  digit))!)
-                        }
-                    }
+                    NBK.integerTextUncheckedForEachCodeBlock(
+                    remainders: remainders,
+                    radix: ImperfectRadixSolution(radix)!,
+                    alphabet: alphabet,
+                    perform:  pull(_:))
                 }
                 //=------------------------------=
                 for index in first .indices.reversed() {
-                    pull(first [index]) // loop: index >= element
+                    pull(first [index]) // loop: index > element
                 }
                 
                 for index in prefix.indices.reversed() {
-                    pull(prefix[index]) // loop: index >= element
+                    pull(prefix[index]) // loop: index > element
                 }
                 //=------------------------------=
                 assert(position == utf8.baseAddress!)
@@ -138,28 +135,30 @@ extension NBK {
     chunk: UInt, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, body:(UnsafeUTF8) -> T) -> T {
         assert(radix.power.isZero || chunk < radix.power, "chunks must be less than radix's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent) { utf8 in
-            var chunk = chunk as UInt
-            let end   = utf8.baseAddress!.advanced(by: utf8.count)
+            let end = utf8.baseAddress!.advanced(by:   utf8.count)
             var position = end as UnsafeMutablePointer<UInt8>
             //=----------------------------------=
             // pointee: initialization
+            //=----------------------------------=
+            func pull(_ element: UInt8) {
+                position = position.predecessor()
+                position.initialize(to:  element)
+            }
+            //=----------------------------------=
             // dynamic: unswitch perf.
             //=----------------------------------=
             if  radix.power.isZero {
-                let divisor = PerfectRadixSolution(radix)!.divisor()
-                backwards: repeat {
-                    let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
-                    position = position.predecessor()
-                    position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
-                }   while !chunk.isZero
-                
+                NBK.integerTextUncheckedForEachCodeBlock(
+                first:    chunk,
+                radix:    PerfectRadixSolution(radix)!,
+                alphabet: alphabet,
+                perform:  pull(_:))
             }   else {
-                let divisor = ImperfectRadixSolution(radix)!.divisor()
-                backwards: repeat {
-                    let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
-                    position = position.predecessor()
-                    position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
-                }   while !chunk.isZero
+                NBK.integerTextUncheckedForEachCodeBlock(
+                first:    chunk,
+                radix:    ImperfectRadixSolution(radix)!,
+                alphabet: alphabet,
+                perform:  pull(_:))
             }
             //=----------------------------------=
             // pointee: deferred deinitialization
@@ -167,6 +166,49 @@ extension NBK {
             let count: Int = position.distance(to: end)
             defer{ position.deinitialize(count:  count) }
             return body(UnsafeUTF8(start: position, count: count))
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode x Code Blocks
+    //=------------------------------------------------------------------------=
+    
+    /// Executes the given closure on each integer text digit made from the first chunk.
+    ///
+    /// ### Development
+    ///
+    /// The nested version performed poorly, so now it's freestanding with `@inline(always)`.
+    ///
+    @inline(__always) @inlinable static func integerTextUncheckedForEachCodeBlock(
+    first: UInt, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
+        assert(radix.power.isZero || first <  radix.power, "chunks must be less than radix's power")
+        //=--------------------------------------=
+        var chunk   = first  as UInt
+        let divisor = radix.divisor()
+        //=--------------------------------------=
+        backwards: repeat {
+            let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
+            perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+        }   while !chunk.isZero
+    }
+    
+    /// Executes the given closure on each integer text digit made from non-first chunks.
+    ///
+    /// ### Development
+    ///
+    /// The nested version performed poorly, so now it's freestanding with `@inline(always)`.
+    ///
+    @inline(__always) @inlinable static func integerTextUncheckedForEachCodeBlock(
+    remainders: some Collection<UInt>, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
+        assert(radix.power.isZero || remainders.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
+        //=--------------------------------------=
+        let divisor = radix.divisor()
+        //=--------------------------------------=
+        for var chunk in remainders {
+            for _  in 0 as UInt ..< radix.exponent {
+                let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
+                perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+            }
         }
     }
 }
