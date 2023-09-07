@@ -23,12 +23,12 @@ final class NBKTestsOnTextByRadixSolution: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAnyRadixSolution() {
-        func whereIsSize<T>(_ size: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+        func whereSizeIs<T>(_ size: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
             for radix in 2 ... 36 {
                 let solution = NBK.AnyRadixSolution<T>(radix)
                 XCTAssertEqual(solution.base, T.Magnitude(radix))
                 
-                var product = HL(T.Magnitude(0), T.Magnitude(1))
+                var product =  HL(T.Magnitude(0), T.Magnitude(1))
                 for _ in 0 ..< solution.exponent {
                     XCTAssert(product.high.isZero)
                     product = product.low.multipliedFullWidth(by: T.Magnitude(radix))
@@ -42,7 +42,7 @@ final class NBKTestsOnTextByRadixSolution: XCTestCase {
         }
         
         for size: any (NBKCoreInteger & NBKSignedInteger).Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
-            whereIsSize(size)
+            whereSizeIs(size)
         }
     }
 }

@@ -163,8 +163,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
             let count = start.distance(to: position)
             defer { start.deinitialize(count: count) }
             //=----------------------------------=
-            let chunks = NBKTwinHeaded(UnsafeBufferPointer( start: start, count: count))
             let radix  = NBK.AnyRadixSolution(radix)
+            let chunks = NBKTwinHeaded(UnsafeBufferPointer( start: start, count: count))
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }

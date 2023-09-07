@@ -58,16 +58,18 @@ extension NBK {
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    /// - Note: `@inlinable` is not needed.
+    /// ### Development
+    ///
+    /// - `@inlinable` is not needed.
     ///
     public static func integerTextUnchecked(
-    chunks:   NBKTwinHeaded<NBK.UnsafeWords>,  radix: AnyRadixSolution<Int>,
-    alphabet: MaxRadixAlphabetEncoder, prefix: UnsafeUTF8, suffix: UnsafeUTF8) -> String {
+    chunks: NBKTwinHeaded<NBK.UnsafeWords>, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder,
+    prefix: UnsafeUTF8, suffix: UnsafeUTF8) -> String {
         assert(chunks.count <= 1  || chunks.last != 0, "chunks must not contain redundant zeros")
         assert(radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
         var remainders = chunks[...]
-        let mostSignificantChunk = remainders.popLast() ?? UInt()
+        let mostSignificantChunk = remainders.popLast() ?? 0 as UInt
         return NBK.withUnsafeTemporaryIntegerTextUnchecked(
         chunk: mostSignificantChunk, radix: radix, alphabet: alphabet) { first in
             var count: Int
@@ -85,9 +87,11 @@ extension NBK {
                     position.initialize(to: unit)
                 }
                 //=------------------------------=
-                suffix.reversed().forEach(pull)
+                for index in suffix.indices.reversed() {
+                    pull(suffix[index]) // loop: index >= element
+                }
                 //=------------------------------=
-                // dynamic: loop unswitch perf.
+                // dynamic: unswitch perf.
                 //=------------------------------=
                 if  radix.power.isZero {
                     let divisor = PerfectRadixSolution(radix)!.divisor()
@@ -108,8 +112,13 @@ extension NBK {
                     }
                 }
                 //=------------------------------=
-                first .reversed().forEach(pull)
-                prefix.reversed().forEach(pull)
+                for index in first .indices.reversed() {
+                    pull(first [index]) // loop: index >= element
+                }
+                
+                for index in prefix.indices.reversed() {
+                    pull(prefix[index]) // loop: index >= element
+                }
                 //=------------------------------=
                 assert(position == utf8.baseAddress!)
                 return count as Int
@@ -121,7 +130,9 @@ extension NBK {
     ///
     /// In this context, a chunk is a digit in the base of the given radix's power.
     ///
-    /// - Note: `@inlinable` is not needed.
+    /// ### Development
+    ///
+    /// - `@inlinable` is not needed.
     ///
     public static func withUnsafeTemporaryIntegerTextUnchecked<T>(
     chunk: UInt, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, body:(UnsafeUTF8) -> T) -> T {
@@ -132,19 +143,30 @@ extension NBK {
             var position = end as UnsafeMutablePointer<UInt8>
             //=----------------------------------=
             // pointee: initialization
+            // dynamic: unswitch perf.
             //=----------------------------------=
-            let divisor = radix.divisor()
-            backwards: repeat {
-                let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
-                position = position.predecessor()
-                position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
-            }   while !chunk.isZero
+            if  radix.power.isZero {
+                let divisor = PerfectRadixSolution(radix)!.divisor()
+                backwards: repeat {
+                    let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
+                    position = position.predecessor()
+                    position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+                }   while !chunk.isZero
+                
+            }   else {
+                let divisor = ImperfectRadixSolution(radix)!.divisor()
+                backwards: repeat {
+                    let digit: UInt; (chunk, digit) = divisor.dividing(chunk)
+                    position = position.predecessor()
+                    position.initialize(to: alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
+                }   while !chunk.isZero
+            }
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             let count: Int = position.distance(to: end)
             defer{ position.deinitialize(count:  count) }
-            return body(NBK.UnsafeUTF8(start: position, count: count))
+            return body(UnsafeUTF8(start: position, count: count))
         }
     }
 }

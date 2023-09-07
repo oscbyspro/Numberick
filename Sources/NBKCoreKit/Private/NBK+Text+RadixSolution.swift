@@ -42,7 +42,7 @@ extension NBK {
 /// - The `exponent` is `>= 1` and `<= Element.bitWidth`
 /// - A power of `Element.max + 1` is represented by `0`
 ///
-public protocol _NBKRadixSolution {
+public protocol _NBKRadixSolution<Size> {
     
     typealias Element = Size.Magnitude
     
@@ -53,12 +53,14 @@ public protocol _NBKRadixSolution {
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
-        
+    
     @inlinable var base: Element { get }
     
     @inlinable var exponent: Element { get }
     
     @inlinable var power: Element { get }
+    
+    @inlinable var solution: NBK.AnyRadixSolution<Size> { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -85,14 +87,6 @@ extension NBK.RadixSolution {
     @inlinable public var exponent: Size {
         assert((self.exponent as Element) <= Element.bitWidth)
         return Size(bitPattern: self.exponent)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
-        self.divisor().dividing(dividend)
     }
 }
 
@@ -126,7 +120,7 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline let solution: NBK.AnyRadixSolution<Size>
+    public let solution: NBK.AnyRadixSolution<Size>
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -134,8 +128,7 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     
     @inlinable public init?(_ solution: NBK.AnyRadixSolution<Size>) {
         guard  solution.power.isZero else { return nil }
-        assert(solution.power.isZero)
-        assert([2, 4, 16].contains(solution.base))
+        Swift.assert([2, 4, 16].contains(solution.base))
         self.solution = solution
     }
     
@@ -206,16 +199,15 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline let solution: NBK.AnyRadixSolution<Size>
+    public let solution: NBK.AnyRadixSolution<Size>
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ solution: NBK.AnyRadixSolution<Size>) {
-        guard  !solution.power.isZero else { return nil }
-        assert(!solution.power.isZero)
-        assert(![2, 4, 16].contains(solution.base))
+        guard !solution.power.isZero else { return nil }
+        Swift.assert(![2, 4, 16].contains(solution.base))
         self.solution = solution
     }
     
@@ -311,17 +303,19 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         // all core integers can represent the range 2 ... 36
         
         switch radix.isPowerOf2 {
-        case  true: (self.exponent, self.power) = Self.valueAssumingRadixIsPowerOf2(self.base)
-        case false: (self.exponent, self.power) = Self.valueAssumingRadixIsNotPowerOf2(self.base) }
+        case  true: (self.exponent, self.power) = Self.valueAssumingRadixIsAnyPowerOf2From2(self.base)
+        case false: (self.exponent, self.power) = Self.valueAssumingRadixIsNonPowerOf2From2(self.base) }
     }
     
-    @inlinable public init(_ radix: NBK.PerfectRadixSolution<Size>) {
-        self = radix.solution
+    @inlinable public init(_ other: some NBK.RadixSolution<Size>) {
+        self = other.solution
     }
     
-    @inlinable public init(_ radix: NBK.ImperfectRadixSolution<Size>) {
-        self = radix.solution
-    }
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var solution: NBK.AnyRadixSolution<Size> { self }
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -348,14 +342,14 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(_ solution: _NBKAnyRadixSolution<Size>) {
+        @inlinable init(_ solution: NBK.AnyRadixSolution<Size>) {
             assert(solution.base >= 2)
             if  solution.power.isZero {
                 self.baseOrQuotientShift = NBK.initOrBitCast(truncating: solution.base.trailingZeroBitCount)
-                self.zeroOrRemainderMask = solution.base &+ Element.max // &- 1
+                self.zeroOrRemainderMask = solution.base &+  Element.max // &- 1
             }   else {
                 self.baseOrQuotientShift = solution.base
-                self.zeroOrRemainderMask = 00000 as Element
+                self.zeroOrRemainderMask = 00 as Element
             }
         }
         
@@ -365,8 +359,8 @@ public protocol _NBKRadixSolutionDivisor<Size> where Size: NBKCoreInteger & NBKS
         
         @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
             switch self.zeroOrRemainderMask.isZero {
-            case  true: return QR(dividend.quotientAndRemainder(dividingBy:    self.baseOrQuotientShift) )
-            case false: return QR(dividend &>> baseOrQuotientShift, dividend & self.zeroOrRemainderMask) }
+            case  true: return QR(dividend.quotientAndRemainder(dividingBy:         self.baseOrQuotientShift) )
+            case false: return QR(dividend &>> self.baseOrQuotientShift, dividend & self.zeroOrRemainderMask) }
         }
     }
 }
@@ -382,7 +376,7 @@ extension _NBKAnyRadixSolution {
     //=------------------------------------------------------------------------=
     
     /// Returns the largest exponent in `pow(radix, exponent) <= Element.max + 1`.
-    @inlinable static func valueAssumingRadixIsPowerOf2(_ radix: Element) -> Value {
+    @inlinable static func valueAssumingRadixIsAnyPowerOf2From2(_ radix: Element) -> Value {
         assert(radix >= 2)
         assert(radix.isPowerOf2)
         //=--------------------------------------=
@@ -406,17 +400,17 @@ extension _NBKAnyRadixSolution {
     }
     
     /// Returns the largest exponent in `pow(radix, exponent) <= Element.max + 1`.
-    @inlinable static func valueAssumingRadixIsNotPowerOf2(_ radix: Element) -> Value {
+    @inlinable static func valueAssumingRadixIsNonPowerOf2From2(_ radix: Element) -> Value {
         assert(radix >= 2)
         assert(radix.isPowerOf2 == false)
         //=--------------------------------------=
         // radix: 003, 005, 006, 007, ...
         //=--------------------------------------=
-        let capacity: Int = Element.bitWidth.trailingZeroBitCount - 1
+        let capacity = Element.bitWidth.trailingZeroBitCount - 1
         return Swift.withUnsafeTemporaryAllocation(of: Value.self, capacity: capacity) { squares in
             let start = squares.baseAddress!
             var position = start as UnsafeMutablePointer<Value>
-            var value = Value(exponent: 1, power: radix)
+            var value = Value(1  as Element, radix)
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
@@ -432,9 +426,9 @@ extension _NBKAnyRadixSolution {
             //=----------------------------------=
             // pointee: deinitialization by move
             //=----------------------------------=
-            assert(position <= start.advanced(by: squares.count))
-            loop: while position > start {
-                position = position.predecessor()
+            Swift.assert(position <= start.advanced(by: squares.count))
+            loop: while  position >  start {
+                position =  position.predecessor()
                 let square  = position.move()
                 let product = value.power.multipliedReportingOverflow(by: square.power)
                 if  product.overflow { continue loop }

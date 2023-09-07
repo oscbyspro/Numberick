@@ -226,7 +226,6 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
 //=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
-
 extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }
 
 //*============================================================================*
