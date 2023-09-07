@@ -393,7 +393,7 @@ extension _NBKAnyRadixSolution {
         //=--------------------------------------=
         }   else {
             value.exponent = NBK.initOrBitCast(truncating: Element.bitWidth) / (zeros)
-            value.power = (1 as Element) &<< (zeros &* value.exponent)
+            value.power = (1 as Element) &<<  (zeros &* value.exponent)
         }
         
         return value as Value

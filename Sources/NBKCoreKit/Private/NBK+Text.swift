@@ -93,20 +93,14 @@ extension NBK {
                     pull(suffix[index]) // loop: index > element
                 }
                 //=------------------------------=
-                // dynamic: unswitch perf.
+                // dynamic: loop unswitching perf.
                 //=------------------------------=
                 if  radix.power.isZero {
-                    NBK.integerTextUncheckedForEachCodeBlock(
-                    remainders: remainders,
-                    radix: PerfectRadixSolution(radix)!,
-                    alphabet: alphabet,
-                    perform:  pull(_:))
+                    NBK.integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+                    body: remainders, radix:   PerfectRadixSolution(radix)!, alphabet: alphabet, perform: pull)
                 }   else {
-                    NBK.integerTextUncheckedForEachCodeBlock(
-                    remainders: remainders,
-                    radix: ImperfectRadixSolution(radix)!,
-                    alphabet: alphabet,
-                    perform:  pull(_:))
+                    NBK.integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+                    body: remainders, radix: ImperfectRadixSolution(radix)!, alphabet: alphabet, perform: pull)
                 }
                 //=------------------------------=
                 for index in first .indices.reversed() {
@@ -145,20 +139,14 @@ extension NBK {
                 position.initialize(to:  element)
             }
             //=----------------------------------=
-            // dynamic: unswitch perf.
+            // dynamic: loop unswitching perf.
             //=----------------------------------=
             if  radix.power.isZero {
-                NBK.integerTextUncheckedForEachCodeBlock(
-                first:    chunk,
-                radix:    PerfectRadixSolution(radix)!,
-                alphabet: alphabet,
-                perform:  pull(_:))
+                NBK.integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+                tail: chunk, radix:   PerfectRadixSolution(radix)!, alphabet: alphabet, perform: pull)
             }   else {
-                NBK.integerTextUncheckedForEachCodeBlock(
-                first:    chunk,
-                radix:    ImperfectRadixSolution(radix)!,
-                alphabet: alphabet,
-                perform:  pull(_:))
+                NBK.integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+                tail: chunk, radix: ImperfectRadixSolution(radix)!, alphabet: alphabet, perform: pull)
             }
             //=----------------------------------=
             // pointee: deferred deinitialization
@@ -173,17 +161,19 @@ extension NBK {
     // MARK: Details x Encode x Code Blocks
     //=------------------------------------------------------------------------=
     
-    /// Executes the given closure on each integer text digit made from the first chunk.
+    /// Performs an action for each digit of a most-significant chunk.
+    ///
+    /// The digits appear from least significant to most and redundant zeros are excluded.
     ///
     /// ### Development
     ///
     /// The nested version performed poorly, so now it's freestanding with `@inline(always)`.
     ///
-    @inline(__always) @inlinable static func integerTextUncheckedForEachCodeBlock(
-    first: UInt, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
-        assert(radix.power.isZero || first <  radix.power, "chunks must be less than radix's power")
+    @inline(__always) @inlinable static func integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+    tail: UInt, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
+        assert(radix.power.isZero || tail <  radix.power, "chunks must be less than radix's power")
         //=--------------------------------------=
-        var chunk   = first  as UInt
+        var chunk   = tail  as UInt
         let divisor = radix.divisor()
         //=--------------------------------------=
         backwards: repeat {
@@ -192,19 +182,21 @@ extension NBK {
         }   while !chunk.isZero
     }
     
-    /// Executes the given closure on each integer text digit made from non-first chunks.
+    /// Performs an action for each digit of non-most-significant chunks.
+    ///
+    /// The digits appear from least significant to most and redundant zeros are included.
     ///
     /// ### Development
     ///
     /// The nested version performed poorly, so now it's freestanding with `@inline(always)`.
     ///
-    @inline(__always) @inlinable static func integerTextUncheckedForEachCodeBlock(
-    remainders: some Collection<UInt>, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
-        assert(radix.power.isZero || remainders.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
+    @inline(__always) @inlinable static func integerTextSubsequenceReversedForEachCodeBlockUnchecked(
+    body: some Collection<UInt>, radix: some RadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder, perform: (UInt8) -> Void) {
+        assert(radix.power.isZero || body.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
         //=--------------------------------------=
         let divisor = radix.divisor()
         //=--------------------------------------=
-        for var chunk in remainders {
+        for var chunk in body {
             for _  in 0 as UInt ..< radix.exponent {
                 let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                 perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
