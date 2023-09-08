@@ -473,10 +473,10 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Text x Simple Cases x UInt256
+// MARK: * NBK x Double Width x Text x Other Cases x UInt256
 //*============================================================================*
 
-final class NBKDoubleWidthTestsOnTextBySimpleCasesAsUInt256: XCTestCase {
+final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
     
     typealias T = UInt256
     
@@ -484,28 +484,137 @@ final class NBKDoubleWidthTestsOnTextBySimpleCasesAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDecodingAndEncodingRadix16() {
+    func testDecodingAndEncodingRadix02() {
+        var txt: (String)
+        var x64: (UInt64, UInt64, UInt64, UInt64)
         //=--------------------------------------=
+        x64.3 = 0xfffefdfcfbfaf9f8
+        x64.2 = 0xf7f6f5f4f3f2f1f0
+        x64.1 = 0xefeeedecebeae9e8
+        x64.0 = 0xe7e6e5e4e3e2e1e0
+        txt = """
+        1111111111111110111111011111110011111011111110101111100111111000\
+        1111011111110110111101011111010011110011111100101111000111110000\
+        1110111111101110111011011110110011101011111010101110100111101000\
+        1110011111100110111001011110010011100011111000101110000111100000
+        """
+                
+        NBKAssertDecodeText(T(x64: x64), 02,        txt)
+        NBKAssertEncodeText(T(x64: x64), 02, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 02, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+        //=--------------------------------------=
+        x64.3 = 0x1f1e1d1c1b1a1918
+        x64.2 = 0x1716151413121110
+        x64.1 = 0x0f0e0d0c0b0a0908
+        x64.0 = 0x0706050403020100
+        txt = """
+        0001111100011110000111010001110000011011000110100001100100011000\
+        0001011100010110000101010001010000010011000100100001000100010000\
+        0000111100001110000011010000110000001011000010100000100100001000\
+        0000011100000110000001010000010000000011000000100000000100000000
+        """
+                
+        NBKAssertDecodeText(T(x64: x64), 02,        txt)
+        NBKAssertEncodeText(T(x64: x64), 02, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 02, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+    }
+    
+    func testDecodingAndEncodingRadix08() {
+        var txt: (String)
+        var x64: (UInt64, UInt64, UInt64, UInt64)
+        //=--------------------------------------=
+        x64.3 = 0xfffefdfcfbfaf9f8
+        x64.2 = 0xf7f6f5f4f3f2f1f0
+        x64.1 = 0xefeeedecebeae9e8
+        x64.0 = 0xe7e6e5e4e3e2e1e0
+        txt = "17777677376373765747707577336575171762743703577356675472765351721637467136234370560740"
+        
+        NBKAssertDecodeText(T(x64: x64), 08,        txt)
+        NBKAssertEncodeText(T(x64: x64), 08, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 08, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+        //=-----------------------s---------------=
+        x64.3 = 0x1f1e1d1c1b1a1918
+        x64.2 = 0x1716151413121110
+        x64.1 = 0x0f0e0d0c0b0a0908
+        x64.0 = 0x0706050403020100
+        txt = "01743607216033064144300561302505011422042100170340641402605011020034060120200300400400"
+        
+        NBKAssertDecodeText(T(x64: x64), 08,        txt)
+        NBKAssertEncodeText(T(x64: x64), 08, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 08, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+    }
+    
+    func testDecodingAndEncodingRadix10() {
+        var txt: (String)
+        var x64: (UInt64, UInt64, UInt64, UInt64)
+        //=--------------------------------------=
+        x64.3 = 0xfffefdfcfbfaf9f8
+        x64.2 = 0xf7f6f5f4f3f2f1f0
+        x64.1 = 0xefeeedecebeae9e8
+        x64.0 = 0xe7e6e5e4e3e2e1e0
+        txt = "115790308505455567723526024286119531261069242336003260839703036409543150199264"
+        
+        NBKAssertDecodeText(T(x64: x64), 10,        txt)
+        NBKAssertEncodeText(T(x64: x64), 10, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 10, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+        //=--------------------------------------=
+        x64.3 = 0x1f1e1d1c1b1a1918
+        x64.2 = 0x1716151413121110
+        x64.1 = 0x0f0e0d0c0b0a0908
+        x64.0 = 0x0706050403020100
+        txt = "014074904626401341155369551180448584754667373453244490859944217516317499064576"
+        
+        NBKAssertDecodeText(T(x64: x64), 10,        txt)
+        NBKAssertEncodeText(T(x64: x64), 10, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 10, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+    }
+    
+    func testDecodingAndEncodingRadix16() {
         var x64: (UInt64, UInt64, UInt64, UInt64)
         var y64: (String, String, String, String)
         //=--------------------------------------=
-        x64.3 = 0x3130292827262524; y64.3 = "3130292827262524"
-        x64.2 = 0x2322212019181716; y64.2 = "2322212019181716"
-        x64.1 = 0x1514131211100908; y64.1 = "1514131211100908"
+        x64.3 = 0xfffefdfcfbfaf9f8; y64.3 = "fffefdfcfbfaf9f8"
+        x64.2 = 0xf7f6f5f4f3f2f1f0; y64.2 = "f7f6f5f4f3f2f1f0"
+        x64.1 = 0xefeeedecebeae9e8; y64.1 = "efeeedecebeae9e8"
+        x64.0 = 0xe7e6e5e4e3e2e1e0; y64.0 = "e7e6e5e4e3e2e1e0"
+        
+        NBKAssertDecodeText(T(x64: x64), 16,        "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
+        NBKAssertEncodeText(T(x64: x64), 16, true,  "\(y64.3)\(y64.2)\(y64.1)\(y64.0)".uppercased())
+        NBKAssertEncodeText(T(x64: x64), 16, false, "\(y64.3)\(y64.2)\(y64.1)\(y64.0)".lowercased())
+        //=--------------------------------------=
+        x64.3 = 0x1f1e1d1c1b1a1918; y64.3 = "1f1e1d1c1b1a1918"
+        x64.2 = 0x1716151413121110; y64.2 = "1716151413121110"
+        x64.1 = 0x0f0e0d0c0b0a0908; y64.1 = "0f0e0d0c0b0a0908"
         x64.0 = 0x0706050403020100; y64.0 = "0706050403020100"
         
         NBKAssertDecodeText(T(x64: x64), 16,        "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
-        NBKAssertEncodeText(T(x64: x64), 16, true,  "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
-        NBKAssertEncodeText(T(x64: x64), 16, false, "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
+        NBKAssertEncodeText(T(x64: x64), 16, true,  "\(y64.3)\(y64.2)\(y64.1)\(y64.0)".uppercased())
+        NBKAssertEncodeText(T(x64: x64), 16, false, "\(y64.3)\(y64.2)\(y64.1)\(y64.0)".lowercased())
+    }
+    
+    func testDecodingAndEncodingRadix36() {
+        var txt: (String)
+        var x64: (UInt64, UInt64, UInt64, UInt64)
         //=--------------------------------------=
-        x64.3 = 0x0001020304050607; y64.3 =    "1020304050607"
-        x64.2 = 0x0809101112131415; y64.2 = "0809101112131415"
-        x64.1 = 0x1617181920212223; y64.1 = "1617181920212223"
-        x64.0 = 0x2425262728293031; y64.0 = "2425262728293031"
+        x64.3 = 0xfffefdfcfbfaf9f8
+        x64.2 = 0xf7f6f5f4f3f2f1f0
+        x64.1 = 0xefeeedecebeae9e8
+        x64.0 = 0xe7e6e5e4e3e2e1e0
+        txt = "6dp15j43ld5l8i7wvimlj7kxgbfxkxkgmo66lge382296ouqjk"
         
-        NBKAssertDecodeText(T(x64: x64), 16,        "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
-        NBKAssertEncodeText(T(x64: x64), 16, true,  "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
-        NBKAssertEncodeText(T(x64: x64), 16, false, "\(y64.3)\(y64.2)\(y64.1)\(y64.0)")
+        NBKAssertDecodeText(T(x64: x64), 36,        txt)
+        NBKAssertEncodeText(T(x64: x64), 36, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 36, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
+        //=--------------------------------------=
+        x64.3 = 0x1f1e1d1c1b1a1918
+        x64.2 = 0x1716151413121110
+        x64.1 = 0x0f0e0d0c0b0a0908
+        x64.0 = 0x0706050403020100
+        txt = "0rx55jlhq7obx1pvd9861yo6c11bed0cd8s8wz2hpvczt00c1s"
+        
+        NBKAssertDecodeText(T(x64: x64), 36,        txt)
+        NBKAssertEncodeText(T(x64: x64), 36, true,  String(txt.drop(while:{ $0 == "0" })).uppercased())
+        NBKAssertEncodeText(T(x64: x64), 36, false, String(txt.drop(while:{ $0 == "0" })).lowercased())
     }
 }
 
