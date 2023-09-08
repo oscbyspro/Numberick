@@ -473,10 +473,10 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Text x Other Cases x UInt256
+// MARK: * NBK x Double Width x Text x For Each Radix x UInt256
 //*============================================================================*
 
-final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
+final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
     
     typealias T = UInt256
     
@@ -503,9 +503,12 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
     
     override func tearDown() {
         let decoded = T(x64: self.x64)
-        var encoded = String(self.txt.drop(while:{ $0 == "0" }))
-        if  encoded.isEmpty { encoded += "0" }
+        var encoded = String(self.txt.drop{  $0 == "0"  })
+        if  encoded.isEmpty {
+            encoded.append(contentsOf: self.txt.suffix(1))
+        }
         
+        NBKAssertDecodeText(decoded, self.radix,            txt)
         NBKAssertDecodeText(decoded, self.radix,        encoded)
         NBKAssertEncodeText(decoded, self.radix, true,  encoded.uppercased())
         NBKAssertEncodeText(decoded, self.radix, false, encoded.lowercased())
@@ -515,7 +518,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testRadix02TopToBottom() {
+    func testRadix02Top() {
         self.radix = 02
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -529,7 +532,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix02BottomToTop() {
+    func testRadix02Bottom() {
         self.radix = 02
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -543,9 +546,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 03 =--------------------------------------------------------------=
+    //=----( 03 )--------------------------------------------------------------=
     
-    func testRadix03TopToBottom() {
+    func testRadix03Top() {
         self.radix = 03
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -558,7 +561,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix03BottomToTop() {
+    func testRadix03Bottom() {
         self.radix = 03
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -571,9 +574,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 04 =--------------------------------------------------------------=
+    //=----( 04 )--------------------------------------------------------------=
     
-    func testRadix04TopToBottom() {
+    func testRadix04Top() {
         self.radix = 04
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -585,7 +588,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix04BottomToTop() {
+    func testRadix04Bottom() {
         self.radix = 04
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -597,9 +600,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 05 =--------------------------------------------------------------=
+    //=----( 05 )--------------------------------------------------------------=
     
-    func testRadix05TopToBottom() {
+    func testRadix05Top() {
         self.radix = 05
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -611,7 +614,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix05BottomToTop() {
+    func testRadix05Bottom() {
         self.radix = 05
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -623,9 +626,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 06 =--------------------------------------------------------------=
+    //=----( 06 )--------------------------------------------------------------=
     
-    func testRadix06TopToBottom() {
+    func testRadix06Top() {
         self.radix = 06
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -637,7 +640,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix06BottomToTop() {
+    func testRadix06Bottom() {
         self.radix = 06
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -649,9 +652,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 07 =--------------------------------------------------------------=
+    //=----( 07 )--------------------------------------------------------------=
     
-    func testRadix07TopToBottom() {
+    func testRadix07Top() {
         self.radix = 07
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -663,7 +666,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix07BottomToTop() {
+    func testRadix07Bottom() {
         self.radix = 07
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -675,9 +678,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 08 =--------------------------------------------------------------=
+    //=----( 08 )--------------------------------------------------------------=
     
-    func testRadix08TopToBottom() {
+    func testRadix08Top() {
         self.radix = 08
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -689,7 +692,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix08BottomToTop() {
+    func testRadix08Bottom() {
         self.radix = 08
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -701,9 +704,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 09 =--------------------------------------------------------------=
+    //=----( 09 )--------------------------------------------------------------=
     
-    func testRadix09TopToBottom() {
+    func testRadix09Top() {
         self.radix = 09
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -715,7 +718,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix09BottomToTop() {
+    func testRadix09Bottom() {
         self.radix = 09
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -727,9 +730,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 10 =--------------------------------------------------------------=
+    //=----( 10 )--------------------------------------------------------------=
     
-    func testRadix10TopToBottom() {
+    func testRadix10Top() {
         self.radix = 10
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -741,7 +744,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix10BottomToTop() {
+    func testRadix10Bottom() {
         self.radix = 10
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -753,9 +756,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 11 =--------------------------------------------------------------=
+    //=----( 11 )--------------------------------------------------------------=
     
-    func testRadix11TopToBottom() {
+    func testRadix11Top() {
         self.radix = 11
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -767,7 +770,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix11BottomToTop() {
+    func testRadix11Bottom() {
         self.radix = 11
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -779,9 +782,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 12 =--------------------------------------------------------------=
+    //=----( 12 )--------------------------------------------------------------=
     
-    func testRadix12TopToBottom() {
+    func testRadix12Top() {
         self.radix = 12
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -793,7 +796,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix12BottomToTop() {
+    func testRadix12Bottom() {
         self.radix = 12
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -805,9 +808,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 13 =--------------------------------------------------------------=
+    //=----( 13 )--------------------------------------------------------------=
     
-    func testRadix13TopToBottom() {
+    func testRadix13Top() {
         self.radix = 13
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -819,7 +822,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix13BottomToTop() {
+    func testRadix13Bottom() {
         self.radix = 13
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -831,9 +834,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 14 =--------------------------------------------------------------=
+    //=----( 14 )--------------------------------------------------------------=
     
-    func testRadix14TopToBottom() {
+    func testRadix14Top() {
         self.radix = 14
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -845,7 +848,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix14BottomToTop() {
+    func testRadix14Bottom() {
         self.radix = 14
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -857,9 +860,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 15 =--------------------------------------------------------------=
+    //=----( 15 )--------------------------------------------------------------=
     
-    func testRadix15TopToBottom() {
+    func testRadix15Top() {
         self.radix = 15
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -871,7 +874,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix15BottomToTop() {
+    func testRadix15Bottom() {
         self.radix = 15
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -883,9 +886,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 16 =--------------------------------------------------------------=
+    //=----( 16 )--------------------------------------------------------------=
     
-    func testRadix16TopToBottom() {
+    func testRadix16Top() {
         self.radix = 16
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -896,7 +899,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix16BottomToTop() {
+    func testRadix16Bottom() {
         self.radix = 16
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -907,9 +910,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 17 =--------------------------------------------------------------=
+    //=----( 17 )--------------------------------------------------------------=
     
-    func testRadix17TopToBottom() {
+    func testRadix17Top() {
         self.radix = 17
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -920,7 +923,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix17BottomToTop() {
+    func testRadix17Bottom() {
         self.radix = 17
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -931,9 +934,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 18 =--------------------------------------------------------------=
+    //=----( 18 )--------------------------------------------------------------=
     
-    func testRadix18TopToBottom() {
+    func testRadix18Top() {
         self.radix = 18
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -944,7 +947,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix18BottomToTop() {
+    func testRadix18Bottom() {
         self.radix = 18
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -955,9 +958,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 19 =--------------------------------------------------------------=
+    //=----( 19 )--------------------------------------------------------------=
     
-    func testRadix19TopToBottom() {
+    func testRadix19Top() {
         self.radix = 19
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -968,7 +971,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix19BottomToTop() {
+    func testRadix19Bottom() {
         self.radix = 19
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -979,9 +982,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 20 =--------------------------------------------------------------=
+    //=----( 20 )--------------------------------------------------------------=
     
-    func testRadix20TopToBottom() {
+    func testRadix20Top() {
         self.radix = 20
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -992,7 +995,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix20BottomToTop() {
+    func testRadix20Bottom() {
         self.radix = 20
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1003,9 +1006,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 21 =--------------------------------------------------------------=
+    //=----( 21 )--------------------------------------------------------------=
     
-    func testRadix21TopToBottom() {
+    func testRadix21Top() {
         self.radix = 21
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1016,7 +1019,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix21BottomToTop() {
+    func testRadix21Bottom() {
         self.radix = 21
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1027,9 +1030,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 22 =--------------------------------------------------------------=
+    //=----( 22 )--------------------------------------------------------------=
     
-    func testRadix22TopToBottom() {
+    func testRadix22Top() {
         self.radix = 22
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1040,7 +1043,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix22BottomToTop() {
+    func testRadix22Bottom() {
         self.radix = 22
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1051,9 +1054,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 23 =--------------------------------------------------------------=
+    //=----( 23 )--------------------------------------------------------------=
     
-    func testRadix23TopToBottom() {
+    func testRadix23Top() {
         self.radix = 23
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1064,7 +1067,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix23BottomToTop() {
+    func testRadix23Bottom() {
         self.radix = 23
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1075,9 +1078,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 24 =--------------------------------------------------------------=
+    //=----( 24 )--------------------------------------------------------------=
     
-    func testRadix24TopToBottom() {
+    func testRadix24Top() {
         self.radix = 24
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1088,7 +1091,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix24BottomToTop() {
+    func testRadix24Bottom() {
         self.radix = 24
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1099,9 +1102,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 25 =--------------------------------------------------------------=
+    //=----( 25 )--------------------------------------------------------------=
     
-    func testRadix25TopToBottom() {
+    func testRadix25Top() {
         self.radix = 25
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1112,7 +1115,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix25BottomToTop() {
+    func testRadix25Bottom() {
         self.radix = 25
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1123,9 +1126,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 26 =--------------------------------------------------------------=
+    //=----( 26 )--------------------------------------------------------------=
     
-    func testRadix26TopToBottom() {
+    func testRadix26Top() {
         self.radix = 26
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1136,7 +1139,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix26BottomToTop() {
+    func testRadix26Bottom() {
         self.radix = 26
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1147,9 +1150,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 27 =--------------------------------------------------------------=
+    //=----( 27 )--------------------------------------------------------------=
     
-    func testRadix27TopToBottom() {
+    func testRadix27Top() {
         self.radix = 27
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1160,7 +1163,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix27BottomToTop() {
+    func testRadix27Bottom() {
         self.radix = 27
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1171,9 +1174,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 28 =--------------------------------------------------------------=
+    //=----( 28 )--------------------------------------------------------------=
     
-    func testRadix28TopToBottom() {
+    func testRadix28Top() {
         self.radix = 28
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1184,7 +1187,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix28BottomToTop() {
+    func testRadix28Bottom() {
         self.radix = 28
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1195,9 +1198,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 29 =--------------------------------------------------------------=
+    //=----( 29 )--------------------------------------------------------------=
     
-    func testRadix29TopToBottom() {
+    func testRadix29Top() {
         self.radix = 29
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1208,7 +1211,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix29BottomToTop() {
+    func testRadix29Bottom() {
         self.radix = 29
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1219,9 +1222,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 30 =--------------------------------------------------------------=
+    //=----( 30 )--------------------------------------------------------------=
     
-    func testRadix30TopToBottom() {
+    func testRadix30Top() {
         self.radix = 30
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1232,7 +1235,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix30BottomToTop() {
+    func testRadix30Bottom() {
         self.radix = 30
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1243,9 +1246,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 31 =--------------------------------------------------------------=
+    //=----( 31 )--------------------------------------------------------------=
     
-    func testRadix31TopToBottom() {
+    func testRadix31Top() {
         self.radix = 31
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1256,7 +1259,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix31BottomToTop() {
+    func testRadix31Bottom() {
         self.radix = 31
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1267,9 +1270,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 32 =--------------------------------------------------------------=
+    //=----( 32 )--------------------------------------------------------------=
     
-    func testRadix32TopToBottom() {
+    func testRadix32Top() {
         self.radix = 32
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1280,7 +1283,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix32BottomToTop() {
+    func testRadix32Bottom() {
         self.radix = 32
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1291,9 +1294,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 33 =--------------------------------------------------------------=
+    //=----( 33 )--------------------------------------------------------------=
     
-    func testRadix33TopToBottom() {
+    func testRadix33Top() {
         self.radix = 33
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1304,7 +1307,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix33BottomToTop() {
+    func testRadix33Bottom() {
         self.radix = 33
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1315,9 +1318,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 34 =--------------------------------------------------------------=
+    //=----( 34 )--------------------------------------------------------------=
     
-    func testRadix34TopToBottom() {
+    func testRadix34Top() {
         self.radix = 34
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1328,7 +1331,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix34BottomToTop() {
+    func testRadix34Bottom() {
         self.radix = 34
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1339,9 +1342,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 35 =--------------------------------------------------------------=
+    //=----( 35 )--------------------------------------------------------------=
     
-    func testRadix35TopToBottom() {
+    func testRadix35Top() {
         self.radix = 35
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1352,7 +1355,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix35BottomToTop() {
+    func testRadix35Bottom() {
         self.radix = 35
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
@@ -1363,9 +1366,9 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    //=----= 36 =--------------------------------------------------------------=
+    //=----( 36 )--------------------------------------------------------------=
     
-    func testRadix36TopToBottom() {
+    func testRadix36Top() {
         self.radix = 36
         self.x64.3 = 0xfffefdfcfbfaf9f8
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
@@ -1376,7 +1379,7 @@ final class NBKDoubleWidthTestsOnTextByOtherCasesAsUInt256: XCTestCase {
         """
     }
     
-    func testRadix36BottomToTop() {
+    func testRadix36Bottom() {
         self.radix = 36
         self.x64.3 = 0x1f1e1d1c1b1a1918
         self.x64.2 = 0x1716151413121110
