@@ -271,7 +271,8 @@ extension NBK {
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @_transparent @discardableResult public static func decrementSufficientUnsignedInteger<T>(
-    _  pointee: inout T, by limbs: T, times multiplicand: T.Element, plus subtrahend: T.Element, plus bit: Bool, at index: T.Index) -> IO<T.Index>
+    _  pointee: inout T, by limbs: T, times multiplicand: T.Element,
+    plus subtrahend: T.Element, plus bit: Bool, at index: T.Index) -> IO<T.Index>
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var index: T.Index = index, bit: Bool = bit
         NBK.decrementSufficientUnsignedInteger(&pointee, by: limbs, times: multiplicand, plus: subtrahend, plus: &bit, at: &index)
@@ -288,7 +289,8 @@ extension NBK {
     /// - Returns: An overflow indicator and its index in `pointee`.
     ///
     @inlinable public static func decrementSufficientUnsignedInteger<T>(
-    _  pointee: inout T, by limbs: T, times multiplicand: T.Element, plus subtrahend: T.Element, plus bit: inout Bool, at index: inout T.Index)
+    _  pointee: inout T, by limbs: T, times multiplicand: T.Element,
+    plus subtrahend: T.Element, plus bit: inout Bool, at index: inout T.Index)
     where T: MutableCollection, T.Element: NBKFixedWidthInteger & NBKUnsignedInteger {
         var last: T.Element = subtrahend
         

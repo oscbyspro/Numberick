@@ -130,8 +130,8 @@
     /// Returns the base collection's corresponding subscript index.
     ///
     /// ```
-    /// front-to-back: base.index(base.startIndex, offsetBy:  index +  0)
-    /// back-to-front: base.index(base.endIndex,   offsetBy: -index + -1)
+    /// front-to-back: base.index(base.startIndex, offsetBy:  index)
+    /// back-to-front: base.index(base.endIndex,   offsetBy: ~index)
     /// ```
     ///
     /// - Parameter index: `self.startIndex <= index < self.endIndex`
@@ -259,7 +259,7 @@ extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Sub Sequence
+// MARK: + where Base is Unsafe Buffer Pointer
 //=----------------------------------------------------------------------------=
 
 extension NBKTwinHeaded {
@@ -274,6 +274,17 @@ extension NBKTwinHeaded {
         let base = Base(rebasing: subsequence.base.base[subsequence.base.baseIndices(subindices)])
         self.init(base, reversed: subsequence.base.isBackToFront)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Mutable Buffer Pointer
+//=----------------------------------------------------------------------------=
+
+extension NBKTwinHeaded {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
     
     /// Creates a collection with the same data and direction as the given subsequence.
     @inlinable public init<T>(rebasing subsequence: SubSequence) where Base == UnsafeMutableBufferPointer<T> {
