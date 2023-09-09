@@ -19,7 +19,7 @@
 /// can express the difference, but dynamic solutions are often viable. This type
 /// encurages the latter.
 ///
-@frozen public enum NBKEndianness: Hashable {
+@frozen public enum NBKEndianness: Hashable, Sendable {
     
     //=------------------------------------------------------------------------=
     // MARK: State
