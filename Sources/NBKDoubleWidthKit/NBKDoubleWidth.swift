@@ -81,7 +81,13 @@ import NBKCoreKit
 ///
 /// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 ///
-@frozen public struct NBKDoubleWidth<High>:
+/// ### ⭐️ Feature: StaticBigInt
+///
+/// `StaticBigInt` is disabled by default. You enable it in `Package.swift`.
+///
+/// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
+///
+@frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
@@ -215,9 +221,9 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Double Width x Conditional Conformances
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Conditional Conformances
+//=----------------------------------------------------------------------------=
 
 extension NBKDoubleWidth:   NBKSignedInteger,   SignedInteger, SignedNumeric where High:   NBKSignedInteger { }
 extension NBKDoubleWidth: NBKUnsignedInteger, UnsignedInteger  /*---------*/ where High: NBKUnsignedInteger { }

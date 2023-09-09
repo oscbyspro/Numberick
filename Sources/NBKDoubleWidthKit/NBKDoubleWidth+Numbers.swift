@@ -46,37 +46,10 @@ extension NBKDoubleWidth {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = value
-    }
-    
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        guard Self.isSigned
-        ? source.bitWidth <= Self.bitWidth
-        : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
-        else { return nil }
-        
-        self = Self.uninitialized { value in
-            for index in value.indices {
-                value[unchecked: index] = source[index]
-            }
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
     @inlinable public init(_ source: some BinaryInteger) {
-        guard let result = Self(exactly: source) else {
+        if  let value = Self(exactly: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
@@ -100,9 +73,12 @@ extension NBKDoubleWidth {
         let isLessThanZero: Bool = T.isSigned && words.last?.mostSignificantBit == true
         let sign = UInt(repeating: isLessThanZero)
         //=--------------------------------------=
-        let value = Self.uninitialized  { value in
-            for index in value.indices  {
-                value[unchecked: index] = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
+        let value = Self.uninitialized(as: UInt.self) {
+            let value =  NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let start =  value.base.baseAddress!
+            for index in value.indices {
+                let word = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
+                start.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
             }
         }
         //=--------------------------------------=

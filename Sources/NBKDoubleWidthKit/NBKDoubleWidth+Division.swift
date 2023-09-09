@@ -142,7 +142,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         let comparison: Int = rhs.compared(to: lhs)
         if  comparison >= 0 {
-            return comparison.isZero ? QR(1, Self.zero) : QR(Self.zero, lhs)
+            return comparison.isZero ? QR(1, 0) : QR(0, lhs)
         }
         //=--------------------------------------=
         // division: 1111

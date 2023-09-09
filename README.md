@@ -2,9 +2,9 @@
 
 ✨ An arithmagick overhaul in Swift.
 
-| Package | Swift | iOS  | iPadOS | Mac Catalyst | macOS | tvOS | watchOS |
-|:-------:|:-----:|:----:|:------:|:------------:|:-----:|:----:|:-------:|
-| 0.8.0   | 5.8   | 16.4 | 16.4   | 16.4         | 13.3  | 16.4 | 9.4     |
+| Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
+|:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
+| 0.11.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
@@ -16,8 +16,14 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
-- [NBKSignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
-- [NBKUnsignedInteger](Sources/NBKCoreKit/NBKBinaryInteger.swift)
+- [NBKSignedInteger](Sources/NBKCoreKit/NBKSignedInteger.swift)
+- [NBKUnsignedInteger](Sources/NBKCoreKit/NBKUnsignedInteger.swift)
+
+### Models
+
+- [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
+- [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
+- [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
@@ -89,6 +95,12 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
+### ⭐️ Feature: Swift.StaticBigInt
+
+`StaticBigInt` is disabled by default. You enable it in `Package.swift`.
+
+> **Note**: You can use `StaticString` until `StaticBigInt` becomes available.
+
 ## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
@@ -123,7 +135,7 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 [FLX/B]: Tests/NBKFlexibleWidthKitBenchmarks
 [RES/B]: Tests/NBKResizableWidthKitBenchmarks
 
-<!-- Links x Acknowledgements -->
+<!-- Links x Miscellaneous -->
 
 [Apple/Int128]: https://github.com/apple/swift/blob/main/stdlib/public/core/Int128.swift.gyb
 [Apple/DoubleWidth]: https://github.com/apple/swift/blob/main/test/Prototypes/DoubleWidth.swift.gyb

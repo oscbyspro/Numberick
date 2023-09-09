@@ -17,43 +17,13 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs
+// MARK: * NBK x Limbs x Succinct
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbs: XCTestCase {
+final class NBKBenchmarksOnLimbsBySuccinct: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
-    //=------------------------------------------------------------------------=
-    
-    func testUInt64AsUInt32() {
-        var abc = NBK.blackHoleIdentity([ 1,  2,  3,  4] as X)
-        var xyz = NBK.blackHoleIdentity([~1, ~2, ~3, ~4] as X)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(NBK.limbs(abc, as: Y.self))
-            NBK.blackHole(NBK.limbs(xyz, as: Y.self))
-            
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    func testUInt32AsUInt64() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as Y)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as Y)
-        
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(NBK.limbs(abc, as: X.self))
-            NBK.blackHole(NBK.limbs(xyz, as: X.self))
-            
-            NBK.blackHoleInoutIdentity(&abc)
-            NBK.blackHoleInoutIdentity(&xyz)
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Succinct
     //=------------------------------------------------------------------------=
     
     func testMakeSuccinctSignedInteger() {

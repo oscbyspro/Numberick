@@ -23,7 +23,7 @@ private typealias Y = [UInt32]
 final class NBKTestsOnLimbsByComparisons: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Binary Integer Limbs
+    // MARK: Tests x Binary Integer
     //=------------------------------------------------------------------------=
     
     func testCompareStrictSignedInteger() {
@@ -182,7 +182,7 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(NBK.compareStrictSignedInteger(lhs, to: rhs, at: index),  signum, file: file, line: line)
     }}
     //=------------------------------------------=
-    NBKAssertCompareStrictSignedInteger(lhs, Array(repeating: UInt.zero, count: index) + rhs, signum, file: file, line: line)
+    NBKAssertCompareStrictSignedInteger(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
 }
 
 private func NBKAssertCompareLenientUnsignedInteger(
@@ -204,7 +204,7 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
     //=------------------------------------------=
-    NBKAssertCompareLenientUnsignedInteger(lhs, Array(repeating: UInt.zero, count: index) + rhs, signum, file: file, line: line)
+    NBKAssertCompareLenientUnsignedInteger(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
 }
 
 #endif

@@ -10,7 +10,7 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKFlexibleWidthKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -280,21 +280,6 @@ final class NBKFlexibleWidthTestsOnNumbersAsIntXL: XCTestCase {
         NBKAssertIdentical(T(sign: .plus,  magnitude: M( )),  T(  ))
         NBKAssertIdentical(T(sign: .minus, magnitude: M( )), -T(  ))
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Literal
-    //=------------------------------------------------------------------------=
-    
-    func testFromLiteral() {
-        XCTAssertEqual(T(x64:[ 0,  0,  0,  0] as X),  0x0000000000000000000000000000000000000000000000000000000000000000)
-        XCTAssertEqual(T(x64:[~0,  0,  0,  0] as X),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0,  0,  0] as X),  0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0, ~0,  0] as X),  0x0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0, ~0, ~0] as X), -0x0000000000000000000000000000000000000000000000000000000000000001)
-        XCTAssertEqual(T(x64:[ 0, ~0, ~0, ~0] as X), -0x0000000000000000000000000000000000000000000000010000000000000000)
-        XCTAssertEqual(T(x64:[ 0,  0, ~0, ~0] as X), -0x0000000000000000000000000000000100000000000000000000000000000000)
-        XCTAssertEqual(T(x64:[ 0,  0,  0, ~0] as X), -0x0000000000000001000000000000000000000000000000000000000000000000)
-    }
 }
 
 //*============================================================================*
@@ -541,23 +526,6 @@ final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
     func testsFromSignAndMagnitudeAsPlusMinusZero() {
         XCTAssertEqual(T(sign: .plus,  magnitude: M(  )), T(  ))
         XCTAssertEqual(T(sign: .minus, magnitude: M(  )), T(  ))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Literal
-    //=------------------------------------------------------------------------=
-    
-    func testFromLiteral() {
-        XCTAssertEqual(T(x64:[ 0,  0,  0,  0] as X),  0x0000000000000000000000000000000000000000000000000000000000000000)
-        XCTAssertEqual(T(x64:[~0,  0,  0,  0] as X),  0x000000000000000000000000000000000000000000000000ffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0,  0,  0] as X),  0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0, ~0,  0] as X),  0x0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff)
-        XCTAssertEqual(T(x64:[~0, ~0, ~0, ~0] as X),  0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
-        XCTAssertEqual(T(x64:[ 0, ~0, ~0, ~0] as X),  0xffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000)
-        XCTAssertEqual(T(x64:[ 0,  0, ~0, ~0] as X),  0xffffffffffffffffffffffffffffffff00000000000000000000000000000000)
-        XCTAssertEqual(T(x64:[ 0,  0,  0, ~0] as X),  0xffffffffffffffff000000000000000000000000000000000000000000000000)
-        
-        XCTAssertNil(T(exactlyIntegerLiteral: -1))
     }
 }
 

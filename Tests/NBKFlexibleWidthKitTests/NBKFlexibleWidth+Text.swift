@@ -38,15 +38,14 @@ final class NBKFlexibleWidthTestsOnTextAsIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitDescription() {
-        XCTAssertEqual(T(   "10"),  10)
-        XCTAssertEqual(T(  "+10"),  10)
-        XCTAssertEqual(T(  "-10"), -10)
-        XCTAssertEqual(T(  " 10"), nil)
-        
-        XCTAssertEqual(T( "0x10"), nil)
-        XCTAssertEqual(T("+0x10"), nil)
-        XCTAssertEqual(T("-0x10"), nil)
-        XCTAssertEqual(T(" 0x10"), nil)
+        NBKAssertFromDescription(T?( 10),    "10")
+        NBKAssertFromDescription(T?( 10),   "+10")
+        NBKAssertFromDescription(T?(-10),   "-10")
+        NBKAssertFromDescription(T?(nil),   " 10")
+        NBKAssertFromDescription(T?(nil),  "0x10")
+        NBKAssertFromDescription(T?(nil), "+0x10")
+        NBKAssertFromDescription(T?(nil), "-0x10")
+        NBKAssertFromDescription(T?(nil), " 0x10")
     }
     
     func testInstanceDescriptionUsesRadix10() {
@@ -275,15 +274,14 @@ final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testInitDescription() {
-        XCTAssertEqual(T(   "10"),  10)
-        XCTAssertEqual(T(  "+10"),  10)
-        XCTAssertEqual(T(  "-10"), nil)
-        XCTAssertEqual(T(  " 10"), nil)
-        
-        XCTAssertEqual(T( "0x10"), nil)
-        XCTAssertEqual(T("+0x10"), nil)
-        XCTAssertEqual(T("-0x10"), nil)
-        XCTAssertEqual(T(" 0x10"), nil)
+        NBKAssertFromDescription(T?( 10),    "10")
+        NBKAssertFromDescription(T?( 10),   "+10")
+        NBKAssertFromDescription(T?(nil),   "-10")
+        NBKAssertFromDescription(T?(nil),   " 10")
+        NBKAssertFromDescription(T?(nil),  "0x10")
+        NBKAssertFromDescription(T?(nil), "+0x10")
+        NBKAssertFromDescription(T?(nil), "-0x10")
+        NBKAssertFromDescription(T?(nil), " 0x10")
     }
     
     func testInstanceDescriptionUsesRadix10() {
@@ -479,6 +477,14 @@ final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Text x Assertions
 //*============================================================================*
+
+private func NBKAssertFromDescription<T: IntXLOrUIntXL>(
+_ integer: T?,  _ description: String,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssertEqual(T(description),            integer, file: file, line: line)
+    XCTAssertEqual(T(description, radix: 10), integer, file: file, line: line)
+}
 
 private func NBKAssertDecodeText<T: NBKBinaryInteger> (
 _ integer: T?, _ radix: Int, _ text: String,

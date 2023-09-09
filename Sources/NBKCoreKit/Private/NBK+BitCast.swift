@@ -56,7 +56,8 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Converts the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(_ source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+    @inlinable public static func initOrBitCast<T: BinaryInteger, U: BinaryInteger>(
+    _ source: T, as type: U.Type = U.self) -> U {
         if  T.self != U.self {
             return U(source)
         }   else {
@@ -65,7 +66,8 @@ extension NBK {
     }
     
     /// Validates the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(exactly source: T, as type: U.Type = U.self) -> U? where T: BinaryInteger, U: BinaryInteger {
+    @inlinable public static func initOrBitCast<T: BinaryInteger, U: BinaryInteger>(
+    exactly source: T, as type: U.Type = U.self) -> U? {
         if  T.self != U.self {
             return U(exactly: source)
         }   else {
@@ -74,7 +76,8 @@ extension NBK {
     }
     
     /// Clamps the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(clamping source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+    @inlinable public static func initOrBitCast<T: BinaryInteger, U: BinaryInteger>(
+    clamping source: T, as type: U.Type = U.self) -> U {
         if  T.self != U.self {
             return U(clamping: source)
         }   else {
@@ -83,7 +86,8 @@ extension NBK {
     }
     
     /// Truncates the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: BinaryInteger, U: BinaryInteger {
+    @inlinable public static func initOrBitCast<T: BinaryInteger, U: BinaryInteger>(
+    truncating source: T, as type: U.Type = U.self) -> U {
         if  T.self != U.self {
             return U(truncatingIfNeeded: source)
         }   else {
@@ -96,7 +100,8 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Converts the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(_ source: T, as type: U.Type = U.self) -> U where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
+    @inlinable public static func initOrBitCast<T: NBKFixedWidthInteger, U: NBKFixedWidthInteger>(
+    _ source: T, as type: U.Type = U.self) -> U {
         if  T.BitPattern.self  != U.BitPattern.self {
             return U(source)
         }   else if T.isSigned == U.isSigned || !source.mostSignificantBit {
@@ -107,7 +112,8 @@ extension NBK {
     }
     
     /// Validates the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(exactly source: T, as type: U.Type = U.self) -> U? where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
+    @inlinable public static func initOrBitCast<T: NBKFixedWidthInteger, U: NBKFixedWidthInteger>(
+    exactly source: T, as type: U.Type = U.self) -> U? {
         if  T.BitPattern.self  != U.BitPattern.self {
             return U(exactly: source)
         }   else if T.isSigned == U.isSigned || !source.mostSignificantBit {
@@ -118,7 +124,8 @@ extension NBK {
     }
     
     /// Clamps the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(clamping source: T, as type: U.Type = U.self) -> U where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
+    @inlinable public static func initOrBitCast<T: NBKFixedWidthInteger, U: NBKFixedWidthInteger>(
+    clamping source: T, as type: U.Type = U.self) -> U {
         if  T.BitPattern.self  != U.BitPattern.self {
             return U(clamping: source)
         }   else if T.isSigned == U.isSigned || !source.mostSignificantBit {
@@ -129,7 +136,8 @@ extension NBK {
     }
     
     /// Truncates the given integer by bit-casting it when possible.
-    @inlinable public static func initOrBitCast<T, U>(truncating source: T, as type: U.Type = U.self) -> U where T: NBKFixedWidthInteger, U: NBKFixedWidthInteger {
+    @inlinable public static func initOrBitCast<T: NBKFixedWidthInteger, U: NBKFixedWidthInteger>(
+    truncating source: T, as type: U.Type = U.self) -> U {
         if  T.BitPattern.self  != U.BitPattern.self {
             return U(truncatingIfNeeded: source)
         }   else {

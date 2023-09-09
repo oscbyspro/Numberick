@@ -13,7 +13,7 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width x IntXL or UIntXL
 //*============================================================================*
 
-public protocol IntXLOrUIntXL: NBKBinaryInteger where Magnitude == UIntXL {
+public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral where Magnitude == UIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Size

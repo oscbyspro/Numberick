@@ -8,23 +8,28 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Double Width x Uninitialized
+// MARK: * NBK x Endianess
 //*============================================================================*
 
-extension NBKDoubleWidth {
+extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance with access to a temporary allocation.
-    @inlinable public static func uninitialized(_ body: (inout Self) -> Void) -> Self {
-        Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
-            //=----------------------------------=
-            // de/init: pointee is trivial
-            //=----------------------------------=
-            body( &buffer.baseAddress.unsafelyUnwrapped.pointee)
-            return buffer.baseAddress.unsafelyUnwrapped.pointee
-        }
+    @_transparent public static var isBigEndian: Bool {
+        #if _endian(big)
+        return true
+        #else
+        return false
+        #endif
+    }
+    
+    @_transparent public static var isLittleEndian: Bool {
+        #if _endian(little)
+        return true
+        #else
+        return false
+        #endif
     }
 }

@@ -19,11 +19,9 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// The number of words.
+    /// The number of words that fit in this integer type.
     @inlinable public static var count: Int {
-        assert(MemoryLayout<Self>.size / MemoryLayout<UInt>.stride >= 2)
-        assert(MemoryLayout<Self>.size % MemoryLayout<UInt>.stride == 0)
-        return MemoryLayout<Self>.size / MemoryLayout<UInt>.stride
+        BitPattern.count(UInt.self)
     }
     
     //=------------------------------------------------------------------------=
@@ -31,7 +29,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public var count: Int {
-        Self.count
+        Self.count as Int
     }
     
     @inlinable public var words: Self {
@@ -50,43 +48,23 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     /// The index of the least significant word.
-    @inlinable public static var startIndex: Int {
-        0
+    @inlinable public var startIndex: Int {
+        0 as Int
     }
     
     /// The index of the most significant word.
-    @inlinable public static var lastIndex: Int {
-        self.count - 1
+    @inlinable public var lastIndex: Int {
+        self.count - 1 as Int
     }
     
     /// The index after the last valid subscript argument.
-    @inlinable public static var endIndex: Int {
+    @inlinable public var endIndex: Int {
         self.count
     }
     
     /// A collection of each valid subscript argument, in ascending order.
-    @inlinable public static var indices: Range<Int> {
-        0 ..< self.count
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var startIndex: Int {
-        Self.startIndex
-    }
-    
-    @inlinable public var lastIndex: Int {
-        Self.lastIndex
-    }
-    
-    @inlinable public var endIndex: Int {
-        Self.endIndex
-    }
-    
     @inlinable public var indices: Range<Int> {
-        Self.indices
+        0 as Int ..< self.count
     }
     
     //=------------------------------------------------------------------------=
@@ -98,19 +76,19 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func index(after index: Int) -> Int {
-        index +  1
+        index +  1 as Int
     }
     
     @inlinable public func formIndex(after index: inout Int) {
-        index += 1
+        index += 1 as Int
     }
     
     @inlinable public func index(before index: Int) -> Int {
-        index -  1
+        index -  1 as Int
     }
     
     @inlinable public func formIndex(before index: inout Int) {
-        index -= 1
+        index -= 1 as Int
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
@@ -118,14 +96,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-        let distanceLimit: Int = self.distance(from: index, to: limit)
-        
-        guard distance >= 0
-        ? distance <= distanceLimit || distanceLimit < 0
-        : distance >= distanceLimit || distanceLimit > 0
-        else { return nil }
-        
-        return self.index(index, offsetBy: distance) as Int
+        NBK.arrayIndex(index, offsetBy: distance, limitedBy: limit)
     }
 }
 
@@ -239,7 +210,7 @@ extension NBKDoubleWidth {
             yield &self[unchecked: index, as: T.self]
         }
     }
-        
+    
     /// Accesses the word at the given index, from least significant to most.
     ///
     /// - Parameter index: The machine word index.
@@ -247,41 +218,19 @@ extension NBKDoubleWidth {
     ///
     @inlinable subscript<T>(unchecked index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
         get {
-            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            return Swift.withUnsafeBytes(of: self) { data in
-                data.load(fromByteOffset: offset, as: T.self)
+            let byteOffset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
+            assert(0 <= byteOffset && byteOffset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            return Swift.withUnsafePointer(to: self) { pointer in
+                UnsafeRawPointer(pointer).load(fromByteOffset: byteOffset, as: T.self)
             }
         }
         
         set {
-            let offset = BitPattern.endiannessSensitiveByteOffset(unchecked: index)
-            Swift.withUnsafeMutableBytes(of: &self) { data in
-                data.storeBytes(of: newValue, toByteOffset: offset, as: T.self)
+            let byteOffset = BitPattern.endiannessSensitiveByteOffset(of: T.BitPattern.self, at: index)
+            assert(0 <= byteOffset && byteOffset <= MemoryLayout<Self>.size - MemoryLayout<T>.stride, NBK.callsiteOutOfBoundsInfo())
+            Swift.withUnsafeMutablePointer(to: &self) { pointer in
+                UnsafeMutableRawPointer(pointer).storeBytes(of: newValue, toByteOffset: byteOffset, as: T.self)
             }
         }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth where High == High.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    @inlinable static func endiannessSensitiveIndex(unchecked index: Int) -> Int {
-        assert(self.indices ~= index, NBK.callsiteOutOfBoundsInfo())
-        #if _endian(big)
-        return self.lastIndex - index
-        #else
-        return index
-        #endif
-    }
-    
-    @inlinable static func endiannessSensitiveByteOffset(unchecked index: Int) -> Int {
-        self.endiannessSensitiveIndex(unchecked: index) * MemoryLayout<UInt>.stride
     }
 }

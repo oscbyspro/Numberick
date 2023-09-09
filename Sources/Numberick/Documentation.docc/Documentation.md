@@ -1,10 +1,10 @@
 # ``Numberick``
 
-Large number arithmagick in Swift.
+✨ An arithmagick overhaul in Swift.
 
 ## NBKCoreKit
 
-Models, protocols, and utilities underpinning this package.
+A new protocol hierarchy that refines Swift's standard library.
 
 ### Protocols
 
@@ -14,6 +14,12 @@ Models, protocols, and utilities underpinning this package.
 - ``NBKFixedWidthInteger``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
+
+### Models
+
+- ``NBKChunkedInt``
+- ``NBKEndianness``
+- ``NBKTwinHeaded``
 
 ## NBKDoubleWidthKit
 
@@ -85,6 +91,12 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
+### ⭐️ Feature: StaticBigInt
+
+`StaticBigInt` is disabled by default. You enable it in `Package.swift`.
+
+- Note: You can use `StaticString` until `StaticBigInt` becomes available.
+
 ## Topics
 
 ### Protocols
@@ -98,8 +110,11 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 ### Models
 
+- ``NBKChunkedInt``
 - ``NBKDoubleWidth``
+- ``NBKEndianness``
 - ``NBKFlexibleWidth``
+- ``NBKTwinHeaded``
 
 ### Integers
 

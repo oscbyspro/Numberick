@@ -104,10 +104,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// ┌───────────────────────── → ────────┐
     /// │ self                     │ n.z.b.c │
     /// ├─────────── = ─────────── → ────────┤
-    /// │ Int256( 3) │ 0........11 │ 2       │
-    /// │ Int256( 2) │ 0........10 │ 1       │
-    /// │ Int256( 1) │ 0.........1 │ 1       │
-    /// │ Int256( 0) │ 0.......... │ 0       │
+    /// │ Int256( 3) │ 0........11 │ 002     │
+    /// │ Int256( 2) │ 0........10 │ 001     │
+    /// │ Int256( 1) │ 0.........1 │ 001     │
+    /// │ Int256( 0) │ 0.......... │ 000     │
     /// │ Int256(-1) │ 1.......... │ 256     │
     /// │ Int256(-2) │ 1.........0 │ 255     │
     /// │ Int256(-3) │ 1........01 │ 255     │
@@ -133,10 +133,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// │ Int256( 2) │ 0........10 │ 254     │
     /// │ Int256( 1) │ 0.........1 │ 255     │
     /// │ Int256( 0) │ 0.......... │ 256     │
-    /// │ Int256(-1) │ 1.......... │ 0       │
-    /// │ Int256(-2) │ 1.........0 │ 0       │
-    /// │ Int256(-3) │ 1........01 │ 0       │
-    /// │ Int256(-4) │ 1........00 │ 0       │
+    /// │ Int256(-1) │ 1.......... │ 000     │
+    /// │ Int256(-2) │ 1.........0 │ 000     │
+    /// │ Int256(-3) │ 1........01 │ 000     │
+    /// │ Int256(-4) │ 1........00 │ 000     │
     /// └─────────── = ─────────── → ────────┘
     /// ```
     ///
@@ -154,14 +154,14 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// ┌───────────────────────── → ────────┐
     /// │ self                     │ t.z.b.c │
     /// ├─────────── = ─────────── → ────────┤
-    /// │ Int256( 3) │ 0........11 │ 0       │
-    /// │ Int256( 2) │ 0........10 │ 1       │
-    /// │ Int256( 1) │ 0.........1 │ 0       │
+    /// │ Int256( 3) │ 0........11 │ 000     │
+    /// │ Int256( 2) │ 0........10 │ 001     │
+    /// │ Int256( 1) │ 0.........1 │ 000     │
     /// │ Int256( 0) │ 0.......... │ 256     │
-    /// │ Int256(-1) │ 1.......... │ 0       │
-    /// │ Int256(-2) │ 1.........0 │ 1       │
-    /// │ Int256(-3) │ 1........01 │ 0       │
-    /// │ Int256(-4) │ 1........00 │ 2       │
+    /// │ Int256(-1) │ 1.......... │ 000     │
+    /// │ Int256(-2) │ 1.........0 │ 001     │
+    /// │ Int256(-3) │ 1........01 │ 000     │
+    /// │ Int256(-4) │ 1........00 │ 002     │
     /// └─────────── = ─────────── → ────────┘
     /// ```
     ///
@@ -1210,9 +1210,8 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// Creates a new instance from the given `description` and `radix`.
     ///
     /// The `description` may contain a plus or minus sign (+ or -), followed by one
-    /// or more numeric digits (0-9) or letters (a-z or A-Z), according to the `radix`.
-    /// If the description uses an invalid format, or its value cannot be represented,
-    /// the result is nil.
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). If the description uses
+    /// an invalid format, or its value cannot be represented, the result is nil.
     ///
     /// ```
     /// ┌─────────────┬────── → ─────────────┐
@@ -1445,248 +1444,4 @@ extension String {
     @inlinable public init(_ source: some NBKBinaryInteger, radix: Int = 10, uppercase: Bool = false) {
         self = source.description(radix: radix, uppercase: uppercase)
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Binary Integer x Signed
-//*============================================================================*
-
-/// A signed, binary, integer.
-///
-/// ### Two's Complement
-///
-/// Like `BinaryInteger`, it has [two's complement][2s] semantics.
-///
-/// ```
-/// The two's complement representation of  0 is an infinite sequence of 0s.
-/// The two's complement representation of -1 is an infinite sequence of 1s.
-/// ```
-///
-/// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
-///
-public protocol NBKSignedInteger: NBKBinaryInteger, SignedInteger where Digit: NBKSignedInteger {
-
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the additive inverse of `number`.
-    ///
-    /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ number     │ -number    │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, a runtime error may occur.
-    ///
-    @inlinable static prefix func -(number: Self) -> Self
-    
-    /// Forms the additive inverse of `self`.
-    ///
-    /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ -self      │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, a runtime error may occur.
-    ///
-    @inlinable mutating func negate()
-    
-    /// Returns the additive inverse of `self`.
-    ///
-    /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ -self      │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, a runtime error may occur.
-    ///
-    @inlinable func negated() -> Self
-    
-    /// Forms the additive inverse of `self`, and returns an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ -self      │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @inlinable mutating func negateReportingOverflow() -> Bool
-    
-    /// Returns the additive inverse of `self`, along with an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌─────────── → ───────────┬──────────┐
-    /// │ self       │ -self      │ overflow │
-    /// ├─────────── → ───────────┼──────────┤
-    /// │ Int256( 1) │ Int256(-1) │ false    │
-    /// │ Int256( 0) │ Int256( 0) │ false    │
-    /// │ Int256(-1) │ Int256( 1) │ false    │
-    /// ├─────────── → ───────────┼──────────┤
-    /// | Int256.min | Int256.min | true     |
-    /// └─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @inlinable func negatedReportingOverflow() -> PVO<Self>
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Details
-//=----------------------------------------------------------------------------=
-
-extension NBKSignedInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static prefix func -(x: Self) -> Self {
-        x.negated()
-    }
-    
-    @inlinable public mutating func negate() {
-        let overflow: Bool = self.negateReportingOverflow()
-        precondition(!overflow, NBK.callsiteOverflowInfo())
-    }
-    
-    @inlinable public func negated() -> Self {
-        let pvo: PVO<Self> = self.negatedReportingOverflow()
-        precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
-        return pvo.partialValue as Self
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Binary Integer x Unsigned
-//*============================================================================*
-
-/// An unsigned, binary, integer.
-///
-/// ### Two's Complement
-///
-/// Like `BinaryInteger`, it has [two's complement][2s] semantics.
-///
-/// ```
-/// The two's complement representation of  0 is an infinite sequence of 0s.
-/// The two's complement representation of -1 is an infinite sequence of 1s.
-/// ```
-///
-/// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
-///
-public protocol NBKUnsignedInteger: NBKBinaryInteger, UnsignedInteger where Digit: NBKUnsignedInteger, Magnitude == Self {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the `difference` of `self` and `other`, and returns an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌────────────┬─────────── → ───────────┬──────────┐
-    /// │ self       │ other      │ difference │ overflow │
-    /// ├────────────┼─────────── → ───────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256(-3) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256( 5) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-5) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256(-3) │ false    │
-    /// │────────────┤─────────── → ───────────┤──────────┤
-    /// │ Int256.max │ Int256(-1) │ Int256.min │ true     │
-    /// │ Int256.min │ Int256( 1) │ Int256.max │ true     │
-    /// └────────────┴─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @inlinable mutating func subtractReportingOverflow(_ other: Self) -> Bool
-    
-    /// Forms the `difference` of `self` and `other`, and returns an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌────────────┬─────────── → ───────────┬──────────┐
-    /// │ self       │ other      │ difference │ overflow │
-    /// ├────────────┼─────────── → ───────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256(-3) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256( 5) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-5) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256(-3) │ false    │
-    /// │────────────┤─────────── → ───────────┤──────────┤
-    /// │ Int256.max │ Int(   -1) │ Int256.min │ true     │
-    /// │ Int256.min │ Int(    1) │ Int256.max │ true     │
-    /// └────────────┴─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @_disfavoredOverload @inlinable mutating func subtractReportingOverflow(_ other: Digit) -> Bool
-    
-    /// Returns the `difference` of `self` and `other`, along with an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌────────────┬─────────── → ───────────┬──────────┐
-    /// │ self       │ other      │ difference │ overflow │
-    /// ├────────────┼─────────── → ───────────┤──────────┤
-    /// │ Int256( 1) │ Int256( 4) │ Int256(-3) │ false    │
-    /// │ Int256( 2) │ Int256(-3) │ Int256( 5) │ false    │
-    /// │ Int256(-3) │ Int256( 2) │ Int256(-5) │ false    │
-    /// │ Int256(-4) │ Int256(-1) │ Int256(-3) │ false    │
-    /// │────────────┤─────────── → ───────────┤──────────┤
-    /// │ Int256.max │ Int256(-1) │ Int256.min │ true     │
-    /// │ Int256.min │ Int256( 1) │ Int256.max │ true     │
-    /// └────────────┴─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @inlinable func subtractingReportingOverflow(_ other: Self) -> PVO<Self>
-    
-    /// Returns the `difference` of `self` and `other`, along with an `overflow` indicator.
-    ///
-    /// ```
-    /// ┌────────────┬─────────── → ───────────┬──────────┐
-    /// │ self       │ other      │ difference │ overflow │
-    /// ├────────────┼─────────── → ───────────┤──────────┤
-    /// │ Int256( 1) │ Int(    4) │ Int256(-3) │ false    │
-    /// │ Int256( 2) │ Int(   -3) │ Int256( 5) │ false    │
-    /// │ Int256(-3) │ Int(    2) │ Int256(-5) │ false    │
-    /// │ Int256(-4) │ Int(   -1) │ Int256(-3) │ false    │
-    /// │────────────┤─────────── → ───────────┤──────────┤
-    /// │ Int256.max │ Int(   -1) │ Int256.min │ true     │
-    /// │ Int256.min │ Int(    1) │ Int256.max │ true     │
-    /// └────────────┴─────────── → ───────────┴──────────┘
-    /// ```
-    ///
-    /// - Note: In the case of `overflow`, the result is truncated.
-    ///
-    @_disfavoredOverload @inlinable func subtractingReportingOverflow(_ other: Digit) -> PVO<Self>
 }

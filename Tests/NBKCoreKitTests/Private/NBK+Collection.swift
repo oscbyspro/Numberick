@@ -82,6 +82,30 @@ final class NBKTestsOnCollection: XCTestCase {
         NBKAssertRemoveSuffixMaxLength(8, [             ], [1, 2, 3, 4, 5])
         NBKAssertRemoveSuffixMaxLength(9, [             ], [1, 2, 3, 4, 5])
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Array Index
+    //=------------------------------------------------------------------------=
+    
+    func testArrayIndexOffsetByLimitedBy() {
+        NBKAssertArrayIndexOffsetByLimitedBy(1,  2,  2,  nil)
+        NBKAssertArrayIndexOffsetByLimitedBy(1,  1,  2,  2)
+        NBKAssertArrayIndexOffsetByLimitedBy(1,  0,  2,  1)
+        NBKAssertArrayIndexOffsetByLimitedBy(1, -1,  2,  0)
+        NBKAssertArrayIndexOffsetByLimitedBy(1, -2,  2, -1)
+        
+        NBKAssertArrayIndexOffsetByLimitedBy(2,  2,  2,  nil)
+        NBKAssertArrayIndexOffsetByLimitedBy(2,  1,  2,  nil)
+        NBKAssertArrayIndexOffsetByLimitedBy(2,  0,  2,  2)
+        NBKAssertArrayIndexOffsetByLimitedBy(2, -1,  2,  nil)
+        NBKAssertArrayIndexOffsetByLimitedBy(2, -2,  2,  nil)
+        
+        NBKAssertArrayIndexOffsetByLimitedBy(3,  2,  2,  5)
+        NBKAssertArrayIndexOffsetByLimitedBy(3,  1,  2,  4)
+        NBKAssertArrayIndexOffsetByLimitedBy(3,  0,  2,  3)
+        NBKAssertArrayIndexOffsetByLimitedBy(3, -1,  2,  2)
+        NBKAssertArrayIndexOffsetByLimitedBy(3, -2,  2,  nil)
+    }
 }
 
 //*============================================================================*
@@ -144,6 +168,18 @@ file: StaticString = #file, line: UInt = #line) {
     
     XCTAssertEqual(Array(collection), prefix, file: file, line: line)
     XCTAssertEqual(Array(extraction), suffix, file: file, line: line)
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Array Index
+//=----------------------------------------------------------------------------=
+
+private func NBKAssertArrayIndexOffsetByLimitedBy(
+_ index: Int, _ distance: Int, _ limit: Int, _ expectation: Int?,
+file: StaticString = #file, line: UInt = #line) {
+    
+    XCTAssertEqual(NBK.arrayIndex(index, offsetBy: distance, limitedBy: limit), expectation, file: file, line: line)
+    XCTAssertEqual([Int]( ).index(index, offsetBy: distance, limitedBy: limit), expectation, file: file, line: line)
 }
 
 #endif

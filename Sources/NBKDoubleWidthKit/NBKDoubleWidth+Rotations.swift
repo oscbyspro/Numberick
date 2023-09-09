@@ -67,15 +67,18 @@ extension NBKDoubleWidth {
         let push = UInt(bitPattern: bits)
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
-        return Self.uninitialized { result in
-            var (word) = self.last as UInt
-            var destination = words
+        return  Self.uninitialized(as: UInt.self) {
+            var (word) = self.last as  UInt
+            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            var destination = result.index(result.startIndex, offsetBy: words)
+            //=----------------------------------=
             for source in self.indices {
                 //=------------------------------=
                 let pulled = word &>> pull
                 (word) = self[source]
                 let pushed = word &<< push
-                result[destination] = pulled | pushed
+                //=------------------------------=
+                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: pulled | pushed)
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -104,11 +107,13 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         if  words.isZero { return self }
         //=--------------------------------------=
-        return Self.uninitialized { result in
-            var destination = words
+        return  Self.uninitialized(as: UInt.self) {
+            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            var destination = result.index(result.startIndex, offsetBy: words)
+            //=----------------------------------=
             for source in self.indices {
                 //=------------------------------=
-                result[destination] = self[source]
+                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: self[source])
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -177,16 +182,19 @@ extension NBKDoubleWidth {
         let push = UInt(bitPattern: bits)
         let pull = UInt(bitPattern: UInt.bitWidth - bits)
         //=--------------------------------------=
-        return Self.uninitialized { result in
-            var (word) = self.last as UInt
-            var destination =  result.endIndex &+ ~(words)
-            precondition(0 ..< result.endIndex ~= destination)
-            for source in self.indices {
+        return  Self.uninitialized(as: UInt.self) {
+            var (word) = self.last as  UInt
+            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            var destination = result.index(result.endIndex, offsetBy: ~words)
+            //=----------------------------------=
+            precondition(result.indices ~= destination)
+            for source in  self.indices {
                 //=------------------------------=
                 let pulled = word &>> push
                 (word) = self[source]
                 let pushed = word &<< pull
-                result[destination] = pulled | pushed
+                //=------------------------------=
+                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: pulled | pushed)
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
@@ -215,12 +223,14 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         if  words.isZero { return self }
         //=--------------------------------------=
-        return Self.uninitialized { result in
-            var destination =  result.endIndex &- words
-            precondition(0 ..< result.endIndex ~= destination)
-            for source in self {
+        return  Self.uninitialized(as: UInt.self) {
+            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            var destination = result.index(result.endIndex, offsetBy: -words)
+            //=----------------------------------=
+            precondition(result.indices ~= destination)
+            for source in  self.indices {
                 //=------------------------------=
-                result[destination] = source
+                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: self[source])
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {

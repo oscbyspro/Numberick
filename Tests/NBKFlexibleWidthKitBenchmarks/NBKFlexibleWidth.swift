@@ -33,11 +33,11 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     init(x32: [UInt32]) {
-        self.init(words: NBK.limbs(x32, as: [UInt].self))
+        self.init(words: NBKChunkedInt(x32, as: UInt.self))
     }
     
     init(x64: [UInt64]) {
-        self.init(words: NBK.limbs(x64, as: [UInt].self))
+        self.init(words: NBKChunkedInt(x64, as: UInt.self))
     }
 }
 
@@ -59,10 +59,10 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     init(x32: [UInt32]) {
-        self.init(words: NBK.limbs(x32, as: [UInt].self))
+        self.init(words: NBKChunkedInt(x32, as: UInt.self))
     }
     
     init(x64: [UInt64]) {
-        self.init(words: NBK.limbs(x64, as: [UInt].self))
+        self.init(words: NBKChunkedInt(x64, as: UInt.self))
     }
 }

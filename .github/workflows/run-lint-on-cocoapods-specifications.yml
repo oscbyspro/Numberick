@@ -1,0 +1,33 @@
+name: Run lint on CocoaPods specifications
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'CocoaPods-v[0-9]+.[0-9]+.[0-9]+'
+      - 'CocoaPods-v[0-9]+.[0-9]+.[0-9]+-*'
+
+jobs:
+  macos:
+    strategy:
+      matrix:
+        element:
+          - xcode: '14.3'
+            machine: macos-13
+            
+    runs-on: ${{ matrix.element.machine }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Select Xcode ${{ matrix.element.xcode }}
+        run: sudo xcode-select --switch /Applications/Xcode_${{ matrix.element.xcode }}.app
+      - name: Run lint on 'Numberick.podspec'
+        run: |
+          DEPENDENCIES=''
+          DEPENDENCIES+=Numberick-NBKCoreKit.podspec,
+          DEPENDENCIES+=Numberick-NBKDoubleWidthKit.podspec,
+          pod lib lint  Numberick.podspec \
+          --allow-warnings \
+          --fail-fast \
+          --include-podspecs=\{$DEPENDENCIES\}

@@ -39,21 +39,6 @@ extension NBKFlexibleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Literal
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        let sourceIsLessThanZero = source.signum() == -1
-        //=--------------------------------------=
-        self.init(sign: Sign.plus, magnitude: Magnitude(truncatingIntegerLiteral: source))
-        //=--------------------------------------=
-        if  sourceIsLessThanZero {
-            self.sign.toggle()
-            self.magnitude.formTwosComplement()
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     
@@ -118,38 +103,13 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Digit
     //=------------------------------------------------------------------------=
-        
+    
     @inlinable public init(digit: UInt) {
-        guard !digit.isZero else { self.init(); return }
         self.init(unchecked: Storage(digit: digit))
     }
     
     @inlinable public init(digit: UInt, at index: Int) {
-        guard !digit.isZero else { self.init(); return }
         self.init(unchecked: Storage(digit: digit, at: index))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Literal
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = value
-    }
-    
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        //=--------------------------------------=
-        if source.signum() == -1 { return nil }
-        //=--------------------------------------=
-        self.init(truncatingIntegerLiteral: source)
-    }
-    
-    @inlinable init(truncatingIntegerLiteral source: StaticBigInt) {
-        self.init(storage: Storage(truncatingIntegerLiteral: source))
     }
     
     //=------------------------------------------------------------------------=

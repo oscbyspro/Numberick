@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.7
 //=----------------------------------------------------------------------------=
 // This source file is part of the Numberick open source project.
 //
@@ -14,14 +14,20 @@ import PackageDescription
 // MARK: * Numberick
 //*============================================================================*
 
-let package = Package(
+let withStaticBigInt = false
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version < iOS 16.4, macOS 13.3
+//=----------------------------------------------------------------------------=
+
+var package = Package(
     name: "Numberick",
     platforms: [
-        .iOS("16.4"),
-        .macCatalyst("16.4"),
-        .macOS("13.3"),
-        .tvOS("16.4"),
-        .watchOS("9.4"),
+        .iOS(.v14),
+        .macCatalyst(.v14),
+        .macOS(.v11),
+        .tvOS(.v14),
+        .watchOS(.v7),
     ],
     products: [
         //=--------------------------------------=
@@ -120,3 +126,22 @@ let package = Package(
         dependencies: ["NBKResizableWidthKit"]),
     ]
 )
+
+//=----------------------------------------------------------------------------=
+// MARK: + Version ≥ iOS 16.4, macOS 13.3
+//=----------------------------------------------------------------------------=
+
+if  withStaticBigInt  {
+    package.platforms = [
+        .iOS("16.4"),
+        .macCatalyst("16.4"),
+        .macOS("13.3"),
+        .tvOS("16.4"),
+        .watchOS("9.4"),
+    ]
+    
+    let flag = SwiftSetting.define("SBI")
+    for target in package.targets {
+        target.swiftSettings?.append(flag) ?? (target.swiftSettings = [flag])
+    }
+}

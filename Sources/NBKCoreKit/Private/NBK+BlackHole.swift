@@ -21,20 +21,17 @@ extension NBK {
     ///
     /// Optimizer folklore has it that its secrets are revealed only to the supreme architect.
     ///
-    @inline(never) @_semantics("optimize.no.crossmodule")
-    public static func blackHole<T>(_ x: T) {  }
+    @_optimize(none) public static func blackHole<T>(_ x: T) {  }
 
     /// Opaquely returns the argument.
     ///
     /// Optimizer folklore has it that its secrets are revealed only to the supreme architect.
     ///
-    @inline(never) @_semantics("optimize.no.crossmodule")
-    public static func blackHoleIdentity<T>(_ x: T) -> T { x }
+    @_optimize(none) public static func blackHoleIdentity<T>(_ x: T) -> T { x }
 
     /// Opaquely mutates the argument.
     ///
     /// Optimizer folklore has it that its secrets are revealed only to the supreme architect.
     ///
-    @inline(never) @_semantics("optimize.no.crossmodule")
-    public static func blackHoleInoutIdentity<T>(_ x: inout T) { }
+    @_optimize(none) public static func blackHoleInoutIdentity<T>(_ x: inout T) { }
 }

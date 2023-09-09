@@ -69,30 +69,6 @@ final class NBKDoubleWidthTestsOnWordsAsInt256: XCTestCase {
         NBKAssertFirstLastTail( T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first:  1, last:  8, tail:  8)
         NBKAssertFirstLastTail(~T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first: ~1, last: ~8, tail: ~8)
     }
-    
-    //=----------------------------------------------------------------------------=
-    // MARK: + Indices
-    //=----------------------------------------------------------------------------=
-    
-    func testIndexOffsetByLimitedBy() {
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  2,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  1,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  0,  2,  1)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -1,  2,  0)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -2,  2, -1)
-        
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  2,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  1,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  0,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -1,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -2,  2,  nil)
-        
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  2,  2,  5)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  1,  2,  4)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  0,  2,  3)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -1,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -2,  2,  nil)
-    }
 }
 
 //*============================================================================*
@@ -148,30 +124,6 @@ final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
         NBKAssertFirstLastTail( T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first:  1, last:  8, tail:  8)
         NBKAssertFirstLastTail(~T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), first: ~1, last: ~8, tail: ~8)
     }
-    
-    //=----------------------------------------------------------------------------=
-    // MARK: + Indices
-    //=----------------------------------------------------------------------------=
-    
-    func testIndexOffsetByLimitedBy() {
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  2,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  1,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1,  0,  2,  1)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -1,  2,  0)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  1, -2,  2, -1)
-        
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  2,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  1,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2,  0,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -1,  2,  nil)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  2, -2,  2,  nil)
-        
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  2,  2,  5)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  1,  2,  4)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3,  0,  2,  3)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -1,  2,  2)
-        NBKAssertIndexOffsetByLimitedBy(T.zero,  3, -2,  2,  nil)
-    }
 }
 
 //*============================================================================*
@@ -198,20 +150,6 @@ file: StaticString = #file, line: UInt = #line) {
     
     XCTAssertEqual(generic.withContiguousStorageIfAvailable({        Array($0) }), words, file: file, line: line)
     XCTAssertEqual(generic.withContiguousMutableStorageIfAvailable({ Array($0) }), words, file: file, line: line)
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Indices
-//=----------------------------------------------------------------------------=
-
-private func NBKAssertIndexOffsetByLimitedBy<H: NBKFixedWidthInteger>(
-_ integer: NBKDoubleWidth<H>, _ index: Int, _ distance: Int, _ limit: Int, _ expectation: Int?,
-file: StaticString = #file, line: UInt = #line) {
-    let wordsIndex = /*-*/(integer).index(index, offsetBy: distance, limitedBy: limit)
-    let arrayIndex = Array(integer).index(index, offsetBy: distance, limitedBy: limit)
-    
-    XCTAssertEqual(wordsIndex, expectation, file: file, line: line)
-    XCTAssertEqual(arrayIndex, expectation, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=

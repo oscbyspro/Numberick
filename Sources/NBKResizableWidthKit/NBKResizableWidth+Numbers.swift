@@ -29,41 +29,6 @@ extension NBKResizableWidth.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Literal
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(integerLiteral source: StaticBigInt) {
-        guard let value = Self(exactlyIntegerLiteral: source) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = value
-    }
-    
-    // TODO: internal
-    @inlinable public init?(exactlyIntegerLiteral source: StaticBigInt) {
-        //=--------------------------------------=
-        if source.signum() == -1 { return nil }
-        //=--------------------------------------=
-        self.init(truncatingIntegerLiteral: source)
-    }
-    
-    // TODO: internal
-    @inlinable public init(truncatingIntegerLiteral source: StaticBigInt) {
-        //=--------------------------------------=
-        let bitWidth = source.bitWidth
-        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
-        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
-        let count = major + Int(bit: !minor.isZero)
-        //=--------------------------------------=
-        self = Self.uninitialized(count: count) { storage in
-            for index in storage.indices {
-                storage[index] = source[index]
-            }
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     

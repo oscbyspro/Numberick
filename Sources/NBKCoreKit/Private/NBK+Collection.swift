@@ -17,7 +17,7 @@ extension NBK {
     // MARK: Transformations x Drop
     //=------------------------------------------------------------------------=
     
-    /// Drops elements that the satisfy the predicate from the end of the given `collection`.
+    /// Drops elements that satisfy the predicate from the end of the given `collection`.
     @_transparent public static func dropLast<T>(from collection: T, while predicate: (T.Element) -> Bool)
     -> T.SubSequence where T: BidirectionalCollection {
         var newEndIndex = collection.endIndex
@@ -67,5 +67,21 @@ extension NBK {
         let suffix = collection.suffix(maxLength)
         collection = collection.prefix(upTo: suffix.startIndex)
         return suffix as T
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Array Index
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the array-like result of `index(_:offsetBy:limitedBy:)`.
+    @inlinable public static func arrayIndex(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+        let distanceLimit = limit - index
+        
+        guard distance >= 0 as Int
+        ? distance <= distanceLimit || distanceLimit < 0 as Int
+        : distance >= distanceLimit || distanceLimit > 0 as Int
+        else { return nil }
+        
+        return index + distance as Int
     }
 }
