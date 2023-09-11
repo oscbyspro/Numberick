@@ -42,13 +42,6 @@
         "identifier" : "NBKFlexibleWidthKitBenchmarks",
         "name" : "NBKFlexibleWidthKitBenchmarks"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "NBKResizableWidthKitBenchmarks",
-        "name" : "NBKResizableWidthKitBenchmarks"
-      }
     }
   ],
   "version" : 1

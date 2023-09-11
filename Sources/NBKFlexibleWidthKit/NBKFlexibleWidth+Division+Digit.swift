@@ -8,7 +8,6 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
-import NBKResizableWidthKit
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Division x Digit x Signed

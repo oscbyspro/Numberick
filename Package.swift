@@ -54,12 +54,6 @@ var package = Package(
         .library(
         name: "NBKFlexibleWidthKit",
         targets: ["NBKFlexibleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x Resizable Width Kit
-        //=--------------------------------------=
-        .library(
-        name: "NBKResizableWidthKit",
-        targets: ["NBKResizableWidthKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -101,7 +95,7 @@ var package = Package(
         //=--------------------------------------=
         .target(
         name: "NBKFlexibleWidthKit",
-        dependencies: ["NBKCoreKit", "NBKResizableWidthKit"]),
+        dependencies: ["NBKCoreKit"]),
         
         .testTarget(
         name: "NBKFlexibleWidthKitBenchmarks",
@@ -110,20 +104,6 @@ var package = Package(
         .testTarget(
         name: "NBKFlexibleWidthKitTests",
         dependencies: ["NBKFlexibleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x Resizable Width Kit
-        //=--------------------------------------=
-        .target(
-        name: "NBKResizableWidthKit",
-        dependencies: ["NBKCoreKit"]),
-        
-        .testTarget(
-        name: "NBKResizableWidthKitBenchmarks",
-        dependencies: ["NBKResizableWidthKit"]),
-        
-        .testTarget(
-        name: "NBKResizableWidthKitTests",
-        dependencies: ["NBKResizableWidthKit"]),
     ]
 )
 

@@ -8,35 +8,26 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
-import NBKResizableWidthKit
-import XCTest
-
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x Initializers x UIntXR
+// MARK: * NBK x Resizable Width x Text
 //*============================================================================*
 
 extension NBKResizableWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Numbers
+    // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    static let min256 = Self(x64:[ 0,  0,  0,  0] as X)
-    static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X)
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Limbs
-    //=------------------------------------------------------------------------=
-    
-    init(x32: [UInt32]) {
-        self.init(words: NBKChunkedInt(x32))
+    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
+        fatalError("TODO")
     }
     
-    init(x64: [UInt64]) {
-        self.init(words: NBKChunkedInt(x64))
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Encode
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+        fatalError("TODO")
     }
 }
