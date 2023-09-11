@@ -190,11 +190,11 @@ extension NBKDoubleWidth {
             precondition(result.indices ~= destination)
             for source in  self.indices {
                 //=------------------------------=
-                let pulled = word &>> push
+                let pushed = word &>> push
                 (word) = self[source]
-                let pushed = word &<< pull
+                let pulled = word &<< pull
                 //=------------------------------=
-                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: pulled | pushed)
+                result.base.baseAddress!.advanced(by: result.baseSubscriptIndex(destination)).initialize(to: pushed | pulled)
                 //=------------------------------=
                 result.formIndex(after: &destination)
                 if  destination >= result.endIndex {
