@@ -33,9 +33,12 @@ extension NBKFlexibleWidth {
     }
         
     @inlinable public var nonzeroBitCount: Int {
-        switch self.isLessThanZero {
-        case false: return self.magnitude.nonzeroBitCount
-        case  true: return NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage) + self.storageBitWidthNeeded }
+        if  self.isLessThanZero {
+            let  s = NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage)
+            return s + self.storageBitWidthNeeded
+        }   else {
+            return self.magnitude.nonzeroBitCount
+        }
     }
     
     @inlinable public var leadingZeroBitCount: Int {

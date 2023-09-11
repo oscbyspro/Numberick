@@ -37,7 +37,7 @@ final class NBKFlexibleWidthTestsOnTextAsIntXL: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInitDescription() {
+    func testFromDescription() {
         NBKAssertFromDescription(T?( 10),    "10")
         NBKAssertFromDescription(T?( 10),   "+10")
         NBKAssertFromDescription(T?(-10),   "-10")
@@ -273,7 +273,7 @@ final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testInitDescription() {
+    func testFromDescription() {
         NBKAssertFromDescription(T?( 10),    "10")
         NBKAssertFromDescription(T?( 10),   "+10")
         NBKAssertFromDescription(T?(nil),   "-10")
