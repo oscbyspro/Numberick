@@ -33,7 +33,7 @@ extension NBKFlexibleWidth {
         
     @inlinable public var nonzeroBitCount: Int {
         if  self.isLessThanZero {
-            let  s = NBK.nonzeroBitCount(twosComplementOf: self.magnitude.storage)
+            let s  = self.magnitude.storage.elements.withUnsafeBufferPointer(NBK.nonzeroBitCount(twosComplementOf:))
             return s + self.storageBitWidthNeeded
         }   else {
             return self.magnitude.nonzeroBitCount
@@ -85,26 +85,26 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public var bitWidth: Int {
-        self.storage.bitWidth
+        self.storage.elements.count * UInt.bitWidth
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        self.storage.nonzeroBitCount
+        self.storage.elements.withUnsafeBufferPointer(NBK.nonzeroBitCount(of:))
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.storage.last.leadingZeroBitCount
+        self.storage.elements.withUnsafeBufferPointer(NBK.leadingZeroBitCount(of:))
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        self.storage.trailingZeroBitCount
+        self.storage.elements.withUnsafeBufferPointer(NBK.trailingZeroBitCount(of:))
     }
     
     @inlinable public var mostSignificantBit: Bool {
-        self.storage.mostSignificantBit
+        self.storage.elements.last!.mostSignificantBit
     }
     
     @inlinable public var leastSignificantBit: Bool {
-        self.storage.leastSignificantBit
+        self.storage.elements.first!.leastSignificantBit
     }
 }

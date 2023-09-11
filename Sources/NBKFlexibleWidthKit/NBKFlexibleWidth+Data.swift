@@ -10,24 +10,17 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x Text
+// MARK: * NBK x Double Width x Data x Unsigned x Storage
 //*============================================================================*
 
-extension NBKResizableWidth.Magnitude {
+extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Decode
+    // MARK: Initializers x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        fatalError("TODO")
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Encode
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
-        fatalError("TODO")
+    /// Creates a new instance with unsafe access to its uninitialized memory.
+    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
+        Self(elements: Elements(unsafeUninitializedCapacity: count) { body(&$0); $1 = count })
     }
 }

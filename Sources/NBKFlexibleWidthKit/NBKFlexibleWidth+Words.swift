@@ -25,7 +25,7 @@ extension NBKFlexibleWidth {
     ///
     @inlinable public init(words: some Collection<UInt>) {
         var magnitude = Magnitude.Storage(words: words)
-        let sign = Sign(magnitude.last.mostSignificantBit)
+        let sign = Sign(magnitude.elements.last!.mostSignificantBit)
         //=--------------------------------------=
         if  sign.bit {
             magnitude.formTwosComplement()
@@ -49,11 +49,14 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable var storageNeedsOneMoreWord: Bool {
-        switch self.isLessThanZero {
-        case  true: return !NBK.mostSignificantBit(twosComplementOf: self.magnitude.storage)!
-        case false: return self.magnitude.storage.last.mostSignificantBit }
+        if  self.isLessThanZero {
+            return !self.magnitude.storage.withUnsafeBufferPointer({ NBK.mostSignificantBit(twosComplementOf: $0)! })
+        }   else {
+            return  self.magnitude.storage.elements.last!.mostSignificantBit
+        }
     }
     
+    #warning("IntXL and UIntXL can share Words")
     //*========================================================================*
     // MARK: * Words
     //*========================================================================*
@@ -81,7 +84,7 @@ extension NBKFlexibleWidth {
                 self.storage.formTwosComplement()
             }
             //=----------------------------------=
-            self.count += self.storage.count
+            self.count += self.storage.elements.count
         }
         
         //=--------------------------------------------------------------------=
@@ -97,8 +100,8 @@ extension NBKFlexibleWidth {
         }
         
         @inlinable public subscript(index: Int) -> UInt {
-            switch index < self.storage.endIndex {
-            case  true: return self.storage[index]
+            switch index < self.storage.elements.endIndex {
+            case  true: return self.storage.elements[index]
             case false: return self.sign }
         }
         
@@ -107,31 +110,31 @@ extension NBKFlexibleWidth {
         //=--------------------------------------------------------------------=
         
         @inlinable public func distance(from start: Int, to end: Int) -> Int {
-            self.storage.distance(from: start, to: end)
+            self.storage.elements.distance(from: start, to: end)
         }
         
         @inlinable public func index(after index: Int) -> Int {
-            self.storage.index(after: index)
+            self.storage.elements.index(after: index)
         }
         
         @inlinable public func formIndex(after index: inout Int) {
-            self.storage.formIndex(after: &index)
+            self.storage.elements.formIndex(after: &index)
         }
         
         @inlinable public func index(before index: Int) -> Int {
-            self.storage.index(before: index)
+            self.storage.elements.index(before: index)
         }
         
         @inlinable public func formIndex(before index: inout Int) {
-            self.storage.formIndex(before: &index)
+            self.storage.elements.formIndex(before: &index)
         }
         
         @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
-            self.storage.index(index, offsetBy: distance)
+            self.storage.elements.index(index, offsetBy: distance)
         }
         
         @inlinable public func index(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
-            self.storage.index(index, offsetBy: distance, limitedBy: limit)
+            self.storage.elements.index(index, offsetBy: distance, limitedBy: limit)
         }
     }
 }
@@ -154,7 +157,27 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: UIntXR.Words {
-        _read { yield self.storage.words }
+    // TODO: do not expose the actual type
+    @inlinable public var words: ContiguousArray<UInt> {
+        _read { yield self.storage.elements }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Words x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable init(words: some Collection<UInt>) {
+        self.init(elements: Elements(words))
+    }
+    
+    @inlinable init(repeating word: UInt, count: Int) {
+        self.init(elements: Elements(repeating: word, count: count))
     }
 }

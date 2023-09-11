@@ -71,9 +71,7 @@ import NBKCoreKit
     @frozen public struct Magnitude: NBKUnsignedInteger, IntXLOrUIntXL {
         
         public typealias Digit = UInt
-        
-        @usableFromInline typealias Storage = NBKResizableWidth.Magnitude
-        
+                
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
@@ -112,6 +110,56 @@ import NBKCoreKit
         ///
         @inlinable public static var description: String {
             "UIntXL"
+        }
+        
+        #warning("TODO: check uses of elements, first!, last!, count, lastIndex")
+        //*====================================================================*
+        // MARK: * Storage
+        //*====================================================================*
+        
+        /// An unsigned, resizable, collection of at least one word.
+        ///
+        /// Its operations have fixed-width semantics unless stated otherwise.
+        /// 
+        @frozen @usableFromInline struct Storage {
+            
+            @usableFromInline typealias Elements = ContiguousArray<UInt>
+            
+            //=----------------------------------------------------------------=
+            // MARK: State
+            //=----------------------------------------------------------------=
+            
+            @usableFromInline var elements: ContiguousArray<UInt>
+            
+            //=----------------------------------------------------------------=
+            // MARK: Initializers
+            //=----------------------------------------------------------------=
+            
+            @inlinable init(elements: Elements) {
+                self.elements = elements
+                precondition(self.isOK, Self.invariantsInfo())
+            }
+            
+            @inlinable init(unchecked elements: Elements) {
+                self.elements = elements
+                Swift.assert(self.isOK, Self.invariantsInfo())
+            }
+            
+            //=----------------------------------------------------------------=
+            // MARK: Utilities
+            //=----------------------------------------------------------------=
+            
+            @inlinable var isOK: Bool {
+                !self.elements.isEmpty
+            }
+            
+            @inlinable var isNormal: Bool {
+                self.elements.count == 1 || !self.elements.last!.isZero
+            }
+            
+            @inlinable static func invariantsInfo() -> String {
+                "UIntXL must contain at least one element"
+            }
         }
     }
 }

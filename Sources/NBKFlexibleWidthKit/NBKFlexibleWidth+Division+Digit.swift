@@ -94,6 +94,6 @@ extension NBKFlexibleWidth.Magnitude {
     
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         defer{ self.storage.normalize() }
-        return self.storage.formQuotientWithRemainderReportingOverflow(dividingBy: other)
+        return NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &self.storage.elements, dividingBy: other)
     }
 }

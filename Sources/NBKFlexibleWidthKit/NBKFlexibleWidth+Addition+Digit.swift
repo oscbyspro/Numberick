@@ -83,3 +83,18 @@ extension NBKFlexibleWidth.Magnitude {
         var result = self; result.add(other, at: index); return result
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Addition x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable mutating func add(_ other: UInt, plus carry: Bool, at  index: Int) -> Bool {
+        NBK.incrementSufficientUnsignedInteger(&self.elements, by: other, plus: carry, at: index).overflow
+    }
+}

@@ -235,15 +235,11 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        if  self.isZero {
-            return
-        }
+        if  self.isZero { return }
         //=--------------------------------------=
         let rollover = Int(bit: self.leadingZeroBitCount < bits)
-        self.storage.resize(minCount: self.storage.count + words + rollover)
-        self.storage.withContiguousMutableStorage {
-            NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
-        }
+        self.storage.resize(minCount: self.storage.elements.count + words + rollover)
+        self.storage.bitshiftLeft(words: words, atLeastOneBit: bits)
     }
     
     /// Performs a left shift.
@@ -258,10 +254,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         if  self.isZero { return }
         //=--------------------------------------=
-        self.storage.resize(minCount: self.storage.count + words)
-        self.storage.withContiguousMutableStorage {
-            NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, atLeastOneLimb: words)
-        }
+        self.storage.resize(minCount: self.storage.elements.count + words)
+        self.storage.bitshiftLeft(atLeastOneWord: words)
     }
 }
 
@@ -350,16 +344,13 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         let rollover = Int(bit: 0 <= bits + self.leadingZeroBitCount - UInt.bitWidth)
-        let maxCount = self.storage.count - words - rollover
+        let maxCount = self.storage.elements.count - words - rollover
         //=--------------------------------------=
         if  maxCount <= 0 {
             return self.updateZeroValue()
         }
         //=--------------------------------------=
-        self.storage.withContiguousMutableStorage {
-            NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
-        }
-        
+        self.storage.bitshiftRight(words: words, atLeastOneBit: bits)
         self.storage.resize(maxCount: maxCount)
     }
     
@@ -373,14 +364,168 @@ extension NBKFlexibleWidth.Magnitude {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        if  self.storage.count <= words {
+        if  self.storage.elements.count <= words {
             return self.updateZeroValue()
         }
         //=--------------------------------------=
-        self.storage.withContiguousMutableStorage {
+        self.storage.bitshiftRight(atLeastOneWord: words)
+        self.storage.resize(maxCount: self.storage.elements.count - words)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Shifts x Unsigned x Storage
+//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Left
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Int
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(by distance: Int) {
+        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        return self.bitshiftLeft(words: major, bits: minor)
+    }
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(words: Int, bits: Int) {
+        //=--------------------------------------=
+        if  bits.isZero {
+            return self.bitshiftLeft(words: words)
+        }
+        //=--------------------------------------=
+        self.bitshiftLeft(words: words, atLeastOneBit: bits)
+    }
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftLeft(words: Int) {
+        //=--------------------------------------=
+        if  words.isZero { return }
+        //=--------------------------------------=
+        self.bitshiftLeft(atLeastOneWord: words)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Int x Private
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///   - bits:  `1 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(words: Int, atLeastOneBit bits: Int) {
+        self.withUnsafeMutableBufferPointer {
+            NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
+        }
+    }
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `1 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftLeft(atLeastOneWord words: Int) {
+        self.withUnsafeMutableBufferPointer {
+            NBK.bitshiftLeftAsFixedLimbsCodeBlock(&$0, environment: false, atLeastOneLimb: words)
+        }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Right
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Int
+    //=------------------------------------------------------------------------=
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(by distance: Int) {
+        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        return self.bitshiftRight(words: major, bits: minor)
+    }
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(words: Int, bits: Int) {
+        //=--------------------------------------=
+        if  bits.isZero {
+            return self.bitshiftRight(words: words)
+        }
+        //=--------------------------------------=
+        self.bitshiftRight(words: words, atLeastOneBit: bits)
+    }
+        
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftRight(words: Int) {
+        //=--------------------------------------=
+        if  words.isZero { return }
+        //=--------------------------------------=
+        self.bitshiftRight(atLeastOneWord: words)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Int x Private
+    //=------------------------------------------------------------------------=
+
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `1 <= words < self.endIndex`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
+        self.withUnsafeMutableBufferPointer {
+            NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: false, limbs: words, atLeastOneBit: bits)
+        }
+    }
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `1 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftRight(atLeastOneWord words: Int) {
+        self.withUnsafeMutableBufferPointer {
             NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: false, atLeastOneLimb: words)
         }
-        
-        self.storage.resize(maxCount: self.storage.count - words)
     }
 }

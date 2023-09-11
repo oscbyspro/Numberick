@@ -60,7 +60,7 @@ extension NBKFlexibleWidth.Magnitude {
             return self.update(addend)
         }
         //=--------------------------------------=
-        self.storage.reserveCapacity(self.storage.count + 1)
+        self.storage.reserveCapacity(self.storage.elements.count + 1)
         let overflow = self.storage.multiply(by: multiplicand, add: addend)
         if !overflow.isZero {
             self.storage.append(overflow)
@@ -69,5 +69,20 @@ extension NBKFlexibleWidth.Magnitude {
     
     @_disfavoredOverload @inlinable public func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
         var result = self; result.multiply(by: multiplicand, add: addend); return result
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Resizable Width x Multiplication x Digit x Unsigned
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable mutating func multiply(by other: UInt, add addend: UInt) -> UInt {
+        NBK.multiplyFullWidthLenientUnsignedInteger(&self.elements, by: other, add: addend)
     }
 }

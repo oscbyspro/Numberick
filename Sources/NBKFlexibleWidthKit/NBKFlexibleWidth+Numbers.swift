@@ -104,11 +104,15 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(digit: UInt) {
-        self.init(unchecked: Storage(digit: digit))
+        let storage = Storage(unchecked: [digit])
+        self.init(unchecked: storage)
     }
     
     @inlinable public init(digit: UInt, at index: Int) {
-        self.init(unchecked: Storage(digit: digit, at: index))
+        var storage = Storage(repeating: 0 as UInt, count: index + 1)
+        storage.elements[index] = digit
+        storage.normalize()
+        self.init(unchecked: storage)
     }
     
     //=------------------------------------------------------------------------=

@@ -115,3 +115,64 @@ extension NBKFlexibleWidth.Magnitude {
         return PVO(partialValue, overflow)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Complements x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func formOnesComplement() {
+        for index in self.elements.indices {
+            self.elements[index].formOnesComplement()
+        }
+    }
+    
+    @inlinable func onesComplement() -> Self {
+        Self(unchecked: Elements(self.elements.lazy.map(~)))
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Two's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func formTwosComplement() {
+        _ = self.formTwosComplementSubsequence(true)
+    }
+    
+    @inlinable func twosComplementw() -> Self {
+        var partialValue = self
+        partialValue.formTwosComplement()
+        return partialValue as Self
+    }
+    
+    @inlinable mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
+    }
+    
+    @inlinable func twosComplementReportingOverflow() -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementReportingOverflow()
+        return PVO(partialValue, overflow)
+    }
+    
+    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        var carry = carry
+        
+        for index in self.elements.indices {
+            carry =  self.elements[index].formTwosComplementSubsequence(carry)
+        }
+        
+        return carry as Bool
+    }
+    
+    @inlinable func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
+        var partialValue = self
+        let overflow = partialValue.formTwosComplementSubsequence(carry)
+        return PVO(partialValue, overflow)
+    }
+}

@@ -138,7 +138,7 @@ extension NBKFlexibleWidth.Magnitude {
             forwards: if !alignment.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
                 guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.storage.first = word
+                self.storage.elements[self.storage.elements.startIndex] = word
             }
             
             forwards: while !digits.isEmpty {
@@ -170,7 +170,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // with one buffer pointer specialization
         //=--------------------------------------=
-        self.storage.withContiguousStorage { words in
+        self.storage.withUnsafeBufferPointer { words in
             let chunks = NBKTwinHeaded(words)
             let radix  = NBK.AnyRadixSolution(radix)
             return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)

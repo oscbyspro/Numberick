@@ -112,8 +112,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
-        if  other.storage.count == 1 {
-            let qr = self.quotientAndRemainder(dividingBy: other.storage.first)
+        if  other.storage.elements.count == 1 {
+            let qr = self.quotientAndRemainder(dividingBy: other.storage.elements.first!)
             self.update(qr.remainder)
             return PVO(qr.quotient, false)
         }
@@ -133,23 +133,23 @@ extension NBKFlexibleWidth.Magnitude {
         // shift to clamp approximation
         //=--------------------------------------=
         var divisor = other.storage
-        let shift = divisor.last.leadingZeroBitCount as Int
+        let shift = divisor.elements.last!.leadingZeroBitCount as Int
         divisor.bitshiftLeft(words: Int.zero, bits: shift)
-        let divisorLast0 = divisor[divisor.endIndex - 1] as UInt
+        let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit)
         
-        var remainderIndex = self.storage.endIndex
+        var remainderIndex = self.storage.elements.endIndex
         self.storage.append(0)
         self.storage.bitshiftLeft(words: Int.zero, bits: shift)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
-        var quotientIndex = remainderIndex - divisor.endIndex as Int
+        var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
         var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
             loop: repeat {
-                let remainderLast0 = self.storage[remainderIndex]
-                self.storage.formIndex(before:   &remainderIndex)
-                let remainderLast1 = self.storage[remainderIndex]
+                let remainderLast0 = self.storage.elements[remainderIndex]
+                self.storage.elements.formIndex(before:   &remainderIndex)
+                let remainderLast1 = self.storage.elements[remainderIndex]
                 //=------------------------------=
                 var digit: UInt
                 if  divisorLast0 == remainderLast0 {

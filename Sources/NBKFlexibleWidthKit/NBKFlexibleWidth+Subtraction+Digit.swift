@@ -104,3 +104,18 @@ extension NBKFlexibleWidth.Magnitude {
         return PVO(partialValue, overflow)
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Digit x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable mutating func subtract(_ other: UInt, plus borrow: Bool, at index: Int) -> Bool {
+        NBK.decrementSufficientUnsignedInteger(&self.elements, by: other, plus: borrow, at: index).overflow
+    }
+}

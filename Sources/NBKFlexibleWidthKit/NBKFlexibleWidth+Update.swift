@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Miscellaneous x Signed
+// MARK: * NBK x Flexible Width x Update x Signed
 //*============================================================================*
 
 extension NBKFlexibleWidth {
@@ -31,7 +31,7 @@ extension NBKFlexibleWidth {
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Miscellaneous x Unsigned
+// MARK: * NBK x Flexible Width x Update x Unsigned
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude {
@@ -46,5 +46,28 @@ extension NBKFlexibleWidth.Magnitude {
     
     @inlinable public mutating func update(_ value: Digit) {
         self.storage.normalize(update: value)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Update x Unsigned x Storage
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func updateZeroValue() {
+        self.update(repeating: false)
+    }
+    
+    @inlinable mutating func update(repeating bit: Bool) {
+        self.update(repeating: UInt(repeating: bit))
+    }
+    
+    @inlinable mutating func update(repeating word: UInt) {
+        self.withUnsafeMutableBufferPointer({ $0.update(repeating: word) })
     }
 }

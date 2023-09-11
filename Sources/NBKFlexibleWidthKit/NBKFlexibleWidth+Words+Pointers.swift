@@ -10,29 +10,24 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x Addition x Unsigned
+// MARK: * NBK x Flexible Width x Words x Pointers x Unsigned x Storage
 //*============================================================================*
 
-extension NBKResizableWidth.Magnitude {
+extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Details x Contiguous UInt Collection
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func +=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+    /// Grants unsafe access to the collection's contiguous storage.
+    @inlinable func withUnsafeBufferPointer<T>(
+    _ body: (NBK.UnsafeWords) throws -> T) rethrows -> T {
+        try self.elements.withUnsafeBufferPointer(body)
     }
     
-    @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
-        fatalError("TODO")
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    // TODO: rename
-    @inlinable public mutating func add(_ other: Self, plus carry: Bool, at index: Int) -> Bool {
-        NBK.incrementSufficientUnsignedInteger(&self, by: other, plus: carry, at: index).overflow
+    /// Grants unsafe access to the collection's contiguous mutable storage.
+    @inlinable mutating func withUnsafeMutableBufferPointer<T>(
+    _ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+        try self.elements.withUnsafeMutableBufferPointer(body)
     }
 }

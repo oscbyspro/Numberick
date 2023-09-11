@@ -81,7 +81,7 @@ extension NBKFlexibleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable var isTwosComplementMinValue: Bool {
-        self.compared(to: Int.min, at: self.magnitude.storage.lastIndex).isZero
+        self.compared(to: Int.min, at: self.magnitude.storage.elements.count - 1).isZero
     }
 }
 
@@ -115,25 +115,25 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
-    
+        
     @inlinable public var isZero: Bool {
-        self.storage.isZero
+        self.storage.elements.count == 1 && self.storage.elements.first!.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
-        self.storage.isLessThanZero
+        false
     }
     
     @inlinable public var isMoreThanZero: Bool {
-        self.storage.isMoreThanZero
+        !self.isZero
     }
     
     @inlinable public var isPowerOf2: Bool {
-        self.storage.isPowerOf2
+        self.storage.elements.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {
-        self.storage.signum()
+        Int(bit: !self.isZero)
     }
     
     //=------------------------------------------------------------------------=
@@ -141,7 +141,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.storage)
+        hasher.combine(self.storage.elements)
     }
     
     //=------------------------------------------------------------------------=
@@ -157,18 +157,30 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        self.storage.compared(to: other.storage)
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        other.storage.elements.withUnsafeBufferPointer { rhs in
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
+        }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        self.storage.compared(to: other.storage, at: index)
+        self .storage.elements.withUnsafeBufferPointer { lhs in
+        other.storage.elements.withUnsafeBufferPointer { rhs in
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
+        }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        self.storage.compared(to: other)
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+        NBK .withUnsafeWords(of: other) { rhs in
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
+        }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        self.storage.compared(to: other, at: index)
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+        NBK .withUnsafeWords(of: other) { rhs in
+            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
+        }}
     }
 }
