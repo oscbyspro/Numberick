@@ -68,46 +68,50 @@ extension NBKDoubleWidth where High == High.Magnitude {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
+        let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
+        let remainder = digits.count &  (radix.exponent - 1)
         //=--------------------------------------=
-        var error = false
-        let value = Self.uninitialized(as: UInt.self) {
-            let value =  NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            for index in value.indices {
-                if  digits.isEmpty {
-                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: 0000)
-                }   else {
-                    let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from:  &digits, maxLength: radix.exponent))
-                    guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
-                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
-                }
-            }
+        guard quotient  < Self.count || quotient == Self.count && remainder.isZero else { return nil }
+        //=--------------------------------------=
+        self.init()
+        var index = self.startIndex
+        
+        backwards: while index < quotient {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            
+            self[index] = word
+            self.formIndex(after: &index)
         }
         
-        if !error, digits.isEmpty { self = value } else { return nil }
+        backwards: if !remainder.isZero {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: remainder))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            
+            self[index] = word
+            self.formIndex(after: &index)
+        }
     }
     
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.ImperfectRadixSolution<Int>) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
-        let alignment = digits.count % radix.exponent
+        let remainder = digits.count % radix.exponent
         //=--------------------------------------=
         self.init()
-        guard let _ = { // this closure makes it 10% faster for some reason
-            
-            forwards: if !alignment.isZero {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.first = word
-            }
-            
-            forwards: while !digits.isEmpty {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
-            }
-            
-        }() as Void? else { return nil }
+        
+        forwards: if !remainder.isZero {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: remainder))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            self.first = word
+        }
+        
+        forwards: while !digits.isEmpty {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
+        }
     }
     
     //=------------------------------------------------------------------------=
