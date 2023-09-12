@@ -15,8 +15,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NBKFlexibleWidthKitBenchmarks",
-        "name" : "NBKFlexibleWidthKitBenchmarks"
+        "identifier" : "NBKTwosComplementKitBenchmarks",
+        "name" : "NBKTwosComplementKitBenchmarks"
       }
     }
   ],
