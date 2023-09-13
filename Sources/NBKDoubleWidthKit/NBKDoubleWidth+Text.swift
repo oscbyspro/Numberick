@@ -19,25 +19,22 @@ extension NBKDoubleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
         var description = String(description)
-        
-        let value: Optional<Self> = description.withUTF8 { utf8 in
-            let radix  = NBK.AnyRadixSolution<Int>(radix)
+        if  let value:Self = description.withUTF8({ utf8 in
             let components = NBK.makeIntegerComponents(utf8: utf8)
+            let radix  = NBK.AnyRadixSolution<Int>(radix)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
             return Self(sign: components.sign, magnitude: magnitude)
-        }
-        
-        if let value { self = value } else { return nil }
+        }){ self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
             let radix  = NBK.AnyRadixSolution<Int>(radix)
             let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
@@ -67,47 +64,51 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.PerfectRadixSolution<Int>) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        var digits = digits.drop(while:{ $0 == 48 })
+        var digits    = digits.drop(while:{ $0 == 48 })
+        let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
+        let remainder = digits.count &  (radix.exponent - 1)
         //=--------------------------------------=
-        var error = false
-        let value = Self.uninitialized(as: UInt.self) {
-            let value =  NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            for index in value.indices {
-                if  digits.isEmpty {
-                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: 0000)
-                }   else {
-                    let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from:  &digits, maxLength: radix.exponent))
-                    guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
-                    value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
-                }
-            }
+        guard quotient &+ Int(bit: remainder.isMoreThanZero) <= Self.count else { return nil }
+        //=--------------------------------------=
+        self.init()
+        var index = self.startIndex
+        
+        backwards: while index < quotient {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            
+            self[index] = word
+            self.formIndex(after: &index)
         }
         
-        if !error, digits.isEmpty { self = value } else { return nil }
+        backwards: if !remainder.isZero {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: remainder))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            
+            self[index] = word
+            self.formIndex(after: &index)
+        }
     }
     
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.ImperfectRadixSolution<Int>) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        var digits = digits.drop(while:{ $0 == 48 })
-        let alignment = digits.count % radix.exponent
+        var digits    = digits.drop(while:{ $0 == 48 })
+        let remainder = digits.count % radix.exponent
         //=--------------------------------------=
         self.init()
-        guard let _ = { // this closure makes it 10% faster for some reason
-            
-            forwards: if !alignment.isZero {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.first = word
-            }
-            
-            forwards: while !digits.isEmpty {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
-            }
-            
-        }() as Void? else { return nil }
+        
+        forwards: if !remainder.isZero {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: remainder))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            self.first = word
+        }
+        
+        forwards: while !digits.isEmpty {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
+        }
     }
     
     //=------------------------------------------------------------------------=

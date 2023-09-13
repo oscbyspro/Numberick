@@ -28,7 +28,7 @@ extension Swift.BinaryInteger {
     /// └──────────────┴───────┴─────────── → ────────────┘
     /// ```
     ///
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         String(self, radix: radix, uppercase: uppercase)
     }
 }

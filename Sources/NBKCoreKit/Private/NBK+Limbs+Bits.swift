@@ -21,7 +21,8 @@ extension NBK {
     ///
     /// - Note: The leading zero bit count is zero when `limbs` is empty.
     ///
-    @inlinable public static func leadingZeroBitCount<T: NBKFixedWidthInteger>(of limbs: some BidirectionalCollection<T>) -> Int {
+    @inlinable public static func leadingZeroBitCount<T: NBKFixedWidthInteger>(
+    of  limbs: some BidirectionalCollection<T>) -> Int {
         var index = limbs.endIndex
         var element = T.zero
         
@@ -37,7 +38,8 @@ extension NBK {
     ///
     /// - Note: The trailing zero bit count is zero when `limbs` is empty.
     ///
-    @inlinable public static func trailingZeroBitCount<T: NBKFixedWidthInteger>(of limbs: some Collection<T>) -> Int {
+    @inlinable public static func trailingZeroBitCount<T: NBKFixedWidthInteger>(
+    of  limbs: some Collection<T>) -> Int {
         var index = limbs.startIndex
         var element = T.zero
         
@@ -53,8 +55,11 @@ extension NBK {
     ///
     /// - Note: The most significant bit does not exist when `limbs` is empty.
     ///
-    @inlinable public static func mostSignificantBit(twosComplementOf limbs: some BidirectionalCollection<some NBKFixedWidthInteger>) -> Bool? {
+    @inlinable public static func mostSignificantBit<T: NBKFixedWidthInteger>(
+    twosComplementOf limbs: some BidirectionalCollection<T>) -> Bool? {
+        //=--------------------------------------=
         guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return limbs.isEmpty ? nil : false }
+        //=--------------------------------------=
         let lastIndex = limbs.index(before: limbs.endIndex)
         return limbs[lastIndex].twosComplementSubsequence(index == lastIndex).partialValue.mostSignificantBit
     }
@@ -67,7 +72,8 @@ extension NBK {
     ///
     /// - Note: The nonzero bit count is zero when `limbs` is empty.
     ///
-    @inlinable public static func nonzeroBitCount(of limbs: some Collection<some NBKFixedWidthInteger>) -> Int {
+    @inlinable public static func nonzeroBitCount<T: NBKFixedWidthInteger>(
+    of  limbs: some Collection<T>) -> Int {
         limbs.reduce(0 as Int) { $0 + $1.nonzeroBitCount }
     }
     
@@ -75,24 +81,35 @@ extension NBK {
     ///
     /// - Note: The nonzero bit count is zero when `limbs` is empty.
     ///
-    @inlinable public static func nonzeroBitCount(of limbs: some Collection<some NBKFixedWidthInteger>, equals comparand: Int) -> Bool {
-        var count = Int()
+    @inlinable public static func nonzeroBitCount<T: NBKFixedWidthInteger>(
+    of  limbs: some Collection<T>, equals comparand: Int) -> Bool {
+        var nonzeroBitCount: Int = 0
         var index = limbs.startIndex
         
-        accumulate: while index < limbs.endIndex, count <= comparand {
-            count += limbs[index].nonzeroBitCount
-            limbs.formIndex(after: &index)
+        while index < limbs.endIndex, nonzeroBitCount <= comparand {
+            nonzeroBitCount += limbs[index].nonzeroBitCount
+            limbs.formIndex(after:  &index)
         }
         
-        return (count == comparand) as Bool
+        return (nonzeroBitCount == comparand) as Bool
     }
     
     /// Returns the nonzero bit count for the two's complement of `limbs`.
     ///
     /// - Note: The nonzero bit count is zero when `limbs` is empty.
     ///
-    @inlinable public static func nonzeroBitCount(twosComplementOf limbs: some Collection<some NBKFixedWidthInteger>) -> Int {
-        guard let index = limbs.firstIndex(where:{ !$0.isZero }) else { return 0 as Int }
-        return limbs.indices[index...].reduce(1 - limbs[index].trailingZeroBitCount) { $0 + limbs[$1].onesComplement().nonzeroBitCount }
+    @inlinable public static func nonzeroBitCount<T: NBKFixedWidthInteger>(
+    twosComplementOf limbs: some Collection<T>) -> Int {
+        //=--------------------------------------=
+        guard var index = limbs.firstIndex(where:{ !$0.isZero }) else { return 0 as Int }
+        //=--------------------------------------=
+        var nonzeroBitCount: Int = 1 - limbs[index].trailingZeroBitCount
+        
+        while index < limbs.endIndex {
+            nonzeroBitCount += limbs[index].onesComplement().nonzeroBitCount
+            limbs.formIndex(after:  &index)
+        }
+        
+        return nonzeroBitCount as Int
     }
 }
