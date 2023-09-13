@@ -19,7 +19,7 @@ extension NBKDoubleWidth {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
         var description = String(description)
         if  let value:Self = description.withUTF8({ utf8 in
             let components = NBK.makeIntegerComponents(utf8: utf8)
@@ -34,7 +34,7 @@ extension NBKDoubleWidth {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
             let radix  = NBK.AnyRadixSolution<Int>(radix)
             let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
@@ -64,11 +64,11 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.PerfectRadixSolution<Int>) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        var digits = digits.drop(while:{ $0 == 48 })
+        var digits    = digits.drop(while:{ $0 == 48 })
         let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
         let remainder = digits.count &  (radix.exponent - 1)
         //=--------------------------------------=
-        guard quotient + Int(bit:  remainder.isMoreThanZero) <= Self.count else { return nil }
+        guard quotient &+ Int(bit: remainder.isMoreThanZero) <= Self.count else { return nil }
         //=--------------------------------------=
         self.init()
         var index = self.startIndex
@@ -93,7 +93,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.ImperfectRadixSolution<Int>) {
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        var digits = digits.drop(while:{ $0 == 48 })
+        var digits    = digits.drop(while:{ $0 == 48 })
         let remainder = digits.count % radix.exponent
         //=--------------------------------------=
         self.init()

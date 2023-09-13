@@ -216,10 +216,10 @@ _ integer: T?, _ radix: Int, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10 {
-        XCTAssertEqual(T(text), integer)
+        XCTAssertEqual(T.init(text), integer, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(T(text, radix: radix), integer)
+    XCTAssertEqual(T.init(text, radix: radix), integer, file: file, line: line)
 }
 
 private func NBKAssertEncodeText<T: NBKCoreInteger>(
@@ -227,12 +227,11 @@ _ integer: T, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10, uppercase == false {
-        XCTAssertEqual(String(integer),       text, file: file, line: line)
-        XCTAssertEqual(integer.description(), text, file: file, line: line)
-        XCTAssertEqual(integer.description,   text, file: file, line: line)
+        XCTAssertEqual(String.init(integer), text, file: file, line: line)
+        XCTAssertEqual(integer.description,  text, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
+    XCTAssertEqual(String.init(integer,radix: radix, uppercase: uppercase), text, file: file, line: line)
     XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
 

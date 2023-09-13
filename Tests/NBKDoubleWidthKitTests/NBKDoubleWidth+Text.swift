@@ -1410,10 +1410,10 @@ file: StaticString = #file, line: UInt = #line) {
     typealias T = NBKDoubleWidth<H>
     //=------------------------------------------=
     if  radix == 10 {
-        XCTAssertEqual(T(text), integer, file: file, line: line)
+        XCTAssertEqual(T.init(text), integer, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(T(text, radix: radix), integer, file: file, line: line)
+    XCTAssertEqual(T.init(text, radix: radix), integer, file: file, line: line)
 }
 
 private func NBKAssertEncodeText<H: NBKFixedWidthInteger>(
@@ -1421,12 +1421,11 @@ _ integer: NBKDoubleWidth<H>, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  radix == 10, uppercase == false {
-        XCTAssertEqual(String(integer),       text, file: file, line: line)
-        XCTAssertEqual(integer.description,   text, file: file, line: line)
-        XCTAssertEqual(integer.description(), text, file: file, line: line)
+        XCTAssertEqual(String.init(integer), text, file: file, line: line)
+        XCTAssertEqual(integer.description,  text, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(String(integer,     radix: radix, uppercase: uppercase), text, file: file, line: line)
+    XCTAssertEqual(String.init(integer,radix: radix, uppercase: uppercase), text, file: file, line: line)
     XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
 
