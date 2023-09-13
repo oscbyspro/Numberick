@@ -21,16 +21,13 @@ extension NBKDoubleWidth {
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
-        
-        let value: Optional<Self> = description.withUTF8 { utf8 in
-            let radix  = NBK.AnyRadixSolution<Int>(radix)
+        if  let value:Self = description.withUTF8({ utf8 in
             let components = NBK.makeIntegerComponents(utf8: utf8)
+            let radix  = NBK.AnyRadixSolution<Int>(radix)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
             return Self(sign: components.sign, magnitude: magnitude)
-        }
-        
-        if let value { self = value } else { return nil }
+        }){ self = value } else { return nil }
     }
     
     //=------------------------------------------------------------------------=
@@ -71,7 +68,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
         let remainder = digits.count &  (radix.exponent - 1)
         //=--------------------------------------=
-        guard quotient  < Self.count || quotient == Self.count && remainder.isZero else { return nil }
+        guard quotient + Int(bit:  remainder.isMoreThanZero) <= Self.count else { return nil }
         //=--------------------------------------=
         self.init()
         var index = self.startIndex

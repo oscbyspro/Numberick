@@ -152,7 +152,7 @@ extension NBK.RadixSolution {
         
         @inlinable init(_ solution: NBK.PerfectRadixSolution<Size>) {
             self.quotientShift = NBK.initOrBitCast(truncating: solution.base.trailingZeroBitCount)
-            self.remainderMask = solution.base &+  Element.max // &- 1
+            self.remainderMask = solution.base &- (1 as Element)
         }
         
         //=--------------------------------------------------------------------=
@@ -320,10 +320,10 @@ extension NBK.RadixSolution {
         //=--------------------------------------------------------------------=
         
         @inlinable init(_ solution: NBK.AnyRadixSolution<Size>) {
-            assert(solution.base >= 2)
             if  solution.power.isZero {
+                Swift.assert(solution.base.isPowerOf2)
                 self.baseOrQuotientShift = NBK.initOrBitCast(truncating: solution.base.trailingZeroBitCount)
-                self.zeroOrRemainderMask = solution.base &+  Element.max // &- 1
+                self.zeroOrRemainderMask = solution.base &- (1 as Element)
             }   else {
                 self.baseOrQuotientShift = solution.base
                 self.zeroOrRemainderMask = 00 as Element

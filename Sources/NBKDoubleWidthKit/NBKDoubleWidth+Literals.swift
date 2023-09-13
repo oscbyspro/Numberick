@@ -84,7 +84,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable init?(exactlyStringLiteral source: StaticString) {
-        if  let value: Self = source.withUTF8Buffer({ utf8 in
+        if  let value:Self = source.withUTF8Buffer({ utf8 in
             let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
             let radix  = NBK.AnyRadixSolution<Int>(components.radix)
             let digits = NBK.UnsafeUTF8(rebasing:  components.body )

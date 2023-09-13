@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Stdlib
+// MARK: * NBK x Test x Swift
 //*============================================================================*
 
 extension NBK {
@@ -19,13 +19,13 @@ extension NBK {
     
     /// Creates a description from an integer by using Swift's standard library method.
     @inlinable public static func descriptionAsStdlib(
-    _ source: some Swift.BinaryInteger, radix: Int = 10, uppercase: Bool = false) -> String {
+    _   source: some Swift.BinaryInteger, radix: Int = 10, uppercase: Bool = false) -> Swift.String {
         String.init(source, radix: radix, uppercase: uppercase)
     }
     
     /// Creates an integer from a description by using Swift's standard library method.
     @inlinable public static func integerAsStdlib<T: Swift.FixedWidthInteger>(
-    _ source: some StringProtocol, radix: Int = 10, as type: T.Type = T.self) -> Optional<T> {
+    _   source: some Swift.StringProtocol, radix: Int = 10, as type: T.Type = T.self) -> Swift.Optional<T> {
         T.init(source, radix: radix)
     }
 }

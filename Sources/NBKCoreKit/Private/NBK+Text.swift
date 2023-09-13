@@ -177,7 +177,8 @@ extension NBK {
         let division = radix.division()
         //=--------------------------------------=
         backwards: repeat {
-            let digit: UInt; (chunk,digit) = division(chunk)
+            let digit: UInt
+            (chunk,digit) = division(chunk)
             perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
         }   while !chunk.isZero
     }
@@ -198,7 +199,8 @@ extension NBK {
         //=--------------------------------------=
         for var chunk in body {
             for _  in 0 as UInt ..< radix.exponent {
-                let digit: UInt; (chunk,digit) = division(chunk)
+                let digit: UInt
+                (chunk,digit) = division(chunk)
                 perform(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
             }
         }
