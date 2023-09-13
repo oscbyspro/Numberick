@@ -10,61 +10,76 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Storage
+//*============================================================================*
+
+extension PrivateIntXLOrUIntXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Normalization
+    //=------------------------------------------------------------------------=
+    
+    @inlinable static func normalize(_ storage: inout Storage, update value: Digit) {
+        storage.elements.replaceSubrange(storage.elements.indices, with: CollectionOfOne(UInt(bitPattern: value)))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Storage x IntXL
 //*============================================================================*
 
 extension IntXL {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Normalization
     //=------------------------------------------------------------------------=
     
-    @inlinable var isNormal: Bool {
-        if  self.storage.count == 1 { return true }
+    @inlinable static func isNormal(_ storage: Storage) -> Bool {
+        if  storage.elements.count == 1 { return true }
         
-        let tail = Int(bitPattern: self.storage[self.storage.count - 1])
-        let head = Int(bitPattern: self.storage[self.storage.count - 2])
+        let tail = Int(bitPattern: storage.elements[storage.elements.count - 1])
+        let head = Int(bitPattern: storage.elements[storage.elements.count - 2])
         
         let sign = tail >> Int.bitWidth
         
         return !(sign == tail && sign == head >> Int.bitWidth)
     }
     
-    @inlinable mutating func normalize() {
-        Swift.assert(!self.storage.isEmpty)
+    @inlinable static func normalize(_ storage: inout Storage) {
+        Swift.assert(!storage.elements.isEmpty)
         //=--------------------------------------=
-        var position = self.storage.index(before: self.storage.endIndex)
-        let mostSignificantBit = self.storage[position].mostSignificantBit
+        var position = storage.elements.index(before:  storage.elements.endIndex)
+        let mostSignificantBit = storage.elements[position].mostSignificantBit
         let sign = UInt(repeating: mostSignificantBit)
         //=--------------------------------------=
         // TODO: measure combined loop conditions
         //=--------------------------------------=
-        backwards: while position > self.storage.startIndex {
-            if self.storage[position] != sign { return }
-            self.storage.formIndex(before: &position)
-            if self.storage[position].mostSignificantBit != mostSignificantBit { return }
-            self.storage.removeLast()
+        backwards: while position > storage.elements.startIndex {
+            if storage.elements[position] != sign { return }
+            storage.elements.formIndex(before: &position)
+            if storage.elements[position].mostSignificantBit != mostSignificantBit { return }
+            storage.elements.removeLast()
         }
     }
     
-    @inlinable mutating func normalize(appending word: UInt) {
-        Swift.assert(!self.storage.isEmpty)
+    @inlinable static func normalize(_ storage: inout Storage, appending word: UInt) {
+        Swift.assert(!storage.elements.isEmpty)
         //=--------------------------------------=
-        var position = self.storage.index(before: self.storage.endIndex)
-        let mostSignificantBit = self.storage[position].mostSignificantBit
+        var position = storage.elements.index(before: storage.elements.endIndex)
+        let mostSignificantBit = storage.elements[position].mostSignificantBit
         let sign = UInt(repeating: mostSignificantBit)
         //=--------------------------------------=
         if  word != sign {
-            return self.storage.append(word)
+            return storage.elements.append(word)
         }
         //=--------------------------------------=
         // TODO: measure combined loop conditions
         //=--------------------------------------=
-        backwards: while position > self.storage.startIndex {
-            if self.storage[position] != sign { return }
-            self.storage.formIndex(before: &position)
-            if self.storage[position].mostSignificantBit != mostSignificantBit { return }
-            self.storage.removeLast()
+        backwards: while position > storage.elements.startIndex {
+            if storage.elements[position] != sign { return }
+            storage.elements.formIndex(before: &position)
+            if storage.elements[position].mostSignificantBit != mostSignificantBit { return }
+            storage.elements.removeLast()
         }
     }
 }
@@ -76,25 +91,63 @@ extension IntXL {
 extension UIntXL {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Details x Normalization
     //=------------------------------------------------------------------------=
     
-    @inlinable var isNormal: Bool {
-        self.storage.count == 1 || !self.storage.last!.isZero
+    @inlinable static func isNormal(_ storage: Storage) -> Bool {
+        storage.elements.count == 1 || !storage.elements.last!.isZero
     }
     
-    @inlinable mutating func normalize() {
-        Swift.assert(!self.storage.isEmpty)
+    @inlinable static func normalize(_ storage: inout Storage) {
+        Swift.assert(!storage.elements.isEmpty)
         //=--------------------------------------=
-        var position = self.storage.index(before: self.storage.endIndex)
+        var position = storage.elements.index(before: storage.elements.endIndex)
         let sign = UInt(repeating: false)
         //=--------------------------------------=
         // TODO: measure combined loop conditions
         //=--------------------------------------=
-        backwards: while position > self.storage.startIndex {
-            if self.storage[position] != sign { return }
-            self.storage.formIndex(before: &position)
-            self.storage.removeLast()
+        backwards: while position > storage.elements.startIndex {
+            if storage.elements[position] != sign { return }
+            storage.elements.formIndex(before: &position)
+            storage.elements.removeLast()
         }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Storage x StorageXL
+//*============================================================================*
+
+extension StorageXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func reserveCapacity(_ minCapacity: Int) {
+        self.elements.reserveCapacity(minCapacity)
+    }
+    
+    @inlinable mutating func append(_ word: UInt) {
+        self.elements.append(word)
+    }
+    
+    @inlinable mutating func resize(maxCount: Int) {
+        precondition(maxCount.isMoreThanZero)
+        if  self.elements.count > maxCount {
+            self.elements.removeSubrange(maxCount...)
+        }
+    }
+    
+    @inlinable mutating func resize(minCount: Int, appending word: UInt) {
+        self.reserveCapacity(minCount)
+        appending: while self.elements.count < minCount {
+            self.elements.append(word)
+        }
+    }
+    
+    @inlinable mutating func resize(minCount: Int, isSigned: Bool) {
+        let isLessThanZero = self.isLessThanZero(isSigned: isSigned)
+        self.resize(minCount: minCount, appending: UInt(repeating: isLessThanZero))
     }
 }

@@ -10,22 +10,29 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Addition x Digit x IntXL
+// MARK: * NBK x Flexible Width x Addition x Digit
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: Int) {
+    @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: Digit) {
         lhs.add(rhs, at: Int.zero)
     }
     
-    @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: Int) -> Self {
+    @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: Digit) -> Self {
         lhs.adding(rhs, at: Int.zero)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Addition x Digit x IntXL
+//*============================================================================*
+
+extension IntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -47,18 +54,6 @@ extension IntXL {
 //*============================================================================*
 
 extension UIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable public static func +=(lhs: inout Self, rhs: UInt) {
-        lhs.add(rhs, at: Int.zero)
-    }
-    
-    @_disfavoredOverload @inlinable public static func +(lhs: Self, rhs: UInt) -> Self {
-        lhs.adding(rhs, at: Int.zero)
-    }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

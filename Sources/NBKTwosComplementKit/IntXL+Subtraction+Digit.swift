@@ -10,22 +10,29 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x Digit x IntXL
+// MARK: * NBK x Flexible Width x Subtraction x Digit
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: Int) {
+    @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: Digit) {
         lhs.subtract(rhs, at: Int.zero)
     }
     
-    @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: Int) -> Self {
+    @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: Digit) -> Self {
         lhs.subtracting(rhs, at: Int.zero)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x Digit x IntXL
+//*============================================================================*
+
+extension IntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -50,26 +57,6 @@ extension UIntXL {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: UInt) {
-        lhs.subtract(rhs, at: Int.zero)
-    }
-    
-    @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: UInt) -> Self {
-        lhs.subtracting(rhs, at: Int.zero)
-    }
-    
-    @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt) -> Bool {
-        self.subtractReportingOverflow(other, at: Int.zero)
-    }
-    
-    @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt) -> PVO<Self> {
-        self.subtractingReportingOverflow(other, at: Int.zero)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, at index: Int) {
         let overflow: Bool = self.subtractReportingOverflow(other, at: index)
         precondition(!overflow, NBK.callsiteOverflowInfo())
@@ -79,6 +66,18 @@ extension UIntXL {
         let pvo: PVO<Self> = self.subtractingReportingOverflow(other, at: index)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as  Self
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt) -> Bool {
+        self.subtractReportingOverflow(other, at: Int.zero)
+    }
+    
+    @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt) -> PVO<Self> {
+        self.subtractingReportingOverflow(other, at: Int.zero)
     }
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt, at index: Int) -> Bool {

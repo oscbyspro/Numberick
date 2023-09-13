@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Logic x IntXL
+// MARK: * NBK x Flexible Width x Logic
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x NOT
@@ -22,17 +22,20 @@ extension IntXL {
     @inlinable public static prefix func ~(x: Self) -> Self {
         x.onesComplement()
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Logic x IntXL
+//*============================================================================*
+
+extension IntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x AND
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs &= rhs; return lhs
+        lhs.upsizeThenFormInIntersection(extending: rhs, each: &)
     }
     
     //=------------------------------------------------------------------------=
@@ -40,11 +43,7 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs |= rhs; return lhs
+        lhs.upsizeThenFormInIntersection(extending: rhs, each: |)
     }
     
     //=------------------------------------------------------------------------=
@@ -52,11 +51,24 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+        lhs.upsizeThenFormInIntersection(extending: rhs, each: ^)
     }
     
-    @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs ^= rhs; return lhs
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func upsizeThenFormInIntersection(extending other: Self, each element: (UInt, UInt) -> UInt) {
+        let lhsSign = UInt(repeating: self.isLessThanZero)
+        self.storage.resize(minCount: other.storage.elements.count, appending: lhsSign)
+        self.withUnsafeMutableBufferPointer { lhs in
+            other.withUnsafeBufferPointer {   rhs in
+                let rhsSign = UInt(repeating: rhs.last!.mostSignificantBit)
+                for index in  lhs.indices {
+                    lhs[index] = element(lhs[index], index < rhs.endIndex ? rhs[index] : rhsSign)
+                }
+            }
+        }
     }
 }
 
@@ -67,23 +79,12 @@ extension IntXL {
 extension UIntXL {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x NOT
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static prefix func ~(x: Self) -> Self {
-        x.onesComplement()
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Transformations x AND
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs &= rhs; return lhs
+        lhs.storage.downsizeThenFormInIntersection(with: rhs.storage, each: &)
+        Self.normalize(&lhs.storage)
     }
     
     //=------------------------------------------------------------------------=
@@ -91,11 +92,8 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs |= rhs; return lhs
+        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, appending: 0 as UInt, each: |)
+        Swift.assert(Self.isNormal(lhs.storage))
     }
     
     //=------------------------------------------------------------------------=
@@ -103,10 +101,40 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
+        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, appending: 0 as UInt, each: ^)
+        Swift.assert(Self.isNormal(lhs.storage))
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Logic x Storage
+//*============================================================================*
+
+extension StorageXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func upsizeThenFormInIntersection(with other: Self, appending word: UInt, each element: (UInt, UInt) -> UInt) {
+        self.resize(minCount: other.elements.count, appending: word)
+        self.elements.withUnsafeMutableBufferPointer { lhs in
+            other.elements.withUnsafeBufferPointer {   rhs in
+                for index in rhs.indices  {
+                    lhs[index] = element(lhs[index], rhs[index])
+                }
+            }
+        }
     }
     
-    @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs ^= rhs; return lhs
+    @inlinable mutating func downsizeThenFormInIntersection(with other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(maxCount: other.elements.count)
+        self.elements.withUnsafeMutableBufferPointer { lhs in
+            other.elements.withUnsafeBufferPointer {   rhs in
+                for index in lhs.indices  {
+                    lhs[index] = element(lhs[index], rhs[index])
+                }
+            }
+        }
     }
 }

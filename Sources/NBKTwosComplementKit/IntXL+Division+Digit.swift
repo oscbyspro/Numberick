@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Division x Digit x IntXL
+// MARK: * NBK x Flexible Width x Division x Digit
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -40,6 +40,17 @@ extension IntXL {
         let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Division x Digit x IntXL
+//*============================================================================*
+
+extension IntXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         fatalError("TODO")
@@ -56,28 +67,6 @@ extension UIntXL {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by other: Digit) -> Bool {
-        let pvo: PVO<Self> = self.dividedReportingOverflow(by: other)
-        self = pvo.partialValue
-        return pvo.overflow as Bool
-    }
-    
-    @_disfavoredOverload @inlinable public func dividedReportingOverflow(by other: Digit) -> PVO<Self> {
-        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
-        return   PVO(qro.partialValue.quotient, qro.overflow)
-    }
-    
-    @_disfavoredOverload @inlinable public mutating func formRemainderReportingOverflow(dividingBy other: Digit) -> Bool {
-        let pvo: PVO<Digit> = self.remainderReportingOverflow(dividingBy: other)
-        self = Self(digit: pvo.partialValue)
-        return pvo.overflow as Bool
-    }
-    
-    @_disfavoredOverload @inlinable public func remainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        let qro: PVO<QR<Self, Digit>> = self.quotientAndRemainderReportingOverflow(dividingBy: other)
-        return   PVO(qro.partialValue.remainder, qro.overflow)
-    }
-    
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         var quotient  = self
         let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: other)
@@ -89,6 +78,7 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        fatalError("TODO")
+        defer{ Self.normalize(&self.storage) }
+        return NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &self.storage.elements, dividingBy: other)
     }
 }

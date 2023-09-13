@@ -20,23 +20,23 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public var isZero: Bool {
-        fatalError("TODO")
+        self.storage.elements.count == 1 && self.storage.first.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
-        fatalError("TODO")
+        self.storage.last.mostSignificantBit
     }
     
     @inlinable public var isMoreThanZero: Bool {
-        fatalError("TODO")
+        !self.isLessThanZero && !self.isZero
     }
     
     @inlinable public var isPowerOf2: Bool {
-        fatalError("TODO")
+        !self.isLessThanZero && self.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {
-        fatalError("TODO")
+        self.isLessThanZero ? -1 : self.isZero ? 0 : 1
     }
     
     //=------------------------------------------------------------------------=
@@ -44,7 +44,7 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.storage)
+        hasher.combine(self.storage.elements)
     }
     
     //=------------------------------------------------------------------------=
@@ -60,24 +60,36 @@ extension IntXL {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        fatalError("TODO")
+        self .withUnsafeBufferPointer { lhs in
+        other.withUnsafeBufferPointer { rhs in
+            NBK.compareStrictSignedInteger(lhs, to: rhs)
+        }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        fatalError("TODO")
+        self .withUnsafeBufferPointer { lhs in
+        other.withUnsafeBufferPointer { rhs in
+            NBK.compareStrictSignedInteger(lhs, to: rhs, at: index)
+        }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        fatalError("TODO")
+        self.withUnsafeBufferPointer {    lhs in
+        NBK .withUnsafeWords(of: other) { rhs in
+            NBK.compareStrictSignedInteger(lhs, to: rhs)
+        }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        fatalError("TODO")
+        self.withUnsafeBufferPointer {    lhs in
+        NBK .withUnsafeWords(of: other) { rhs in
+            NBK.compareStrictSignedInteger(lhs, to: rhs, at: index)
+        }}
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Comparisons x Unsigned
+// MARK: * NBK x Flexible Width x Comparisons x UIntXL
 //*============================================================================*
 
 extension UIntXL {
@@ -87,7 +99,7 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
         
     @inlinable public var isZero: Bool {
-        self.storage.count == 1 && self.storage.first!.isZero
+        self.storage.elements.count == 1 && self.storage.first.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
@@ -99,7 +111,7 @@ extension UIntXL {
     }
     
     @inlinable public var isPowerOf2: Bool {
-        self.storage.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
+        self.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {
@@ -111,7 +123,7 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.storage)
+        hasher.combine(self.storage.elements)
     }
     
     //=------------------------------------------------------------------------=
@@ -127,30 +139,45 @@ extension UIntXL {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        self .storage.withUnsafeBufferPointer { lhs in
-        other.storage.withUnsafeBufferPointer { rhs in
+        self .withUnsafeBufferPointer { lhs in
+        other.withUnsafeBufferPointer { rhs in
             NBK.compareLenientUnsignedInteger(lhs, to: rhs)
         }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        self .storage.withUnsafeBufferPointer { lhs in
-        other.storage.withUnsafeBufferPointer { rhs in
+        self .withUnsafeBufferPointer { lhs in
+        other.withUnsafeBufferPointer { rhs in
             NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        self.storage.withUnsafeBufferPointer { lhs in
+        self.withUnsafeBufferPointer {    lhs in
         NBK .withUnsafeWords(of: other) { rhs in
             NBK.compareLenientUnsignedInteger(lhs, to: rhs)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
-        self.storage.withUnsafeBufferPointer { lhs in
+        self.withUnsafeBufferPointer {    lhs in
         NBK .withUnsafeWords(of: other) { rhs in
             NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
         }}
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Comparisons x Storage
+//*============================================================================*
+
+extension StorageXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func isLessThanZero(isSigned: Bool) -> Bool {
+        isSigned && self.last.mostSignificantBit
     }
 }

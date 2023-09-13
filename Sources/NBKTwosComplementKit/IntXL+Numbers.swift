@@ -10,6 +10,21 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Numbers
+//*============================================================================*
+
+extension PrivateIntXLOrUIntXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(digit: Digit) {
+        self.init(unchecked: Storage(unchecked: [UInt(bitPattern: digit)]))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Numbers x IntXL
 //*============================================================================*
 
@@ -22,31 +37,19 @@ extension IntXL {
     public static let zero = Self(0)
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Digit
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(digit: Int) {
-        self.init(unchecked: [UInt(bitPattern: digit)])
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(_ source: some BinaryInteger) {
-        //=--------------------------------------=
-        // Magnitude
-        //=--------------------------------------=
-        if  let source = source as? Magnitude {
-            self.init(sign: FloatingPointSign.plus, magnitude: source)
-        //=--------------------------------------=
-        // some BinaryInteger
-        //=--------------------------------------=
+    @inlinable public init<T>(_ source: T) where T: BinaryInteger {
+        var storage = Storage(nonemptying: Elements(source.words))
+        
+        if !T.isSigned, storage.last.mostSignificantBit {
+            storage.append(0 as UInt)
         }   else {
-            let sign = FloatingPointSign(source < 0)
-            let magnitude = Magnitude(source.magnitude)
-            self.init(sign: sign, magnitude: magnitude)
+            Self.normalize(&storage)
         }
+        
+        self.init(unchecked: storage)
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
@@ -66,11 +69,9 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryFloatingPoint) {
-        guard let result = Self(exactly: source.rounded(.towardZero)) else {
+        if  let value = Self(exactly: source.rounded(.towardZero)) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
@@ -83,7 +84,15 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(sign: FloatingPointSign, magnitude: Magnitude) {
-        fatalError("TODO")
+        var storage = magnitude.storage as Storage
+        var isLessThanZero = (sign == FloatingPointSign.minus)
+        
+        if  isLessThanZero {
+            isLessThanZero = !storage.formTwosComplementReportingOverflow(as: UInt.self)
+        }
+        
+        Self.normalize(&storage, appending: UInt(repeating: isLessThanZero))
+        self.init(unchecked: storage)
     }
 }
 
@@ -100,23 +109,13 @@ extension UIntXL {
     public static let zero = Self(0)
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Digit
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(digit: UInt) {
-        self.init(unchecked: [digit])
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
-        guard let result = Self(exactly: source) else {
+        if  let value = Self(exactly: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
@@ -137,11 +136,9 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryFloatingPoint) {
-        guard let value = Self(exactly: source.rounded(.towardZero)) else {
+        if  let value = Self(exactly: source.rounded(.towardZero)) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = value
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {

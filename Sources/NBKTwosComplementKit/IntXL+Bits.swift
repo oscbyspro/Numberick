@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Bits x IntXL
+// MARK: * NBK x Flexible Width x Bits
 //*============================================================================*
 
-extension IntXL {
+extension PrivateIntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -24,73 +24,43 @@ extension IntXL {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
     @inlinable public var bitWidth: Int {
-        fatalError("TODO")
+        self.storage.elements.count * UInt.bitWidth
     }
+    
+    @inlinable public var nonzeroBitCount: Int {
+        self.withUnsafeBufferPointer(NBK.nonzeroBitCount(of:))
+    }
+    
+    @inlinable public var leadingZeroBitCount: Int {
+        self.storage.last.leadingZeroBitCount
+    }
+    
+    @inlinable public var trailingZeroBitCount: Int {
+        self.withUnsafeBufferPointer(NBK.trailingZeroBitCount(of:))
+    }
+    
+    @inlinable public var mostSignificantBit: Bool {
+        self.storage.last.mostSignificantBit
+    }
+    
+    @inlinable public var leastSignificantBit: Bool {
+        self.storage.first.leastSignificantBit
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable func leadingBitCount(_ bit: Bool) -> Int {
+        var last = self.storage.last
+        if  bit {
+            last.formOnesComplement()
+        }
         
-    @inlinable public var nonzeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var leadingZeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var trailingZeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        fatalError("TODO")
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Bits x UIntXL
-//*============================================================================*
-
-extension UIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(bit: Bool) {
-        self.init(digit: Digit(bit: bit))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var bitWidth: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var nonzeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var leadingZeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var trailingZeroBitCount: Int {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        fatalError("TODO")
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        fatalError("TODO")
+        return last.leadingZeroBitCount
     }
 }

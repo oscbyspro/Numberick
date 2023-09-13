@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Addition x IntXL
+// MARK: * NBK x Flexible Width x Addition
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -26,6 +26,13 @@ extension IntXL {
     @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
         lhs.adding(rhs, at: Int.zero)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Addition x IntXL
+//*============================================================================*
+
+extension IntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -47,18 +54,6 @@ extension IntXL {
 //*============================================================================*
 
 extension UIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func +=(lhs: inout Self, rhs: Self) {
-        lhs.add(rhs, at: Int.zero)
-    }
-    
-    @inlinable public static func +(lhs: Self, rhs: Self) -> Self {
-        lhs.adding(rhs, at: Int.zero)
-    }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

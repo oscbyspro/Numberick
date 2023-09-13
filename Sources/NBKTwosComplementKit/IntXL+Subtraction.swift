@@ -10,10 +10,10 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x IntXL
+// MARK: * NBK x Flexible Width x Subtraction
 //*============================================================================*
 
-extension IntXL {
+extension IntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -26,6 +26,13 @@ extension IntXL {
     @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
         lhs.subtracting(rhs, at: Int.zero)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x IntXL
+//*============================================================================*
+
+extension IntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -50,26 +57,6 @@ extension UIntXL {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func -=(lhs: inout Self, rhs: Self) {
-        lhs.subtract(rhs, at: Int.zero)
-    }
-    
-    @inlinable public static func -(lhs: Self, rhs: Self) -> Self {
-        lhs.subtracting(rhs, at: Int.zero)
-    }
-    
-    @inlinable public mutating func subtractReportingOverflow(_ other: Self) -> Bool {
-        self.subtractReportingOverflow(other, at: Int.zero)
-    }
-
-    @inlinable public func subtractingReportingOverflow(_ other: Self) -> PVO<Self> {
-        self.subtractingReportingOverflow(other, at: Int.zero)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
     @inlinable public mutating func subtract(_ other: Self, at index: Int) {
         let overflow: Bool = self.subtractReportingOverflow(other, at: index)
         precondition(!overflow, NBK.callsiteOverflowInfo())
@@ -79,6 +66,18 @@ extension UIntXL {
         let pvo: PVO<Self> = self.subtractingReportingOverflow(other, at: index)
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as  Self
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func subtractReportingOverflow(_ other: Self) -> Bool {
+        self.subtractReportingOverflow(other, at: Int.zero)
+    }
+
+    @inlinable public func subtractingReportingOverflow(_ other: Self) -> PVO<Self> {
+        self.subtractingReportingOverflow(other, at: Int.zero)
     }
     
     @inlinable public mutating func subtractReportingOverflow(_ other: Self, at index: Int) -> Bool {

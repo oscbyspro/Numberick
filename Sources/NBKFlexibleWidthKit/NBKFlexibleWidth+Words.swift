@@ -56,7 +56,7 @@ extension NBKFlexibleWidth {
         }
     }
     
-    #warning("IntXL and UIntXL can share Words")
+    // #warning("IntXL and UIntXL can share Words")
     //*========================================================================*
     // MARK: * Words
     //*========================================================================*

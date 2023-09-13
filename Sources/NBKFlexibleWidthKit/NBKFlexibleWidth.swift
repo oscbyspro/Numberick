@@ -112,7 +112,7 @@ import NBKCoreKit
             "UIntXL"
         }
         
-        #warning("TODO: check uses of elements, first!, last!, count, lastIndex")
+        // #warning("check uses of elements, first!, last!, count, lastIndex")
         //*====================================================================*
         // MARK: * Storage
         //*====================================================================*

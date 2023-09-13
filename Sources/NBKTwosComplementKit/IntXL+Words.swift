@@ -7,18 +7,20 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Words x IntXL
+// MARK: * NBK x Flexible Width x Words
 //*============================================================================*
 
-extension IntXL {
+extension PrivateIntXLOrUIntXL {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     @inlinable public init(words: some Sequence<UInt>) {
-        self.init(Storage(words))
+        self.init(normalizing: Storage(nonemptying: Elements(words)))
     }
     
     //=------------------------------------------------------------------------=
@@ -26,45 +28,40 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public var words: ContiguousArray<UInt> {
-        self.storage
+        self.storage.elements // TODO: make opaque
     }
     
     @inlinable public subscript(index: Int) -> UInt {
-        if  index < self.storage.endIndex {
-            return  self.storage[index]
+        if  index < self.storage.elements.endIndex {
+            return  self.storage.elements[index]
         }   else {
-            return  UInt(bitPattern: Int(bitPattern: self.storage.last!) >> Int.bitWidth)
+            return  UInt(bitPattern: Digit(bitPattern: self.storage.last) >> Digit.bitWidth)
         }
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Words x UIntXL
+// MARK: * NBK x Flexible Width x Words x Storage
 //*============================================================================*
 
-extension UIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(words: some Sequence<UInt>) {
-        self.init(Storage(words))
-    }
+extension NBKFlexibleWidth.Storage {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable public var words: ContiguousArray<UInt> {
-        self.storage
+    @inlinable var first: UInt {
+        get { self.elements[self.elements.startIndex]  }
+        set { self.elements[self.elements.startIndex] = newValue }
     }
     
-    @inlinable public subscript(index: Int) -> UInt {
-        if  index < self.storage.endIndex {
-            return  self.storage[index]
-        }   else {
-            return  0000000000000000000
-        }
+    @inlinable var last: UInt {
+        get { self.elements[self.elements.index(before: self.elements.endIndex)]  }
+        set { self.elements[self.elements.index(before: self.elements.endIndex)] = newValue }
+    }
+    
+    @inlinable subscript<T>(_ index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
+        get { T.init(bitPattern: self.elements[index]) }
+        set { self.elements[index] = UInt(bitPattern: newValue) }
     }
 }
