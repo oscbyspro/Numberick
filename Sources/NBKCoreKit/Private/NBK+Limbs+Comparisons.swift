@@ -28,12 +28,12 @@ extension NBK {
     @inlinable public static func compareStrictSignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords, at index: Int) -> Int {
         let lhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: lhs)
         let rhs = NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: rhs)
-        let partition = Swift.min(index, lhs.body.endIndex)
+        let partition = Swift.min(index,   lhs.body.endIndex)
         let suffix = UnsafeWords(rebasing: lhs.body.suffix(from: partition))
-        let comparison = NBK.compareSuccinctBinaryIntegerUnchecked((body: suffix, sign: lhs.sign), to: rhs)
+        let comparison = NBK.compareSuccinctBinaryIntegerUnchecked((body: suffix,  sign: lhs.sign), to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = UnsafeWords(rebasing: lhs.body.prefix(upTo: partition))
-        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+        return Int(bit: partition == index ? !prefix.allSatisfy{ $0.isZero } : lhs.sign)
     }
 }
 

@@ -52,27 +52,44 @@ final class NBKTestsOnLimbsByComparisons: XCTestCase {
     }
     
     func testCompareStrictSignedIntegerAtIndex() {
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 0] as W, [ 0] as W, Int(1),  Int(0))
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 1] as W, [ 0] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~1] as W, [ 0] as W, Int(1), -Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~0] as W, [ 0] as W, Int(1), -Int(1))
+        
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 0] as W, [ 1] as W, Int(1), -Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 1] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~1] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~0] as W, [ 1] as W, Int(1), -Int(1))
+        
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 0] as W, [~1] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 1] as W, [~1] as W, Int(1),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([~1] as W, [~1] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~0] as W, [~1] as W, Int(1),  Int(1))
+        
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 0] as W, [~0] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([ 1] as W, [~0] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~1] as W, [~0] as W, Int(1),  Int(1))
+        NBKAssertCompareStrictSignedIntegerAtIndex([~0] as W, [~0] as W, Int(1),  Int(1))
         
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
-
+        
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
-
+        
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
-
+        
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
@@ -118,8 +135,25 @@ final class NBKTestsOnLimbsByComparisons: XCTestCase {
     }
     
     func testCompareLenientUnsignedIntegerAtIndex() {
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [ 0] as W, Int(1),  Int(0))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [ 0] as W, Int(1),  Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [ 0] as W, Int(1),  Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [ 0] as W, Int(1),  Int(1))
+        
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [ 1] as W, Int(1), -Int(1))
         NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [ 1] as W, Int(1), -Int(1))
+        
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [~1] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [~1] as W, Int(1), -Int(1))
         NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [~1] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [~1] as W, Int(1), -Int(1))
+        
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [~0] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [~0] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [~0] as W, Int(1), -Int(1))
+        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [~0] as W, Int(1), -Int(1))
         
         NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
         NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
