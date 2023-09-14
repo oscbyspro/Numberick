@@ -242,6 +242,53 @@ extension PrivateIntXLOrUIntXL {
 //=----------------------------------------------------------------------------=
 
 extension PrivateIntXLOrUIntXLStorage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(by distance: Int) {
+        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        return self.bitshiftLeft(words: major, bits: minor)
+    }
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftLeft(words: Int, bits: Int) {
+        //=--------------------------------------=
+        if  bits.isZero {
+            return self.bitshiftLeft(words: words)
+        }
+        //=--------------------------------------=
+        self.bitshiftLeft(words: words, atLeastOneBit: bits)
+    }
+    
+    /// Performs a left shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftLeft(words: Int) {
+        //=--------------------------------------=
+        if  words.isZero { return }
+        //=--------------------------------------=
+        self.bitshiftLeft(atLeastOneWord: words)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
 
     /// Performs a left shift.
     ///
@@ -272,6 +319,49 @@ extension PrivateIntXLOrUIntXLStorage {
 //=----------------------------------------------------------------------------=
 
 extension PrivateIntXLOrUIntXLStorage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - distance: `0 <= distance < self.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(by distance: Int) {
+        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        return self.bitshiftRight(words: major, bits: minor)
+    }
+    
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///
+    @inlinable mutating func bitshiftRight(words: Int, bits: Int) {
+        //=--------------------------------------=
+        if  bits.isZero {
+            return self.bitshiftRight(words: words)
+        }
+        //=--------------------------------------=
+        self.bitshiftRight(words: words, atLeastOneBit: bits)
+    }
+        
+    /// Performs an un/signed right shift.
+    ///
+    /// - Parameters:
+    ///   - words: `0 <= words < self.endIndex`
+    ///
+    @inlinable mutating func bitshiftRight(words: Int) {
+        //=--------------------------------------=
+        if  words.isZero { return }
+        //=--------------------------------------=
+        self.bitshiftRight(atLeastOneWord: words)
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

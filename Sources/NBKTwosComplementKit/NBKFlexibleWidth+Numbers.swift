@@ -22,6 +22,13 @@ extension PrivateIntXLOrUIntXL {
     @inlinable public init(digit: Digit) {
         self.init(unchecked: Storage(unchecked: [UInt(bitPattern: digit)]))
     }
+    
+    @inlinable public init(digit: Digit, at index: Int) {
+        var storage = Storage(unchecked: Elements(repeating: 0 as UInt, count: index + 1))
+        storage.elements[index] = UInt(bitPattern: digit)
+        storage.normalize()
+        self.init(unchecked: storage)
+    }
 }
 
 //*============================================================================*

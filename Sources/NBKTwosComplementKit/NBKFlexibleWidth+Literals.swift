@@ -13,15 +13,42 @@ import NBKCoreKit
 // MARK: * NBK x Flexible Width x Literals
 //*============================================================================*
 
-extension IntXLOrUIntXL {
+extension PrivateIntXLOrUIntXL {
     
     //=-------------------------------------------------------------------------=
     // MARK: Details x Integer Literal Type
     //=-------------------------------------------------------------------------=
+
+    #if SBI && swift(>=5.8)
+
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
+            preconditionFailure("\(Self.description) cannot represent \(source)")
+        }
+    }
     
+    @inlinable public init?(exactlyIntegerLiteral source: StaticBigInt) {
+        guard Self.isSigned || source.signum() >= 0 as Int else { return nil }
+        //=--------------------------------------=
+        let bitWidth = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let count = major &+ Int(bit: minor.isMoreThanZero)
+        //=--------------------------------------=
+        self = Self.uninitialized(count: count) { words in
+            for index in words.indices {
+                words.baseAddress!.advanced(by: index).initialize(to: source[index])
+            }
+        }
+    }
+
+    #else
+
     @inlinable public init(integerLiteral source: Digit) {
         self.init(digit: source)
     }
+
+    #endif
     
     //=------------------------------------------------------------------------=
     // MARK: Details x String Literal Type

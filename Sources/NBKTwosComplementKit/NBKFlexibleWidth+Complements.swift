@@ -21,7 +21,10 @@ extension PrivateIntXLOrUIntXL {
     
     @inlinable public mutating func formOnesComplement() {
         self.storage.formOnesComplement()
-        self.storage.normalize()
+        
+        if !Self.isSigned {
+            self.storage.normalize()
+        }
     }
 
     @inlinable public func onesComplement() -> Self {
@@ -91,11 +94,20 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func negateReportingOverflow() -> Bool {
-        self.formTwosComplement(); return false
+        let isTwosComplementMinValue = self.storage.formTwosComplementReportingOverflow()
+        if  isTwosComplementMinValue {
+            self.storage.append(0 as UInt)
+        }   else {
+            self.storage.normalize()
+        }
+        
+        return false as Bool
     }
 
     @inlinable public func negatedReportingOverflow() -> PVO<Self> {
-        PVO(self.twosComplement(), false)
+        var partialValue = self
+        let overflow = partialValue.negateReportingOverflow()
+        return PVO(partialValue, overflow)
     }
 }
 

@@ -53,7 +53,14 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
-        fatalError("TODO")
+        let lhsSign = FloatingPointSign(self .isLessThanZero)
+        let rhsSign = FloatingPointSign(other.isLessThanZero)
+        
+        let qro: PVO<QR<Magnitude, Magnitude.Digit>> = self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)
+        
+        let quotient  = Self(sign: rhsSign  ^ lhsSign, magnitude: qro.partialValue.quotient )
+        let remainder = Self.Digit.init(sign: lhsSign, magnitude: qro.partialValue.remainder)!
+        return PVO(QR(quotient, remainder), qro.overflow)
     }
 }
 

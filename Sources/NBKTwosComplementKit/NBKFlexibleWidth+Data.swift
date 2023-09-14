@@ -10,6 +10,22 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Data
+//*============================================================================*
+
+extension PrivateIntXLOrUIntXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance with unsafe access to its uninitialized memory.
+    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
+        Self(normalizing: Storage.uninitialized(count: count, body: body))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Data x Storage
 //*============================================================================*
 
