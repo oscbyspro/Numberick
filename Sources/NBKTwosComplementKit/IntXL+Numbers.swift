@@ -46,7 +46,7 @@ extension IntXL {
         if !T.isSigned, storage.last.mostSignificantBit {
             storage.append(0 as UInt)
         }   else {
-            Self.normalize(&storage)
+            storage.normalize()
         }
         
         self.init(unchecked: storage)
@@ -84,15 +84,15 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(sign: FloatingPointSign, magnitude: Magnitude) {
-        var storage = magnitude.storage as Storage
+        var unsigned = magnitude.storage as Magnitude.Storage
         var isLessThanZero = (sign == FloatingPointSign.minus)
-        
         if  isLessThanZero {
-            isLessThanZero = !storage.formTwosComplementReportingOverflow(as: UInt.self)
+            isLessThanZero = !unsigned.formTwosComplementReportingOverflow()
         }
         
-        Self.normalize(&storage, appending: UInt(repeating: isLessThanZero))
-        self.init(unchecked: storage)
+        var signed = Storage(bitPattern: unsigned)
+        signed.normalize(appending: UInt(repeating: isLessThanZero))
+        self.init(unchecked: signed)
     }
 }
 

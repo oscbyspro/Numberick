@@ -39,7 +39,44 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func subtract(_ other: Self, at index: Int) {
-        fatalError("TODO")
+        //=--------------------------------------=
+        if  other.isZero { return }
+        //=--------------------------------------=
+        let lhsIsLessThanZero = self .isLessThanZero
+        let rhsIsLessThanZero = other.isLessThanZero
+        let lhsSign = UInt(repeating: lhsIsLessThanZero)
+        let rhsSign = UInt(repeating: rhsIsLessThanZero)
+        //=--------------------------------------=
+        self.storage.resize(minCount: other.storage.elements.count + index)
+        //=--------------------------------------=
+        var borrow   = false
+        var lhsIndex = index
+        var rhsIndex = other.storage.elements.startIndex
+        //=--------------------------------------=
+        while rhsIndex != other.storage.elements.endIndex {
+            var lhsElement = self .storage.elements[lhsIndex]
+            let rhsElement = other.storage.elements[rhsIndex]
+            
+            let a  = lhsElement.subtractReportingOverflow(rhsElement)
+            let b  = lhsElement.subtractReportingOverflow(UInt(bit: borrow))
+            borrow = a || b
+            
+            self .storage.elements[lhsIndex] = lhsElement
+            self .storage.elements.formIndex(after: &lhsIndex)
+            other.storage.elements.formIndex(after: &rhsIndex)
+        }
+        //=--------------------------------------=
+        if  borrow != rhsIsLessThanZero {
+            let predicate = borrow
+            let decrement = UInt(bitPattern: borrow ? 1 : -1)
+            
+            while lhsIndex != self.storage.elements.endIndex && borrow == predicate {
+                borrow = self.storage.elements[lhsIndex].subtractReportingOverflow(decrement)
+                self.storage.elements.formIndex(after: &lhsIndex)
+            }
+        }
+        //=--------------------------------------=
+        self.storage.normalize(appending: lhsSign &- rhsSign &- UInt(bit: borrow))
     }
     
     @inlinable public func subtracting(_ other: Self, at index: Int) -> Self {
@@ -81,12 +118,41 @@ extension UIntXL {
     }
     
     @inlinable public mutating func subtractReportingOverflow(_ other: Self, at index: Int) -> Bool {
-        fatalError("TODO")
+        defer {
+            Swift.assert(self.storage.isNormal)
+        }
+        //=--------------------------------------=
+        if  other.isZero { return false }
+        //=--------------------------------------=
+        self.storage.resize(minCount: other.storage.elements.count + index)
+        defer{ self.storage.normalize() }
+        return self.storage.subtract(other.storage, plus: false, at: index)
     }
     
     @inlinable public func subtractingReportingOverflow(_ other: Self, at index: Int) -> PVO<Self> {
         var partialValue = self
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Flexible Width x Subtraction x UIntXL x Storage
+//*============================================================================*
+
+extension UIntXL.Storage {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable mutating func subtract(_ other: Self, plus borrow: Bool, at index: Int) -> Bool {
+        NBK.decrementSufficientUnsignedInteger(&self.elements, by: other.elements, plus: borrow, at: index).overflow
+    }
+    
+    @inlinable mutating func subtract(_ other: Self, times multiplicand: UInt,
+    plus subtrahend: UInt, plus borrow: Bool, at index: Int) -> Bool {
+        NBK.decrementSufficientUnsignedInteger(&self.elements, by: other .elements,
+        times: multiplicand,  plus: subtrahend, plus: borrow,  at: index).overflow
     }
 }

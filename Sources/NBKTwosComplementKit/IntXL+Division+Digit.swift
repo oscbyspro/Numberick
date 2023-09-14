@@ -78,7 +78,7 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        defer{ Self.normalize(&self.storage) }
+        defer{ self.storage.normalize() }
         return NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &self.storage.elements, dividingBy: other)
     }
 }

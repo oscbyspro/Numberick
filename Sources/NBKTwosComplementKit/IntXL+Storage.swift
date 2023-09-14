@@ -9,20 +9,6 @@
 
 import NBKCoreKit
 
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Storage
-//*============================================================================*
-
-extension PrivateIntXLOrUIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Normalization
-    //=------------------------------------------------------------------------=
-    
-    @inlinable static func normalize(_ storage: inout Storage, update value: Digit) {
-        storage.elements.replaceSubrange(storage.elements.indices, with: CollectionOfOne(UInt(bitPattern: value)))
-    }
-}
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Storage x IntXL
@@ -30,56 +16,61 @@ extension PrivateIntXLOrUIntXL {
 
 extension IntXL {
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Normalization
-    //=------------------------------------------------------------------------=
-    
-    @inlinable static func isNormal(_ storage: Storage) -> Bool {
-        if  storage.elements.count == 1 { return true }
+    //*========================================================================*
+    // MARK: * Storage
+    //*========================================================================*
+
+    /// IntXL's and UIntXL's underlying storage.
+    ///
+    /// It has fixed-width semantics unless stated otherwise.
+    ///
+    @frozen @usableFromInline struct Storage: PrivateIntXLOrUIntXLStorage {
         
-        let tail = Int(bitPattern: storage.elements[storage.elements.count - 1])
-        let head = Int(bitPattern: storage.elements[storage.elements.count - 2])
+        @usableFromInline typealias Digit = IntXL.Digit
         
-        let sign = tail >> Int.bitWidth
+        @usableFromInline typealias Elements = NBKFlexibleWidth.Elements
+                
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
         
-        return !(sign == tail && sign == head >> Int.bitWidth)
-    }
-    
-    @inlinable static func normalize(_ storage: inout Storage) {
-        Swift.assert(!storage.elements.isEmpty)
-        //=--------------------------------------=
-        var position = storage.elements.index(before:  storage.elements.endIndex)
-        let mostSignificantBit = storage.elements[position].mostSignificantBit
-        let sign = UInt(repeating: mostSignificantBit)
-        //=--------------------------------------=
-        // TODO: measure combined loop conditions
-        //=--------------------------------------=
-        backwards: while position > storage.elements.startIndex {
-            if storage.elements[position] != sign { return }
-            storage.elements.formIndex(before: &position)
-            if storage.elements[position].mostSignificantBit != mostSignificantBit { return }
-            storage.elements.removeLast()
+        /// A collection of unsigned integers.
+        ///
+        /// It must be `nonempty` at the start and end of each access.
+        ///
+        @usableFromInline var elements: Elements
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(_ elements: Elements) {
+            self.elements = elements
+            precondition(!self.elements.isEmpty)
         }
-    }
-    
-    @inlinable static func normalize(_ storage: inout Storage, appending word: UInt) {
-        Swift.assert(!storage.elements.isEmpty)
-        //=--------------------------------------=
-        var position = storage.elements.index(before: storage.elements.endIndex)
-        let mostSignificantBit = storage.elements[position].mostSignificantBit
-        let sign = UInt(repeating: mostSignificantBit)
-        //=--------------------------------------=
-        if  word != sign {
-            return storage.elements.append(word)
+        
+        @inlinable init(unchecked elements: Elements) {
+            self.elements = elements
+            Swift.assert(!self.elements.isEmpty)
         }
-        //=--------------------------------------=
-        // TODO: measure combined loop conditions
-        //=--------------------------------------=
-        backwards: while position > storage.elements.startIndex {
-            if storage.elements[position] != sign { return }
-            storage.elements.formIndex(before: &position)
-            if storage.elements[position].mostSignificantBit != mostSignificantBit { return }
-            storage.elements.removeLast()
+        
+        @inlinable init(nonemptying elements: Elements) {
+            self.elements = elements
+            if  self.elements.isEmpty {
+                self.elements.append(0)
+            }
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Details x Bit Pattern
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(bitPattern: UIntXL.Storage) {
+            self.init(unchecked: bitPattern.elements)
+        }
+        
+        @inlinable var bitPattern: UIntXL.Storage {
+            UIntXL.Storage(unchecked: self.elements)
         }
     }
 }
@@ -90,64 +81,61 @@ extension IntXL {
 
 extension UIntXL {
     
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Normalization
-    //=------------------------------------------------------------------------=
-    
-    @inlinable static func isNormal(_ storage: Storage) -> Bool {
-        storage.elements.count == 1 || !storage.elements.last!.isZero
-    }
-    
-    @inlinable static func normalize(_ storage: inout Storage) {
-        Swift.assert(!storage.elements.isEmpty)
-        //=--------------------------------------=
-        var position = storage.elements.index(before: storage.elements.endIndex)
-        let sign = UInt(repeating: false)
-        //=--------------------------------------=
-        // TODO: measure combined loop conditions
-        //=--------------------------------------=
-        backwards: while position > storage.elements.startIndex {
-            if storage.elements[position] != sign { return }
-            storage.elements.formIndex(before: &position)
-            storage.elements.removeLast()
-        }
-    }
-}
+    //*========================================================================*
+    // MARK: * Storage
+    //*========================================================================*
 
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Storage x StorageXL
-//*============================================================================*
-
-extension StorageXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func reserveCapacity(_ minCapacity: Int) {
-        self.elements.reserveCapacity(minCapacity)
-    }
-    
-    @inlinable mutating func append(_ word: UInt) {
-        self.elements.append(word)
-    }
-    
-    @inlinable mutating func resize(maxCount: Int) {
-        precondition(maxCount.isMoreThanZero)
-        if  self.elements.count > maxCount {
-            self.elements.removeSubrange(maxCount...)
+    /// IntXL's and UIntXL's underlying storage.
+    ///
+    /// It has fixed-width semantics unless stated otherwise.
+    ///
+    @frozen @usableFromInline struct Storage: PrivateIntXLOrUIntXLStorage {
+        
+        @usableFromInline typealias Digit = UIntXL.Digit
+                
+        @usableFromInline typealias Elements = NBKFlexibleWidth.Elements
+                
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        /// A collection of unsigned integers.
+        ///
+        /// It must be `nonempty` at the start and end of each access.
+        ///
+        @usableFromInline var elements: Elements
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(_ elements: Elements) {
+            self.elements = elements
+            precondition(!self.elements.isEmpty)
         }
-    }
-    
-    @inlinable mutating func resize(minCount: Int, appending word: UInt) {
-        self.reserveCapacity(minCount)
-        appending: while self.elements.count < minCount {
-            self.elements.append(word)
+        
+        @inlinable init(unchecked elements: Elements) {
+            self.elements = elements
+            Swift.assert(!self.elements.isEmpty)
         }
-    }
-    
-    @inlinable mutating func resize(minCount: Int, isSigned: Bool) {
-        let isLessThanZero = self.isLessThanZero(isSigned: isSigned)
-        self.resize(minCount: minCount, appending: UInt(repeating: isLessThanZero))
+        
+        @inlinable init(nonemptying elements: Elements) {
+            self.elements = elements
+            if  self.elements.isEmpty {
+                self.elements.append(0)
+            }
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Details x Bit Pattern
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(bitPattern: UIntXL.Storage) {
+            self = bitPattern
+        }
+        
+        @inlinable var bitPattern: UIntXL.Storage {
+            self
+        }
     }
 }

@@ -21,7 +21,7 @@ extension PrivateIntXLOrUIntXL {
     
     @inlinable public mutating func formOnesComplement() {
         self.storage.formOnesComplement()
-        Self.normalize(&self.storage)
+        self.storage.normalize()
     }
 
     @inlinable public func onesComplement() -> Self {
@@ -33,7 +33,7 @@ extension PrivateIntXLOrUIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplement() {
-        defer{ Self.normalize(&self.storage) }
+        defer{ self.storage.normalize() }
         return self.storage.formTwosComplement()
     }
     
@@ -44,8 +44,8 @@ extension PrivateIntXLOrUIntXL {
     }
     
     @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
-        defer{ Self.normalize(&self.storage) }
-        return self.storage.formTwosComplementReportingOverflow(as: Digit.self)
+        defer{ self.storage.normalize() }
+        return self.storage.formTwosComplementReportingOverflow()
     }
     
     @inlinable public func twosComplementReportingOverflow() -> PVO<Self> {
@@ -55,8 +55,8 @@ extension PrivateIntXLOrUIntXL {
     }
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
-        defer{ Self.normalize(&self.storage) }
-        return self.storage.formTwosComplementSubsequence(carry, as: Digit.self)
+        defer{ self.storage.normalize() }
+        return self.storage.formTwosComplementSubsequence(carry)
     }
     
     @inlinable public func twosComplementSubsequence(_ carry: Bool) -> PVO<Self> {
@@ -78,13 +78,12 @@ extension IntXL {
     
     @inlinable public var magnitude: Magnitude {
         let isLessThanZero = self.isLessThanZero
-        var storage = self.storage
+        var storage = Magnitude.Storage(bitPattern: self.storage)
         if  isLessThanZero {
             storage.formTwosComplement()
         }
         
-        Magnitude.normalize(&storage)
-        return Magnitude(unchecked: storage)
+        return Magnitude(normalizing: storage)
     }
     
     //=------------------------------------------------------------------------=
@@ -104,7 +103,7 @@ extension IntXL {
 // MARK: * NBK x Flexible Width x Complements x Storage
 //*============================================================================*
 
-extension StorageXL {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
     // MARK: Details x One's Complement
@@ -125,21 +124,20 @@ extension StorageXL {
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func formTwosComplement() {
-        _ = self.formTwosComplementSubsequence(true, as: UInt.self)
+        _ = self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable mutating func formTwosComplementReportingOverflow<T>(as digit: T.Type) -> Bool where T: NBKCoreInteger<UInt> {
-        self.formTwosComplementSubsequence(true, as: T.self)
+    @inlinable mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable mutating func formTwosComplementSubsequence<T>(_ carry: Bool, as digit: T.Type) -> Bool where T: NBKCoreInteger<UInt> {
+    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
         var carry = carry
-        let lastIndex = self.elements.index(before: self.elements.endIndex)
         
-        for index in self.elements.startIndex ..< lastIndex {
+        for index in self.elements.indices.dropLast() {
             carry =  self.elements[index].formTwosComplementSubsequence(carry)
         }
         
-        return self[lastIndex,as: T.self].formTwosComplementSubsequence(carry)
+        return self.tail.formTwosComplementSubsequence(carry)
     }
 }

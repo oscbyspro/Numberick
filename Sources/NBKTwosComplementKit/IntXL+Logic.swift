@@ -35,7 +35,8 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        lhs.upsizeThenFormInIntersection(extending: rhs, each: &)
+        lhs.storage.upsizeThenFormInIntersection(extending: rhs.storage, each: &)
+        lhs.storage.normalize()
     }
     
     //=------------------------------------------------------------------------=
@@ -43,7 +44,8 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        lhs.upsizeThenFormInIntersection(extending: rhs, each: |)
+        lhs.storage.upsizeThenFormInIntersection(extending: rhs.storage, each: |)
+        lhs.storage.normalize()
     }
     
     //=------------------------------------------------------------------------=
@@ -51,24 +53,8 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        lhs.upsizeThenFormInIntersection(extending: rhs, each: ^)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func upsizeThenFormInIntersection(extending other: Self, each element: (UInt, UInt) -> UInt) {
-        let lhsSign = UInt(repeating: self.isLessThanZero)
-        self.storage.resize(minCount: other.storage.elements.count, appending: lhsSign)
-        self.withUnsafeMutableBufferPointer { lhs in
-            other.withUnsafeBufferPointer {   rhs in
-                let rhsSign = UInt(repeating: rhs.last!.mostSignificantBit)
-                for index in  lhs.indices {
-                    lhs[index] = element(lhs[index], index < rhs.endIndex ? rhs[index] : rhsSign)
-                }
-            }
-        }
+        lhs.storage.upsizeThenFormInIntersection(extending: rhs.storage, each: ^)
+        lhs.storage.normalize()
     }
 }
 
@@ -84,7 +70,7 @@ extension UIntXL {
     
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
         lhs.storage.downsizeThenFormInIntersection(with: rhs.storage, each: &)
-        Self.normalize(&lhs.storage)
+        lhs.storage.normalize()
     }
     
     //=------------------------------------------------------------------------=
@@ -92,8 +78,8 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, appending: 0 as UInt, each: |)
-        Swift.assert(Self.isNormal(lhs.storage))
+        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, each: |)
+        Swift.assert(lhs.storage.isNormal)
     }
     
     //=------------------------------------------------------------------------=
@@ -101,8 +87,8 @@ extension UIntXL {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, appending: 0 as UInt, each: ^)
-        Swift.assert(Self.isNormal(lhs.storage))
+        lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, each: ^)
+        Swift.assert(lhs.storage.isNormal)
     }
 }
 
@@ -110,14 +96,25 @@ extension UIntXL {
 // MARK: * NBK x Flexible Width x Logic x Storage
 //*============================================================================*
 
-extension StorageXL {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func upsizeThenFormInIntersection(with other: Self, appending word: UInt, each element: (UInt, UInt) -> UInt) {
-        self.resize(minCount: other.elements.count, appending: word)
+    @inlinable mutating func downsizeThenFormInIntersection(with other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(maxCount: other.elements.count)
+        self.elements.withUnsafeMutableBufferPointer { lhs in
+            other.elements.withUnsafeBufferPointer {   rhs in
+                for index in lhs.indices  {
+                    lhs[index] = element(lhs[index], rhs[index])
+                }
+            }
+        }
+    }
+    
+    @inlinable mutating func upsizeThenFormInIntersection(with other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(minCount: other.elements.count)
         self.elements.withUnsafeMutableBufferPointer { lhs in
             other.elements.withUnsafeBufferPointer {   rhs in
                 for index in rhs.indices  {
@@ -127,12 +124,13 @@ extension StorageXL {
         }
     }
     
-    @inlinable mutating func downsizeThenFormInIntersection(with other: Self, each element: (UInt, UInt) -> UInt) {
-        self.resize(maxCount: other.elements.count)
+    @inlinable mutating func upsizeThenFormInIntersection(extending other: Self, each element: (UInt, UInt) -> UInt) {
+        self.resize(minCount: other.elements.count)
         self.elements.withUnsafeMutableBufferPointer { lhs in
             other.elements.withUnsafeBufferPointer {   rhs in
-                for index in lhs.indices  {
-                    lhs[index] = element(lhs[index], rhs[index])
+                let rhsSign = UInt(repeating: Self.isSigned && rhs.last!.mostSignificantBit)
+                for index in lhs.indices {
+                    lhs[index] = element(lhs[index], index < rhs.endIndex ? rhs[index] : rhsSign)
                 }
             }
         }

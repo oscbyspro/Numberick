@@ -171,13 +171,21 @@ extension UIntXL {
 // MARK: * NBK x Flexible Width x Comparisons x Storage
 //*============================================================================*
 
-extension StorageXL {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable func isLessThanZero(isSigned: Bool) -> Bool {
-        isSigned && self.last.mostSignificantBit
+    @inlinable static var isSigned: Bool {
+        Digit.isSigned
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var isLessThanZero: Bool {
+        Self.isSigned && self.last.mostSignificantBit
     }
 }

@@ -20,11 +20,21 @@ extension IntXL {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Digit) {
-        fatalError("TODO")
+        lhs = lhs * rhs
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Digit) -> Self {
-        fatalError("TODO")
+        let lhsIsLessThanZero: Bool = lhs.isLessThanZero
+        let rhsIsLessThanZero: Bool = rhs.isLessThanZero
+        var minus = lhsIsLessThanZero != rhsIsLessThanZero
+        //=--------------------------------------=
+        var product = lhs.magnitude * rhs.magnitude
+        //=--------------------------------------=
+        if  minus {
+            minus = product.storage.formTwosComplementSubsequence(minus)
+        }
+        //=--------------------------------------=
+        return Self(normalizing: Storage(bitPattern: product.storage))
     }
 }
 
@@ -52,15 +62,15 @@ extension UIntXL {
     
     @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: Digit, add addend: Digit) {
         defer {
-            Swift.assert(Self.isNormal(self.storage))
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  multiplicand.isZero {
             return self.update(addend)
         }
         //=--------------------------------------=
-        self.storage.reserveCapacity(self.storage.elements.count + 1)
-        let overflow = self.storage.multiplyAsUnsigned(by: multiplicand, add: addend)
+        self.storage.reserveCapacity(self.storage.elements.count  + 1)
+        let overflow = self.storage.multiply(by: multiplicand, add: addend)
         if !overflow.isZero {
             self.storage.append(overflow)
         }
@@ -74,16 +84,16 @@ extension UIntXL {
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Multiplication x Digit x Storage
+// MARK: * NBK x Flexible Width x Multiplication x Digit x UIntXL x Storage
 //*============================================================================*
 
-extension StorageXL {
+extension UIntXL.Storage {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable mutating func multiplyAsUnsigned(by other: UInt, add addend: UInt) -> UInt {
+    @_disfavoredOverload @inlinable mutating func multiply(by other: UInt, add addend: UInt) -> UInt {
         NBK.multiplyFullWidthLenientUnsignedInteger(&self.elements, by: other, add: addend)
     }
 }

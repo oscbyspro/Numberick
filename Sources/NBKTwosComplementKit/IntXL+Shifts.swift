@@ -93,7 +93,7 @@ extension PrivateIntXLOrUIntXL {
     ///
     @inlinable mutating func bitshiftLeft(words: Int, atLeastOneBit bits: Int) {
         defer {
-            Swift.assert(Self.isNormal(self.storage))
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  self.isZero { return }
@@ -110,7 +110,7 @@ extension PrivateIntXLOrUIntXL {
     ///
     @inlinable mutating func bitshiftLeft(atLeastOneWord words: Int) {
         defer {
-            Swift.assert(Self.isNormal(self.storage))
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  self.isZero { return }
@@ -201,7 +201,7 @@ extension PrivateIntXLOrUIntXL {
     ///
     @inlinable mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
         defer {
-            Swift.assert(Self.isNormal(self.storage))
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         let rollover = Int(bit: 0 <= bits + self.leadingZeroBitCount - UInt.bitWidth)
@@ -211,7 +211,7 @@ extension PrivateIntXLOrUIntXL {
             return self.update(Digit(repeating: self.isLessThanZero))
         }
         //=--------------------------------------=
-        self.storage.bitshiftRight(isSigned: Self.isSigned, words: words, atLeastOneBit: bits)
+        self.storage.bitshiftRight(words: words, atLeastOneBit: bits)
         self.storage.resize(maxCount: maxCount)
     }
     
@@ -222,14 +222,14 @@ extension PrivateIntXLOrUIntXL {
     ///
     @inlinable mutating func bitshiftRight(atLeastOneWord words: Int) {
         defer {
-            Swift.assert(Self.isNormal(self.storage))
+            Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  self.storage.elements.count <= words {
             return self.update(Digit(repeating: self.isLessThanZero))
         }
         //=--------------------------------------=
-        self.storage.bitshiftRight(isSigned: Self.isSigned, atLeastOneWord: words)
+        self.storage.bitshiftRight(atLeastOneWord: words)
         self.storage.resize(maxCount: self.storage.elements.count - words)
     }
 }
@@ -241,7 +241,7 @@ extension PrivateIntXLOrUIntXL {
 // MARK: + Left
 //=----------------------------------------------------------------------------=
 
-extension StorageXL {
+extension PrivateIntXLOrUIntXLStorage {
 
     /// Performs a left shift.
     ///
@@ -271,7 +271,7 @@ extension StorageXL {
 // MARK: + Right
 //=----------------------------------------------------------------------------=
 
-extension StorageXL {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -283,8 +283,8 @@ extension StorageXL {
     ///   - words: `1 <= words < self.endIndex`
     ///   - bits:  `0 <= bits  < UInt.bitWidth`
     ///
-    @inlinable mutating func bitshiftRight(isSigned: Bool, words: Int, atLeastOneBit bits: Int) {
-        let environment = isSigned && self.last.mostSignificantBit
+    @inlinable mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
+        let environment = self.isLessThanZero as Bool
         self.elements.withUnsafeMutableBufferPointer {
             NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: environment, limbs: words, atLeastOneBit: bits)
         }
@@ -295,8 +295,8 @@ extension StorageXL {
     /// - Parameters:
     ///   - words: `1 <= words < self.endIndex`
     ///
-    @inlinable mutating func bitshiftRight(isSigned: Bool, atLeastOneWord words: Int) {
-        let environment = isSigned && self.last.mostSignificantBit
+    @inlinable mutating func bitshiftRight(atLeastOneWord words: Int) {
+        let environment = self.isLessThanZero as Bool
         self.elements.withUnsafeMutableBufferPointer {
             NBK.bitshiftRightAsFixedLimbsCodeBlock(&$0, environment: environment, atLeastOneLimb: words)
         }

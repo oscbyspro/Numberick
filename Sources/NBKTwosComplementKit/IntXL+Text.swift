@@ -22,13 +22,11 @@ extension IntXLOrUIntXL {
     @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
         var description = String(description)
         if  let value: Self = description.withUTF8({ utf8 in
-            
             let radix  = NBK.AnyRadixSolution<Int>(radix)
             let components = NBK.makeIntegerComponents(utf8: utf8)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
             guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
             return Self(sign: components.sign, magnitude: magnitude)
-            
         }){ self = value } else { return nil }
     }
     
@@ -57,12 +55,10 @@ extension UIntXL {
     // MARK: Details x Decode x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.AnyRadixSolution<Int>) {
-        if  radix.power.isZero {
-            self.init(digits: digits, radix: NBK  .PerfectRadixSolution(radix)!)
-        }   else {
-            self.init(digits: digits, radix: NBK.ImperfectRadixSolution(radix)!)
-        }
+    @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.AnyRadixSolution<Int>) {
+        switch radix.power.isZero {
+        case  true: self.init(digits: digits, radix: NBK  .PerfectRadixSolution(radix)!)
+        case false: self.init(digits: digits, radix: NBK.ImperfectRadixSolution(radix)!) }
     }
     
     @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.PerfectRadixSolution<Int>) {
@@ -113,11 +109,9 @@ extension UIntXL {
     @inlinable func description(
     radix:  NBK.AnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        if  radix.power.isZero {
-            return self.description(radix: NBK  .PerfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }   else {
-            return self.description(radix: NBK.ImperfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }
+        switch radix.power.isZero {
+        case  true: return self.description(radix: NBK  .PerfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix)
+        case false: return self.description(radix: NBK.ImperfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix) }
     }
     
     @inlinable func description(

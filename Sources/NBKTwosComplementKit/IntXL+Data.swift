@@ -10,20 +10,17 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Update
+// MARK: * NBK x Flexible Width x Data x Storage
 //*============================================================================*
 
-extension PrivateIntXLOrUIntXL {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func updateZeroValue() {
-        self.update(0 as Digit)
-    }
-    
-    @inlinable public mutating func update(_ value: Digit) {
-        self.storage.normalize(update: value)
+    /// Creates a new instance with unsafe access to its uninitialized memory.
+    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
+        Self(Elements(unsafeUninitializedCapacity:  count) { body(&$0); $1 = count })
     }
 }

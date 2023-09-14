@@ -44,24 +44,24 @@ extension PrivateIntXLOrUIntXL {
 // MARK: * NBK x Flexible Width x Words x Storage
 //*============================================================================*
 
-extension NBKFlexibleWidth.Storage {
+extension PrivateIntXLOrUIntXLStorage {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
     @inlinable var first: UInt {
-        get { self.elements[self.elements.startIndex]  }
+        get { self.elements[self.elements.startIndex] }
         set { self.elements[self.elements.startIndex] = newValue }
     }
     
     @inlinable var last: UInt {
-        get { self.elements[self.elements.index(before: self.elements.endIndex)]  }
+        get { self.elements[self.elements.index(before: self.elements.endIndex)] }
         set { self.elements[self.elements.index(before: self.elements.endIndex)] = newValue }
     }
     
-    @inlinable subscript<T>(_ index: Int, as type: T.Type) -> T where T: NBKCoreInteger<UInt> {
-        get { T.init(bitPattern: self.elements[index]) }
-        set { self.elements[index] = UInt(bitPattern: newValue) }
+    @inlinable var tail: Digit {
+        get { Digit(bitPattern: self.last) }
+        set { self.last = UInt(bitPattern: newValue) }
     }
 }

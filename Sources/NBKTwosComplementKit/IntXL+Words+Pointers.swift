@@ -28,7 +28,7 @@ extension PrivateIntXLOrUIntXL {
     /// Grants unsafe access to the collection's contiguous mutable storage.
     @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
     _   body:(inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
-        defer{ Self.normalize(&self.storage) }
+        defer{ self.storage.normalize() }
         return try self.storage.elements.withUnsafeMutableBufferPointer(body)
     }
 }
