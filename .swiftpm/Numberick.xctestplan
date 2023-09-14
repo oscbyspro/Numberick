@@ -50,13 +50,6 @@
         "identifier" : "NBKFlexibleWidthKitTests",
         "name" : "NBKFlexibleWidthKitTests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "NBKTwosComplementKitTests",
-        "name" : "NBKTwosComplementKitTests"
-      }
     }
   ],
   "version" : 1

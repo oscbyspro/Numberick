@@ -42,13 +42,6 @@
         "identifier" : "NBKFlexibleWidthKitBenchmarks",
         "name" : "NBKFlexibleWidthKitBenchmarks"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "NBKTwosComplementKitBenchmarks",
-        "name" : "NBKTwosComplementKitBenchmarks"
-      }
     }
   ],
   "version" : 1

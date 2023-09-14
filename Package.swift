@@ -54,12 +54,6 @@ var package = Package(
         .library(
         name: "NBKFlexibleWidthKit",
         targets: ["NBKFlexibleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x Two's Complement Kit
-        //=--------------------------------------=
-        .library(
-        name: "NBKTwosComplementKit",
-        targets: ["NBKTwosComplementKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -110,20 +104,6 @@ var package = Package(
         .testTarget(
         name: "NBKFlexibleWidthKitTests",
         dependencies: ["NBKFlexibleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x Two's Complement Kit
-        //=--------------------------------------=
-        .target(
-        name: "NBKTwosComplementKit",
-        dependencies: ["NBKCoreKit"]),
-        
-        .testTarget(
-        name: "NBKTwosComplementKitBenchmarks",
-        dependencies: ["NBKTwosComplementKit"]),
-        
-        .testTarget(
-        name: "NBKTwosComplementKitTests",
-        dependencies: ["NBKTwosComplementKit"]),
     ]
 )
 
