@@ -10,36 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Size x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func reserveCapacity(_ minCapacity: Int) {
-        self.magnitude.reserveCapacity(minCapacity + 1)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Size x Unsigned
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func reserveCapacity(_ minCapacity: Int) {
-        self.storage.reserveCapacity(minCapacity)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Size x Unsigned x Storage
 //*============================================================================*
 
@@ -61,12 +31,10 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     }
     
     @inlinable mutating func resize(maxCount: Int) {
-        //=--------------------------------------=
+        precondition(maxCount.isMoreThanZero)
         if  self.elements.count > maxCount {
             self.elements.removeSubrange(maxCount...)
         }
-        //=--------------------------------------=
-        precondition(self.isOK, Self.invariantsInfo())
     }
     
     @inlinable mutating func reserveCapacity(_ minCapacity: Int) {

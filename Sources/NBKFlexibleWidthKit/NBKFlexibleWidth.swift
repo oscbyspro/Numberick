@@ -137,28 +137,20 @@ import NBKCoreKit
             
             @inlinable init(elements: Elements) {
                 self.elements = elements
-                precondition(self.isOK, Self.invariantsInfo())
+                precondition(!self.elements.isEmpty)
             }
             
             @inlinable init(unchecked elements: Elements) {
                 self.elements = elements
-                Swift.assert(self.isOK, Self.invariantsInfo())
+                Swift.assert(!self.elements.isEmpty)
             }
             
             //=----------------------------------------------------------------=
             // MARK: Utilities
             //=----------------------------------------------------------------=
             
-            @inlinable var isOK: Bool {
-                !self.elements.isEmpty
-            }
-            
             @inlinable var isNormal: Bool {
                 self.elements.count == 1 || !self.elements.last!.isZero
-            }
-            
-            @inlinable static func invariantsInfo() -> String {
-                "UIntXL must contain at least one element"
             }
         }
     }

@@ -16,12 +16,6 @@ import NBKCoreKit
 public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral where Magnitude == UIntXL {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Size
-    //=------------------------------------------------------------------------=
-    
-    @inlinable mutating func reserveCapacity(_ minCapacity: Int)
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  
