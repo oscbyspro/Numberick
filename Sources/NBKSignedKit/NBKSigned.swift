@@ -21,18 +21,6 @@ CustomStringConvertible, ExpressibleByIntegerLiteral, Hashable, Sendable, Signed
     public typealias Digit = NBKSigned<Magnitude.Digit>
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    /// The positive zero value.
-    ///
-    /// Positive and negative zero are equal and have the same `hashValue`.
-    ///
-    @inlinable public static var zero: Self {
-        Self()
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
@@ -48,7 +36,7 @@ CustomStringConvertible, ExpressibleByIntegerLiteral, Hashable, Sendable, Signed
     
     /// Creates a new instance with a positive zero value.
     @inlinable public init() {
-        self.init(sign: Sign.plus, magnitude: Magnitude.zero)
+        self.init(sign: Sign.plus, magnitude: Magnitude())
     }
     
     /// Creates a new instance with the given sign and magnitude.

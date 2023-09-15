@@ -53,7 +53,27 @@ final class NBKSignedTestsOnComparisonsAsSIntXL: XCTestCase {
         XCTAssertTrue (( T(1)).isMoreThanZero)
         XCTAssertFalse((-T(1)).isMoreThanZero)
     }
-
+    
+    func testIsPowerOf2() {
+        XCTAssertFalse((-T(3)).isPowerOf2)
+        XCTAssertFalse((-T(2)).isPowerOf2)
+        XCTAssertFalse((-T(1)).isPowerOf2)
+        XCTAssertFalse((-T(0)).isPowerOf2)
+        XCTAssertFalse(( T(0)).isPowerOf2)
+        XCTAssertTrue (( T(1)).isPowerOf2)
+        XCTAssertTrue (( T(2)).isPowerOf2)
+        XCTAssertFalse(( T(3)).isPowerOf2)
+        
+        XCTAssertFalse(T(M(words:[ 0,  0,  0,  0] as W)).isPowerOf2)
+        XCTAssertTrue (T(M(words:[ 1,  0,  0,  0] as W)).isPowerOf2)
+        XCTAssertFalse(T(M(words:[ 1,  1,  0,  0] as W)).isPowerOf2)
+        XCTAssertTrue (T(M(words:[ 0,  1,  0,  0] as W)).isPowerOf2)
+        XCTAssertFalse(T(M(words:[ 0,  1,  1,  0] as W)).isPowerOf2)
+        XCTAssertTrue (T(M(words:[ 0,  0,  1,  0] as W)).isPowerOf2)
+        XCTAssertFalse(T(M(words:[ 0,  0,  1,  1] as W)).isPowerOf2)
+        XCTAssertTrue (T(M(words:[ 0,  0,  0,  1] as W)).isPowerOf2)
+    }
+    
     func testSignum() {
         NBKAssertSignum(( T(0)), Int( 0))
         NBKAssertSignum((-T(0)), Int( 0))
@@ -140,9 +160,7 @@ final class NBKSignedTestsOnComparisonsAsSIntXL: XCTestCase {
 // MARK: * NBK x Signed x Comparisons x Assertions
 //*============================================================================*
 
-private func NBKAssertSignum<M>(
-_ operand: NBKSigned<M>, _ signum: Int,
-file: StaticString = #file, line: UInt = #line) {
+private func NBKAssertSignum<M>(_ operand: NBKSigned<M>, _ signum: Int, file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(Int(operand.signum() as Int), signum, file: file, line: line)
 }
 

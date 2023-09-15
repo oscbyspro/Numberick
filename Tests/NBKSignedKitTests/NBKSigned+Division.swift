@@ -94,27 +94,23 @@ final class NBKSignedTestsOnDivisionAsSIntXL: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertDivision<M>(
-_ lhs: NBKSigned<M>, _ rhs: NBKSigned<M>, _ quotient: NBKSigned<M>, _ remainder: NBKSigned<M>, _ overflow: Bool = false,
+_ lhs: NBKSigned<M>, _ rhs: NBKSigned<M>, _ quotient: NBKSigned<M>, _ remainder: NBKSigned<M>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(lhs, quotient * rhs + remainder, "dividend != divisor * quotient + remainder", file: file, line: line)
     //=------------------------------------------=
-    if !overflow {
-        NBKAssertIdentical(lhs / rhs, quotient,  file: file, line: line)
-        NBKAssertIdentical(lhs % rhs, remainder, file: file, line: line)
-        
-        NBKAssertIdentical({ var x = lhs; x /= rhs; return x }(), quotient,  file: file, line: line)
-        NBKAssertIdentical({ var x = lhs; x %= rhs; return x }(), remainder, file: file, line: line)
-        
-        NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).quotient,  quotient,  file: file, line: line)
-        NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).remainder, remainder, file: file, line: line)
-    }   else {
-        XCTFail("\(NBKSigned<M>.self) is not a binary integer.")
-    }
+    NBKAssertIdentical(lhs / rhs, quotient,  file: file, line: line)
+    NBKAssertIdentical(lhs % rhs, remainder, file: file, line: line)
+    
+    NBKAssertIdentical({ var x = lhs; x /= rhs; return x }(), quotient,  file: file, line: line)
+    NBKAssertIdentical({ var x = lhs; x %= rhs; return x }(), remainder, file: file, line: line)
+    
+    NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).quotient,  quotient,  file: file, line: line)
+    NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).remainder, remainder, file: file, line: line)
 }
 
 private func NBKAssertDivisionByDigit<M>(
-_ lhs: NBKSigned<M>, _ rhs: NBKSigned<M>.Digit, _ quotient: NBKSigned<M>, _ remainder: NBKSigned<M>.Digit, _ overflow: Bool = false,
+_ lhs: NBKSigned<M>, _ rhs: NBKSigned<M>.Digit, _ quotient: NBKSigned<M>, _ remainder: NBKSigned<M>.Digit,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let extended = NBKSigned<M>(digit: remainder)
@@ -123,18 +119,14 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(lhs, quotient * rhs + remainder, "dividend != divisor * quotient + remainder", file: file, line: line)
     //=------------------------------------------=
-    if !overflow {
-        NBKAssertIdentical(lhs / rhs, quotient,  file: file, line: line)
-        NBKAssertIdentical(lhs % rhs, remainder, file: file, line: line)
-        
-        NBKAssertIdentical({ var x = lhs; x /= rhs; return x }(), quotient, file: file, line: line)
-        NBKAssertIdentical({ var x = lhs; x %= rhs; return x }(), extended, file: file, line: line)
-        
-        NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).quotient,  quotient,  file: file, line: line)
-        NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).remainder, remainder, file: file, line: line)
-    }   else {
-        XCTFail("\(NBKSigned<M>.self) is not a binary integer.")
-    }
+    NBKAssertIdentical(lhs / rhs, quotient,  file: file, line: line)
+    NBKAssertIdentical(lhs % rhs, remainder, file: file, line: line)
+    
+    NBKAssertIdentical({ var x = lhs; x /= rhs; return x }(), quotient, file: file, line: line)
+    NBKAssertIdentical({ var x = lhs; x %= rhs; return x }(), extended, file: file, line: line)
+    
+    NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).quotient,  quotient,  file: file, line: line)
+    NBKAssertIdentical(lhs.quotientAndRemainder(dividingBy: rhs).remainder, remainder, file: file, line: line)
 }
 
 #endif

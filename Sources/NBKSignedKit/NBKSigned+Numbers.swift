@@ -10,13 +10,25 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Signed x Numbers
+// MARK: * NBK x Signed x Numbers x Decode
 //*============================================================================*
 
 extension NBKSigned {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// The positive zero value.
+    ///
+    /// Positive and negative zero are equal and have the same `hashValue`.
+    ///
+    @inlinable public static var zero: Self {
+        Self(sign: Sign.plus, magnitude: Magnitude.zero)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Digit
     //=------------------------------------------------------------------------=
     
     @inlinable public init(digit: Digit) {
@@ -61,5 +73,49 @@ extension NBKSigned {
         let sign = Sign(source < T.zero)
         let magnitude = Magnitude(clamping: source.magnitude)
         self.init(sign: sign, magnitude: magnitude)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Fixed Width
+//=----------------------------------------------------------------------------=
+
+extension NBKSigned where Magnitude: FixedWidthInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static var max: Self {
+        Self(sign: Sign.plus,  magnitude: Magnitude.max)
+    }
+    
+    @inlinable public static var min: Self {
+        Self(sign: Sign.minus, magnitude: Magnitude.max)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Signed x Numbers x Encode
+//*============================================================================*
+
+extension NBKBinaryInteger {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ source: NBKSigned<Magnitude>) {
+        if  let value = Self(exactly: source) { self = value } else {
+            preconditionFailure("\(Self.self) cannot represent \(source)")
+        }
+    }
+    
+    @inlinable public init?(exactly source: NBKSigned<Magnitude>) {
+        self.init(sign: source.sign, magnitude: source.magnitude)
+    }
+    
+    @inlinable public init(clamping source: NBKSigned<Magnitude>) where Self: NBKFixedWidthInteger {
+        self = Self(sign: source.sign, magnitude: source.magnitude) ?? (source.sign == .minus ? Self.min : Self.max)
     }
 }

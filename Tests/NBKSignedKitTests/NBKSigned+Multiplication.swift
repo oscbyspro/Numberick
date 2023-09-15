@@ -81,8 +81,8 @@ private func NBKAssertMultiplication<M>(
 _ lhs: NBKSigned<M>, _ rhs:  NBKSigned<M>, _ result: NBKSigned<M>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    NBKAssertIdentical(                 lhs *  rhs,                 result, file: file, line: line)
+    NBKAssertIdentical({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationByDigit<M>(
@@ -91,8 +91,8 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     NBKAssertMultiplication(lhs, NBKSigned<M>(digit: rhs), result)
     //=------------------------------------------=
-    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    NBKAssertIdentical(                 lhs *  rhs,                 result, file: file, line: line)
+    NBKAssertIdentical({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
 }
 
 #endif
