@@ -14,40 +14,28 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Numberick"
-               BuildableName = "Numberick"
-               BlueprintName = "Numberick"
+               BlueprintIdentifier = "NBKSignedKit"
+               BuildableName = "NBKSignedKit"
+               BlueprintName = "NBKSignedKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Release"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick-Benchmarks.xctestplan"
+            reference = "container:.swiftpm/NBKSignedKit.xctestplan"
             default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKCoreKit-Benchmarks.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKFlexibleWidthKit-Benchmarks.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKSignedKit-Benchmarks.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -60,21 +48,21 @@
    <ProfileAction
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = "Time Profiler"
+      savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Numberick"
-            BuildableName = "Numberick"
-            BlueprintName = "Numberick"
+            BlueprintIdentifier = "NBKSignedKit"
+            BuildableName = "NBKSignedKit"
+            BlueprintName = "NBKSignedKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

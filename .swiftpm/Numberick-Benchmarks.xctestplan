@@ -42,6 +42,13 @@
         "identifier" : "NBKFlexibleWidthKitBenchmarks",
         "name" : "NBKFlexibleWidthKitBenchmarks"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKSignedKitBenchmarks",
+        "name" : "NBKSignedKitBenchmarks"
+      }
     }
   ],
   "version" : 1

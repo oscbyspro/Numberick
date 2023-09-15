@@ -54,6 +54,12 @@ var package = Package(
         .library(
         name: "NBKFlexibleWidthKit",
         targets: ["NBKFlexibleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Signed Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKSignedKit",
+        targets: ["NBKSignedKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -104,6 +110,20 @@ var package = Package(
         .testTarget(
         name: "NBKFlexibleWidthKitTests",
         dependencies: ["NBKFlexibleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Signed Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKSignedKit",
+        dependencies: ["NBKCoreKit"]),
+        
+        .testTarget(
+        name: "NBKSignedKitBenchmarks",
+        dependencies: ["NBKSignedKit"]),
+        
+        .testTarget(
+        name: "NBKSignedKitTests",
+        dependencies: ["NBKSignedKit"]),
     ]
 )
 
