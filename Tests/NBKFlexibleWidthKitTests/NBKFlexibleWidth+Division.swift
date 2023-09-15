@@ -68,7 +68,6 @@ final class NBKFlexibleWidthTestsOnDivisionAsIntXL: XCTestCase {
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[ 2,  3,  4,  5 &+ 1 << 63] as W),  T(1), -T(words:[1, 1, 1, 1] as W))
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[ 3,  4,  5,  6 &+ 1 << 63] as W),  T(1), -T(words:[2, 2, 2, 2] as W))
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[ 4,  5,  6,  7 &+ 1 << 63] as W),  T(1), -T(words:[3, 3, 3, 3] as W))
-        
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[~0, ~2, ~3, ~4 &+ 1 << 63] as W), -T(1), -T(words:[0, 0, 0, 0] as W))
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[~1, ~3, ~4, ~5 &+ 1 << 63] as W), -T(1), -T(words:[1, 1, 1, 1] as W))
         NBKAssertDivision(T(words:[1, 2, 3, 4 + 1 << 63] as W), T(words:[~2, ~4, ~5, ~6 &+ 1 << 63] as W), -T(1), -T(words:[2, 2, 2, 2] as W))
@@ -190,7 +189,6 @@ final class NBKFlexibleWidthTestsOnDivisionAsUIntXL: XCTestCase {
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 0,  1,  2,  3 &+ 1 << 63] as X), T(1), T(x64:[1, 1, 1, 1] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~0, ~0,  0,  2 &+ 1 << 63] as X), T(1), T(x64:[2, 2, 2, 2] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~1, ~1, ~0,  0 &+ 1 << 63] as X), T(1), T(x64:[3, 3, 3, 3] as X))
-        
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~2, ~2, ~1, ~0 &+ 1 << 63] as X), T(1), T(x64:[4, 4, 4, 4] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~3, ~3, ~2, ~1 &+ 1 << 63] as X), T(1), T(x64:[5, 5, 5, 5] as X))
         NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~4, ~4, ~3, ~2 &+ 1 << 63] as X), T(1), T(x64:[6, 6, 6, 6] as X))

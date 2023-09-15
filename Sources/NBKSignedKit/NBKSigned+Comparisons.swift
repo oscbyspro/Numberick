@@ -19,11 +19,6 @@ extension NBKSigned {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    /// Returns `1` if this value is positive, `-1` if it is negative, and `0` otherwise.
-    @inlinable public func signum() -> Int {
-        self.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
-    }
-    
     /// Returns whether this value is equal to zero.
     @inlinable public var isZero: Bool {
         self.magnitude.isZero
@@ -37,6 +32,16 @@ extension NBKSigned {
     /// Returns whether this value is more than zero.
     @inlinable public var isMoreThanZero: Bool {
         self.sign == Sign.plus && !self.isZero
+    }
+    
+    /// Returns whether this value is a power of two.
+    @inlinable public var isPowerOf2: Bool {
+        self.sign == Sign.plus && self.magnitude.isPowerOf2
+    }
+    
+    /// Returns `1` if this value is positive, `-1` if it is negative, and `0` otherwise.
+    @inlinable public func signum() -> Int {
+        self.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
     }
     
     //=------------------------------------------------------------------------=
@@ -77,7 +82,7 @@ extension NBKSigned {
         }
     }
     
-    @inlinable public func compared(to other: Digit) -> Int {
+    @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
         if  self.sign != other.sign {
             return  self.isZero && other.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
         }   else {

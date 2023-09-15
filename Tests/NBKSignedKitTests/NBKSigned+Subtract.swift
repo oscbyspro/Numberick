@@ -33,7 +33,7 @@ final class NBKSignedTestsOnSubtractionAsSIntXL: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSubtracting() {
+    func testSubtractingLargeFromLarge() {
         NBKAssertSubtraction( T(M(x64:[~0, ~0, ~0,  0] as X)),  T(M(x64:[3, 0, 0, 0] as X)),  T(M(x64:[~3, ~0, ~0,  0] as X)))
         NBKAssertSubtraction( T(M(x64:[~0, ~0, ~0,  0] as X)),  T(M(x64:[0, 3, 0, 0] as X)),  T(M(x64:[~0, ~3, ~0,  0] as X)))
         NBKAssertSubtraction( T(M(x64:[~0, ~0, ~0,  0] as X)),  T(M(x64:[0, 0, 3, 0] as X)),  T(M(x64:[~0, ~0, ~3,  0] as X)))
@@ -56,10 +56,10 @@ final class NBKSignedTestsOnSubtractionAsSIntXL: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testSubtractingDigit() {
+    func testSubtractingSmallFromSmall() {
         NBKAssertSubtractionByDigit( T(M(1)),  D(U(2)), -T(M(1)))
         NBKAssertSubtractionByDigit( T(M(1)),  D(U(1)),  T(M(0)))
         NBKAssertSubtractionByDigit( T(M(1)),  D(U(0)),  T(M(1)))
@@ -117,10 +117,10 @@ private func NBKAssertSubtractionByDigit<M: NBKUnsignedInteger>(
 _ lhs: NBKSigned<M>, _ rhs: NBKSigned<M>.Digit, _ partialValue: NBKSigned<M>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    NBKAssertSubtraction(lhs, NBKSigned(digit: rhs), partialValue)
+    //=------------------------------------------=
     NBKAssertIdentical(                 lhs -  rhs,                 partialValue, file: file, line: line)
     NBKAssertIdentical({ var lhs = lhs; lhs -= rhs; return lhs }(), partialValue, file: file, line: line)
-    //=------------------------------------------=
-    NBKAssertSubtraction(lhs, NBKSigned(digit: rhs), partialValue)
 }
 
 #endif
