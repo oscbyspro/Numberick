@@ -28,27 +28,7 @@ final class NBKDoubleWidthTestsOnAdditionAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testAdding() {
-        NBKAssertAddition(T( 1), T( 2), T( 3))
-        NBKAssertAddition(T( 1), T( 1), T( 2))
-        NBKAssertAddition(T( 1), T( 0), T( 1))
-        NBKAssertAddition(T( 1), T(-1), T( 0))
-        NBKAssertAddition(T( 1), T(-2), T(-1))
-        
-        NBKAssertAddition(T( 0), T( 2), T( 2))
-        NBKAssertAddition(T( 0), T( 1), T( 1))
-        NBKAssertAddition(T( 0), T( 0), T( 0))
-        NBKAssertAddition(T( 0), T(-1), T(-1))
-        NBKAssertAddition(T( 0), T(-2), T(-2))
-        
-        NBKAssertAddition(T(-1), T( 2), T( 1))
-        NBKAssertAddition(T(-1), T( 1), T( 0))
-        NBKAssertAddition(T(-1), T( 0), T(-1))
-        NBKAssertAddition(T(-1), T(-1), T(-2))
-        NBKAssertAddition(T(-1), T(-2), T(-3))
-    }
-    
-    func testAddingUsingLargeValues() {
+    func testAddingLargeToLarge() {
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
@@ -70,22 +50,16 @@ final class NBKDoubleWidthTestsOnAdditionAsInt256: XCTestCase {
         NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0, ~3)))
     }
     
-    func testAddingReportingOverflow() {
-        NBKAssertAddition(T.min, T( 1), T.min + T(1))
-        NBKAssertAddition(T.min, T(-1), T.max,  true)
-        
-        NBKAssertAddition(T.max, T( 1), T.min,  true)
-        NBKAssertAddition(T.max, T(-1), T.max - T(1))
-        
+    func testAddingHalvesToHalvesReportingOverflow() {
         NBKAssertAddition(T(high: .max, low: .max), T(-1), T(high: .max, low: .max - 1)) // carry 1st
         NBKAssertAddition(T(high: .min, low: .max), T(-1), T(high: .min, low: .max - 1)) // carry 2nd
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testAddingDigit() {
+    func testAddingSmallToSmall() {
         NBKAssertAdditionByDigit(T( 1), Int( 2), T( 3))
         NBKAssertAdditionByDigit(T( 1), Int( 1), T( 2))
         NBKAssertAdditionByDigit(T( 1), Int( 0), T( 1))
@@ -105,14 +79,14 @@ final class NBKDoubleWidthTestsOnAdditionAsInt256: XCTestCase {
         NBKAssertAdditionByDigit(T(-1), Int(-2), T(-3))
     }
     
-    func testAddingDigitUsingLargeValues() {
+    func testAddingSmallToLarge() {
         NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X( 2,  0,  0,  1)))
         NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X(~3, ~0, ~0,  0)))
         NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X( 3,  0,  0, ~0)))
         NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X(~2, ~0, ~0, ~1)))
     }
     
-    func testAddingDigitReportingOverflow() {
+    func testAddingSmallToEdgesReportingOverflow() {
         NBKAssertAdditionByDigit(T.min, Int( 1), T.min + T(1))
         NBKAssertAdditionByDigit(T.min, Int(-1), T.max,  true)
         NBKAssertAdditionByDigit(T.max, Int( 1), T.min,  true)
@@ -148,33 +122,18 @@ final class NBKDoubleWidthTestsOnAdditionAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
 
-    func testAdding() {
-        NBKAssertAddition(T(0), T(0), T(0))
-        NBKAssertAddition(T(0), T(1), T(1))
-        NBKAssertAddition(T(0), T(2), T(2))
-        
-        NBKAssertAddition(T(1), T(0), T(1))
-        NBKAssertAddition(T(1), T(1), T(2))
-        NBKAssertAddition(T(1), T(2), T(3))
-    }
-    
-    func testAddingUsingLargeValues() {
+    func testAddingLargeToLarge() {
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
         NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0,  3)))
     }
     
-    func testAddingReportingOverflow() {
-        NBKAssertAddition(T.min, T(1), T.min + T(1))
-        NBKAssertAddition(T.max, T(1), T.min,  true)
-    }
-    
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
 
-    func testAddingDigit() {
+    func testAddingSmallToSmall() {
         NBKAssertAdditionByDigit(T(0), UInt(0), T(0))
         NBKAssertAdditionByDigit(T(0), UInt(1), T(1))
         NBKAssertAdditionByDigit(T(0), UInt(2), T(2))
@@ -184,14 +143,14 @@ final class NBKDoubleWidthTestsOnAdditionAsUInt256: XCTestCase {
         NBKAssertAdditionByDigit(T(1), UInt(2), T(3))
     }
     
-    func testAddingDigitUsingLargeValues() {
+    func testAddingSmallToLarge() {
         NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0,  0)), UInt(3), T(x64: X(3, 0, 0, 0)))
         NBKAssertAdditionByDigit(T(x64: X(~0,  0,  0,  0)), UInt(3), T(x64: X(2, 1, 0, 0)))
         NBKAssertAdditionByDigit(T(x64: X(~0, ~0,  0,  0)), UInt(3), T(x64: X(2, 0, 1, 0)))
         NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), UInt(3), T(x64: X(2, 0, 0, 1)))
     }
     
-    func testAddingDigitReportingOverflow() {
+    func testAddingSmallToEdgesReportingOverflow() {
         NBKAssertAdditionByDigit(T.min, UInt(1), T.min + T(1))
         NBKAssertAdditionByDigit(T.max, UInt(1), T.min,  true)
     }
@@ -241,6 +200,8 @@ private func NBKAssertAdditionByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    NBKAssertAddition(lhs, NBKDoubleWidth<H>(digit: rhs), partialValue, overflow, file: file, line: line)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(                 lhs +  rhs,                 partialValue, file: file, line: line)

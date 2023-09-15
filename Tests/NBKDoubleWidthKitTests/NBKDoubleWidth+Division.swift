@@ -29,39 +29,14 @@ final class NBKDoubleWidthTestsOnDivisionAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDividing() {
-        NBKAssertDivision( T( ),  T(1),  T( ),  T( ))
-        NBKAssertDivision( T( ),  T(2),  T( ),  T( ))
-        NBKAssertDivision( T(7),  T(1),  T(7),  T( ))
-        NBKAssertDivision( T(7),  T(2),  T(3),  T(1))
-                
-        NBKAssertDivision( T(7),  T(3),  T(2),  T(1))
-        NBKAssertDivision( T(7), -T(3), -T(2),  T(1))
-        NBKAssertDivision(-T(7),  T(3), -T(2), -T(1))
-        NBKAssertDivision(-T(7), -T(3),  T(2), -T(1))
-    }
-    
-    func testDividingReportingOverflow() {
-        NBKAssertDivision(T( 0),  T( ),  T( 0), T( ), true )
-        NBKAssertDivision(T( 1),  T( ),  T( 1), T(1), true )
-        NBKAssertDivision(T( 2),  T( ),  T( 2), T(2), true )
-        NBKAssertDivision(T.min, -T(1),  T.min, T( ), true )
-        NBKAssertDivision(T.max, -T(1), -T.max, T( ), false)
-    }
-    
-    func testDividingWithLargeDividend() {
-        NBKAssertDivision( T(x64: X(1, 2, 3, 4)),  T(2),  T(x64: X(0, ~0/2 + 2, 1, 2)),  T(1))
-        NBKAssertDivision( T(x64: X(1, 2, 3, 4)), -T(2), -T(x64: X(0, ~0/2 + 2, 1, 2)),  T(1))
-        NBKAssertDivision(-T(x64: X(1, 2, 3, 4)),  T(2), -T(x64: X(0, ~0/2 + 2, 1, 2)), -T(1))
-        NBKAssertDivision(-T(x64: X(1, 2, 3, 4)), -T(2),  T(x64: X(0, ~0/2 + 2, 1, 2)), -T(1))
-        
+    func testDividingLargeByLarge() {
         NBKAssertDivision( T(x64: X(1, 2, 3, 4)),  T(x64: X(0, ~0/2 + 2, 1, 2)),  T(2),  T(1))
         NBKAssertDivision( T(x64: X(1, 2, 3, 4)), -T(x64: X(0, ~0/2 + 2, 1, 2)), -T(2),  T(1))
         NBKAssertDivision(-T(x64: X(1, 2, 3, 4)), -T(x64: X(0, ~0/2 + 2, 1, 2)),  T(2), -T(1))
         NBKAssertDivision(-T(x64: X(1, 2, 3, 4)),  T(x64: X(0, ~0/2 + 2, 1, 2)), -T(2), -T(1))
     }
     
-    func testDividingWithLargeDivisor() {
+    func testDividingLargeByLargeWithLargeRemainder() {
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X( 1,  2,  3,  4 &+ 1 << 63)),  T(1), -T(x64: X(0, 0, 0, 0)))
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X( 2,  3,  4,  5 &+ 1 << 63)),  T(1), -T(x64: X(1, 1, 1, 1)))
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X( 3,  4,  5,  6 &+ 1 << 63)),  T(1), -T(x64: X(2, 2, 2, 2)))
@@ -74,10 +49,10 @@ final class NBKDoubleWidthTestsOnDivisionAsInt256: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testDividingByDigit() {
+    func testDividingSmallBySmall() {
         NBKAssertDivisionByDigit( T( ),  Int(1),  T( ),  Int( ))
         NBKAssertDivisionByDigit( T( ),  Int(2),  T( ),  Int( ))
         NBKAssertDivisionByDigit( T(7),  Int(1),  T(7),  Int( ))
@@ -89,19 +64,19 @@ final class NBKDoubleWidthTestsOnDivisionAsInt256: XCTestCase {
         NBKAssertDivisionByDigit(-T(7), -Int(3),  T(2), -Int(1))
     }
     
-    func testDividingByDigitReportingOverflow() {
+    func testDividingLargeBySmall() {
+        NBKAssertDivisionByDigit( T(x64: X(1, 2, 3, 4)),  Int(2),  T(x64: X(0, ~0/2 + 2, 1, 2)),  Int(1))
+        NBKAssertDivisionByDigit( T(x64: X(1, 2, 3, 4)), -Int(2), -T(x64: X(0, ~0/2 + 2, 1, 2)),  Int(1))
+        NBKAssertDivisionByDigit(-T(x64: X(1, 2, 3, 4)),  Int(2), -T(x64: X(0, ~0/2 + 2, 1, 2)), -Int(1))
+        NBKAssertDivisionByDigit(-T(x64: X(1, 2, 3, 4)), -Int(2),  T(x64: X(0, ~0/2 + 2, 1, 2)), -Int(1))
+    }
+    
+    func testDividingBySmallReportingOverflow() {
         NBKAssertDivisionByDigit(T( 0),  Int( ),  T( 0), Int( ), true )
         NBKAssertDivisionByDigit(T( 1),  Int( ),  T( 1), Int(1), true )
         NBKAssertDivisionByDigit(T( 2),  Int( ),  T( 2), Int(2), true )
         NBKAssertDivisionByDigit(T.min, -Int(1),  T.min, Int( ), true )
         NBKAssertDivisionByDigit(T.max, -Int(1), -T.max, Int( ), false)
-    }
-    
-    func testDividingByDigitWithLargeDividend() {
-        NBKAssertDivisionByDigit( T(x64: X(1, 2, 3, 4)),  Int(2),  T(x64: X(0, ~0/2 + 2, 1, 2)),  Int(1))
-        NBKAssertDivisionByDigit( T(x64: X(1, 2, 3, 4)), -Int(2), -T(x64: X(0, ~0/2 + 2, 1, 2)),  Int(1))
-        NBKAssertDivisionByDigit(-T(x64: X(1, 2, 3, 4)),  Int(2), -T(x64: X(0, ~0/2 + 2, 1, 2)), -Int(1))
-        NBKAssertDivisionByDigit(-T(x64: X(1, 2, 3, 4)), -Int(2),  T(x64: X(0, ~0/2 + 2, 1, 2)), -Int(1))
     }
     
     //=------------------------------------------------------------------------=
@@ -232,32 +207,14 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDividing() {
-        NBKAssertDivision(T( ), T(1), T( ), T( ))
-        NBKAssertDivision(T( ), T(2), T( ), T( ))
-        NBKAssertDivision(T(7), T(1), T(7), T( ))
-        NBKAssertDivision(T(7), T(2), T(3), T(1))
-    }
-    
-    func testDividingReportingOverflow() {
-        NBKAssertDivision(T( ), T( ), T( ), T( ), true)
-        NBKAssertDivision(T(1), T( ), T(1), T(1), true)
-        NBKAssertDivision(T(2), T( ), T(2), T(2), true)
-    }
-    
-    func testDividingWithLargeDividend() {
-        NBKAssertDivision(T(x64: X(~2,  ~4,  ~6,  9)), T(2), T(x64: X(~1, ~2, ~3, 4)), T(1))
-        NBKAssertDivision(T(x64: X(~3,  ~6,  ~9, 14)), T(3), T(x64: X(~1, ~2, ~3, 4)), T(2))
-        NBKAssertDivision(T(x64: X(~4,  ~8, ~12, 19)), T(4), T(x64: X(~1, ~2, ~3, 4)), T(3))
-        NBKAssertDivision(T(x64: X(~5, ~10, ~15, 24)), T(5), T(x64: X(~1, ~2, ~3, 4)), T(4))
-        
+    func testDividingLargeByLarge() {
         NBKAssertDivision(T(x64: X(~2,  ~4,  ~6,  9)), T(x64: X(~1, ~2, ~3, 4)), T(2), T(1))
         NBKAssertDivision(T(x64: X(~3,  ~6,  ~9, 14)), T(x64: X(~1, ~2, ~3, 4)), T(3), T(2))
         NBKAssertDivision(T(x64: X(~4,  ~8, ~12, 19)), T(x64: X(~1, ~2, ~3, 4)), T(4), T(3))
         NBKAssertDivision(T(x64: X(~5, ~10, ~15, 24)), T(x64: X(~1, ~2, ~3, 4)), T(5), T(4))
     }
     
-    func testDividingWithLargeDivisor() {
+    func testDividingLargeByLargeWithLargeRemainder() {
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X( 1,  2,  3,  4 &+ 1 << 63)), T(1), T(x64: X(0, 0, 0, 0)))
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X( 0,  1,  2,  3 &+ 1 << 63)), T(1), T(x64: X(1, 1, 1, 1)))
         NBKAssertDivision(T(x64: X(1, 2, 3, 4 + 1 << 63)), T(x64: X(~0, ~0,  0,  2 &+ 1 << 63)), T(1), T(x64: X(2, 2, 2, 2)))
@@ -270,27 +227,27 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testDividingByDigit() {
+    func testDividingSmallBySmall() {
         NBKAssertDivisionByDigit(T( ), UInt(1), T( ), UInt( ))
         NBKAssertDivisionByDigit(T( ), UInt(2), T( ), UInt( ))
         NBKAssertDivisionByDigit(T(7), UInt(1), T(7), UInt( ))
         NBKAssertDivisionByDigit(T(7), UInt(2), T(3), UInt(1))
     }
     
-    func testDividingByDigitReportingOverflow() {
-        NBKAssertDivisionByDigit(T( ), UInt( ), T( ), UInt( ), true)
-        NBKAssertDivisionByDigit(T(1), UInt( ), T(1), UInt(1), true)
-        NBKAssertDivisionByDigit(T(2), UInt( ), T(2), UInt(2), true)
-    }
-    
-    func testDividingByDigitWithLargeDividend() {
+    func testDividingLargeBySmall() {
         NBKAssertDivisionByDigit(T(x64: X(~2,  ~4,  ~6,  9)), UInt(2), T(x64: X(~1, ~2, ~3, 4)), UInt(1))
         NBKAssertDivisionByDigit(T(x64: X(~3,  ~6,  ~9, 14)), UInt(3), T(x64: X(~1, ~2, ~3, 4)), UInt(2))
         NBKAssertDivisionByDigit(T(x64: X(~4,  ~8, ~12, 19)), UInt(4), T(x64: X(~1, ~2, ~3, 4)), UInt(3))
         NBKAssertDivisionByDigit(T(x64: X(~5, ~10, ~15, 24)), UInt(5), T(x64: X(~1, ~2, ~3, 4)), UInt(4))
+    }
+    
+    func testDividingBySmallReportingOverflow() {
+        NBKAssertDivisionByDigit(T( ), UInt( ), T( ), UInt( ), true)
+        NBKAssertDivisionByDigit(T(1), UInt( ), T(1), UInt(1), true)
+        NBKAssertDivisionByDigit(T(2), UInt( ), T(2), UInt(2), true)
     }
     
     //=------------------------------------------------------------------------=
@@ -445,7 +402,10 @@ private func NBKAssertDivisionByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     let extended = NBKDoubleWidth<H>(digit: remainder)
+    //=------------------------------------------=
+    NBKAssertDivision(lhs, NBKDoubleWidth<H>(digit: rhs), quotient, extended, overflow, file: file, line: line)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
