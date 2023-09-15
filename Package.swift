@@ -119,11 +119,11 @@ var package = Package(
         
         .testTarget(
         name: "NBKSignedKitBenchmarks",
-        dependencies: ["NBKSignedKit"]),
+        dependencies: ["NBKFlexibleWidthKit", "NBKSignedKit"]),
         
         .testTarget(
         name: "NBKSignedKitTests",
-        dependencies: ["NBKSignedKit"]),
+        dependencies: ["NBKFlexibleWidthKit", "NBKSignedKit"]),
     ]
 )
 

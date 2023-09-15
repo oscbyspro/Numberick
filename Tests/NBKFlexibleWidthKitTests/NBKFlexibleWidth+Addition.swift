@@ -10,7 +10,7 @@
 #if DEBUG
 
 import NBKCoreKit
-@testable import NBKFlexibleWidthKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
