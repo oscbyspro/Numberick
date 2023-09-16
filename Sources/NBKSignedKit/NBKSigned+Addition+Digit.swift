@@ -23,7 +23,7 @@ extension NBKSigned {
         if  lhs.sign == rhs.sign {
             lhs.magnitude += rhs.magnitude
         }   else if lhs.magnitude.subtractReportingOverflow(rhs.magnitude) {
-            lhs.sign = rhs.sign
+            lhs.sign.toggle()
             lhs.magnitude.formTwosComplement()
         }
     }

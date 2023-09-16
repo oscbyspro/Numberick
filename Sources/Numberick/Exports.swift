@@ -14,3 +14,4 @@
 @_exported import NBKCoreKit
 @_exported import NBKDoubleWidthKit
 @_exported import NBKFlexibleWidthKit
+@_exported import NBKSignedKit

@@ -13,6 +13,38 @@ import NBKCoreKit
 // MARK: * NBK x Signed
 //*============================================================================*
 
+/// A decorative, width agnostic, sign-and-magnitude integer.
+///
+/// ```swift
+/// typealias SInt = NBKSigned<UInt>
+/// let max = SInt(sign: .plus,  magnitude: .max)
+/// let min = SInt(sign: .minus, magnitude: .max)
+/// ```
+///
+/// ### 🧭 Plus Zero & Minus Zero
+///
+/// Zero is signed, meaning that it can be either positive or negative. These values
+/// are comparatively equal and have the same hash value.
+///
+/// - use `isLessThanZero` to check if a value is `negative` and non-zero
+/// - use `isMoreThanZero` to check if a value is `positive` and non-zero
+///
+/// ### 🚀 Single Digit Arithmagick
+///
+/// Alongside its ordinary arithmagick operations, ``NBKSigned`` provides
+/// single-digit operations, where a digit is a sign and an unsigned machine word.
+/// These operations are more efficient for small calculations. Here are some examples:
+///
+/// ```swift
+/// SIntXL(1) + SInt(1)
+/// SIntXL(2) - SInt(2)
+/// SIntXL(3) * SInt(3)
+/// SIntXL(4) / SInt(4)
+/// SIntXL(5) % SInt(5)
+/// ```
+///
+/// - Note: The `Digit` type is `NBKSigned<Magnitude.Digit>`.
+///
 @frozen public struct NBKSigned<Magnitude: NBKUnsignedInteger>: Comparable,
 CustomStringConvertible, ExpressibleByIntegerLiteral, Hashable, Sendable, SignedNumeric {
     
@@ -77,3 +109,15 @@ public typealias SInt32 = NBKSigned<UInt32>
 
 /// A signed integer with a 64-bit magnitude.
 public typealias SInt64 = NBKSigned<UInt64>
+
+//=----------------------------------------------------------------------------=
+// MARK: + Flexible Width
+//=----------------------------------------------------------------------------=
+#if canImport(NBKFlexibleWidthKit)
+
+import NBKFlexibleWidthKit
+
+/// A signed integer with a flexible-width magnitude.
+public typealias SIntXL = NBKSigned<UIntXL>
+
+#endif

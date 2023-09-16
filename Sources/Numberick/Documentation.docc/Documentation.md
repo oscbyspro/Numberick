@@ -114,25 +114,33 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``NBKDoubleWidth``
 - ``NBKEndianness``
 - ``NBKFlexibleWidth``
+- ``NBKSigned``
 - ``NBKTwinHeaded``
 
 ### Integers
 
-- ``IntXL``
 - ``Int128``
 - ``Int256``
 - ``Int512``
 - ``Int1024``
 - ``Int2048``
 - ``Int4096``
+- ``IntXL``
 
-- ``UIntXL``
 - ``UInt128``
 - ``UInt256``
 - ``UInt512``
 - ``UInt1024``
 - ``UInt2048``
 - ``UInt4096``
+- ``UIntXL``
+
+- ``SInt``
+- ``SInt8``
+- ``SInt16``
+- ``SInt32``
+- ``SInt64``
+- ``SIntXL``
 
 ### Abbreviations
 

@@ -105,6 +105,10 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
 
+## [NBKSignedKit][FLX/D] ([Sources][SIG/S], [Tests][SIG/T], [Benchmarks][SIG/B])
+
+👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
+
 ## Acknowledgements
 
 This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][Apple/DoubleWidth] by Apple.
@@ -114,18 +118,22 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 [NBK/D]: https://oscbyspro.github.io/Numberick/documentation/numberick
 [DBL/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkdoublewidth
 [FLX/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkflexiblewidth
+[SIG/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbksigned
 
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
 [FLX/S]: Sources/NBKFlexibleWidthKit
+[SIG/S]: Sources/NBKSignedKit
 
 [COR/T]: Tests/NBKCoreKitTests
 [DBL/T]: Tests/NBKDoubleWidthKitTests
 [FLX/T]: Tests/NBKFlexibleWidthKitTests
+[SIG/T]: Tests/NBKSignedKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
 [FLX/B]: Tests/NBKFlexibleWidthKitBenchmarks
+[SIG/B]: Tests/NBKSignedKitBenchmarks
 
 <!-- Links x Miscellaneous -->
 

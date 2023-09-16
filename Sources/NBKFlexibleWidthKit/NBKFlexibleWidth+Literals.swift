@@ -27,9 +27,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        //=--------------------------------------=
-        if source.signum() == -1 { return nil }
-        //=--------------------------------------=
+        if  source.signum() == -1 { return nil }
         self.init(truncatingIntegerLiteral: source)
     }
     

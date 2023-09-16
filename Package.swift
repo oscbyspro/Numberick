@@ -67,7 +67,7 @@ var package = Package(
         //=--------------------------------------=
         .target(
         name: "Numberick",
-        dependencies: ["NBKCoreKit", "NBKDoubleWidthKit", "NBKFlexibleWidthKit"]),
+        dependencies: ["NBKCoreKit", "NBKDoubleWidthKit", "NBKFlexibleWidthKit", "NBKSignedKit"]),
         //=--------------------------------------=
         // NBK x Core Kit
         //=--------------------------------------=
