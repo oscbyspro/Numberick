@@ -21,18 +21,24 @@ extension NBKFlexibleWidth.Magnitude {
     #if SBI && swift(>=5.8)
 
     @inlinable public init(integerLiteral source: StaticBigInt) {
-        if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
+        if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        if  source.signum() == -1 { return nil }
-        self.init(truncatingIntegerLiteral: source)
-    }
-    
-    @inlinable init(truncatingIntegerLiteral source: StaticBigInt) {
-        self.init(storage: Storage(truncatingIntegerLiteral: source))
+        guard  Self.isSigned || source.signum() >= 0 as Int else { return nil }
+        //=--------------------------------------=
+        let bitWidth = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
+        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let count = major &+ Int(bit: minor.isMoreThanZero)
+        //=--------------------------------------=
+        self = Self.uninitialized(count: count) { words in
+            for index in words.indices {
+                words.baseAddress!.advanced(by: index).initialize(to: source[index])
+            }
+        }
     }
     
     #else

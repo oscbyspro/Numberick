@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Resize
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func append(_ word: UInt) {
@@ -26,7 +26,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable mutating func resize(minCount: Int) {
         self.reserveCapacity(minCount)
         appending: while self.elements.count < minCount {
-            self.elements.append(UInt.zero)
+            self.elements.append(0 as UInt)
         }
     }
     
@@ -40,9 +40,24 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable mutating func reserveCapacity(_ minCapacity: Int) {
         self.elements.reserveCapacity(minCapacity)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Normalization
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Normalization
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var isNormal: Bool {
+        self.elements.count == 1 || !self.last.isZero
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
     @inlinable mutating func normalize() {

@@ -19,15 +19,14 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(words: some Collection<UInt>) {
-        self.init(storage: Storage(words: words))
+    @inlinable public init(words: some Sequence<UInt>) {
+        self.init(normalizing: Storage(nonemptying: Elements(words)))
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    // TODO: do not expose the actual type
     @inlinable public var words: ContiguousArray<UInt> {
         _read { yield self.storage.elements }
     }
@@ -38,16 +37,22 @@ extension NBKFlexibleWidth.Magnitude {
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude.Storage {
-
+    
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable init(words: some Collection<UInt>) {
-        self.init(elements: Elements(words))
+    @inlinable var first: UInt {
+        get { self.elements[self.elements.startIndex] }
+        set { self.elements[self.elements.startIndex] = newValue }
     }
     
-    @inlinable init(repeating word: UInt, count: Int) {
-        self.init(elements: Elements(repeating: word, count: count))
+    @inlinable var last: UInt {
+        get { self.elements[self.lastIndex] }
+        set { self.elements[self.lastIndex] = newValue }
+    }
+    
+    @inlinable var lastIndex: Int {
+        self.elements.index(before: self.elements.endIndex)
     }
 }

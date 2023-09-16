@@ -20,11 +20,11 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: UInt) {
-        lhs.multiply(by: rhs, add: UInt.zero)
+        lhs.multiply(by: rhs, add: 0 as UInt)
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: UInt) -> Self {
-        lhs.multiplied(by: rhs, adding: UInt.zero)
+        lhs.multiplied(by: rhs, adding: 0 as UInt)
     }
     
     //=------------------------------------------------------------------------=

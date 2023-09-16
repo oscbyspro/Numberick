@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func updateZeroValue() {
-        self.update(UInt.zero)
+        self.update(0 as UInt)
     }
     
     @inlinable public mutating func update(_ value: Digit) {

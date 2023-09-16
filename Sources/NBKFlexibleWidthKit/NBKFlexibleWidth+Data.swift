@@ -10,6 +10,22 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Double Width x Data x Unsigned
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers x Private
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance with unsafe access to its uninitialized memory.
+    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
+        Self(normalizing: Storage.uninitialized(count: count, body: body))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Double Width x Data x Unsigned x Storage
 //*============================================================================*
 
@@ -21,6 +37,6 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     
     /// Creates a new instance with unsafe access to its uninitialized memory.
     @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
-        Self(elements: Elements(unsafeUninitializedCapacity: count) { body(&$0); $1 = count })
+        Self(Elements(unsafeUninitializedCapacity:  count) { body(&$0); $1 = $0.count })
     }
 }

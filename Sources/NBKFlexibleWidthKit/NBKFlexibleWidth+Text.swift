@@ -19,7 +19,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Decode
     //=------------------------------------------------------------------------=
     
-    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
+    @inlinable public init?(_ description: some StringProtocol, radix: Int) {
         var description = String(description)
         
         let value: Optional<Self> = description.withUTF8 { utf8 in
@@ -37,12 +37,12 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Encode
     //=------------------------------------------------------------------------=
     
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
         Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
             let radix  = NBK.AnyRadixSolution<Int>(radix)
             let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
             let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
-            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
+            let suffix = NBK.UnsafeUTF8(start: nil,   count: 0 as Int)
             return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
@@ -71,20 +71,16 @@ extension NBKFlexibleWidth.Magnitude {
         let division = digits.count.quotientAndRemainder(dividingBy: radix.exponent)
         let count = division.quotient + Int(bit: !division.remainder.isZero)
         //=--------------------------------------=
-        guard count.isMoreThanZero else { self = Self.zero; return }
-        //=--------------------------------------=
-        var error = false
-        let value = Storage.uninitialized(count: count) { storage in
-            for index in storage.indices {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return error = true }
-                storage[index] = word
-            }
-            
-            Swift.assert(digits.isEmpty)
+        var elements = Elements(repeating: 0, count: count)
+        
+        backwards: for index in elements.indices {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, maxLength: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            elements[index] = word
         }
         
-        if !error { self.init(unchecked: value) } else { return nil }
+        self.init(unchecked: Storage(nonemptying: elements))
+        Swift.assert(self.storage.isNormal)
     }
     
     @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.ImperfectRadixSolution<Int>) {
@@ -94,21 +90,18 @@ extension NBKFlexibleWidth.Magnitude {
         let alignment = digits.count % radix.exponent
         //=--------------------------------------=
         self.init()
-        guard let _ = { // this closure makes it 10% faster for some reason
             
-            forwards: if !alignment.isZero {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.storage.elements[self.storage.elements.startIndex] = word
-            }
-            
-            forwards: while !digits.isEmpty {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
-                guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
-                self.multiply(by: radix.power, add: word)
-            }
-            
-        }() as Void? else { return nil }
+        forwards: if !alignment.isZero {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: alignment))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            self.storage.elements[self.storage.elements.startIndex] = word
+        }
+        
+        forwards: while !digits.isEmpty {
+            let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
+            guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
+            self.multiply(by: radix.power, add: word)
+        }
     }
     
     //=------------------------------------------------------------------------=

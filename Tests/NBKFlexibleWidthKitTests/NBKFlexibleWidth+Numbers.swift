@@ -105,13 +105,6 @@ final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
         NBKAssertNumbers(from: T(digit: UInt.max), default: T(words:[~0, 0, 0, 0] as W))
     }
     
-    func testFromUIntAsDigitAtIndex() {
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(0)), default: T(words:[~0,  0,  0,  0] as W))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(1)), default: T(words:[ 0, ~0,  0,  0] as W))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(2)), default: T(words:[ 0,  0, ~0,  0] as W))
-        NBKAssertNumbers(from: T(digit: UInt.max, at: Int(3)), default: T(words:[ 0,  0,  0, ~0] as W))
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Tests x UInt32
     //=------------------------------------------------------------------------=

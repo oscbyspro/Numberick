@@ -24,12 +24,6 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     func compared(to other: Digit, at index: Int) -> Int
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Numbers
-    //=------------------------------------------------------------------------=
-    
-    init(digit: Digit, at index: Int)
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Addition
     //=------------------------------------------------------------------------=
     

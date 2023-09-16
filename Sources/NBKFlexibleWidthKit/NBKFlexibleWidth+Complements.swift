@@ -25,7 +25,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
 
     @inlinable public func onesComplement() -> Self {
-        Self(storage: self.storage.onesComplement())
+        Self(normalizing: self.storage.onesComplement())
     }
     
     //=------------------------------------------------------------------------=

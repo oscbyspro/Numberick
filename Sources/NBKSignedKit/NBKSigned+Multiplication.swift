@@ -18,10 +18,9 @@ extension NBKSigned {
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
-        
+    
     @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.sign = lhs.sign ^ rhs.sign
-        lhs.magnitude *= rhs.magnitude
+        lhs.sign ^= rhs.sign; lhs.magnitude *= rhs.magnitude
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {

@@ -20,19 +20,19 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: UInt) {
-        lhs.subtract(rhs, at: Int.zero)
+        lhs.subtract(rhs, at: 0 as Int)
     }
     
     @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: UInt) -> Self {
-        lhs.subtracting(rhs, at: Int.zero)
+        lhs.subtracting(rhs, at: 0 as Int)
     }
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt) -> Bool {
-        self.subtractReportingOverflow(other, at: Int.zero)
+        self.subtractReportingOverflow(other, at: 0 as Int)
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt) -> PVO<Self> {
-        self.subtractingReportingOverflow(other, at: Int.zero)
+        self.subtractingReportingOverflow(other, at: 0 as Int)
     }
     
     //=------------------------------------------------------------------------=

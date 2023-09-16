@@ -24,7 +24,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        Self(storage: lhs.storage.multipliedFullWidth(by: rhs.storage))
+        Self(normalizing: lhs.storage.multipliedFullWidth(by: rhs.storage))
     }
 }
 
@@ -39,15 +39,15 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     @inlinable func multipliedFullWidth(by multiplicand: Self) -> Self {
-        self.multipliedFullWidthByNaiveMethod(by: multiplicand, adding: UInt.zero)
+        self.multipliedFullWidthByNaiveMethod(by: multiplicand, adding: 0 as UInt)
     }
     
     @inlinable func multipliedFullWidthByNaiveMethod(by multiplicand: Self, adding addend: UInt) -> Self {
         Self.uninitialized(count: self.elements.count + multiplicand.elements.count) { product in
             //=----------------------------------=
-            // de/init: pointee is trivial
+            // pointee: initialization
             //=----------------------------------=
-            product.update(repeating: UInt.zero)
+            product.initialize(repeating: 0 as UInt)
             //=----------------------------------=
             var overflow =  addend as UInt
             for lhsIndex in self.elements.indices {
@@ -62,8 +62,8 @@ extension NBKFlexibleWidth.Magnitude.Storage {
                     overflow &+= subproduct.high
                 }
                 
-                product[lhsIndex + multiplicand.elements.count] = overflow
-                overflow = UInt.zero
+                product[lhsIndex + multiplicand.elements.count] = overflow // update
+                overflow = 0 as UInt
             }
         }
     }

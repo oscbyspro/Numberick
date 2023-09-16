@@ -20,8 +20,7 @@ extension NBKSigned {
     //=------------------------------------------------------------------------=
         
     @_disfavoredOverload @inlinable public static func *=(lhs: inout Self, rhs: Digit) {
-        lhs.sign = lhs.sign ^ rhs.sign
-        lhs.magnitude *= rhs.magnitude
+        lhs.sign ^= rhs.sign; lhs.magnitude *= rhs.magnitude
     }
     
     @_disfavoredOverload @inlinable public static func *(lhs: Self, rhs: Digit) -> Self {

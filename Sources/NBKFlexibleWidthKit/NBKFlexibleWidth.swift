@@ -20,40 +20,49 @@ import NBKCoreKit
 /// - Note: You can use `NBKSigned<UIntXL>` until `IntXL` becomes available.
 ///
 @frozen public struct NBKFlexibleWidth {
+    
+    @usableFromInline typealias Elements = ContiguousArray<UInt>
         
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*
     
     /// An unsigned, flexible-width, binary integer.
-    ///
-    /// ### Logic
-    ///
-    /// - TODO: Comment on bitwise NOT, AND, OR, XOR semantics.
-    ///
     @frozen public struct Magnitude: NBKUnsignedInteger, IntXLOrUIntXL {
         
         public typealias Digit = UInt
+        
+        public typealias Words = ContiguousArray<UInt> // TODO: make opaque
+        
+        @usableFromInline typealias Elements = NBKFlexibleWidth.Elements
                 
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
         
+        /// The integer's underlying storage.
+        ///
+        /// It must be `normal` and `nonempty` at the start and end of each access.
+        ///
         @usableFromInline var storage: Storage
         
         //=--------------------------------------------------------------------=
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(storage: Storage) {
+        @inlinable init(_ storage: Storage) {
+            self.storage = storage
+            precondition(self.storage.isNormal)
+        }
+        
+        @inlinable init(normalizing storage: Storage) {
             self.storage = storage
             self.storage.normalize()
             Swift.assert(self.storage.isNormal)
         }
         
-        @inlinable init(unchecked: Storage) {
-            self.storage = unchecked
-            Swift.assert(self.storage.isNormal)
+        @inlinable init(unchecked storage: Storage) {
+            self.storage = storage
         }
         
         //=--------------------------------------------------------------------=
@@ -75,7 +84,6 @@ import NBKCoreKit
             "UIntXL"
         }
         
-        // #warning("check uses of elements, first!, last!, count, lastIndex")
         //*====================================================================*
         // MARK: * Storage
         //*====================================================================*
@@ -86,34 +94,36 @@ import NBKCoreKit
         /// 
         @frozen @usableFromInline struct Storage {
             
-            @usableFromInline typealias Elements = ContiguousArray<UInt>
+            @usableFromInline typealias Elements = NBKFlexibleWidth.Elements
             
             //=----------------------------------------------------------------=
             // MARK: State
             //=----------------------------------------------------------------=
             
-            @usableFromInline var elements: ContiguousArray<UInt>
+            /// A collection of unsigned integers.
+            ///
+            /// It must be `nonempty` at the start and end of each access.
+            ///
+            @usableFromInline var elements: Elements
             
             //=----------------------------------------------------------------=
             // MARK: Initializers
             //=----------------------------------------------------------------=
             
-            @inlinable init(elements: Elements) {
+            @inlinable init(_ elements: Elements) {
                 self.elements = elements
                 precondition(!self.elements.isEmpty)
             }
             
-            @inlinable init(unchecked elements: Elements) {
+            @inlinable init(nonemptying elements: Elements) {
                 self.elements = elements
-                Swift.assert(!self.elements.isEmpty)
+                if  self.elements.isEmpty {
+                    self.elements.append(0)
+                }
             }
             
-            //=----------------------------------------------------------------=
-            // MARK: Utilities
-            //=----------------------------------------------------------------=
-            
-            @inlinable var isNormal: Bool {
-                self.elements.count == 1 || !self.elements.last!.isZero
+            @inlinable init(unchecked elements: Elements) {
+                self.elements = elements
             }
         }
     }

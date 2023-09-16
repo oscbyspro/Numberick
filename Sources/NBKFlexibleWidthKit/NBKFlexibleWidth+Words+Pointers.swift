@@ -10,6 +10,30 @@
 import NBKCoreKit
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Words x Pointers x Unsigned
+//*============================================================================*
+
+extension NBKFlexibleWidth.Magnitude {
+ 
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Contiguous UInt Collection
+    //=------------------------------------------------------------------------=
+    
+    /// Grants unsafe access to the collection's contiguous storage.
+    @inlinable public func withUnsafeBufferPointer<T>(
+    _   body:(NBK.UnsafeWords) throws -> T) rethrows -> T {
+        try self.storage.withUnsafeBufferPointer(body)
+    }
+    
+    /// Grants unsafe access to the collection's contiguous mutable storage.
+    @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
+    _   body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+        defer{     self.storage.normalize() }
+        return try self.storage.withUnsafeMutableBufferPointer(body)
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Words x Pointers x Unsigned x Storage
 //*============================================================================*
 
@@ -21,13 +45,13 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     
     /// Grants unsafe access to the collection's contiguous storage.
     @inlinable func withUnsafeBufferPointer<T>(
-    _ body: (NBK.UnsafeWords) throws -> T) rethrows -> T {
+    _   body:(NBK.UnsafeWords) throws -> T) rethrows -> T {
         try self.elements.withUnsafeBufferPointer(body)
     }
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
     @inlinable mutating func withUnsafeMutableBufferPointer<T>(
-    _ body: (inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+    _   body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
         try self.elements.withUnsafeMutableBufferPointer(body)
     }
 }

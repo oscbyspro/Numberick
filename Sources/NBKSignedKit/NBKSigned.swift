@@ -13,7 +13,7 @@ import NBKCoreKit
 // MARK: * NBK x Signed
 //*============================================================================*
 
-/// A decorative, width agnostic, sign-and-magnitude integer.
+/// A decorative sign-and-magnitude integer.
 ///
 /// ```swift
 /// typealias SInt = NBKSigned<UInt>
@@ -109,15 +109,3 @@ public typealias SInt32 = NBKSigned<UInt32>
 
 /// A signed integer with a 64-bit magnitude.
 public typealias SInt64 = NBKSigned<UInt64>
-
-//=----------------------------------------------------------------------------=
-// MARK: + Flexible Width
-//=----------------------------------------------------------------------------=
-#if canImport(NBKFlexibleWidthKit)
-
-import NBKFlexibleWidthKit
-
-/// A signed integer with a flexible-width magnitude.
-public typealias SIntXL = NBKSigned<UIntXL>
-
-#endif

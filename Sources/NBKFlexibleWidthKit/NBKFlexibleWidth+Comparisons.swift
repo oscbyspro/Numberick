@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
         
     @inlinable public var isZero: Bool {
-        self.storage.elements.count == 1 && self.storage.elements.first!.isZero
+        self.storage.elements.count == 1 && self.storage.first.isZero
     }
     
     @inlinable public var isLessThanZero: Bool {
@@ -32,7 +32,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var isPowerOf2: Bool {
-        self.storage.elements.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
+        self.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {

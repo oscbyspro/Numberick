@@ -29,14 +29,6 @@ extension NBKFlexibleWidth.Magnitude {
         self.init(unchecked: Storage(unchecked: [digit]))
     }
     
-    // #warning("unchecked should be unchecked...")
-    @inlinable public init(digit: UInt, at index: Int) {
-        var storage = Storage(repeating: 0 as UInt, count: index + 1)
-        storage.elements[index] = digit
-        storage.normalize()
-        self.init(unchecked: storage)
-    }
-    
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
