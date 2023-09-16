@@ -10,84 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Numbers x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    public static let zero = Self(0)
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Digit
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(digit: Int) {
-        let sign = digit.isLessThanZero
-        let magnitude = Magnitude(digit: digit.magnitude)
-        self.init(sign: Sign(sign), magnitude: magnitude)
-    }
-    
-    @inlinable public init(digit: Int, at index: Int) {
-        let sign = digit.isLessThanZero
-        let magnitude = Magnitude(digit: digit.magnitude, at: index)
-        self.init(sign: Sign(sign), magnitude: magnitude)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Binary Integer
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(_ source: some BinaryInteger) {
-        //=--------------------------------------=
-        // Magnitude
-        //=--------------------------------------=
-        if  let source = source as? Magnitude {
-            self.init(sign: Sign.plus, magnitude: source)
-        //=--------------------------------------=
-        // some BinaryInteger
-        //=--------------------------------------=
-        }   else {
-            let sign = Sign(source < 0)
-            let magnitude = Magnitude(source.magnitude)
-            self.init(sign: sign, magnitude: magnitude)
-        }
-    }
-    
-    @inlinable public init?(exactly source: some BinaryInteger) {
-        self.init(source)
-    }
-    
-    @inlinable public init(clamping source: some BinaryInteger) {
-        self.init(source)
-    }
-    
-    @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
-        self.init(source)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Binary Floating Point
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(_ source: some BinaryFloatingPoint) {
-        guard let result = Self(exactly: source.rounded(.towardZero)) else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
-        }
-        
-        self = result
-    }
-    
-    @inlinable public init?(exactly source: some BinaryFloatingPoint) {
-        guard let magnitude = Magnitude(exactly: source.magnitude) else { return nil }
-        self.init(sign: source.sign,  magnitude: magnitude)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Numbers x Unsigned
 //*============================================================================*
 
@@ -97,17 +19,17 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Constants
     //=------------------------------------------------------------------------=
     
-    public static let zero = Self(0)
+    public static let zero = Self(digit: 0)
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Digit
     //=------------------------------------------------------------------------=
     
     @inlinable public init(digit: UInt) {
-        let storage = Storage(unchecked: [digit])
-        self.init(unchecked: storage)
+        self.init(unchecked: Storage(unchecked: [digit]))
     }
     
+    // #warning("unchecked should be unchecked...")
     @inlinable public init(digit: UInt, at index: Int) {
         var storage = Storage(repeating: 0 as UInt, count: index + 1)
         storage.elements[index] = digit
@@ -120,11 +42,9 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
-        guard let result = Self(exactly: source) else {
+        if  let value = Self(exactly: source) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = result
     }
     
     @inlinable public init?(exactly source: some BinaryInteger) {
@@ -145,11 +65,9 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryFloatingPoint) {
-        guard let value = Self(exactly: source.rounded(.towardZero)) else {
+        if  let value = Self(exactly: source.rounded(.towardZero)) { self = value } else {
             preconditionFailure("\(Self.description) cannot represent \(source)")
         }
-        
-        self = value
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {

@@ -14,50 +14,13 @@ import NBKCoreKit
 //*============================================================================*
 
 /// A signed, flexible-width, binary integer.
-@frozen public struct NBKFlexibleWidth: NBKSignedInteger, IntXLOrUIntXL {
-    
-    public typealias Digit = Int
-    
-    public typealias Sign  = NBK.Sign
-    
-    //=------------------------------------------------------------------------=
-    // MARK: State
-    //=------------------------------------------------------------------------=
-    
-    /// The sign of this value.
-    public var sign: Sign
-    
-    /// The magnitude of this value.
-    public var magnitude: Magnitude
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(sign: Sign, magnitude: Magnitude) {
-        self.sign = sign
-        self.magnitude = magnitude
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// A `description` of this type.
-    ///
-    /// ```
-    /// ┌─────────────────────────── → ────────────┐
-    /// │ type                       │ description │
-    /// ├─────────────────────────── → ────────────┤
-    /// │ NBKFlexibleWidth           │  "IntXL"    │
-    /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
-    /// └─────────────────────────── → ────────────┘
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        "IntXL"
-    }
-    
+///
+/// This name reserves a spot for a signed 2's-complement-in-memory integer.
+///
+/// - Note: You can use `NBKSigned<UIntXL>` until `IntXL` becomes available.
+///
+@frozen public struct NBKFlexibleWidth {
+        
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*
@@ -161,6 +124,11 @@ import NBKCoreKit
 //*============================================================================*
 
 /// A signed, flexible-width, integer.
+///
+/// This name reserves a spot for a signed 2's-complement-in-memory integer.
+///
+/// - Note: You can use `NBKSigned<UIntXL>` until `IntXL` becomes available.
+///
 public typealias IntXL = NBKFlexibleWidth
 
 /// An unsigned, flexible-width, integer.

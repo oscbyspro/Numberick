@@ -10,42 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x Digit x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable public static func -=(lhs: inout Self, rhs: Int) {
-        lhs.subtract(rhs, at: Int.zero)
-    }
-    
-    @_disfavoredOverload @inlinable public static func -(lhs: Self, rhs: Int) -> Self {
-        lhs.subtracting(rhs, at: Int.zero)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable public mutating func subtract(_ other: Int, at index: Int) {
-        if  self.sign !=  Sign(other.isLessThanZero) {
-            self.magnitude.add(other.magnitude, at: index)
-        }   else if self.magnitude.subtractReportingOverflow(other.magnitude, at: index) {
-            self.sign.toggle()
-            self.magnitude.formTwosComplement()
-        }
-    }
-    
-    @_disfavoredOverload @inlinable public func subtracting(_ other: Int, at index: Int) -> Self {
-        var result = self; result.subtract(other, at: index); return result
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Subtraction x Digit x Unsigned
 //*============================================================================*
 

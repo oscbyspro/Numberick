@@ -10,57 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Logic x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x NOT
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static prefix func ~(x: Self) -> Self {
-        x.onesComplement()
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x AND
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func &=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs &= rhs; return lhs
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x OR
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func |=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs |= rhs; return lhs
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x XOR
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
-        fatalError("TODO")
-    }
-    
-    @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
-        var lhs = lhs; lhs ^= rhs; return lhs
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Logic x Unsigned
 //*============================================================================*
 

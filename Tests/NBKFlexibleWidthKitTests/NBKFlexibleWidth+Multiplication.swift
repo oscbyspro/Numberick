@@ -18,64 +18,6 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Multiplication x IntXL
-//*============================================================================*
-
-final class NBKFlexibleWidthTestsOnMultiplicationAsIntXL: XCTestCase {
-    
-    typealias T =  IntXL
-    typealias M = UIntXL
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests
-    //=------------------------------------------------------------------------=
-    
-    func testMultiplying() {
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[2, 0, 0, 0] as W), T(words:[ 2,  4,  6,  8,  0,  0,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 2, 0, 0] as W), T(words:[ 0,  2,  4,  6,  8,  0,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0,  2,  4,  6,  8,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W),  T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0,  2,  4,  6,  8,  0] as W))
-        
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[2, 0, 0, 0] as W), T(words:[~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 2, 0, 0] as W), T(words:[ 0, ~1, ~4, ~6, ~8, ~0, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0, ~1, ~4, ~6, ~8, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[ 1,  2,  3,  4] as W), -T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0, ~1, ~4, ~6, ~8, ~0] as W))
-        
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[2, 0, 0, 0] as W), T(words:[~3, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 2, 0, 0] as W), T(words:[ 0, ~3, ~4, ~6, ~8, ~0, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0, ~3, ~4, ~6, ~8, ~0, ~0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W),  T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0, ~3, ~4, ~6, ~8, ~0] as W))
-        
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[2, 0, 0, 0] as W), T(words:[ 4,  4,  6,  8,  0,  0,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 2, 0, 0] as W), T(words:[ 0,  4,  4,  6,  8,  0,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 0, 2, 0] as W), T(words:[ 0,  0,  4,  4,  6,  8,  0,  0] as W))
-        NBKAssertMultiplication(T(words:[~1, ~2, ~3, ~4] as W), -T(words:[0, 0, 0, 2] as W), T(words:[ 0,  0,  0,  4,  4,  6,  8,  0] as W))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
-    //=------------------------------------------------------------------------=
-    
-    func testMultiplyingByDigit() {
-        NBKAssertMultiplicationByDigit(T(words:[ 1,  2,  3,  4] as W),  Int(2), T(words:[ 2,  4,  6,  8,  0] as W))
-        NBKAssertMultiplicationByDigit(T(words:[ 1,  2,  3,  4] as W), -Int(2), T(words:[~1, ~4, ~6, ~8, ~0] as W))
-        NBKAssertMultiplicationByDigit(T(words:[~1, ~2, ~3, ~4] as W),  Int(2), T(words:[~3, ~4, ~6, ~8, ~0] as W))
-        NBKAssertMultiplicationByDigit(T(words:[~1, ~2, ~3, ~4] as W), -Int(2), T(words:[ 4,  4,  6,  8,  0] as W))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Miscellaneous
-    //=------------------------------------------------------------------------=
-    
-    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
-        func becauseThisCompilesSuccessfully(_ x: inout T) {
-            XCTAssertNotNil(x  *= 0)
-            XCTAssertNotNil(x  *  0)
-        }
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x UIntXL
 //*============================================================================*
 
@@ -159,7 +101,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Unsigned
+// MARK: + UIntXL
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMultiplicationByDigitWithAddition(

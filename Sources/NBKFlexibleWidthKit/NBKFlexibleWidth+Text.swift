@@ -10,45 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Text x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Decode
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init?(_ description: some StringProtocol, radix: Int = 10) {
-        var description = String(description)
-        
-        let value: Optional<Self> = description.withUTF8 { utf8 in
-            let radix  = NBK.AnyRadixSolution<Int>(radix)
-            let components = NBK.makeIntegerComponents(utf8: utf8)
-            let digits = NBK.UnsafeUTF8(rebasing: components.body)
-            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self(sign: components.sign, magnitude: magnitude)
-        }
-        
-        if let value { self = value } else { return nil }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Encode
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
-        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
-            let radix  = NBK.AnyRadixSolution<Int>(radix)
-            let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
-            let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
-            let suffix = NBK.UnsafeUTF8(start: nil,   count: Int.zero)
-            return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Text x Unsigned
 //*============================================================================*
 
@@ -97,7 +58,7 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Decode x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable init?(digits: NBK.UnsafeUTF8, radix: NBK.AnyRadixSolution<Int>) {
+    @inlinable init?(digits:  NBK.UnsafeUTF8, radix: NBK.AnyRadixSolution<Int>) {
         switch radix.power.isZero {
         case  true: self.init(digits: digits, radix: NBK  .PerfectRadixSolution(radix)!)
         case false: self.init(digits: digits, radix: NBK.ImperfectRadixSolution(radix)!) }

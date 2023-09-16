@@ -10,26 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Multiplication x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public static func *=(lhs: inout Self, rhs: Self) {
-        lhs.sign ^= rhs.sign
-        lhs.magnitude *= rhs.magnitude as Magnitude
-    }
-    
-    @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        Self(sign: lhs.sign ^ Sign(rhs.isLessThanZero), magnitude: lhs.magnitude * rhs.magnitude)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x Unsigned
 //*============================================================================*
 
@@ -49,7 +29,7 @@ extension NBKFlexibleWidth.Magnitude {
 }
 
 //*============================================================================*
-// MARK: * NBK x Resizable Width x Multiplication x Unsigned
+// MARK: * NBK x Flexible Width x Multiplication x Unsigned x Storage
 //*============================================================================*
 
 extension NBKFlexibleWidth.Magnitude.Storage {

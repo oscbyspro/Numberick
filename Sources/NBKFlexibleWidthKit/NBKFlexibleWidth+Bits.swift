@@ -10,63 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Bits x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public init(bit: Bool) {
-        self.init(digit: Digit(bit: bit))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var bitWidth: Int {
-        self.magnitude.bitWidth + self.storageBitWidthNeeded
-    }
-        
-    @inlinable public var nonzeroBitCount: Int {
-        if  self.isLessThanZero {
-            let s  = self.magnitude.storage.elements.withUnsafeBufferPointer(NBK.nonzeroBitCount(twosComplementOf:))
-            return s + self.storageBitWidthNeeded
-        }   else {
-            return self.magnitude.nonzeroBitCount
-        }
-    }
-    
-    @inlinable public var leadingZeroBitCount: Int {
-        self.isLessThanZero ? Int.zero : (self.magnitude.leadingZeroBitCount + self.storageBitWidthNeeded)
-    }
-    
-    @inlinable public var trailingZeroBitCount: Int {
-        self.magnitude.trailingZeroBitCount
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        self.isLessThanZero
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self.magnitude.leastSignificantBit
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Private
-    //=------------------------------------------------------------------------=
-    
-    /// The number of extra bits in `bitWidth` compared to `magnitude/bitWidth`.
-    @inlinable var storageBitWidthNeeded: Int {
-        self.storageNeedsOneMoreWord ? UInt.bitWidth : Int.zero
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Bits x Unsigned
 //*============================================================================*
 

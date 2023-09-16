@@ -10,27 +10,6 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Update x Signed
-//*============================================================================*
-
-extension NBKFlexibleWidth {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func updateZeroValue() {
-        self.sign = Sign.plus
-        self.magnitude.updateZeroValue()
-    }
-    
-    @inlinable public mutating func update(_ value: Digit) {
-        self.sign = Sign(value.isLessThanZero)
-        self.magnitude.update(value.magnitude)
-    }
-}
-
-//*============================================================================*
 // MARK: * NBK x Flexible Width x Update x Unsigned
 //*============================================================================*
 
