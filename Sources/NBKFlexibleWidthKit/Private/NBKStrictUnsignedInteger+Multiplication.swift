@@ -25,7 +25,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator.
     ///
-    @inlinable public mutating func multiply(
+    @inlinable public mutating func multiplyReportingOverflow(
     by  multiplicand: Base.Element, add addend: Base.Element) -> Bool {
         !self.multiplyFullWidth(by: multiplicand, add: addend).isZero
     }

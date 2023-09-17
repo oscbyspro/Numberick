@@ -47,12 +47,10 @@ extension NBKFlexibleWidth.Magnitude {
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
-    //=------------------------------------------------------------------------=
-    
+    // TODO: perhaps NBKUnsignedInteger should be require this method
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        defer{ self.storage.normalize() }
-        return NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &self.storage.elements, dividingBy: other)
+        self.withUnsafeMutableStrictUnsignedInteger {
+            $0.formQuotientWithRemainderReportingOverflow(dividingBy: other)
+        }
     }
 }

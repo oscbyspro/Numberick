@@ -55,15 +55,15 @@ extension NBKStrictUnsignedInteger {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable var first: Base.Element {
+    @inlinable public var first: Base.Element {
         self.base[self.base.startIndex]
     }
     
-    @inlinable var last: Base.Element {
+    @inlinable public var last: Base.Element {
         self.base[self.lastIndex]
     }
     
-    @inlinable var lastIndex: Base.Index {
+    @inlinable public var lastIndex: Base.Index {
         self.base.index(before: self.base.endIndex)
     }
 }
@@ -78,14 +78,12 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
-    @inlinable var first: Base.Element {
-        @available(*, unavailable)
+    @inlinable public var first: Base.Element {
         get { self.base[self.base.startIndex] }
         set { self.base[self.base.startIndex] = newValue }
     }
     
-    @inlinable var last: Base.Element {
-        @available(*, unavailable)
+    @inlinable public var last: Base.Element {
         get { self.base[self.lastIndex] }
         set { self.base[self.lastIndex] = newValue }
     }
