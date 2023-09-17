@@ -72,8 +72,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
-        if  other.storage.elements.count == 1 {
-            let qr: QR<Self, Digit> = self.quotientAndRemainder(dividingBy: other.storage.first)
+        if  other.count == 1 {
+            let qr: QR<Self, Digit> = self.quotientAndRemainder(dividingBy: other.first)
             self.update(qr.remainder)
             return PVO(qr.quotient, false)
         }
@@ -92,8 +92,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // shift to clamp approximation
         //=--------------------------------------=
+        let shift = other.last.leadingZeroBitCount as Int
         var divisor = other.storage as Storage
-        let shift = divisor.last.leadingZeroBitCount as Int
         divisor.bitshiftLeft(words: 0 as Int,  bits: shift)
         let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
         assert(divisorLast0.mostSignificantBit)
@@ -119,10 +119,12 @@ extension NBKFlexibleWidth.Magnitude {
                 }
                 //=------------------------------=
                 if !digit.isZero {
-                    var overflow = self.storage.subtract(divisor, times: digit, plus: 0 as UInt, plus: false, at: quotientIndex)
-                    decrement: while overflow {
-                        _ = digit.subtractReportingOverflow(1 as UInt)
-                        overflow = !self.storage.add(divisor, plus: false, at: quotientIndex)
+                    self.storage.withUnsafeMutableStrictUnsignedInteger {
+                        var overflow =  $0.decrement(by: divisor.elements, times: digit, plus: 0 as UInt, plus: false, at: quotientIndex).overflow
+                        decrement: while overflow {
+                            digit  &-= 1 as Digit
+                            overflow = !$0.increment(by: divisor.elements, plus: false, at: quotientIndex).overflow
+                        }
                     }
                 }
                 //=------------------------------=

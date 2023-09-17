@@ -13,6 +13,10 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "NBKFlexibleWidthBenchmarksOnTextAsUIntXL\/testEncodingUsingSwiftStdlibRadix10()",
+        "NBKFlexibleWidthBenchmarksOnTextAsUIntXL\/testEncodingUsingSwiftStdlibRadix16()"
+      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "NBKFlexibleWidthKitBenchmarks",

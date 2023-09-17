@@ -27,32 +27,37 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    @inlinable public var count: Int {
+        self.storage.elements.count
+    }
+    
     @inlinable public var words: ContiguousArray<UInt> {
         _read { yield self.storage.elements }
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Words x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
-    
-    @inlinable var first: UInt {
-        get { self.elements[self.elements.startIndex] }
-        set { self.elements[self.elements.startIndex] = newValue }
+        
+    /// The least significant word.
+    ///
+    /// - Note: This member is required by `Swift.BinaryInteger`.
+    ///
+    @inlinable public var _lowWord: UInt {
+        self.first as UInt
     }
     
-    @inlinable var last: UInt {
-        get { self.elements[self.lastIndex] }
-        set { self.elements[self.lastIndex] = newValue }
+    /// The least significant word.
+    @inlinable public var first: UInt {
+        self.withUnsafeStrictUnsignedInteger({ $0.first })
     }
     
-    @inlinable var lastIndex: Int {
-        self.elements.index(before: self.elements.endIndex)
+    /// The most significant word.
+    @inlinable public var last: UInt {
+        self.withUnsafeStrictUnsignedInteger({ $0.last  })
+    }
+    
+    @inlinable subscript(index: Int) -> UInt {
+        index < self.storage.elements.endIndex ? self.storage.elements[index] : 0 as UInt
     }
 }

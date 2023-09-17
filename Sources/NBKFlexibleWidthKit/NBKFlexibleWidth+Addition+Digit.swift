@@ -39,26 +39,17 @@ extension NBKFlexibleWidth.Magnitude {
         if  other.isZero { return }
         //=--------------------------------------=
         self.storage.resize(minCount: index + 1)
-        let overflow = self.storage.add(other, plus: false, at: index)
-        if  overflow { self.storage.append(1 as UInt) }
+        
+        let overflow = self.storage.withUnsafeMutableStrictUnsignedInteger {
+            $0.increment(by: other, at: index).overflow
+        }
+        
+        if  overflow {
+            self.storage.append(1 as UInt)
+        }
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {
         var result = self; result.add(other, at: index); return result
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Addition x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable mutating func add(_ other: UInt, plus carry: Bool, at  index: Int) -> Bool {
-        NBK.incrementSufficientUnsignedInteger(&self.elements, by: other, plus: carry, at: index).overflow
     }
 }

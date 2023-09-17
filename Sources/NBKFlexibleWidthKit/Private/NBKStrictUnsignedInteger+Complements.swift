@@ -10,44 +10,40 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Bits x Unsigned
+// MARK: * NBK x Strict Unsigned Integer x Complements
 //*============================================================================*
 
-extension NBKFlexibleWidth.Magnitude {
+extension NBKStrictUnsignedInteger where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Transformations x One's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(bit: Bool) {
-        self.init(digit: Digit(bit: bit))
+    @inlinable mutating func formOnesComplement() {
+        for index in self.base.indices {
+            self.base[index].formOnesComplement()
+        }
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Transformations x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public var bitWidth: Int {
-        self.storage.elements.count * UInt.bitWidth
+    @inlinable mutating func formTwosComplement() {
+        _ = self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable public var nonzeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.nonzeroBitCount(of:))
+    @inlinable mutating func formTwosComplementReportingOverflow() -> Bool {
+        self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable public var leadingZeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.leadingZeroBitCount(of:))
-    }
-    
-    @inlinable public var trailingZeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.trailingZeroBitCount(of:))
-    }
-    
-    @inlinable public var mostSignificantBit: Bool {
-        self.last.mostSignificantBit
-    }
-    
-    @inlinable public var leastSignificantBit: Bool {
-        self.first.leastSignificantBit
+    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+        var carry = carry
+        
+        for index in self.base.indices {
+            carry =  self.base[index].formTwosComplementSubsequence(carry)
+        }
+        
+        return carry as Bool
     }
 }

@@ -59,27 +59,14 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minCount: index + 1)
         defer{ self.storage.normalize() }
-        return self.storage.subtract(other, plus: false, at: index)
+        return self.storage.withUnsafeMutableStrictUnsignedInteger {
+            $0.decrement(by: other, at: index).overflow
+        }
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt, at index: Int) -> PVO<Self> {
         var partialValue = self
         let overflow: Bool = partialValue.subtractReportingOverflow(other, at: index)
         return PVO(partialValue, overflow)
-    }
-}
-
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Subtraction x Digit x Unsigned x Storage
-//*============================================================================*
-
-extension NBKFlexibleWidth.Magnitude.Storage {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable mutating func subtract(_ other: UInt, plus borrow: Bool, at index: Int) -> Bool {
-        NBK.decrementSufficientUnsignedInteger(&self.elements, by: other, plus: borrow, at: index).overflow
     }
 }

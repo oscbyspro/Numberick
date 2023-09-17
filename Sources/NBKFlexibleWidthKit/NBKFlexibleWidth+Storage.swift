@@ -53,7 +53,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     @inlinable var isNormal: Bool {
-        self.elements.count == 1 || !self.last.isZero
+        self.elements.count == 1 || !self.elements.last!.isZero
     }
     
     //=------------------------------------------------------------------------=

@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
         
     @inlinable public var isZero: Bool {
-        self.storage.elements.count == 1 && self.storage.first.isZero
+        self.withUnsafeStrictUnsignedInteger({ $0.base.count == 1 && $0.first.isZero })
     }
     
     @inlinable public var isLessThanZero: Bool {
