@@ -209,7 +209,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public mutating func decrement(
-    by  elements: some Collection<Base.Element>, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    by  elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
         var index: Base.Index = index, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(by: elements, plus: &bit, at: &index)
@@ -224,7 +224,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public mutating func decrementInIntersection(
-    by  elements: some Collection<Base.Element>, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    by  elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
         var index: Base.Index = index, bit: Bool = bit
         //=--------------------------------------=
         self.decrementInIntersection(by: elements, plus: &bit, at: &index)
@@ -276,8 +276,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public mutating func decrement(
-    by elements: some Collection<Base.Element>, times multiplicand: Base.Element, plus subtrahend: Base.Element,
-    plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    by elements: some Collection<Base.Element>, times multiplicand: Base.Element,
+    plus subtrahend: Base.Element = 0, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
         var index: Base.Index = index, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(by: elements, times: multiplicand, plus: subtrahend, plus: &bit, at: &index)
@@ -295,8 +295,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public mutating func decrement(
-    by elements: some Collection<Base.Element>, times multiplicand: Base.Element, plus subtrahend: Base.Element,
-    plus bit: inout Bool, at index: inout Base.Index) {
+    by elements: some Collection<Base.Element>, times multiplicand: Base.Element,
+    plus subtrahend: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         var last: Base.Element = subtrahend
         
         for limbsIndex in elements.indices {

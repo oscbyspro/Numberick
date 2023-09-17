@@ -80,7 +80,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable func withUnsafeStrictUnsignedInteger<T>(
     _   body:(NBKStrictUnsignedInteger<NBK.UnsafeWords>) throws -> T) rethrows -> T {
         try self.withUnsafeBufferPointer {
-            let view = NBKStrictUnsignedInteger($0)
+            let view = NBKStrictUnsignedInteger(unchecked: $0)
             return try body(view)
         }
     }
@@ -89,7 +89,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     @inlinable mutating func withUnsafeMutableStrictUnsignedInteger<T>(
     _   body:(inout NBKStrictUnsignedInteger<NBK.UnsafeMutableWords>) throws -> T) rethrows -> T {
         try self.withUnsafeMutableBufferPointer {
-            var view = NBKStrictUnsignedInteger($0)
+            var view = NBKStrictUnsignedInteger(unchecked: $0)
             return try body(&view)
         }
     }

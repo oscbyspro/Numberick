@@ -92,52 +92,56 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // shift to clamp approximation
         //=--------------------------------------=
-        let shift = other.last.leadingZeroBitCount as Int
-        var divisor = other.storage as Storage
-        divisor.bitshiftLeft(words: 0 as Int,  bits: shift)
-        let divisorLast0 = divisor.elements[divisor.elements.endIndex - 1] as UInt
-        assert(divisorLast0.mostSignificantBit)
+        var divisor: Storage = other.storage
+        let divisorLastIndex = divisor.elements.endIndex - 1 as Int
+        let shift = divisor.elements[divisorLastIndex].leadingZeroBitCount as Int
         
-        var remainderIndex = self.storage.elements.endIndex
-        self.storage.append(0)
-        self.storage.bitshiftLeft(words: 0 as Int, bits: shift)
+        var remainderIndex =  self.storage.elements.endIndex as Int
+        self.storage.append(0 as UInt)
+        
+        if !shift.isZero {
+            divisor/*-*/.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minor: shift) })
+            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minor: shift) })
+        }
+        
+        let divisorLast0 = divisor.elements[divisorLastIndex] as UInt
+        assert(divisorLast0.mostSignificantBit)
         //=--------------------------------------=
         // division: approximate quotient digits
         //=--------------------------------------=
         var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
-        var quotient = Storage.uninitialized(count: quotientIndex + 1) { quotient in
-            loop: repeat {
-                let remainderLast0 = self.storage.elements[remainderIndex]
-                self.storage.elements.formIndex(before:   &remainderIndex)
-                let remainderLast1 = self.storage.elements[remainderIndex]
-                //=------------------------------=
-                var digit: UInt
-                if  divisorLast0 == remainderLast0 {
-                    digit = UInt.max
-                }   else {
-                    digit = divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
-                }
-                //=------------------------------=
-                if !digit.isZero {
-                    self.storage.withUnsafeMutableStrictUnsignedInteger {
-                        var overflow =  $0.decrement(by: divisor.elements, times: digit, plus: 0 as UInt, plus: false, at: quotientIndex).overflow
-                        decrement: while overflow {
-                            digit  &-= 1 as Digit
-                            overflow = !$0.increment(by: divisor.elements, plus: false, at: quotientIndex).overflow
+        let quotient = Self.uninitialized(count: quotientIndex &+ 1) { quotient in
+            self.storage.withUnsafeMutableStrictUnsignedInteger { storage in
+                loop: repeat {
+                    let remainderLast0 = storage.base[remainderIndex]
+                    storage.base.formIndex(before:   &remainderIndex)
+                    let remainderLast1 = storage.base[remainderIndex]
+                    //=------------------------------=
+                    var digit:  UInt
+                    if  divisorLast0 == remainderLast0 {
+                        digit = UInt.max
+                    }   else {
+                        digit = divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
+                    }
+                    //=------------------------------=
+                    if !digit.isZero {
+                        var overflow = (storage).decrement(by: divisor.elements, times: digit, at: quotientIndex).overflow
+                        while overflow {
+                            overflow = !storage .increment(by: divisor.elements, at: quotientIndex).overflow; digit &-= 01
                         }
                     }
-                }
-                //=------------------------------=
-                quotient[quotientIndex] = digit
-                quotient.formIndex(before: &quotientIndex)
-            }   while quotientIndex >= quotient.startIndex
+                    //=------------------------------=
+                    quotient[quotientIndex] = digit
+                    quotient.formIndex(before: &quotientIndex)
+                }   while quotientIndex >= quotient.startIndex
+            }
         }
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
-        quotient.normalize()
-        self.storage.bitshiftRight(words: 0 as Int, bits: shift)
+        self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftRight(major: 0 as Int, minor: shift) })
         self.storage.normalize()
-        return PVO(Self(unchecked: quotient), false)
+        //=--------------------------------------=
+        return PVO(partialValue: quotient, overflow: false)
     }
 }

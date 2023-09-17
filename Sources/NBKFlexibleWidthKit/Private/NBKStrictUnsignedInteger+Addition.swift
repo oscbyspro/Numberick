@@ -209,7 +209,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public mutating func increment(
-    by  elements: some Collection<Base.Element>, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    by  elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
         var index: Base.Index = index, bit: Bool = bit
         //=--------------------------------------=
         self.increment(by: elements, plus: &bit, at: &index)
@@ -224,7 +224,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public mutating func incrementInIntersection(
-    by  elements: some Collection<Base.Element>, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    by  elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
         var index: Base.Index = index, bit: Bool = bit
         //=--------------------------------------=
         self.incrementInIntersection(by: elements, plus: &bit, at: &index)
