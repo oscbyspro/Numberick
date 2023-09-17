@@ -12,9 +12,9 @@
 #*=============================================================================*
 
 Pod::Spec.new do |spec|
-    spec.version = "0.11.0"
-    spec.name = "Numberick"
+    spec.version = "0.12.0"
     spec.module_name = "Numberick"
+    spec.name = "Numberick"
     spec.summary = "✨ An arithmagick overhaul in Swift."
     
     spec.license = { :type => "Apache-2.0", :file => "LICENSE" }

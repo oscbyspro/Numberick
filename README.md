@@ -4,7 +4,7 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.11.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+| 0.12.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
