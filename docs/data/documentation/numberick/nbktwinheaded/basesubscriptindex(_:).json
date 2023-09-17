@@ -171,8 +171,8 @@
         },
         {
           "code" : [
-            "isFrontToBack: base.index(base.startIndex, offsetBy:  index +  0)",
-            "isBackToFront: base.index(base.endIndex,   offsetBy: -index + -1)"
+            "front-to-back: base.index(base.startIndex, offsetBy:  index)",
+            "back-to-front: base.index(base.endIndex,   offsetBy: ~index)"
           ],
           "syntax" : null,
           "type" : "codeListing"

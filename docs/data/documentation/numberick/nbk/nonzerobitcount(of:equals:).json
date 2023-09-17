@@ -36,7 +36,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO15nonzeroBitCount2of6equalsSbx_SitSlRzAA20NBKFixedWidthIntegerR_7ElementQzRs_r0_lFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO15nonzeroBitCount2of6equalsSbq__SitAA20NBKFixedWidthIntegerRz7ElementQy_RszSlR_r0_lFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -60,7 +60,15 @@
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
       },
       {
         "kind" : "externalParam",
@@ -145,7 +153,15 @@
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
@@ -201,6 +217,32 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Sb",
               "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit20NBKFixedWidthIntegerP",
+              "text" : "NBKFixedWidthInteger"
             }
           ]
         }
@@ -367,7 +409,15 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
     },
     {
       "kind" : "externalParam",
@@ -415,6 +465,40 @@
   "title" : "nonzeroBitCount(of:equals:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/nonzerobitcount(of:equals:)"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
 }
 }
 }

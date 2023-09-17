@@ -118,7 +118,8 @@
     {
       "identifiers" : [
         "doc:\/\/Numberick\/SQ",
-        "doc:\/\/Numberick\/SH"
+        "doc:\/\/Numberick\/SH",
+        "doc:\/\/Numberick\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -451,6 +452,11 @@
   "title" : "NBKTwinHeaded",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbktwinheaded"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

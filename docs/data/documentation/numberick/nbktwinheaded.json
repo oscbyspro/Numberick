@@ -126,6 +126,7 @@
         "doc:\/\/Numberick\/Sl",
         "doc:\/\/Numberick\/SM",
         "doc:\/\/Numberick\/Sk",
+        "doc:\/\/Numberick\/s8SendableP",
         "doc:\/\/Numberick\/ST"
       ],
       "kind" : "relationships",
@@ -1279,6 +1280,11 @@
   "title" : "reversed()",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbktwinheaded\/reversed()"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

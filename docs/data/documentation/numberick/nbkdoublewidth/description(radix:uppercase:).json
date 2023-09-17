@@ -203,7 +203,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = 10, "
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -220,7 +220,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = false) -> "
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",

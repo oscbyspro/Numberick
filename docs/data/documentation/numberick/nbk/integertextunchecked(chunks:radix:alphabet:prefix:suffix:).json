@@ -20,7 +20,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO20integerTextUnchecked6chunks5radix8alphabet6prefix6suffixSSx_q_AC23MaxRadixAlphabetEncoderVSRys5UInt8VGANtSkRzAA17_NBKRadixUIntRootR_Su7ElementRtzr0_lFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO20integerTextUnchecked6chunks5radix8alphabet6prefix6suffixSSAA13NBKTwinHeadedVySRySuGG_AA20_NBKAnyRadixSolutionVySiGAC03MaxO15AlphabetEncoderVSRys5UInt8VGAUtFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -52,12 +52,12 @@
       },
       {
         "kind" : "text",
-        "text" : ": some "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sk",
-        "text" : "RandomAccessCollection"
+        "preciseIdentifier" : "s:10NBKCoreKit13NBKTwinHeadedV",
+        "text" : "NBKTwinHeaded"
       },
       {
         "kind" : "text",
@@ -65,8 +65,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Su",
-        "text" : "UInt"
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+        "text" : "NBK"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO11UnsafeWordsa",
+        "text" : "UnsafeWords"
       },
       {
         "kind" : "text",
@@ -78,15 +87,24 @@
       },
       {
         "kind" : "text",
-        "text" : ": some "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "_NBKRadixUIntRoot"
+        "text" : "_NBKAnyRadixSolution"
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
       },
       {
         "kind" : "externalParam",
@@ -223,21 +241,33 @@
             },
             {
               "kind" : "text",
-              "text" : ": some "
+              "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sk",
-              "text" : "RandomAccessCollection"
+              "preciseIdentifier" : "s:10NBKCoreKit13NBKTwinHeadedV",
+              "text" : "NBKTwinHeaded"
             },
             {
               "kind" : "text",
               "text" : "<"
             },
             {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Su",
-              "text" : "UInt"
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeWords",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO11UnsafeWordsa",
+              "text" : "UnsafeWords"
             },
             {
               "kind" : "text",
@@ -249,15 +279,24 @@
             },
             {
               "kind" : "text",
-              "text" : ": some "
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "_NBKRadixUIntRoot"
+              "text" : "_NBKAnyRadixSolution"
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
             },
             {
               "kind" : "externalParam",
@@ -369,6 +408,34 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "anchor" : "Development",
+          "level" : 3,
+          "text" : "Development",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "@inlinable",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " is not needed.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
         }
       ],
       "kind" : "content"
@@ -544,6 +611,48 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/unsafeutf8"
 },
+"doc://Numberick/documentation/Numberick/NBK/UnsafeWords": {
+  "abstract" : [
+    {
+      "text" : "An unsafe pointer to a collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "UInt",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " machine words.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnsafeWords"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeWords",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnsafeWords"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.UnsafeWords",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/unsafewords"
+},
 "doc://Numberick/documentation/Numberick/NBK/integerTextUnchecked(chunks:radix:alphabet:prefix:suffix:)": {
   "abstract" : [
     {
@@ -582,12 +691,12 @@
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sk",
-      "text" : "RandomAccessCollection"
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKTwinHeadedV",
+      "text" : "NBKTwinHeaded"
     },
     {
       "kind" : "text",
@@ -595,8 +704,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO11UnsafeWordsa",
+      "text" : "UnsafeWords"
     },
     {
       "kind" : "text",
@@ -608,15 +726,24 @@
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "_NBKRadixUIntRoot"
+      "text" : "_NBKAnyRadixSolution"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
     },
     {
       "kind" : "externalParam",
@@ -708,6 +835,40 @@
   "title" : "integerTextUnchecked(chunks:radix:alphabet:prefix:suffix:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integertextunchecked(chunks:radix:alphabet:prefix:suffix:)"
+},
+"doc://Numberick/documentation/Numberick/NBKTwinHeaded": {
+  "abstract" : [
+    {
+      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKTwinHeaded"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKTwinHeaded"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKTwinHeaded",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbktwinheaded"
 }
 }
 }

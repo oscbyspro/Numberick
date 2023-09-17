@@ -1,38 +1,24 @@
 {
-  "abstract" : [
-    {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "_NBKRadixUIntRoot.exponent",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/Numberick\/documentation\/Numberick",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ImperfectRadixUIntRoot"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ImperfectRadixUIntRoot\/exponent"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/AnyRadixSolution"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:10NBKCoreKit3NBKO22ImperfectRadixUIntRootV8exponentSuvp",
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit3NBKO16AnyRadixSolutiona",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "typealias"
       },
       {
         "kind" : "text",
@@ -40,16 +26,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "exponent"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Su",
-        "text" : "UInt"
+        "text" : "AnyRadixSolution"
       }
     ],
     "modules" : [
@@ -57,10 +34,16 @@
         "name" : "Numberick"
       }
     ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "AnyRadixSolution"
+      }
+    ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "exponent"
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "NBK.AnyRadixSolution"
   },
   "primaryContentSections" : [
     {
@@ -75,7 +58,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "typealias"
             },
             {
               "kind" : "text",
@@ -83,28 +66,15 @@
             },
             {
               "kind" : "identifier",
-              "text" : "exponent"
+              "text" : "AnyRadixSolution"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : " = "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Su",
-              "text" : "UInt"
-            },
-            {
-              "kind" : "text",
-              "text" : " { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "_NBKAnyRadixSolution"
             }
           ]
         }
@@ -123,7 +93,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/exponent"
+        "\/documentation\/numberick\/nbk\/anyradixsolution"
       ],
       "traits" : [
         {
@@ -190,56 +160,14 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk"
 },
-"doc://Numberick/documentation/Numberick/NBK/ImperfectRadixUIntRoot": {
-  "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "RadixUIntRoot",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " with a power that is non-zero.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ImperfectRadixUIntRoot"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ImperfectRadixUIntRoot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ImperfectRadixUIntRoot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBK.ImperfectRadixUIntRoot",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot"
-},
-"doc://Numberick/documentation/Numberick/NBK/ImperfectRadixUIntRoot/exponent": {
+"doc://Numberick/documentation/Numberick/NBK/AnyRadixSolution": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -247,24 +175,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "exponent"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
+      "text" : "AnyRadixSolution"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ImperfectRadixUIntRoot\/exponent",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/AnyRadixSolution",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyRadixSolution"
+    }
+  ],
   "role" : "symbol",
-  "title" : "exponent",
+  "title" : "NBK.AnyRadixSolution",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/exponent"
+  "url" : "\/documentation\/numberick\/nbk\/anyradixsolution"
 }
 }
 }

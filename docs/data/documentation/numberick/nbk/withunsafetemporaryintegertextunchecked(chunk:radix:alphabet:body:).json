@@ -20,7 +20,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO39withUnsafeTemporaryIntegerTextUnchecked5chunk5radix8alphabet4bodyxSu_q_AC23MaxRadixAlphabetEncoderVxSRys5UInt8VGXEtAA17_NBKRadixUIntRootR_r0_lFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO39withUnsafeTemporaryIntegerTextUnchecked5chunk5radix8alphabet4bodyxSu_AA20_NBKAnyRadixSolutionVySiGAC03MaxO15AlphabetEncoderVxSRys5UInt8VGXEtlFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,15 +77,24 @@
       },
       {
         "kind" : "text",
-        "text" : ": some "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "_NBKRadixUIntRoot"
+        "text" : "_NBKAnyRadixSolution"
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
       },
       {
         "kind" : "externalParam",
@@ -228,15 +237,24 @@
             },
             {
               "kind" : "text",
-              "text" : ": some "
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "_NBKRadixUIntRoot"
+              "text" : "_NBKAnyRadixSolution"
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
             },
             {
               "kind" : "externalParam",
@@ -327,6 +345,34 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "anchor" : "Development",
+          "level" : 3,
+          "text" : "Development",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "@inlinable",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " is not needed.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
         }
       ],
       "kind" : "content"
@@ -565,15 +611,24 @@
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "_NBKRadixUIntRoot"
+      "text" : "_NBKAnyRadixSolution"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
     },
     {
       "kind" : "externalParam",

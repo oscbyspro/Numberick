@@ -41,13 +41,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-b5dc",
-                        "title" : "static func * (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-53xcf",
+                        "title" : "static func * (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-53xcf",
-                        "title" : "static func * (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-b5dc",
+                        "title" : "static func * (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -64,13 +64,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
-                        "title" : "static func *= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
+                        "title" : "static func *= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
-                        "title" : "static func *= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
+                        "title" : "static func *= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -87,13 +87,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
-                        "title" : "static func *= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
+                        "title" : "static func *= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
-                        "title" : "static func *= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
+                        "title" : "static func *= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -110,13 +110,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-4wjjr",
-                        "title" : "static func + (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-9ygmi",
+                        "title" : "static func + (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-9ygmi",
-                        "title" : "static func + (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-4wjjr",
+                        "title" : "static func + (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -225,13 +225,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
-                        "title" : "static func - (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
+                        "title" : "static func - (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
-                        "title" : "static func - (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
+                        "title" : "static func - (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -248,13 +248,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-100ot",
-                        "title" : "static func -= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-pept",
+                        "title" : "static func -= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-pept",
-                        "title" : "static func -= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-100ot",
+                        "title" : "static func -= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -271,13 +271,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-pept",
-                        "title" : "static func -= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-100ot",
+                        "title" : "static func -= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-100ot",
-                        "title" : "static func -= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-pept",
+                        "title" : "static func -= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -294,13 +294,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -317,13 +317,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -340,13 +340,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
-                        "title" : "static func \/= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
+                        "title" : "static func \/= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
-                        "title" : "static func \/= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
+                        "title" : "static func \/= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -363,13 +363,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
-                        "title" : "static func \/= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
+                        "title" : "static func \/= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
-                        "title" : "static func \/= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
+                        "title" : "static func \/= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -409,13 +409,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
-                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
+                        "title" : "static func % (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
-                        "title" : "static func % (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
+                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
                         "type" : "op"
                       }
                     ],
@@ -857,13 +857,13 @@
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
-                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
+                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
-                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
+                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
                         "type" : "method"
                       }
                     ],
@@ -5405,85 +5405,6 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixuintroot\/init(_:)",
-                    "title" : "init(Int)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixuintroot\/base",
-                    "title" : "let base: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixuintroot\/exponent",
-                    "title" : "let exponent: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixuintroot\/power",
-                    "title" : "let power: UInt",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbk\/anyradixuintroot",
-                "title" : "NBK.AnyRadixUIntRoot",
-                "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/init(unchecked:)",
-                    "title" : "init(unchecked: NBK.AnyRadixUIntRoot)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/base",
-                    "title" : "var base: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/exponent",
-                    "title" : "var exponent: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/power",
-                    "title" : "var power: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot\/divisibilitybypowerupperbound(_:)",
-                    "title" : "func divisibilityByPowerUpperBound(some UnsignedInteger) -> Int",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbk\/imperfectradixuintroot",
-                "title" : "NBK.ImperfectRadixUIntRoot",
-                "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
                     "path" : "\/documentation\/numberick\/nbk\/maxradixalphabetencoder\/init(uppercase:)",
                     "title" : "init(uppercase: Bool)",
                     "type" : "init"
@@ -5503,56 +5424,32 @@
                 "type" : "struct"
               },
               {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot\/init(unchecked:)",
-                    "title" : "init(unchecked: NBK.AnyRadixUIntRoot)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot\/base",
-                    "title" : "var base: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot\/exponent",
-                    "title" : "var exponent: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot\/power",
-                    "title" : "var power: UInt",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot\/dividing(_:)",
-                    "title" : "func dividing(UInt) -> QR<UInt, UInt>",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbk\/perfectradixuintroot",
-                "title" : "NBK.PerfectRadixUIntRoot",
-                "type" : "struct"
-              },
-              {
                 "title" : "Type Aliases",
                 "type" : "groupMarker"
               },
               {
+                "path" : "\/documentation\/numberick\/nbk\/anyradixsolution",
+                "title" : "NBK.AnyRadixSolution",
+                "type" : "typealias"
+              },
+              {
                 "path" : "\/documentation\/numberick\/nbk\/io",
                 "title" : "NBK.IO",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/imperfectradixsolution",
+                "title" : "NBK.ImperfectRadixSolution",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/perfectradixsolution",
+                "title" : "NBK.PerfectRadixSolution",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/radixsolution",
+                "title" : "NBK.RadixSolution",
                 "type" : "typealias"
               },
               {
@@ -5970,7 +5867,7 @@
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/integertextunchecked(chunks:radix:alphabet:prefix:suffix:)",
-                "title" : "static func integerTextUnchecked(chunks: some RandomAccessCollection<UInt>, radix: some _NBKRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String",
+                "title" : "static func integerTextUnchecked(chunks: NBKTwinHeaded<NBK.UnsafeWords>, radix: _NBKAnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String",
                 "type" : "method"
               },
               {
@@ -6015,7 +5912,7 @@
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/mostsignificantbit(twoscomplementof:)",
-                "title" : "static func mostSignificantBit(twosComplementOf: some BidirectionalCollection) -> Bool?",
+                "title" : "static func mostSignificantBit<T>(twosComplementOf: some BidirectionalCollection) -> Bool?",
                 "type" : "method"
               },
               {
@@ -6030,17 +5927,17 @@
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(of:)",
-                "title" : "static func nonzeroBitCount(of: some Collection) -> Int",
+                "title" : "static func nonzeroBitCount<T>(of: some Collection) -> Int",
                 "type" : "method"
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(of:equals:)",
-                "title" : "static func nonzeroBitCount(of: some Collection, equals: Int) -> Bool",
+                "title" : "static func nonzeroBitCount<T>(of: some Collection, equals: Int) -> Bool",
                 "type" : "method"
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(twoscomplementof:)",
-                "title" : "static func nonzeroBitCount(twosComplementOf: some Collection) -> Int",
+                "title" : "static func nonzeroBitCount<T>(twosComplementOf: some Collection) -> Int",
                 "type" : "method"
               },
               {
@@ -6110,7 +6007,7 @@
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryintegertextunchecked(chunk:radix:alphabet:body:)",
-                "title" : "static func withUnsafeTemporaryIntegerTextUnchecked<T>(chunk: UInt, radix: some _NBKRadixUIntRoot, alphabet: NBK.MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T",
+                "title" : "static func withUnsafeTemporaryIntegerTextUnchecked<T>(chunk: UInt, radix: _NBKAnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T",
                 "type" : "method"
               },
               {
