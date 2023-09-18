@@ -10,11 +10,14 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer
+// MARK: * NBK x Strict Bit Pattern
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// TODO: * NBKOffsetIndexed protocol with static index requirements (perf.)
+//=----------------------------------------------------------------------------=
 
-@frozen public struct NBKStrictUnsignedInteger<Base: RandomAccessCollection> where
-Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+@frozen public struct NBKStrictBitPattern<Base: RandomAccessCollection> where
+Base.Element: NBKCoreInteger & NBKUnsignedInteger, Base.Indices == Range<Int> {
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -41,7 +44,7 @@ Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func validate(_ base: Base) -> Bool {
-        !base.isEmpty
+        !base.isEmpty && base.startIndex.isZero // TODO: req. NBKOffsetIndexed
     }
 }
 
@@ -49,7 +52,7 @@ Base.Element: NBKCoreInteger & NBKUnsignedInteger {
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKStrictUnsignedInteger {
+extension NBKStrictBitPattern {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -72,7 +75,7 @@ extension NBKStrictUnsignedInteger {
 // MARK: + Collection x Mutable
 //=----------------------------------------------------------------------------=
 
-extension NBKStrictUnsignedInteger where Base: MutableCollection {
+extension NBKStrictBitPattern where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -86,26 +89,5 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     @inlinable public var last: Base.Element {
         get { self.base[self.lastIndex] }
         set { self.base[self.lastIndex] = newValue }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Views x Bit Pattern
-//=----------------------------------------------------------------------------=
-
-extension NBKStrictUnsignedInteger where Base.Indices == Range<Int> {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Views
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var bitPattern: NBKStrictBitPattern<Base> {
-        _read {
-            yield NBKStrictBitPattern(unchecked: self.base)
-        }
-        
-        _modify {
-            var view = self.bitPattern; yield &view; self = Self(unchecked: view.base)
-        }
     }
 }

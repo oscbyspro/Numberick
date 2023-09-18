@@ -12,6 +12,7 @@ import NBKCoreKit
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Shifts
 //*============================================================================*
+//=----------------------------------------------------------------------------=
 // MARK: + Left
 //=----------------------------------------------------------------------------=
 
@@ -70,8 +71,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `0 <= major < base.endIndex`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int, minorAtLeastOne bits: Int) {
-        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self.base, environment: false, limbs: major, atLeastOneBit: bits)
+    @inlinable public mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
+        self.bitPattern.bitshiftLeft(environment: false, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -80,7 +81,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(majorAtLeastOne major: Int) {
-        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self.base, environment: false, atLeastOneLimb: major)
+        self.bitPattern.bitshiftLeft(environment: false, majorAtLeastOne: major)
     }
 }
 
@@ -143,8 +144,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `0 <= major < base.endIndex`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int, minorAtLeastOne bits: Int) {
-        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self.base, environment: false, limbs: major, atLeastOneBit: bits)
+    @inlinable public mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
+        self.bitPattern.bitshiftRight(environment: false, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an unsigned right shift.
@@ -153,6 +154,6 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(majorAtLeastOne major: Int) {
-        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self.base, environment: false, atLeastOneLimb: major)
+        self.bitPattern.bitshiftRight(environment: false, majorAtLeastOne: major)
     }
 }
