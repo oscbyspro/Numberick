@@ -60,7 +60,7 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.resize(minCount: other.storage.elements.count + index)
         defer{ self.storage.normalize() }
         return self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.decrement(by: other.storage.elements, plus: false, at: index).overflow
+            $0.decrement(by: other.storage.elements, at: index).overflow
         }
     }
     

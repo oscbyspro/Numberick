@@ -140,8 +140,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     /// Performs an unsigned right shift.
     ///
     /// - Parameters:
-    ///   - major: `1 <= major < base.endIndex`
-    ///   - minor: `0 <= minor < Base.Element.bitWidth`
+    ///   - major: `0 <= major < base.endIndex`
+    ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(major: Int, minorAtLeastOne bits: Int) {
         NBK.bitshiftRightAsFixedLimbsCodeBlock(&self.base, environment: false, limbs: major, atLeastOneBit: bits)

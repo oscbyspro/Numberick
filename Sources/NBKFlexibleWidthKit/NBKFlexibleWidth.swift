@@ -58,30 +58,11 @@ import NBKCoreKit
         @inlinable init(normalizing storage: Storage) {
             self.storage = storage
             self.storage.normalize()
-            Swift.assert(self.storage.isNormal)
         }
         
         @inlinable init(unchecked storage: Storage) {
             self.storage = storage
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities
-        //=--------------------------------------------------------------------=
-        
-        /// A `description` of this type.
-        ///
-        /// ```
-        /// ┌─────────────────────────── → ────────────┐
-        /// │ type                       │ description │
-        /// ├─────────────────────────── → ────────────┤
-        /// │ NBKFlexibleWidth           │  "IntXL"    │
-        /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
-        /// └─────────────────────────── → ────────────┘
-        /// ```
-        ///
-        @inlinable public static var description: String {
-            "UIntXL"
+            Swift.assert(self.storage.isNormal)
         }
         
         //*====================================================================*
@@ -124,6 +105,7 @@ import NBKCoreKit
             
             @inlinable init(unchecked elements: Elements) {
                 self.elements = elements
+                Swift.assert(!self.elements.isEmpty)
             }
         }
     }

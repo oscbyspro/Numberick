@@ -91,3 +91,29 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     
     @inlinable mutating func update(_ value: Digit)
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + Details
+//=----------------------------------------------------------------------------=
+
+extension IntXLOrUIntXL {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// A `description` of this type.
+    ///
+    /// ```
+    /// ┌─────────────────────────── → ────────────┐
+    /// │ type                       │ description │
+    /// ├─────────────────────────── → ────────────┤
+    /// │ NBKFlexibleWidth           │  "IntXL"    │
+    /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
+    /// └─────────────────────────── → ────────────┘
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        Self.isSigned ? "IntXL" : "UIntXL"
+    }
+}

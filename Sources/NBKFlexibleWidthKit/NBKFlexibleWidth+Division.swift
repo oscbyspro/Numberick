@@ -82,7 +82,6 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         let comparison = other.compared(to: self)
         if  comparison.isLessThanZero {
-            // such empty. much wow.
         }   else if comparison.isZero {
             self.updateZeroValue()
             return PVO(001, false)
@@ -100,8 +99,8 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.append(0 as UInt)
         
         if !shift.isZero {
-            divisor/*-*/.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minor: shift) })
-            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minor: shift) })
+            divisor/*-*/.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         let divisorLast0 = divisor.elements[divisorLastIndex] as UInt
@@ -110,27 +109,27 @@ extension NBKFlexibleWidth.Magnitude {
         // division: approximate quotient digits
         //=--------------------------------------=
         var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
-        let quotient = Self.uninitialized(count: quotientIndex &+ 1) { quotient in
+        let quotient = Self.uninitialized(count:  quotientIndex + 1) { quotient in
             self.storage.withUnsafeMutableStrictUnsignedInteger { storage in
                 loop: repeat {
                     let remainderLast0 = storage.base[remainderIndex]
                     storage.base.formIndex(before:   &remainderIndex)
                     let remainderLast1 = storage.base[remainderIndex]
-                    //=------------------------------=
+                    //=--------------------------=
                     var digit:  UInt
                     if  divisorLast0 == remainderLast0 {
                         digit = UInt.max
                     }   else {
                         digit = divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
                     }
-                    //=------------------------------=
+                    //=--------------------------=
                     if !digit.isZero {
                         var overflow = (storage).decrement(by: divisor.elements, times: digit, at: quotientIndex).overflow
                         while overflow {
                             overflow = !storage .increment(by: divisor.elements, at: quotientIndex).overflow; digit &-= 01
                         }
                     }
-                    //=------------------------------=
+                    //=--------------------------=
                     quotient[quotientIndex] = digit
                     quotient.formIndex(before: &quotientIndex)
                 }   while quotientIndex >= quotient.startIndex
@@ -139,9 +138,11 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // undo shift before division
         //=--------------------------------------=
-        self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftRight(major: 0 as Int, minor: shift) })
+        if !shift.isZero {
+            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftRight(major: 0 as Int, minorAtLeastOne: shift) })
+        }
+        
         self.storage.normalize()
-        //=--------------------------------------=
         return PVO(partialValue: quotient, overflow: false)
     }
 }

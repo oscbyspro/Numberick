@@ -30,7 +30,6 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public static func &=(lhs: inout Self, rhs: Self) {
         lhs.storage.downsizeThenFormInIntersection(with: rhs.storage, each: &)
         lhs.storage.normalize()
-        Swift.assert(lhs.storage.isNormal)
     }
     
     @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
@@ -57,7 +56,6 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
         lhs.storage.upsizeThenFormInIntersection(with: rhs.storage, each: ^)
         lhs.storage.normalize()
-        Swift.assert(lhs.storage.isNormal)
     }
     
     @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
