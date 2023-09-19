@@ -55,21 +55,21 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
-        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
-        let pull = NBK.initOrBitCast(truncating: Base.Element.bitWidth - minor, as: Base.Element.self)
+        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        let push: Base.Element = NBK.initOrBitCast(truncating: minor)
+        let pull: Base.Element = push.twosComplement()
         //=--------------------------------------=
         let offset: Int = major.onesComplement()
         var destination = base.endIndex as Base.Index
-        let edge    = base.index(base.startIndex,  offsetBy: major)
-        var element = base[base.index(destination, offsetBy: offset)]
+        var element = base[destination &+ offset]
         //=--------------------------------------=
         while destination > base.startIndex {
             base.formIndex(before: &destination)
             let pushed = element &<< push
-            element = destination >  edge ? base[base.index(destination, offsetBy: offset)] : environment
+            element = destination > major ? base[destination &+ offset] : environment
             let pulled = element &>> pull
             base[destination] = pushed | pulled
         }
@@ -84,15 +84,18 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
-        precondition(1 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let offset: Int = major.twosComplement()
+        // major: zero works but it is pointless
+        //=--------------------------------------=
+        precondition(base.indices ~= major, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        let offset: Int = major.onesComplement()
         var destination = base.endIndex as Base.Index
-        let edge = base.index(base.startIndex, offsetBy: major)
         //=--------------------------------------=
         while destination > base.startIndex {
-            base.formIndex(before: &destination)
-            base[destination] = destination >= edge ? base[base.index(destination, offsetBy: offset)] : environment
+            let (predecessor) = destination - 1 as Int
+            base[predecessor] = destination > major ? base[destination &+ offset] : environment
+            destination = predecessor as Base.Index
         }
     }
 }
@@ -143,23 +146,23 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
-        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
-        let pull = NBK.initOrBitCast(truncating: Base.Element.bitWidth - minor, as: Base.Element.self)
+        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        let push: Base.Element = NBK.initOrBitCast(truncating: minor)
+        let pull: Base.Element = push.twosComplement()
         //=--------------------------------------=
         var destination = base.startIndex as Base.Index
-        let edge = base.index(base.endIndex, offsetBy: major.onesComplement())
-        var element = base[base.index(destination, offsetBy: major)]
+        var source  = base.index(destination, offsetBy: major)
+        var element = base[NBK.index(base, pushing: &source)]
         //=--------------------------------------=
         while destination < base.endIndex {
-            let after  = base.index(after: destination)
             let pushed = element &>> push
-            element    = after    <= edge ? base[base.index(after, offsetBy: major)] : environment
+            element = source < base.endIndex ? base[NBK.index(base, pushing: &source)] : environment
             let pulled = element &<< pull
             base[destination] = pushed | pulled
-            destination = after as Base.Index
+            base.formIndex(after: &destination)
         }
     }
     
@@ -170,16 +173,19 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
+    @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
-        precondition(1 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        var destination = base.startIndex as Base.Index
-        let edge = base.index(base.endIndex, offsetBy: major.onesComplement())
+        // major: zero works but it is pointless
         //=--------------------------------------=
-        while destination < base.endIndex {
-            base[destination] = destination <= edge ? base[base.index(destination, offsetBy: major)] : environment
-            base.formIndex(after: &destination)
+        let indices = base.indices as Range<Int>
+        //=--------------------------------------=
+        precondition(indices ~= major, NBK.callsiteOutOfBoundsInfo())
+        //=--------------------------------------=
+        let edge = indices.upperBound &+ major.onesComplement()
+        //=--------------------------------------=
+        for destination in indices {
+            base[destination] = destination <= edge ? base[destination &+ major] : environment
         }
     }
 }

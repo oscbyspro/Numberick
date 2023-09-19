@@ -12,7 +12,7 @@
 //*============================================================================*
 
 /// A collection that iterates forwards or backwards in a dynamic but branchless way.
-@frozen public struct NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
+@frozen public struct NBKTwinHeaded<Base>: NBKOffsetIndexed where Base: RandomAccessCollection {
     
     public typealias Base = Base
     
