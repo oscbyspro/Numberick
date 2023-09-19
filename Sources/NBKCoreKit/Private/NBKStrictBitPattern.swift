@@ -17,7 +17,7 @@ extension NBK {
     ///
     /// Use it with pointers to prevent excessive copying.
     ///
-    @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetIndexed,
+    @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         //=--------------------------------------------------------------------=

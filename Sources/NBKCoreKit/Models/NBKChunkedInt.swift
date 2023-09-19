@@ -36,7 +36,7 @@
 /// [0x0304, 0x0102] == Array(NBKChunkedInt(([1, 2, 3, 4] as [UInt8]).reversed(), as: Int16.self))
 /// ```
 ///
-@frozen public struct NBKChunkedInt<Base, Element>: NBKOffsetIndexed where
+@frozen public struct NBKChunkedInt<Base, Element>: NBKOffsetAccessCollection where
 Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInteger {
     
     public typealias Base = Base

@@ -25,6 +25,7 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
+- [NBKOffsetAccessCollection](Sources/NBKCoreKit/NBKOffsetAccessCollection.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKSignedInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKUnsignedInteger.swift)
 

@@ -8,18 +8,19 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Offset Indexed
+// MARK: * NBK x Offset Access Collection
 //*============================================================================*
 
-public protocol NBKOffsetIndexed<Element>: RandomAccessCollection where Indices == Range<Int> { }
+/// A random access collection with indices from `zero` to `count`.
+public protocol NBKOffsetAccessCollection<Element>: RandomAccessCollection where Indices == Range<Int> { }
 
 //*============================================================================*
 // MARK: * NBK x Offset Indexed x Swift
 //*============================================================================*
 
-extension Array:                         NBKOffsetIndexed { }
-extension ContiguousArray:               NBKOffsetIndexed { }
-extension UnsafeBufferPointer:           NBKOffsetIndexed { }
-extension UnsafeMutableBufferPointer:    NBKOffsetIndexed { }
-extension UnsafeRawBufferPointer:        NBKOffsetIndexed { }
-extension UnsafeMutableRawBufferPointer: NBKOffsetIndexed { }
+extension Array:                         NBKOffsetAccessCollection { }
+extension ContiguousArray:               NBKOffsetAccessCollection { }
+extension UnsafeBufferPointer:           NBKOffsetAccessCollection { }
+extension UnsafeMutableBufferPointer:    NBKOffsetAccessCollection { }
+extension UnsafeRawBufferPointer:        NBKOffsetAccessCollection { }
+extension UnsafeMutableRawBufferPointer: NBKOffsetAccessCollection { }
