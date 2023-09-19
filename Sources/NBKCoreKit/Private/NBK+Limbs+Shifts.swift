@@ -10,6 +10,9 @@
 //*============================================================================*
 // MARK: * NBK x Limbs x Shifts
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// Index destination and source is simpler, but destination and edge is faster.
+//=----------------------------------------------------------------------------=
 
 extension NBK {
     
@@ -17,57 +20,56 @@ extension NBK {
     // MARK: Transformations x Left
     //=------------------------------------------------------------------------=
     
-    /// Performs a left shift on a least-to-most-significant limb collection.
+    /// Performs a left shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - pointee: The mutable collection.
-    ///   - environment: The bit used to fill the void.
-    ///   - limbs: `0 <= limbs < pointee.count`
-    ///   - bits:  `1 <= bits  < Limb.bitWidth`
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `0 <= major < base.count`
+    ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inline(__always) @inlinable public static func bitshiftLeftAsFixedLimbsCodeBlock<T>(
-    _ pointee: inout T, environment: Bool, limbs: Int, atLeastOneBit bits: Int)
-    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & NBKUnsignedInteger, T.Indices == Range<Int> {
-        typealias Limb = T.Element
-        precondition(0 ..< pointee.count == pointee.indices)
-        precondition(0 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
-        precondition(1 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
+    @inline(__always) @inlinable public static func bitshiftLeftAsFixedLimbsCodeBlock<Base>(
+    _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int)
+    where Base: RandomAccessCollection & MutableCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
+        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initOrBitCast(truncating: bits, as: Limb.self)
-        let pull = NBK.initOrBitCast(truncating: UInt.bitWidth - bits, as: Limb.self)
-        let fill = Limb(repeating: environment)
+        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
+        let pull = NBK.initOrBitCast(truncating: Base.Element.bitWidth - minor, as: Base.Element.self)
         //=--------------------------------------=
-        var destination = pointee.endIndex as Int
-        let offset: Int = ~(limbs)
-        var element = pointee[destination &+ offset]
+        let offset: Int = major.onesComplement()
+        var destination = base.endIndex as Base.Index
+        let edge    = base.index(base.startIndex,  offsetBy: major)
+        var element = base[base.index(destination, offsetBy: offset)]
         //=--------------------------------------=
-        while destination > pointee.startIndex {
-            pointee.formIndex(before: &destination)
+        while destination > base.startIndex {
+            base.formIndex(before: &destination)
             let pushed = element &<< push
-            element = destination > limbs ? pointee[destination &+ offset] : fill
+            element = destination >  edge ? base[base.index(destination, offsetBy: offset)] : environment
             let pulled = element &>> pull
-            pointee[destination] = pushed | pulled
+            base[destination] = pushed | pulled
         }
     }
-    
-    /// Performs a left shift on a least-to-most-significant limb collection.
+
+    /// Performs a left shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - pointee: The mutable collection.
-    ///   - environment: The bit used to fill the void.
-    ///   - limbs: `1 <= limbs < pointee.count`
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `1 <= major < base.count`
     ///
-    @inline(__always) @inlinable public static func bitshiftLeftAsFixedLimbsCodeBlock<T>(
-    _ pointee: inout T, environment: Bool, atLeastOneLimb limbs: Int)
-    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & NBKUnsignedInteger, T.Indices == Range<Int> {
-        typealias Limb = T.Element
-        precondition(0 ..< pointee.count == pointee.indices)
-        precondition(1 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
+    @inline(__always) @inlinable public static func bitshiftLeftAsFixedLimbsCodeBlock<Base>(
+    _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int)
+    where Base: RandomAccessCollection & MutableCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+        precondition(1 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let fill = Limb(repeating: environment)
+        let offset: Int = major.twosComplement()
+        var destination = base.endIndex as Base.Index
+        let edge = base.index(base.startIndex, offsetBy: major)
         //=--------------------------------------=
-        for destination in pointee.indices.reversed() {
-            pointee[destination] = destination >= limbs ? pointee[destination - limbs] : fill
+        while destination > base.startIndex {
+            base.formIndex(before: &destination)
+            base[destination] = destination >= edge ? base[base.index(destination, offsetBy: offset)] : environment
         }
     }
     
@@ -75,60 +77,55 @@ extension NBK {
     // MARK: Transformations x Right
     //=------------------------------------------------------------------------=
     
-    /// Performs a right shift on a least-to-most-significant limb collection.
+    /// Performs a right shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - pointee: The mutable collection.
-    ///   - environment: The bit used to fill the void.
-    ///   - limbs: `0 <= limbs < pointee.count`
-    ///   - bits:  `1 <= bits  < Limb.bitWidth`
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `0 <= major < base.count`
+    ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inline(__always) @inlinable public static func bitshiftRightAsFixedLimbsCodeBlock<T>(
-    _ pointee: inout T, environment: Bool, limbs: Int, atLeastOneBit bits: Int)
-    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & NBKUnsignedInteger, T.Indices == Range<Int> {
-        typealias Limb = T.Element
-        precondition(0 ..< pointee.count == pointee.indices)
-        precondition(0 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
-        precondition(1 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
+    @inline(__always) @inlinable public static func bitshiftRightAsFixedLimbsCodeBlock<Base>(
+    _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int)
+    where Base: RandomAccessCollection & MutableCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+        precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
+        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push = NBK.initOrBitCast(truncating: bits, as: Limb.self)
-        let pull = NBK.initOrBitCast(truncating: UInt.bitWidth - bits, as: Limb.self)
-        let fill = Limb(repeating: environment)
+        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
+        let pull = NBK.initOrBitCast(truncating: Base.Element.bitWidth - minor, as: Base.Element.self)
         //=--------------------------------------=
-        var destination = pointee.startIndex
-        let edge = pointee.distance(from: limbs, to: pointee.endIndex)
-        var element = pointee[limbs] as Limb
+        var destination = base.startIndex as Base.Index
+        let edge = base.index(base.endIndex, offsetBy: major.onesComplement())
+        var element = base[base.index(destination, offsetBy: major)]
         //=--------------------------------------=
-        while destination < pointee.endIndex {
-            let after  = pointee.index(after: destination)
+        while destination < base.endIndex {
+            let after  = base.index(after: destination)
             let pushed = element &>> push
-            element = after < edge ? pointee[after &+ limbs] : fill
+            element    = after    <= edge ? base[base.index(after, offsetBy: major)] : environment
             let pulled = element &<< pull
-            pointee[destination] = pushed | pulled
-            destination = after
+            base[destination] = pushed | pulled
+            destination = after as Base.Index
         }
     }
     
-    /// Performs a right shift on a least-to-most-significant limb collection.
+    /// Performs a right shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - pointee: The mutable collection.
-    ///   - environment: The bit used to fill the void.
-    ///   - limbs: `1 <= limbs < pointee.count`
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `1 <= major < base.count`
     ///
-    @inline(__always) @inlinable public static func bitshiftRightAsFixedLimbsCodeBlock<T>(
-    _ pointee: inout T, environment: Bool, atLeastOneLimb limbs: Int)
-    where T: RandomAccessCollection & MutableCollection, T.Element: NBKCoreInteger & NBKUnsignedInteger, T.Indices == Range<Int> {
-        typealias Limb = T.Element
-        precondition(0 ..< pointee.count == pointee.indices)
-        precondition(1 ..< pointee.count ~= limbs, NBK.callsiteOutOfBoundsInfo())
-        //=--------------------------------------=--=
-        let fill = Limb(repeating: environment)
+    @inline(__always) @inlinable public static func bitshiftRightAsFixedLimbsCodeBlock<Base>(
+    _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int)
+    where Base: RandomAccessCollection & MutableCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+        precondition(1 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let edge = pointee.distance(from: limbs, to: pointee.endIndex)
+        var destination = base.startIndex as Base.Index
+        let edge = base.index(base.endIndex, offsetBy: major.onesComplement())
         //=--------------------------------------=
-        for destination in pointee.indices {
-            pointee[destination] = destination < edge ? pointee[destination + limbs] : fill
+        while destination < base.endIndex {
+            base[destination] = destination <= edge ? base[base.index(destination, offsetBy: major)] : environment
+            base.formIndex(after: &destination)
         }
     }
 }
