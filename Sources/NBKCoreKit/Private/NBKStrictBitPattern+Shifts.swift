@@ -119,7 +119,6 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inlinable public mutating func bitshiftRight(environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         Self.bitshiftRightCodeBlock(&self.storage, environment: environment, major: major, minorAtLeastOne: minor)
-
     }
     
     /// Performs a right shift, assuming the `base` is ordered from least to most significant.
