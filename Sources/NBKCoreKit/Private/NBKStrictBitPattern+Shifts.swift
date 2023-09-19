@@ -87,15 +87,15 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
+        Swift.assert(000000000001 <= major, NBK.callsiteOutOfBoundsInfo())
         precondition(base.indices ~= major, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let offset: Int = major.onesComplement()
+        let offset: Int = major.twosComplement()
         var destination = base.endIndex as Base.Index
         //=--------------------------------------=
         while destination > base.startIndex {
-            let (predecessor) = destination - 1 as Int
-            base[predecessor] = destination > major ? base[destination &+ offset] : environment
-            destination = predecessor as Base.Index
+            base.formIndex(before: &destination)
+            base[destination] = destination >= major ? base[destination &+ offset] : environment
         }
     }
 }
@@ -178,14 +178,15 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
-        let indices = base.indices as Range<Int>
+        Swift.assert(000000000001 <= major, NBK.callsiteOutOfBoundsInfo())
+        precondition(base.indices ~= major, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        precondition(indices ~= major, NBK.callsiteOutOfBoundsInfo())
+        let edge = base.endIndex &+ major.onesComplement()
+        var destination = base.startIndex as Base.Index
         //=--------------------------------------=
-        let edge = indices.upperBound &+ major.onesComplement()
-        //=--------------------------------------=
-        for destination in indices {
+        while destination < base.endIndex {
             base[destination] = destination <= edge ? base[destination &+ major] : environment
+            base.formIndex(after: &destination)
         }
     }
 }
