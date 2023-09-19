@@ -95,7 +95,7 @@ extension NBKDoubleWidth {
             return self.bitshiftLeft(words: words)
         }
         //=--------------------------------------=
-        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self, environment: 0 as UInt, major: words, minorAtLeastOne: bits)
+        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: words, minorAtLeastOne: bits)
     }
     
     /// Performs a left shift.
@@ -117,7 +117,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         if  words.isZero { return }
         //=--------------------------------------=
-        NBK.bitshiftLeftAsFixedLimbsCodeBlock(&self, environment: 0 as UInt, majorAtLeastOne: words)
+        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, majorAtLeastOne: words)
     }
     
     /// Performs a left shift.
@@ -217,7 +217,7 @@ extension NBKDoubleWidth {
         }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self, environment: environment, major: words, minorAtLeastOne: bits)
+        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, major: words, minorAtLeastOne: bits)
     }
     
     /// Performs an un/signed right shift.
@@ -240,7 +240,7 @@ extension NBKDoubleWidth {
         if  words.isZero { return }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.bitshiftRightAsFixedLimbsCodeBlock(&self, environment: environment, majorAtLeastOne: words)
+        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, majorAtLeastOne: words)
     }
     
     /// Performs an un/signed right shift.

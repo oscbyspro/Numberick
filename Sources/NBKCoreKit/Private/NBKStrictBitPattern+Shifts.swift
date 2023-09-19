@@ -42,7 +42,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Algorithms (performance)
+    // MARK: Transformations x Algorithms (pointerless performance)
     //=------------------------------------------------------------------------=
     
     /// Performs a left shift, assuming the `base` is ordered from least to most significant.
@@ -130,7 +130,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Algorithms (performance)
+    // MARK: Transformations x Algorithms (pointerless performance)
     //=------------------------------------------------------------------------=
     
     /// Performs a right shift, assuming the `base` is ordered from least to most significant.
