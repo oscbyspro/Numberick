@@ -17,6 +17,10 @@ extension NBK {
     ///
     /// Use it with pointers to prevent excessive copying.
     ///
+    /// ### Development
+    ///
+    /// The base needs `zero` to `count` indices for performance reasons.
+    ///
     @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         

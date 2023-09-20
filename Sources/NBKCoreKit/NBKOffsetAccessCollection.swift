@@ -12,6 +12,23 @@
 //*============================================================================*
 
 /// A random access collection with indices from `zero` to `count`.
+///
+/// The `zero` to `count` constraint offers additional tools to please the compiler.
+///
+/// ```
+/// 1) startIndex == 000 as Int
+/// 2) endIndex == count as Int
+/// 3) indices == 000000 as Int ..< count as Int
+/// ```
+///
+/// ### Development
+///
+/// > **Tears**\
+/// > noun: the stuff bit-shifts are made of.
+///
+/// > **Insanity**\
+/// > noun: the abject folly of high-level math.
+///
 public protocol NBKOffsetAccessCollection<Element>: RandomAccessCollection where Indices == Range<Int> { }
 
 //*============================================================================*

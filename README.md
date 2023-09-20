@@ -135,7 +135,7 @@ Add this package to your list of package dependencies.
 .package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.12.0")),
 ```
 
-Choose target dependencies from the package products in [Package.swift](Package.swift).
+Choose target dependencies from the products in [Package.swift](Package.swift).
 
 ```swift
 .product(name: "Numberick",         package: "Numberick"),
