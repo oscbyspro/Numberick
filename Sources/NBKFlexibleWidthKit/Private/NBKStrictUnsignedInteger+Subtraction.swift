@@ -299,8 +299,8 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection {
     plus subtrahend: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         var last: Base.Element = subtrahend
         
-        for limbsIndex in elements.indices {
-            var subproduct = elements[limbsIndex].multipliedFullWidth(by: multiplicand)
+        for elementsIndex in elements.indices {
+            var subproduct = elements[elementsIndex].multipliedFullWidth(by: multiplicand)
             last = Base.Element(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
             self.decrementInIntersection(by: subproduct.low, plus: &bit, at: &index)
         }

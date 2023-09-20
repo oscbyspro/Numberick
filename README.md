@@ -4,7 +4,16 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.11.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+| 0.12.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+
+## Table of Contents
+
+* [NBKCoreKit](#nbkcorekit)
+* [NBKDoubleWidthKit](#nbkdoublewidthkit)
+* [Installation](#installation)
+* [Acknowledgements](#acknowledgements)
+
+<a name="nbkcorekit"/>
 
 ## NBKCoreKit ([Sources][COR/S], [Tests][COR/T], [Benchmarks][COR/B])
 
@@ -16,6 +25,7 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKBitPatternConvertible](Sources/NBKCoreKit/NBKBitPatternConvertible.swift)
 - [NBKCoreInteger](Sources/NBKCoreKit/NBKCoreInteger.swift)
 - [NBKFixedWidthInteger](Sources/NBKCoreKit/NBKFixedWidthInteger.swift)
+- [NBKOffsetAccessCollection](Sources/NBKCoreKit/NBKOffsetAccessCollection.swift)
 - [NBKSignedInteger](Sources/NBKCoreKit/NBKSignedInteger.swift)
 - [NBKUnsignedInteger](Sources/NBKCoreKit/NBKUnsignedInteger.swift)
 
@@ -24,6 +34,8 @@ A new protocol hierarchy that refines Swift's standard library.
 - [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
 - [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
+
+<a name="nbkdoublewidthkit"/>
 
 ## [NBKDoubleWidthKit][DBL/D] ([Sources][DBL/S], [Tests][DBL/T], [Benchmarks][DBL/B])
 
@@ -108,6 +120,48 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 ## [NBKSignedKit][FLX/D] ([Sources][SIG/S], [Tests][SIG/T], [Benchmarks][SIG/B])
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
+
+<a name="installation"/>
+
+## Installation
+
+Numberick contains several modules. Import some or all of them.
+
+### [SemVer 2.0.0](https://semver.org)
+
+> Major version zero (0.y.z) is for initial development.
+>
+> Anything MAY change at any time. 
+>
+> The public API SHOULD NOT be considered stable.
+
+### Using [SwiftPM](https://swift.org/package-manager)
+
+Add this package to your list of package dependencies.
+
+```swift
+.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.12.0")),
+```
+
+Choose target dependencies from the products in [Package.swift](Package.swift).
+
+```swift
+.product(name: "Numberick",         package: "Numberick"),
+.product(name: "NBKCoreKit",        package: "Numberick"),
+.product(name: "NBKDoubleWidthKit", package: "Numberick"),
+```
+
+### Using [CocoaPods](http://cocoapods.org)
+
+Choose target dependencies from the pods listed in the root directory.
+
+```rb
+pod "Numberick",                   "~> 0.12.0"
+pod "Numberick-NBKCoreKit",        "~> 0.12.0"
+pod "Numberick-NBKDoubleWidthKit", "~> 0.12.0"
+```
+
+<a name="acknowledgements"/>
 
 ## Acknowledgements
 

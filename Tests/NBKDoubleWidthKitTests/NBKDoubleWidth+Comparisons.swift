@@ -125,27 +125,7 @@ final class NBKDoubleWidthTestsOnComparisonsAsInt256: XCTestCase {
         XCTAssertEqual(union.count, 5)
     }
     
-    func testComparing() {
-        NBKAssertComparisons( T(0),  T(0),  Int(0))
-        NBKAssertComparisons( T(0), -T(0),  Int(0))
-        NBKAssertComparisons(-T(0),  T(0),  Int(0))
-        NBKAssertComparisons(-T(0), -T(0),  Int(0))
-        
-        NBKAssertComparisons( T(1),  T(1),  Int(0))
-        NBKAssertComparisons( T(1), -T(1),  Int(1))
-        NBKAssertComparisons(-T(1),  T(1), -Int(1))
-        NBKAssertComparisons(-T(1), -T(1),  Int(0))
-        
-        NBKAssertComparisons( T(2),  T(3), -Int(1))
-        NBKAssertComparisons( T(2), -T(3),  Int(1))
-        NBKAssertComparisons(-T(2),  T(3), -Int(1))
-        NBKAssertComparisons(-T(2), -T(3),  Int(1))
-        
-        NBKAssertComparisons( T(3),  T(2),  Int(1))
-        NBKAssertComparisons( T(3), -T(2),  Int(1))
-        NBKAssertComparisons(-T(3),  T(2), -Int(1))
-        NBKAssertComparisons(-T(3), -T(2), -Int(1))
-        
+    func testComparingLargeWithLarge() {
         NBKAssertComparisons(T.max, T.max,  Int(0))
         NBKAssertComparisons(T.max, T.min,  Int(1))
         NBKAssertComparisons(T.min, T.max, -Int(1))
@@ -165,7 +145,11 @@ final class NBKDoubleWidthTestsOnComparisonsAsInt256: XCTestCase {
         NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 3, 0)),  Int(1))
     }
     
-    func testComparingByDigit() {
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit (and Self)
+    //=------------------------------------------------------------------------=
+    
+    func testComparingSmallWithSmall() {
         NBKAssertComparisonsByDigit( T(0),  Int(0),  Int(0))
         NBKAssertComparisonsByDigit( T(0), -Int(0),  Int(0))
         NBKAssertComparisonsByDigit(-T(0),  Int(0),  Int(0))
@@ -185,7 +169,9 @@ final class NBKDoubleWidthTestsOnComparisonsAsInt256: XCTestCase {
         NBKAssertComparisonsByDigit( T(3), -Int(2),  Int(1))
         NBKAssertComparisonsByDigit(-T(3),  Int(2), -Int(1))
         NBKAssertComparisonsByDigit(-T(3), -Int(2), -Int(1))
-        
+    }
+    
+    func testComparingLargeWithSmall() {
         NBKAssertComparisonsByDigit( T(x64: X(0, 0, 0, 0)),  Int(1), -Int(1))
         NBKAssertComparisonsByDigit( T(x64: X(1, 0, 0, 0)),  Int(1),  Int(0))
         NBKAssertComparisonsByDigit( T(x64: X(2, 0, 0, 0)),  Int(1),  Int(1))
@@ -323,12 +309,7 @@ final class NBKDoubleWidthTestsOnComparisonsAsUInt256: XCTestCase {
         XCTAssertEqual(union.count, 5)
     }
     
-    func testComparing() {
-        NBKAssertComparisons(T( 0), T( 0),  Int(0))
-        NBKAssertComparisons(T( 1), T( 1),  Int(0))
-        NBKAssertComparisons(T( 2), T( 3), -Int(1))
-        NBKAssertComparisons(T( 3), T( 2),  Int(1))
-        
+    func testComparingLargeWithLarge() {
         NBKAssertComparisons(T.max, T.max,  Int(0))
         NBKAssertComparisons(T.max, T.min,  Int(1))
         NBKAssertComparisons(T.min, T.max, -Int(1))
@@ -348,12 +329,18 @@ final class NBKDoubleWidthTestsOnComparisonsAsUInt256: XCTestCase {
         NBKAssertComparisons(T(x64: X(1, 2, 3, 4)), T(x64: X(1, 2, 3, 0)),  Int(1))
     }
     
-    func testComparingByDigit() {
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Digit (and Self)
+    //=------------------------------------------------------------------------=
+    
+    func testComparingSmallWithSmall() {
         NBKAssertComparisonsByDigit(T( 0), UInt(0),  Int(0))
         NBKAssertComparisonsByDigit(T( 1), UInt(1),  Int(0))
         NBKAssertComparisonsByDigit(T( 2), UInt(3), -Int(1))
         NBKAssertComparisonsByDigit(T( 3), UInt(2),  Int(1))
-        
+    }
+    
+    func testComparingLargeWithSmall() {
         NBKAssertComparisonsByDigit(T(x64: X(0, 0, 0, 0)), UInt(1), -Int(1))
         NBKAssertComparisonsByDigit(T(x64: X(1, 0, 0, 0)), UInt(1),  Int(0))
         NBKAssertComparisonsByDigit(T(x64: X(2, 0, 0, 0)), UInt(1),  Int(1))
@@ -405,6 +392,9 @@ file: StaticString = #file, line: UInt = #line) {
 private func NBKAssertComparisonsByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    NBKAssertComparisons(lhs, NBKDoubleWidth<H>(digit: rhs), signum, file: file, line: line)
+    //=------------------------------------------=
     XCTAssertEqual(lhs == rhs, signum ==  0, file: file, line: line)
     XCTAssertEqual(lhs != rhs, signum !=  0, file: file, line: line)
     

@@ -13,7 +13,7 @@ import NBKCoreKit
 // MARK: * NBK x Strict Unsigned Integer
 //*============================================================================*
 
-@frozen public struct NBKStrictUnsignedInteger<Base: RandomAccessCollection> where
+@frozen public struct NBKStrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
 Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     
     //=------------------------------------------------------------------------=
@@ -99,9 +99,9 @@ extension NBKStrictUnsignedInteger where Base.Indices == Range<Int> {
     // MARK: Utilities x Views
     //=------------------------------------------------------------------------=
     
-    @inlinable public var bitPattern: NBKStrictBitPattern<Base> {
+    @inlinable public var bitPattern: NBK.StrictBitPattern<Base> {
         _read {
-            yield NBKStrictBitPattern(unchecked: self.base)
+            yield NBK.StrictBitPattern(unchecked: self.base)
         }
         
         _modify {

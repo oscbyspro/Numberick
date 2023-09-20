@@ -72,7 +72,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
     @inlinable public mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
-        self.bitPattern.bitshiftLeft(environment: false, major: major, minorAtLeastOne: minor)
+        self.bitPattern.bitshiftLeft(environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -81,7 +81,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public mutating func bitshiftLeft(majorAtLeastOne major: Int) {
-        self.bitPattern.bitshiftLeft(environment: false, majorAtLeastOne: major)
+        self.bitPattern.bitshiftLeft(environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }
 
@@ -145,7 +145,7 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
     @inlinable public mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
-        self.bitPattern.bitshiftRight(environment: false, major: major, minorAtLeastOne: minor)
+        self.bitPattern.bitshiftRight(environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an unsigned right shift.
@@ -154,6 +154,6 @@ extension NBKStrictUnsignedInteger where Base: MutableCollection, Base.Indices =
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public mutating func bitshiftRight(majorAtLeastOne major: Int) {
-        self.bitPattern.bitshiftRight(environment: false, majorAtLeastOne: major)
+        self.bitPattern.bitshiftRight(environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }

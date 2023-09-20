@@ -28,27 +28,7 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSubtracting() {
-        NBKAssertSubtraction(T( 1), T( 2), T(-1))
-        NBKAssertSubtraction(T( 1), T( 1), T( 0))
-        NBKAssertSubtraction(T( 1), T( 0), T( 1))
-        NBKAssertSubtraction(T( 1), T(-1), T( 2))
-        NBKAssertSubtraction(T( 1), T(-2), T( 3))
-        
-        NBKAssertSubtraction(T( 0), T( 2), T(-2))
-        NBKAssertSubtraction(T( 0), T( 1), T(-1))
-        NBKAssertSubtraction(T( 0), T( 0), T( 0))
-        NBKAssertSubtraction(T( 0), T(-1), T( 1))
-        NBKAssertSubtraction(T( 0), T(-2), T( 2))
-        
-        NBKAssertSubtraction(T(-1), T( 2), T(-3))
-        NBKAssertSubtraction(T(-1), T( 1), T(-2))
-        NBKAssertSubtraction(T(-1), T( 0), T(-1))
-        NBKAssertSubtraction(T(-1), T(-1), T( 0))
-        NBKAssertSubtraction(T(-1), T(-2), T( 1))
-    }
-    
-    func testSubtractingUsingLargeValues() {
+    func testSubtractingLargeFromLarge() {
         NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
         NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
         NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
@@ -70,22 +50,16 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
         NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0, ~3)))
     }
     
-    func testSubtractingReportingOverflow() {
-        NBKAssertSubtraction(T.min, T( 2), T.max - T(1), true )
-        NBKAssertSubtraction(T.max, T( 2), T.max - T(2), false)
-        
-        NBKAssertSubtraction(T.min, T(-2), T.min + T(2), false)
-        NBKAssertSubtraction(T.max, T(-2), T.min + T(1), true )
-        
+    func testSubtractingHalvesFromHalvesReportingOverflow() {
         NBKAssertSubtraction(T(high: .min, low: .min), T(-1), T(high: .min, low: .min + 1)) // carry 1st
         NBKAssertSubtraction(T(high: .max, low: .min), T(-1), T(high: .max, low: .min + 1)) // carry 2nd
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testSubtractingDigit() {
+    func testSubtractingSmallFromSmall() {
         NBKAssertSubtractionByDigit(T( 1), Int( 2), T(-1))
         NBKAssertSubtractionByDigit(T( 1), Int( 1), T( 0))
         NBKAssertSubtractionByDigit(T( 1), Int( 0), T( 1))
@@ -105,14 +79,14 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
         NBKAssertSubtractionByDigit(T(-1), Int(-2), T( 1))
     }
     
-    func testSubtractingDigitUsingLargeValues() {
+    func testSubtractingSmallFromLarge() {
         NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X( 2,  0,  0,  1)))
         NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X(~3, ~0, ~0,  0)))
         NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X( 3,  0,  0, ~0)))
         NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X(~2, ~0, ~0, ~1)))
     }
     
-    func testSubtractingDigitReportingOverflow() {
+    func testSubtractingSmallFromEdgesReportingOverflow() {
         NBKAssertSubtractionByDigit(T.min, Int( 2), T.max - T(1), true )
         NBKAssertSubtractionByDigit(T.min, Int(-2), T.min + T(2), false)
         NBKAssertSubtractionByDigit(T.max, Int( 2), T.max - T(2), false)
@@ -148,44 +122,32 @@ final class NBKDoubleWidthTestsOnSubtractionAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testSubtracting() {
-        NBKAssertSubtraction(T(3), T(0), T(3))
-        NBKAssertSubtraction(T(3), T(1), T(2))
-        NBKAssertSubtraction(T(3), T(2), T(1))
-        NBKAssertSubtraction(T(3), T(3), T(0))
-    }
-    
-    func testSubtractingUsingLargeValues() {
+    func testSubtractingLargeFromLarge() {
         NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(3, 0, 0, 0)), T(x64: X(~2, ~1, ~0, ~0)))
         NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 3, 0, 0)), T(x64: X( 0, ~3, ~0, ~0)))
         NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 0, 3, 0)), T(x64: X( 0, ~0, ~3, ~0)))
         NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 0, 0, 3)), T(x64: X( 0, ~0, ~0, ~3)))
     }
     
-    func testSubtractingReportingOverflow() {
-        NBKAssertSubtraction(T.min, T(2), T.max - T(1), true )
-        NBKAssertSubtraction(T.max, T(2), T.max - T(2), false)
-    }
-    
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
-    func testSubtractingDigit() {
+    func testSubtractingSmallFromSmall() {
         NBKAssertSubtractionByDigit(T(3), UInt(0), T(3))
         NBKAssertSubtractionByDigit(T(3), UInt(1), T(2))
         NBKAssertSubtractionByDigit(T(3), UInt(2), T(1))
         NBKAssertSubtractionByDigit(T(3), UInt(3), T(0))
     }
     
-    func testSubtractingDigitUsingLargeValues() {
+    func testSubtractingSmallFromLarge() {
         NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0, ~0)), UInt(3), T(x64: X(~3, ~0, ~0, ~0)))
         NBKAssertSubtractionByDigit(T(x64: X( 0, ~0, ~0, ~0)), UInt(3), T(x64: X(~2, ~1, ~0, ~0)))
         NBKAssertSubtractionByDigit(T(x64: X( 0,  0, ~0, ~0)), UInt(3), T(x64: X(~2, ~0, ~1, ~0)))
         NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), UInt(3), T(x64: X(~2, ~0, ~0, ~1)))
     }
     
-    func testSubtractingDigitReportingOverflow() {
+    func testSubtractingSmallFromEdgesReportingOverflow() {
         NBKAssertSubtractionByDigit(T.min, UInt(2), T.max - T(1), true )
         NBKAssertSubtractionByDigit(T.max, UInt(2), T.max - T(2), false)
     }
@@ -235,6 +197,8 @@ private func NBKAssertSubtractionByDigit<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs: NBKDoubleWidth<H>.Digit,
 _ partialValue: NBKDoubleWidth<H>, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    NBKAssertSubtraction(lhs, NBKDoubleWidth<H>(digit: rhs), partialValue, overflow, file: file, line: line)
     //=------------------------------------------=
     if !overflow {
         XCTAssertEqual(                 lhs -  rhs,                 partialValue, file: file, line: line)
