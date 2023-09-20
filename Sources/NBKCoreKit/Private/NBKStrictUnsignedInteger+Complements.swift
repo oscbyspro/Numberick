@@ -17,7 +17,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     // MARK: Transformations x One's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func formOnesComplement() {
+    @inlinable public mutating func formOnesComplement() {
         for index in self.storage.indices {
             self.storage[index].formOnesComplement()
         }
@@ -27,15 +27,15 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     // MARK: Transformations x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func formTwosComplement() {
+    @inlinable public mutating func formTwosComplement() {
         _ = self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable mutating func formTwosComplementReportingOverflow() -> Bool {
+    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
         self.formTwosComplementSubsequence(true)
     }
     
-    @inlinable mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
         var carry = carry
         
         for index in self.storage.indices {

@@ -55,6 +55,8 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
+        //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
         Swift.assert(000000000001 <= major, NBK.callsiteOutOfBoundsInfo())
@@ -83,6 +85,8 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
@@ -149,6 +153,8 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
+        //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
         Swift.assert(000000000001 <= major, NBK.callsiteOutOfBoundsInfo())
@@ -177,6 +183,8 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())

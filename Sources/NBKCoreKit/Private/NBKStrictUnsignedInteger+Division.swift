@@ -27,15 +27,41 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     @inlinable public func remainderReportingOverflow(
     dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+        Self.remainderReportingOverflowCodeBlock(self.storage, dividingBy: divisor)
+    }
+    
+    /// Forms the `quotient` of dividing the `base` by the `divisor`,
+    /// and returns the `remainder` along with an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is `base` and `base.first`.
+    ///
+    @inlinable public mutating func formQuotientWithRemainderReportingOverflow(
+    dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+        Self.formQuotientWithRemainderReportingOverflowCodeBlock(&self.storage, dividingBy: divisor)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Algorithms (pointerless performance)
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the `remainder` of dividing the `base` by the `divisor`,
+    /// along with an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is `base.first`.
+    ///
+    @inlinable public static func remainderReportingOverflowCodeBlock(
+    _ base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+        //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: self.first, overflow: true)
+            return PVO(partialValue: base.first!, overflow: true)
         }
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         
-        for index in self.storage.indices.reversed() {
-            remainder = divisor.dividingFullWidth(HL(high: remainder, low: self.storage[index])).remainder
+        for index in base.indices.reversed() {
+            remainder = divisor.dividingFullWidth(HL(high: remainder, low: base[index])).remainder
         }
         
         return PVO(partialValue: remainder, overflow: false)
@@ -46,17 +72,19 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     /// - Note: In the case of `overflow`, the result is `base` and `base.first`.
     ///
-    @inlinable public mutating func formQuotientWithRemainderReportingOverflow(
-    dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    @inlinable public static func formQuotientWithRemainderReportingOverflowCodeBlock(
+    _ base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+        //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: self.first, overflow: true)
+            return PVO(partialValue: base.first!, overflow: true)
         }
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         
-        for index in self.storage.indices.reversed() {
-            (self.storage[index], remainder) = divisor.dividingFullWidth(HL(high: remainder, low: self.storage[index]))
+        for index in base.indices.reversed() {
+            (base[index], remainder) = divisor.dividingFullWidth(HL(high: remainder, low: base[index]))
         }
         
         return PVO(partialValue: remainder, overflow: false)

@@ -13,10 +13,6 @@
 
 extension NBK { public typealias StrictBitPattern = _NBKStrictBitPattern }
 
-//*============================================================================*
-// MARK: * NBK x Strict Bit Pattern
-//*============================================================================*
-
 /// A nonempty collection view thing-y.
 ///
 /// Use pointers to prevent excessive copying.
@@ -25,6 +21,10 @@ extension NBK { public typealias StrictBitPattern = _NBKStrictBitPattern }
 ///
 /// The base needs `zero` to `count` indices for performance reasons.
 ///
+/// ### Development 2
+///
+/// It should be turned into a proper view type when Swift has those.
+///
 @frozen public struct _NBKStrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
 Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     
@@ -32,6 +32,14 @@ Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     // MARK: State
     //=------------------------------------------------------------------------=
     
+    /// The base viewed through this instance.
+    ///
+    /// It needs to be `nonempty` at the start and end of each access.
+    ///
+    /// ### Development
+    ///
+    /// It is private so that invariants don't break from the outside.
+    ///
     @usableFromInline var storage: Base
     
     //=------------------------------------------------------------------------=
@@ -52,8 +60,9 @@ Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The base viewed through this instance.
     @inlinable public var base: Base {
-        self.storage
+        self.storage  as  Base
     }
 }
 

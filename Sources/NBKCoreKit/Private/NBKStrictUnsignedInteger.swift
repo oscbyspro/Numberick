@@ -7,16 +7,11 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer
 //*============================================================================*
 
 extension NBK { public typealias StrictUnsignedInteger = _NBKStrictUnsignedInteger }
-
-//*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer
-//*============================================================================*
 
 /// A nonempty collection view thing-y.
 ///
@@ -28,33 +23,42 @@ extension NBK { public typealias StrictUnsignedInteger = _NBKStrictUnsignedInteg
 ///
 @frozen public struct _NBKStrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
 Base.Element: NBKCoreInteger & NBKUnsignedInteger {
-    
+        
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline var storage: Base
+    /// The base viewed as a strict bit pattern.
+    public var bitPattern: NBK.StrictBitPattern<Base>
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ base: Base) {
-        self.storage = base
-        precondition(!base.isEmpty)
+        self.bitPattern = NBK.StrictBitPattern(base)
     }
     
     @inlinable public init(unchecked base: Base) {
-        self.storage = base
-        Swift.assert(!base.isEmpty)
+        self.bitPattern = NBK.StrictBitPattern(unchecked: base)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// The base viewed through this instance.
     @inlinable public var base: Base {
-        self.storage
+        self.bitPattern.base as Base
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors x Private
+    //=------------------------------------------------------------------------=
+    
+    @inlinable var storage: Base {
+        _read   { yield  self.bitPattern.storage }
+        _modify { yield &self.bitPattern.storage }
     }
 }
 
@@ -69,15 +73,15 @@ extension NBK.StrictUnsignedInteger {
     //=------------------------------------------------------------------------=
     
     @inlinable public var first: Base.Element {
-        self.storage[self.storage.startIndex]
+        self.bitPattern.first
     }
     
     @inlinable public var last: Base.Element {
-        self.storage[self.lastIndex]
+        self.bitPattern.last
     }
     
     @inlinable public var lastIndex: Base.Index {
-        self.storage.index(before: self.storage.endIndex)
+        self.bitPattern.lastIndex
     }
 }
 
@@ -92,33 +96,12 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     //=------------------------------------------------------------------------=
     
     @inlinable public var first: Base.Element {
-        get { self.storage[self.storage.startIndex] }
-        set { self.storage[self.storage.startIndex] = newValue }
+        get { self.bitPattern.first }
+        set { self.bitPattern.first = newValue }
     }
     
     @inlinable public var last: Base.Element {
-        get { self.storage[self.lastIndex] }
-        set { self.storage[self.lastIndex] = newValue }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Views x Bit Pattern
-//=----------------------------------------------------------------------------=
-
-extension NBK.StrictUnsignedInteger {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities x Views
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public var bitPattern: NBK.StrictBitPattern<Base> {
-        _read {
-            yield NBK.StrictBitPattern(unchecked: self.storage)
-        }
-        
-        _modify {
-            var view = self.bitPattern; yield &view; self = Self(unchecked: view.base)
-        }
+        get { self.bitPattern.last }
+        set { self.bitPattern.last = newValue }
     }
 }

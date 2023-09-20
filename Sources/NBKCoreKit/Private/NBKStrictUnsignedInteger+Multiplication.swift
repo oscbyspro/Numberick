@@ -47,7 +47,10 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Returns: The high product.
     ///
     @inlinable public static func multiplyFullWidthCodeBlock(
-    _ base: inout  Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
+        //=--------------------------------------=
+        Swift.assert(!base.isEmpty)
+        //=--------------------------------------=
         var carry: Base.Element = addend
         
         for index in base.indices {
