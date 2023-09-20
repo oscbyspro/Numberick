@@ -37,7 +37,7 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitrotatedLeft(major: major, minor:minor)
+        return self.bitrotatedLeft(major: major, minor: minor)
     }
     
     /// Performs a left rotation.
@@ -46,8 +46,8 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitrotateLeft(major: Int, minor:Int) {
-        self = self.bitrotatedLeft(major: major, minor:minor)
+    @inlinable public mutating func bitrotateLeft(major: Int, minor: Int) {
+        self = self.bitrotatedLeft(major: major, minor: minor)
     }
     
     /// Performs a left rotation.
@@ -56,7 +56,7 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitrotatedLeft(major: Int, minor:Int) -> Self {
+    @inlinable public func bitrotatedLeft(major: Int, minor: Int) -> Self {
         precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
         precondition(0 ..< UInt.bitWidth ~= minor, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
@@ -152,7 +152,7 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitrotatedRight(major: major, minor:minor)
+        return self.bitrotatedRight(major: major, minor: minor)
     }
     
     /// Performs a right rotation.
@@ -161,8 +161,8 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitrotateRight(major: Int, minor:Int) {
-        self = self.bitrotatedRight(major: major, minor:minor)
+    @inlinable public mutating func bitrotateRight(major: Int, minor: Int) {
+        self = self.bitrotatedRight(major: major, minor: minor)
     }
     
     /// Performs a right rotation.
@@ -171,7 +171,7 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitrotatedRight(major: Int, minor:Int) -> Self {
+    @inlinable public func bitrotatedRight(major: Int, minor: Int) -> Self {
         precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
         precondition(0 ..< UInt.bitWidth ~= minor, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=

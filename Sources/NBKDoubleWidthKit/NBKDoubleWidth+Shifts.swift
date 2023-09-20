@@ -89,7 +89,7 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int, minor:Int) {
+    @inlinable public mutating func bitshiftLeft(major: Int, minor: Int) {
         //=--------------------------------------=
         if  minor.isZero {
             return self.bitshiftLeft(major: major)
