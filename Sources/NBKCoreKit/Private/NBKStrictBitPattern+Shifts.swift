@@ -172,7 +172,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inlinable public static func bitshiftRightCodeBlock(
+    @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
         // major: zero works but it is pointless

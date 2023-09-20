@@ -11,46 +11,49 @@
 // MARK: * NBK x Strict Bit Pattern
 //*============================================================================*
 
-extension NBK {
+extension NBK { public typealias StrictBitPattern = _NBKStrictBitPattern }
+
+//*============================================================================*
+// MARK: * NBK x Strict Bit Pattern
+//*============================================================================*
+
+/// A nonempty collection view thing-y.
+///
+/// Use pointers to prevent excessive copying.
+///
+/// ### Development
+///
+/// The base needs `zero` to `count` indices for performance reasons.
+///
+@frozen public struct _NBKStrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
+Base.Element: NBKCoreInteger & NBKUnsignedInteger {
     
-    /// A nonempty collection view thing-y.
-    ///
-    /// Use it with pointers to prevent excessive copying.
-    ///
-    /// ### Development
-    ///
-    /// The base needs `zero` to `count` indices for performance reasons.
-    ///
-    @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
-    Base.Element: NBKCoreInteger & NBKUnsignedInteger {
-        
-        //=--------------------------------------------------------------------=
-        // MARK: State
-        //=--------------------------------------------------------------------=
-        
-        @usableFromInline var storage: Base
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Initializers
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public init(_ base: Base) {
-            self.storage = base
-            precondition(!base.isEmpty)
-        }
-        
-        @inlinable public init(unchecked base: Base) {
-            self.storage = base
-            Swift.assert(!base.isEmpty)
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Accessors
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public var base: Base {
-            self.storage
-        }
+    //=------------------------------------------------------------------------=
+    // MARK: State
+    //=------------------------------------------------------------------------=
+    
+    @usableFromInline var storage: Base
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init(_ base: Base) {
+        self.storage = base
+        precondition(!base.isEmpty)
+    }
+    
+    @inlinable public init(unchecked base: Base) {
+        self.storage = base
+        Swift.assert(!base.isEmpty)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Accessors
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public var base: Base {
+        self.storage
     }
 }
 
