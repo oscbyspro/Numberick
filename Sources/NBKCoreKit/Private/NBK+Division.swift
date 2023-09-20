@@ -77,9 +77,18 @@ extension NBK {
             return PVO(dividend._lowWord & (divisor &- 1), false)
         }
         //=--------------------------------------=
+        if  divisor.isZero {
+            return PVO(dividend._lowWord, true)
+        }
+        //=--------------------------------------=
         let minus = T.isSigned && dividend < T.zero
-        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: dividend.magnitude.words, dividingBy: divisor)
-        return PVO((minus && !pvo.partialValue.isZero) ? (divisor &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
+        var remainder = 000000000000000000 as  UInt
+        
+        for word in dividend.magnitude.words.reversed() {
+            remainder = divisor.dividingFullWidth(HL(high: remainder, low: word)).remainder
+        }
+        
+        return PVO((minus && !remainder.isZero) ? (divisor &- remainder) : remainder, false)
     }
     
     /// Returns the least positive `residue` of dividing the `dividend` by `source.bitWidth`.

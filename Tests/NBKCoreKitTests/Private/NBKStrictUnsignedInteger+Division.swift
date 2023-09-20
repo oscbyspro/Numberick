@@ -17,29 +17,29 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Division x Digit x Unsigned
+// MARK: * NBK x Strict Unsigned Integer x Division
 //*============================================================================*
 
-final class NBKTestsOnLimbsByDivisionByDigitAsUnsigned: XCTestCase {
+final class NBKStrictUnsignedIntegerTestsOnDivision: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Small
     //=------------------------------------------------------------------------=
     
-    func testDividingByDigit() {
-        NBKAssertDivisionByDigit([ ] as W, UInt(1), [ ] as W, UInt( ))
-        NBKAssertDivisionByDigit([ ] as W, UInt(2), [ ] as W, UInt( ))
+    func testDividingSmallBySmall() {
+        NBKAssertDivisionByDigit([0] as W, UInt(1), [0] as W, UInt( ))
+        NBKAssertDivisionByDigit([0] as W, UInt(2), [0] as W, UInt( ))
         NBKAssertDivisionByDigit([7] as W, UInt(1), [7] as W, UInt( ))
         NBKAssertDivisionByDigit([7] as W, UInt(2), [3] as W, UInt(1))
     }
     
-    func testDividingByDigitReportingOverflow() {
-        NBKAssertDivisionByDigit([ ] as W, UInt( ), [ ] as W, UInt( ), true)
+    func testDividingSmallBySmallReportingOverflow() {
+        NBKAssertDivisionByDigit([0] as W, UInt( ), [0] as W, UInt( ), true)
         NBKAssertDivisionByDigit([1] as W, UInt( ), [1] as W, UInt(1), true)
         NBKAssertDivisionByDigit([2] as W, UInt( ), [2] as W, UInt(2), true)
     }
     
-    func testDividingByDigitWithLargeDividend() {
+    func testDividingLargeBySmallWithLargeDividend() {
         NBKAssertDivisionByDigit([~2,  ~4,  ~6,  9] as W, UInt(2), [~1, ~2, ~3, 4] as W, UInt(1))
         NBKAssertDivisionByDigit([~3,  ~6,  ~9, 14] as W, UInt(3), [~1, ~2, ~3, 4] as W, UInt(2))
         NBKAssertDivisionByDigit([~4,  ~8, ~12, 19] as W, UInt(4), [~1, ~2, ~3, 4] as W, UInt(3))
@@ -48,23 +48,25 @@ final class NBKTestsOnLimbsByDivisionByDigitAsUnsigned: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Division x Assertions
+// MARK: * NBK x Strict Unsigned Integer x Division x Assertions
 //*============================================================================*
 
-private func NBKAssertDivisionByDigit<T: NBKFixedWidthInteger & NBKUnsignedInteger>(
-_ lhs: [T], _ rhs: T, _ quotient: [T], _ remainder: T, _ overflow: Bool = false,
+private func NBKAssertDivisionByDigit(
+_ lhs: [UInt], _ rhs: UInt, _ quotient: [UInt], _ remainder: UInt, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    let lhs = NBK.StrictUnsignedInteger(lhs)
     //=------------------------------------------=
     brrrrrrrrrrr: do {
         var lhs = lhs
-        let pvo = NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &lhs, dividingBy: rhs)
-        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
+        let pvo = lhs.formQuotientWithRemainderReportingOverflow(dividingBy: rhs)
+        XCTAssertEqual(lhs.base,         quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: lhs, dividingBy: rhs).partialValue, remainder, file: file, line: line)
-    XCTAssertEqual(NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: lhs, dividingBy: rhs).overflow,     overflow,  file: file, line: line)
+    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).partialValue, remainder, file: file, line: line)
+    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).overflow,     overflow,  file: file, line: line)
 }
 
 #endif
