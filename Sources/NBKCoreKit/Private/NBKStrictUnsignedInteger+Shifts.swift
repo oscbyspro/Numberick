@@ -25,11 +25,11 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - distance: `0 <= distance < base.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+    @inlinable public static func bitshiftLeft(_ base: inout Base, by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftLeft(major: major, minor: minor)
+        return self.bitshiftLeft(&base, major: major, minor: minor)
     }
     
     /// Performs a left shift.
@@ -38,13 +38,13 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.endIndex`
     ///   - minor: `0 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int, minor: Int) {
+    @inlinable public static func bitshiftLeft(_ base: inout Base, major: Int, minor: Int) {
         //=--------------------------------------=
         if  minor.isZero {
-            return self.bitshiftLeft(major: major)
+            return self.bitshiftLeft(&base, major: major)
         }
         //=--------------------------------------=
-        self.bitshiftLeft(major: major, minorAtLeastOne: minor)
+        self.bitshiftLeft(&base, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -52,11 +52,11 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - major: `0 <= major < base.endIndex`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int) {
+    @inlinable public static func bitshiftLeft(_ base: inout Base, major: Int) {
         //=--------------------------------------=
         if  major.isZero { return }
         //=--------------------------------------=
-        self.bitshiftLeft(majorAtLeastOne: major)
+        self.bitshiftLeft(&base, majorAtLeastOne: major)
     }
     
     //=------------------------------------------------------------------------=
@@ -69,8 +69,8 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.endIndex`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
-        self.bitPattern.bitshiftLeft(environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
+    @inlinable public static func bitshiftLeft(_ base: inout Base, major: Int, minorAtLeastOne minor: Int) {
+        BitPattern.bitshiftLeft(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -78,8 +78,8 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - major: `1 <= major < base.endIndex`
     ///
-    @inlinable public mutating func bitshiftLeft(majorAtLeastOne major: Int) {
-        self.bitPattern.bitshiftLeft(environment: 0 as Base.Element, majorAtLeastOne: major)
+    @inlinable public static func bitshiftLeft(_ base: inout Base, majorAtLeastOne major: Int) {
+        BitPattern.bitshiftLeft(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }
 
@@ -98,11 +98,11 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - distance: `0 <= distance < base.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(by distance: Int) {
+    @inlinable public static func bitshiftRight(_ base: inout Base, by distance: Int) {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftRight(major: major, minor: minor)
+        return self.bitshiftRight(&base, major: major, minor: minor)
     }
     
     /// Performs an unsigned right shift.
@@ -111,13 +111,13 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.endIndex`
     ///   - bits:  `0 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int, minor: Int) {
+    @inlinable public static func bitshiftRight(_ base: inout Base, major: Int, minor: Int) {
         //=--------------------------------------=
         if  minor.isZero {
-            return self.bitshiftRight(major: major)
+            return self.bitshiftRight(&base, major: major)
         }
         //=--------------------------------------=
-        self.bitshiftRight(major: major, minorAtLeastOne: minor)
+        self.bitshiftRight(&base, major: major, minorAtLeastOne: minor)
     }
         
     /// Performs an unsigned right shift.
@@ -125,11 +125,11 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - major: `0 <= major < base.endIndex`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int) {
+    @inlinable public static func bitshiftRight(_ base: inout Base, major: Int) {
         //=--------------------------------------=
         if  major.isZero { return }
         //=--------------------------------------=
-        self.bitshiftRight(majorAtLeastOne: major)
+        self.bitshiftRight(&base, majorAtLeastOne: major)
     }
     
     //=------------------------------------------------------------------------=
@@ -142,8 +142,8 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.endIndex`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
-        self.bitPattern.bitshiftRight(environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
+    @inlinable public static func bitshiftRight(_ base: inout Base, major: Int, minorAtLeastOne minor: Int) {
+        BitPattern.bitshiftRight(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an unsigned right shift.
@@ -151,7 +151,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// - Parameters:
     ///   - major: `1 <= major < base.endIndex`
     ///
-    @inlinable public mutating func bitshiftRight(majorAtLeastOne major: Int) {
-        self.bitPattern.bitshiftRight(environment: 0 as Base.Element, majorAtLeastOne: major)
+    @inlinable public static func bitshiftRight(_ base: inout Base, majorAtLeastOne major: Int) {
+        BitPattern.bitshiftRight(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }

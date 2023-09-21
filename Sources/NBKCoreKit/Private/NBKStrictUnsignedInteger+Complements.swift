@@ -17,9 +17,12 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     // MARK: Transformations x One's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func formOnesComplement() {
-        for index in self.storage.indices {
-            self.storage[index].formOnesComplement()
+    @inlinable public static func formOnesComplement(_ base: inout Base) {
+        //=--------------------------------------=
+        Swift.assert(self.validate(base))
+        //=--------------------------------------=
+        for index in base.indices {
+            base[index].formOnesComplement()
         }
     }
     
@@ -27,19 +30,22 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     // MARK: Transformations x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func formTwosComplement() {
-        _ = self.formTwosComplementSubsequence(true)
+    @inlinable public static func formTwosComplement(_ base: inout Base) {
+        _ = self.formTwosComplementSubsequence(&base, carry: true)
     }
     
-    @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
-        self.formTwosComplementSubsequence(true)
+    @inlinable public static func formTwosComplementReportingOverflow(_ base: inout Base) -> Bool {
+        self.formTwosComplementSubsequence(&base, carry: true)
     }
     
-    @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
+    @inlinable public static func formTwosComplementSubsequence(_ base: inout Base, carry: Bool) -> Bool {
+        //=--------------------------------------=
+        Swift.assert(self.validate(base))
+        //=--------------------------------------=
         var carry = carry
         
-        for index in self.storage.indices {
-            carry =  self.storage[index].formTwosComplementSubsequence(carry)
+        for index in base.indices {
+            carry =  base[index].formTwosComplementSubsequence(carry)
         }
         
         return carry as Bool

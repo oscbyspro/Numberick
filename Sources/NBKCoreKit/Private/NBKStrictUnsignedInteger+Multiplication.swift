@@ -24,32 +24,20 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator.
     ///
-    @inlinable public mutating func multiplyReportingOverflow(
-    by  multiplicand: Base.Element, add addend: Base.Element) -> Bool {
-        !self.multiplyFullWidth(by: multiplicand, add: addend).isZero        
+    @inlinable public static func multiplyReportingOverflow(
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
+        //=--------------------------------------=
+        !self.multiplyFullWidth(&base, by: multiplicand, add: addend).isZero
     }
     
     /// Forms the low product of multiplying `base` and `multiplicand` then adding `addend`.
     ///
     /// - Returns: The high product.
     ///
-    @inlinable public mutating func multiplyFullWidth(
-    by  multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
-        Self.multiplyFullWidthCodeBlock(&self.storage, by: multiplicand, add: addend)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Algorithms (pointerless performance)
-    //=------------------------------------------------------------------------=
-    
-    /// Forms the low product of multiplying `base` and `multiplicand` then adding `addend`.
-    ///
-    /// - Returns: The high product.
-    ///
-    @inlinable public static func multiplyFullWidthCodeBlock(
+    @inlinable public static func multiplyFullWidth(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
         //=--------------------------------------=
-        Swift.assert(!base.isEmpty)
+        Swift.assert(self.validate(base))
         //=--------------------------------------=
         var carry: Base.Element = addend
         

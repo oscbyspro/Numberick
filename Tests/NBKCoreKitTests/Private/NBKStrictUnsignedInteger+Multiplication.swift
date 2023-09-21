@@ -42,22 +42,22 @@ private func NBKAssertMultiplicationByDigitWithAdditionAsUnsigned(
 _ lhs: [UInt], _ rhs: UInt, _ addend: UInt, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
     // multiplication: digit + digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let top = lhs.multiplyFullWidth(by: rhs, add: addend)
-        XCTAssertEqual(top > 00 as UInt, overflow, file: file, line: line)
-        XCTAssertEqual(lhs.base + [top], product,  file: file, line: line)
+        let top = T.multiplyFullWidth(&lhs, by: rhs, add: addend)
+        XCTAssertEqual(top > UInt(), overflow, file: file, line: line)
+        XCTAssertEqual(lhs +  [top], product,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let top = lhs.multiplyReportingOverflow(by: rhs, add: addend)
+        let top = T.multiplyReportingOverflow(&lhs, by: rhs, add: addend)
         XCTAssertEqual(top, overflow, file: file, line: line)
-        XCTAssertEqual(lhs.base, Array(product.dropLast()), file: file, line: line)
+        XCTAssertEqual(lhs, Array(product.dropLast()), file: file, line: line)
     }
 }
 

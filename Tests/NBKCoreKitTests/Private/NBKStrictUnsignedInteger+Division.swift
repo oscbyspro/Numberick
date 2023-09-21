@@ -55,18 +55,18 @@ private func NBKAssertDivisionByDigit(
 _ lhs: [UInt], _ rhs: UInt, _ quotient: [UInt], _ remainder: UInt, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
     brrrrrrrrrrr: do {
         var lhs = lhs
-        let pvo = lhs.formQuotientWithRemainderReportingOverflow(dividingBy: rhs)
-        XCTAssertEqual(lhs.base,         quotient,  file: file, line: line)
+        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs)
+        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).partialValue, remainder, file: file, line: line)
-    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).overflow,     overflow,  file: file, line: line)
+    XCTAssertEqual(T.remainderReportingOverflow(lhs, dividingBy: rhs).partialValue, remainder, file: file, line: line)
+    XCTAssertEqual(T.remainderReportingOverflow(lhs, dividingBy: rhs).overflow,     overflow,  file: file, line: line)
 }
 
 #endif

@@ -88,31 +88,31 @@ private func NBKAssertAdditionAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
     // increment: elements + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.increment(by:  rhs, plus: false, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.incrementInIntersection(by: rhs, plus: false, at: index)
-        let max = lhs.increment(by:  min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = lhs.increment(by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt(), count: lhs.base.suffix(from: min.index).count)
-        let max = lhs.incrementInIntersection(by: sfx, plus: min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
+        let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
@@ -121,24 +121,24 @@ private func NBKAssertAdditionByDigitAtIndex(
 _ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    NBKAssertAdditionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    NBKAssertAdditionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
     //=------------------------------------------=
     // increment: digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.increment(by: rhs, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs,  at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.incrementInIntersection(by: rhs, at: index)
-        let max = lhs.increment(by:  min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.increment(&lhs,  by: rhs,  at: index)
+        let max = T.increment(&lhs,  by: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     //=------------------------------------------=
@@ -146,25 +146,25 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.increment(by:  rhs, plus: false, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.incrementInIntersection(by: rhs, plus: false, at: index)
-        let max = lhs.increment(by:  min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = lhs.incrementInIntersection(by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt(), count: lhs.base.suffix(from: min.index).count)
-        let max = lhs.incrementInIntersection(by: sfx, plus: min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
+        let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }

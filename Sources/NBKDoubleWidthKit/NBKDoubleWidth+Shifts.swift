@@ -95,7 +95,7 @@ extension NBKDoubleWidth {
             return self.bitshiftLeft(major: major)
         }
         //=--------------------------------------=
-        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: major, minorAtLeastOne: minor)
+        SBP.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -117,7 +117,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         if  major.isZero { return }
         //=--------------------------------------=
-        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, majorAtLeastOne: major)
+        SBP.bitshiftLeft(&self, environment: 0 as UInt, majorAtLeastOne: major)
     }
     
     /// Performs a left shift.
@@ -217,7 +217,7 @@ extension NBKDoubleWidth {
         }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, major: major, minorAtLeastOne: minor)
+        SBP.bitshiftRightCodeBlock(&self, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an un/signed right shift.
@@ -240,7 +240,7 @@ extension NBKDoubleWidth {
         if  major.isZero { return }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, majorAtLeastOne: major)
+        SBP.bitshiftRight(&self, environment: environment, majorAtLeastOne: major)
     }
     
     /// Performs an un/signed right shift.

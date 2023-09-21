@@ -152,31 +152,31 @@ private func NBKAssertSubtractionAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
     // decrement: elements + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.decrement(by:  rhs, plus: false, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs,  plus: false, at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.decrementInIntersection(by: rhs, plus: false, at: index)
-        let max = lhs.decrement(by:  min.overflow, at:  min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.decrement(&lhs,  by: rhs, plus: false, at: index)
+        let max = T.decrement(&lhs,  by: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = lhs.decrementInIntersection(by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt(), count: lhs.base.suffix(from: min.index).count)
-        let max = lhs.decrementInIntersection(by: sfx, plus: min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.decrement(&lhs,  by: rhs,  plus: false, at: index)
+        let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
+        let max = T.decrement(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
@@ -185,24 +185,24 @@ private func NBKAssertSubtractionByDigitAtIndex(
 _ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    NBKAssertSubtractionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    NBKAssertSubtractionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
     //=------------------------------------------=
     // decrement: digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.decrement(by: rhs, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs,  at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.decrementInIntersection(by: rhs, at: index)
-        let max = lhs.decrement(by:  min.overflow, at:  min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.decrement(&lhs,  by: rhs,  at: index)
+        let max = T.decrement(&lhs,  by: min.overflow, at:  min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     //=------------------------------------------=
@@ -210,41 +210,41 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.decrement(by:  rhs, plus: false, at: index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs,  plus: false, at: index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = lhs.decrementInIntersection(by: rhs, plus: false, at: index)
-        let max = lhs.decrement(by:  min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.decrement(&lhs,  by: rhs, plus: false, at: index)
+        let max = T.decrement(&lhs,  by: min.overflow, at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = lhs.decrementInIntersection(by: rhs, plus: false, at: index)
-        let sfx = Array(repeating: UInt(), count: lhs.base.suffix(from: min.index).count)
-        let max = lhs.decrementInIntersection(by: sfx, plus: min.overflow, at: min.index)
-        XCTAssertEqual(lhs.base,     result,   file: file, line: line)
+        let min = T.decrement(&lhs,  by: rhs, plus: false, at: index)
+        let sfx = Array(repeating:   UInt(), count: lhs.suffix(from: min.index).count)
+        let max = T.decrement(&lhs,  by: sfx, plus: min.overflow,at: min.index)
+        XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
 
 private func NBKAssertSubtractionByProductAtIndex(
-_ lhs: [UInt], _ limbs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ bit: Bool, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ bit: Bool, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let lhs = NBK.StrictUnsignedInteger(lhs)
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>
     //=------------------------------------------=
     // decrement: limbs × digit + digit + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = lhs.decrement(by:  limbs, times: multiplicand, plus: digit, plus: bit, at: index)
-        XCTAssertEqual(lhs.base,     product,  file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs, times: multiplicand, plus: digit, plus: bit, at: index)
+        XCTAssertEqual(lhs,          product,  file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }

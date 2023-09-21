@@ -107,6 +107,14 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
     
     //=------------------------------------------------------------------------=
+    // MARK: Views
+    //=------------------------------------------------------------------------=
+    
+    @usableFromInline typealias SBP = NBK.StrictBitPattern<Self>
+    
+    @usableFromInline typealias SUI = NBK.StrictUnsignedInteger<Self>
+    
+    //=------------------------------------------------------------------------=
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     

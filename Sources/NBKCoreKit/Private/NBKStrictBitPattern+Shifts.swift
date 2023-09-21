@@ -8,10 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Bit Pattern x Shifts
+// MARK: * NBK x Strict Bit Pattern x Shifts x Left
 //*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Left
+// MARK: + Major
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictBitPattern where Base: MutableCollection {
@@ -23,39 +23,14 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     /// Performs a left shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - environment: The element used to fill the void.
-    ///   - major: `1 <= major < base.count`
-    ///
-    @inlinable public mutating func bitshiftLeft(environment: Base.Element, majorAtLeastOne major: Int) {
-        Self.bitshiftLeftCodeBlock(&self.storage, environment: environment, majorAtLeastOne: major)
-    }
-    
-    /// Performs a left shift, assuming the `base` is ordered from least to most significant.
-    ///
-    /// - Parameters:
-    ///   - environment: The element used to fill the void.
-    ///   - major: `0 <= major < base.count`
-    ///   - minor: `1 <= minor < Base.Element.bitWidth`
-    ///
-    @inlinable public mutating func bitshiftLeft(environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        Self.bitshiftLeftCodeBlock(&self.storage, environment: environment, major: major, minorAtLeastOne: minor)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Algorithms (pointerless performance)
-    //=------------------------------------------------------------------------=
-    
-    /// Performs a left shift, assuming the `base` is ordered from least to most significant.
-    ///
-    /// - Parameters:
     ///   - base: The mutable collection.
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inlinable public static func bitshiftLeftCodeBlock(
+    @inlinable public static func bitshiftLeft(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        Swift.assert(!base.isEmpty)
+        Swift.assert(self.validate(base))
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
@@ -69,6 +44,30 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
             base.formIndex(before: &destination)
             base[destination] = destination >= major ? base[destination &+ offset] : environment
         }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Major + Minor
+//=----------------------------------------------------------------------------=
+
+extension NBK.StrictBitPattern where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a left shift, assuming the `base` is ordered from least to most significant.
+    ///
+    /// - Parameters:
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `0 <= major < base.count`
+    ///   - minor: `1 <= minor < Base.Element.bitWidth`
+    ///
+    @inlinable public static func bitshiftLeft(
+    _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        self.bitshiftLeftCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift, assuming the `base` is ordered from least to most significant.
@@ -86,13 +85,13 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        Swift.assert(!base.isEmpty)
+        Swift.assert(self.validate(base))
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push: Base.Element = NBK.initOrBitCast(truncating: minor)
-        let pull: Base.Element = push.twosComplement()
+        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
+        let pull = push.twosComplement()
         //=--------------------------------------=
         let offset: Int = major.onesComplement()
         var destination = base.endIndex as Base.Index
@@ -108,8 +107,11 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     }
 }
 
+//*============================================================================*
+// MARK: * NBK x Strict Bit Pattern x Shifts x Right
+//*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Right
+// MARK: + Major
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictBitPattern where Base: MutableCollection {
@@ -121,39 +123,14 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     /// Performs a right shift, assuming the `base` is ordered from least to most significant.
     ///
     /// - Parameters:
-    ///   - environment: The element used to fill the void.
-    ///   - major: `1 <= major < base.count`
-    ///
-    @inlinable public mutating func bitshiftRight(environment: Base.Element, majorAtLeastOne major: Int) {
-        Self.bitshiftRightCodeBlock(&self.storage, environment: environment, majorAtLeastOne: major)
-    }
-    
-    /// Performs a right shift, assuming the `base` is ordered from least to most significant.
-    ///
-    /// - Parameters:
-    ///   - environment: The element used to fill the void.
-    ///   - major: `0 <= major < base.count`
-    ///   - minor: `1 <= minor < Base.Element.bitWidth`
-    ///
-    @inlinable public mutating func bitshiftRight(environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        Self.bitshiftRightCodeBlock(&self.storage, environment: environment, major: major, minorAtLeastOne: minor)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations x Algorithms (pointerless performance)
-    //=------------------------------------------------------------------------=
-    
-    /// Performs a right shift, assuming the `base` is ordered from least to most significant.
-    ///
-    /// - Parameters:
     ///   - base: The mutable collection.
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inlinable public static func bitshiftRightCodeBlock(
+    @inlinable public static func bitshiftRight(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        Swift.assert(!base.isEmpty)
+        Swift.assert(self.validate(base))
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
@@ -167,6 +144,30 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
             base[destination] = destination <= edge ? base[destination &+ major] : environment
             base.formIndex(after: &destination)
         }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Major + Minor
+//=----------------------------------------------------------------------------=
+
+extension NBK.StrictBitPattern where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    /// Performs a right shift, assuming the `base` is ordered from least to most significant.
+    ///
+    /// - Parameters:
+    ///   - base: The mutable collection.
+    ///   - environment: The element used to fill the void.
+    ///   - major: `0 <= major < base.count`
+    ///   - minor: `1 <= minor < Base.Element.bitWidth`
+    ///
+    @inlinable public static func bitshiftRight(
+    _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        Self.bitshiftRightCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a right shift, assuming the `base` is ordered from least to most significant.
@@ -184,23 +185,22 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        Swift.assert(!base.isEmpty)
+        Swift.assert(self.validate(base))
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let push: Base.Element = NBK.initOrBitCast(truncating: minor)
-        let pull: Base.Element = push.twosComplement()
+        let push = NBK.initOrBitCast(truncating: minor, as: Base.Element.self)
+        let pull = push.twosComplement()
         //=--------------------------------------=
-        let limit = base.endIndex as Base.Index
-        var destination = base.startIndex as Base.Index
+        var destination = base.startIndex
         var element = base[major] as Base.Element
         //=--------------------------------------=
-        while destination < limit {
+        while destination < base.endIndex {
             let after  = destination &+ 1
             let source = after   &+ major
             let pushed = element &>> push
-            element = source < limit ? base[source] : environment
+            element = source < base.endIndex ? base[source] : environment
             let pulled = element &<< pull
             base[destination] = pushed | pulled
             destination = after as Base.Index
