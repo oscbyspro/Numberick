@@ -19,7 +19,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     
     @inlinable public static func formOnesComplement(_ base: inout Base) {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1)
         //=--------------------------------------=
         for index in base.indices {
             base[index].formOnesComplement()
@@ -40,7 +40,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     
     @inlinable public static func formTwosComplementSubsequence(_ base: inout Base, carry: Bool) -> Bool {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1 as Int)
         //=--------------------------------------=
         var carry = carry
         

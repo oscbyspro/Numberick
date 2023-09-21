@@ -28,7 +28,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     @inlinable public static func remainderReportingOverflow(
     _ base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1 as Int)
         //=--------------------------------------=
         if  divisor.isZero {
             return PVO(partialValue: base.first!, overflow: true)
@@ -51,7 +51,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
     _ base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1 as Int)
         //=--------------------------------------=
         if  divisor.isZero {
             return PVO(partialValue: base.first!, overflow: true)

@@ -39,7 +39,7 @@ final class NBKStrictUnsignedIntegerTestsOnDivision: XCTestCase {
         NBKAssertDivisionByDigit([2] as W, UInt( ), [2] as W, UInt(2), true)
     }
     
-    func testDividingLargeBySmallWithLargeDividend() {
+    func testDividingLargeBySmallWithLargeQuotient() {
         NBKAssertDivisionByDigit([~2,  ~4,  ~6,  9] as W, UInt(2), [~1, ~2, ~3, 4] as W, UInt(1))
         NBKAssertDivisionByDigit([~3,  ~6,  ~9, 14] as W, UInt(3), [~1, ~2, ~3, 4] as W, UInt(2))
         NBKAssertDivisionByDigit([~4,  ~8, ~12, 19] as W, UInt(4), [~1, ~2, ~3, 4] as W, UInt(3))

@@ -26,7 +26,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     @inlinable public static func multiplyReportingOverflow(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
-        //=--------------------------------------=
         !self.multiplyFullWidth(&base, by: multiplicand, add: addend).isZero
     }
     
@@ -37,7 +36,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     @inlinable public static func multiplyFullWidth(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1 as Int)
         //=--------------------------------------=
         var carry: Base.Element = addend
         

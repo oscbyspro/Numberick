@@ -101,7 +101,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs
-        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
@@ -109,7 +109,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
         let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
         let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
@@ -136,7 +136,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs
-        let min = T.increment(&lhs,  by: rhs,  at: index)
+        let min = T.incrementInIntersection(&lhs, by: rhs, at: index)
         let max = T.increment(&lhs,  by: min.overflow, at: min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
@@ -153,7 +153,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs
-        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
         let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)
         XCTAssertEqual(max.overflow, overflow, file: file, line: line)
@@ -161,7 +161,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.increment(&lhs,  by: rhs,  plus: false, at: index)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
         let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
         let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
         XCTAssertEqual(lhs,          result,   file: file, line: line)

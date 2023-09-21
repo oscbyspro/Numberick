@@ -15,21 +15,28 @@ extension NBK {
     
     /// A namespace for strict unsigned integer algorithms.
     ///
-    /// ### Development
+    /// The `base` must be `nonempty` at the start and end of each access.
+    ///
+    /// ```swift
+    /// static func algorithm(_ base: inout Base, input: Input) -> Output
+    /// ```
+    ///
+    /// ### Development 1
     ///
     /// The base needs `zero` to `count` indices for performance reasons.
     ///
     /// ### Development 2
     ///
-    /// Remaking this as a view when Swift gets view types could be neat.
+    /// Remaking this as a view when Swift gets view types might be neat.
     ///
     /// ### Development 3
     ///
-    /// Some algorithms can be made lenient, but meh.
+    /// Some of its algorithms can be made lenient, but meh. Keep it simple.
     ///
     @frozen public struct StrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
+        /// The bit pattern namespace of this type.
         public typealias BitPattern = NBK.StrictBitPattern<Base>
         
         //=--------------------------------------------------------------------=

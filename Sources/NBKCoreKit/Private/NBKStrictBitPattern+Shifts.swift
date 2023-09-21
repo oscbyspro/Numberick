@@ -30,7 +30,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inlinable public static func bitshiftLeft(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1)
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
@@ -67,6 +67,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inlinable public static func bitshiftLeft(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        //=--------------------------------------=
         self.bitshiftLeftCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
@@ -85,7 +86,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1)
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
@@ -130,7 +131,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inlinable public static func bitshiftRight(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1)
         //=--------------------------------------=
         // major: zero works but it is pointless
         //=--------------------------------------=
@@ -167,6 +168,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     ///
     @inlinable public static func bitshiftRight(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
+        //=--------------------------------------=
         Self.bitshiftRightCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
@@ -185,7 +187,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        Swift.assert(self.validate(base))
+        Swift.assert(base.count >= 1)
         //=--------------------------------------=
         precondition(0 <= major && major < base.count, NBK.callsiteOutOfBoundsInfo())
         precondition(0 <  minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
