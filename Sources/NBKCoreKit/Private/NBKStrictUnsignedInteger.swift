@@ -28,16 +28,12 @@ extension NBK {
     /// ### Development 2
     ///
     /// Remaking this as a view when Swift gets view types might be neat.
-    ///
-    /// ### Development 3
-    ///
-    /// Some of its algorithms can be made lenient, but meh. Keep it simple.
-    ///
+    /// 
     @frozen public enum StrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
-        /// The bit pattern namespace of this type.
-        public typealias BitPattern = NBK.StrictBitPattern<Base>
+        /// The binary integer namespace of this type.
+        public typealias BinaryInteger = NBK.StrictBinaryInteger<Base>
         
         //*====================================================================*
         // MARK: * Sub Sequence
@@ -47,6 +43,10 @@ extension NBK {
         ///
         /// The `base` may be `empty` at the start and end of each access.
         ///
-        @frozen public enum SubSequence { }
+        @frozen public enum SubSequence {
+            
+            /// The binary integer namespace of this type.
+            public typealias BinaryInteger = NBK.StrictBinaryInteger<Base>.SubSequence
+        }
     }
 }

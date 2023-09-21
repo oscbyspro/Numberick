@@ -8,13 +8,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Bit Pattern x Shifts x Left
+// MARK: * NBK x Strict Binary Integer x Shifts x Left
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Major
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictBitPattern where Base: MutableCollection {
+extension NBK.StrictBinaryInteger where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -49,7 +49,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
 // MARK: + Major + Minor
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictBitPattern where Base: MutableCollection {
+extension NBK.StrictBinaryInteger where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -104,13 +104,13 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
 }
 
 //*============================================================================*
-// MARK: * NBK x Strict Bit Pattern x Shifts x Right
+// MARK: * NBK x Strict Binary Integer x Shifts x Right
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Major
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictBitPattern where Base: MutableCollection {
+extension NBK.StrictBinaryInteger where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -145,7 +145,7 @@ extension NBK.StrictBitPattern where Base: MutableCollection {
 // MARK: + Major + Minor
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictBitPattern where Base: MutableCollection {
+extension NBK.StrictBinaryInteger where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

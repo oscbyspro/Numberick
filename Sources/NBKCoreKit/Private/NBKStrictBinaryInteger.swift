@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Bit Pattern
+// MARK: * NBK x Strict Binary Integer
 //*============================================================================*
 
 extension NBK {
@@ -28,12 +28,8 @@ extension NBK {
     /// ### Development 2
     ///
     /// Remaking this as a view when Swift gets view types might be neat.
-    ///
-    /// ### Development 3
-    ///
-    /// Some of its algorithms can be made lenient, but meh. Keep it simple.
-    ///
-    @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
+    /// 
+    @frozen public struct StrictBinaryInteger<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         //*====================================================================*

@@ -8,26 +8,26 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Complements x Sub Sequence
+// MARK: * NBK x Strict Binary Integer x Complements x Sub Sequence
 //*============================================================================*
 
-extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
+extension NBK.StrictBinaryInteger.SubSequence where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x One's Complement
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static func formOnesComplement(_ base: inout Base) {
+        for index in base.indices {
+            base[index].formOnesComplement()
+        }
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Two's Complement
     //=------------------------------------------------------------------------=
     
-    @inlinable public static func formTwosComplementReportingOverflow(_ base: inout Base) -> Bool {
-        self.formTwosComplementSubsequence(&base, carry: true)
-    }
-    
-    @inlinable public static func formTwosComplementSubsequence(_ base: inout Base, carry: Bool) -> Bool {
-        var carry = carry
-        
-        for index in base.indices {
-            carry =  base[index].formTwosComplementSubsequence(carry)
-        }
-        
-        return carry as Bool
+    @inlinable public static func formTwosComplement(_ base: inout Base) {
+        _ = NBK.StrictUnsignedInteger<Base>.SubSequence.formTwosComplementReportingOverflow(&base)
     }
 }

@@ -110,7 +110,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     // MARK: Views
     //=------------------------------------------------------------------------=
     
-    @usableFromInline typealias SBP = NBK.StrictBitPattern<Self>
+    @usableFromInline typealias SBI = NBK.StrictBinaryInteger<Self>
     
     @usableFromInline typealias SUI = NBK.StrictUnsignedInteger<Self>
     
