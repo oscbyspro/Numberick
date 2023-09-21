@@ -81,7 +81,7 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Addition x Sub Sequence x Assertions
+// MARK: * NBK x Strict Unsigned Integer x Addition x Assertions
 //*============================================================================*
 
 private func NBKAssertSubSequenceAdditionAtIndex(

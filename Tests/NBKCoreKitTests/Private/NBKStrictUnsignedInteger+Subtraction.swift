@@ -145,7 +145,7 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
 }
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Subtraction x Sub Sequence x Assertions
+// MARK: * NBK x Strict Unsigned Integer x Subtraction x Assertions
 //*============================================================================*
 
 private func NBKAssertSubSequenceSubtractionAtIndex(

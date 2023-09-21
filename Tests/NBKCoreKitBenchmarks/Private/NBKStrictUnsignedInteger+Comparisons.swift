@@ -17,16 +17,18 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Comparisons
+// MARK: * NBK x Strict Unsigned Integer x Comparisons x Sub Sequence
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbsByComparisons: XCTestCase {
+final class NBKStrictUnsignedIntegerBenchmarksOnComparisonsAsSubSequence: XCTestCase {
  
+    typealias T = NBK.StrictUnsignedInteger<UnsafeBufferPointer<UInt>>.SubSequence
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testCompareStrictSignedInteger() {
+    func testCompare() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var rhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
@@ -34,7 +36,7 @@ final class NBKBenchmarksOnLimbsByComparisons: XCTestCase {
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareStrictSignedInteger(lhs, to: rhs))
+                NBK.blackHole(T.compare(lhs, to: rhs))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)
@@ -43,7 +45,7 @@ final class NBKBenchmarksOnLimbsByComparisons: XCTestCase {
         }
     }
     
-    func testCompareStrictSignedIntegerAtIndex() {
+    func testCompareAtIndex() {
         var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         var rhs = NBK.blackHoleIdentity([2, 3, 4, 0] as W)
         var xyz = NBK.blackHoleIdentity((1) as Int)
@@ -51,7 +53,7 @@ final class NBKBenchmarksOnLimbsByComparisons: XCTestCase {
         for _ in 0 ..< 2_500_000 {
             lhs.withUnsafeBufferPointer { lhs in
             rhs.withUnsafeBufferPointer { rhs in
-                NBK.blackHole(NBK.compareStrictSignedInteger(lhs, to: rhs, at: xyz))
+                NBK.blackHole(T.compare(lhs, to: rhs, at: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&lhs)

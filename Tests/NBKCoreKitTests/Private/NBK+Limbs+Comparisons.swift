@@ -102,95 +102,6 @@ final class NBKTestsOnLimbsByComparisons: XCTestCase {
         NBKAssertCompareStrictSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
         NBKAssertCompareStrictSignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
     }
-    
-    func testCompareLenientUnsignedInteger() {
-        NBKAssertCompareLenientUnsignedInteger([ 2,  2        ] as W, [ 1            ] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 2,  2        ] as W, [~1            ] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([~2, ~2        ] as W, [ 1            ] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([~2, ~2        ] as W, [~1            ] as W,  Int(1))
-        
-        NBKAssertCompareLenientUnsignedInteger([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W, -Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
-        
-        NBKAssertCompareLenientUnsignedInteger([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
-    }
-    
-    func testCompareLenientUnsignedIntegerIsLenient() {
-        NBKAssertCompareLenientUnsignedInteger([1] as W, [ ] as W,  Int(1))
-        NBKAssertCompareLenientUnsignedInteger([ ] as W, [ ] as W,  Int(0))
-        NBKAssertCompareLenientUnsignedInteger([ ] as W, [1] as W, -Int(1))
-    }
-    
-    func testCompareLenientUnsignedIntegerAtIndex() {
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [ 0] as W, Int(1),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [ 0] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [ 0] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [ 0] as W, Int(1),  Int(1))
-        
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [ 1] as W, Int(1), -Int(1))
-        
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [~1] as W, Int(1), -Int(1))
-        
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 1] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~1] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0] as W, [~0] as W, Int(1), -Int(1))
-        
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
-
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
-
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
-
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
-        
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
-    }
-    
-    func testCompareLenientUnsignedIntegerAtIndexIsLenient() {
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([1] as W, [ ] as W, Int(1),  Int(1))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ ] as W, [ ] as W, Int(1),  Int(0))
-        NBKAssertCompareLenientUnsignedIntegerAtIndex([ ] as W, [1] as W, Int(1), -Int(1))
-    }
 }
 
 //*============================================================================*
@@ -217,28 +128,6 @@ file: StaticString = #file, line: UInt = #line) {
     }}
     //=------------------------------------------=
     NBKAssertCompareStrictSignedInteger(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
-}
-
-private func NBKAssertCompareLenientUnsignedInteger(
-_ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
-file: StaticString = #file, line: UInt = #line) {
-    lhs.withUnsafeBufferPointer { lhs in
-    rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareLenientUnsignedInteger(lhs, to: rhs),  signum, file: file, line: line)
-        XCTAssertEqual(NBK.compareLenientUnsignedInteger(rhs, to: lhs), -signum, file: file, line: line)
-    }}
-}
-
-private func NBKAssertCompareLenientUnsignedIntegerAtIndex(
-_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
-file: StaticString = #file, line: UInt = #line) {
-    //=------------------------------------------=
-    lhs.withUnsafeBufferPointer { lhs in
-    rhs.withUnsafeBufferPointer { rhs in
-        XCTAssertEqual(NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index), signum, file: file, line: line)
-    }}
-    //=------------------------------------------=
-    NBKAssertCompareLenientUnsignedInteger(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
 }
 
 #endif

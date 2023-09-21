@@ -27,6 +27,8 @@ final class NBKStrictUnsignedIntegerTestsOnDivisionAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingSmallBySmall() {
+        NBKAssertSubSequenceDivisionByDigit([ ] as W, UInt(1), [ ] as W, UInt( ))
+        NBKAssertSubSequenceDivisionByDigit([ ] as W, UInt(2), [ ] as W, UInt( ))
         NBKAssertSubSequenceDivisionByDigit([0] as W, UInt(1), [0] as W, UInt( ))
         NBKAssertSubSequenceDivisionByDigit([0] as W, UInt(2), [0] as W, UInt( ))
         NBKAssertSubSequenceDivisionByDigit([7] as W, UInt(1), [7] as W, UInt( ))
@@ -34,6 +36,7 @@ final class NBKStrictUnsignedIntegerTestsOnDivisionAsSubSequence: XCTestCase {
     }
     
     func testDividingSmallBySmallReportingOverflow() {
+        NBKAssertSubSequenceDivisionByDigit([ ] as W, UInt( ), [ ] as W, UInt( ), true)
         NBKAssertSubSequenceDivisionByDigit([0] as W, UInt( ), [0] as W, UInt( ), true)
         NBKAssertSubSequenceDivisionByDigit([1] as W, UInt( ), [1] as W, UInt(1), true)
         NBKAssertSubSequenceDivisionByDigit([2] as W, UInt( ), [2] as W, UInt(2), true)
@@ -48,7 +51,7 @@ final class NBKStrictUnsignedIntegerTestsOnDivisionAsSubSequence: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Division x Sub Sequence x Assertions
+// MARK: * NBK x Strict Unsigned Integer x Division x Assertions
 //*============================================================================*
 
 private func NBKAssertSubSequenceDivisionByDigit(

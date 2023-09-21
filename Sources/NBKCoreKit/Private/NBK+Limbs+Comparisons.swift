@@ -36,37 +36,3 @@ extension NBK {
         return Int(bit: partition == index ? !prefix.allSatisfy{ $0.isZero } : lhs.sign)
     }
 }
-
-//*============================================================================*
-// MARK: * NBK x Limbs x Comparisons x Unsigned
-//*============================================================================*
-
-extension NBK {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Binary Integer x Lenient
-    //=------------------------------------------------------------------------=
-    
-    /// A three-way comparison of `lhs` against `rhs`.
-    ///
-    /// - Note: This operation interprets empty collections as zero.
-    ///
-    @inlinable public static func compareLenientUnsignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords) -> Int {
-        let lhs = SuccinctInt(fromStrictUnsignedIntegerSubSequence: lhs)
-        let rhs = SuccinctInt(fromStrictUnsignedIntegerSubSequence: rhs)
-        return lhs.compared(toSameSign: rhs) as Int
-    }
-    
-    /// A three-way comparison of `lhs` against `rhs` at `index`.
-    ///
-    /// - Note: This operation interprets empty collections as zero.
-    ///
-    @inlinable public static func compareLenientUnsignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords, at index: Int) -> Int {
-        let partition = Swift.min(index, lhs.endIndex)
-        let suffix = UnsafeWords(rebasing: lhs.suffix(from: partition))
-        let comparison = NBK.compareLenientUnsignedInteger(suffix, to: rhs)
-        if !comparison.isZero { return comparison }
-        let prefix = UnsafeWords(rebasing: lhs.prefix(upTo: partition))
-        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
-    }
-}
