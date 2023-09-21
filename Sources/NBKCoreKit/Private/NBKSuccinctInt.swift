@@ -8,19 +8,56 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Succinct Binary Integer x Components
+// MARK: * NBK x Succinct Int
 //*============================================================================*
+
+extension NBK {
+    
+    /// A succinct binary integer.
+    ///
+    /// ### Development
+    ///
+    /// The base needs `zero` to `count` indices for performance reasons.
+    ///
+    @frozen public struct SuccinctInt<Base> where Base: NBKOffsetAccessCollection,
+    Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        public let body: Base
+        public let sign: Bool
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable public init(_ body: Base, sign: Bool) {
+            self.body = body
+            self.sign = sign
+            precondition(self.body.last != Base.Element(repeating: sign))
+        }
+        
+        @inlinable public init(unchecked body: Base, sign: Bool) {
+            self.body = body
+            self.sign = sign
+            Swift.assert(self.body.last != Base.Element(repeating: sign))
+        }
+    }
+}
+
 //=----------------------------------------------------------------------------=
-// MARK: + Pointers
+// MARK: + where Base is Unsafe Buffer Pointer
 //=----------------------------------------------------------------------------=
 
-extension NBK.SuccinctBinaryInteger {
+extension NBK.SuccinctInt {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Returns the `sign` bit, along with the `body` of significant elements.
+    /// Creates a new instance from a strict signed integer.
     ///
     /// ```
     /// ┌─────────────── → ───────────────┬───────┐
@@ -39,15 +76,14 @@ extension NBK.SuccinctBinaryInteger {
     ///
     /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public static func components<T>(
-    fromStrictSignedInteger source: Base) -> Components where Base == UnsafeBufferPointer<T> {
-        let sign = source.last!.mostSignificantBit
+    @inline(__always) @inlinable public init?<T>(fromStrictSignedInteger source: Base) where Base == UnsafeBufferPointer<T> {
+        guard let sign = source.last?.mostSignificantBit else { return nil }
         let bits = UInt(repeating: sign)
-        let body = Base(rebasing: NBK.dropLast(from: source, while:{ $0 == bits }))
-        return Components(body: body, sign: sign)
+        let body = Base(rebasing:  NBK.dropLast(from: source, while:{ $0 == bits }))
+        self.init(unchecked: body, sign: sign)
     }
     
-    /// Returns the `sign` bit, along with the `body` of significant elements.
+    /// Creates a new instance from a strict unsigned integer subsequence.
     ///
     /// ```
     /// ┌─────────────── → ───────────────┬───────┐
@@ -66,9 +102,7 @@ extension NBK.SuccinctBinaryInteger {
     ///
     /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public static func components<T>(
-    fromStrictUnsignedIntegerSubSequence source: Base) -> Components where Base == UnsafeBufferPointer<T> {
-        Components(body: Base(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
+    @inline(__always) @inlinable public init<T>(fromStrictUnsignedIntegerSubSequence source: Base) where Base == UnsafeBufferPointer<T> {
+        self.init(unchecked: Base(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
     }
 }
-

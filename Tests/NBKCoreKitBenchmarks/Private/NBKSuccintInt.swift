@@ -17,26 +17,26 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Succinct Binary Integer
+// MARK: * NBK x Succinct Int
 //*============================================================================*
 
-final class NBKSuccinctBinaryIntegerBenchmarksOnComponents: XCTestCase {
+final class NBKSuccinctIntBenchmarks: XCTestCase {
     
-    typealias T = NBK.SuccinctBinaryInteger<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.SuccinctInt<UnsafeBufferPointer<UInt>>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMakeComponentsFromStrictSignedInteger() {
+    func testFromStrictSignedInteger() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(T.components(fromStrictSignedInteger: abc))
-                NBK.blackHole(T.components(fromStrictSignedInteger: xyz))
+                NBK.blackHole(T(fromStrictSignedInteger: abc)!)
+                NBK.blackHole(T(fromStrictSignedInteger: xyz)!)
             }}
             
             NBK.blackHoleInoutIdentity(&abc)
@@ -44,15 +44,15 @@ final class NBKSuccinctBinaryIntegerBenchmarksOnComponents: XCTestCase {
         }
     }
     
-    func testMakeComponentsFromStrictUnsignedIntegerSubSequence() {
+    func testFromStrictUnsignedIntegerSubSequence() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(T.components(fromStrictUnsignedIntegerSubSequence: abc))
-                NBK.blackHole(T.components(fromStrictUnsignedIntegerSubSequence: xyz))
+                NBK.blackHole(T(fromStrictUnsignedIntegerSubSequence: abc))
+                NBK.blackHole(T(fromStrictUnsignedIntegerSubSequence: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)

@@ -19,20 +19,18 @@ extension NBK {
     
     /// A three-way comparison of `lhs` against `rhs`.
     @inlinable public static func compareStrictSignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords) -> Int {
-        typealias SBI = SuccinctBinaryInteger<UnsafeWords>
-        let lhs = SBI.components(fromStrictSignedInteger: lhs)
-        let rhs = SBI.components(fromStrictSignedInteger: rhs)
-        return SBI.compare(lhs, to: rhs)
+        let lhs = SuccinctInt(fromStrictSignedInteger: lhs)!
+        let rhs = SuccinctInt(fromStrictSignedInteger: rhs)!
+        return lhs.compared(to: rhs) as Int
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
     @inlinable public static func compareStrictSignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords, at index: Int) -> Int {
-        typealias SBI = SuccinctBinaryInteger<UnsafeWords>
-        let lhs = SBI.components(fromStrictSignedInteger: lhs)
-        let rhs = SBI.components(fromStrictSignedInteger: rhs)
+        let lhs = SuccinctInt(fromStrictSignedInteger: lhs)!
+        let rhs = SuccinctInt(fromStrictSignedInteger: rhs)!
         let partition = Swift.min(index,   lhs.body.endIndex)
         let suffix = UnsafeWords(rebasing: lhs.body.suffix(from: partition))
-        let comparison = SBI.compare((body: suffix, sign: lhs.sign),to: rhs)
+        let comparison = SuccinctInt(unchecked: suffix, sign: lhs.sign).compared(to: rhs)
         if !comparison.isZero { return comparison }
         let prefix = UnsafeWords(rebasing: lhs.body.prefix(upTo: partition))
         return Int(bit: partition == index ? !prefix.allSatisfy{ $0.isZero } : lhs.sign)
@@ -54,10 +52,9 @@ extension NBK {
     /// - Note: This operation interprets empty collections as zero.
     ///
     @inlinable public static func compareLenientUnsignedInteger(_ lhs: UnsafeWords, to rhs: UnsafeWords) -> Int {
-        typealias SBI = SuccinctBinaryInteger<UnsafeWords>
-        let lhs = SBI.components(fromStrictUnsignedIntegerSubSequence: lhs)
-        let rhs = SBI.components(fromStrictUnsignedIntegerSubSequence: rhs)
-        return SBI.compareSameSign(lhs, to: rhs)
+        let lhs = SuccinctInt(fromStrictUnsignedIntegerSubSequence: lhs)
+        let rhs = SuccinctInt(fromStrictUnsignedIntegerSubSequence: rhs)
+        return lhs.compared(toSameSign: rhs) as Int
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
