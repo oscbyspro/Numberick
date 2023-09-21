@@ -8,14 +8,14 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Binary Integer
+// MARK: * NBK x Succinct Binary Integer
 //*============================================================================*
 
 extension NBK {
     
-    /// A namespace for strict binary integer algorithms.
+    /// A namespace for succinct binary integer algorithms.
     ///
-    /// The `base` must be `nonempty` at the start and end of each access.
+    /// The `base` must be `succinct` at the start and end of each access.
     ///
     /// ```swift
     /// static func algorithm(_ base: inout Base, input: Input) -> Output
@@ -28,18 +28,14 @@ extension NBK {
     /// ### Development 2
     ///
     /// Remaking this as a view when Swift gets view types might be neat.
-    /// 
-    @frozen public struct StrictBinaryInteger<Base> where Base: NBKOffsetAccessCollection,
+    ///
+    @frozen public enum SuccinctBinaryInteger<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         //*====================================================================*
-        // MARK: * Sub Sequence
+        // MARK: * Components
         //*====================================================================*
         
-        /// The sub sequence namespace of this type.
-        ///
-        /// The `base` may be `empty` at the start and end of each access.
-        ///
-        @frozen public enum SubSequence { }
+        public typealias Components = (body: Base, sign: Bool)
     }
 }

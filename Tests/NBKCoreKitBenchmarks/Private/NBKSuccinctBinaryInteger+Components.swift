@@ -17,24 +17,26 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Succinct
+// MARK: * NBK x Succinct Binary Integer
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbsBySuccinct: XCTestCase {
+final class NBKSuccinctBinaryIntegerBenchmarksOnComponents: XCTestCase {
+    
+    typealias T = NBK.SuccinctBinaryInteger<UnsafeBufferPointer<UInt>>
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMakeSuccinctSignedInteger() {
+    func testMakeComponentsFromStrictSignedInteger() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: abc))
-                NBK.blackHole(NBK.makeSuccinctSignedInteger(fromStrictSignedInteger: xyz))
+                NBK.blackHole(T.components(fromStrictSignedInteger: abc))
+                NBK.blackHole(T.components(fromStrictSignedInteger: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)
@@ -42,15 +44,15 @@ final class NBKBenchmarksOnLimbsBySuccinct: XCTestCase {
         }
     }
     
-    func testMakeSuccinctUnsignedInteger() {
+    func testMakeComponentsFromStrictUnsignedIntegerSubSequence() {
         var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
         var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: abc))
-                NBK.blackHole(NBK.makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: xyz))
+                NBK.blackHole(T.components(fromStrictUnsignedIntegerSubSequence: abc))
+                NBK.blackHole(T.components(fromStrictUnsignedIntegerSubSequence: xyz))
             }}
             
             NBK.blackHoleInoutIdentity(&abc)

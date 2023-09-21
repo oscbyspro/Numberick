@@ -8,16 +8,19 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Succinct
+// MARK: * NBK x Succinct Binary Integer x Components
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Pointers
+//=----------------------------------------------------------------------------=
 
-extension NBK {
+extension NBK.SuccinctBinaryInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Returns the `sign` bit, along with the `body` of significant limbs.
+    /// Returns the `sign` bit, along with the `body` of significant elements.
     ///
     /// ```
     /// ┌─────────────── → ───────────────┬───────┐
@@ -32,14 +35,19 @@ extension NBK {
     /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
-    @_transparent public static func makeSuccinctSignedInteger(fromStrictSignedInteger source: UnsafeWords) -> UnsafeSuccinctWords {
+    /// ### Development
+    ///
+    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
+    ///
+    @inline(__always) @inlinable public static func components<T>(
+    fromStrictSignedInteger source: Base) -> Components where Base == UnsafeBufferPointer<T> {
         let sign = source.last!.mostSignificantBit
         let bits = UInt(repeating: sign)
-        let body = UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0 == bits }))
-        return (body:  body, sign: sign)
+        let body = Base(rebasing: NBK.dropLast(from: source, while:{ $0 == bits }))
+        return Components(body: body, sign: sign)
     }
     
-    /// Returns the `sign` bit, along with the `body` of significant limbs.
+    /// Returns the `sign` bit, along with the `body` of significant elements.
     ///
     /// ```
     /// ┌─────────────── → ───────────────┬───────┐
@@ -54,9 +62,13 @@ extension NBK {
     /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
-    /// - Note: This operation interprets empty collections as zero.
+    /// ### Development
     ///
-    @_transparent public static func makeSuccinctUnsignedInteger(fromLenientUnsignedInteger source: UnsafeWords) -> UnsafeSuccinctWords {
-        return (body: UnsafeWords(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
+    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
+    ///
+    @inline(__always) @inlinable public static func components<T>(
+    fromStrictUnsignedIntegerSubSequence source: Base) -> Components where Base == UnsafeBufferPointer<T> {
+        Components(body: Base(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
     }
 }
+
