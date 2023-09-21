@@ -8,13 +8,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Multiplication
+// MARK: * NBK x Strict Unsigned Integer x Multiplication x Sub Sequence
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Digit + Digit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -35,9 +35,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     @inlinable public static func multiplyFullWidth(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
-        //=--------------------------------------=
-        Swift.assert(base.count >= 1 as Int)
-        //=--------------------------------------=
         var carry: Base.Element = addend
         
         for index in base.indices {

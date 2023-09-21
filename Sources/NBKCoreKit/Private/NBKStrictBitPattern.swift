@@ -36,10 +36,14 @@ extension NBK {
     @frozen public struct StrictBitPattern<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities
-        //=--------------------------------------------------------------------=
+        //*====================================================================*
+        // MARK: * Sub Sequence
+        //*====================================================================*
         
-        @inlinable static func validate(_ base: Base) -> Bool { !base.isEmpty }
+        /// The sub sequence namespace of this type.
+        ///
+        /// The `base` may be `empty` at the start and end of each access.
+        ///
+        @frozen public enum SubSequence { }
     }
 }

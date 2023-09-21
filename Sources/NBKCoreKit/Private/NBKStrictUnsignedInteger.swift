@@ -33,16 +33,20 @@ extension NBK {
     ///
     /// Some of its algorithms can be made lenient, but meh. Keep it simple.
     ///
-    @frozen public struct StrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
+    @frozen public enum StrictUnsignedInteger<Base> where Base: NBKOffsetAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         /// The bit pattern namespace of this type.
         public typealias BitPattern = NBK.StrictBitPattern<Base>
         
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities
-        //=--------------------------------------------------------------------=
+        //*====================================================================*
+        // MARK: * Sub Sequence
+        //*====================================================================*
         
-        @inlinable static func validate(_ base: Base) -> Bool { !base.isEmpty }
+        /// The sub sequence namespace of this type.
+        ///
+        /// The `base` may be `empty` at the start and end of each access.
+        ///
+        @frozen public enum SubSequence { }
     }
 }

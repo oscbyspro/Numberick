@@ -17,20 +17,20 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Multiplication
+// MARK: * NBK x Strict Unsigned Integer x Multiplication x Sub Sequence
 //*============================================================================*
 
-final class NBKStrictUnsignedIntegerTestsOnMultiplication: XCTestCase {
+final class NBKStrictUnsignedIntegerTestsOnMultiplicationAsSubSequence: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Small
     //=------------------------------------------------------------------------=
     
     func testMultiplicationByDigitWithAddition() {
-        NBKAssertMultiplicationByDigitWithAdditionAsUnsigned([~0, ~0, ~0, ~0] as W,  0,  0, [ 0,  0,  0,  0,  0] as W)
-        NBKAssertMultiplicationByDigitWithAdditionAsUnsigned([~0, ~0, ~0, ~0] as W,  0, ~0, [~0,  0,  0,  0,  0] as W)
-        NBKAssertMultiplicationByDigitWithAdditionAsUnsigned([~0, ~0, ~0, ~0] as W, ~0,  0, [ 1, ~0, ~0, ~0, ~1] as W, true)
-        NBKAssertMultiplicationByDigitWithAdditionAsUnsigned([~0, ~0, ~0, ~0] as W, ~0, ~0, [ 0,  0,  0,  0, ~0] as W, true)
+        NBKAssertSubSequenceMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0,  0, [ 0,  0,  0,  0,  0] as W)
+        NBKAssertSubSequenceMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0, ~0, [~0,  0,  0,  0,  0] as W)
+        NBKAssertSubSequenceMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0,  0, [ 1, ~0, ~0, ~0, ~1] as W, true)
+        NBKAssertSubSequenceMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0, ~0, [ 0,  0,  0,  0, ~0] as W, true)
     }
 }
 
@@ -38,11 +38,11 @@ final class NBKStrictUnsignedIntegerTestsOnMultiplication: XCTestCase {
 // MARK: * NBK x Strict Unsigned Integer x Multiplication x Assertions
 //*============================================================================*
 
-private func NBKAssertMultiplicationByDigitWithAdditionAsUnsigned(
+private func NBKAssertSubSequenceMultiplicationByDigitWithAddition(
 _ lhs: [UInt], _ rhs: UInt, _ addend: UInt, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
     // multiplication: digit + digit
     //=------------------------------------------=

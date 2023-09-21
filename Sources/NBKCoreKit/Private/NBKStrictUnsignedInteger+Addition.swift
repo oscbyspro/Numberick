@@ -10,13 +10,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Addition
+// MARK: * NBK x Strict Unsigned Integer x Addition x Sub Sequence
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Bit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -48,7 +48,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     _ base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= 1 as Int)
         Swift.assert(base.count >= index) // void
         //=--------------------------------------=
         while bit && index < base.endIndex {
@@ -62,7 +61,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
 // MARK: + Digit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
 
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -136,7 +135,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
 // MARK: + Digit + Bit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
 
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -198,7 +197,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     _ base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= 1 as Int)
         Swift.assert(base.count >  index)
         //=--------------------------------------=
         var digit: Base.Element = digit
@@ -219,7 +217,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
 // MARK: + Elements + Bit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
 
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -279,7 +277,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= 1 as Int)
         Swift.assert(base.count >= elements.count + index)
         //=--------------------------------------=
         for elementIndex in elements.indices {

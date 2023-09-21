@@ -8,7 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Complements
+// MARK: * NBK x Strict Unsigned Integer x Complements x Sub Sequence
 //*============================================================================*
 
 extension NBK.StrictUnsignedInteger where Base: MutableCollection {
@@ -18,9 +18,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func formOnesComplement(_ base: inout Base) {
-        //=--------------------------------------=
-        Swift.assert(base.count >= 1)
-        //=--------------------------------------=
         for index in base.indices {
             base[index].formOnesComplement()
         }
@@ -39,9 +36,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     }
     
     @inlinable public static func formTwosComplementSubsequence(_ base: inout Base, carry: Bool) -> Bool {
-        //=--------------------------------------=
-        Swift.assert(base.count >= 1 as Int)
-        //=--------------------------------------=
         var carry = carry
         
         for index in base.indices {

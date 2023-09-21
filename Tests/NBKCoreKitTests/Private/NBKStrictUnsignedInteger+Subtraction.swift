@@ -17,40 +17,40 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Subtraction
+// MARK: * NBK x Strict Unsigned Integer x Subtraction x Sub Sequence
 //*============================================================================*
 
-final class NBKStrictUnsignedIntegerTestsOnSubtraction: XCTestCase {
+final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testSubtractingLargeFromLargeAtIndex() {
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [3, 0, 0, 0] as W, Int(0), [~2,  0,  2,  3] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 3, 0, 0] as W, Int(0), [ 0, ~1,  1,  3] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 3, 0] as W, Int(0), [ 0,  1, ~0,  2] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 0, 3] as W, Int(0), [ 0,  1,  2,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [3, 0, 0, 0] as W, Int(0), [~2,  0,  2,  3] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 3, 0, 0] as W, Int(0), [ 0, ~1,  1,  3] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 3, 0] as W, Int(0), [ 0,  1, ~0,  2] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 0, 3] as W, Int(0), [ 0,  1,  2,  0] as W)
         
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 0, 3] as W, Int(0), [ 0,  1,  2,  0] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 3   ] as W, Int(1), [ 0,  1,  2,  0] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 3      ] as W, Int(2), [ 0,  1,  2,  0] as W)
-        NBKAssertSubtractionAtIndex([ 0,  1,  2,  3] as W, [3         ] as W, Int(3), [ 0,  1,  2,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 0, 3] as W, Int(0), [ 0,  1,  2,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 0, 3   ] as W, Int(1), [ 0,  1,  2,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [0, 3      ] as W, Int(2), [ 0,  1,  2,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  1,  2,  3] as W, [3         ] as W, Int(3), [ 0,  1,  2,  0] as W)
     }
     
     func testSubtractingLargeFromLargeAtIndexReportingOverflow() {
-        NBKAssertSubtractionAtIndex([ 0,  0,  0,  0] as W, [0, 0, 0, 0] as W, Int(0), [ 0,  0,  0,  0] as W)
-        NBKAssertSubtractionAtIndex([ 0,  0,  0,  0] as W, [1, 0, 0, 0] as W, Int(0), [~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  0,  0,  0] as W, [0, 0, 0, 0] as W, Int(0), [ 0,  0,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 0,  0,  0,  0] as W, [1, 0, 0, 0] as W, Int(0), [~0, ~0, ~0, ~0] as W, true)
         
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0, 0] as W, Int(0), [~0,  1,  1,  0] as W)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0   ] as W, Int(1), [ 3, ~1,  0,  0] as W)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0      ] as W, Int(2), [ 3,  2, ~2, ~0] as W, true)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [4         ] as W, Int(3), [ 3,  2,  1, ~3] as W, true)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0, 0] as W, Int(0), [~0,  1,  1,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0   ] as W, Int(1), [ 3, ~1,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0      ] as W, Int(2), [ 3,  2, ~2, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [4         ] as W, Int(3), [ 3,  2,  1, ~3] as W, true)
         
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0, 0] as W, Int(0), [~0,  1,  1,  0] as W)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 4, 0, 0] as W, Int(0), [ 3, ~1,  0,  0] as W)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 0, 4, 0] as W, Int(0), [ 3,  2, ~2, ~0] as W, true)
-        NBKAssertSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 0, 0, 4] as W, Int(0), [ 3,  2,  1, ~3] as W, true)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [4, 0, 0, 0] as W, Int(0), [~0,  1,  1,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 4, 0, 0] as W, Int(0), [ 3, ~1,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 0, 4, 0] as W, Int(0), [ 3,  2, ~2, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionAtIndex([ 3,  2,  1,  0] as W, [0, 0, 0, 4] as W, Int(0), [ 3,  2,  1, ~3] as W, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -58,25 +58,25 @@ final class NBKStrictUnsignedIntegerTestsOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingSmallFromLargeAtIndex() {
-        NBKAssertSubtractionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(3), Int(0), [~3, ~0, ~0, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0, ~0, ~0, ~0] as W, UInt(3), Int(0), [~2, ~1, ~0, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0, ~0, ~0] as W, UInt(3), Int(0), [~2, ~0, ~1, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0,  0, ~0] as W, UInt(3), Int(0), [~2, ~0, ~0, ~1] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(3), Int(0), [~3, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0, ~0, ~0, ~0] as W, UInt(3), Int(0), [~2, ~1, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0, ~0, ~0] as W, UInt(3), Int(0), [~2, ~0, ~1, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0,  0, ~0] as W, UInt(3), Int(0), [~2, ~0, ~0, ~1] as W)
         
-        NBKAssertSubtractionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(3), Int(1), [~0, ~3, ~0, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0, ~0, ~0, ~0] as W, UInt(3), Int(1), [ 0, ~3, ~0, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0, ~0, ~0] as W, UInt(3), Int(1), [ 0, ~2, ~1, ~0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0,  0, ~0] as W, UInt(3), Int(1), [ 0, ~2, ~0, ~1] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(3), Int(1), [~0, ~3, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0, ~0, ~0, ~0] as W, UInt(3), Int(1), [ 0, ~3, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0, ~0, ~0] as W, UInt(3), Int(1), [ 0, ~2, ~1, ~0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0,  0, ~0] as W, UInt(3), Int(1), [ 0, ~2, ~0, ~1] as W)
     }
     
     func testSubtractingSmallFromLargeAtIndexReportingOverflow() {
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(0), Int(0), [ 0,  0,  0,  0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(1), Int(0), [~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(0), Int(0), [ 0,  0,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(1), Int(0), [~0, ~0, ~0, ~0] as W, true)
         
-        NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(0), [~0,  1,  1,  0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(1), [ 3, ~1,  0,  0] as W)
-        NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(2), [ 3,  2, ~2, ~0] as W, true)
-        NBKAssertSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(3), [ 3,  2,  1, ~3] as W, true)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(0), [~0,  1,  1,  0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(1), [ 3, ~1,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(2), [ 3,  2, ~2, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByDigitAtIndex([ 3,  2,  1,  0] as W, UInt(4), Int(3), [ 3,  2,  1, ~3] as W, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -84,75 +84,75 @@ final class NBKStrictUnsignedIntegerTestsOnSubtraction: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingProductAtIndex() {
-        NBKAssertSubtractionByProductAtIndex([ 0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [ 0] as W)
-        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [~0] as W)
-        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), true,  Int(0), [~1] as W)
-        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), false, Int(0), [~2] as W)
-        NBKAssertSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), true,  Int(0), [~3] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex([ 0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [ 0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), false, Int(0), [~0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(0), true,  Int(0), [~1] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), false, Int(0), [~2] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex([~0] as W, [ ] as W, UInt(0), UInt(2), true,  Int(0), [~3] as W)
     }
     
     func testSubtractingProductAtIndexReportingOverflow() {
-        var pointee: W, limbs: W
+        var lhs: W, rhs: W
         //=--------------------------------------=
-        pointee = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; limbs = [ 1,  2,  3,  4] as W
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; rhs = [ 1,  2,  3,  4] as W
          
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [~2, ~4, ~6, ~8, ~0, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [~0, ~2, ~4, ~6, ~8, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [~0, ~0, ~2, ~4, ~6, ~8, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0, ~2, ~4, ~6, ~8,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(0), [~2, ~4, ~6, ~8, ~0, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(1), [~0, ~2, ~4, ~6, ~8, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(2), [~0, ~0, ~2, ~4, ~6, ~8, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0, ~2, ~4, ~6, ~8,  0] as W)
 
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [~2, ~5, ~6, ~8, ~0, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [~0, ~2, ~5, ~6, ~8, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [~0, ~0, ~2, ~5, ~6, ~8, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0, ~2, ~5, ~6, ~8,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(0), [~2, ~5, ~6, ~8, ~0, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(1), [~0, ~2, ~5, ~6, ~8, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(2), [~0, ~0, ~2, ~5, ~6, ~8, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0, ~2, ~5, ~6, ~8,  0] as W)
         //=--------------------------------------=
-        pointee = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; limbs = [~1, ~2, ~3, ~4] as W
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W; rhs = [~1, ~2, ~3, ~4] as W
          
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [ 3,  4,  6,  8, ~1, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [~0,  3,  4,  6,  8, ~1, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [~0, ~0,  3,  4,  6,  8, ~1,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0,  3,  4,  6,  8, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(0), [ 3,  4,  6,  8, ~1, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(1), [~0,  3,  4,  6,  8, ~1, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(2), [~0, ~0,  3,  4,  6,  8, ~1,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(3), [~0, ~0, ~0,  3,  4,  6,  8, ~0] as W, true)
         
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [ 3,  3,  6,  8, ~1, ~0, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [~0,  3,  3,  6,  8, ~1, ~0,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [~0, ~0,  3,  3,  6,  8, ~1,  0] as W)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0,  3,  3,  6,  8, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(0), [ 3,  3,  6,  8, ~1, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(1), [~0,  3,  3,  6,  8, ~1, ~0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(2), [~0, ~0,  3,  3,  6,  8, ~1,  0] as W)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(3), [~0, ~0, ~0,  3,  3,  6,  8, ~0] as W, true)
         //=--------------------------------------=
-        pointee = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; limbs = [ 1,  2,  3,  4] as W
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; rhs = [ 1,  2,  3,  4] as W
         
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [ 0, ~1, ~4, ~6, ~8, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [ 0,  0, ~1, ~4, ~6, ~8, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0, ~1, ~4, ~6, ~8, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(0), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(1), [ 0, ~1, ~4, ~6, ~8, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(2), [ 0,  0, ~1, ~4, ~6, ~8, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0, ~1, ~4, ~6, ~8, ~0] as W, true)
         
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [ 0, ~1, ~5, ~6, ~8, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [ 0,  0, ~1, ~5, ~6, ~8, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0, ~1, ~5, ~6, ~8, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(0), [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(1), [ 0, ~1, ~5, ~6, ~8, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(2), [ 0,  0, ~1, ~5, ~6, ~8, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0, ~1, ~5, ~6, ~8, ~0] as W, true)
         //=--------------------------------------=
-        pointee = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; limbs = [~1, ~2, ~3, ~4] as W
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W; rhs = [~1, ~2, ~3, ~4] as W
         
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(0), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(1), [ 0,  4,  4,  6,  8, ~1, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(2), [ 0,  0,  4,  4,  6,  8, ~1, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0,  4,  4,  6,  8, ~1] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(0), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(1), [ 0,  4,  4,  6,  8, ~1, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(2), [ 0,  0,  4,  4,  6,  8, ~1, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt(0), false, Int(3), [ 0,  0,  0,  4,  4,  6,  8, ~1] as W, true)
         
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(0), [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(1), [ 0,  4,  3,  6,  8, ~1, ~0, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(2), [ 0,  0,  4,  3,  6,  8, ~1, ~0] as W, true)
-        NBKAssertSubtractionByProductAtIndex(pointee, limbs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0,  4,  3,  6,  8, ~1] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(0), [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(1), [ 0,  4,  3,  6,  8, ~1, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(2), [ 0,  0,  4,  3,  6,  8, ~1, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProductAtIndex(lhs, rhs, UInt(2), UInt.max, true, Int(3), [ 0,  0,  0,  4,  3,  6,  8, ~1] as W, true)
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Subtraction x Assertions
+// MARK: * NBK x Strict Unsigned Integer x Subtraction x Sub Sequence x Assertions
 //*============================================================================*
 
-private func NBKAssertSubtractionAtIndex(
+private func NBKAssertSubSequenceSubtractionAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
     // decrement: elements + bit
     //=------------------------------------------=
@@ -181,13 +181,13 @@ file: StaticString = #file, line: UInt = #line) {
     }
 }
 
-private func NBKAssertSubtractionByDigitAtIndex(
+private func NBKAssertSubSequenceSubtractionByDigitAtIndex(
 _ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
-    NBKAssertSubtractionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
+    NBKAssertSubSequenceSubtractionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
     //=------------------------------------------=
     // decrement: digit
     //=------------------------------------------=
@@ -233,11 +233,11 @@ file: StaticString = #file, line: UInt = #line) {
     }
 }
 
-private func NBKAssertSubtractionByProductAtIndex(
+private func NBKAssertSubSequenceSubtractionByProductAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ bit: Bool, _ index: Int, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
     // decrement: limbs × digit + digit + bit
     //=------------------------------------------=

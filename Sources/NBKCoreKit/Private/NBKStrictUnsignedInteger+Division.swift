@@ -8,13 +8,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Division
+// MARK: * NBK x Strict Unsigned Integer x Division x Sub Sequence
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + Digit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -28,14 +28,12 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     @inlinable public static func remainderReportingOverflow(
     _ base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
-        Swift.assert(base.count >= 1 as Int)
+        var remainder = 0 as Base.Element
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: base.first!, overflow: true)
+            return PVO(partialValue: base.first ?? remainder, overflow: true)
         }
         //=--------------------------------------=
-        var remainder = 0 as Base.Element
-        
         for index in base.indices.reversed() {
             remainder = divisor.dividingFullWidth(HL(high: remainder, low: base[index])).remainder
         }
@@ -51,14 +49,12 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
     _ base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
-        Swift.assert(base.count >= 1 as Int)
+        var remainder = 0 as Base.Element
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: base.first!, overflow: true)
+            return PVO(partialValue: base.first ?? remainder, overflow: true)
         }
         //=--------------------------------------=
-        var remainder = 0 as Base.Element
-        
         for index in base.indices.reversed() {
             (base[index], remainder) = divisor.dividingFullWidth(HL(high: remainder, low: base[index]))
         }
