@@ -8,13 +8,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Comparisons x Sub Sequence
+// MARK: * NBK x Strict Signed Integer x Comparisons
 //*============================================================================*
 //=----------------------------------------------------------------------------=
 // MARK: + where Base is Unsafe Buffer Pointer
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger.SubSequence {
+extension NBK.StrictSignedInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -22,24 +22,30 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     
     /// A three-way comparison of `lhs` against `rhs`.
     ///
-    /// - Note: This operation interprets empty collections as zero.
+    /// ### Development
+    ///
+    /// Specializing this it where `T == UInt` makes it faster.
     ///
     @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base) -> Int where Base == UnsafeBufferPointer<T> {
-        let lhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: lhs)
-        let rhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: rhs)
-        return lhs.compared(toSameSign: rhs) as Int
+        let lhs = NBK.SuccinctInt(fromStrictSignedInteger: lhs)!
+        let rhs = NBK.SuccinctInt(fromStrictSignedInteger: rhs)!
+        return lhs.compared(to: rhs) as Int
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
     ///
-    /// - Note: This operation interprets empty collections as zero.
+    /// ### Development
+    ///
+    /// Specializing this it where `T == UInt` makes it faster.
     ///
     @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base, at index: Int) -> Int where Base == UnsafeBufferPointer<T> {
-        let partition = Swift.min(index, lhs.endIndex)
-        let suffix = Base(rebasing: lhs.suffix(from: partition))
-        let comparison = self.compare(suffix, to: rhs) as Int
+        let lhs = NBK.SuccinctInt(fromStrictSignedInteger: lhs)!
+        let rhs = NBK.SuccinctInt(fromStrictSignedInteger: rhs)!
+        let partition = Swift.min(index, lhs.body.endIndex)
+        let suffix = Base(rebasing:  lhs.body.suffix(from: partition))
+        let comparison = NBK.SuccinctInt(unchecked: suffix, sign: lhs.sign).compared(to: rhs)
         if !comparison.isZero { return comparison }
-        let prefix = Base(rebasing: lhs.prefix(upTo: partition))
-        return Int(bit: !prefix.allSatisfy({ $0.isZero }))
+        let prefix = Base(rebasing:  lhs.body.prefix(upTo: partition))
+        return Int(bit: partition == index ? !prefix.allSatisfy({ $0.isZero }) : lhs.sign)
     }
 }
