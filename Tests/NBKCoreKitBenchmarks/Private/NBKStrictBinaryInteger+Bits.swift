@@ -13,13 +13,16 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Limbs x Bits
+// MARK: * NBK x Strict Binary Integer x Bits x Sub Sequence
 //*============================================================================*
 
-final class NBKBenchmarksOnLimbsByBits: XCTestCase {
+final class NBKStrictBinaryIntegerBenchmarksOnBitsAsSubSequence: XCTestCase {
     
     private typealias U64 = [UInt64]
     private typealias U32 = [UInt32]
+    
+    private typealias T64 = NBK.StrictBinaryInteger<U64>.SubSequence
+    private typealias T32 = NBK.StrictBinaryInteger<U32>.SubSequence
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -28,10 +31,10 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     func testLeadingZeroBitCount() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
-                
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.leadingZeroBitCount(of: abc))
-            NBK.blackHole(NBK.leadingZeroBitCount(of: xyz))
+            NBK.blackHole(T64.leadingZeroBitCount(of: abc))
+            NBK.blackHole(T64.leadingZeroBitCount(of: xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -41,10 +44,10 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     func testTrailingZeroBitCount() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
-                
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.trailingZeroBitCount(of: abc))
-            NBK.blackHole(NBK.trailingZeroBitCount(of: xyz))
+            NBK.blackHole(T64.trailingZeroBitCount(of: abc))
+            NBK.blackHole(T64.trailingZeroBitCount(of: xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -56,8 +59,8 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.mostSignificantBit(twosComplementOf: abc)!)
-            NBK.blackHole(NBK.mostSignificantBit(twosComplementOf: xyz)!)
+            NBK.blackHole(T64.mostSignificantBit(twosComplementOf: abc)!)
+            NBK.blackHole(T64.mostSignificantBit(twosComplementOf: xyz)!)
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -71,10 +74,10 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     func testNonzeroBitCount() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
-                
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.nonzeroBitCount(of: abc))
-            NBK.blackHole(NBK.nonzeroBitCount(of: xyz))
+            NBK.blackHole(T64.nonzeroBitCount(of: abc))
+            NBK.blackHole(T64.nonzeroBitCount(of: xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -84,10 +87,10 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     func testNonzeroBitCountEquals() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
-
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.nonzeroBitCount(of: abc, equals: 1))
-            NBK.blackHole(NBK.nonzeroBitCount(of: xyz, equals: 1))
+            NBK.blackHole(T64.nonzeroBitCount(of: abc, equals: 1))
+            NBK.blackHole(T64.nonzeroBitCount(of: xyz, equals: 1))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -97,10 +100,10 @@ final class NBKBenchmarksOnLimbsByBits: XCTestCase {
     func testNonzeroBitCountTwosComplementOf() {
         var abc = NBK.blackHoleIdentity([ 0,  0,  0,  0,  0,  0,  0,  0] as U64)
         var xyz = NBK.blackHoleIdentity([~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as U64)
-
+        
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(NBK.nonzeroBitCount(twosComplementOf: abc))
-            NBK.blackHole(NBK.nonzeroBitCount(twosComplementOf: xyz))
+            NBK.blackHole(T64.nonzeroBitCount(twosComplementOf: abc))
+            NBK.blackHole(T64.nonzeroBitCount(twosComplementOf: xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
