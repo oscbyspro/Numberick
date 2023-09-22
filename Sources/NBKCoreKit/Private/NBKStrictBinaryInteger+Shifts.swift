@@ -85,7 +85,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///
     /// ### Development
     ///
-    /// - `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
+    /// `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
     ///
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
@@ -200,7 +200,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///
     /// ### Development
     ///
-    /// - `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
+    /// `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
     ///
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {

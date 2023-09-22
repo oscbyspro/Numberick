@@ -8,20 +8,23 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Words
+// MARK: * NBK x Strict Binary Integer x Words
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Digit where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
 
-extension NBK {
+extension NBK.StrictBinaryInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Int or UInt
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Grants unsafe access to the words of `word`.
-    @inlinable public static func withUnsafeWords<T>(of word: some NBKCoreInteger<UInt>,
-    perform body: (NBK.UnsafeWords) throws -> T) rethrows -> T  {
-        try Swift.withUnsafePointer(to: UInt(bitPattern: word)) {
-            try body(NBK.UnsafeWords(start: $0, count: 1 as Int))
+    /// Grants unsafe access to the given element as a strict binary integer.
+    @inlinable public static func withUnsafeBufferPointer<T, U>(
+    to  element: T, perform body: (Base) throws -> U) rethrows -> U where Base == UnsafeBufferPointer<T> {
+        try Swift.withUnsafePointer(to: element) {
+            try body(Base(start: $0, count: 1 as Int))
         }
     }
 }
