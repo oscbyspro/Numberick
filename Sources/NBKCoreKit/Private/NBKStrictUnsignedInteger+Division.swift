@@ -14,7 +14,7 @@
 // MARK: + Digit
 //=----------------------------------------------------------------------------=
 
-extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
+extension NBK.StrictUnsignedInteger.SubSequence {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
@@ -40,6 +40,17 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         
         return PVO(partialValue: remainder, overflow: false)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Digit where Base is Mutable Collection
+//=----------------------------------------------------------------------------=
+
+extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
     
     /// Forms the `quotient` of dividing the `base` by the `divisor`,
     /// and returns the `remainder` along with an `overflow` indicator.
