@@ -28,7 +28,10 @@ extension NBK {
     @frozen public enum StrictUnsignedInteger<Base> where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         /// The binary integer namespace of this type.
-        public typealias BinaryInteger = NBK.StrictBinaryInteger<Base>
+        public typealias Binary = NBK.StrictBinaryInteger<Base>
+        
+        /// The signed integer namespace of this type.
+        public typealias Signed = NBK.StrictSignedInteger<Base>
         
         //*====================================================================*
         // MARK: * Sub Sequence
@@ -41,7 +44,10 @@ extension NBK {
         @frozen public enum SubSequence {
             
             /// The binary integer namespace of this type.
-            public typealias BinaryInteger = NBK.StrictBinaryInteger<Base>.SubSequence
+            public typealias Binary = NBK.StrictBinaryInteger<Base>.SubSequence
+            
+            /// The signed integer namespace of this type.
+            public typealias Signed = NBK.StrictSignedInteger<Base>.SubSequence
         }
     }
 }

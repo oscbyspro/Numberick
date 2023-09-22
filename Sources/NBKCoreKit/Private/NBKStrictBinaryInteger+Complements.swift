@@ -28,6 +28,6 @@ extension NBK.StrictBinaryInteger.SubSequence where Base: MutableCollection {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func formTwosComplement(_ base: inout Base) {
-        _ = NBK.StrictUnsignedInteger<Base>.SubSequence.formTwosComplementReportingOverflow(&base)
+        _ = Unsigned.formTwosComplementReportingOverflow(&base)
     }
 }

@@ -81,6 +81,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     }
     
     @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        SUI.SubSequence.formQuotientWithRemainderReportingOverflow(&self, dividingBy: other)
+        SBI.Unsigned.SubSequence.formQuotientWithRemainderReportingOverflow(&self, dividingBy: other)
     }
 }

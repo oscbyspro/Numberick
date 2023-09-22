@@ -70,7 +70,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
     @inlinable public static func bitshiftLeft(_ base: inout Base, major: Int, minorAtLeastOne minor: Int) {
-        BinaryInteger.bitshiftLeft(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
+        Binary.bitshiftLeft(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -79,7 +79,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public static func bitshiftLeft(_ base: inout Base, majorAtLeastOne major: Int) {
-        BinaryInteger.bitshiftLeft(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
+        Binary.bitshiftLeft(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }
 
@@ -143,7 +143,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
     @inlinable public static func bitshiftRight(_ base: inout Base, major: Int, minorAtLeastOne minor: Int) {
-        BinaryInteger.bitshiftRight(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
+        Binary.bitshiftRight(&base, environment: 0 as Base.Element, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an unsigned right shift.
@@ -152,6 +152,6 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - major: `1 <= major < base.endIndex`
     ///
     @inlinable public static func bitshiftRight(_ base: inout Base, majorAtLeastOne major: Int) {
-        BinaryInteger.bitshiftRight(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
+        Binary.bitshiftRight(&base, environment: 0 as Base.Element, majorAtLeastOne: major)
     }
 }
