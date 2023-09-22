@@ -21,11 +21,7 @@ extension NBK {
     /// static func algorithm(_ base: inout Base, input: Input) -> Output
     /// ```
     ///
-    /// ### Development 1
-    ///
-    /// The base needs `zero` to `count` indices for performance reasons.
-    ///
-    /// ### Development 2
+    /// ### Development
     ///
     /// Remaking this as a view when Swift gets view types might be neat.
     ///
