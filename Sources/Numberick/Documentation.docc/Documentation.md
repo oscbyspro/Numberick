@@ -12,7 +12,6 @@ A new protocol hierarchy that refines Swift's standard library.
 - ``NBKBitPatternConvertible``
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
-- ``NBKOffsetAccessCollection``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 
@@ -106,7 +105,6 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``NBKBitPatternConvertible``
 - ``NBKCoreInteger``
 - ``NBKFixedWidthInteger``
-- ``NBKOffsetAccessCollection``
 - ``NBKSignedInteger``
 - ``NBKUnsignedInteger``
 

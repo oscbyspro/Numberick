@@ -31,13 +31,14 @@ final class NBKCoreIntegerTestsOnWords: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testWordsHaveIndicesFromZeroToCount() {
-        func whereWordsIs(_ words:  some NBKOffsetAccessCollection) {
-            XCTAssertEqual(words.indices, 0 as Int ..< words.count)
+        func whereIs(_ integer: some BinaryInteger) {
+            XCTAssertEqual(integer.words.startIndex, 0 as Int)
+            XCTAssertEqual(integer.words.endIndex, integer.words.count)
         }
         
         for type: T in types {
-            whereWordsIs(type.min.words)
-            whereWordsIs(type.max.words)
+            whereIs(type.min)
+            whereIs(type.max)
         }
     }
 }

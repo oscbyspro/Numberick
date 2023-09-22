@@ -19,7 +19,7 @@ extension NBK {
     ///
     /// The base needs `zero` to `count` indices for performance reasons.
     ///
-    @frozen public struct SuccinctInt<Base> where Base: NBKOffsetAccessCollection,
+    @frozen public struct SuccinctInt<Base> where Base: RandomAccessCollection,
     Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         //=--------------------------------------------------------------------=
