@@ -46,8 +46,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func decrement(
     _ base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= index) // void
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <= base.endIndex  ) // void
         //=--------------------------------------=
         while bit && index < base.endIndex {
             bit = base[index].subtractReportingOverflow(1 as Base.Element.Digit)
@@ -122,8 +122,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func decrementInIntersection(
     _ base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >  index)
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <  base.endIndex  )
         //=--------------------------------------=
         defer{ base.formIndex(after: &index) }
         return base[index].subtractReportingOverflow(digit)
@@ -195,8 +195,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func decrementInIntersection(
     _ base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >  index)
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <  base.endIndex  )
         //=--------------------------------------=
         var digit: Base.Element = digit
         //=--------------------------------------=
@@ -274,9 +274,6 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     @inlinable public static func decrementInIntersection(
     _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
-        //=--------------------------------------=
-        Swift.assert(base.count >= elements.count + index)
-        //=--------------------------------------=
         for elementsIndex in elements.indices {
             self.decrementInIntersection(&base, by: elements[elementsIndex], plus: &bit, at: &index)
         }
@@ -321,10 +318,6 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func decrement(
     _ base: inout Base, by elements: some Collection<Base.Element>, times multiplicand: Base.Element,
     plus subtrahend: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
-        //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >  elements.count + index)
-        //=--------------------------------------=
         var last: Base.Element = subtrahend
         
         for elementsIndex in elements.indices {

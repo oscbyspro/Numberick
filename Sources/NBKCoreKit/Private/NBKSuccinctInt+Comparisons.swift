@@ -36,15 +36,15 @@ extension NBK.SuccinctInt {
         //=--------------------------------------=
         // Long & Short
         //=--------------------------------------=
-        if  self.body.count  !=  other.body.count {
+        if  self.body.count  != other.body.count {
             return self.sign == (self.body.count > other.body.count) ? -1 : 1
         }
         //=--------------------------------------=
-        return self.compared(toSameSizeSameSign: other)
+        return self.compared(toSameSignSameSize: other)
     }
     
     /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(toSameSizeSameSign other: Self) -> Int {
+    @inlinable public func compared(toSameSignSameSize other: Self) -> Int {
         //=--------------------------------------=
         Swift.assert(self.sign/*--*/ == other.sign/*--*/)
         Swift.assert(self.body.count == other.body.count)

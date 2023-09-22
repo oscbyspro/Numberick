@@ -47,8 +47,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func increment(
     _ base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= index) // void
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <= base.endIndex  ) // void
         //=--------------------------------------=
         while bit && index < base.endIndex {
             bit = base[index].addReportingOverflow(1 as Base.Element.Digit)
@@ -123,8 +123,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func incrementInIntersection(
     _ base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >  index)
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <  base.endIndex  )
         //=--------------------------------------=
         defer{ base.formIndex(after: &index) }
         return base[index].addReportingOverflow(digit)
@@ -196,8 +196,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func incrementInIntersection(
     _ base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >  index)
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <  base.endIndex  )
         //=--------------------------------------=
         var digit: Base.Element = digit
         //=--------------------------------------=
@@ -275,10 +275,6 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     @inlinable public static func incrementInIntersection(
     _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
-        //=--------------------------------------=
-        Swift.assert(index >= 0 as Int)
-        Swift.assert(base.count >= elements.count + index)
-        //=--------------------------------------=
         for elementIndex in elements.indices {
             self.incrementInIntersection(&base, by: elements[elementIndex], plus: &bit, at: &index)
         }
