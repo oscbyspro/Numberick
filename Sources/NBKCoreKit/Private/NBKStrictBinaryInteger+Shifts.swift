@@ -30,13 +30,11 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     @inlinable public static func bitshiftLeft(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        // major: zero works but it is pointless
-        //=--------------------------------------=
         var destination = base.endIndex as Base.Index
         var source = base.index(destination, offsetBy: major.twosComplement())
         //=--------------------------------------=
-        Swift.assert(base.startIndex <  source)
-        precondition(base.startIndex <= source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
+        precondition(base.startIndex < base.endIndex)//   dunno, the compiler seems to have a hard time
+        precondition(base.startIndex < source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         while destination > base.startIndex {
             let element:  Base.Element
@@ -92,7 +90,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        precondition((1 as Int) <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
+        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         let push = Base.Element(truncatingIfNeeded: minor)
         let pull = push.twosComplement()
@@ -100,7 +98,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
         var destination = base.endIndex as Base.Index
         var source = base.index(destination, offsetBy: major.onesComplement())
         //=--------------------------------------=
-        precondition(base.startIndex <= source && source < base.endIndex,  NBK.callsiteOutOfBoundsInfo())
+        precondition(base.startIndex <= source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         var element = base[source] as Base.Element
         
@@ -144,29 +142,27 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     @inlinable public static func bitshiftRight(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
-        // major: zero works but it is pointless
-        //=--------------------------------------=
         var destination = base.startIndex as Base.Index
         var source = base.index(destination, offsetBy: major)
         //=--------------------------------------=
-        Swift.assert(base.startIndex <  source)
-        precondition(base.startIndex <= source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
+        precondition(base.startIndex < base.endIndex)//   dunno, the compiler seems to have a hard time
+        precondition(base.startIndex < source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         while destination < base.endIndex  {
-            let element: Base.Element
-            let offset:  Int
-            
+            let element:  Base.Element
+            let distance: Int
+
             if  source  < base.endIndex {
                 element = base[source]
-                offset  = 1 as Int
+                distance  = 1 as Int
             }   else {
                 element = environment
-                offset  = 0 as Int
+                distance  = 0 as Int
             }
             
             base[destination] = element
             base.formIndex(after: &destination)
-            base.formIndex(&source, offsetBy: offset)
+            base.formIndex(&source, offsetBy: distance)
         }
     }
 }
@@ -209,7 +205,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
-        precondition((1 as Int) <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
+        precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         let push = Base.Element(truncatingIfNeeded: minor)
         let pull = push.twosComplement()
@@ -217,7 +213,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
         var destination = base.startIndex as Base.Index
         var source = base.index(destination, offsetBy: major)
         //=--------------------------------------=
-        precondition(base.startIndex <= source && source < base.endIndex,  NBK.callsiteOutOfBoundsInfo())
+        precondition(base.startIndex <= source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         var element = base[source] as Base.Element
         base.formIndex(after: &source)

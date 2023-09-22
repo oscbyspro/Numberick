@@ -29,8 +29,7 @@ extension NBK {
     ///
     /// Remaking this as a view when Swift gets view types might be neat.
     ///
-    @frozen public enum StrictSignedInteger<Base> where Base: RandomAccessCollection,
-    Base.Element: NBKCoreInteger & NBKUnsignedInteger {
+    @frozen public enum StrictSignedInteger<Base> where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger {
         
         /// The binary integer namespace of this type.
         public typealias BinaryInteger = NBK.StrictBinaryInteger<Base>
