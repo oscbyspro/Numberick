@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by other: Digit) -> Bool {
@@ -46,7 +46,38 @@ extension NBKDoubleWidth {
         let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: other)
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKDoubleWidth {
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Overflow
+    //=------------------------------------------------------------------------=
+    
+    /// Forms the `quotient` of dividing `self` by `other`, and returns
+    /// the `remainder` along with an `overflow` indicator.
+    ///
+    /// ```
+    /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
+    /// │ self       │ other      │ quotient   | remainder  │ overflow │
+    /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
+    /// │ Int256( 7) │ Int(    3) │ Int256( 2) │ Int(    0) │ false    │
+    /// │ Int256( 7) │ Int(   -3) │ Int256(-2) │ Int(   -1) │ false    │
+    /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
+    /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
+    /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
+    /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or,
+    /// if undefined, the `self` and `self.first`.
+    ///
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         NBK.bitCast(SBI.formQuotientWithRemainderReportingOverflow(&self, dividingBy: UInt(bitPattern: other), signedness: Digit.self))
     }

@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func addReportingOverflow(_ other: Digit) -> Bool {
