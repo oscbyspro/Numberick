@@ -14,7 +14,7 @@
 extension NBK.StrictBinaryInteger.SubSequence {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
     /// Returns the leading zero bit count of `base`.
@@ -64,7 +64,7 @@ extension NBK.StrictBinaryInteger.SubSequence {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Nonzero Bit Count
+    // MARK: Utilities x Nonzero Bit Count
     //=------------------------------------------------------------------------=
     
     /// Returns the nonzero bit count of `base`.
