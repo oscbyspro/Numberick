@@ -410,33 +410,63 @@ file: StaticString = #file, line: UInt = #line) {
     if !overflow {
         XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
     }
-    //=------------------------------------------=
+    
     if !overflow {
         XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
         XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
-        
-        XCTAssertEqual({ var x = lhs; x /= rhs; return x }(), quotient, file: file, line: line)
-        XCTAssertEqual({ var x = lhs; x %= rhs; return x }(), extended, file: file, line: line)
-        
-        XCTAssertEqual(lhs.quotientAndRemainder(dividingBy: rhs).quotient,  quotient,  file: file, line: line)
-        XCTAssertEqual(lhs.quotientAndRemainder(dividingBy: rhs).remainder, remainder, file: file, line: line)
+    }
+    
+    if !overflow {
+        XCTAssertEqual({ var lhs = lhs; lhs /= rhs; return lhs }(), quotient, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs %= rhs; return lhs }(), extended, file: file, line: line)
+    }
+    
+    if !overflow {
+        let out = lhs.quotientAndRemainder(dividingBy: rhs)
+        XCTAssertEqual(out.quotient,  quotient,  file: file, line: line)
+        XCTAssertEqual(out.remainder, remainder, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(lhs.dividedReportingOverflow(by: rhs).partialValue, quotient, file: file, line: line)
-    XCTAssertEqual(lhs.dividedReportingOverflow(by: rhs).overflow,     overflow, file: file, line: line)
+    brr: do {
+        let out = lhs.dividedReportingOverflow(by: rhs)
+        XCTAssertEqual(out.partialValue, quotient, file: file, line: line)
+        XCTAssertEqual(out.overflow,     overflow, file: file, line: line)
+    }
     
-    XCTAssertEqual({ var x = lhs; let _ = x.divideReportingOverflow(by: rhs); return x }(), quotient, file: file, line: line)
-    XCTAssertEqual({ var x = lhs; let o = x.divideReportingOverflow(by: rhs); return o }(), overflow, file: file, line: line)
+    brr: do {
+        var lhs = lhs
+        let out = lhs.divideReportingOverflow(by: rhs)
+        XCTAssertEqual(lhs, quotient, file: file, line: line)
+        XCTAssertEqual(out, overflow, file: file, line: line)
+    }
     
-    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).partialValue, remainder, file: file, line: line)
-    XCTAssertEqual(lhs.remainderReportingOverflow(dividingBy: rhs).overflow,     overflow,  file: file, line: line)
+    brr: do {
+        let out = lhs.remainderReportingOverflow(dividingBy: rhs)
+        XCTAssertEqual(out.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(out.overflow,     overflow,  file: file, line: line)
+    }
     
-    XCTAssertEqual({ var x = lhs; let _ = x.formRemainderReportingOverflow(dividingBy: rhs); return x }(), extended, file: file, line: line)
-    XCTAssertEqual({ var x = lhs; let o = x.formRemainderReportingOverflow(dividingBy: rhs); return o }(), overflow, file: file, line: line)
-
-    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).partialValue.quotient,  quotient,  file: file, line: line)
-    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).partialValue.remainder, remainder, file: file, line: line)
-    XCTAssertEqual(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs).overflow,               overflow,  file: file, line: line)
+    brr: do {
+        var lhs = lhs
+        let out = lhs.formRemainderReportingOverflow(dividingBy: rhs)
+        XCTAssertEqual(lhs, extended, file: file, line: line)
+        XCTAssertEqual(out, overflow, file: file, line: line)
+    }
+    
+    brr: do {
+        let out = lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs)
+        XCTAssertEqual(out.partialValue.quotient,  quotient,  file: file, line: line)
+        XCTAssertEqual(out.partialValue.remainder, remainder, file: file, line: line)
+        XCTAssertEqual(out.overflow,               overflow,  file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs
+        let out = lhs.formQuotientWithRemainderReportingOverflow(dividingBy: rhs)
+        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
+        XCTAssertEqual(out.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(out.overflow,     overflow,  file: file, line: line)
+    }
 }
 
 //=----------------------------------------------------------------------------=

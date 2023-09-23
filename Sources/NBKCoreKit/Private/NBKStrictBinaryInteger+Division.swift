@@ -11,7 +11,7 @@
 // MARK: * NBK x Strict Binary Integer x Division
 //*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Digit
+// MARK: + Digit where Base is Mutable Collection
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictBinaryInteger where Base: MutableCollection {
