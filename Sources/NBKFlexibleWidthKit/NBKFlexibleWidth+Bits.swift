@@ -32,15 +32,15 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var nonzeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.nonzeroBitCount(of:))
+        self.withUnsafeBufferPointer(SBISS.nonzeroBitCount(of:))
     }
     
     @inlinable public var leadingZeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.leadingZeroBitCount(of:))
+        self.withUnsafeBufferPointer(SBISS.leadingZeroBitCount(of:))
     }
     
     @inlinable public var trailingZeroBitCount: Int {
-        self.withUnsafeBufferPointer(NBK.trailingZeroBitCount(of:))
+        self.withUnsafeBufferPointer(SBISS.trailingZeroBitCount(of:))
     }
     
     @inlinable public var mostSignificantBit: Bool {

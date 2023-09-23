@@ -143,7 +143,7 @@ private func NBKAssertShiftLeft<T: IntXLOrUIntXL>(
 _ lhs: T, _ rhs:  Int, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
+    let (major, minor) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
     XCTAssertEqual(                 lhs <<   rhs,                 result, file: file, line: line)
     XCTAssertEqual(                 lhs >>  -rhs,                 result, file: file, line: line)
@@ -161,13 +161,13 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitshiftedLeft(words: words, bits: bits), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitshiftedLeft(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
-        XCTAssertEqual(lhs.bitshiftedLeft(words: words), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(words: words); return lhs }(), result, file: file, line: line)
+    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+        XCTAssertEqual(lhs.bitshiftedLeft(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 
@@ -175,7 +175,7 @@ private func NBKAssertShiftRight<T: IntXLOrUIntXL>(
 _ lhs: T, _ rhs:  Int, _ result: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
+    let (major, minor) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
     XCTAssertEqual(                 lhs >>   rhs,                 result, file: file, line: line)
     XCTAssertEqual(                 lhs <<  -rhs,                 result, file: file, line: line)
@@ -193,13 +193,13 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitshiftedRight(words: words, bits: bits), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitshiftedRight(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
-        XCTAssertEqual(lhs.bitshiftedRight(words: words), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(words: words); return lhs }(), result, file: file, line: line)
+    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+        XCTAssertEqual(lhs.bitshiftedRight(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 

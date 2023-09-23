@@ -170,7 +170,7 @@ private func NBKAssertRotateLeft<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
+    let (major, minor) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
     XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
     //=------------------------------------------=
@@ -178,13 +178,13 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.bitrotatedLeft(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitrotatedLeft(words: words, bits: bits), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitrotatedLeft(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
-        XCTAssertEqual(lhs.bitrotatedLeft(words: words), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(words: words); return lhs }(), result, file: file, line: line)
+    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+        XCTAssertEqual(lhs.bitrotatedLeft(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateLeft(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 
@@ -192,7 +192,7 @@ private func NBKAssertRotateRight<H: NBKFixedWidthInteger>(
 _ lhs: NBKDoubleWidth<H>, _ rhs:  Int, _ result: NBKDoubleWidth<H>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let (words, bits) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
+    let (major, minor) = rhs.quotientAndRemainder(dividingBy: UInt.bitWidth)
     //=------------------------------------------=
     XCTAssert(0 ..< lhs.bitWidth ~= rhs, "no smart rotations", file: file, line: line)
     //=------------------------------------------=
@@ -200,13 +200,13 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs.bitrotatedRight(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitrotatedRight(words: words, bits: bits), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(words: words, bits: bits); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitrotatedRight(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, bits.isZero {
-        XCTAssertEqual(lhs.bitrotatedRight(words: words), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(words: words); return lhs }(), result, file: file, line: line)
+    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+        XCTAssertEqual(lhs.bitrotatedRight(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitrotateRight(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 

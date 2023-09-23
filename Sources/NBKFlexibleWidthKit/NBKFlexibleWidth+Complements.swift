@@ -20,8 +20,8 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formOnesComplement() {
-        self.withUnsafeMutableStrictUnsignedInteger {
-            $0.formOnesComplement()
+        self.withUnsafeMutableBufferPointer {
+            SBISS.formOnesComplement(&$0)
         }
     }
 
@@ -34,8 +34,8 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func formTwosComplementReportingOverflow() -> Bool {
-        self.withUnsafeMutableStrictUnsignedInteger {
-            $0.formTwosComplementReportingOverflow()
+        self.withUnsafeMutableBufferPointer {
+            SUISS.formTwosComplementReportingOverflow(&$0)
         }
     }
     
@@ -46,8 +46,8 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public mutating func formTwosComplementSubsequence(_ carry: Bool) -> Bool {
-        self.withUnsafeMutableStrictUnsignedInteger {
-            $0.formTwosComplementSubsequence(carry)
+        self.withUnsafeMutableBufferPointer {
+            SUISS.formTwosComplementSubsequence(&$0, carry: carry)
         }
     }
     

@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by other: Digit) -> Bool {
@@ -46,11 +46,21 @@ extension NBKFlexibleWidth.Magnitude {
         let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: other)
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude {
     
-    // TODO: perhaps NBKUnsignedInteger should be require this method
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Overflow
+    //=------------------------------------------------------------------------=
+    
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        self.withUnsafeMutableStrictUnsignedInteger {
-            $0.formQuotientWithRemainderReportingOverflow(dividingBy: other)
+        self.withUnsafeMutableBufferPointer {
+            SUISS.formQuotientWithRemainderReportingOverflow(&$0, dividingBy: other)
         }
     }
 }

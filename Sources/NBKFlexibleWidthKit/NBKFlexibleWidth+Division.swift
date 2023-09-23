@@ -99,8 +99,8 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.append(0 as UInt)
         
         if !shift.isZero {
-            divisor/*-*/.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minorAtLeastOne: shift) })
-            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftLeft(major: 0 as Int, minorAtLeastOne: shift) })
+            divisor/*-*/.withUnsafeMutableBufferPointer({ SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableBufferPointer({ SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         let divisorLast0 = divisor.elements[divisorLastIndex] as UInt
@@ -110,11 +110,11 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
         let quotient = Self.uninitialized(count:  quotientIndex + 1) { quotient in
-            self.storage.withUnsafeMutableStrictUnsignedInteger { storage in
+            self.storage.withUnsafeMutableBufferPointer { storage in
                 loop: repeat {
-                    let remainderLast0 = storage.base[remainderIndex]
-                    storage.base.formIndex(before:   &remainderIndex)
-                    let remainderLast1 = storage.base[remainderIndex]
+                    let remainderLast0 = storage[remainderIndex]
+                    storage.formIndex(before:   &remainderIndex)
+                    let remainderLast1 = storage[remainderIndex]
                     //=--------------------------=
                     var digit:  UInt
                     if  divisorLast0 == remainderLast0 {
@@ -124,9 +124,9 @@ extension NBKFlexibleWidth.Magnitude {
                     }
                     //=--------------------------=
                     if !digit.isZero {
-                        var overflow = (storage).decrement(by: divisor.elements, times: digit, at: quotientIndex).overflow
-                        while overflow {
-                            overflow = !storage .increment(by: divisor.elements, at: quotientIndex).overflow; digit &-= 01
+                        var overflow =  SUISS.decrement(&storage, by: divisor.elements, times: digit, at: quotientIndex).overflow
+                        while overflow  {
+                            overflow = !SUISS.increment(&storage, by: divisor.elements, at: quotientIndex).overflow; digit &-= 01
                         }
                     }
                     //=--------------------------=
@@ -139,7 +139,7 @@ extension NBKFlexibleWidth.Magnitude {
         // undo shift before division
         //=--------------------------------------=
         if !shift.isZero {
-            self.storage.withUnsafeMutableStrictUnsignedInteger({ $0.bitshiftRight(major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableBufferPointer({ SUI.bitshiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         self.storage.normalize()

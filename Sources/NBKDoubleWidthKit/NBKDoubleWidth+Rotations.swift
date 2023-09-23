@@ -37,40 +37,40 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitrotatedLeft(words: major, bits: minor)
+        return self.bitrotatedLeft(major: major, minor: minor)
     }
     
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitrotateLeft(words: Int, bits: Int) {
-        self = self.bitrotatedLeft(words: words, bits: bits)
+    @inlinable public mutating func bitrotateLeft(major: Int, minor: Int) {
+        self = self.bitrotatedLeft(major: major, minor: minor)
     }
     
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitrotatedLeft(words: Int, bits: Int) -> Self {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
+    @inlinable public func bitrotatedLeft(major: Int, minor: Int) -> Self {
+        precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= minor, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitrotatedLeft(words: words)
+        if  minor.isZero {
+            return self.bitrotatedLeft(major: major)
         }
         //=--------------------------------------=
-        let push = UInt(bitPattern: bits)
-        let pull = UInt(bitPattern: UInt.bitWidth - bits)
+        let push = UInt(bitPattern: minor)
+        let pull = UInt(bitPattern: UInt.bitWidth - minor)
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             var (word) = self.last as  UInt
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            var destination = result.index(result.startIndex, offsetBy: words)
+            var destination = result.index(result.startIndex, offsetBy: major)
             //=----------------------------------=
             for source in self.indices {
                 //=------------------------------=
@@ -91,25 +91,25 @@ extension NBKDoubleWidth {
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitrotateLeft(words: Int) {
-        self = self.bitrotatedLeft(words: words)
+    @inlinable public mutating func bitrotateLeft(major: Int) {
+        self = self.bitrotatedLeft(major: major)
     }
     
     /// Performs a left rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitrotatedLeft(words: Int) -> Self {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
+    @inlinable public func bitrotatedLeft(major: Int) -> Self {
+        precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        if  words.isZero { return self }
+        if  major.isZero { return self }
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            var destination = result.index(result.startIndex, offsetBy: words)
+            var destination = result.index(result.startIndex, offsetBy: major)
             //=----------------------------------=
             for source in self.indices {
                 //=------------------------------=
@@ -152,40 +152,40 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitrotatedRight(words: major, bits: minor)
+        return self.bitrotatedRight(major: major, minor: minor)
     }
     
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitrotateRight(words: Int, bits: Int) {
-        self = self.bitrotatedRight(words: words, bits: bits)
+    @inlinable public mutating func bitrotateRight(major: Int, minor: Int) {
+        self = self.bitrotatedRight(major: major, minor: minor)
     }
     
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitrotatedRight(words: Int, bits: Int) -> Self {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
-        precondition(0 ..< UInt.bitWidth ~= bits,  NBK.callsiteOutOfBoundsInfo())
+    @inlinable public func bitrotatedRight(major: Int, minor: Int) -> Self {
+        precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
+        precondition(0 ..< UInt.bitWidth ~= minor, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitrotatedRight(words: words)
+        if  minor.isZero {
+            return self.bitrotatedRight(major: major)
         }
         //=--------------------------------------=
-        let push = UInt(bitPattern: bits)
-        let pull = UInt(bitPattern: UInt.bitWidth - bits)
+        let push = UInt(bitPattern: minor)
+        let pull = UInt(bitPattern: UInt.bitWidth - minor)
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             var (word) = self.last as  UInt
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            var destination = result.index(result.endIndex, offsetBy: ~words)
+            var destination = result.index(result.endIndex, offsetBy: ~major)
             //=----------------------------------=
             precondition(result.indices ~= destination)
             for source in  self.indices {
@@ -207,25 +207,25 @@ extension NBKDoubleWidth {
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitrotateRight(words: Int) {
-        self = self.bitrotatedRight(words: words)
+    @inlinable public mutating func bitrotateRight(major: Int) {
+        self = self.bitrotatedRight(major: major)
     }
     
     /// Performs a right rotation.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitrotatedRight(words: Int) -> Self {
-        precondition(0 ..< self.endIndex ~= words, NBK.callsiteOutOfBoundsInfo())
+    @inlinable public func bitrotatedRight(major: Int) -> Self {
+        precondition(0 ..< self.endIndex ~= major, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        if  words.isZero { return self }
+        if  major.isZero { return self }
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            var destination = result.index(result.endIndex, offsetBy: -words)
+            var destination = result.index(result.endIndex, offsetBy: -major)
             //=----------------------------------=
             precondition(result.indices ~= destination)
             for source in  self.indices {

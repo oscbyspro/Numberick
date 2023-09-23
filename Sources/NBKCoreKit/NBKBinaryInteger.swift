@@ -25,7 +25,7 @@
 /// [2s]: https://en.wikipedia.org/wiki/Two%27s_complement
 ///
 public protocol NBKBinaryInteger: BinaryInteger, LosslessStringConvertible, Sendable
-where Magnitude: NBKUnsignedInteger, Words: NBKOffsetAccessCollection & Sendable {
+where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A machine word of some kind, or this type.
     associatedtype Digit: NBKBinaryInteger = Self where

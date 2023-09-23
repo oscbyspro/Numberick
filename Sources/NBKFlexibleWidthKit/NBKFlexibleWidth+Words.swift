@@ -49,12 +49,12 @@ extension NBKFlexibleWidth.Magnitude {
     
     /// The least significant word.
     @inlinable public var first: UInt {
-        self.withUnsafeStrictUnsignedInteger({ $0.first })
+        self.withUnsafeBufferPointer({ $0[0] })
     }
     
     /// The most significant word.
     @inlinable public var last: UInt {
-        self.withUnsafeStrictUnsignedInteger({ $0.last  })
+        self.withUnsafeBufferPointer({ $0[$0.count - 1] })
     }
     
     @inlinable subscript(index: Int) -> UInt {

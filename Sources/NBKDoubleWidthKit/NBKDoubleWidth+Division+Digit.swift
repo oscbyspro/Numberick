@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func divideReportingOverflow(by other: Digit) -> Bool {
@@ -42,45 +42,43 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
-        let lhsIsLessThanZero: Bool = self .isLessThanZero
-        let rhsIsLessThanZero: Bool = other.isLessThanZero
-        let minus = lhsIsLessThanZero != rhsIsLessThanZero
-        //=--------------------------------------=
-        var qro = NBK.bitCast(self.magnitude.quotientAndRemainderReportingOverflow(dividingBy: other.magnitude)) as PVO<QR<Self, Digit>>
-        //=--------------------------------------=
-        if  minus {
-            qro.partialValue.quotient.formTwosComplement()
-        }
-        
-        if  lhsIsLessThanZero {
-            qro.partialValue.remainder.formTwosComplement()
-        }
-        
-        if  lhsIsLessThanZero && rhsIsLessThanZero && qro.partialValue.quotient.isLessThanZero {
-            qro.overflow = true
-        }
-        //=--------------------------------------=
-        return qro as PVO<QR<Self, Digit>>
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
-
-extension NBKDoubleWidth where High == High.Magnitude {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    @_disfavoredOverload @inlinable func quotientAndRemainderReportingOverflow(dividingBy other: Digit) -> PVO<QR<Self, Digit>> {
         var quotient  = self
         let remainder = quotient.formQuotientWithRemainderReportingOverflow(dividingBy: other)
         return PVO(QR(quotient, remainder.partialValue), remainder.overflow)
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKDoubleWidth {
     
-    @_disfavoredOverload @inlinable mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        NBK.formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger(of: &self, dividingBy: other)
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Overflow
+    //=------------------------------------------------------------------------=
+    
+    /// Forms the `quotient` of dividing `self` by `other`, and returns
+    /// the `remainder` along with an `overflow` indicator.
+    ///
+    /// ```
+    /// ┌────────────┬─────────── → ───────────┬────────────┬──────────┐
+    /// │ self       │ other      │ quotient   | remainder  │ overflow │
+    /// ├────────────┼─────────── → ───────────┤────────────┤──────────┤
+    /// │ Int256( 7) │ Int(    3) │ Int256( 2) │ Int(    0) │ false    │
+    /// │ Int256( 7) │ Int(   -3) │ Int256(-2) │ Int(   -1) │ false    │
+    /// │ Int256(-7) │ Int(    3) │ Int256(-2) │ Int(   -1) │ false    │
+    /// │ Int256(-7) │ Int(   -3) │ Int256( 2) │ Int(    0) │ false    │
+    /// │────────────┤─────────── → ───────────┤────────────┤──────────┤
+    /// │ Int256( 7) │ Int(    0) │ Int256( 7) │ Int(    7) │ true     │
+    /// │ Int256.min │ Int(   -1) │ Int256.min │ Int(    0) │ true     │
+    /// └────────────┴─────────── → ───────────┴────────────┴──────────┘
+    /// ```
+    ///
+    /// - Note: In the case of `overflow`, the result is either truncated or,
+    /// if undefined, the `self` and `self.first`.
+    ///
+    @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
+        NBK.bitCast(SBI.formQuotientWithRemainderReportingOverflow(&self, dividingBy: UInt(bitPattern: other), signedness: Digit.self))
     }
 }

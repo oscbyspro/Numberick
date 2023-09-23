@@ -71,7 +71,7 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftLeft(words: major, bits: minor)
+        return self.bitshiftLeft(major: major, minor: minor)
     }
     
     /// Performs a left shift.
@@ -86,47 +86,47 @@ extension NBKDoubleWidth {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
+    @inlinable public mutating func bitshiftLeft(major: Int, minor: Int) {
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitshiftLeft(words: words)
+        if  minor.isZero {
+            return self.bitshiftLeft(major: major)
         }
         //=--------------------------------------=
-        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: words, minorAtLeastOne: bits)
+        SBI.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
-        var result = self; result.bitshiftLeft(words: words, bits: bits); return result
+    @inlinable public func bitshiftedLeft(major: Int, minor: Int) -> Self {
+        var result = self; result.bitshiftLeft(major: major, minor: minor); return result
     }
         
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitshiftLeft(words: Int) {
+    @inlinable public mutating func bitshiftLeft(major: Int) {
         //=--------------------------------------=
-        if  words.isZero { return }
+        if  major.isZero { return }
         //=--------------------------------------=
-        NBK.StrictBitPattern<Self>.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, majorAtLeastOne: words)
+        SBI.bitshiftLeft(&self, environment: 0 as UInt, majorAtLeastOne: major)
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitshiftedLeft(words: Int) -> Self {
-        var result = self; result.bitshiftLeft(words: words); return result
+    @inlinable public func bitshiftedLeft(major: Int) -> Self {
+        var result = self; result.bitshiftLeft(major: major); return result
     }
 }
 
@@ -192,7 +192,7 @@ extension NBKDoubleWidth {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftRight(words: major, bits: minor)
+        return self.bitshiftRight(major: major, minor: minor)
     }
     
     /// Performs an un/signed right shift.
@@ -207,48 +207,48 @@ extension NBKDoubleWidth {
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
+    @inlinable public mutating func bitshiftRight(major: Int, minor: Int) {
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitshiftRight(words: words)
+        if  minor.isZero {
+            return self.bitshiftRight(major: major)
         }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, major: words, minorAtLeastOne: bits)
+        SBI.bitshiftRightCodeBlock(&self, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
-        var result = self; result.bitshiftRight(words: words, bits: bits); return result
+    @inlinable public func bitshiftedRight(major: Int, minor: Int) -> Self {
+        var result = self; result.bitshiftRight(major: major, minor: minor); return result
     }
         
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitshiftRight(words: Int) {
+    @inlinable public mutating func bitshiftRight(major: Int) {
         //=--------------------------------------=
-        if  words.isZero { return }
+        if  major.isZero { return }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.StrictBitPattern<Self>.bitshiftRightCodeBlock(&self, environment: environment, majorAtLeastOne: words)
+        SBI.bitshiftRight(&self, environment: environment, majorAtLeastOne: major)
     }
     
     /// Performs an un/signed right shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
+    ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitshiftedRight(words: Int) -> Self {
-        var result = self; result.bitshiftRight(words: words); return result
+    @inlinable public func bitshiftedRight(major: Int) -> Self {
+        var result = self; result.bitshiftRight(major: major); return result
     }
 }

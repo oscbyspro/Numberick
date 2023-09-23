@@ -72,14 +72,15 @@ extension NBK {
     ///
     @inlinable public static func leastPositiveResidueReportingOverflow<T>(
     of dividend: T, dividingBy divisor: UInt) -> PVO<UInt> where T: BinaryInteger {
+        typealias SUI = StrictUnsignedInteger<T.Magnitude.Words>
         //=--------------------------------------=
         if  divisor.isPowerOf2 {
-            return PVO(dividend._lowWord & (divisor &- 1), false)
+            return PVO(partialValue: dividend._lowWord & (divisor &- 1), overflow: false)
         }
         //=--------------------------------------=
-        let minus = T.isSigned && dividend < T.zero
-        let pvo = NBK.remainderReportingOverflowAsLenientUnsignedInteger(of: dividend.magnitude.words, dividingBy: divisor)
-        return PVO((minus && !pvo.partialValue.isZero) ? (divisor &- pvo.partialValue) : pvo.partialValue, pvo.overflow)
+        let (minus) = T.isSigned && dividend < T.zero
+        let (remainder, overflow) = SUI.SubSequence.remainderReportingOverflow(dividend.magnitude.words, dividingBy: divisor)
+        return PVO(partialValue: minus && !remainder.isZero ? (divisor &- remainder) : remainder, overflow: overflow)
     }
     
     /// Returns the least positive `residue` of dividing the `dividend` by `source.bitWidth`.

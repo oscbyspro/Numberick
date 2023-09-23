@@ -835,7 +835,7 @@ extension NBKFixedWidthInteger {
         var bitPattern = magnitude as Magnitude
         var isLessThanZero = (sign == FloatingPointSign.minus)
         if  isLessThanZero {
-            isLessThanZero = !bitPattern.formTwosComplementSubsequence(true)
+            isLessThanZero = !bitPattern.formTwosComplementReportingOverflow()
         }
         
         self.init(bitPattern: bitPattern)

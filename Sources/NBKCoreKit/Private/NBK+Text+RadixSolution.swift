@@ -39,7 +39,7 @@ extension NBK {
 public protocol _NBKRadixSolution<Size> {
     
     typealias Element  = Size.Magnitude
-
+    
     associatedtype Size: NBKCoreInteger & NBKSignedInteger
     
     //=------------------------------------------------------------------------=

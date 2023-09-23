@@ -22,7 +22,7 @@ import NBKCoreKit
 @frozen public struct NBKFlexibleWidth {
     
     @usableFromInline typealias Elements = ContiguousArray<UInt>
-        
+    
     //*========================================================================*
     // MARK: * Magnitude
     //*========================================================================*

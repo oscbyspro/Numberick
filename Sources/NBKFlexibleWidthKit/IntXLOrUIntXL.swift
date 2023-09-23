@@ -59,13 +59,13 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     
     @inlinable func bitshiftedLeft(by distance: Int) -> Self
     
-    @inlinable mutating func bitshiftLeft(words: Int, bits: Int)
+    @inlinable mutating func bitshiftLeft(major: Int, minor: Int)
     
-    @inlinable func bitshiftedLeft(words: Int, bits: Int) -> Self
+    @inlinable func bitshiftedLeft(major: Int, minor: Int) -> Self
     
-    @inlinable mutating func bitshiftLeft(words: Int)
+    @inlinable mutating func bitshiftLeft(major: Int)
     
-    @inlinable func bitshiftedLeft(words: Int) -> Self
+    @inlinable func bitshiftedLeft(major: Int) -> Self
     
     @inlinable mutating func bitshiftRightSmart(by distance: Int)
     
@@ -75,13 +75,13 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     
     @inlinable func bitshiftedRight(by distance: Int) -> Self
     
-    @inlinable mutating func bitshiftRight(words: Int, bits: Int)
+    @inlinable mutating func bitshiftRight(major: Int, minor: Int)
     
-    @inlinable func bitshiftedRight(words: Int, bits: Int) -> Self
+    @inlinable func bitshiftedRight(major: Int, minor: Int) -> Self
     
-    @inlinable mutating func bitshiftRight(words: Int)
+    @inlinable mutating func bitshiftRight(major: Int)
     
-    @inlinable func bitshiftedRight(words: Int) -> Self
+    @inlinable func bitshiftedRight(major: Int) -> Self
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Update

@@ -88,7 +88,7 @@ import NBKCoreKit
 /// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 ///
 @frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
-NBKFixedWidthInteger, MutableCollection, NBKOffsetAccessCollection where
+NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// The most  significant half of this type.
@@ -105,6 +105,9 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     
     /// The bit pattern of this type.
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
+    
+    /// The namespace with appropriate algorithms for this type.
+    @usableFromInline typealias SBI = NBK.StrictBinaryInteger<Self>
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors

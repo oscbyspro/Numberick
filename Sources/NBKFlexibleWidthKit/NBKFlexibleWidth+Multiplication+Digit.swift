@@ -42,8 +42,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.reserveCapacity(self.storage.elements.count + 1)
         
-        let carry = self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.multiplyFullWidth(by: multiplicand, add: addend)
+        let carry = self.storage.withUnsafeMutableBufferPointer {
+            SUISS.multiplyFullWidth(&$0, by: multiplicand, add: addend)
         }
         
         if !carry.isZero {

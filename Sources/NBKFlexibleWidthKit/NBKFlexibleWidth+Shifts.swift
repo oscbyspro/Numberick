@@ -50,35 +50,35 @@ extension NBKFlexibleWidth.Magnitude {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftLeft(words: major, bits: minor)
+        return self.bitshiftLeft(major: major, minor: minor)
     }
     
     @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
         var result = self; result.bitshiftLeft(by: distance); return result
     }
     
-    @inlinable public mutating func bitshiftLeft(words: Int, bits: Int) {
+    @inlinable public mutating func bitshiftLeft(major: Int, minor: Int) {
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitshiftLeft(words: words)
+        if  minor.isZero {
+            return self.bitshiftLeft(major: major)
         }
         //=--------------------------------------=
-        self.bitshiftLeft(words: words, atLeastOneBit: bits)
+        self.bitshiftLeft(major: major, minorAtLeastOne: minor)
     }
     
-    @inlinable public func bitshiftedLeft(words: Int, bits: Int) -> Self {
-        var result = self; result.bitshiftLeft(words: words, bits: bits); return result
+    @inlinable public func bitshiftedLeft(major: Int, minor: Int) -> Self {
+        var result = self; result.bitshiftLeft(major: major, minor: minor); return result
     }
     
-    @inlinable public mutating func bitshiftLeft(words: Int) {
+    @inlinable public mutating func bitshiftLeft(major: Int) {
         //=--------------------------------------=
-        if  words.isZero { return }
+        if  major.isZero { return }
         //=--------------------------------------=
-        self.bitshiftLeft(atLeastOneWord: words)
+        self.bitshiftLeft(majorAtLeastOne: major)
     }
     
-    @inlinable public func bitshiftedLeft(words: Int) -> Self {
-        var result = self; result.bitshiftLeft(words: words); return result
+    @inlinable public func bitshiftedLeft(major: Int) -> Self {
+        var result = self; result.bitshiftLeft(major: major); return result
     }
     
     //=------------------------------------------------------------------------=
@@ -88,40 +88,40 @@ extension NBKFlexibleWidth.Magnitude {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `0 <= words < self.endIndex`
-    ///   - bits:  `1 <= bits  < UInt.bitWidth`
+    ///   - major: `0 <= major < self.endIndex`
+    ///   - minor: `1 <= minor < UInt.bitWidth`
     ///
-    @inlinable mutating func bitshiftLeft(words: Int, atLeastOneBit bits: Int) {
+    @inlinable mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  self.isZero { return }
         //=--------------------------------------=
-        let rollover = Int(bit: self.leadingZeroBitCount < bits)
-        self.storage.resize(minCount: self.storage.elements.count + words + rollover)
+        let rollover = Int(bit: self.leadingZeroBitCount < minor)
+        self.storage.resize(minCount: self.storage.elements.count + major + rollover)
         
-        self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.bitshiftLeft(major: words, minorAtLeastOne: bits)
+        self.storage.withUnsafeMutableBufferPointer {
+            SUI.bitshiftLeft(&$0, major: major, minorAtLeastOne: minor)
         }
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - words: `1 <= words < self.endIndex`
+    ///   - major: `1 <= major < self.endIndex`
     ///
-    @inlinable mutating func bitshiftLeft(atLeastOneWord words: Int) {
+    @inlinable mutating func bitshiftLeft(majorAtLeastOne major: Int) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
         if  self.isZero { return }
         //=--------------------------------------=
-        self.storage.resize(minCount: self.storage.elements.count + words)
+        self.storage.resize(minCount: self.storage.elements.count + major)
         
-        self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.bitshiftLeft(majorAtLeastOne: words)
+        self.storage.withUnsafeMutableBufferPointer {
+            SUI.bitshiftLeft(&$0, majorAtLeastOne: major)
         }
     }
 }
@@ -164,84 +164,84 @@ extension NBKFlexibleWidth.Magnitude {
         precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
         let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
         let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
-        return self.bitshiftRight(words: major, bits: minor)
+        return self.bitshiftRight(major: major, minor: minor)
     }
     
     @inlinable public func bitshiftedRight(by distance: Int) -> Self {
         var result = self; result.bitshiftRight(by: distance); return result
     }
     
-    @inlinable public mutating func bitshiftRight(words: Int, bits: Int) {
+    @inlinable public mutating func bitshiftRight(major: Int, minor: Int) {
         //=--------------------------------------=
-        if  bits.isZero {
-            return self.bitshiftRight(words: words)
+        if  minor.isZero {
+            return self.bitshiftRight(major: major)
         }
         //=--------------------------------------=
-        self.bitshiftRight(words: words, atLeastOneBit: bits)
+        self.bitshiftRight(major: major, minorAtLeastOne: minor)
     }
     
-    @inlinable public func bitshiftedRight(words: Int, bits: Int) -> Self {
-        var result = self; result.bitshiftRight(words: words, bits: bits); return result
+    @inlinable public func bitshiftedRight(major: Int, minor: Int) -> Self {
+        var result = self; result.bitshiftRight(major: major, minor: minor); return result
     }
     
-    @inlinable public mutating func bitshiftRight(words: Int) {
+    @inlinable public mutating func bitshiftRight(major: Int) {
         //=--------------------------------------=
-        if  words.isZero { return }
+        if  major.isZero { return }
         //=--------------------------------------=
-        self.bitshiftRight(atLeastOneWord: words)
+        self.bitshiftRight(majorAtLeastOne: major)
     }
     
-    @inlinable public func bitshiftedRight(words: Int) -> Self {
-        var result = self; result.bitshiftRight(words: words); return result
+    @inlinable public func bitshiftedRight(major: Int) -> Self {
+        var result = self; result.bitshiftRight(major: major); return result
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int x Private
     //=------------------------------------------------------------------------=
     
-    /// Performs an un/signed right shift.
+    /// Performs an unsigned right shift.
     ///
     /// - Parameters:
-    ///   - words: `1 <= words < self.endIndex`
-    ///   - bits:  `0 <= bits  < UInt.bitWidth`
+    ///   - major: `1 <= major < self.endIndex`
+    ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable mutating func bitshiftRight(words: Int, atLeastOneBit bits: Int) {
+    @inlinable mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        let rollover = Int(bit: 0 <= bits + self.leadingZeroBitCount - UInt.bitWidth)
-        let maxCount = self.storage.elements.count - words - rollover
+        let rollover = Int(bit: 0 <= minor + self.leadingZeroBitCount - UInt.bitWidth)
+        let maxCount = self.storage.elements.count - major - rollover
         //=--------------------------------------=
         if  maxCount <= 0 {
             return self.updateZeroValue()
         }
         //=--------------------------------------=
-        self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.bitshiftRight(major: words, minorAtLeastOne: bits)
+        self.storage.withUnsafeMutableBufferPointer {
+            SUI.bitshiftRight(&$0, major: major, minorAtLeastOne: minor)
         }
         
         self.storage.resize(maxCount: maxCount)
     }
     
-    /// Performs an un/signed right shift.
+    /// Performs an unsigned right shift.
     ///
     /// - Parameters:
-    ///   - words: `1 <= words < self.endIndex`
+    ///   - major: `1 <= major < self.endIndex`
     ///
-    @inlinable mutating func bitshiftRight(atLeastOneWord words: Int) {
+    @inlinable mutating func bitshiftRight(majorAtLeastOne major: Int) {
         defer {
             Swift.assert(self.storage.isNormal)
         }
         //=--------------------------------------=
-        if  self.storage.elements.count <= words {
+        if  self.storage.elements.count <= major {
             return self.updateZeroValue()
         }
         //=--------------------------------------=
-        self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.bitshiftRight(majorAtLeastOne: words)
+        self.storage.withUnsafeMutableBufferPointer {
+            SUI.bitshiftRight(&$0, majorAtLeastOne: major)
         }
         
-        self.storage.resize(maxCount: self.storage.elements.count - words)
+        self.storage.resize(maxCount: self.storage.elements.count - major)
     }
 }

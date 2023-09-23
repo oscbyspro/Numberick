@@ -20,7 +20,7 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
         
     @inlinable public var isZero: Bool {
-        self.withUnsafeStrictUnsignedInteger({ $0.base.count == 1 && $0.first.isZero })
+        self.withUnsafeBufferPointer({ $0.count == 1 && $0.first!.isZero })
     }
     
     @inlinable public var isLessThanZero: Bool {
@@ -32,7 +32,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var isPowerOf2: Bool {
-        self.withUnsafeBufferPointer({ NBK.nonzeroBitCount(of: $0, equals: 1) })
+        self.withUnsafeBufferPointer({ SBISS.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {
@@ -62,28 +62,29 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func compared(to other: Self) -> Int {
         self .storage.elements.withUnsafeBufferPointer { lhs in
         other.storage.elements.withUnsafeBufferPointer { rhs in
-            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
+            SUISS.compare(lhs, to: rhs)
         }}
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
         self .storage.elements.withUnsafeBufferPointer { lhs in
         other.storage.elements.withUnsafeBufferPointer { rhs in
-            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
+            SUISS.compare(lhs, to: rhs, at: index)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
         self.storage.elements.withUnsafeBufferPointer { lhs in
-        NBK .withUnsafeWords(of: other) { rhs in
-            NBK.compareLenientUnsignedInteger(lhs, to: rhs)
+        SBI.withUnsafeBufferPointer(to: other) { rhs in
+            SUISS.compare(lhs, to: rhs)
         }}
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
         self.storage.elements.withUnsafeBufferPointer { lhs in
-        NBK .withUnsafeWords(of: other) { rhs in
-            NBK.compareLenientUnsignedInteger(lhs, to: rhs, at: index)
-        }}
+            SBI.withUnsafeBufferPointer(to: other) { rhs in
+                SUISS.compare(lhs, to: rhs, at: index)
+            }
+        }
     }
 }

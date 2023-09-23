@@ -40,8 +40,8 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minCount: index + 1)
         
-        let overflow = self.storage.withUnsafeMutableStrictUnsignedInteger {
-            $0.increment(by: other, at: index).overflow
+        let overflow = self.storage.withUnsafeMutableBufferPointer {
+            SUISS.increment(&$0, by: other, at: index).overflow
         }
         
         if  overflow {

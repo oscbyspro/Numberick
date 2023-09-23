@@ -128,7 +128,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// - Note: The `high` and `low` parts contain the entire `overflow` from `low` to `high`.
     ///
     @_disfavoredOverload @inlinable public mutating func multiplyFullWidth(by other: Digit, add carry: Digit) -> Digit {
-        NBK.multiplyFullWidthLenientUnsignedInteger(&self, by: other, add: carry)
+        SBI.Unsigned.SubSequence.multiplyFullWidth(&self, by: other, add: carry)
     }
     
     /// Returns the `low` and `high` parts of multiplication and addition.
