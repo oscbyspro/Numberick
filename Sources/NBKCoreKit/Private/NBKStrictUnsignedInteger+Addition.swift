@@ -275,8 +275,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     @inlinable public static func incrementInIntersection(
     _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
-        for elementIndex in elements.indices {
-            self.incrementInIntersection(&base, by: elements[elementIndex], plus: &bit, at: &index)
+        for elementsIndex in elements.indices {
+            self.incrementInIntersection(&base, by: elements[elementsIndex], plus: &bit, at: &index)
         }
     }
 }
