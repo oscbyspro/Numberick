@@ -26,9 +26,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - distance: `0 <= distance < base.bitWidth`
     ///
     @inlinable public static func bitshiftLeft(_ base: inout Base, by distance: Int) {
-        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
-        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let (major, minor) = distance.quotientAndRemainder(dividingBy: Base.Element.bitWidth)
         return self.bitshiftLeft(&base, major: major, minor: minor)
     }
     
@@ -99,9 +97,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - distance: `0 <= distance < base.bitWidth`
     ///
     @inlinable public static func bitshiftRight(_ base: inout Base, by distance: Int) {
-        precondition(distance >= 0, NBK.callsiteOutOfBoundsInfo())
-        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(distance)
-        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(distance)
+        let (major, minor) = distance.quotientAndRemainder(dividingBy: Base.Element.bitWidth)
         return self.bitshiftRight(&base, major: major, minor: minor)
     }
     
