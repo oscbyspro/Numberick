@@ -69,7 +69,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             var (word) = self.last as  UInt
-            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let result = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.startIndex, offsetBy: major)
             //=----------------------------------=
             for source in self.indices {
@@ -108,7 +108,7 @@ extension NBKDoubleWidth {
         if  major.isZero { return self }
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
-            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let result = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.startIndex, offsetBy: major)
             //=----------------------------------=
             for source in self.indices {
@@ -184,7 +184,7 @@ extension NBKDoubleWidth {
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
             var (word) = self.last as  UInt
-            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let result = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.endIndex, offsetBy: ~major)
             //=----------------------------------=
             precondition(result.indices ~= destination)
@@ -224,7 +224,7 @@ extension NBKDoubleWidth {
         if  major.isZero { return self }
         //=--------------------------------------=
         return  Self.uninitialized(as: UInt.self) {
-            let result = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let result = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
             var destination = result.index(result.endIndex, offsetBy: -major)
             //=----------------------------------=
             precondition(result.indices ~= destination)

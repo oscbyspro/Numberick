@@ -11,8 +11,10 @@
 // MARK: * NBK x Twin Headed
 //*============================================================================*
 
+extension NBK { public typealias TwinHeaded = _NBKTwinHeaded }
+
 /// A collection that iterates forwards or backwards in a dynamic but branchless way.
-@frozen public struct NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
+@frozen public struct _NBKTwinHeaded<Base>: RandomAccessCollection where Base: RandomAccessCollection {
     
     public typealias Base = Base
     
@@ -181,13 +183,13 @@
 // MARK: + Sendable
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded: Sendable where Base: Sendable, Base.Index: Sendable { }
+extension NBK.TwinHeaded: Sendable where Base: Sendable, Base.Index: Sendable { }
 
 //=----------------------------------------------------------------------------=
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded {
+extension NBK.TwinHeaded {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -246,7 +248,7 @@ extension NBKTwinHeaded {
 // MARK: + Mutable Collection
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
+extension NBK.TwinHeaded: MutableCollection where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
     // MARK: Accessors
@@ -262,7 +264,7 @@ extension NBKTwinHeaded: MutableCollection where Base: MutableCollection {
 // MARK: + where Base is Unsafe Buffer Pointer
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded {
+extension NBK.TwinHeaded {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -280,7 +282,7 @@ extension NBKTwinHeaded {
 // MARK: + where Base is Unsafe Mutable Buffer Pointer
 //=----------------------------------------------------------------------------=
 
-extension NBKTwinHeaded {
+extension NBK.TwinHeaded {
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers

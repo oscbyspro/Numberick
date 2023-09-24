@@ -63,7 +63,7 @@ extension NBK {
     /// - `@inlinable` is not needed.
     ///
     public static func integerTextUnchecked(
-    chunks: NBKTwinHeaded<NBK.UnsafeWords>, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder,
+    chunks: NBK.TwinHeaded<NBK.UnsafeWords>, radix: AnyRadixSolution<Int>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeUTF8, suffix: UnsafeUTF8) -> String {
         assert(chunks.count <= 1  || chunks.last != 0, "chunks must not contain redundant zeros")
         assert(radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), "chunks must be less than radix's power")
