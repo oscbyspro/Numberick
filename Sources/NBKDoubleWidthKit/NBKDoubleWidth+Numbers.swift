@@ -67,12 +67,13 @@ extension NBKDoubleWidth {
     @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
         self = Self.truncating(source).value
     }
-
+    
     @inlinable static func truncating<T: BinaryInteger>(_ source: T)
     -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) {
-        let words: T.Words = source.words
-        let isLessThanZero: Bool = T.isSigned && words.last?.mostSignificantBit == true
-        let sign = UInt(repeating: isLessThanZero)
+        //=--------------------------------------=
+        let words = source.words as T.Words
+        let isLessThanZero: Bool =  T.isSigned && words.last?.mostSignificantBit == true
+        let sign  = UInt(repeating: isLessThanZero)
         //=--------------------------------------=
         let value = Self.uninitialized(as: UInt.self) {
             let value =  NBK.TwinHeaded($0, reversed: NBK.isBigEndian)

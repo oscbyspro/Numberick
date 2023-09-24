@@ -17,7 +17,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Succinct Int x Components
+// MARK: * NBK x Succinct Int
 //*============================================================================*
 
 final class NBKSuccinctIntTests: XCTestCase {
@@ -74,8 +74,8 @@ file: StaticString = #file, line: UInt = #line) {
     typealias T = NBK.SuccinctInt<UnsafeBufferPointer<UInt>>
     //=------------------------------------------=
     source.withUnsafeBufferPointer {
-        XCTAssertEqual(T(fromStrictSignedInteger: $0)?.sign,                   sign, file: file, line: line)
-        XCTAssertEqual(T(fromStrictSignedInteger: $0).map({ Array($0.body) }), body, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: $0).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: $0).map({ Array($0.body) }), body, file: file, line: line)
     }
 }
 

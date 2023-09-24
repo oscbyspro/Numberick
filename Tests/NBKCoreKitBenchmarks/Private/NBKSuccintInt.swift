@@ -35,8 +35,8 @@ final class NBKSuccinctIntBenchmarks: XCTestCase {
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
             xyz.withUnsafeBufferPointer { xyz in
-                NBK.blackHole(T(fromStrictSignedInteger: abc)!)
-                NBK.blackHole(T(fromStrictSignedInteger: xyz)!)
+                NBK.blackHole(T(fromStrictSignedIntegerSubSequence: abc)!)
+                NBK.blackHole(T(fromStrictSignedIntegerSubSequence: xyz)!)
             }}
             
             NBK.blackHoleInoutIdentity(&abc)

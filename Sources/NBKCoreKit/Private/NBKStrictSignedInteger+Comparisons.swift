@@ -27,8 +27,8 @@ extension NBK.StrictSignedInteger {
     /// Specializing this it where `T == UInt` makes it faster.
     ///
     @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base) -> Int where Base == UnsafeBufferPointer<T> {
-        let lhs = NBK.SuccinctInt(fromStrictSignedInteger: lhs)!
-        let rhs = NBK.SuccinctInt(fromStrictSignedInteger: rhs)!
+        let lhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: lhs)!
+        let rhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: rhs)!
         return lhs.compared(to: rhs) as Int
     }
     
@@ -39,8 +39,8 @@ extension NBK.StrictSignedInteger {
     /// Specializing this it where `T == UInt` makes it faster.
     ///
     @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base, at index: Int) -> Int where Base == UnsafeBufferPointer<T> {
-        let lhs = NBK.SuccinctInt(fromStrictSignedInteger: lhs)!
-        let rhs = NBK.SuccinctInt(fromStrictSignedInteger: rhs)!
+        let lhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: lhs)!
+        let rhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: rhs)!
         let partition = Swift.min(index, lhs.body.endIndex)
         let suffix = Base(rebasing:  lhs.body.suffix(from: partition))
         let comparison = NBK.SuccinctInt(unchecked: suffix, sign: lhs.sign).compared(to: rhs)
