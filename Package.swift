@@ -75,7 +75,7 @@ var package = Package(
         //=--------------------------------------=
         .target(
         name: "NBKDoubleWidthKit",
-        dependencies: ["NBKCoreKit"]),
+        dependencies: ["NBKCoreKit", "NBKTextKit"]),
         
         .testTarget(
         name: "NBKDoubleWidthKitBenchmarks",
@@ -84,6 +84,12 @@ var package = Package(
         .testTarget(
         name: "NBKDoubleWidthKitTests",
         dependencies: ["NBKDoubleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Text Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKTextKit",
+        dependencies: ["NBKCoreKit"]),
     ]
 )
 

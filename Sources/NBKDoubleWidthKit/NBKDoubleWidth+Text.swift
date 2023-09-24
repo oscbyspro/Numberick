@@ -8,6 +8,7 @@
 //=----------------------------------------------------------------------------=
 
 import NBKCoreKit
+import NBKTextKit
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Text
@@ -35,13 +36,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        Swift.withUnsafePointer(to: UInt8(ascii: "-")) { minus in
-            let radix  = NBK.AnyRadixSolution<Int>(radix)
-            let alphabet = NBK.MaxRadixAlphabetEncoder(uppercase: uppercase)
-            let prefix = NBK.UnsafeUTF8(start: minus, count: Int(bit: self.isLessThanZero))
-            let suffix = NBK.UnsafeUTF8(start: nil,   count: 0 as Int)
-            return self.magnitude.description(radix:  radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }
+        NBKIntegerDescriptionEncoder(radix: radix, uppercase: uppercase).encode(self)
     }
 }
 
@@ -108,65 +103,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
             let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent))
             guard let word = NBK.truncating(digits: chunk, radix: radix.base, as: UInt.self) else { return nil }
             guard !self.multiplyReportingOverflow(by: radix.power, add: word) else { return nil }
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Encode x Private
-    //=------------------------------------------------------------------------=
-    // NOTE: Both branches specialize NBK.TwinHeaded<UnsafeBufferPointer<UInt>>
-    //=------------------------------------------------------------------------=
-    
-    @inlinable func description(
-    radix:  NBK.AnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder,
-    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        switch radix.power.isZero {
-        case  true: return self.description(radix: NBK  .PerfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        case false: return self.description(radix: NBK.ImperfectRadixSolution(radix)!, alphabet: alphabet, prefix: prefix, suffix: suffix) }
-    }
-    
-    @inlinable func description(
-    radix:  NBK.PerfectRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder,
-    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        //=--------------------------------------=
-        // with one buffer pointer specialization
-        //=--------------------------------------=
-        self.withUnsafeData(as: UInt.self) { data in
-            let radix  = NBK.AnyRadixSolution(radix)
-            let words  = NBK.TwinHeaded(data, reversed: NBK.isBigEndian)
-            let chunks = NBK.TwinHeaded(rebasing: NBK.dropLast(from: words, while:{ $0.isZero }))
-            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
-        }
-    }
-    
-    @inlinable func description(
-    radix:  NBK.ImperfectRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder,
-    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        //=--------------------------------------=
-        // with one buffer pointer specialization
-        //=--------------------------------------=
-        let capacity: Int = radix.divisibilityByPowerUpperBound(self)
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
-            //=----------------------------------=
-            var magnitude: Magnitude = self
-            let start = buffer.baseAddress!
-            var position = start as UnsafeMutablePointer<UInt>
-            //=----------------------------------=
-            // pointee: initialization
-            //=----------------------------------=
-            rebasing: repeat {
-                position.initialize(to: magnitude.formQuotientWithRemainderReportingOverflow(dividingBy: radix.power).partialValue)
-                position = position.successor()
-            } while !magnitude.isZero
-            //=----------------------------------=
-            // pointee: deferred deinitialization
-            //=----------------------------------=
-            let count = start.distance(to: position)
-            defer { start.deinitialize(count: count) }
-            //=----------------------------------=
-            let radix  = NBK.AnyRadixSolution(radix)
-            let chunks = NBK.TwinHeaded(UnsafeBufferPointer(start: start, count: count))
-            return NBK.integerTextUnchecked(chunks: chunks, radix: radix, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
 }
