@@ -37,6 +37,17 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Words
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(words: some RandomAccessCollection<UInt>) {
+        let chunks = NBKChunkedInt(words,as: Self.self)
+        self = chunks[0 as Int] // with sign extension
+        let sign = Self(repeating: self.isLessThanZero)
+        guard chunks.dropFirst().allSatisfy({ $0 == sign }) else { return nil }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Signum
     //=------------------------------------------------------------------------=
     
