@@ -72,6 +72,33 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     @inlinable init?(sign: FloatingPointSign, magnitude: Magnitude)
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Words
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from the given collection of `words`.
+    ///
+    /// The `words` are interpreted as a binary integer with the same signedness.
+    ///
+    /// ```
+    /// ┌─────────────────────────────────────────────── → ───────────┐
+    /// │ words                                          │ self       │
+    /// ├─────────────────────────────────────────────── → ───────────┤
+    /// │ [UInt](                )                       │ Int256( 0) │
+    /// │ [UInt](Int256(  ).words)                       │ Int256( 0) │
+    /// │ [UInt](Int256.min.words)                       │ Int256.min │
+    /// │ [UInt](Int256.max.words)                       │ Int256.max │
+    /// ├─────────────────────────────────────────────── → ───────────┤
+    /// | [UInt](repeating:  0, count: Int256.count + 1) │ Int256( 0) │
+    /// | [UInt](repeating:  1, count: Int256.count + 1) │ nil        │
+    /// | [UInt](repeating: ~0, count: Int256.count + 1) │ Int256(-1) │
+    /// └─────────────────────────────────────────────── → ───────────┘
+    /// ```
+    ///
+    /// - Note: This method returns zero when the given collection of `words` is empty.
+    ///
+    @inlinable init?(words: some RandomAccessCollection<UInt>)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     

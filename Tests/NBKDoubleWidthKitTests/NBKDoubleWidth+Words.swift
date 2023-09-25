@@ -28,28 +28,66 @@ final class NBKDoubleWidthTestsOnWordsAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testWordsX64() throws {
-        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+    func testFromWords() {
+        NBKAssertFromWords(Array(           ), T(  ))
+        NBKAssertFromWords(Array(T(  ).words), T(  ))
+        NBKAssertFromWords(Array(T.min.words), T.min)
+        NBKAssertFromWords(Array(T.max.words), T.max)
         
-        NBKAssertWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
-        NBKAssertWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
-        NBKAssertWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
-        NBKAssertWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
-        NBKAssertWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
+        NBKAssertFromWords([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2),  00 as T?)
+        NBKAssertFromWords([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+        NBKAssertFromWords([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), -01 as T?)
+        NBKAssertFromWords([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
     }
     
-    func testWordsX32() throws {
+    func testFromWordsX64() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+        
+        NBKAssertFromWords([             ] as [UInt], T(x64: X(0, 0, 0, 0)))
+        NBKAssertFromWords([1            ] as [UInt], T(x64: X(1, 0, 0, 0)))
+        NBKAssertFromWords([1, 2         ] as [UInt], T(x64: X(1, 2, 0, 0)))
+        NBKAssertFromWords([1, 2, 3      ] as [UInt], T(x64: X(1, 2, 3, 0)))
+        NBKAssertFromWords([1, 2, 3, 4   ] as [UInt], T(x64: X(1, 2, 3, 4)))
+        NBKAssertFromWords([1, 2, 3, 4, 5] as [UInt], nil as T?)
+    }
+    
+    func testFromWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
+        NBKAssertFromWords([                         ] as [UInt], T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1                        ] as [UInt], T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2                     ] as [UInt], T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3                  ] as [UInt], T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4               ] as [UInt], T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5            ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6         ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7      ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7, 8   ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7, 8, 9] as [UInt], nil as T?)
+    }
+    
+    func testToWordsX64() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+        
+        NBKAssertToWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
+    }
+    
+    func testToWordsX32() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
+        
+        NBKAssertToWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
     }
     
     //=------------------------------------------------------------------------=
@@ -83,28 +121,66 @@ final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testFromWords() {
+        NBKAssertFromWords(Array(           ), T(  ))
+        NBKAssertFromWords(Array(T(  ).words), T(  ))
+        NBKAssertFromWords(Array(T.min.words), T.min)
+        NBKAssertFromWords(Array(T.max.words), T.max)
+        
+        NBKAssertFromWords([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), 000 as T?)
+        NBKAssertFromWords([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+        NBKAssertFromWords([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+        NBKAssertFromWords([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+    }
+    
+    func testFromWordsX64() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
+        
+        NBKAssertFromWords([             ] as [UInt], T(x64: X(0, 0, 0, 0)))
+        NBKAssertFromWords([1            ] as [UInt], T(x64: X(1, 0, 0, 0)))
+        NBKAssertFromWords([1, 2         ] as [UInt], T(x64: X(1, 2, 0, 0)))
+        NBKAssertFromWords([1, 2, 3      ] as [UInt], T(x64: X(1, 2, 3, 0)))
+        NBKAssertFromWords([1, 2, 3, 4   ] as [UInt], T(x64: X(1, 2, 3, 4)))
+        NBKAssertFromWords([1, 2, 3, 4, 5] as [UInt], nil as T?)
+    }
+    
+    func testFromWordsX32() throws {
+        guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
+        
+        NBKAssertFromWords([                         ] as [UInt], T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1                        ] as [UInt], T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2                     ] as [UInt], T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3                  ] as [UInt], T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4               ] as [UInt], T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5            ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6         ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7      ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7, 8   ] as [UInt], T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)))
+        NBKAssertFromWords([1, 2, 3, 4, 5, 6, 7, 8, 9] as [UInt], nil as T?)
+    }
+    
     func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
-        NBKAssertWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
-        NBKAssertWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
-        NBKAssertWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
-        NBKAssertWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
+        NBKAssertToWords(T(x64: X(0, 0, 0, 0)), [0, 0, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 0, 0, 0)), [1, 0, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 0, 0)), [1, 2, 0, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 3, 0)), [1, 2, 3, 0])
+        NBKAssertToWords(T(x64: X(1, 2, 3, 4)), [1, 2, 3, 4])
     }
     
     func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
-        NBKAssertWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
-        NBKAssertWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
+        NBKAssertToWords(T(x32: Y(0, 0, 0, 0, 0, 0, 0, 0)), [0, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 0, 0, 0, 0, 0, 0, 0)), [1, 0, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 0, 0, 0, 0, 0, 0)), [1, 2, 0, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 0, 0, 0, 0, 0)), [1, 2, 3, 0, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 0, 0, 0, 0)), [1, 2, 3, 4, 0, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 0, 0, 0)), [1, 2, 3, 4, 5, 0, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 0, 0)), [1, 2, 3, 4, 5, 6, 0, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 0)), [1, 2, 3, 4, 5, 6, 7, 0])
+        NBKAssertToWords(T(x32: Y(1, 2, 3, 4, 5, 6, 7, 8)), [1, 2, 3, 4, 5, 6, 7, 8])
     }
     
     //=------------------------------------------------------------------------=
@@ -130,12 +206,25 @@ final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
 // MARK: * NBK x Double Width x Words x Assertions
 //*============================================================================*
 
-private func NBKAssertWords<H: NBKFixedWidthInteger>(
+private func NBKAssertFromWords<H: NBKFixedWidthInteger>(
+_ words: [UInt], _ integer: NBKDoubleWidth<H>?,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    XCTAssertEqual(T(words: words),  integer, file: file, line: line)
+    XCTAssertEqual(integer.flatMap({ T(words: $0.words) }), integer, file: file, line: line)
+}
+
+private func NBKAssertToWords<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    NBKAssertFromWords(words, integer, file: file, line: line)
+    //=------------------------------------------=
     var integer: NBKDoubleWidth<H> = integer
     var generic: some RandomAccessCollection<UInt> & MutableCollection = integer
-    
+    //=------------------------------------------=
     XCTAssertEqual(Array(integer),       words, file: file, line: line)
     XCTAssertEqual(Array(integer.words), words, file: file, line: line)
     
