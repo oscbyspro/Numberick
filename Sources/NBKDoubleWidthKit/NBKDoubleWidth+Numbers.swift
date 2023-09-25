@@ -61,7 +61,7 @@ extension NBKDoubleWidth {
     @inlinable public init<T: BinaryInteger>(clamping source: T) {
         let  comparison: Int
        (self,comparison) = Self.validating(words: source.words, isSigned: T.isSigned)
-        if  !comparison.isZero { self = comparison.isLessThanZero ? Self.min : Self.max }
+        if  !comparison.isZero { self = comparison == -1 ? Self.min : Self.max }
     }
     
     @inlinable public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
