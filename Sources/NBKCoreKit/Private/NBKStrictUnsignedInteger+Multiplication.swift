@@ -11,38 +11,69 @@
 // MARK: * NBK x Strict Unsigned Integer x Multiplication x Sub Sequence
 //*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Digit + Digit
+// MARK: + Digit + Digit + Range
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
-    /// Forms the low product of multiplying `base` and `multiplicand` then adding `addend`.
-    ///
-    /// - Returns: An overflow indicator.
-    ///
+    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
+    /// and `multiplicand` then adding `addend`.
     @inlinable public static func multiplyReportingOverflow(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
         !self.multiplyFullWidth(&base, by: multiplicand, add: addend).isZero
     }
     
-    /// Forms the low product of multiplying `base` and `multiplicand` then adding `addend`.
-    ///
-    /// - Returns: The high product.
-    ///
+    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
+    /// and `multiplicand` then adding `addend` up to the given `endIndex`.
+    @inlinable public static func multiplyReportingOverflow(
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, upTo endIndex: Base.Index) -> Bool {
+        !self.multiplyFullWidth(&base, by: multiplicand, add: addend, upTo: endIndex).isZero
+    }
+    
+    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
+    /// and `multiplicand` then adding `addend` in the given `range`.
+    @inlinable public static func multiplyReportingOverflow(
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Bool {
+        !self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range).isZero
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Full Width
+    //=------------------------------------------------------------------------=
+    
+    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
+    /// and `multiplicand` then adding `addend`.
     @inlinable public static func multiplyFullWidth(
     _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
+        self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: Range(uncheckedBounds:(base.startIndex, base.endIndex)))
+    }
+    
+    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
+    /// and `multiplicand` then adding `addend` up to the given `endIndex`.
+    @inlinable public static func multiplyFullWidth(
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, upTo endIndex: Base.Index) -> Base.Element {
+        self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: base.startIndex ..< endIndex)
+    }
+    
+    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
+    /// and `multiplicand` then adding `addend` in the given `range`.
+    @inlinable public static func multiplyFullWidth(
+    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Base.Element {
+        //=--------------------------------------=
         var carry: Base.Element = addend
-        
-        for index in base.indices {
+        var index: Base.Index = range.lowerBound
+        //=--------------------------------------=
+        forwards: while index < range.upperBound {
             var subproduct = base[index].multipliedFullWidth(by: multiplicand)
             subproduct.high &+= Base.Element(bit: subproduct.low.addReportingOverflow(carry))
             (carry, base[index]) = subproduct as HL<Base.Element, Base.Element>
+            base.formIndex(after: &index)
         }
-        
-        return carry as Base.Element
+        //=--------------------------------------=
+        return carry as Base.Element as Base.Element
     }
 }
