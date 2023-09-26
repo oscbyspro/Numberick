@@ -235,15 +235,15 @@ extension NBK.IntegerDescription {
             forwards: if !division.remainder.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: division.remainder))
                 guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                baseAddress.advanced(by: index).initialize(to: word)
+                baseAddress.advanced(by: index).initialize(to:  word)
                 words.formIndex(after:  &index)
             }
             
             forwards: while !digits.isEmpty {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: Int(bitPattern: radix.exponent)))
                 guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                let carry = SUISS.multiplyFullWidth(&words, by: radix.power, add: word, upTo: index)
-                baseAddress.advanced(by: index).initialize(to: carry)
+                let carry = SUISS.multiplyFullWidth(&words,by:  radix.power, add: word, in: words.startIndex ..< index)
+                baseAddress.advanced(by: index).initialize(to:  carry)
                 words.formIndex(after:  &index)
             }
             //=----------------------------------=
