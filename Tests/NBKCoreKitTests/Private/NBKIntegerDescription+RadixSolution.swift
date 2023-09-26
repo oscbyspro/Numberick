@@ -10,7 +10,6 @@
 #if DEBUG
 
 import NBKCoreKit
-import NBKTextKit
 import XCTest
 
 //*============================================================================*

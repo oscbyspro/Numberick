@@ -111,12 +111,6 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: You can use `StaticString` until `StaticBigInt` becomes available.
 
-<a name="nbktextkit"/>
-
-## NBKTextKit ([Sources][TXT/S], [Tests][TXT/T], [Benchmarks][TXT/B])
-
-👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
-
 <a name="installation"/>
 
 ## Installation
@@ -170,15 +164,12 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
-[TXT/S]: Sources/NBKTextKit
 
 [COR/T]: Tests/NBKCoreKitTests
 [DBL/T]: Tests/NBKDoubleWidthKitTests
-[TXT/T]: Tests/NBKTextKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
-[TXT/B]: Tests/NBKTextKitBenchmarks
 
 <!-- Links x Miscellaneous -->
 

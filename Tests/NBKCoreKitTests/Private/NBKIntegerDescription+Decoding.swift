@@ -10,14 +10,13 @@
 #if DEBUG
 
 import NBKCoreKit
-import NBKTextKit
 import XCTest
 
 //*============================================================================*
 // MARK: * NBK x Integer Description x Decoding x Digit
 //*============================================================================*
 
-final class NBKIntegerDescriptionTestsOnDecodingAsDigit: XCTestCase {
+final class NBKIntegerDescriptionTestsOnDecodingOneDigit: XCTestCase {
         
     //=------------------------------------------------------------------------=
     // MARK: Tests x UInt32
@@ -108,6 +107,5 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(NBK.IntegerDescription.truncating(digits: $0, radix: radix), result, file: file, line: line)
     }
 }
-
 
 #endif

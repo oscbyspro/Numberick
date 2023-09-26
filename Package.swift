@@ -48,12 +48,6 @@ var package = Package(
         .library(
         name: "NBKDoubleWidthKit",
         targets: ["NBKDoubleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x NBK Text Kit
-        //=--------------------------------------=
-        .library(
-        name: "NBKTextKit",
-        targets: ["NBKTextKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -81,7 +75,7 @@ var package = Package(
         //=--------------------------------------=
         .target(
         name: "NBKDoubleWidthKit",
-        dependencies: ["NBKCoreKit", "NBKTextKit"]),
+        dependencies: ["NBKCoreKit"]),
         
         .testTarget(
         name: "NBKDoubleWidthKitBenchmarks",
@@ -90,20 +84,6 @@ var package = Package(
         .testTarget(
         name: "NBKDoubleWidthKitTests",
         dependencies: ["NBKDoubleWidthKit"]),
-        //=--------------------------------------=
-        // NBK x Text Kit
-        //=--------------------------------------=
-        .target(
-        name: "NBKTextKit",
-        dependencies: ["NBKCoreKit"]),
-        
-        .testTarget(
-        name: "NBKTextKitTests",
-        dependencies: ["NBKTextKit"]),
-        
-        .testTarget(
-        name: "NBKTextKitBenchmarks",
-        dependencies: ["NBKTextKit"]),
     ]
 )
 
