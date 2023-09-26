@@ -85,6 +85,12 @@ file: StaticString = #file, line: UInt = #line) {
     typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
     brrrrrrrrrrr: do {
+        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs, in: range)
+        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+    
+    brrrrrrrrrrr: do {
         var lhs = lhs
         let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs, in: range)
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)
@@ -92,22 +98,16 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     
-    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
-        var lhs = lhs
-        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs)
-        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
-        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
-        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
-    }
-    //=------------------------------------------=
-    brrrrrrrrrrr: do {
-        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs, in: range)
+    if  range  == lhs.indices {
+        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     
-    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
-        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs)
+    if  range  == lhs.indices {
+        var lhs = lhs
+        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs)
+        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }

@@ -17,7 +17,7 @@
 extension NBK.StrictUnsignedInteger.SubSequence {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     /// Returns the `remainder` of dividing the `base` by the `divisor`,
@@ -26,7 +26,7 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// - Note: In the case of `overflow`, the result is `base.first`.
     ///
     @inlinable public static func remainderReportingOverflow(
-    _ base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    _   base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         let range = Range(uncheckedBounds:(base.startIndex, base.endIndex))
         return self.remainderReportingOverflow(base, dividingBy: divisor, in: range)
     }
@@ -38,16 +38,15 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func remainderReportingOverflow(
-    _ base: Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
+    _   base: Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: range.isEmpty ? 0 as Base.Element : base[range.lowerBound], overflow: true)
+            return PVO(range.isEmpty ? 0 as Base.Element : base[range.lowerBound], true)
         }
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         
-        var   index = range.upperBound
-        while index > range.lowerBound {
+        var index = range.upperBound; while index > range.lowerBound {
             base.formIndex(before: &index)
             remainder = divisor.dividingFullWidth(HL(high: remainder, low: base[index])).remainder
         }
@@ -63,7 +62,7 @@ extension NBK.StrictUnsignedInteger.SubSequence {
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     /// Forms the `quotient` of dividing the `base` by the `divisor`,
@@ -72,7 +71,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Note: In the case of `overflow`, the result is `base` and `base.first`.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
-    _ base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    _   base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         let range = Range(uncheckedBounds:(base.startIndex, base.endIndex))
         return self.formQuotientWithRemainderReportingOverflow(&base, dividingBy: divisor, in: range)
     }
@@ -87,13 +86,12 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     _   base: inout Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: range.isEmpty ? 0 as Base.Element : base[range.lowerBound], overflow: true)
+            return PVO(range.isEmpty ? 0 as Base.Element : base[range.lowerBound], true)
         }
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         
-        var   index = range.upperBound
-        while index > range.lowerBound {
+        var index = range.upperBound; while index > range.lowerBound {
             base.formIndex(before: &index)
            (base[index], remainder) = divisor.dividingFullWidth(HL(high: remainder, low: base[index]))
         }

@@ -23,21 +23,14 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
     /// and `multiplicand` then adding `addend`.
     @inlinable public static func multiplyReportingOverflow(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
         !self.multiplyFullWidth(&base, by: multiplicand, add: addend).isZero
-    }
-    
-    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
-    /// and `multiplicand` then adding `addend` up to the given `endIndex`.
-    @inlinable public static func multiplyReportingOverflow(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, upTo endIndex: Base.Index) -> Bool {
-        !self.multiplyFullWidth(&base, by: multiplicand, add: addend, upTo: endIndex).isZero
     }
     
     /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
     /// and `multiplicand` then adding `addend` in the given `range`.
     @inlinable public static func multiplyReportingOverflow(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Bool {
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Bool {
         !self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range).isZero
     }
     
@@ -48,21 +41,14 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// Forms the `low` product, and returns the `high` product, of multiplying `base`
     /// and `multiplicand` then adding `addend`.
     @inlinable public static func multiplyFullWidth(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
         self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: Range(uncheckedBounds:(base.startIndex, base.endIndex)))
-    }
-    
-    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
-    /// and `multiplicand` then adding `addend` up to the given `endIndex`.
-    @inlinable public static func multiplyFullWidth(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, upTo endIndex: Base.Index) -> Base.Element {
-        self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: base.startIndex ..< endIndex)
     }
     
     /// Forms the `low` product, and returns the `high` product, of multiplying `base`
     /// and `multiplicand` then adding `addend` in the given `range`.
     @inlinable public static func multiplyFullWidth(
-    _ base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Base.Element {
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Base.Element {
         //=--------------------------------------=
         var carry: Base.Element = addend
         var index: Base.Index = range.lowerBound
