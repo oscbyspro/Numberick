@@ -58,6 +58,20 @@ final class NBKStrictUnsignedIntegerTestsOnDivisionAsSubSequence: XCTestCase {
         NBKAssertDivisionByDigitInRange([~4,  ~8, ~12, 19] as W, UInt(4), 0 ..< 4, [~1,  ~2/1,  ~3/1,  4] as W, UInt(3))
         NBKAssertDivisionByDigitInRange([~5, ~10, ~15, 24] as W, UInt(5), 0 ..< 4, [~1,  ~2/1,  ~3/1,  4] as W, UInt(4))
     }
+    
+    func testDividingLargeBySmallReportingOverflow() {
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 4, [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 3, [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 2, [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 1, [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 0, [1, 2, 3, 4] as W, UInt( ), true)
+        
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 0 ..< 4, [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 1 ..< 4, [1, 2, 3, 4] as W, UInt(2), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 2 ..< 4, [1, 2, 3, 4] as W, UInt(3), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 3 ..< 4, [1, 2, 3, 4] as W, UInt(4), true)
+        NBKAssertDivisionByDigitInRange([1, 2, 3, 4] as W, UInt( ), 4 ..< 4, [1, 2, 3, 4] as W, UInt( ), true)
+    }
 }
 
 //*============================================================================*

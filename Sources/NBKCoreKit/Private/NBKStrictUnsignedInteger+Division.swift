@@ -34,17 +34,18 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// Returns the `remainder` of dividing the `base` by the `divisor` in the given `range`,
     /// along with an `overflow` indicator.
     ///
-    /// - Note: In the case of `overflow`, the result is `base.first`.
+    /// - Note: In the case of `overflow`, the result is the first element in the given `range`
+    /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func remainderReportingOverflow(
     _ base: Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
-        var remainder = 0 as Base.Element
-        //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: base.first ?? remainder, overflow: true)
+            return PVO(partialValue: range.isEmpty ? 0 as Base.Element : base[range.lowerBound], overflow: true)
         }
         //=--------------------------------------=
+        var remainder = 0 as Base.Element
+        
         var   index = range.upperBound
         while index > range.lowerBound {
             base.formIndex(before: &index)
@@ -79,17 +80,18 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// Forms the `quotient` of dividing the `base` by the `divisor` in the given `range`,
     /// and returns the `remainder` along with an `overflow` indicator.
     ///
-    /// - Note: In the case of `overflow`, the result is `base` and `base.first`.
+    /// - Note: In the case of `overflow`, the result is `base` and the first element in the given `range`
+    /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
     _   base: inout Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
-        var remainder = 0 as Base.Element
-        //=--------------------------------------=
         if  divisor.isZero {
-            return PVO(partialValue: base.first ?? remainder, overflow: true)
+            return PVO(partialValue: range.isEmpty ? 0 as Base.Element : base[range.lowerBound], overflow: true)
         }
         //=--------------------------------------=
+        var remainder = 0 as Base.Element
+        
         var   index = range.upperBound
         while index > range.lowerBound {
             base.formIndex(before: &index)
