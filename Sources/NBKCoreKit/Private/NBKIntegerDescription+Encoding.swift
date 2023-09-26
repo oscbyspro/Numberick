@@ -120,16 +120,24 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             let start = buffer.baseAddress!
             var position = start as UnsafeMutablePointer<UInt>
+            var magnitudeEndIndex = magnitude.endIndex
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
-            // TODO: normalizing division is more efficient
-            //=----------------------------------=
             rebasing: repeat {
-                let remainder = SUISS.formQuotientWithRemainderReportingOverflow(&magnitude, dividingBy: solution.power).partialValue
+                let range = Range(uncheckedBounds:(magnitude.startIndex, magnitudeEndIndex))
+                let remainder = SUISS.formQuotientWithRemainderReportingOverflow(&magnitude, dividingBy: solution.power, in: range).partialValue
+                
                 position.initialize(to: remainder)
                 position = position.successor()
-            } while !magnitude.allSatisfy({ $0.isZero })
+                
+                trimming: while magnitudeEndIndex > magnitude.startIndex {
+                    let magnitudeLastIndex = magnitude.index(before:  magnitudeEndIndex )
+                    guard magnitude[magnitudeLastIndex].isZero else { continue rebasing }
+                    magnitudeEndIndex = magnitudeLastIndex
+                }
+                
+            break } while true
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
