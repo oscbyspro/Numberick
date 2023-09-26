@@ -85,7 +85,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable init?(exactlyStringLiteral source: StaticString) {
-        let decoder = NBKIntegerDescriptionDecoderDecodingRadix()
+        let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
         if let value: Self = decoder.decode(source) { self = value } else { return nil }
     }
 }

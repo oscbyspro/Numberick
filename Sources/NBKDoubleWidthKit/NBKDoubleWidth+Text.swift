@@ -21,7 +21,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        let decoder = NBKIntegerDescriptionDecoder(radix: radix)
+        let decoder = NBK.IntegerDescription.Decoder(radix: radix)
         if let value: Self = decoder.decode(description) { self = value } else { return nil }
     }
     
@@ -30,6 +30,6 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        NBKIntegerDescriptionEncoder(radix: radix, uppercase: uppercase).encode(self)
+        NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase).encode(self)
     }
 }

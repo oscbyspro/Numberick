@@ -48,6 +48,12 @@ var package = Package(
         .library(
         name: "NBKDoubleWidthKit",
         targets: ["NBKDoubleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x NBK Text Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKTextKit",
+        targets: ["NBKTextKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -90,6 +96,14 @@ var package = Package(
         .target(
         name: "NBKTextKit",
         dependencies: ["NBKCoreKit"]),
+        
+        .testTarget(
+        name: "NBKTextKitTests",
+        dependencies: ["NBKTextKit"]),
+        
+        .testTarget(
+        name: "NBKTextKitBenchmarks",
+        dependencies: ["NBKTextKit"]),
     ]
 )
 

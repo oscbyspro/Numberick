@@ -10,13 +10,14 @@
 #if DEBUG
 
 import NBKCoreKit
+import NBKTextKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Text
+// MARK: * NBK x Integer Description x Decoding x Digit
 //*============================================================================*
 
-final class NBKTestsOnText: XCTestCase {
+final class NBKIntegerDescriptionTestsOnDecodingAsDigit: XCTestCase {
         
     //=------------------------------------------------------------------------=
     // MARK: Tests x UInt32
@@ -96,15 +97,17 @@ final class NBKTestsOnText: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Text x Assertions
+// MARK: * NBK x Integer Description x Decoding x Assertions
 //*============================================================================*
 
 private func NBKAssertDecodeDigitsByTruncating<T: NBKCoreInteger>(
 _ result: T?, _ radix: Int, _ digits: String,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     var digits = digits; digits.withUTF8 {
-        XCTAssertEqual(NBK.truncating(digits: $0, radix: radix), result, file: file, line: line)
+        XCTAssertEqual(NBK.IntegerDescription.truncating(digits: $0, radix: radix), result, file: file, line: line)
     }
 }
+
 
 #endif

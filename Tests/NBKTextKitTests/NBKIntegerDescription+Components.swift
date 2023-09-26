@@ -10,17 +10,49 @@
 #if DEBUG
 
 import NBKCoreKit
+import NBKTextKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Text x Components
+// MARK: * NBK x Integer Description x Components
 //*============================================================================*
 
-final class NBKTestsOnTextByComponents: XCTestCase {
+final class NBKIntegerDescriptionTestsOnComponents: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
+    
+    func testMakeSignBody() {
+        NBKAssertMakeSignBody(    "", .plus,      "")
+        NBKAssertMakeSignBody(   "+", .plus,      "")
+        NBKAssertMakeSignBody(   "-", .minus,     "")
+        NBKAssertMakeSignBody(   "~", .plus,     "~")
+        NBKAssertMakeSignBody("+123", .plus,   "123")
+        NBKAssertMakeSignBody("-123", .minus,  "123")
+        NBKAssertMakeSignBody("~123", .plus,  "~123")
+    }
+    
+    func testMakeSignRadixBody() {
+        NBKAssertMakeSignRadixBody(      "", .plus,  10,       "")
+        NBKAssertMakeSignRadixBody(     "+", .plus,  10,       "")
+        NBKAssertMakeSignRadixBody(     "-", .minus, 10,       "")
+        NBKAssertMakeSignRadixBody(     "~", .plus,  10,      "~")
+        NBKAssertMakeSignRadixBody(    "0b", .plus,  02,       "")
+        NBKAssertMakeSignRadixBody(    "0o", .plus,  08,       "")
+        NBKAssertMakeSignRadixBody(    "0x", .plus,  16,       "")
+        NBKAssertMakeSignRadixBody(    "Ox", .plus,  10,     "Ox")
+        NBKAssertMakeSignRadixBody(    "0X", .plus,  10,     "0X")
+        NBKAssertMakeSignRadixBody(   "123", .plus,  10,    "123")
+        NBKAssertMakeSignRadixBody("+0b123", .plus,  02,    "123")
+        NBKAssertMakeSignRadixBody("+0o123", .plus,  08,    "123")
+        NBKAssertMakeSignRadixBody("+0x123", .plus,  16,    "123")
+        NBKAssertMakeSignRadixBody("-0b123", .minus, 02,    "123")
+        NBKAssertMakeSignRadixBody("-0o123", .minus, 08,    "123")
+        NBKAssertMakeSignRadixBody("-0x123", .minus, 16,    "123")
+        NBKAssertMakeSignRadixBody("~Ox123", .plus,  10, "~Ox123")
+        NBKAssertMakeSignRadixBody("~0X123", .plus,  10, "~0X123")
+    }
     
     func testRemoveLeadingSign() {
         NBKAssertRemoveLeadingSign(    "",  nil,       "")
@@ -45,37 +77,6 @@ final class NBKTestsOnTextByComponents: XCTestCase {
         NBKAssertRemoveLeadingRadix("Ox123",  nil, "Ox123")
         NBKAssertRemoveLeadingRadix("0X123",  nil, "0X123")
     }
-    
-    func testMakeIntegerComponents() {
-        NBKAssertMakeIntegerComponents(    "", .plus,      "")
-        NBKAssertMakeIntegerComponents(   "+", .plus,      "")
-        NBKAssertMakeIntegerComponents(   "-", .minus,     "")
-        NBKAssertMakeIntegerComponents(   "~", .plus,     "~")
-        NBKAssertMakeIntegerComponents("+123", .plus,   "123")
-        NBKAssertMakeIntegerComponents("-123", .minus,  "123")
-        NBKAssertMakeIntegerComponents("~123", .plus,  "~123")
-    }
-    
-    func testMakeIntegerComponentsByDecodingRadix() {
-        NBKAssertMakeIntegerComponentsByDecodingRadix(      "", .plus,  10,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(     "+", .plus,  10,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(     "-", .minus, 10,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(     "~", .plus,  10,      "~")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(    "0b", .plus,  02,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(    "0o", .plus,  08,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(    "0x", .plus,  16,       "")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(    "Ox", .plus,  10,     "Ox")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(    "0X", .plus,  10,     "0X")
-        NBKAssertMakeIntegerComponentsByDecodingRadix(   "123", .plus,  10,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("+0b123", .plus,  02,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("+0o123", .plus,  08,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("+0x123", .plus,  16,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("-0b123", .minus, 02,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("-0o123", .minus, 08,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("-0x123", .minus, 16,    "123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("~Ox123", .plus,  10, "~Ox123")
-        NBKAssertMakeIntegerComponentsByDecodingRadix("~0X123", .plus,  10, "~0X123")
-    }
 }
 
 //*============================================================================*
@@ -86,7 +87,7 @@ private func NBKAssertRemoveLeadingSign(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
     var componentsBody = text.utf8[...]
-    let componentsSign = NBK.removeLeadingSign(utf8: &componentsBody)
+    let componentsSign = NBK.IntegerDescription.removeLeadingSign(from: &componentsBody)
     XCTAssertEqual(componentsSign, sign,  file: file, line: line)
     XCTAssertEqual(Array(componentsBody), Array(body.utf8), file: file, line: line)
 }
@@ -95,23 +96,23 @@ private func NBKAssertRemoveLeadingRadix(
 _ text: String, _ radix: Int?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
     var componentsBody = text.utf8[...]
-    let componentsSign = NBK.removeLeadingRadix(utf8: &componentsBody)
+    let componentsSign = NBK.IntegerDescription.removeLeadingRadix(from: &componentsBody)
     XCTAssertEqual(componentsSign, radix, file: file, line: line)
     XCTAssertEqual(Array(componentsBody), Array(body.utf8), file: file, line: line)
 }
 
-private func NBKAssertMakeIntegerComponents(
+private func NBKAssertMakeSignBody(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
-    let components = NBK.makeIntegerComponents(utf8: text.utf8)
+    let components = NBK.IntegerDescription.makeSignBody(from: text.utf8)
     XCTAssertEqual(components.sign, sign,  file: file, line: line)
     XCTAssertEqual(Array(components.body), Array(body.utf8), file: file, line: line)
 }
 
-private func NBKAssertMakeIntegerComponentsByDecodingRadix(
+private func NBKAssertMakeSignRadixBody(
 _ text: String, _ sign: FloatingPointSign?, _ radix: Int?, _ body: String,
 file: StaticString = #file, line: UInt = #line) {
-    let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: text.utf8)
+    let components = NBK.IntegerDescription.makeSignRadixBody(from: text.utf8)
     XCTAssertEqual(components.sign,  sign,  file: file, line: line)
     XCTAssertEqual(components.radix, radix, file: file, line: line)
     XCTAssertEqual(Array(components.body),  Array(body.utf8), file: file, line: line)

@@ -14,37 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Numberick"
-               BuildableName = "Numberick"
-               BlueprintName = "Numberick"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKCoreKitBenchmarks"
-               BuildableName = "NBKCoreKitBenchmarks"
-               BlueprintName = "NBKCoreKitBenchmarks"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKDoubleWidthKitBenchmarks"
-               BuildableName = "NBKDoubleWidthKitBenchmarks"
-               BlueprintName = "NBKDoubleWidthKitBenchmarks"
+               BlueprintIdentifier = "NBKTextKit"
+               BuildableName = "NBKTextKit"
+               BlueprintName = "NBKTextKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,17 +29,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:.swiftpm/Numberick-Benchmarks.xctestplan"
+            reference = "container:.swiftpm/NBKTextKit-Benchmarks.xctestplan"
             default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKCoreKit-Benchmarks.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKTextKit-Benchmarks.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
@@ -91,9 +54,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Numberick"
-            BuildableName = "Numberick"
-            BlueprintName = "Numberick"
+            BlueprintIdentifier = "NBKTextKit"
+            BuildableName = "NBKTextKit"
+            BlueprintName = "NBKTextKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

@@ -7,15 +7,13 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
-// MARK: * NBK x Radix Alphabet
+// MARK: * NBK x Integer Description x Radix Alphabet x Any Decoder
 //*============================================================================*
 
-extension NBK {
-    
-    //*========================================================================*
-    // MARK: * Decoder x Any
-    //*========================================================================*
+extension NBK.IntegerDescription {
     
     /// Decodes values in `0` to `36` from ASCII.
     @frozen public struct AnyRadixAlphabetDecoder {
@@ -58,10 +56,13 @@ extension NBK {
             return nil
         }
     }
-    
-    //*========================================================================*
-    // MARK: * Encoder x Max
-    //*========================================================================*
+}
+
+//*========================================================================*
+// MARK: * NBK x Integer Description x Alphabet x Max Encoder
+//*========================================================================*
+
+extension NBK.IntegerDescription {
     
     /// Encodes values in `0` to `36` to ASCII.
     @frozen public struct MaxRadixAlphabetEncoder {

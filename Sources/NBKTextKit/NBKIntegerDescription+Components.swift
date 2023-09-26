@@ -10,30 +10,45 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Integer Description x Components x Unsafe
+// MARK: * NBK x Integer Description x Components
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Algorithms
+//=----------------------------------------------------------------------------=
 
-@frozen @usableFromInline struct NBKIntegerDescriptionComponents<UTF8> where UTF8: Collection<UInt8> {
-    
-    @usableFromInline typealias Sign = FloatingPointSign
+extension NBK.IntegerDescription {
     
     //=------------------------------------------------------------------------=
-    // MARK: State
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @usableFromInline let sign: Sign
-    @usableFromInline let radix: Int
-    @usableFromInline let body: UTF8.SubSequence
+    /// Returns an `UTF-8` encoded integer's `sign` and `body`.
+    ///
+    /// ```
+    /// ┌─────── → ──────┬────────┐
+    /// │ body   │ sign  │   body │
+    /// ├─────── → ──────┼────────┤
+    /// │ "+123" │ plus  │  "123" │
+    /// │ "-123" │ minus │  "123" │
+    /// ├─────── → ──────┼────────┤
+    /// │ "~123" │ plus  │ "~123" │
+    /// └─────── → ──────┴────────┘
+    /// ```
+    ///
+    /// - Note: Integers without sign are interpreted as positive.
+    ///
+    @inlinable public static func makeSignBody<UTF8>(from text: UTF8)
+    -> (sign: NBK.Sign, body: UTF8.SubSequence) where UTF8: Collection<UInt8> {
+        var body = text[...] as UTF8.SubSequence
+        let sign = self.removeLeadingSign(from: &body) ?? NBK.Sign.plus
+        return (sign: sign, body: body)
+    }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a new instance from the given `text`.
+    /// Returns an `UTF-8` encoded integer's `sign`, `radix`, and `body`.
     ///
     /// ```
     /// ┌───────── → ──────┬───────┬──────────┐
-    /// │     text │ sign  │ radix │     body │
+    /// │ body     │ sign  │ radix │   body   │
     /// ├───────── → ──────┼───────┼──────────┤
     /// │    "123" │ plus  │ 010   │    "123" │
     /// │ "+0b123" │ plus  │ 002   │    "123" │
@@ -48,33 +63,12 @@ import NBKCoreKit
     ///
     /// - Note: Integers without radix are interpreted as base 10.
     ///
-    @inlinable init(text: UTF8)  {
-        var  body  = text[...] as UTF8.SubSequence
-        self.sign  = Self.removeLeadingSign (utf8: &body) ?? Sign.plus
-        self.radix = Self.removeLeadingRadix(utf8: &body) ?? 10 as Int
-        self.body  = body
-    }
-    
-    /// Creates a new instance from the given `text` and `radix`.
-    ///
-    /// ```
-    /// ┌─────── → ──────┬────────┐
-    /// │   text │ sign  │   body │
-    /// ├─────── → ──────┼────────┤
-    /// │ "+123" │ plus  │  "123" │
-    /// │ "-123" │ minus │  "123" │
-    /// │ "~123" │ nil   │ "~123" │
-    /// └─────── → ──────┴────────┘
-    /// ```
-    ///
-    /// - Note: Integers without sign are interpreted as positive.
-    ///
-    @inlinable init(text: UTF8, radix: Int) {
-        precondition(2 <= radix && radix <= 36)
-        var  body  = text[...] as UTF8.SubSequence
-        self.sign  = NBK.removeLeadingSign(utf8: &body) ?? Sign.plus
-        self.radix = radix
-        self.body  = body
+    @inlinable public static func makeSignRadixBody<UTF8>(from utf8: UTF8)
+    -> (sign: NBK.Sign, radix: Int, body: UTF8.SubSequence) where UTF8: Collection<UInt8> {
+        var body  = utf8[...] as UTF8.SubSequence
+        let sign  = self.removeLeadingSign (from: &body) ?? NBK.Sign.plus
+        let radix = self.removeLeadingRadix(from: &body) ?? 10 as Int
+        return (sign:  sign, radix:  radix, body:  body)
     }
     
     //=------------------------------------------------------------------------=
@@ -93,10 +87,11 @@ import NBKCoreKit
     /// └─────── → ──────┴────────┘
     /// ```
     ///
-    @inlinable public static func removeLeadingSign(utf8: inout UTF8.SubSequence) -> Sign? {
+    @inlinable public static func removeLeadingSign<UTF8>(from utf8: inout UTF8)
+    ->  NBK.Sign? where UTF8: Collection<UInt8>, UTF8 == UTF8.SubSequence {
         switch utf8.first {
-        case UInt8(ascii: "+"): utf8.removeFirst(); return Sign.plus
-        case UInt8(ascii: "-"): utf8.removeFirst(); return Sign.minus
+        case UInt8(ascii: "+"): utf8.removeFirst(); return NBK.Sign.plus
+        case UInt8(ascii: "-"): utf8.removeFirst(); return NBK.Sign.minus
         default: return nil  }
     }
     
@@ -115,7 +110,8 @@ import NBKCoreKit
     /// └──────── → ──────┴─────────┘
     /// ```
     ///
-    @inlinable public static func removeLeadingRadix(utf8: inout UTF8.SubSequence) -> Int? {
+    @inlinable public static func removeLeadingRadix<UTF8>(from utf8: inout UTF8)
+    ->  Int? where UTF8: Collection<UInt8>, UTF8 == UTF8.SubSequence {
         var radix: Int?
         
         var index = utf8.startIndex

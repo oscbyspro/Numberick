@@ -10,13 +10,14 @@
 #if DEBUG
 
 import NBKCoreKit
+import NBKTextKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Text x Radix Alphabet
+// MARK: * NBK x Integer Description x Radix Alphabet
 //*============================================================================*
 
-final class NBKTestsOnTextByRadixAlphabet: XCTestCase {
+final class NBKIntegerDescriptionTestsOnRadixAlphabet: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -26,12 +27,12 @@ final class NBKTestsOnTextByRadixAlphabet: XCTestCase {
     let uppercase: [UInt8] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".utf8)
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Decode
+    // MARK: Tests x Decoding
     //=------------------------------------------------------------------------=
     
     func testAnyRadixAlphabetDecoder() {
         for radix in 2 ... 36 {
-            let alphabet = NBK.AnyRadixAlphabetDecoder(radix: radix)
+            let alphabet = NBK.IntegerDescription.AnyRadixAlphabetDecoder(radix: radix)
             
             XCTAssertNil(alphabet.decode(UInt8(ascii: "0") - 1))
             XCTAssertNil(alphabet.decode(UInt8(ascii: "A") - 1))
@@ -50,12 +51,12 @@ final class NBKTestsOnTextByRadixAlphabet: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Encode
+    // MARK: Tests x Encoding
     //=------------------------------------------------------------------------=
     
     func testMaxRadixAlphabetEncoder() {
-        let lowercase = NBK.MaxRadixAlphabetEncoder(uppercase: false)
-        let uppercase = NBK.MaxRadixAlphabetEncoder(uppercase: true )
+        let lowercase = NBK.IntegerDescription.MaxRadixAlphabetEncoder(uppercase: false)
+        let uppercase = NBK.IntegerDescription.MaxRadixAlphabetEncoder(uppercase: true )
         
         for value in 0 ..< UInt8(44) {
             XCTAssertEqual(lowercase.encode(value), value < 36 ? self.lowercase[Int(value)] : nil)

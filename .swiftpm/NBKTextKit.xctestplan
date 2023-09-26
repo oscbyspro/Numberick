@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "1DC89388-5756-4D8F-B634-E1EB75FCCBF2",
+      "name" : "Main",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "NBKTextKit",
+          "name" : "NBKTextKit"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NBKTextKitTests",
+        "name" : "NBKTextKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

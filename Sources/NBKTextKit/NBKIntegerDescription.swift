@@ -7,8 +7,14 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
+import NBKCoreKit
+
 //*============================================================================*
 // MARK: * NBK x Integer Description
 //*============================================================================*
 
-@frozen public enum NBKIntegerDescription { }
+extension NBK {
+    
+    // TODO: documentation
+    @frozen public enum IntegerDescription { }
+}
