@@ -570,6 +570,18 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
 extension NBKFixedWidthInteger {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Type Meta Data
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static var minBitWidth: Int {
+        Self.bitWidth as Int
+    }
+    
+    @inlinable public static var maxBitWidth: Int {
+        Self.bitWidth as Int
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
