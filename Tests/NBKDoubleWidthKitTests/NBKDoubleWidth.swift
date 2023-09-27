@@ -40,6 +40,15 @@ final class NBKDoubleWidthTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testIsSigned() {
+        XCTAssert(Self  .signed.allSatisfy({  $0.isSigned }))
+        XCTAssert(Self.unsigned.allSatisfy({ !$0.isSigned }))
+    }
+    
+    func testIsFixedWidth() {
+        XCTAssert(Self.types.allSatisfy({ $0.isFixedWidth }))
+    }
+    
     func testMemoryLayout() {
         func whereIs<T>(_ type: T.Type) where T: NBKFixedWidthInteger {
             XCTAssert(MemoryLayout<T>.size *  8 == T.bitWidth)

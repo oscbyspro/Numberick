@@ -32,6 +32,32 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     Digit.Digit == Digit, Digit.Magnitude == Magnitude.Digit
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Type Meta Data
+    //=------------------------------------------------------------------------=
+    
+    /// The maximum number of bits this type can represent.
+    ///
+    /// - Note: This member is positive and nonzero.
+    ///
+    /// - Note: This member has two's complement semantics.
+    ///
+    @inlinable static var bitWidth: Int { get }
+    
+    /// A value indicating whether this is a signed integer type.
+    ///
+    /// - Signed integers can represent both positive and negative values.
+    /// - Unsigned integers can represent only nonnegative values.
+    ///
+    @inlinable static var isSigned: Bool { get }
+    
+    /// A value indicating whether this is a fixed-width integer type.
+    ///
+    /// - Fixed-width integers always use their maximum bit width.
+    /// - Non-fixed-width integers use at most their maximum bit width.
+    ///
+    @inlinable static var isFixedWidth: Bool { get }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
@@ -119,7 +145,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// The number of bits in its binary representation.
     ///
-    /// The bit width of a valid binary integer is positive and nonzero.
+    /// - Note: This member is positive and nonzero.
     ///
     /// - Note: This member has two's complement semantics.
     ///
