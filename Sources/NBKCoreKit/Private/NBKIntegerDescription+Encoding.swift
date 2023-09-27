@@ -41,11 +41,13 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public func encode(_ integer: some NBKBinaryInteger) -> String {
-            self.encode(magnitude: integer.magnitude.words, uncheckedIsLessThanZero: integer.isLessThanZero)
+            let isLessThanZero = integer.isLessThanZero as Bool
+            return self.encode(magnitude: integer.magnitude.words, uncheckedIsLessThanZero: isLessThanZero)
         }
         
         @inlinable public func encode(sign: FloatingPointSign, magnitude: some RandomAccessCollection<UInt>) -> String {
-            self.encode(magnitude: magnitude, uncheckedIsLessThanZero: sign == .minus && !magnitude.allSatisfy({ $0.isZero }))
+            let isLessThanZero: Bool = sign == .minus && !magnitude.allSatisfy({ $0.isZero })
+            return self.encode(magnitude: magnitude, uncheckedIsLessThanZero: isLessThanZero)
         }
         
         //=--------------------------------------------------------------------=
@@ -112,8 +114,6 @@ extension NBK.IntegerDescription {
     @inlinable static func encode(
     magnitude: inout UnsafeMutableBufferPointer<UInt>, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeBufferPointer<UInt8>, suffix: UnsafeBufferPointer<UInt8>) -> String {
-        //=--------------------------------------=
-        // TODO: test that it works when empty
         //=--------------------------------------=
         let capacity = magnitude.count * UInt.bitWidth / 36.leadingZeroBitCount + 1
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in

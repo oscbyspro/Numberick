@@ -171,8 +171,6 @@ extension NBK.IntegerDescription {
         let remainder = digits.count &   Int(bitPattern: radix.exponent - 1)
         let count = quotient &+ Int(bit: remainder.isMoreThanZero)
         //=--------------------------------------=
-        guard Magnitude.maxBitWidth >= count * UInt.bitWidth else { return nil }
-        //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) { words in
             var index = words.startIndex as Int
             let baseAddress = words.baseAddress!
@@ -215,8 +213,6 @@ extension NBK.IntegerDescription {
         var digits   = digits.drop(while:{ $0 == 48 })
         let division = digits.count.quotientAndRemainder(dividingBy: Int(bitPattern: radix.exponent))
         let count = division.quotient &+ Int(bit: division.remainder.isMoreThanZero)
-        //=--------------------------------------=
-        guard Magnitude.maxBitWidth >= (count &- 1) * (UInt.bitWidth &+ radix.power.leadingZeroBitCount.onesComplement()) else { return nil }
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
             var words = $0 as NBK.UnsafeMutableWords
