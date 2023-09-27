@@ -17,10 +17,23 @@ extension Swift.FixedWidthInteger {
     // MARK: Details x Type Meta Data
     //=------------------------------------------------------------------------=
     
-    /// A value indicating whether this is a fixed-width integer type.
+    /// The minimum number of bits in its binary representation.
     ///
-    /// - Fixed-width integers always use their maximum bit width.
-    /// - Non-fixed-width integers use at most their maximum bit width.
+    /// - Note: This member is positive and nonzero.
     ///
-    @inlinable public static var isFixedWidth: Bool { true }
+    /// - Note: This member has un/signed two's complement semantics.
+    ///
+    @inlinable public static var minBitWidth: Int {
+        Self.bitWidth as Int
+    }
+    
+    /// The maximum number of bits in its binary representation.
+    ///
+    /// - Note: This member is positive and nonzero.
+    ///
+    /// - Note: This member has un/signed two's complement semantics.
+    ///
+    @inlinable public static var maxBitWidth: Int {
+        Self.bitWidth as Int
+    }
 }

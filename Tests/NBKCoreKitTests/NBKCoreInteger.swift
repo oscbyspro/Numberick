@@ -44,7 +44,8 @@ final class NBKCoreIntegerTests: XCTestCase {
     }
     
     func testIsFixedWidth() {
-        XCTAssert(types.allSatisfy({ $0.isFixedWidth }))
+        XCTAssert(types.allSatisfy({ $0.minBitWidth == $0.bitWidth }))
+        XCTAssert(types.allSatisfy({ $0.maxBitWidth == $0.bitWidth }))
     }
     
     func testNBKBinaryInteger() {

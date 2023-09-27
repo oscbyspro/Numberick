@@ -35,27 +35,28 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     // MARK: Details x Type Meta Data
     //=------------------------------------------------------------------------=
     
-    /// The maximum number of bits this type can represent.
+    /// A value indicating whether this is a signed integer type.
+    ///
+    /// - Signed integers can represent positive and negative values.
+    /// - Unsigned integers can represent nonnegative values only.
+    ///
+    @inlinable static var isSigned: Bool { get }
+    
+    /// The minimum number of bits in its binary representation.
     ///
     /// - Note: This member is positive and nonzero.
     ///
     /// - Note: This member has un/signed two's complement semantics.
     ///
-    @inlinable static var bitWidth: Int { get }
+    @inlinable static var minBitWidth: Int { get }
     
-    /// A value indicating whether this is a signed integer type.
+    /// The maximum number of bits in its binary representation.
     ///
-    /// - Signed integers can represent both positive and negative values.
-    /// - Unsigned integers can represent only nonnegative values.
+    /// - Note: This member is positive and nonzero.
     ///
-    @inlinable static var isSigned: Bool { get }
-    
-    /// A value indicating whether this is a fixed-width integer type.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
-    /// - Fixed-width integers always use their maximum bit width.
-    /// - Non-fixed-width integers use at most their maximum bit width.
-    ///
-    @inlinable static var isFixedWidth: Bool { get }
+    @inlinable static var maxBitWidth: Int { get }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Numbers

@@ -46,7 +46,8 @@ final class NBKDoubleWidthTests: XCTestCase {
     }
     
     func testIsFixedWidth() {
-        XCTAssert(Self.types.allSatisfy({ $0.isFixedWidth }))
+        XCTAssert(types.allSatisfy({ $0.minBitWidth == $0.bitWidth }))
+        XCTAssert(types.allSatisfy({ $0.maxBitWidth == $0.bitWidth }))
     }
     
     func testMemoryLayout() {
