@@ -166,12 +166,12 @@ extension NBK.IntegerDescription {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        // TODO: breaking fixed-width early would be nice
-        //=--------------------------------------=
         var digits    = digits.drop(while:{ $0 == 48 })
         let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
         let remainder = digits.count &   Int(bitPattern: radix.exponent - 1)
         let count = quotient &+ Int(bit: remainder.isMoreThanZero)
+        //=--------------------------------------=
+        guard Magnitude.maxBitWidth >= count * UInt.bitWidth else { return nil }
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) { words in
             var index = words.startIndex as Int
@@ -193,11 +193,11 @@ extension NBK.IntegerDescription {
                 baseAddress.advanced(by: index).initialize(to: word)
                 words.formIndex(after:  &index)
             }
-
+            
             backwards: if !remainder.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: remainder))
                 guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-
+                
                 baseAddress.advanced(by: index).initialize(to: word)
                 words.formIndex(after:  &index)
             }
@@ -212,13 +212,13 @@ extension NBK.IntegerDescription {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
-        // TODO: breaking fixed-width early would be nice
-        //=--------------------------------------=
         var digits   = digits.drop(while:{ $0 == 48 })
         let division = digits.count.quotientAndRemainder(dividingBy: Int(bitPattern: radix.exponent))
-        let capacity = division.quotient &+ Int(bit: division.remainder.isMoreThanZero)
+        let count = division.quotient &+ Int(bit: division.remainder.isMoreThanZero)
         //=--------------------------------------=
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) {
+        guard Magnitude.maxBitWidth >= (count &- 1) * (UInt.bitWidth &+ radix.power.leadingZeroBitCount.onesComplement()) else { return nil }
+        //=--------------------------------------=
+        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
             var words = $0 as NBK.UnsafeMutableWords
             var index = words.startIndex as Int
             let baseAddress = words.baseAddress!
