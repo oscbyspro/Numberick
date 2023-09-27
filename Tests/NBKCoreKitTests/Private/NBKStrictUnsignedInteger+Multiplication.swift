@@ -80,14 +80,42 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs, product,  file: file, line: line)
     }
     
-    if  range  == lhs.indices {
+    if  range.lowerBound == lhs.startIndex {
+        var lhs = lhs
+        let top = T.multiplyFullWidth(&lhs, by: rhs, add: addend, in: ..<range.upperBound)
+        XCTAssertEqual(top > 0, overflow, file: file, line: line)
+        XCTAssertEqual(lhs,     product,  file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex {
+        var lhs = lhs
+        let ovf = T.multiplyReportingOverflow(&lhs, by: rhs, add: addend, in: ..<range.upperBound)
+        XCTAssertEqual(ovf, overflow, file: file, line: line)
+        XCTAssertEqual(lhs, product,  file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        var lhs = lhs
+        let top = T.multiplyFullWidth(&lhs, by: rhs, add: addend, in: range.lowerBound...)
+        XCTAssertEqual(top > 0, overflow, file: file, line: line)
+        XCTAssertEqual(lhs,     product,  file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        var lhs = lhs
+        let ovf = T.multiplyReportingOverflow(&lhs, by: rhs, add: addend, in: range.lowerBound...)
+        XCTAssertEqual(ovf, overflow, file: file, line: line)
+        XCTAssertEqual(lhs, product,  file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
         var lhs = lhs
         let top = T.multiplyFullWidth(&lhs, by: rhs, add: addend)
         XCTAssertEqual(top > 0, overflow, file: file, line: line)
         XCTAssertEqual(lhs,     product,  file: file, line: line)
     }
     
-    if  range  == lhs.indices {
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
         var lhs = lhs
         let ovf = T.multiplyReportingOverflow(&lhs, by: rhs, add: addend)
         XCTAssertEqual(ovf, overflow, file: file, line: line)

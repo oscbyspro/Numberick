@@ -65,15 +65,15 @@ extension NBK.IntegerDescription {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func division() -> Division {
-            Division(self)
+        @inlinable public func divisor() -> Divisor {
+            Divisor(self)
         }
         
         //*====================================================================*
-        // MARK: * Division
+        // MARK: * Divisor
         //*====================================================================*
         
-        @frozen public struct Division {
+        @frozen public struct Divisor {
             
             //=----------------------------------------------------------------=
             // MARK: State
@@ -95,7 +95,7 @@ extension NBK.IntegerDescription {
             // MARK: Utilities
             //=----------------------------------------------------------------=
             
-            @inlinable public func callAsFunction(_ dividend: Element) -> QR<Element, Element> {
+            @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
                 QR(quotient: dividend &>> self.quotientShift, remainder: dividend & self.remainderMask)
             }
         }
@@ -153,15 +153,19 @@ extension NBK.IntegerDescription {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func division() -> Division {
-            Division(self)
+        @inlinable public func divisor() -> Divisor {
+            Divisor(self)
+        }
+        
+        @inlinable public func divisibilityByPowerUpperBound(magnitude: some Collection<UInt>) -> Int {
+            magnitude.count * UInt.bitWidth / 36.leadingZeroBitCount &+ 1
         }
         
         //*====================================================================*
-        // MARK: * Division
+        // MARK: * Divisor
         //*====================================================================*
         
-        @frozen public struct Division {
+        @frozen public struct Divisor {
             
             //=----------------------------------------------------------------=
             // MARK: State
@@ -181,7 +185,7 @@ extension NBK.IntegerDescription {
             // MARK: Utilities
             //=----------------------------------------------------------------=
             
-            @inlinable public func callAsFunction(_ dividend: Element) -> QR<Element, Element> {
+            @inlinable public func dividing(_ dividend: Element) -> QR<Element, Element> {
                 dividend.quotientAndRemainder(dividingBy: self.base)
             }
         }

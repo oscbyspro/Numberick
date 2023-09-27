@@ -170,12 +170,13 @@ final class NBKIntegerDescriptionTestsOnDecodingOneDigit: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertDecoding<T: NBKCoreInteger>(
-_ result: T?, _ radix: Int, _ description: String,
+_ result: T?, _ radix: Int, _ description: StaticString,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let decoder = NBK.IntegerDescription.Decoder(radix: radix)
     //=------------------------------------------=
     XCTAssertEqual(result, decoder.decode(description), file: file, line: line)
+    XCTAssertEqual(result, decoder.decode(description.description), file: file, line: line)
 }
 
 private func NBKAssertDecodingDigitsByTruncating<T: NBKCoreInteger>(

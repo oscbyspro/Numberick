@@ -98,13 +98,41 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     
-    if  range  == lhs.indices {
+    if  range.lowerBound == lhs.startIndex {
+        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs, in: ..<range.upperBound)
+        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex {
+        var lhs = lhs
+        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs, in: ..<range.upperBound)
+        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
+        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs, in: range.lowerBound...)
+        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        var lhs = lhs
+        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs, in: range.lowerBound...)
+        XCTAssertEqual(lhs,              quotient,  file: file, line: line)
+        XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
+        XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
         let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     
-    if  range  == lhs.indices {
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
         var lhs = lhs
         let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs)
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)

@@ -106,46 +106,38 @@ extension NBK.IntegerDescription {
     @inlinable static func encode(
     magnitude: inout UnsafeMutableBufferPointer<UInt>, solution: PerfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeBufferPointer<UInt8>, suffix: UnsafeBufferPointer<UInt8>) -> String {
-        let solution  = AnyRadixSolution(solution)
+        let solution = AnyRadixSolution(solution)
         let chunks = UnsafeBufferPointer(rebasing: NBK.dropLast(from: magnitude, while:{ $0.isZero }))
         return self.encode(chunks: chunks, solution: solution, alphabet: alphabet, prefix: prefix, suffix: suffix)
     }
     
-    @inlinable static func encode(
+    @usableFromInline static func encode(
     magnitude: inout UnsafeMutableBufferPointer<UInt>, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeBufferPointer<UInt8>, suffix: UnsafeBufferPointer<UInt8>) -> String {
-        //=--------------------------------------=
-        let capacity = magnitude.count * UInt.bitWidth / 36.leadingZeroBitCount + 1
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { buffer in
-            //=----------------------------------=
-            let start = buffer.baseAddress!
-            var position = start as UnsafeMutablePointer<UInt>
+        let countUpperBound = solution.divisibilityByPowerUpperBound(magnitude: magnitude)
+        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: countUpperBound) { chunks in
+            var chunksIndex = chunks.startIndex
             var magnitudeEndIndex = magnitude.endIndex
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
             rebasing: repeat {
-                let range = Range(uncheckedBounds:(magnitude.startIndex, magnitudeEndIndex))
-                let remainder = SUISS.formQuotientWithRemainderReportingOverflow(&magnitude, dividingBy: solution.power, in: range).partialValue
-                
-                position.initialize(to: remainder)
-                position = position.successor()
-                
-                trimming: while magnitudeEndIndex > magnitude.startIndex {
-                    let magnitudeLastIndex = magnitude.index(before:  magnitudeEndIndex )
-                    guard magnitude[magnitudeLastIndex].isZero else { continue rebasing }
-                    magnitudeEndIndex = magnitudeLastIndex
-                }
-                
-            break } while true
+                let chunk = SUISS.formQuotientWithRemainderReportingOverflow(
+                &magnitude, dividingBy: solution.power,  in: ..<magnitudeEndIndex).partialValue
+                magnitudeEndIndex = NBK.dropLast(from: magnitude, while:{ $0.isZero }).endIndex
+                chunks.baseAddress!.advanced(by: chunksIndex).initialize(to: chunk)
+                chunks.formIndex(after: &chunksIndex)
+            } while magnitudeEndIndex > magnitude.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
-            let count = start.distance(to: position)
-            defer { start.deinitialize(count: count) }
+            defer {
+                assert(chunksIndex <= countUpperBound)
+                chunks.baseAddress!.deinitialize(count: chunksIndex)
+            }
             //=----------------------------------=
             let solution = AnyRadixSolution(solution)
-            let chunks = UnsafeBufferPointer(start: start, count: count)
+            let chunks = UnsafeBufferPointer(start: chunks.baseAddress!, count: chunksIndex)
             return self.encode(chunks: chunks, solution: solution, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
@@ -192,19 +184,19 @@ extension NBK.IntegerDescription {
                 // dynamic: loop unswitching perf.
                 //=------------------------------=
                 if  solution.power.isZero {
-                    let division = PerfectRadixSolution(solution)!.division()
+                    let divisor = PerfectRadixSolution(solution)!.divisor()
                     for var chunk in remainders {
                         for _  in 0 as UInt ..< solution.exponent {
-                            let digit: UInt; (chunk, digit) = division(chunk)
+                            let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                             pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                         }
                     }
                     
                 }   else {
-                    let division = ImperfectRadixSolution(solution)!.division()
+                    let divisor = ImperfectRadixSolution(solution)!.divisor()
                     for var chunk in remainders {
                         for _  in 0 as UInt ..< solution.exponent {
-                            let digit: UInt; (chunk, digit) = division(chunk)
+                            let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                             pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                         }
                     }
@@ -226,9 +218,9 @@ extension NBK.IntegerDescription {
     
     /// Encodes an unchecked chunk, using the given UTF-8 format.
     ///
-    /// In this context, a chunk is a digit in the base of the given solution's power.
+    /// Each chunk must be a digit in the base of the given solution's power.
     ///
-    @inline(__always) @inlinable static func withUnsafeTemporaryDescriptionCodeBlock<T>(
+    @inlinable static func withUnsafeTemporaryDescriptionCodeBlock<T>(
     chunk: UInt, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, body: (UnsafeBufferPointer<UInt8>) -> T) -> T {
         assert(solution.power.isZero || chunk < solution.power, "chunks must be less than solution's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: Int(bitPattern: solution.exponent)) { utf8 in
@@ -246,16 +238,16 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             var chunk = chunk as UInt
             if  solution.power.isZero {
-                let division = PerfectRadixSolution(solution)!.division()
+                let divisor = PerfectRadixSolution(solution)!.divisor()
                 backwards: repeat {
-                    let digit: UInt; (chunk,digit) = division(chunk)
+                    let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                     pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                 }   while !chunk.isZero
                 
             }   else {
-                let division = ImperfectRadixSolution(solution)!.division()
+                let divisor = ImperfectRadixSolution(solution)!.divisor()
                 backwards: repeat {
-                    let digit: UInt; (chunk,digit) = division(chunk)
+                    let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                     pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                 }   while !chunk.isZero
             }

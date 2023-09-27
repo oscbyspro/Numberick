@@ -30,6 +30,13 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
     /// and `multiplicand` then adding `addend` in the given `range`.
     @inlinable public static func multiplyReportingOverflow(
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: some RangeExpression<Base.Index>) -> Bool {
+        !self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range).isZero
+    }
+    
+    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
+    /// and `multiplicand` then adding `addend` in the given `range`.
+    @inlinable public static func multiplyReportingOverflow(
     _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: Range<Base.Index>) -> Bool {
         !self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range).isZero
     }
@@ -42,7 +49,16 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// and `multiplicand` then adding `addend`.
     @inlinable public static func multiplyFullWidth(
     _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
-        self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: Range(uncheckedBounds:(base.startIndex, base.endIndex)))
+        let range = Range(uncheckedBounds:(base.startIndex, base.endIndex))
+        return self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range)
+    }
+    
+    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
+    /// and `multiplicand` then adding `addend` in the given `range`.
+    @inlinable public static func multiplyFullWidth(
+    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: some RangeExpression<Base.Index>) -> Base.Element {
+        let range = range.relative(to: base)
+        return self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range)
     }
     
     /// Forms the `low` product, and returns the `high` product, of multiplying `base`

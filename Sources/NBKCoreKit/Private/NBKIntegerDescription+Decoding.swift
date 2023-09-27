@@ -17,7 +17,25 @@ extension NBK.IntegerDescription {
     // MARK: * Decoder
     //*========================================================================*
     
-    // TODO: documentation
+    /// A decoder decoding an integer description.
+    ///
+    /// The description may contain a plus or minus sign (+ or -), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). If the description uses
+    /// an invalid format, or its value cannot be represented, the result is nil.
+    ///
+    /// ```
+    /// ┌─────────────┬────── → ─────────────┐
+    /// │ description │ radix │ integer      │
+    /// ├─────────────┼────── → ─────────────┤
+    /// │  "123"      │ 16    │ Int256( 291) │
+    /// │ "+123"      │ 16    │ Int256( 291) │
+    /// │ "-123"      │ 16    │ Int256(-291) │
+    /// │ "~123"      │ 16    │ nil          │
+    /// └─────────────┴────── → ─────────────┘
+    /// ```
+    ///
+    /// - Note: The decoding strategy is case insensitive.
+    ///
     @frozen public struct Decoder {
         
         //=--------------------------------------------------------------------=
@@ -52,7 +70,7 @@ extension NBK.IntegerDescription {
         _   description: NBK.UnsafeUTF8, as type: T.Type = T.self) -> T? {
             let components = NBK.IntegerDescription.makeSignBody(from: description)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
-            guard let magnitude: T.Magnitude = NBK.IntegerDescription.decode(digits: digits, radix: solution) else { return nil }
+            guard let magnitude: T.Magnitude = NBK.IntegerDescription.decode(digits: digits, solution: self.solution) else { return nil }
             return T(sign: components.sign, magnitude: magnitude)
         }
     }
@@ -61,7 +79,26 @@ extension NBK.IntegerDescription {
     // MARK: * Decoder Decoding Radix
     //*========================================================================*
     
-    // TODO: documentation
+    /// A decoder decoding an integer description by decoding the radix.
+    ///
+    /// The description may contain a plus or minus sign (+ or -), followed by
+    /// an optional radix indicator (0b, 0o or 0x), then one or more numeric digits
+    /// (0-9) or letters (a-z or A-Z). If the description uses an invalid format,
+    /// or its value cannot be represented, the result is nil.
+    ///
+    /// ```
+    /// ┌──────────── → ─────────────┐
+    /// │ description │ integer      │
+    /// ├──────────── → ─────────────┤
+    /// │    "123"    │ Int256( 123) │
+    /// │ "+0x123"    │ Int256( 291) │
+    /// │ "-0x123"    │ Int256(-291) │
+    /// │ "~OX123"    │ nil          │
+    /// └──────────── → ─────────────┘
+    /// ```
+    ///
+    /// - Note: The decoding strategy is case insensitive.
+    ///
     @frozen public struct DecoderDecodingRadix {
             
         //=--------------------------------------------------------------------=
@@ -88,9 +125,9 @@ extension NBK.IntegerDescription {
         @inlinable public func decode<T: NBKBinaryInteger>(
         _   description: NBK.UnsafeUTF8, as type: T.Type = T.self) -> T? {
             let components = NBK.IntegerDescription.makeSignRadixBody(from: description)
-            let radix  = AnyRadixSolution<UInt>(components.radix)
-            let digits = NBK.UnsafeUTF8(rebasing:components.body)
-            guard  let magnitude: T.Magnitude = NBK.IntegerDescription.decode(digits: digits, radix: radix) else { return nil }
+            let solution = AnyRadixSolution<UInt>(components.radix)
+            let digits = NBK.UnsafeUTF8(rebasing: components.body )
+            guard  let magnitude: T.Magnitude = NBK.IntegerDescription.decode(digits: digits, solution: solution) else { return nil }
             return T(sign: components.sign, magnitude: magnitude)
         }
     }
@@ -155,96 +192,93 @@ extension NBK.IntegerDescription {
     //=------------------------------------------------------------------------=
     
     @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, radix: AnyRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
-        switch radix.power.isZero {
-        case  true: return self.decode(digits: digits, radix:   PerfectRadixSolution(radix)!)
-        case false: return self.decode(digits: digits, radix: ImperfectRadixSolution(radix)!) }
+    digits: NBK.UnsafeUTF8, solution: AnyRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+        switch solution.power.isZero {
+        case  true: return self.decode(digits: digits, solution:   PerfectRadixSolution(solution)!)
+        case false: return self.decode(digits: digits, solution: ImperfectRadixSolution(solution)!) }
     }
     
     @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, radix: PerfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+    digits: NBK.UnsafeUTF8, solution: PerfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         var digits    = digits.drop(while:{ $0 == 48 })
-        let quotient  = digits.count &>> radix.exponent.trailingZeroBitCount
-        let remainder = digits.count &   Int(bitPattern: radix.exponent - 1)
+        let quotient  = digits.count &>> solution.exponent.trailingZeroBitCount
+        let remainder = digits.count &   Int(bitPattern: solution.exponent &- 1)
         let count = quotient &+ Int(bit: remainder.isMoreThanZero)
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) { words in
-            var index = words.startIndex as Int
-            let baseAddress = words.baseAddress!
+            var wordsIndex: Int = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                Swift.assert(index <= words.endIndex)
-                baseAddress.deinitialize(count:index)
+                assert(wordsIndex <= count)
+                words.baseAddress!.deinitialize(count: wordsIndex)
             }
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
-            backwards: while index < quotient {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: Int(bitPattern: radix.exponent)))
-                guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                
-                baseAddress.advanced(by: index).initialize(to: word)
-                words.formIndex(after:  &index)
+            backwards: while wordsIndex < quotient {
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: Int(bitPattern: solution.exponent)))
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return nil }
+                words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
+                words.formIndex(after: &wordsIndex)
             }
             
             backwards: if !remainder.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: remainder))
-                guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                
-                baseAddress.advanced(by: index).initialize(to: word)
-                words.formIndex(after:  &index)
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return nil }
+                words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
+                words.formIndex(after: &wordsIndex)
             }
-            //=----------------------------------=
-            Swift.assert(index == words.endIndex)
+            
+            assert(digits.isEmpty)
+            assert(wordsIndex ==    count)
             return Magnitude(words: words)
         }
     }
     
     @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, radix: ImperfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+    digits: NBK.UnsafeUTF8, solution: ImperfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
         var digits   = digits.drop(while:{ $0 == 48 })
-        let division = digits.count.quotientAndRemainder(dividingBy: Int(bitPattern: radix.exponent))
+        let division = digits.count.quotientAndRemainder(dividingBy: Int(bitPattern: solution.exponent))
         let count = division.quotient &+ Int(bit: division.remainder.isMoreThanZero)
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
-            var words = $0 as NBK.UnsafeMutableWords
-            var index = words.startIndex as Int
-            let baseAddress = words.baseAddress!
+            var words: NBK.UnsafeMutableWords = $0
+            var wordsIndex: Int = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                Swift.assert(index <= words.endIndex)
-                baseAddress.deinitialize(count:index)
+                assert(wordsIndex <= count)
+                words.baseAddress!.deinitialize(count: wordsIndex)
             }
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
-            forwards: if !division.remainder.isZero {
+            forwards: if division.remainder.isMoreThanZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: division.remainder))
-                guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                baseAddress.advanced(by: index).initialize(to:  word)
-                words.formIndex(after:  &index)
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return nil }
+                words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
+                words.formIndex(after: &wordsIndex)
             }
             
-            forwards: while !digits.isEmpty {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: Int(bitPattern: radix.exponent)))
-                guard let word = self.truncating(digits: chunk, radix: Int(bitPattern: radix.base), as: UInt.self) else { return nil }
-                let range = Range(uncheckedBounds:(words.startIndex, index))
-                let carry = SUISS.multiplyFullWidth(&words,by:  radix.power, add: word, in: range)
-                baseAddress.advanced(by: index).initialize(to:  carry)
-                words.formIndex(after:  &index)
+            forwards: while wordsIndex < count {
+                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: Int(bitPattern: solution.exponent)))
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return nil }
+                let carry = SUISS.multiplyFullWidth(&words, by: solution.power, add: element, in: ..<wordsIndex)
+                words.baseAddress!.advanced(by: wordsIndex).initialize(to: carry)
+                words.formIndex(after: &wordsIndex)
             }
-            //=----------------------------------=
-            Swift.assert(index == words.endIndex)
+            
+            assert(digits.isEmpty)
+            assert(wordsIndex ==    count)
             return Magnitude(words: words)
         }
     }

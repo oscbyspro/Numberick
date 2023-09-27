@@ -38,6 +38,18 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func remainderReportingOverflow(
+    _   base: Base, dividingBy divisor: Base.Element, in range: some RangeExpression<Base.Index>) -> PVO<Base.Element> {
+        let range = range.relative(to: base)
+        return self.remainderReportingOverflow(base, dividingBy: divisor, in: range)
+    }
+    
+    /// Returns the `remainder` of dividing the `base` by the `divisor` in the given `range`,
+    /// along with an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is the first element in the given `range`
+    /// or zero if it the given `range` is empty.
+    ///
+    @inlinable public static func remainderReportingOverflow(
     _   base: Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
         if  divisor.isZero {
@@ -73,6 +85,18 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
     _   base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
         let range = Range(uncheckedBounds:(base.startIndex, base.endIndex))
+        return self.formQuotientWithRemainderReportingOverflow(&base, dividingBy: divisor, in: range)
+    }
+    
+    /// Forms the `quotient` of dividing the `base` by the `divisor` in the given `range`,
+    /// and returns the `remainder` along with an `overflow` indicator.
+    ///
+    /// - Note: In the case of `overflow`, the result is `base` and the first element in the given `range`
+    /// or zero if it the given `range` is empty.
+    ///
+    @inlinable public static func formQuotientWithRemainderReportingOverflow(
+    _   base: inout Base, dividingBy divisor: Base.Element, in range: some RangeExpression<Base.Index>) -> PVO<Base.Element> {
+        let range = range.relative(to: base)
         return self.formQuotientWithRemainderReportingOverflow(&base, dividingBy: divisor, in: range)
     }
     
