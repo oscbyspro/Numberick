@@ -53,6 +53,10 @@ final class NBKIntegerDescriptionTestsOnComponents: XCTestCase {
         NBKAssertMakeSignRadixBody("~0X123", .plus,  10, "~0X123")
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
     func testRemoveLeadingSign() {
         NBKAssertRemoveLeadingSign(    "",  nil,       "")
         NBKAssertRemoveLeadingSign(   "+", .plus,      "")
@@ -76,11 +80,37 @@ final class NBKIntegerDescriptionTestsOnComponents: XCTestCase {
         NBKAssertRemoveLeadingRadix("Ox123",  nil, "Ox123")
         NBKAssertRemoveLeadingRadix("0X123",  nil, "0X123")
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testWithUnsafeTemporarySignPrefix() {
+        NBKAssertWithUnsafeTemporarySignPrefix(true,  "-")
+        NBKAssertWithUnsafeTemporarySignPrefix(false, String())
+    }
 }
 
 //*============================================================================*
 // MARK: * NBK x Text x Components x Assertions
 //*============================================================================*
+
+private func NBKAssertMakeSignBody(
+_ text: String, _ sign: FloatingPointSign?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    let components = NBK.IntegerDescription.makeSignBody(from: text.utf8)
+    XCTAssertEqual(components.sign, sign,  file: file, line: line)
+    XCTAssertEqual(Array(components.body), Array(body.utf8), file: file, line: line)
+}
+
+private func NBKAssertMakeSignRadixBody(
+_ text: String, _ sign: FloatingPointSign?, _ radix: Int?, _ body: String,
+file: StaticString = #file, line: UInt = #line) {
+    let components = NBK.IntegerDescription.makeSignRadixBody(from: text.utf8)
+    XCTAssertEqual(components.sign,  sign,  file: file, line: line)
+    XCTAssertEqual(components.radix, radix, file: file, line: line)
+    XCTAssertEqual(Array(components.body),  Array(body.utf8), file: file, line: line)
+}
 
 private func NBKAssertRemoveLeadingSign(
 _ text: String, _ sign: FloatingPointSign?, _ body: String,
@@ -100,21 +130,11 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(Array(componentsBody), Array(body.utf8), file: file, line: line)
 }
 
-private func NBKAssertMakeSignBody(
-_ text: String, _ sign: FloatingPointSign?, _ body: String,
+private func NBKAssertWithUnsafeTemporarySignPrefix(
+_ minus: Bool, _ expectation: String,
 file: StaticString = #file, line: UInt = #line) {
-    let components = NBK.IntegerDescription.makeSignBody(from: text.utf8)
-    XCTAssertEqual(components.sign, sign,  file: file, line: line)
-    XCTAssertEqual(Array(components.body), Array(body.utf8), file: file, line: line)
-}
-
-private func NBKAssertMakeSignRadixBody(
-_ text: String, _ sign: FloatingPointSign?, _ radix: Int?, _ body: String,
-file: StaticString = #file, line: UInt = #line) {
-    let components = NBK.IntegerDescription.makeSignRadixBody(from: text.utf8)
-    XCTAssertEqual(components.sign,  sign,  file: file, line: line)
-    XCTAssertEqual(components.radix, radix, file: file, line: line)
-    XCTAssertEqual(Array(components.body),  Array(body.utf8), file: file, line: line)
+    let prefix = NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus, perform: Array.init)
+    XCTAssertEqual(prefix, Array(expectation.utf8), file: file, line: line)
 }
 
 #endif

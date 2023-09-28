@@ -10,9 +10,6 @@
 //*============================================================================*
 // MARK: * NBK x Integer Description x Components
 //*============================================================================*
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
 
 extension NBK.IntegerDescription {
     
@@ -35,9 +32,9 @@ extension NBK.IntegerDescription {
     ///
     /// - Note: Integers without sign are interpreted as positive.
     ///
-    @inlinable public static func makeSignBody<UTF8>(from text: UTF8)
+    @inlinable public static func makeSignBody<UTF8>(from description: UTF8)
     -> (sign: NBK.Sign, body: UTF8.SubSequence) where UTF8: Collection<UInt8> {
-        var body = text[...] as UTF8.SubSequence
+        var body = description[...] as UTF8.SubSequence
         let sign = self.removeLeadingSign(from: &body) ?? NBK.Sign.plus
         return (sign: sign, body: body)
     }
@@ -61,9 +58,9 @@ extension NBK.IntegerDescription {
     ///
     /// - Note: Integers without radix are interpreted as base 10.
     ///
-    @inlinable public static func makeSignRadixBody<UTF8>(from utf8: UTF8)
+    @inlinable public static func makeSignRadixBody<UTF8>(from description: UTF8)
     -> (sign: NBK.Sign, radix: Int, body: UTF8.SubSequence) where UTF8: Collection<UInt8> {
-        var body  = utf8[...] as UTF8.SubSequence
+        var body  = description[...] as UTF8.SubSequence
         let sign  = self.removeLeadingSign (from: &body) ?? NBK.Sign.plus
         let radix = self.removeLeadingRadix(from: &body) ?? 10 as Int
         return (sign:  sign, radix:  radix, body:  body)
@@ -85,11 +82,11 @@ extension NBK.IntegerDescription {
     /// └─────── → ──────┴────────┘
     /// ```
     ///
-    @inlinable public static func removeLeadingSign<UTF8>(from utf8: inout UTF8)
+    @inlinable public static func removeLeadingSign<UTF8>(from description: inout UTF8)
     ->  NBK.Sign? where UTF8: Collection<UInt8>, UTF8 == UTF8.SubSequence {
-        switch utf8.first {
-        case UInt8(ascii: "+"): utf8.removeFirst(); return NBK.Sign.plus
-        case UInt8(ascii: "-"): utf8.removeFirst(); return NBK.Sign.minus
+        switch description.first {
+        case UInt8(ascii: "+"): description.removeFirst(); return NBK.Sign.plus
+        case UInt8(ascii: "-"): description.removeFirst(); return NBK.Sign.minus
         default: return nil  }
     }
     
@@ -108,21 +105,44 @@ extension NBK.IntegerDescription {
     /// └──────── → ──────┴─────────┘
     /// ```
     ///
-    @inlinable public static func removeLeadingRadix<UTF8>(from utf8: inout UTF8)
+    @inlinable public static func removeLeadingRadix<UTF8>(from description: inout UTF8)
     ->  Int? where UTF8: Collection<UInt8>, UTF8 == UTF8.SubSequence {
         var radix: Int?
         
-        var index = utf8.startIndex
-        if  index < utf8.endIndex, utf8[index] == UInt8(ascii: "0") {
-            utf8.formIndex(after: &index)
+        var index = description.startIndex
+        if  index < description.endIndex, description[index] == UInt8(ascii: "0") {
+            description.formIndex(after: &index)
             
-            switch utf8[index] {
-            case UInt8(ascii: "x"): radix = 0x10; utf8 = utf8[utf8.index(after: index)...]
-            case UInt8(ascii: "b"): radix = 0b10; utf8 = utf8[utf8.index(after: index)...]
-            case UInt8(ascii: "o"): radix = 0o10; utf8 = utf8[utf8.index(after: index)...]
+            switch description[index] {
+            case UInt8(ascii: "x"): radix = 0x10; description = description[description.index(after: index)...]
+            case UInt8(ascii: "b"): radix = 0b10; description = description[description.index(after: index)...]
+            case UInt8(ascii: "o"): radix = 0o10; description = description[description.index(after: index)...]
             default: break }
         }
         
         return radix as Int?
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Performs an action with a temporary allocation that contains a minus sign or is empty.
+    @inlinable public static func withUnsafeTemporarySignPrefix<T>(
+    minus: Bool, perform: (NBK.UnsafeUTF8) -> T) -> T {
+        Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) { buffer in
+            //=----------------------------------=
+            // pointee: initialization
+            //=----------------------------------=
+            buffer.baseAddress!.initialize(to: UInt8(ascii: "-"))
+            //=----------------------------------=
+            // pointee: deferred deinitialization
+            //=----------------------------------=
+            defer {
+                buffer.baseAddress!.deinitialize(count: 1 as Int)
+            }
+            //=----------------------------------=
+            return perform(UnsafeBufferPointer(start: buffer.baseAddress!, count: Int(bit: minus)))
+        }
     }
 }

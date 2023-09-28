@@ -32,6 +32,16 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(Int32 .min,  10, "-2147483648")
         NBKAssertDecoding(Int32 .max,  10, "+2147483647")
         NBKAssertDecoding(Int32?(nil), 10, "+2147483648")
+        
+        NBKAssertDecodingByDecodingRadix(Int32?(nil), 16, "-0x80000001")
+        NBKAssertDecodingByDecodingRadix(Int32 .min,  16, "-0x80000000")
+        NBKAssertDecodingByDecodingRadix(Int32 .max,  16, "+0x7fffffff")
+        NBKAssertDecodingByDecodingRadix(Int32?(nil), 16, "+0x80000000")
+        
+        NBKAssertDecodingByDecodingRadix(Int32?(nil), 10, "-2147483649")
+        NBKAssertDecodingByDecodingRadix(Int32 .min,  10, "-2147483648")
+        NBKAssertDecodingByDecodingRadix(Int32 .max,  10, "+2147483647")
+        NBKAssertDecodingByDecodingRadix(Int32?(nil), 10, "+2147483648")
     }
     
     func testDecodingInt64() {
@@ -44,6 +54,16 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(Int64 .min,  10, "-9223372036854775808")
         NBKAssertDecoding(Int64 .max,  10, "+9223372036854775807")
         NBKAssertDecoding(Int64?(nil), 10, "+9223372036854775808")
+        
+        NBKAssertDecodingByDecodingRadix(Int64?(nil), 16, "-0x8000000000000001")
+        NBKAssertDecodingByDecodingRadix(Int64 .min,  16, "-0x8000000000000000")
+        NBKAssertDecodingByDecodingRadix(Int64 .max,  16, "+0x7fffffffffffffff")
+        NBKAssertDecodingByDecodingRadix(Int64?(nil), 16, "+0x8000000000000000")
+        
+        NBKAssertDecodingByDecodingRadix(Int64?(nil), 10, "-9223372036854775809")
+        NBKAssertDecodingByDecodingRadix(Int64 .min,  10, "-9223372036854775808")
+        NBKAssertDecodingByDecodingRadix(Int64 .max,  10, "+9223372036854775807")
+        NBKAssertDecodingByDecodingRadix(Int64?(nil), 10, "+9223372036854775808")
     }
     
     func testDecodingUInt32() {
@@ -56,6 +76,16 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(UInt32 .min,  10, "0000000000")
         NBKAssertDecoding(UInt32 .max,  10, "4294967295")
         NBKAssertDecoding(UInt32?(nil), 10, "4294967296")
+        
+        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 16, "-0x00000001")
+        NBKAssertDecodingByDecodingRadix(UInt32 .min,  16, "0x000000000")
+        NBKAssertDecodingByDecodingRadix(UInt32 .max,  16, "0x0ffffffff")
+        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 16, "0x100000000")
+
+        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 10, "-000000001")
+        NBKAssertDecodingByDecodingRadix(UInt32 .min,  10, "0000000000")
+        NBKAssertDecodingByDecodingRadix(UInt32 .max,  10, "4294967295")
+        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 10, "4294967296")
     }
     
     func testDecodingUInt64() {
@@ -68,6 +98,16 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(UInt64 .min,  10, "00000000000000000000")
         NBKAssertDecoding(UInt64 .max,  10, "18446744073709551615")
         NBKAssertDecoding(UInt64?(nil), 10, "18446744073709551616")
+        
+        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 16, "-0x0000000000000001")
+        NBKAssertDecodingByDecodingRadix(UInt64 .min,  16, "0x00000000000000000")
+        NBKAssertDecodingByDecodingRadix(UInt64 .max,  16, "0x0ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 16, "0x10000000000000000")
+        
+        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 10, "-0000000000000000001")
+        NBKAssertDecodingByDecodingRadix(UInt64 .min,  10, "00000000000000000000")
+        NBKAssertDecodingByDecodingRadix(UInt64 .max,  10, "18446744073709551615")
+        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 10, "18446744073709551616")
     }
     
     //=------------------------------------------------------------------------=
@@ -174,6 +214,16 @@ _ result: T?, _ radix: Int, _ description: StaticString,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let decoder = NBK.IntegerDescription.Decoder(radix: radix)
+    //=------------------------------------------=
+    XCTAssertEqual(result, decoder.decode(description), file: file, line: line)
+    XCTAssertEqual(result, decoder.decode(description.description), file: file, line: line)
+}
+
+private func NBKAssertDecodingByDecodingRadix<T: NBKCoreInteger>(
+_ result: T?, _ radix: Int, _ description: StaticString,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
     //=------------------------------------------=
     XCTAssertEqual(result, decoder.decode(description), file: file, line: line)
     XCTAssertEqual(result, decoder.decode(description.description), file: file, line: line)

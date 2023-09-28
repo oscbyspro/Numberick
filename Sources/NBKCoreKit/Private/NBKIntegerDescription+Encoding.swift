@@ -57,14 +57,14 @@ extension NBK.IntegerDescription {
         @inlinable public func encode(_ integer: some NBKBinaryInteger) -> String {
             let isLessThanZero: Bool = integer.isLessThanZero
             return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
-                self.encode(magnitude: &$0, minus: isLessThanZero)
+                self.encode(minus: isLessThanZero, magnitude: &$0)
             }
         }
         
         @inlinable public func encode(sign: FloatingPointSign, magnitude: some RandomAccessCollection<UInt>) -> String {
             let isLessThanZero: Bool = (sign == FloatingPointSign.minus) && !magnitude.allSatisfy({ $0.isZero })
             return NBK.withUnsafeTemporaryAllocation(copying: magnitude) {
-                self.encode(magnitude: &$0, minus: isLessThanZero)
+                self.encode(minus: isLessThanZero, magnitude: &$0)
             }
         }
         
@@ -76,15 +76,13 @@ extension NBK.IntegerDescription {
         ///
         /// - `@inlinable` is not required (nongeneric algorithm).
         ///
-        @usableFromInline func encode(magnitude: inout NBK.UnsafeMutableWords, minus: Bool) -> String {
-            Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) { buffer in
-                buffer.baseAddress! .initialize(to: UInt8(ascii: "-") ) // pointee: initialization
-                defer{ buffer.baseAddress!.deinitialize(count: 00001) } // pointee: deferred deinitialization
-                return NBK.IntegerDescription.encode(
+        @usableFromInline func encode(minus: Bool, magnitude: inout NBK.UnsafeMutableWords) -> String {
+            NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus) { prefix in
+                NBK.IntegerDescription.encode(
                 magnitude: &magnitude,
                 solution: solution as AnyRadixSolution<UInt>,
                 alphabet: alphabet as MaxRadixAlphabetEncoder,
-                prefix: NBK.UnsafeUTF8(rebasing: buffer.prefix(Int(bit: minus))),
+                prefix: prefix as  NBK.UnsafeUTF8,
                 suffix: NBK.UnsafeUTF8(start: nil, count: 0 as Int))
             }
         }
