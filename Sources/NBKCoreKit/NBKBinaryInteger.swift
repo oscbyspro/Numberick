@@ -1284,6 +1284,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A `description` of this value in base 10 ASCII.
     ///
+    /// The description may contain a minus sign (-), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). These represent
+    /// the integer's sign and magnitude. Zero is always non-negative.
+    ///
     /// ```
     /// ┌───────────── → ────────────┐
     /// │ self         │ description │
@@ -1298,6 +1302,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     @inlinable var description: String { get }
     
     /// A `description` of this value in the given ASCII format.
+    ///
+    /// The description may contain a minus sign (-), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). These represent
+    /// the integer's sign and magnitude. Zero is always non-negative.
     ///
     /// ```
     /// ┌──────────────┬───────┬─────────── → ────────────┐

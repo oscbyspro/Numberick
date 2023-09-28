@@ -193,13 +193,19 @@ extension NBK.IntegerDescription {
     
     @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
     digits: NBK.UnsafeUTF8, solution: AnyRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
-        switch solution.power.isZero {
-        case  true: return self.decode(digits: digits, solution:   PerfectRadixSolution(solution)!)
-        case false: return self.decode(digits: digits, solution: ImperfectRadixSolution(solution)!) }
+        var magnitude: Magnitude?
+        
+        if  solution.power.isZero {
+            self.decode(digits: digits, solution:   PerfectRadixSolution(solution)!) { magnitude = Magnitude(words: $0) }
+        }   else {
+            self.decode(digits: digits, solution: ImperfectRadixSolution(solution)!) { magnitude = Magnitude(words: $0) }
+        }
+        
+        return magnitude as Magnitude?
     }
     
-    @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, solution: PerfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+    @usableFromInline static func decode(
+    digits: NBK.UnsafeUTF8, solution: PerfectRadixSolution<UInt>, perform: (NBK.UnsafeWords) -> Void) -> Void? {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
@@ -214,7 +220,7 @@ extension NBK.IntegerDescription {
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                assert(wordsIndex <= count)
+                Swift.assert(wordsIndex <= count)
                 words.baseAddress!.deinitialize(count: wordsIndex)
             }
             //=----------------------------------=
@@ -234,14 +240,14 @@ extension NBK.IntegerDescription {
                 words.formIndex(after: &wordsIndex)
             }
             
-            assert(digits.isEmpty)
-            assert(wordsIndex ==    count)
-            return Magnitude(words: words)
+            Swift.assert(digits.isEmpty)
+            Swift.assert(wordsIndex == (count))
+            perform(UnsafeBufferPointer(words))
         }
     }
     
-    @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, solution: ImperfectRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+    @usableFromInline static func decode(
+    digits: NBK.UnsafeUTF8, solution: ImperfectRadixSolution<UInt>, perform: (NBK.UnsafeWords) -> Void) -> Void? {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
@@ -256,7 +262,7 @@ extension NBK.IntegerDescription {
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                assert(wordsIndex <= count)
+                Swift.assert(wordsIndex <= count)
                 words.baseAddress!.deinitialize(count: wordsIndex)
             }
             //=----------------------------------=
@@ -277,9 +283,9 @@ extension NBK.IntegerDescription {
                 words.formIndex(after: &wordsIndex)
             }
             
-            assert(digits.isEmpty)
-            assert(wordsIndex ==    count)
-            return Magnitude(words: words)
+            Swift.assert(digits.isEmpty)
+            Swift.assert(wordsIndex == (count))
+            perform(UnsafeBufferPointer(words))
         }
     }
 }

@@ -8,10 +8,14 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Integer Description x Radix Alphabet x Any Decoder
+// MARK: * NBK x Integer Description x Radix Alphabet
 //*============================================================================*
 
 extension NBK.IntegerDescription {
+    
+    //*========================================================================*
+    // MARK: * Any Decoder
+    //*========================================================================*
     
     /// Decodes values in `0` to `36` from ASCII.
     @frozen public struct AnyRadixAlphabetDecoder {
@@ -54,13 +58,10 @@ extension NBK.IntegerDescription {
             return nil
         }
     }
-}
-
-//*========================================================================*
-// MARK: * NBK x Integer Description x Alphabet x Max Encoder
-//*========================================================================*
-
-extension NBK.IntegerDescription {
+    
+    //*========================================================================*
+    // MARK: * Max Encoder
+    //*========================================================================*
     
     /// Encodes values in `0` to `36` to ASCII.
     @frozen public struct MaxRadixAlphabetEncoder {

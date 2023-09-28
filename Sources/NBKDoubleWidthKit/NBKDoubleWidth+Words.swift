@@ -56,8 +56,8 @@ extension NBKDoubleWidth {
     @inlinable static func validating<T: RandomAccessCollection>(words: T, isSigned: Bool)
     -> (value: Self, comparison: Int) where T.Element == UInt {
         let (value, remainders, sign) = Self.truncating(words: words, isSigned: isSigned)
-        let success = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
-        return (value: value, comparison: Int(bitPattern: success ? 0 : sign &<< 1 | 1))
+        let success =  value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
+        return (value: value,  comparison: Int(bitPattern: success ? 0 : sign &<< 1 | 1))
     }
     
     @inlinable static func truncating<T: RandomAccessCollection>(words: T, isSigned: Bool)

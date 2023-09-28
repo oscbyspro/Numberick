@@ -13,6 +13,6 @@
 
 extension NBK {
     
-    // TODO: documentation
+    /// A namespace for decoding and encoding integer descriptions.
     @frozen public enum IntegerDescription { }
 }
