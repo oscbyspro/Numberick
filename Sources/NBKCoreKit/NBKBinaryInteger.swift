@@ -32,33 +32,6 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     Digit.Digit == Digit, Digit.Magnitude == Magnitude.Digit
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Type Meta Data
-    //=------------------------------------------------------------------------=
-    
-    /// A value indicating whether this is a signed integer type.
-    ///
-    /// - Signed integers can represent positive and negative values.
-    /// - Unsigned integers can represent nonnegative values only.
-    ///
-    @inlinable static var isSigned: Bool { get }
-    
-    /// The minimum number of bits in its binary representation.
-    ///
-    /// - Note: This member is positive and nonzero.
-    ///
-    /// - Note: This member has un/signed two's complement semantics.
-    ///
-    @inlinable static var minBitWidth: Int { get }
-    
-    /// The maximum number of bits in its binary representation.
-    ///
-    /// - Note: This member is positive and nonzero.
-    ///
-    /// - Note: This member has un/signed two's complement semantics.
-    ///
-    @inlinable static var maxBitWidth: Int { get }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
