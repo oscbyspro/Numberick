@@ -16,6 +16,15 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
+    // MARK: Meta Data
+    //=------------------------------------------------------------------------=
+    
+    /// The number of words that fit in this integer type.
+    @inlinable public static var count: Int {
+        BitPattern.count(UInt.self)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
@@ -35,11 +44,6 @@ extension NBKDoubleWidth {
     
     @inlinable public var count: Int {
         Self.count as Int
-    }
-    
-    /// The number of words that fit in this integer type.
-    @inlinable public static var count: Int {
-        BitPattern.count(UInt.self)
     }
 }
 

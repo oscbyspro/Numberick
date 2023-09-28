@@ -55,39 +55,36 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public func encode(_ integer: some NBKBinaryInteger) -> String {
-            let isLessThanZero = integer.isLessThanZero as Bool
-            return self.encode(magnitude: integer.magnitude.words, uncheckedIsLessThanZero: isLessThanZero)
+            let isLessThanZero: Bool = integer.isLessThanZero
+            return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
+                self.encode(magnitude: &$0, minus: isLessThanZero)
+            }
         }
         
         @inlinable public func encode(sign: FloatingPointSign, magnitude: some RandomAccessCollection<UInt>) -> String {
-            let isLessThanZero: Bool = sign == .minus && !magnitude.allSatisfy({ $0.isZero })
-            return self.encode(magnitude: magnitude, uncheckedIsLessThanZero: isLessThanZero)
+            let isLessThanZero: Bool = (sign == FloatingPointSign.minus) && !magnitude.allSatisfy({ $0.isZero })
+            return NBK.withUnsafeTemporaryAllocation(copying: magnitude) {
+                self.encode(magnitude: &$0, minus: isLessThanZero)
+            }
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Utilities x Private
         //=--------------------------------------------------------------------=
         
-        @inlinable func encode(magnitude: some RandomAccessCollection<UInt>, uncheckedIsLessThanZero: Bool) -> String {
-            Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: magnitude.count) {
-                var copy = $0 as NBK.UnsafeMutableWords
-                _ = copy.initialize(from: magnitude)
-                defer{ copy.baseAddress!.deinitialize(count: magnitude.count) }
-                return self.encode(magnitude: &copy, uncheckedIsLessThanZero: uncheckedIsLessThanZero)
-            }
-        }
-        
-        @usableFromInline func encode(magnitude: inout NBK.UnsafeMutableWords, uncheckedIsLessThanZero: Bool) -> String {
-            Swift.assert(!uncheckedIsLessThanZero || !magnitude.allSatisfy({ $0.isZero }))
-            return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) {
-                let prefix = $0 as NBK.UnsafeMutableUTF8
-                prefix.baseAddress!.initialize(to: UInt8(ascii: uncheckedIsLessThanZero ? "-" : "+"))
-                defer{ prefix.baseAddress!.deinitialize(count: 1 as Int) }
+        /// ### Development
+        ///
+        /// - `@inlinable` is not required (nongeneric algorithm).
+        ///
+        @usableFromInline func encode(magnitude: inout NBK.UnsafeMutableWords, minus: Bool) -> String {
+            Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) { buffer in
+                buffer.baseAddress! .initialize(to: UInt8(ascii: "-") ) // pointee: initialization
+                defer{ buffer.baseAddress!.deinitialize(count: 00001) } // pointee: deferred deinitialization
                 return NBK.IntegerDescription.encode(
                 magnitude: &magnitude,
                 solution: solution as AnyRadixSolution<UInt>,
                 alphabet: alphabet as MaxRadixAlphabetEncoder,
-                prefix: NBK.UnsafeUTF8(rebasing: prefix.prefix(Int(bit: uncheckedIsLessThanZero))),
+                prefix: NBK.UnsafeUTF8(rebasing: buffer.prefix(Int(bit: minus))),
                 suffix: NBK.UnsafeUTF8(start: nil, count: 0 as Int))
             }
         }
@@ -123,6 +120,10 @@ extension NBK.IntegerDescription {
         return self.encode(chunks: chunks, solution: AnyRadixSolution(solution), alphabet: alphabet, prefix: prefix, suffix: suffix)
     }
     
+    /// ### Development
+    ///
+    /// - `@inlinable` is not required (nongeneric algorithm).
+    ///
     @usableFromInline static func encode(
     magnitude: inout NBK.UnsafeMutableWords, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
@@ -134,7 +135,7 @@ extension NBK.IntegerDescription {
             // pointee: initialization
             //=----------------------------------=
             rebasing: repeat {
-                let chunk = SUISS.formQuotientWithRemainderReportingOverflow(
+                let chunk = NBK.SUISS.formQuotientWithRemainderReportingOverflow(
                 &magnitude, dividingBy: solution.power,  in: ..<magnitudeEndIndex).partialValue
                 magnitudeEndIndex = NBK.dropLast(from: magnitude, while:{ $0.isZero }).endIndex
                 chunks.baseAddress!.advanced(by: chunksIndex).initialize(to: chunk)
@@ -160,7 +161,7 @@ extension NBK.IntegerDescription {
     ///
     /// ### Development
     ///
-    /// - `@inlinable` is not required.
+    /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func encode(
     chunks: NBK.UnsafeWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
@@ -171,7 +172,7 @@ extension NBK.IntegerDescription {
         //=--------------------------------------=
         var remainders = chunks[...] as NBK.UnsafeWords.SubSequence
         let mostSignificantChunk = remainders.popLast() ?? 0 as UInt
-        return self.withUnsafeTemporaryDescriptionCodeBlock(chunk: mostSignificantChunk, solution: solution, alphabet: alphabet) { first in
+        return self.withUnsafeTemporaryDescription(chunk: mostSignificantChunk, solution: solution, alphabet: alphabet) { first in
             //=----------------------------------=
             var count: Int
             count  = prefix.count
@@ -232,7 +233,11 @@ extension NBK.IntegerDescription {
     ///
     /// Each chunk must be a digit in the base of the given solution's power.
     ///
-    @inlinable static func withUnsafeTemporaryDescriptionCodeBlock(
+    /// ### Development
+    ///
+    /// - `@inlinable` is not required (nongeneric algorithm).
+    ///
+    @usableFromInline static func withUnsafeTemporaryDescription(
     chunk: UInt, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, perform: (NBK.UnsafeUTF8) -> String) -> String {
         assert(solution.power.isZero || chunk < solution.power, "chunks must be less than solution's power")
         return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: Int(bitPattern: solution.exponent)) { utf8 in

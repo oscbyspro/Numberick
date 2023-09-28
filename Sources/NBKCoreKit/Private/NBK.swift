@@ -63,52 +63,50 @@
 
     /// An integer split into three parts.
     public typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Namespaces
+    //=------------------------------------------------------------------------=
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SBI<Base> =  NBK.StrictBinaryInteger<Base> where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SBISS<Base>  = NBK.StrictBinaryInteger<Base>.SubSequence where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SSI<Base> =  NBK.StrictSignedInteger<Base> where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SSISS<Base>  = NBK.StrictSignedInteger<Base>.SubSequence where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SUI<Base> =  NBK.StrictUnsignedInteger<Base> where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SUISS<Base>  = NBK.StrictUnsignedInteger<Base>.SubSequence where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 }
-
-//*============================================================================*
-// MARK: * NBK x Namespaces x Aliases
-//*============================================================================*
-// NOTE: * Package level access control does not exist in Swift 5.7.
-//=----------------------------------------------------------------------------=
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SBI<Base> =  NBK.StrictBinaryInteger<Base> where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SBISS<Base>  = NBK.StrictBinaryInteger<Base>.SubSequence where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SSI<Base> =  NBK.StrictSignedInteger<Base> where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SSISS<Base>  = NBK.StrictSignedInteger<Base>.SubSequence where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SUI<Base> =  NBK.StrictUnsignedInteger<Base> where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
-
-/// A namespace for `Numberick` development.
-///
-/// - Warning: Do not use this namespace outside of `Numberick` development.
-///
-public typealias SUISS<Base>  = NBK.StrictUnsignedInteger<Base>.SubSequence where
-Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger

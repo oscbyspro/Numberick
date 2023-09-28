@@ -107,7 +107,7 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Meta Data
     //=------------------------------------------------------------------------=
     
     @inlinable public static var isSigned: Bool {
