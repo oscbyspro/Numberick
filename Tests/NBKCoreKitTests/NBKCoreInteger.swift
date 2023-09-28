@@ -38,6 +38,11 @@ final class NBKCoreIntegerTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testIsSigned() {
+        XCTAssert(Self  .signed.allSatisfy({  $0.isSigned }))
+        XCTAssert(Self.unsigned.allSatisfy({ !$0.isSigned }))
+    }
+    
     func testNBKBinaryInteger() {
         XCTAssertEqual(10, types.compactMap({ $0 as  any NBKBinaryInteger.Type }).count)
     }

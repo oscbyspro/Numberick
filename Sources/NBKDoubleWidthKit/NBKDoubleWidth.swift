@@ -106,11 +106,8 @@ High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {
     /// The bit pattern of this type.
     public typealias BitPattern = NBKDoubleWidth<High.Magnitude>
     
-    /// The namespace with appropriate algorithms for this type.
-    @usableFromInline typealias SBI = NBK.StrictBinaryInteger<Self>
-    
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
+    // MARK: Meta Data
     //=------------------------------------------------------------------------=
     
     @inlinable public static var isSigned: Bool {

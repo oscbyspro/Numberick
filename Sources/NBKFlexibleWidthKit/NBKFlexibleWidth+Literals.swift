@@ -79,12 +79,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable init?(exactlyStringLiteral source: StaticString) {
-        if  let value:  Self = source.withUTF8Buffer({ utf8 in
-            let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
-            let radix  = NBK.AnyRadixSolution<Int>(components.radix)
-            let digits = NBK.UnsafeUTF8(rebasing:  components.body )
-            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self(sign: components.sign, magnitude: magnitude)
-        }){ self = value } else { return nil }
+        let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
+        if let value: Self = decoder.decode(source) { self = value } else { return nil }
     }
 }

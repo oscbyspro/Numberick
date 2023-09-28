@@ -15,7 +15,7 @@
 ///
 /// ### Two's Complement
 ///
-/// Like `BinaryInteger`, it has [two's complement][2s] semantics.
+/// Like `BinaryInteger`, it has un/signed [two's complement][2s] semantics.
 ///
 /// ```
 /// The two's complement representation of  0 is an infinite sequence of 0s.
@@ -72,6 +72,33 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     @inlinable init?(sign: FloatingPointSign, magnitude: Magnitude)
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Words
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from the given collection of `words`.
+    ///
+    /// The `words` are interpreted as a binary integer with the same signedness.
+    ///
+    /// ```
+    /// ┌─────────────────────────────────────────────── → ───────────┐
+    /// │ words                                          │ self       │
+    /// ├─────────────────────────────────────────────── → ───────────┤
+    /// │ [UInt](                )                       │ Int256( 0) │
+    /// │ [UInt](Int256(  ).words)                       │ Int256( 0) │
+    /// │ [UInt](Int256.min.words)                       │ Int256.min │
+    /// │ [UInt](Int256.max.words)                       │ Int256.max │
+    /// ├─────────────────────────────────────────────── → ───────────┤
+    /// | [UInt](repeating:  0, count: Int256.count + 1) │ Int256( 0) │
+    /// | [UInt](repeating:  1, count: Int256.count + 1) │ nil        │
+    /// | [UInt](repeating: ~0, count: Int256.count + 1) │ Int256(-1) │
+    /// └─────────────────────────────────────────────── → ───────────┘
+    /// ```
+    ///
+    /// - Note: This method returns zero when the given collection of `words` is empty.
+    ///
+    @inlinable init?(words: some RandomAccessCollection<UInt>)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Bits
     //=------------------------------------------------------------------------=
     
@@ -86,15 +113,15 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └────── → ────────── = ────────────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     @inlinable init(bit: Bool)
     
     /// The number of bits in its binary representation.
     ///
-    /// The bit width of a valid binary integer is positive and nonzero.
+    /// - Note: This member is positive and nonzero.
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     @inlinable var bitWidth: Int { get }
     
@@ -115,7 +142,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └─────────── = ─────────── → ────────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     /// ### Flexible Width Integers
     ///
@@ -140,7 +167,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └─────────── = ─────────── → ────────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     /// ### Flexible Width Integers
     ///
@@ -165,7 +192,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └─────────── = ─────────── → ────────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     /// ### Flexible Width Integers
     ///
@@ -190,7 +217,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └─────────── = ─────────── → ──────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     /// ### Flexible Width Integers
     ///
@@ -215,7 +242,7 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// └─────────── = ─────────── → ──────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     /// ### Flexible Width Integers
     ///
@@ -1230,6 +1257,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     
     /// A `description` of this value in base 10 ASCII.
     ///
+    /// The description may contain a minus sign (-), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). These represent
+    /// the integer's sign and magnitude. Zero is always non-negative.
+    ///
     /// ```
     /// ┌───────────── → ────────────┐
     /// │ self         │ description │
@@ -1244,6 +1275,10 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     @inlinable var description: String { get }
     
     /// A `description` of this value in the given ASCII format.
+    ///
+    /// The description may contain a minus sign (-), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). These represent
+    /// the integer's sign and magnitude. Zero is always non-negative.
     ///
     /// ```
     /// ┌──────────────┬───────┬─────────── → ────────────┐

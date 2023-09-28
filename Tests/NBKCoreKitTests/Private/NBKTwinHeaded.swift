@@ -18,7 +18,7 @@ import XCTest
 
 final class NBKTwinHeadedTests: XCTestCase {
     
-    typealias T<Base> = NBKTwinHeaded<Base> where Base: RandomAccessCollection
+    typealias T = NBK.TwinHeaded
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Initializers
@@ -150,7 +150,7 @@ final class NBKTwinHeadedTests: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertIteration<T: RandomAccessCollection & MutableCollection>(
-_ lhs: NBKTwinHeaded<T>, _ rhs: [T.Element],
+_ lhs: NBK.TwinHeaded<T>, _ rhs: [T.Element],
 file: StaticString = #file, line: UInt  = #line) where T.Element: FixedWidthInteger, T.Element: Equatable {
     XCTAssertEqual(Array(lhs),            rhs,            file: file, line: line)
     XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)

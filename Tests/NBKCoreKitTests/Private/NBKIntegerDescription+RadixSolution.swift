@@ -13,36 +13,36 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Text x Radix Solution
+// MARK: * NBK x Integer Description x Radix Solution
 //*============================================================================*
 
-final class NBKTestsOnTextByRadixSolution: XCTestCase {
-    
+final class NBKIntegerDescriptionTestsOnRadixSolution: XCTestCase {
+
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testAnyRadixSolution() {
-        func whereSizeIs<T>(_ size: T.Type) where T: NBKCoreInteger & NBKSignedInteger {
+        func whereIs<T>(_ element: T.Type) where T: NBKCoreInteger & NBKUnsignedInteger {
             for radix in 2 ... 36 {
-                let solution = NBK.AnyRadixSolution<T>(radix)
-                XCTAssertEqual(solution.base, T.Magnitude(radix))
-                
-                var product =  HL(T.Magnitude(0), T.Magnitude(1))
+                let solution = NBK.IntegerDescription.AnyRadixSolution<T>(radix)
+                XCTAssertEqual(solution.base, T(radix))
+
+                var product =  HL(0 as T, 1 as T)
                 for _ in 0 ..< solution.exponent {
                     XCTAssert(product.high.isZero)
                     product = product.low.multipliedFullWidth(by: T.Magnitude(radix))
                 }
-                
+
                 XCTAssertEqual(product.low, solution.power)
                 XCTAssertEqual(product.low.isZero, [2, 4, 16].contains(radix))
                 XCTAssertEqual(product.high, /**/  [2, 4, 16].contains(radix) ? 1 : 0)
                 XCTAssertEqual(product.low.multipliedReportingOverflow(by: T.Magnitude(radix)).overflow, ![2, 4, 16].contains(radix))
             }
         }
-        
-        for size: any (NBKCoreInteger & NBKSignedInteger).Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
-            whereSizeIs(size)
+
+        for element: any (NBKCoreInteger & NBKUnsignedInteger).Type in [UInt.self, UInt8.self, UInt16.self, UInt32.self, UInt64.self] {
+            whereIs(element)
         }
     }
 }

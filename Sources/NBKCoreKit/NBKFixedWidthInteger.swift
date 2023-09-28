@@ -15,7 +15,7 @@
 ///
 /// ### Two's Complement
 ///
-/// Like `BinaryInteger`, it has [two's complement][2s] semantics.
+/// Like `BinaryInteger`, it has un/signed [two's complement][2s] semantics.
 ///
 /// ```
 /// The two's complement representation of  0 is an infinite sequence of 0s.
@@ -42,7 +42,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// └────── → ────────── = ────────────┘
     /// ```
     ///
-    /// - Note: This member has two's complement semantics.
+    /// - Note: This member has un/signed two's complement semantics.
     ///
     @inlinable init(repeating bit: Bool)
     

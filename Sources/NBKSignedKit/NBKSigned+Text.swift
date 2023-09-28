@@ -16,32 +16,32 @@ import NBKCoreKit
 extension NBKSigned {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Decode
+    // MARK: Details x Decoding
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ description: String) {
         self.init(description, radix: 10)
     }
     
+    // TODO: decoder needs a sign and magnitude option
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        let components = NBK.makeIntegerComponents(utf8: description.utf8)
+        let components = NBK.IntegerDescription.makeSignBody(from: description.utf8)
         let body = description[components.body.startIndex ..< components.body.endIndex]
         guard let magnitude = Magnitude(body, radix: radix) else { return nil }
         self.init(sign: components.sign,  magnitude: magnitude)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Encode
+    // MARK: Details x Encoding
     //=------------------------------------------------------------------------=
     
     @inlinable public var description: String {
         self.description(radix: 10, uppercase: false)
     }
     
-    @inlinable public func description(radix: Int = 10, uppercase: Bool = false) -> String {
-        let minus  = self.sign == Sign.minus
-        let digits = self.magnitude.description(radix: radix, uppercase: uppercase)
-        return minus ? "-" + digits : digits
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
+        let encoder = NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase)
+        return encoder.encode(sign: self.sign, magnitude: self.magnitude.words) as String
     }
 }
 

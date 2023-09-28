@@ -35,7 +35,7 @@ extension NBKDoubleWidth {
         // gets outlined without manual iteration
         //=--------------------------------------=
         self = Self.uninitialized(as: UInt.self) {
-            let value   = NBKTwinHeaded($0, reversed: NBK.isBigEndian)
+            let value   = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
             var index   = value.startIndex
             var pointer = value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index))
             while index < value.endIndex {
@@ -84,12 +84,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable init?(exactlyStringLiteral source: StaticString) {
-        if  let value:Self = source.withUTF8Buffer({ utf8 in
-            let components = NBK.makeIntegerComponentsByDecodingRadix(utf8: utf8)
-            let radix  = NBK.AnyRadixSolution<Int>(components.radix)
-            let digits = NBK.UnsafeUTF8(rebasing:  components.body )
-            guard  let magnitude = Magnitude(digits: digits, radix: radix) else { return nil }
-            return Self(sign: components.sign, magnitude: magnitude)
-        }){ self = value } else { return nil }
+        let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
+        if let value: Self = decoder.decode(source) { self = value } else { return nil }
     }
 }

@@ -43,7 +43,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
@@ -52,37 +52,19 @@ extension NBKDoubleWidth {
         }
     }
     
-    @inlinable public init?(exactly source: some BinaryInteger) {
-        let (value, remainders, sign) = Self.truncating(source)
-        let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
-        if  isOK { self = value } else { return nil }
+    @inlinable public init?<T: BinaryInteger>(exactly source: T) {
+        let  comparison: Int
+       (self,comparison) = Self.validating(words: source.words, isSigned: T.isSigned)
+        if  !comparison.isZero { return nil }
     }
     
-    @inlinable public init(clamping source: some BinaryInteger) {
-        let (value, remainders, sign) = Self.truncating(source)
-        let isOK = value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
-        if  isOK { self = value } else { self = sign.isZero ? Self.max : Self.min }
+    @inlinable public init<T: BinaryInteger>(clamping source: T) {
+        let  comparison: Int
+       (self,comparison) = Self.validating(words: source.words, isSigned: T.isSigned)
+        if  !comparison.isZero { self = comparison == -1 ? Self.min : Self.max }
     }
     
-    @inlinable public init(truncatingIfNeeded source: some BinaryInteger) {
-        self = Self.truncating(source).value
-    }
-
-    @inlinable static func truncating<T: BinaryInteger>(_ source: T)
-    -> (value: Self, remainders: T.Words.SubSequence, sign: UInt) {
-        let words: T.Words = source.words
-        let isLessThanZero: Bool = T.isSigned && words.last?.mostSignificantBit == true
-        let sign = UInt(repeating: isLessThanZero)
-        //=--------------------------------------=
-        let value = Self.uninitialized(as: UInt.self) {
-            let value =  NBKTwinHeaded($0, reversed: NBK.isBigEndian)
-            let start =  value.base.baseAddress!
-            for index in value.indices {
-                let word = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
-                start.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
-            }
-        }
-        //=--------------------------------------=
-        return (value: value, remainders: words.dropFirst(value.count), sign: sign)
+    @inlinable public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
+        self = Self.truncating(words: source.words, isSigned: T.isSigned).value
     }
 }

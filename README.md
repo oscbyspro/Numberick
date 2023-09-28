@@ -10,6 +10,8 @@
 
 * [NBKCoreKit](#nbkcorekit)
 * [NBKDoubleWidthKit](#nbkdoublewidthkit)
+* [NBKFlexibleWidthKit](#nbkflexiblewidthkit)
+* [NBKSignedKit](#nbksignedkit)
 * [Installation](#installation)
 * [Acknowledgements](#acknowledgements)
 
@@ -32,7 +34,6 @@ A new protocol hierarchy that refines Swift's standard library.
 
 - [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
-- [NBKTwinHeaded](Sources/NBKCoreKit/Models/NBKTwinHeaded.swift)
 
 <a name="nbkdoublewidthkit"/>
 
@@ -112,9 +113,13 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 > **Note**: You can use `StaticString` until `StaticBigInt` becomes available.
 
+<a name="nbkflexiblewidthkit"/>
+
 ## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
+
+<a name="nbksignedkit"/>
 
 ## [NBKSignedKit][FLX/D] ([Sources][SIG/S], [Tests][SIG/T], [Benchmarks][SIG/B])
 
