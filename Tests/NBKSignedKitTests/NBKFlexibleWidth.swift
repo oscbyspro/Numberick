@@ -41,3 +41,17 @@ extension UIntXL {
         self.init(words: NBKChunkedInt(x64))
     }
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + SIntXL
+//=----------------------------------------------------------------------------=
+
+extension NBKSigned<UIntXL> {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    static let min256 = Self(sign: .minus, magnitude: Magnitude.max256)
+    static let max256 = Self(sign: .plus,  magnitude: Magnitude.max256)
+}

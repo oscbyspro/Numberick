@@ -59,5 +59,4 @@ file: StaticString = #file, line: UInt = #line) {
     NBKAssertIdentical({ var x = operand; x.negate(); return x }(), result, file: file, line: line)
 }
 
-
 #endif

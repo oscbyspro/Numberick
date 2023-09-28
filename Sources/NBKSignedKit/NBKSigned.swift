@@ -46,7 +46,8 @@ import NBKCoreKit
 /// - Note: The `Digit` type is `NBKSigned<Magnitude.Digit>`.
 ///
 @frozen public struct NBKSigned<Magnitude: NBKUnsignedInteger>: Comparable,
-CustomStringConvertible, ExpressibleByIntegerLiteral, Hashable, Sendable, SignedNumeric {
+CustomStringConvertible, ExpressibleByIntegerLiteral, ExpressibleByStringLiteral,
+Hashable, Sendable, SignedNumeric {
     
     public typealias Sign  = FloatingPointSign
     
