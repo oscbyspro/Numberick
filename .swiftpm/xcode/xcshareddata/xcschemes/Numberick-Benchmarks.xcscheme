@@ -66,9 +66,6 @@
          <TestPlanReference
             reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKTextKit-Benchmarks.xctestplan">
-         </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction

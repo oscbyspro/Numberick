@@ -35,13 +35,6 @@
         "identifier" : "NBKDoubleWidthKitBenchmarks",
         "name" : "NBKDoubleWidthKitBenchmarks"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "NBKTextKitBenchmarks",
-        "name" : "NBKTextKitBenchmarks"
-      }
     }
   ],
   "version" : 1
