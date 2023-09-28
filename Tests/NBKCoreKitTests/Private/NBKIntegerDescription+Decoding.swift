@@ -13,101 +13,101 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Integer Description x Decoding
+// MARK: * NBK x Integer Description x Decoding x Binary Integer
 //*============================================================================*
 
-final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
+final class NBKIntegerDescriptionTestsOnDecodingAsBinaryInteger: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
         
     func testDecodingInt32() {
-        NBKAssertDecoding(Int32?(nil), 16, "-80000001")
-        NBKAssertDecoding(Int32 .min,  16, "-80000000")
-        NBKAssertDecoding(Int32 .max,  16, "+7fffffff")
-        NBKAssertDecoding(Int32?(nil), 16, "+80000000")
+        NBKAssertDecodingAsBinaryInteger(Int32?(nil), 10, "-2147483649")
+        NBKAssertDecodingAsBinaryInteger(Int32 .min,  10, "-2147483648")
+        NBKAssertDecodingAsBinaryInteger(Int32 .max,  10, "+2147483647")
+        NBKAssertDecodingAsBinaryInteger(Int32?(nil), 10, "+2147483648")
         
-        NBKAssertDecoding(Int32?(nil), 10, "-2147483649")
-        NBKAssertDecoding(Int32 .min,  10, "-2147483648")
-        NBKAssertDecoding(Int32 .max,  10, "+2147483647")
-        NBKAssertDecoding(Int32?(nil), 10, "+2147483648")
+        NBKAssertDecodingAsBinaryInteger(Int32?(nil), 16, "-0080000001")
+        NBKAssertDecodingAsBinaryInteger(Int32 .min,  16, "-0080000000")
+        NBKAssertDecodingAsBinaryInteger(Int32 .max,  16, "+007fffffff")
+        NBKAssertDecodingAsBinaryInteger(Int32?(nil), 16, "+0080000000")
         
-        NBKAssertDecodingByDecodingRadix(Int32?(nil), 16, "-0x80000001")
-        NBKAssertDecodingByDecodingRadix(Int32 .min,  16, "-0x80000000")
-        NBKAssertDecodingByDecodingRadix(Int32 .max,  16, "+0x7fffffff")
-        NBKAssertDecodingByDecodingRadix(Int32?(nil), 16, "+0x80000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32?(nil), 10, "-2147483649")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32 .min,  10, "-2147483648")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32 .max,  10, "+2147483647")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32?(nil), 10, "+2147483648")
         
-        NBKAssertDecodingByDecodingRadix(Int32?(nil), 10, "-2147483649")
-        NBKAssertDecodingByDecodingRadix(Int32 .min,  10, "-2147483648")
-        NBKAssertDecodingByDecodingRadix(Int32 .max,  10, "+2147483647")
-        NBKAssertDecodingByDecodingRadix(Int32?(nil), 10, "+2147483648")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32?(nil), 16, "-0x80000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32 .min,  16, "-0x80000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32 .max,  16, "+0x7fffffff")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int32?(nil), 16, "+0x80000000")
     }
     
     func testDecodingInt64() {
-        NBKAssertDecoding(Int64?(nil), 16, "-8000000000000001")
-        NBKAssertDecoding(Int64 .min,  16, "-8000000000000000")
-        NBKAssertDecoding(Int64 .max,  16, "+7fffffffffffffff")
-        NBKAssertDecoding(Int64?(nil), 16, "+8000000000000000")
+        NBKAssertDecodingAsBinaryInteger(Int64?(nil), 10, "-9223372036854775809")
+        NBKAssertDecodingAsBinaryInteger(Int64 .min,  10, "-9223372036854775808")
+        NBKAssertDecodingAsBinaryInteger(Int64 .max,  10, "+9223372036854775807")
+        NBKAssertDecodingAsBinaryInteger(Int64?(nil), 10, "+9223372036854775808")
         
-        NBKAssertDecoding(Int64?(nil), 10, "-9223372036854775809")
-        NBKAssertDecoding(Int64 .min,  10, "-9223372036854775808")
-        NBKAssertDecoding(Int64 .max,  10, "+9223372036854775807")
-        NBKAssertDecoding(Int64?(nil), 10, "+9223372036854775808")
+        NBKAssertDecodingAsBinaryInteger(Int64?(nil), 16, "-0008000000000000001")
+        NBKAssertDecodingAsBinaryInteger(Int64 .min,  16, "-0008000000000000000")
+        NBKAssertDecodingAsBinaryInteger(Int64 .max,  16, "+0007fffffffffffffff")
+        NBKAssertDecodingAsBinaryInteger(Int64?(nil), 16, "+0008000000000000000")
         
-        NBKAssertDecodingByDecodingRadix(Int64?(nil), 16, "-0x8000000000000001")
-        NBKAssertDecodingByDecodingRadix(Int64 .min,  16, "-0x8000000000000000")
-        NBKAssertDecodingByDecodingRadix(Int64 .max,  16, "+0x7fffffffffffffff")
-        NBKAssertDecodingByDecodingRadix(Int64?(nil), 16, "+0x8000000000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64?(nil), 10, "-9223372036854775809")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64 .min,  10, "-9223372036854775808")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64 .max,  10, "+9223372036854775807")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64?(nil), 10, "+9223372036854775808")
         
-        NBKAssertDecodingByDecodingRadix(Int64?(nil), 10, "-9223372036854775809")
-        NBKAssertDecodingByDecodingRadix(Int64 .min,  10, "-9223372036854775808")
-        NBKAssertDecodingByDecodingRadix(Int64 .max,  10, "+9223372036854775807")
-        NBKAssertDecodingByDecodingRadix(Int64?(nil), 10, "+9223372036854775808")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64?(nil), 16, "-0x08000000000000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64 .min,  16, "-0x08000000000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64 .max,  16, "+0x07fffffffffffffff")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(Int64?(nil), 16, "+0x08000000000000000")
     }
     
     func testDecodingUInt32() {
-        NBKAssertDecoding(UInt32?(nil), 16, "-00000001")
-        NBKAssertDecoding(UInt32 .min,  16, "000000000")
-        NBKAssertDecoding(UInt32 .max,  16, "0ffffffff")
-        NBKAssertDecoding(UInt32?(nil), 16, "100000000")
-
-        NBKAssertDecoding(UInt32?(nil), 10, "-000000001")
-        NBKAssertDecoding(UInt32 .min,  10, "0000000000")
-        NBKAssertDecoding(UInt32 .max,  10, "4294967295")
-        NBKAssertDecoding(UInt32?(nil), 10, "4294967296")
+        NBKAssertDecodingAsBinaryInteger(UInt32?(nil), 10, "-0000000001")
+        NBKAssertDecodingAsBinaryInteger(UInt32 .min,  10, "-0000000000")
+        NBKAssertDecodingAsBinaryInteger(UInt32 .max,  10, "+4294967295")
+        NBKAssertDecodingAsBinaryInteger(UInt32?(nil), 10, "+4294967296")
         
-        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 16, "-0x00000001")
-        NBKAssertDecodingByDecodingRadix(UInt32 .min,  16, "0x000000000")
-        NBKAssertDecodingByDecodingRadix(UInt32 .max,  16, "0x0ffffffff")
-        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 16, "0x100000000")
-
-        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 10, "-000000001")
-        NBKAssertDecodingByDecodingRadix(UInt32 .min,  10, "0000000000")
-        NBKAssertDecodingByDecodingRadix(UInt32 .max,  10, "4294967295")
-        NBKAssertDecodingByDecodingRadix(UInt32?(nil), 10, "4294967296")
+        NBKAssertDecodingAsBinaryInteger(UInt32?(nil), 16, "-0000000001")
+        NBKAssertDecodingAsBinaryInteger(UInt32 .min,  16, "-0000000000")
+        NBKAssertDecodingAsBinaryInteger(UInt32 .max,  16, "+00ffffffff")
+        NBKAssertDecodingAsBinaryInteger(UInt32?(nil), 16, "+0100000000")
+        
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32?(nil), 10, "-00000000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32 .min,  10, "-00000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32 .max,  10, "+04294967295")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32?(nil), 10, "+04294967296")
+        
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32?(nil), 16, "-0x000000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32 .min,  16, "-0x000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32 .max,  16, "+0x0ffffffff")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt32?(nil), 16, "+0x100000000")
     }
     
     func testDecodingUInt64() {
-        NBKAssertDecoding(UInt64?(nil), 16, "-0000000000000001")
-        NBKAssertDecoding(UInt64 .min,  16, "00000000000000000")
-        NBKAssertDecoding(UInt64 .max,  16, "0ffffffffffffffff")
-        NBKAssertDecoding(UInt64?(nil), 16, "10000000000000000")
-
-        NBKAssertDecoding(UInt64?(nil), 10, "-0000000000000000001")
-        NBKAssertDecoding(UInt64 .min,  10, "00000000000000000000")
-        NBKAssertDecoding(UInt64 .max,  10, "18446744073709551615")
-        NBKAssertDecoding(UInt64?(nil), 10, "18446744073709551616")
+        NBKAssertDecodingAsBinaryInteger(UInt64?(nil), 10, "-00000000000000000001")
+        NBKAssertDecodingAsBinaryInteger(UInt64 .min,  10, "-00000000000000000000")
+        NBKAssertDecodingAsBinaryInteger(UInt64 .max,  10, "+18446744073709551615")
+        NBKAssertDecodingAsBinaryInteger(UInt64?(nil), 10, "+18446744073709551616")
         
-        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 16, "-0x0000000000000001")
-        NBKAssertDecodingByDecodingRadix(UInt64 .min,  16, "0x00000000000000000")
-        NBKAssertDecodingByDecodingRadix(UInt64 .max,  16, "0x0ffffffffffffffff")
-        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 16, "0x10000000000000000")
+        NBKAssertDecodingAsBinaryInteger(UInt64?(nil), 16, "-00000000000000000001")
+        NBKAssertDecodingAsBinaryInteger(UInt64 .min,  16, "-00000000000000000000")
+        NBKAssertDecodingAsBinaryInteger(UInt64 .max,  16, "+0000ffffffffffffffff")
+        NBKAssertDecodingAsBinaryInteger(UInt64?(nil), 16, "+00010000000000000000")
         
-        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 10, "-0000000000000000001")
-        NBKAssertDecodingByDecodingRadix(UInt64 .min,  10, "00000000000000000000")
-        NBKAssertDecodingByDecodingRadix(UInt64 .max,  10, "18446744073709551615")
-        NBKAssertDecodingByDecodingRadix(UInt64?(nil), 10, "18446744073709551616")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64?(nil), 10, "-00000000000000000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64 .min,  10, "-00000000000000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64 .max,  10, "+18446744073709551615")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64?(nil), 10, "+18446744073709551616")
+        
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64?(nil), 16, "-0x000000000000000001")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64 .min,  16, "-0x000000000000000000")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64 .max,  16, "+0x00ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadixAsBinaryInteger(UInt64?(nil), 16, "+0x010000000000000000")
     }
     
     //=------------------------------------------------------------------------=
@@ -115,10 +115,76 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingStringWithoutDigitsReturnsNil() {
-        NBKAssertDecoding( Int32?(nil), 10, "+")
-        NBKAssertDecoding( Int64?(nil), 16, "+")
-        NBKAssertDecoding(UInt32?(nil), 10, "+")
-        NBKAssertDecoding(UInt64?(nil), 16, "+")
+        NBKAssertDecodingAsBinaryInteger( Int32?(nil), 10, "+")
+        NBKAssertDecodingAsBinaryInteger( Int64?(nil), 16, "+")
+        NBKAssertDecodingAsBinaryInteger(UInt32?(nil), 10, "+")
+        NBKAssertDecodingAsBinaryInteger(UInt64?(nil), 16, "+")
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Integer Description x Decoding x Sign & Magnitude
+//*============================================================================*
+
+final class NBKIntegerDescriptionTestsOnDecodingAsSignMagnitude: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testDecodingUInt32() {
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt32?(nil), 10, "-4294967296")
+        NBKAssertDecodingAsSignMagnitude(.minus, UInt32 .max,  10, "-4294967295")
+        NBKAssertDecodingAsSignMagnitude(.plus,  UInt32 .max,  10, "+4294967295")
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt32?(nil), 10, "+4294967296")
+        
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt32?(nil), 16, "-0100000000")
+        NBKAssertDecodingAsSignMagnitude(.minus, UInt32 .max,  16, "-00ffffffff")
+        NBKAssertDecodingAsSignMagnitude(.plus,  UInt32 .max,  16, "+00ffffffff")
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt32?(nil), 16, "+0100000000")
+        
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt32?(nil), "-004294967296")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.minus, UInt32 .max,  "-004294967295")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.plus,  UInt32 .max,  "+004294967295")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt32?(nil), "+004294967296")
+        
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt32?(nil), "-0x0100000000")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.minus, UInt32 .max,  "-0x00ffffffff")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.plus,  UInt32 .max,  "+0x00ffffffff")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt32?(nil), "+0x0100000000")
+    }
+    
+    func testDecodingUInt64() {
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt64?(nil), 10, "-18446744073709551616")
+        NBKAssertDecodingAsSignMagnitude(.minus, UInt64 .max,  10, "-18446744073709551615")
+        NBKAssertDecodingAsSignMagnitude(.plus,  UInt64 .max,  10, "+18446744073709551615")
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt64?(nil), 10, "+18446744073709551616")
+        
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt64?(nil), 16, "-00010000000000000000")
+        NBKAssertDecodingAsSignMagnitude(.minus, UInt64 .max,  16, "-0000ffffffffffffffff")
+        NBKAssertDecodingAsSignMagnitude(.plus,  UInt64 .max,  16, "+0000ffffffffffffffff")
+        NBKAssertDecodingAsSignMagnitude( nil,   UInt64?(nil), 16, "+00010000000000000000")
+        
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt64?(nil), "-0018446744073709551616")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.minus, UInt64 .max,  "-0018446744073709551615")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.plus,  UInt64 .max,  "+0018446744073709551615")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt64?(nil), "+0018446744073709551616")
+        
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt64?(nil), "-0x00010000000000000000")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.minus, UInt64 .max,  "-0x0000ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude(.plus,  UInt64 .max,  "+0x0000ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadixAsSignMagnitude( nil,   UInt64?(nil), "+0x00010000000000000000")
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testDecodingStringWithoutDigitsReturnsNil() {
+        NBKAssertDecodingAsSignMagnitude(nil, UInt32?(nil), 10, "+")
+        NBKAssertDecodingAsSignMagnitude(nil, UInt32?(nil), 16, "+")
+        NBKAssertDecodingAsSignMagnitude(nil, UInt64?(nil), 10, "+")
+        NBKAssertDecodingAsSignMagnitude(nil, UInt64?(nil), 16, "+")
     }
 }
 
@@ -209,7 +275,7 @@ final class NBKIntegerDescriptionTestsOnDecodingOneDigit: XCTestCase {
 // MARK: * NBK x Integer Description x Decoding x Assertions
 //*============================================================================*
 
-private func NBKAssertDecoding<T: NBKCoreInteger>(
+private func NBKAssertDecodingAsBinaryInteger<T: NBKCoreInteger>(
 _ result: T?, _ radix: Int, _ description: StaticString,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
@@ -217,9 +283,29 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(result, decoder.decode(description), file: file, line: line)
     XCTAssertEqual(result, decoder.decode(description.description), file: file, line: line)
+    //=------------------------------------------=
 }
 
-private func NBKAssertDecodingByDecodingRadix<T: NBKCoreInteger>(
+private func NBKAssertDecodingAsSignMagnitude<M: NBKUnsignedInteger>(
+_ sign: FloatingPointSign?, _ magnitude: M?, _ radix: Int, _ description: StaticString,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    let decoder = NBK.IntegerDescription.Decoder(radix: radix)
+    //=------------------------------------------=
+    brr: do {
+        let decoded: SM<M>? = decoder.decode(description)
+        XCTAssertEqual(sign,      decoded?.sign,      file: file, line: line)
+        XCTAssertEqual(magnitude, decoded?.magnitude, file: file, line: line)
+    }
+    
+    brr: do {
+        let decoded: SM<M>? = decoder.decode(description.description)
+        XCTAssertEqual(sign,      decoded?.sign,      file: file, line: line)
+        XCTAssertEqual(magnitude, decoded?.magnitude, file: file, line: line)
+    }
+}
+
+private func NBKAssertDecodingByDecodingRadixAsBinaryInteger<T: NBKCoreInteger>(
 _ result: T?, _ radix: Int, _ description: StaticString,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
@@ -228,6 +314,29 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(result, decoder.decode(description), file: file, line: line)
     XCTAssertEqual(result, decoder.decode(description.description), file: file, line: line)
 }
+
+private func NBKAssertDecodingByDecodingRadixAsSignMagnitude<M: NBKUnsignedInteger>(
+_ sign: FloatingPointSign?, _ magnitude: M?, _ description: StaticString,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
+    //=------------------------------------------=
+    brr: do {
+        let decoded: SM<M>? = decoder.decode(description)
+        XCTAssertEqual(sign,      decoded?.sign,      file: file, line: line)
+        XCTAssertEqual(magnitude, decoded?.magnitude, file: file, line: line)
+    }
+    
+    brr: do {
+        let decoded: SM<M>? = decoder.decode(description.description)
+        XCTAssertEqual(sign,      decoded?.sign,      file: file, line: line)
+        XCTAssertEqual(magnitude, decoded?.magnitude, file: file, line: line)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Digit
+//=----------------------------------------------------------------------------=
 
 private func NBKAssertDecodingDigitsByTruncating<T: NBKCoreInteger>(
 _ result: T?, _ radix: Int, _ digits: String,

@@ -22,3 +22,6 @@ public typealias PVO<PV> = (partialValue: PV, overflow: Bool)
 
 /// A quotient and a remainder, relating to division.
 public typealias QR<Q,R> = (quotient: Q, remainder: R)
+
+/// A sign and a magnitude.
+public typealias SM<M> = (sign: FloatingPointSign, magnitude: M)

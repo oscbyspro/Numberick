@@ -64,11 +64,9 @@ extension NBKSigned {
     /// - Note: The decoding strategy is case insensitive.
     ///
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        //  TODO: decoder needs a sign and magnitude option
-        let components = NBK.IntegerDescription.makeSignBody(from: description.utf8)
-        let body = description[components.body.startIndex ..< components.body.endIndex]
-        guard let magnitude = Magnitude(body, radix: radix) else { return nil }
-        self.init(sign: components.sign,  magnitude: magnitude)
+        let decoder = NBK.IntegerDescription.Decoder(radix: radix)
+        guard let components: SM<Magnitude> = decoder.decode(description) else { return nil }
+        self.init(sign: components.sign, magnitude: components.magnitude)
     }
     
     //=------------------------------------------------------------------------=
