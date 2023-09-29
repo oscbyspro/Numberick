@@ -29,8 +29,12 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(words: some RandomAccessCollection<UInt>) {
+        self.init(words: words, isSigned: Self.isSigned)
+    }
+    
+    @inlinable public init?(words: some RandomAccessCollection<UInt>, isSigned: Bool) {
         let  comparison: Int
-       (self,comparison) = Self.validating(words: words, isSigned: Self.isSigned)
+       (self,comparison) = Self.validating(words: words, isSigned: isSigned)
         if  !comparison.isZero { return nil }
     }
     
@@ -57,16 +61,13 @@ extension NBKDoubleWidth {
     // MARK: Initializers x Private
     //=------------------------------------------------------------------------=
         
-    @inlinable static func validating<T: RandomAccessCollection>(words: T, isSigned: Bool)
-    -> (value: Self, comparison: Int) where T.Element == UInt {
+    @inlinable static func validating(words: some RandomAccessCollection<UInt>, isSigned: Bool) -> (value: Self, comparison: Int) {
         let (value, sign) = Self.truncating(words: words, isSigned: isSigned)
         let success =  value.isLessThanZero != sign.isZero && words.dropFirst(Self.count).allSatisfy({ $0 == sign })
         return (value: value, comparison: Int(bitPattern: success ? 0 : sign &<< 1 &+ 1))
     }
     
-    @inlinable static func truncating<T: RandomAccessCollection>(words: T, isSigned: Bool)
-    -> (value: Self, sign: UInt) where T.Element == UInt {
-        
+    @inlinable static func truncating(words: some RandomAccessCollection<UInt>, isSigned: Bool) -> (value: Self, sign: UInt) {
         let sign  = UInt(repeating: isSigned && words.last?.mostSignificantBit == true)
         let value = Self.uninitialized(as: UInt.self) {
             let value = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)

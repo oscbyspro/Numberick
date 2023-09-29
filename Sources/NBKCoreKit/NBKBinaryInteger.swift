@@ -91,12 +91,47 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// | [UInt](repeating:  0, count: Int256.count + 1) │ Int256( 0) │
     /// | [UInt](repeating:  1, count: Int256.count + 1) │ nil        │
     /// | [UInt](repeating: ~0, count: Int256.count + 1) │ Int256(-1) │
+    /// | [UInt](repeating: ~1, count: Int256.count + 1) │ nil        │
     /// └─────────────────────────────────────────────── → ───────────┘
     /// ```
     ///
     /// - Note: This method returns zero when the given collection of `words` is empty.
     ///
     @inlinable init?(words: some RandomAccessCollection<UInt>)
+    
+    /// Creates a new instance from the given collection of `words`.
+    ///
+    /// The `words` are interpreted as a binary integer with `isSigned` signedness.
+    ///
+    /// ```
+    /// ┌────────────────────────────────────────────────┬───────── → ───────────┐
+    /// │ words                                          │ isSigned │ self       │
+    /// ├────────────────────────────────────────────────┼───────── → ───────────┤
+    /// │ [UInt](                )                       │ true     │ Int256( 0) │
+    /// │ [UInt](Int256(  ).words)                       │ true     │ Int256( 0) │
+    /// │ [UInt](Int256.min.words)                       │ true     │ Int256.min │
+    /// │ [UInt](Int256.max.words)                       │ true     │ Int256.max │
+    /// ├────────────────────────────────────────────────┼───────── → ───────────┤
+    /// │ [UInt](                )                       │ false    │ Int256( 0) │
+    /// │ [UInt](Int256(  ).words)                       │ false    │ Int256( 0) │
+    /// │ [UInt](Int256.min.words)                       │ false    │ nil        │
+    /// │ [UInt](Int256.max.words)                       │ false    │ Int256.max │
+    /// ├────────────────────────────────────────────────┼───────── → ───────────┤
+    /// | [UInt](repeating:  0, count: Int256.count + 1) │ true     │ Int256( 0) │
+    /// | [UInt](repeating:  1, count: Int256.count + 1) │ true     │ nil        │
+    /// | [UInt](repeating: ~0, count: Int256.count + 1) │ true     │ Int256(-1) │
+    /// | [UInt](repeating: ~1, count: Int256.count + 1) │ true     │ nil        │
+    /// ├────────────────────────────────────────────────┼───────── → ───────────┤
+    /// | [UInt](repeating:  0, count: Int256.count + 1) │ false    │ Int256( 0) │
+    /// | [UInt](repeating:  1, count: Int256.count + 1) │ false    │ nil        │
+    /// | [UInt](repeating: ~0, count: Int256.count + 1) │ false    │ nil        │
+    /// | [UInt](repeating: ~1, count: Int256.count + 1) │ false    │ nil        │
+    /// └────────────────────────────────────────────────┴───────── → ───────────┘
+    /// ```
+    ///
+    /// - Note: This method returns zero when the given collection of `words` is empty.
+    ///
+    @inlinable init?(words: some RandomAccessCollection<UInt>, isSigned: Bool)
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Bits

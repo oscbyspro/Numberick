@@ -51,8 +51,13 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     // MARK: State
     //=------------------------------------------------------------------------=
     
+    /// The un/signed source.
     @usableFromInline let base: Base
-    @usableFromInline let sign: Element
+    
+    /// The sign extension of the un/signed source.
+    public let sign:  Element
+    
+    /// The length of this sequence.
     public let count: Int
     
     //=------------------------------------------------------------------------=

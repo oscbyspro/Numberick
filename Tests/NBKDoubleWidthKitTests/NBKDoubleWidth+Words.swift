@@ -29,15 +29,25 @@ final class NBKDoubleWidthTestsOnWordsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromWords() {
-        NBKAssertFromWords(Array(           ), T(  ))
-        NBKAssertFromWords(Array(T(  ).words), T(  ))
-        NBKAssertFromWords(Array(T.min.words), T.min)
-        NBKAssertFromWords(Array(T.max.words), T.max)
-        
-        NBKAssertFromWords([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2),  00 as T?)
-        NBKAssertFromWords([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
-        NBKAssertFromWords([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), -01 as T?)
-        NBKAssertFromWords([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+        NBKAssertFromWordsIsSigned(Array(           ), true, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T(  ).words), true, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T.min.words), true, T.min)
+        NBKAssertFromWordsIsSigned(Array(T.max.words), true, T.max)
+
+        NBKAssertFromWordsIsSigned(Array(           ), false, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T(  ).words), false, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T.min.words), false, nil as T?)
+        NBKAssertFromWordsIsSigned(Array(T.max.words), false, T.max)
+
+        NBKAssertFromWordsIsSigned([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), true,   00 as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), true,  nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), true,  -01 as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), true,  nil as T?)
+
+        NBKAssertFromWordsIsSigned([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), false,  00 as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
     }
     
     func testFromWordsX64() throws {
@@ -122,15 +132,25 @@ final class NBKDoubleWidthTestsOnWordsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromWords() {
-        NBKAssertFromWords(Array(           ), T(  ))
-        NBKAssertFromWords(Array(T(  ).words), T(  ))
-        NBKAssertFromWords(Array(T.min.words), T.min)
-        NBKAssertFromWords(Array(T.max.words), T.max)
-        
-        NBKAssertFromWords([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), 000 as T?)
-        NBKAssertFromWords([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
-        NBKAssertFromWords([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
-        NBKAssertFromWords([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), nil as T?)
+        NBKAssertFromWordsIsSigned(Array(           ), true,  T(  ))
+        NBKAssertFromWordsIsSigned(Array(T(  ).words), true,  T(  ))
+        NBKAssertFromWordsIsSigned(Array(T.min.words), true,  T.min)
+        NBKAssertFromWordsIsSigned(Array(T.max.words), true,  T.bitWidth % UInt.bitWidth == 0 ? nil : T.max)
+
+        NBKAssertFromWordsIsSigned(Array(           ), false, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T(  ).words), false, T(  ))
+        NBKAssertFromWordsIsSigned(Array(T.min.words), false, T.min)
+        NBKAssertFromWordsIsSigned(Array(T.max.words), false, T.max)
+
+        NBKAssertFromWordsIsSigned([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), true,  000 as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), true,  nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), true,  nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), true,  nil as T?)
+
+        NBKAssertFromWordsIsSigned([UInt](repeating:  0, count: T.bitWidth / UInt.bitWidth + 2), false, 000 as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating:  1, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~0, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
+        NBKAssertFromWordsIsSigned([UInt](repeating: ~1, count: T.bitWidth / UInt.bitWidth + 2), false, nil as T?)
     }
     
     func testFromWordsX64() throws {
@@ -212,15 +232,31 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBKDoubleWidth<H>
     //=------------------------------------------=
-    XCTAssertEqual(T(words: words),  integer, file: file, line: line)
+    XCTAssertEqual(                  T(words:    words),    integer, file: file, line: line)
     XCTAssertEqual(integer.flatMap({ T(words: $0.words) }), integer, file: file, line: line)
+}
+
+private func NBKAssertFromWordsIsSigned<H: NBKFixedWidthInteger>(
+_ words: [UInt], _ isSigned: Bool, _ integer: NBKDoubleWidth<H>?,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    if  isSigned == T.isSigned {
+        NBKAssertFromWords(words, integer, file: file, line: line)
+    }
+    
+    XCTAssertEqual(                  T(words:    words, isSigned: isSigned),    integer, file: file, line: line)
+    XCTAssertEqual(integer.flatMap({ T(words: $0.words, isSigned: isSigned) }), integer, file: file, line: line)
 }
 
 private func NBKAssertToWords<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    NBKAssertFromWords(words, integer, file: file, line: line)
+    typealias T = NBKDoubleWidth<H>
+    //=------------------------------------------=
+    NBKAssertFromWordsIsSigned(words, T.isSigned, integer, file: file, line: line)
     //=------------------------------------------=
     var integer: NBKDoubleWidth<H> = integer
     var generic: some RandomAccessCollection<UInt> & MutableCollection = integer
