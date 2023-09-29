@@ -17,7 +17,8 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    @inlinable static func withUnsafeTemporaryAllocation<Element: NBKCoreInteger, Result>(
+    /// Copies the elements of the given `collection` to a temporary allocation.
+    @inlinable public static func withUnsafeTemporaryAllocation<Element: NBKCoreInteger, Result>(
     copying collection: some Collection<Element>, perform: (inout UnsafeMutableBufferPointer<Element>) -> Result) -> Result {
         Swift.withUnsafeTemporaryAllocation(of: Element.self, capacity: collection.count) { buffer in
             //=----------------------------------=

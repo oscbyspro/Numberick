@@ -20,7 +20,15 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @inlinable public init(words: some Sequence<UInt>) {
-        self.init(normalizing: Storage(nonemptying: Elements(words)))
+        self.init(words: words, isSigned: Self.isSigned)!
+    }
+    
+    @inlinable public init?(words: some Sequence<UInt>, isSigned: Bool) {
+        var storage =  Storage(nonemptying: Elements(words))
+        if isSigned && storage.elements.last!.mostSignificantBit { return nil }
+        
+        storage.normalize()
+        self.init(unchecked: storage)
     }
     
     //=------------------------------------------------------------------------=
