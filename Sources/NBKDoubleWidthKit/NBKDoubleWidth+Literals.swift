@@ -27,23 +27,13 @@ extension NBKDoubleWidth {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+        //=--------------------------------------=
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
         : source.bitWidth <= Self.bitWidth + 1 && source.signum() >= 0
         else { return nil }
         //=--------------------------------------=
-        // gets outlined without manual iteration
-        //=--------------------------------------=
-        self = Self.uninitialized(as: UInt.self) {
-            let value   = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
-            var index   = value.startIndex
-            var pointer = value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index))
-            while index < value.endIndex {
-                pointer.initialize(to: source[index])
-                pointer = pointer.advanced(by: value.direction)
-                value.formIndex(after: &index)
-            }
-        }
+        self = Self.truncating(words: NBKStaticBigInt(source), isSigned: true).value
     }
     
     #else

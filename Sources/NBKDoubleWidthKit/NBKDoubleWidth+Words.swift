@@ -59,26 +59,24 @@ extension NBKDoubleWidth {
         
     @inlinable static func validating<T: RandomAccessCollection>(words: T, isSigned: Bool)
     -> (value: Self, comparison: Int) where T.Element == UInt {
-        let (value, remainders, sign) = Self.truncating(words: words, isSigned: isSigned)
-        let success =  value.isLessThanZero != sign.isZero && remainders.allSatisfy({ $0 == sign })
-        return (value: value,  comparison: Int(bitPattern: success ? 0 : sign &<< 1 | 1))
+        let (value, sign) = Self.truncating(words: words, isSigned: isSigned)
+        let success =  value.isLessThanZero != sign.isZero && words.dropFirst(Self.count).allSatisfy({ $0 == sign })
+        return (value: value, comparison: Int(bitPattern: success ? 0 : sign &<< 1 &+ 1))
     }
     
     @inlinable static func truncating<T: RandomAccessCollection>(words: T, isSigned: Bool)
-    -> (value: Self, remainders: T.SubSequence, sign: UInt) where T.Element == UInt {
-        //=--------------------------------------=
-        let isLessThanZero: Bool =  isSigned && words.last?.mostSignificantBit == true
-        let sign  = UInt(repeating: isLessThanZero)
-        //=--------------------------------------=
+    -> (value: Self, sign: UInt) where T.Element == UInt {
+        
+        let sign  = UInt(repeating: isSigned && words.last?.mostSignificantBit == true)
         let value = Self.uninitialized(as: UInt.self) {
-            let value =  NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
-            let start =  value.base.baseAddress!
+            let value = NBK.TwinHeaded($0, reversed: NBK.isBigEndian)
+            let limit = words.count as Int
             for index in value.indices {
-                let word = index < words.count ? words[words.index(words.startIndex, offsetBy: index)] : sign
-                start.advanced(by: value.baseSubscriptIndex(index)).initialize(to: word)
+                let element = index < limit ? words[words.index(words.startIndex,offsetBy: index)] : sign
+                value.base.baseAddress!.advanced(by: value.baseSubscriptIndex(index)).initialize(to: element)
             }
         }
-        //=--------------------------------------=
-        return (value: value, remainders: words.dropFirst(value.count), sign: sign)
+        
+        return (value: value, sign: sign)
     }
 }
