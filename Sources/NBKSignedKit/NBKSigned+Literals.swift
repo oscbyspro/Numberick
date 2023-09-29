@@ -18,11 +18,32 @@ extension NBKSigned {
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Integer Literal Type
     //=------------------------------------------------------------------------=
+    #if SBI && swift(>=5.8)
+    
+    @inlinable public init(integerLiteral source: StaticBigInt) {
+        if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
+            preconditionFailure("\(Self.self) cannot represent \(source)")
+        }
+    }
+    
+    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+        let  isLessThanZero = source.signum()  == -1 as Int
+        guard var magnitude = Magnitude(words: NBKStaticBigInt(source)) else { return nil }
+        //=--------------------------------------=
+        if  isLessThanZero {
+            magnitude.formTwosComplement()
+        }
+        //=--------------------------------------=
+        self.init(sign: NBK.Sign(isLessThanZero), magnitude: magnitude)
+    }
+    
+    #else
     
     @inlinable public init(integerLiteral source: Int) {
         self.init(source)
     }
     
+    #endif
     //=------------------------------------------------------------------------=
     // MARK: Details x String Literal Type
     //=------------------------------------------------------------------------=
