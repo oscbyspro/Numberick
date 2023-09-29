@@ -20,14 +20,14 @@ extension NBK.IntegerDescription {
     /// Returns an `UTF-8` encoded integer's `sign` and `body`.
     ///
     /// ```
-    /// ┌─────── → ──────┬────────┐
-    /// │ body   │ sign  │   body │
-    /// ├─────── → ──────┼────────┤
-    /// │ "+123" │ plus  │  "123" │
-    /// │ "-123" │ minus │  "123" │
-    /// ├─────── → ──────┼────────┤
-    /// │ "~123" │ plus  │ "~123" │
-    /// └─────── → ──────┴────────┘
+    /// ┌──────────── → ──────┬────────┐
+    /// │ description │ sign  │   body │
+    /// ├──────────── → ──────┼────────┤
+    /// │      "+123" │ plus  │  "123" │
+    /// │      "-123" │ minus │  "123" │
+    /// ├──────────── → ──────┼────────┤
+    /// │      "~123" │ plus  │ "~123" │
+    /// └──────────── → ──────┴────────┘
     /// ```
     ///
     /// - Note: Integers without sign are interpreted as positive.
@@ -42,16 +42,16 @@ extension NBK.IntegerDescription {
     /// Returns an `UTF-8` encoded integer's `sign`, `radix`, and `body`.
     ///
     /// ```
-    /// ┌───────── → ──────┬───────┬──────────┐
-    /// │ body     │ sign  │ radix │   body   │
-    /// ├───────── → ──────┼───────┼──────────┤
-    /// │    "123" │ plus  │ 010   │    "123" │
-    /// │ "+0b123" │ plus  │ 002   │    "123" │
-    /// │ "-0x123" │ minus │ 016   │    "123" │
-    /// ├───────── → ──────┼───────┼──────────┤
-    /// │ "~Ox123" │ plus  │ 010   │ "~Ox123" │
-    /// │ "~0X123" │ plus  │ 010   │ "~0X123" │
-    /// └───────── → ──────┴───────┴──────────┘
+    /// ┌──────────── → ──────┬───────┬──────────┐
+    /// │ description │ sign  │ radix │   body   │
+    /// ├──────────── → ──────┼───────┼──────────┤
+    /// │       "123" │ plus  │ 010   │    "123" │
+    /// │    "+0b123" │ plus  │ 002   │    "123" │
+    /// │    "-0x123" │ minus │ 016   │    "123" │
+    /// ├──────────── → ──────┼───────┼──────────┤
+    /// │    "~Ox123" │ plus  │ 010   │ "~Ox123" │
+    /// │    "~0X123" │ plus  │ 010   │ "~0X123" │
+    /// └──────────── → ──────┴───────┴──────────┘
     /// ```
     ///
     /// - Note: Integers without sign are interpreted as positive.
@@ -73,13 +73,13 @@ extension NBK.IntegerDescription {
     /// Removes and returns an `UTF-8` encoded `sign` prefix, if it exists.
     ///
     /// ```
-    /// ┌─────── → ──────┬────────┐
-    /// │ body   │ sign  │   body │
-    /// ├─────── → ──────┼────────┤
-    /// │ "+123" │ plus  │  "123" │
-    /// │ "-123" │ minus │  "123" │
-    /// │ "~123" │ nil   │ "~123" │
-    /// └─────── → ──────┴────────┘
+    /// ┌──────────── → ──────┬────────┐
+    /// │ description │ sign  │   body │
+    /// ├──────────── → ──────┼────────┤
+    /// │      "+123" │ plus  │  "123" │
+    /// │      "-123" │ minus │  "123" │
+    /// │      "~123" │ nil   │ "~123" │
+    /// └──────────── → ──────┴────────┘
     /// ```
     ///
     @inlinable public static func removeLeadingSign<UTF8>(from description: inout UTF8)
@@ -93,33 +93,33 @@ extension NBK.IntegerDescription {
     /// Removes and returns an `UTF-8` encoded `radix` prefix, if it exists.
     ///
     /// ```
-    /// ┌──────── → ──────┬─────────┐
-    /// │ body    │ radix │    body │
-    /// ├──────── → ──────┼─────────┤
-    /// │ "0b123" │ 002   │   "123" │
-    /// │ "0o123" │ 008   │   "123" │
-    /// │ "0x123" │ 016   │   "123" │
-    /// ├──────── → ──────┼─────────┤
-    /// │ "Ox123" │ nil   │ "Ox123" │
-    /// │ "0X123" │ nil   │ "0X123" │
-    /// └──────── → ──────┴─────────┘
+    /// ┌──────────── → ──────┬─────────┐
+    /// │ description │ radix │    body │
+    /// ├──────────── → ──────┼─────────┤
+    /// │     "0b123" │ 002   │   "123" │
+    /// │     "0o123" │ 008   │   "123" │
+    /// │     "0x123" │ 016   │   "123" │
+    /// ├──────────── → ──────┼─────────┤
+    /// │     "Ox123" │ nil   │ "Ox123" │
+    /// │     "0X123" │ nil   │ "0X123" │
+    /// └──────────── → ──────┴─────────┘
     /// ```
     ///
     @inlinable public static func removeLeadingRadix<UTF8>(from description: inout UTF8)
     ->  Int? where UTF8: Collection<UInt8>, UTF8 == UTF8.SubSequence {
-        var radix: Int?
-        
+        var radix:  Int?
         var index = description.startIndex
         if  index < description.endIndex, description[index] == UInt8(ascii: "0") {
             description.formIndex(after: &index)
-            
-            switch description[index] {
-            case UInt8(ascii: "x"): radix = 0x10; description = description[description.index(after: index)...]
-            case UInt8(ascii: "b"): radix = 0b10; description = description[description.index(after: index)...]
-            case UInt8(ascii: "o"): radix = 0o10; description = description[description.index(after: index)...]
-            default: break }
+            if  index < description.endIndex {
+                switch  description[index] {
+                case UInt8(ascii: "x"): radix = 0x10; description = description[description.index(after: index)...]
+                case UInt8(ascii: "b"): radix = 0b10; description = description[description.index(after: index)...]
+                case UInt8(ascii: "o"): radix = 0o10; description = description[description.index(after: index)...]
+                default: break }
+            }
         }
-        
+
         return radix as Int?
     }
     
