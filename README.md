@@ -4,7 +4,7 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.12.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+| 0.13.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
 ## Table of Contents
 
@@ -131,7 +131,7 @@ Numberick contains several modules. Import some or all of them.
 Add this package to your list of package dependencies.
 
 ```swift
-.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.12.0")),
+.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.13.0")),
 ```
 
 Choose target dependencies from the products in [Package.swift](Package.swift).
@@ -147,9 +147,9 @@ Choose target dependencies from the products in [Package.swift](Package.swift).
 Choose target dependencies from the pods listed in the root directory.
 
 ```rb
-pod "Numberick",                   "~> 0.12.0"
-pod "Numberick-NBKCoreKit",        "~> 0.12.0"
-pod "Numberick-NBKDoubleWidthKit", "~> 0.12.0"
+pod "Numberick",                   "~> 0.13.0"
+pod "Numberick-NBKCoreKit",        "~> 0.13.0"
+pod "Numberick-NBKDoubleWidthKit", "~> 0.13.0"
 ```
 
 <a name="acknowledgements"/>
