@@ -217,6 +217,7 @@ file: StaticString = #file, line: UInt  = #line) {
 private func NBKAssertIteration<Base: RandomAccessCollection, Element>(
 _ lhs: NBKChunkedInt<Base, Element>, _ rhs: [Element],
 file: StaticString = #file, line: UInt  = #line) {
+    
     XCTAssertEqual(Array(lhs),            rhs,            file: file, line: line)
     XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)
     

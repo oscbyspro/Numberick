@@ -68,6 +68,10 @@ final class NBKIntegerDescriptionTestsOnComponents: XCTestCase {
     }
     
     func testRemoveLeadingRadix() {
+        NBKAssertRemoveLeadingRadix(    "0",  nil,     "0")
+        NBKAssertRemoveLeadingRadix(   "+0",  nil,    "+0")
+        NBKAssertRemoveLeadingRadix(   "-0",  nil,    "-0")
+
         NBKAssertRemoveLeadingRadix(     "",  nil,      "")
         NBKAssertRemoveLeadingRadix(   "0b",  002,      "")
         NBKAssertRemoveLeadingRadix(   "0o",  008,      "")
