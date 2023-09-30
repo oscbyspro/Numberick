@@ -137,6 +137,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/HL",
         "doc:\/\/Numberick\/documentation\/Numberick\/LH",
         "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
+        "doc:\/\/Numberick\/documentation\/Numberick\/SM",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
       ],
       "title" : "Abbreviations"
@@ -347,6 +348,40 @@
   "title" : "QR",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/qr"
+},
+"doc://Numberick/documentation/Numberick/SM": {
+  "abstract" : [
+    {
+      "text" : "A sign and a magnitude.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/SM",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SM",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/sm"
 }
 }
 }

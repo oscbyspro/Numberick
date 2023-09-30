@@ -183,9 +183,8 @@
                 {
                   "inlineContent" : [
                     {
-                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "NBKStaticBigInt",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -699,8 +698,7 @@
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness"
       ],
       "title" : "Models"
     },
@@ -727,6 +725,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/LH",
         "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
         "doc:\/\/Numberick\/documentation\/Numberick\/QR",
+        "doc:\/\/Numberick\/documentation\/Numberick\/SM",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
       ],
       "title" : "Abbreviations"
@@ -1346,40 +1345,6 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbksignedinteger"
 },
-"doc://Numberick/documentation/Numberick/NBKTwinHeaded": {
-  "abstract" : [
-    {
-      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKTwinHeaded",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbktwinheaded"
-},
 "doc://Numberick/documentation/Numberick/NBKUnsignedInteger": {
   "abstract" : [
     {
@@ -1481,6 +1446,40 @@
   "title" : "QR",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/qr"
+},
+"doc://Numberick/documentation/Numberick/SM": {
+  "abstract" : [
+    {
+      "text" : "A sign and a magnitude.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/SM",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SM",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/sm"
 },
 "doc://Numberick/documentation/Numberick/UInt1024": {
   "abstract" : [

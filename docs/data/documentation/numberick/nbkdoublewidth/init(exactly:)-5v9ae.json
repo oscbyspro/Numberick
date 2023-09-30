@@ -101,7 +101,15 @@
       },
       {
         "kind" : "text",
-        "text" : "?("
+        "text" : "?<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
       },
       {
         "kind" : "externalParam",
@@ -109,12 +117,11 @@
       },
       {
         "kind" : "text",
-        "text" : ": some "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sz",
-        "text" : "BinaryInteger"
+        "text" : "T"
       },
       {
         "kind" : "text",
@@ -148,7 +155,15 @@
             },
             {
               "kind" : "text",
-              "text" : "?("
+              "text" : "?<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
@@ -164,16 +179,36 @@
             },
             {
               "kind" : "text",
-              "text" : ": some "
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
             },
             {
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Sz",
               "text" : "BinaryInteger"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
             }
           ]
         }
@@ -337,7 +372,15 @@
     },
     {
       "kind" : "text",
-      "text" : "?("
+      "text" : "?<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
     },
     {
       "kind" : "externalParam",
@@ -345,12 +388,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sz",
-      "text" : "BinaryInteger"
+      "text" : "T"
     },
     {
       "kind" : "text",

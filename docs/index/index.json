@@ -87,13 +87,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
-                        "title" : "static func *= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
+                        "title" : "static func *= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-1w6iv",
-                        "title" : "static func *= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*=(_:_:)-3tidt",
+                        "title" : "static func *= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -133,13 +133,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-4wjjr",
-                        "title" : "static func + (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-9ygmi",
+                        "title" : "static func + (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-9ygmi",
-                        "title" : "static func + (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-4wjjr",
+                        "title" : "static func + (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -156,13 +156,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+=(_:_:)-1hnfr",
-                        "title" : "static func += (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+=(_:_:)-1cwri",
+                        "title" : "static func += (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+=(_:_:)-1cwri",
-                        "title" : "static func += (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+=(_:_:)-1hnfr",
+                        "title" : "static func += (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -202,13 +202,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
-                        "title" : "static func - (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
+                        "title" : "static func - (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
-                        "title" : "static func - (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
+                        "title" : "static func - (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -225,13 +225,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
-                        "title" : "static func - (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
+                        "title" : "static func - (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-6a96v",
-                        "title" : "static func - (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-(_:_:)-7p5xj",
+                        "title" : "static func - (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -317,13 +317,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -363,13 +363,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
-                        "title" : "static func \/= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
+                        "title" : "static func \/= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
-                        "title" : "static func \/= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
+                        "title" : "static func \/= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -386,13 +386,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
-                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
+                        "title" : "static func % (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
-                        "title" : "static func % (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
+                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
                         "type" : "op"
                       }
                     ],
@@ -409,13 +409,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
-                        "title" : "static func % (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
+                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
-                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
+                        "title" : "static func % (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -432,13 +432,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
-                        "title" : "static func %= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
+                        "title" : "static func %= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
-                        "title" : "static func %= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
+                        "title" : "static func %= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -572,6 +572,16 @@
                 ],
                 "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(sign:magnitude:)",
                 "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(words:)",
+                "title" : "init?(words: some RandomAccessCollection<UInt>)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(words:issigned:)",
+                "title" : "init?(words: some RandomAccessCollection<UInt>, isSigned: Bool)",
                 "type" : "init"
               },
               {
@@ -880,6 +890,11 @@
                   {
                     "children" : [
                       {
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
+                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
+                        "type" : "method"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-4qhwl",
                         "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
@@ -887,11 +902,6 @@
                       {
                         "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
                         "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
-                        "type" : "method"
-                      },
-                      {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
-                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
                       }
                     ],
@@ -1040,6 +1050,20 @@
               },
               {
                 "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkcoreinteger\/init(words:)",
+                    "title" : "init?(words: some RandomAccessCollection<UInt>)",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkcoreinteger\/init(words:issigned:)",
+                    "title" : "init?(words: some RandomAccessCollection<UInt>, isSigned: Bool)",
+                    "type" : "init"
+                  },
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
@@ -1401,12 +1425,12 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkcoreinteger\/dividingfullwidthreportingoverflow(_:)-2geg8",
+                        "path" : "\/documentation\/numberick\/nbkcoreinteger\/dividingfullwidthreportingoverflow(_:)-6na1u",
                         "title" : "func dividingFullWidthReportingOverflow(HL<Self, Self.Magnitude>) -> PVO<QR<Self, Self>>",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkcoreinteger\/dividingfullwidthreportingoverflow(_:)-6na1u",
+                        "path" : "\/documentation\/numberick\/nbkcoreinteger\/dividingfullwidthreportingoverflow(_:)-2geg8",
                         "title" : "func dividingFullWidthReportingOverflow(HL<Self, Self.Magnitude>) -> PVO<QR<Self, Self>>",
                         "type" : "method"
                       }
@@ -1704,6 +1728,11 @@
               {
                 "path" : "\/documentation\/numberick\/nbkchunkedint\/count-9nc1o",
                 "title" : "let count: Int",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkchunkedint\/sign",
+                "title" : "let sign: Element",
                 "type" : "property"
               },
               {
@@ -2311,53 +2340,53 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(words:)",
-                "title" : "func bitrotateLeft(words: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(major:)",
+                "title" : "func bitrotateLeft(major: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(words:bits:)",
-                "title" : "func bitrotateLeft(words: Int, bits: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(major:minor:)",
+                "title" : "func bitrotateLeft(major: Int, minor: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(words:)",
-                "title" : "func bitrotateRight(words: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(major:)",
+                "title" : "func bitrotateRight(major: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(words:bits:)",
-                "title" : "func bitrotateRight(words: Int, bits: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(major:minor:)",
+                "title" : "func bitrotateRight(major: Int, minor: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedleft(words:)",
-                "title" : "func bitrotatedLeft(words: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedleft(major:)",
+                "title" : "func bitrotatedLeft(major: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedleft(words:bits:)",
-                "title" : "func bitrotatedLeft(words: Int, bits: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedleft(major:minor:)",
+                "title" : "func bitrotatedLeft(major: Int, minor: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedright(words:)",
-                "title" : "func bitrotatedRight(words: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedright(major:)",
+                "title" : "func bitrotatedRight(major: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedright(words:bits:)",
-                "title" : "func bitrotatedRight(words: Int, bits: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedright(major:minor:)",
+                "title" : "func bitrotatedRight(major: Int, minor: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(words:)",
-                "title" : "func bitshiftLeft(words: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(major:)",
+                "title" : "func bitshiftLeft(major: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(words:bits:)",
-                "title" : "func bitshiftLeft(words: Int, bits: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(major:minor:)",
+                "title" : "func bitshiftLeft(major: Int, minor: Int)",
                 "type" : "method"
               },
               {
@@ -2366,13 +2395,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(words:)",
-                "title" : "func bitshiftRight(words: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(major:)",
+                "title" : "func bitshiftRight(major: Int)",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(words:bits:)",
-                "title" : "func bitshiftRight(words: Int, bits: Int)",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(major:minor:)",
+                "title" : "func bitshiftRight(major: Int, minor: Int)",
                 "type" : "method"
               },
               {
@@ -2381,13 +2410,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedleft(words:)",
-                "title" : "func bitshiftedLeft(words: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedleft(major:)",
+                "title" : "func bitshiftedLeft(major: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedleft(words:bits:)",
-                "title" : "func bitshiftedLeft(words: Int, bits: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedleft(major:minor:)",
+                "title" : "func bitshiftedLeft(major: Int, minor: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
@@ -2396,13 +2425,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(words:)",
-                "title" : "func bitshiftedRight(words: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(major:)",
+                "title" : "func bitshiftedRight(major: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(words:bits:)",
-                "title" : "func bitshiftedRight(words: Int, bits: Int) -> NBKDoubleWidth<High>",
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(major:minor:)",
+                "title" : "func bitshiftedRight(major: Int, minor: Int) -> NBKDoubleWidth<High>",
                 "type" : "method"
               },
               {
@@ -2418,6 +2447,11 @@
               {
                 "path" : "\/documentation\/numberick\/nbkdoublewidth\/dividingfullwidthreportingoverflow(_:)-27oc0",
                 "title" : "func dividingFullWidthReportingOverflow(NBKDoubleWidth<NBKDoubleWidth<High>>) -> PVO<QR<NBKDoubleWidth<High>, NBKDoubleWidth<High>>>",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/formquotientwithremainderreportingoverflow(dividingby:)",
+                "title" : "func formQuotientWithRemainderReportingOverflow(dividingBy: NBKDoubleWidth<High>.Digit) -> PVO<NBKDoubleWidth<High>.Digit>",
                 "type" : "method"
               },
               {
@@ -2753,12 +2787,12 @@
                   },
                   {
                     "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(clamping:)-5s7fi",
-                    "title" : "init(clamping: some BinaryInteger)",
+                    "title" : "init<T>(clamping: T)",
                     "type" : "init"
                   },
                   {
                     "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(truncatingifneeded:)-9yvsw",
-                    "title" : "init(truncatingIfNeeded: some BinaryInteger)",
+                    "title" : "init<T>(truncatingIfNeeded: T)",
                     "type" : "init"
                   },
                   {
@@ -3572,6 +3606,16 @@
                     "type" : "init"
                   },
                   {
+                    "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(words:)",
+                    "title" : "init?(words: some RandomAccessCollection<UInt>)",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(words:issigned:)",
+                    "title" : "init?(words: some RandomAccessCollection<UInt>, isSigned: Bool)",
+                    "type" : "init"
+                  },
+                  {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
                   },
@@ -4146,7 +4190,7 @@
                   },
                   {
                     "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(exactly:)-5v9ae",
-                    "title" : "init?(exactly: some BinaryInteger)",
+                    "title" : "init?<T>(exactly: T)",
                     "type" : "init"
                   },
                   {
@@ -4589,697 +4633,6 @@
             "type" : "enum"
           },
           {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/init(_:reversed:)-5o7xa",
-                "title" : "init(Base, reversed: Bool)",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/init(_:reversed:)-75mj9",
-                "title" : "init(NBKTwinHeaded<Base>, reversed: Bool)",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/init(_:reversed:)-9o4tv",
-                "title" : "init(ReversedCollection<Base>, reversed: Bool)",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/init(rebasing:)-10jkt",
-                "title" : "init<T>(rebasing: NBKTwinHeaded<Base>.SubSequence)",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/init(rebasing:)-1fr1a",
-                "title" : "init<T>(rebasing: NBKTwinHeaded<Base>.SubSequence)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/base-swift.property",
-                "title" : "var base: Base",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/count-11m3d",
-                "title" : "var count: Int",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/direction",
-                "title" : "var direction: Int",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/isbacktofront",
-                "title" : "var isBackToFront: Bool",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/isfronttoback",
-                "title" : "var isFrontToBack: Bool",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/baseindex(_:)",
-                "title" : "func baseIndex(Int) -> Base.Index",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/baseindices(_:)",
-                "title" : "func baseIndices(Range<Int>) -> Range<Base.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/basesubscriptindex(_:)",
-                "title" : "func baseSubscriptIndex(Int) -> Base.Index",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/reverse()-1sj12",
-                "title" : "func reverse()",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/reversed()",
-                "title" : "func reversed() -> NBKTwinHeaded<Base>",
-                "type" : "method"
-              },
-              {
-                "title" : "Type Aliases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/base-swift.typealias",
-                "title" : "NBKTwinHeaded.Base",
-                "type" : "typealias"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/last",
-                    "title" : "var last: Self.Element?",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/difference(from:)",
-                    "title" : "func difference<C>(from: C) -> CollectionDifference<Self.Element>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/difference(from:by:)",
-                    "title" : "func difference<C>(from: C, by: (C.Element, Self.Element) -> Bool) -> CollectionDifference<Self.Element>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/droplast(_:)",
-                    "title" : "func dropLast(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/firstrange(of:)-76x2h",
-                    "title" : "func firstRange<C>(of: C) -> Range<Self.Index>?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/joined(separator:)-5siyl",
-                    "title" : "func joined(separator: String) -> String",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/last(where:)",
-                    "title" : "func last(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/lastindex(of:)",
-                    "title" : "func lastIndex(of: Self.Element) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/lastindex(where:)",
-                    "title" : "func lastIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/suffix(_:)",
-                    "title" : "func suffix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/bidirectionalcollection-implementations",
-                "title" : "BidirectionalCollection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/count-2qcao",
-                    "title" : "var count: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/endindex",
-                    "title" : "var endIndex: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/first",
-                    "title" : "var first: Self.Element?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/isempty",
-                    "title" : "var isEmpty: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/startindex",
-                    "title" : "var startIndex: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/underestimatedcount-7uxeo",
-                    "title" : "var underestimatedCount: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/contains(_:)-5nua7",
-                    "title" : "func contains<C>(C) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/drop(while:)",
-                    "title" : "func drop(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/dropfirst(_:)",
-                    "title" : "func dropFirst(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/firstindex(of:)",
-                    "title" : "func firstIndex(of: Self.Element) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/firstindex(where:)",
-                    "title" : "func firstIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/firstrange(of:)-36q0q",
-                    "title" : "func firstRange<C>(of: C) -> Range<Self.Index>?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/formindex(_:offsetby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/formindex(_:offsetby:limitedby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/index(of:)",
-                    "title" : "func index(of: Self.Element) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/makeiterator()",
-                    "title" : "func makeIterator() -> IndexingIterator<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/map(_:)-90yln",
-                    "title" : "func map<T>((Self.Element) throws -> T) rethrows -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/prefix(_:)",
-                    "title" : "func prefix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/prefix(through:)",
-                    "title" : "func prefix(through: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/prefix(upto:)",
-                    "title" : "func prefix(upTo: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/prefix(while:)",
-                    "title" : "func prefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/randomelement()",
-                    "title" : "func randomElement() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/randomelement(using:)",
-                    "title" : "func randomElement<T>(using: inout T) -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/ranges(of:)",
-                    "title" : "func ranges<C>(of: C) -> [Range<Self.Index>]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/split(maxsplits:omittingemptysubsequences:whereseparator:)",
-                    "title" : "func split(maxSplits: Int, omittingEmptySubsequences: Bool, whereSeparator: (Self.Element) throws -> Bool) rethrows -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/split(separator:maxsplits:omittingemptysubsequences:)-2zwvu",
-                    "title" : "func split<C>(separator: C, maxSplits: Int, omittingEmptySubsequences: Bool) -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/split(separator:maxsplits:omittingemptysubsequences:)-efp6",
-                    "title" : "func split(separator: Self.Element, maxSplits: Int, omittingEmptySubsequences: Bool) -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/suffix(from:)",
-                    "title" : "func suffix(from: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/trimmingprefix(_:)",
-                    "title" : "func trimmingPrefix<Prefix>(Prefix) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/trimmingprefix(while:)",
-                    "title" : "func trimmingPrefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Subscripts",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-2l81",
-                    "title" : "subscript((UnboundedRange_) -> ()) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-6a8lb",
-                    "title" : "subscript<R>(R) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-8ebo2",
-                    "title" : "subscript(Int) -> Base.Element",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-92xmc",
-                    "title" : "subscript(Range<Self.Index>) -> Slice<Self>",
-                    "type" : "subscript"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/collection-implementations",
-                "title" : "Collection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/partition(by:)-1d6bh",
-                    "title" : "func partition(by: (Self.Element) throws -> Bool) rethrows -> Self.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/partition(by:)-1opo9",
-                    "title" : "func partition(by: (Self.Element) throws -> Bool) rethrows -> Self.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/reverse()-f14i",
-                    "title" : "func reverse()",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/shuffle()",
-                    "title" : "func shuffle()",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/shuffle(using:)",
-                    "title" : "func shuffle<T>(using: inout T)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/sort()",
-                    "title" : "func sort()",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/sort(by:)",
-                    "title" : "func sort(by: (Self.Element, Self.Element) throws -> Bool) rethrows",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/swapat(_:_:)",
-                    "title" : "func swapAt(Self.Index, Self.Index)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/withcontiguousmutablestorageifavailable(_:)",
-                    "title" : "func withContiguousMutableStorageIfAvailable<R>((inout UnsafeMutableBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Subscripts",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-35c1v",
-                    "title" : "subscript(Range<Self.Index>) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-5wk06",
-                    "title" : "subscript(Range<Self.Index>) -> Slice<Self>",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-6tnke",
-                    "title" : "subscript((UnboundedRange_) -> ()) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-7c75n",
-                    "title" : "subscript(Int) -> Base.Element",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-7qf20",
-                    "title" : "subscript(Range<Self.Index>) -> Slice<Self>",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/subscript(_:)-9e4pm",
-                    "title" : "subscript<R>(R) -> Self.SubSequence",
-                    "type" : "subscript"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/mutablecollection-implementations",
-                "title" : "MutableCollection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/indices",
-                    "title" : "var indices: Range<Int>",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/distance(from:to:)",
-                    "title" : "func distance(from: Int, to: Int) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/formindex(after:)",
-                    "title" : "func formIndex(after: inout Int)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/formindex(before:)",
-                    "title" : "func formIndex(before: inout Int)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/index(_:offsetby:)",
-                    "title" : "func index(Int, offsetBy: Int) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/index(_:offsetby:limitedby:)",
-                    "title" : "func index(Int, offsetBy: Int, limitedBy: Int) -> Int?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/index(after:)",
-                    "title" : "func index(after: Int) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/index(before:)",
-                    "title" : "func index(before: Int) -> Int",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/randomaccesscollection-implementations",
-                "title" : "RandomAccessCollection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/lazy",
-                    "title" : "var lazy: LazySequence<Self>",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/underestimatedcount-7ygix",
-                    "title" : "var underestimatedCount: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/allsatisfy(_:)",
-                    "title" : "func allSatisfy((Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/compactmap(_:)",
-                    "title" : "func compactMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/contains(_:)-52pb2",
-                    "title" : "func contains(Self.Element) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/contains(where:)",
-                    "title" : "func contains(where: (Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/elementsequal(_:)",
-                    "title" : "func elementsEqual<OtherSequence>(OtherSequence) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/elementsequal(_:by:)",
-                    "title" : "func elementsEqual<OtherSequence>(OtherSequence, by: (Self.Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/enumerated()",
-                    "title" : "func enumerated() -> EnumeratedSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/filter(_:)",
-                    "title" : "func filter((Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/first(where:)",
-                    "title" : "func first(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/flatmap(_:)-1ydnn",
-                    "title" : "func flatMap<SegmentOfResult>((Self.Element) throws -> SegmentOfResult) rethrows -> [SegmentOfResult.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/flatmap(_:)-9koaa",
-                    "title" : "func flatMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/foreach(_:)",
-                    "title" : "func forEach((Self.Element) throws -> Void) rethrows",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/joined()",
-                    "title" : "func joined() -> FlattenSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/joined(separator:)-4djwj",
-                    "title" : "func joined<Separator>(separator: Separator) -> JoinedSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/joined(separator:)-dq19",
-                    "title" : "func joined(separator: String) -> String",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/lexicographicallyprecedes(_:)",
-                    "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/lexicographicallyprecedes(_:by:)",
-                    "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence, by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/map(_:)-3udw6",
-                    "title" : "func map<T>((Self.Element) throws -> T) rethrows -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/max()",
-                    "title" : "func max() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/max(by:)",
-                    "title" : "func max(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/min()",
-                    "title" : "func min() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/min(by:)",
-                    "title" : "func min(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/reduce(_:_:)",
-                    "title" : "func reduce<Result>(Result, (Result, Self.Element) throws -> Result) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/reduce(into:_:)",
-                    "title" : "func reduce<Result>(into: Result, (inout Result, Self.Element) throws -> ()) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/shuffled()",
-                    "title" : "func shuffled() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/shuffled(using:)",
-                    "title" : "func shuffled<T>(using: inout T) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/sorted()",
-                    "title" : "func sorted() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/sorted(by:)",
-                    "title" : "func sorted(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/split(separator:maxsplits:omittingemptysubsequences:)-y8gm",
-                    "title" : "func split(separator: Self.Element, maxSplits: Int, omittingEmptySubsequences: Bool) -> [ArraySlice<Self.Element>]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/starts(with:)",
-                    "title" : "func starts<PossiblePrefix>(with: PossiblePrefix) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/starts(with:by:)",
-                    "title" : "func starts<PossiblePrefix>(with: PossiblePrefix, by: (Self.Element, PossiblePrefix.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/numberick\/nbktwinheaded\/withcontiguousstorageifavailable(_:)",
-                    "title" : "func withContiguousStorageIfAvailable<R>((UnsafeBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/numberick\/nbktwinheaded\/sequence-implementations",
-                "title" : "Sequence Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/numberick\/nbktwinheaded",
-            "title" : "NBKTwinHeaded",
-            "type" : "struct"
-          },
-          {
             "title" : "Integers",
             "type" : "groupMarker"
           },
@@ -5368,6 +4721,11 @@
             "type" : "typealias"
           },
           {
+            "path" : "\/documentation\/numberick\/sm",
+            "title" : "SM",
+            "type" : "typealias"
+          },
+          {
             "children" : [
               {
                 "title" : "Structures",
@@ -5376,26 +4734,135 @@
               {
                 "children" : [
                   {
-                    "title" : "Initializers",
+                    "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixalphabetdecoder\/init(radix:)",
-                    "title" : "init(radix: Int)",
-                    "type" : "init"
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/signed",
+                    "title" : "NBK.StrictBinaryInteger.Signed",
+                    "type" : "typealias"
                   },
                   {
-                    "title" : "Instance Methods",
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/unsigned",
+                    "title" : "NBK.StrictBinaryInteger.Unsigned",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/anyradixalphabetdecoder\/decode(_:)",
-                    "title" : "func decode(UInt8) -> UInt8?",
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleft(_:environment:major:minoratleastone:)",
+                    "title" : "static func bitshiftLeft(inout Base, environment: Base.Element, major: Int, minorAtLeastOne: Int)",
                     "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleft(_:environment:majoratleastone:)",
+                    "title" : "static func bitshiftLeft(inout Base, environment: Base.Element, majorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleftcodeblock(_:environment:major:minoratleastone:)",
+                    "title" : "static func bitshiftLeftCodeBlock(inout Base, environment: Base.Element, major: Int, minorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftright(_:environment:major:minoratleastone:)",
+                    "title" : "static func bitshiftRight(inout Base, environment: Base.Element, major: Int, minorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftright(_:environment:majoratleastone:)",
+                    "title" : "static func bitshiftRight(inout Base, environment: Base.Element, majorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftrightcodeblock(_:environment:major:minoratleastone:)",
+                    "title" : "static func bitshiftRightCodeBlock(inout Base, environment: Base.Element, major: Int, minorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/formquotientwithremainderreportingoverflow(_:dividingby:signedness:)",
+                    "title" : "static func formQuotientWithRemainderReportingOverflow<Digit>(inout Base, dividingBy: Base.Element, signedness: Digit.Type) -> PVO<Base.Element>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/withunsafebufferpointer(to:perform:)",
+                    "title" : "static func withUnsafeBufferPointer<T, U>(to: T, perform: (Base) throws -> U) rethrows -> U",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Enumerations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/signed",
+                        "title" : "NBK.StrictBinaryInteger.SubSequence.Signed",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/unsigned",
+                        "title" : "NBK.StrictBinaryInteger.SubSequence.Unsigned",
+                        "type" : "typealias"
+                      },
+                      {
+                        "title" : "Type Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/formonescomplement(_:)",
+                        "title" : "static func formOnesComplement(inout Base)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/formtwoscomplement(_:)",
+                        "title" : "static func formTwosComplement(inout Base)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/leadingzerobitcount(of:)",
+                        "title" : "static func leadingZeroBitCount(of: Base) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/mostsignificantbit(twoscomplementof:)",
+                        "title" : "static func mostSignificantBit(twosComplementOf: Base) -> Bool?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/nonzerobitcount(of:)",
+                        "title" : "static func nonzeroBitCount(of: Base) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/nonzerobitcount(of:equals:)",
+                        "title" : "static func nonzeroBitCount(of: Base, equals: Int) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/nonzerobitcount(twoscomplementof:)",
+                        "title" : "static func nonzeroBitCount(twosComplementOf: Base) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence\/trailingzerobitcount(of:)",
+                        "title" : "static func trailingZeroBitCount(of: Base) -> Int",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/subsequence",
+                    "title" : "NBK.StrictBinaryInteger.SubSequence",
+                    "type" : "enum"
                   }
                 ],
-                "path" : "\/documentation\/numberick\/nbk\/anyradixalphabetdecoder",
-                "title" : "NBK.AnyRadixAlphabetDecoder",
+                "path" : "\/documentation\/numberick\/nbk\/strictbinaryinteger",
+                "title" : "NBK.StrictBinaryInteger",
                 "type" : "struct"
               },
               {
@@ -5405,22 +4872,70 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/maxradixalphabetencoder\/init(uppercase:)",
-                    "title" : "init(uppercase: Bool)",
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/init(_:sign:)",
+                    "title" : "init(Base, sign: Bool)",
                     "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/init(fromstrictsignedintegersubsequence:)",
+                    "title" : "init?<T>(fromStrictSignedIntegerSubSequence: Base)",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/init(fromstrictunsignedintegersubsequence:)",
+                    "title" : "init<T>(fromStrictUnsignedIntegerSubSequence: Base)",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/init(unchecked:sign:)",
+                    "title" : "init(unchecked: Base, sign: Bool)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/body",
+                    "title" : "let body: Base",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/sign",
+                    "title" : "let sign: Bool",
+                    "type" : "property"
                   },
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/maxradixalphabetencoder\/encode(_:)",
-                    "title" : "func encode(UInt8) -> UInt8?",
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/compared(to:)",
+                    "title" : "func compared(to: NBK.SuccinctInt<Base>) -> Int",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/compared(tosamesign:)",
+                    "title" : "func compared(toSameSign: NBK.SuccinctInt<Base>) -> Int",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/compared(tosamesignsamesize:)",
+                    "title" : "func compared(toSameSignSameSize: NBK.SuccinctInt<Base>) -> Int",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/succinctint\/isvalid(_:sign:)",
+                    "title" : "static func isValid(Base, sign: Bool) -> Bool",
                     "type" : "method"
                   }
                 ],
-                "path" : "\/documentation\/numberick\/nbk\/maxradixalphabetencoder",
-                "title" : "NBK.MaxRadixAlphabetEncoder",
+                "path" : "\/documentation\/numberick\/nbk\/succinctint",
+                "title" : "NBK.SuccinctInt",
                 "type" : "struct"
               },
               {
@@ -5428,33 +4943,48 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/anyradixsolution",
-                "title" : "NBK.AnyRadixSolution",
-                "type" : "typealias"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/io",
                 "title" : "NBK.IO",
                 "type" : "typealias"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/imperfectradixsolution",
-                "title" : "NBK.ImperfectRadixSolution",
+                "path" : "\/documentation\/numberick\/nbk\/sbi",
+                "title" : "NBK.SBI",
                 "type" : "typealias"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/perfectradixsolution",
-                "title" : "NBK.PerfectRadixSolution",
+                "path" : "\/documentation\/numberick\/nbk\/sbiss",
+                "title" : "NBK.SBISS",
                 "type" : "typealias"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/radixsolution",
-                "title" : "NBK.RadixSolution",
+                "path" : "\/documentation\/numberick\/nbk\/ssi",
+                "title" : "NBK.SSI",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/ssiss",
+                "title" : "NBK.SSISS",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/sui",
+                "title" : "NBK.SUI",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/suiss",
+                "title" : "NBK.SUISS",
                 "type" : "typealias"
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/sign",
                 "title" : "NBK.Sign",
+                "type" : "typealias"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/twinheaded",
+                "title" : "NBK.TwinHeaded",
                 "type" : "typealias"
               },
               {
@@ -5556,26 +5086,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/bitshiftleftasfixedlimbscodeblock(_:environment:atleastonelimb:)",
-                "title" : "static func bitshiftLeftAsFixedLimbsCodeBlock<T>(inout T, environment: Bool, atLeastOneLimb: Int)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/bitshiftleftasfixedlimbscodeblock(_:environment:limbs:atleastonebit:)",
-                "title" : "static func bitshiftLeftAsFixedLimbsCodeBlock<T>(inout T, environment: Bool, limbs: Int, atLeastOneBit: Int)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/bitshiftrightasfixedlimbscodeblock(_:environment:atleastonelimb:)",
-                "title" : "static func bitshiftRightAsFixedLimbsCodeBlock<T>(inout T, environment: Bool, atLeastOneLimb: Int)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/bitshiftrightasfixedlimbscodeblock(_:environment:limbs:atleastonebit:)",
-                "title" : "static func bitshiftRightAsFixedLimbsCodeBlock<T>(inout T, environment: Bool, limbs: Int, atLeastOneBit: Int)",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/blackhole(_:)",
                 "title" : "static func blackHole<T>(T)",
                 "type" : "method"
@@ -5611,26 +5121,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/comparelenientunsignedinteger(_:to:)",
-                "title" : "static func compareLenientUnsignedInteger(NBK.UnsafeWords, to: NBK.UnsafeWords) -> Int",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/comparelenientunsignedinteger(_:to:at:)",
-                "title" : "static func compareLenientUnsignedInteger(NBK.UnsafeWords, to: NBK.UnsafeWords, at: Int) -> Int",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/comparestrictsignedinteger(_:to:)",
-                "title" : "static func compareStrictSignedInteger(NBK.UnsafeWords, to: NBK.UnsafeWords) -> Int",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/comparestrictsignedinteger(_:to:at:)",
-                "title" : "static func compareStrictSignedInteger(NBK.UnsafeWords, to: NBK.UnsafeWords, at: Int) -> Int",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/decrement32b(_:by:)",
                 "title" : "static func decrement32B<T>(inout NBK.Wide3<T>, by: NBK.Wide2<T>) -> Bool",
                 "type" : "method"
@@ -5638,86 +5128,6 @@
               {
                 "path" : "\/documentation\/numberick\/nbk\/decrement33b(_:by:)",
                 "title" : "static func decrement33B<T>(inout NBK.Wide3<T>, by: NBK.Wide3<T>) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:at:)-3krvk",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T.Element, at: inout T.Index) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:at:)-7p3bp",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:at:)-7uoz7",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T.Element, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:at:)-879bq",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:plus:at:)-3pzbg",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T.Element, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:plus:at:)-5n9sf",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T.Element, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:plus:at:)-7zcn1",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: some Collection, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:plus:at:)-9xq4h",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: some Collection, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:times:plus:plus:at:)-5cc2k",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T, times: T.Element, plus: T.Element, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedinteger(_:by:times:plus:plus:at:)-60gst",
-                "title" : "static func decrementSufficientUnsignedInteger<T>(inout T, by: T, times: T.Element, plus: T.Element, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:at:)-7vc2e",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, at: inout T.Index) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:at:)-84jtj",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:plus:at:)-2yjzp",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:plus:at:)-4m1b4",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:plus:at:)-5gv4s",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: some Collection, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/decrementsufficientunsignedintegerinintersection(_:by:plus:at:)-9nfct",
-                "title" : "static func decrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: some Collection, plus: inout Bool, at: inout T.Index)",
                 "type" : "method"
               },
               {
@@ -5736,11 +5146,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/formquotientwithremainderreportingoverflowaslenientunsignedinteger(of:dividingby:)",
-                "title" : "static func formQuotientWithRemainderReportingOverflowAsLenientUnsignedInteger<T>(of: inout T, dividingBy: T.Element) -> PVO<T.Element>",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/increment32b(_:by:)",
                 "title" : "static func increment32B<T>(inout NBK.Wide3<T>, by: NBK.Wide2<T>) -> Bool",
                 "type" : "method"
@@ -5748,76 +5153,6 @@
               {
                 "path" : "\/documentation\/numberick\/nbk\/increment33b(_:by:)",
                 "title" : "static func increment33B<T>(inout NBK.Wide3<T>, by: NBK.Wide3<T>) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:at:)-4xuya",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:at:)-8072h",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: T.Element, at: inout T.Index) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:at:)-9uwsq",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:at:)-ag2",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: T.Element, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:plus:at:)-1t890",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: T.Element, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:plus:at:)-3cyao",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: some Collection, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:plus:at:)-3j3k7",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: T.Element, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedinteger(_:by:plus:at:)-422qk",
-                "title" : "static func incrementSufficientUnsignedInteger<T>(inout T, by: some Collection, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:at:)-44gvl",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:at:)-8upnk",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, at: inout T.Index) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:plus:at:)-1t65n",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:plus:at:)-29cm7",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: T.Element, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:plus:at:)-8vg63",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: some Collection, plus: inout Bool, at: inout T.Index)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/incrementsufficientunsignedintegerinintersection(_:by:plus:at:)-9qv65",
-                "title" : "static func incrementSufficientUnsignedIntegerInIntersection<T>(inout T, by: some Collection, plus: Bool, at: T.Index) -> NBK.IO<T.Index>",
                 "type" : "method"
               },
               {
@@ -5866,16 +5201,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/integertextunchecked(chunks:radix:alphabet:prefix:suffix:)",
-                "title" : "static func integerTextUnchecked(chunks: NBKTwinHeaded<NBK.UnsafeWords>, radix: _NBKAnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder, prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/leadingzerobitcount(of:)",
-                "title" : "static func leadingZeroBitCount<T>(of: some BidirectionalCollection) -> Int",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/leastpositiveresidue(of:dividingbybitwidthof:)",
                 "title" : "static func leastPositiveResidue<T>(of: some BinaryInteger, dividingByBitWidthOf: T.Type) -> Int",
                 "type" : "method"
@@ -5891,53 +5216,8 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/makeintegercomponents(utf8:)",
-                "title" : "static func makeIntegerComponents<T>(utf8: T) -> (sign: NBK.Sign, body: T.SubSequence)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/makeintegercomponentsbydecodingradix(utf8:)",
-                "title" : "static func makeIntegerComponentsByDecodingRadix<T>(utf8: T) -> (sign: NBK.Sign, radix: Int, body: T.SubSequence)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/makesuccinctsignedinteger(fromstrictsignedinteger:)",
-                "title" : "static func makeSuccinctSignedInteger(fromStrictSignedInteger: NBK.UnsafeWords) -> NBK.UnsafeSuccinctWords",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/makesuccinctunsignedinteger(fromlenientunsignedinteger:)",
-                "title" : "static func makeSuccinctUnsignedInteger(fromLenientUnsignedInteger: NBK.UnsafeWords) -> NBK.UnsafeSuccinctWords",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/mostsignificantbit(twoscomplementof:)",
-                "title" : "static func mostSignificantBit<T>(twosComplementOf: some BidirectionalCollection) -> Bool?",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/multiplyfullwidthlenientunsignedinteger(_:by:add:)",
-                "title" : "static func multiplyFullWidthLenientUnsignedInteger<T>(inout T, by: T.Element, add: T.Element) -> T.Element",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/multiplying213(_:by:)",
                 "title" : "static func multiplying213<T>(NBK.Wide2<T>, by: T) -> NBK.Wide3<T>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(of:)",
-                "title" : "static func nonzeroBitCount<T>(of: some Collection) -> Int",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(of:equals:)",
-                "title" : "static func nonzeroBitCount<T>(of: some Collection, equals: Int) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/nonzerobitcount(twoscomplementof:)",
-                "title" : "static func nonzeroBitCount<T>(twosComplementOf: some Collection) -> Int",
                 "type" : "method"
               },
               {
@@ -5961,21 +5241,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/remainderreportingoverflowaslenientunsignedinteger(of:dividingby:)",
-                "title" : "static func remainderReportingOverflowAsLenientUnsignedInteger<T>(of: T, dividingBy: T.Element) -> PVO<T.Element>",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/removeleadingradix(utf8:)",
-                "title" : "static func removeLeadingRadix<T>(utf8: inout T) -> Int?",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/numberick\/nbk\/removeleadingsign(utf8:)",
-                "title" : "static func removeLeadingSign<T>(utf8: inout T) -> NBK.Sign?",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/numberick\/nbk\/removeprefix(from:count:)",
                 "title" : "static func removePrefix<T>(from: inout T, count: Int) -> T",
                 "type" : "method"
@@ -5996,24 +5261,820 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/trailingzerobitcount(of:)",
-                "title" : "static func trailingZeroBitCount<T>(of: some Collection) -> Int",
+                "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(copying:perform:)",
+                "title" : "static func withUnsafeTemporaryAllocation<Element, Result>(copying: some Collection, perform: (inout UnsafeMutableBufferPointer<Element>) -> Result) -> Result",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/truncating(digits:radix:as:)",
-                "title" : "static func truncating<T>(digits: NBK.UnsafeUTF8, radix: Int, as: T.Type) -> T?",
-                "type" : "method"
+                "title" : "Enumerations",
+                "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryintegertextunchecked(chunk:radix:alphabet:body:)",
-                "title" : "static func withUnsafeTemporaryIntegerTextUnchecked<T>(chunk: UInt, radix: _NBKAnyRadixSolution<Int>, alphabet: NBK.MaxRadixAlphabetEncoder, body: (NBK.UnsafeUTF8) -> T) -> T",
-                "type" : "method"
+                "children" : [
+                  {
+                    "title" : "Structures",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixalphabetdecoder\/init(radix:)",
+                        "title" : "init(radix: Int)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixalphabetdecoder\/decode(_:)",
+                        "title" : "func decode(UInt8) -> UInt8?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixalphabetdecoder",
+                    "title" : "NBK.IntegerDescription.AnyRadixAlphabetDecoder",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/init(_:)-2jban",
+                        "title" : "init(Int)",
+                        "type" : "init"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/init(_:)-7js6c",
+                        "title" : "init(NBK.IntegerDescription.PerfectRadixSolution<Element>)",
+                        "type" : "init"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/init(_:)-jmif",
+                        "title" : "init(NBK.IntegerDescription.ImperfectRadixSolution<Element>)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/base",
+                        "title" : "let base: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/exponent",
+                        "title" : "let exponent: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/power",
+                        "title" : "let power: Element",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution",
+                    "title" : "NBK.IntegerDescription.AnyRadixSolution",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/init(radix:)",
+                        "title" : "init(radix: Int)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-1xe2s",
+                        "title" : "func decode<M>(StaticString, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-33z9s",
+                        "title" : "func decode<T>(StaticString, as: T.Type) -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-3kg3a",
+                        "title" : "func decode<M>(some StringProtocol, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-5k9m4",
+                        "title" : "func decode<T>(NBK.UnsafeUTF8, as: T.Type) -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-64185",
+                        "title" : "func decode<T>(some StringProtocol, as: T.Type) -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder\/decode(_:as:)-rif9",
+                        "title" : "func decode<M>(NBK.UnsafeUTF8, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder",
+                    "title" : "NBK.IntegerDescription.Decoder",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/init()",
+                        "title" : "init()",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-17ez3",
+                        "title" : "func decode<M>(some StringProtocol, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-3ks7m",
+                        "title" : "func decode<T>(some StringProtocol, as: T.Type) -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-5jn2b",
+                        "title" : "func decode<M>(StaticString, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-67qk3",
+                        "title" : "func decode<T>(NBK.UnsafeUTF8, as: T.Type) -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-7e7w8",
+                        "title" : "func decode<M>(NBK.UnsafeUTF8, as: SM<M>.Type) -> SM<M>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-84cje",
+                        "title" : "func decode<T>(StaticString, as: T.Type) -> T?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix",
+                    "title" : "NBK.IntegerDescription.DecoderDecodingRadix",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/init(radix:uppercase:)",
+                        "title" : "init(radix: Int, uppercase: Bool)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(_:)",
+                        "title" : "func encode(some NBKBinaryInteger) -> String",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(sign:magnitude:)",
+                        "title" : "func encode(sign: FloatingPointSign, magnitude: some RandomAccessCollection<UInt>) -> String",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder",
+                    "title" : "NBK.IntegerDescription.Encoder",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Structures",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisor\/dividing(_:)",
+                            "title" : "func dividing(Element) -> QR<Element, Element>",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisor",
+                        "title" : "NBK.IntegerDescription.ImperfectRadixSolution.Divisor",
+                        "type" : "struct"
+                      },
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/init(_:)",
+                        "title" : "init?(NBK.IntegerDescription.AnyRadixSolution<Element>)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/base",
+                        "title" : "var base: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/exponent",
+                        "title" : "var exponent: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/power",
+                        "title" : "var power: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/solution",
+                        "title" : "let solution: NBK.IntegerDescription.AnyRadixSolution<Element>",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisibilitybypowerupperbound(magnitude:)",
+                        "title" : "func divisibilityByPowerUpperBound(magnitude: some Collection<UInt>) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisor()",
+                        "title" : "func divisor() -> NBK.IntegerDescription.ImperfectRadixSolution<Element>.Divisor",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution",
+                    "title" : "NBK.IntegerDescription.ImperfectRadixSolution",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/maxradixalphabetencoder\/init(uppercase:)",
+                        "title" : "init(uppercase: Bool)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/maxradixalphabetencoder\/encode(_:)",
+                        "title" : "func encode(UInt8) -> UInt8?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/maxradixalphabetencoder",
+                    "title" : "NBK.IntegerDescription.MaxRadixAlphabetEncoder",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Structures",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/divisor\/dividing(_:)",
+                            "title" : "func dividing(Element) -> QR<Element, Element>",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/divisor",
+                        "title" : "NBK.IntegerDescription.PerfectRadixSolution.Divisor",
+                        "type" : "struct"
+                      },
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/init(_:)",
+                        "title" : "init?(NBK.IntegerDescription.AnyRadixSolution<Element>)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/base",
+                        "title" : "var base: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/exponent",
+                        "title" : "var exponent: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/power",
+                        "title" : "var power: Element",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/solution",
+                        "title" : "let solution: NBK.IntegerDescription.AnyRadixSolution<Element>",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/divisor()",
+                        "title" : "func divisor() -> NBK.IntegerDescription.PerfectRadixSolution<Element>.Divisor",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution",
+                    "title" : "NBK.IntegerDescription.PerfectRadixSolution",
+                    "type" : "struct"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/makesignbody(from:)",
+                    "title" : "static func makeSignBody<UTF8>(from: UTF8) -> (sign: NBK.Sign, body: UTF8.SubSequence)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/makesignradixbody(from:)",
+                    "title" : "static func makeSignRadixBody<UTF8>(from: UTF8) -> (sign: NBK.Sign, radix: Int, body: UTF8.SubSequence)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/removeleadingradix(from:)",
+                    "title" : "static func removeLeadingRadix<UTF8>(from: inout UTF8) -> Int?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/removeleadingsign(from:)",
+                    "title" : "static func removeLeadingSign<UTF8>(from: inout UTF8) -> NBK.Sign?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/truncating(digits:radix:as:)",
+                    "title" : "static func truncating<Digit>(digits: NBK.UnsafeUTF8, radix: Int, as: Digit.Type) -> Digit?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/integerdescription\/withunsafetemporarysignprefix(minus:perform:)",
+                    "title" : "static func withUnsafeTemporarySignPrefix<T>(minus: Bool, perform: (NBK.UnsafeUTF8) -> T) -> T",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbk\/integerdescription",
+                "title" : "NBK.IntegerDescription",
+                "type" : "enum"
               },
               {
-                "path" : "\/documentation\/numberick\/nbk\/withunsafewords(of:perform:)",
-                "title" : "static func withUnsafeWords<T>(of: some NBKCoreInteger<UInt>, perform: (NBK.UnsafeWords) throws -> T) rethrows -> T",
-                "type" : "method"
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/binary",
+                    "title" : "NBK.StrictSignedInteger.Binary",
+                    "type" : "typealias"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/unsigned",
+                    "title" : "NBK.StrictSignedInteger.Unsigned",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/compare(_:to:)",
+                    "title" : "static func compare<T>(Base, to: Base) -> Int",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/compare(_:to:at:)",
+                    "title" : "static func compare<T>(Base, to: Base, at: Int) -> Int",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Enumerations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/subsequence\/binary",
+                        "title" : "NBK.StrictSignedInteger.SubSequence.Binary",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/subsequence\/unsigned",
+                        "title" : "NBK.StrictSignedInteger.SubSequence.Unsigned",
+                        "type" : "typealias"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/subsequence",
+                    "title" : "NBK.StrictSignedInteger.SubSequence",
+                    "type" : "enum"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbk\/strictsignedinteger",
+                "title" : "NBK.StrictSignedInteger",
+                "type" : "enum"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/binary",
+                    "title" : "NBK.StrictUnsignedInteger.Binary",
+                    "type" : "typealias"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/signed",
+                    "title" : "NBK.StrictUnsignedInteger.Signed",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:by:)",
+                    "title" : "static func bitshiftLeft(inout Base, by: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:major:)",
+                    "title" : "static func bitshiftLeft(inout Base, major: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:major:minor:)",
+                    "title" : "static func bitshiftLeft(inout Base, major: Int, minor: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:major:minoratleastone:)",
+                    "title" : "static func bitshiftLeft(inout Base, major: Int, minorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:majoratleastone:)",
+                    "title" : "static func bitshiftLeft(inout Base, majorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:by:)",
+                    "title" : "static func bitshiftRight(inout Base, by: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:major:)",
+                    "title" : "static func bitshiftRight(inout Base, major: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:major:minor:)",
+                    "title" : "static func bitshiftRight(inout Base, major: Int, minor: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:major:minoratleastone:)",
+                    "title" : "static func bitshiftRight(inout Base, major: Int, minorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:majoratleastone:)",
+                    "title" : "static func bitshiftRight(inout Base, majorAtLeastOne: Int)",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Enumerations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/binary",
+                        "title" : "NBK.StrictUnsignedInteger.SubSequence.Binary",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/signed",
+                        "title" : "NBK.StrictUnsignedInteger.SubSequence.Signed",
+                        "type" : "typealias"
+                      },
+                      {
+                        "title" : "Type Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/compare(_:to:)",
+                        "title" : "static func compare<T>(Base, to: Base) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/compare(_:to:at:)",
+                        "title" : "static func compare<T>(Base, to: Base, at: Int) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:at:)-1mb78",
+                        "title" : "static func decrement(inout Base, by: Base.Element, at: inout Base.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:at:)-2n3y8",
+                        "title" : "static func decrement(inout Base, by: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:at:)-6hfao",
+                        "title" : "static func decrement(inout Base, by: Base.Element, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:at:)-95tf",
+                        "title" : "static func decrement(inout Base, by: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:plus:at:)-54k7b",
+                        "title" : "static func decrement(inout Base, by: Base.Element, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:plus:at:)-82jj7",
+                        "title" : "static func decrement(inout Base, by: Base.Element, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:plus:at:)-8x450",
+                        "title" : "static func decrement(inout Base, by: some Collection<Base.Element>, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:plus:at:)-y0vj",
+                        "title" : "static func decrement(inout Base, by: some Collection<Base.Element>, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:times:plus:plus:at:)-3wogo",
+                        "title" : "static func decrement(inout Base, by: some Collection<Base.Element>, times: Base.Element, plus: Base.Element, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrement(_:by:times:plus:plus:at:)-5hefq",
+                        "title" : "static func decrement(inout Base, by: some Collection<Base.Element>, times: Base.Element, plus: Base.Element, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:at:)-9coel",
+                        "title" : "static func decrementInIntersection(inout Base, by: Base.Element, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:at:)-zzzr",
+                        "title" : "static func decrementInIntersection(inout Base, by: Base.Element, at: inout Base.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:plus:at:)-3jx7a",
+                        "title" : "static func decrementInIntersection(inout Base, by: some Collection<Base.Element>, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:plus:at:)-4b6xv",
+                        "title" : "static func decrementInIntersection(inout Base, by: Base.Element, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:plus:at:)-67z99",
+                        "title" : "static func decrementInIntersection(inout Base, by: some Collection<Base.Element>, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/decrementinintersection(_:by:plus:at:)-713cd",
+                        "title" : "static func decrementInIntersection(inout Base, by: Base.Element, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/formquotientwithremainderreportingoverflow(_:dividingby:)",
+                        "title" : "static func formQuotientWithRemainderReportingOverflow(inout Base, dividingBy: Base.Element) -> PVO<Base.Element>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/formquotientwithremainderreportingoverflow(_:dividingby:in:)-17ydz",
+                        "title" : "static func formQuotientWithRemainderReportingOverflow(inout Base, dividingBy: Base.Element, in: Range<Base.Index>) -> PVO<Base.Element>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/formquotientwithremainderreportingoverflow(_:dividingby:in:)-4ahbu",
+                        "title" : "static func formQuotientWithRemainderReportingOverflow(inout Base, dividingBy: Base.Element, in: some RangeExpression<Base.Index>) -> PVO<Base.Element>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/formtwoscomplementreportingoverflow(_:)",
+                        "title" : "static func formTwosComplementReportingOverflow(inout Base) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/formtwoscomplementsubsequence(_:carry:)",
+                        "title" : "static func formTwosComplementSubsequence(inout Base, carry: Bool) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:at:)-4jwd4",
+                        "title" : "static func increment(inout Base, by: Base.Element, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:at:)-58jmq",
+                        "title" : "static func increment(inout Base, by: Base.Element, at: inout Base.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:at:)-6ngkf",
+                        "title" : "static func increment(inout Base, by: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:at:)-9j7e9",
+                        "title" : "static func increment(inout Base, by: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:plus:at:)-2ew5g",
+                        "title" : "static func increment(inout Base, by: some Collection<Base.Element>, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:plus:at:)-61qb6",
+                        "title" : "static func increment(inout Base, by: Base.Element, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:plus:at:)-6cobm",
+                        "title" : "static func increment(inout Base, by: Base.Element, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/increment(_:by:plus:at:)-ibqr",
+                        "title" : "static func increment(inout Base, by: some Collection<Base.Element>, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:at:)-1fto7",
+                        "title" : "static func incrementInIntersection(inout Base, by: Base.Element, at: inout Base.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:at:)-3uyrt",
+                        "title" : "static func incrementInIntersection(inout Base, by: Base.Element, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:plus:at:)-15zdo",
+                        "title" : "static func incrementInIntersection(inout Base, by: some Collection<Base.Element>, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:plus:at:)-3fhj3",
+                        "title" : "static func incrementInIntersection(inout Base, by: Base.Element, plus: inout Bool, at: inout Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:plus:at:)-4mf3o",
+                        "title" : "static func incrementInIntersection(inout Base, by: Base.Element, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/incrementinintersection(_:by:plus:at:)-7kkim",
+                        "title" : "static func incrementInIntersection(inout Base, by: some Collection<Base.Element>, plus: Bool, at: Base.Index) -> NBK.IO<Base.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyfullwidth(_:by:add:)",
+                        "title" : "static func multiplyFullWidth(inout Base, by: Base.Element, add: Base.Element) -> Base.Element",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyfullwidth(_:by:add:in:)-4wwd6",
+                        "title" : "static func multiplyFullWidth(inout Base, by: Base.Element, add: Base.Element, in: some RangeExpression<Base.Index>) -> Base.Element",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyfullwidth(_:by:add:in:)-85wv3",
+                        "title" : "static func multiplyFullWidth(inout Base, by: Base.Element, add: Base.Element, in: Range<Base.Index>) -> Base.Element",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyreportingoverflow(_:by:add:)",
+                        "title" : "static func multiplyReportingOverflow(inout Base, by: Base.Element, add: Base.Element) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyreportingoverflow(_:by:add:in:)-4wzl0",
+                        "title" : "static func multiplyReportingOverflow(inout Base, by: Base.Element, add: Base.Element, in: Range<Base.Index>) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiplyreportingoverflow(_:by:add:in:)-63e4h",
+                        "title" : "static func multiplyReportingOverflow(inout Base, by: Base.Element, add: Base.Element, in: some RangeExpression<Base.Index>) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/remainderreportingoverflow(_:dividingby:)",
+                        "title" : "static func remainderReportingOverflow(Base, dividingBy: Base.Element) -> PVO<Base.Element>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/remainderreportingoverflow(_:dividingby:in:)-750iy",
+                        "title" : "static func remainderReportingOverflow(Base, dividingBy: Base.Element, in: Range<Base.Index>) -> PVO<Base.Element>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/remainderreportingoverflow(_:dividingby:in:)-mf0d",
+                        "title" : "static func remainderReportingOverflow(Base, dividingBy: Base.Element, in: some RangeExpression<Base.Index>) -> PVO<Base.Element>",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence",
+                    "title" : "NBK.StrictUnsignedInteger.SubSequence",
+                    "type" : "enum"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger",
+                "title" : "NBK.StrictUnsignedInteger",
+                "type" : "enum"
               }
             ],
             "path" : "\/documentation\/numberick\/nbk",

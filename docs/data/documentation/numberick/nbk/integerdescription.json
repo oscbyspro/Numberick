@@ -1,0 +1,1283 @@
+{
+  "abstract" : [
+    {
+      "text" : "A namespace for decoding and encoding integer descriptions.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit3NBKO18IntegerDescriptionO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "IntegerDescription"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "IntegerDescription"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "NBK.IntegerDescription"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "IntegerDescription"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixAlphabetDecoder",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Decoder",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/MaxRadixAlphabetEncoder",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/makeSignBody(from:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/makeSignRadixBody(from:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/removeLeadingRadix(from:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/removeLeadingSign(from:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/truncating(digits:radix:as:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/withUnsafeTemporarySignPrefix(minus:perform:)"
+      ],
+      "title" : "Type Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbk\/integerdescription"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription": {
+  "abstract" : [
+    {
+      "text" : "A namespace for decoding and encoding integer descriptions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntegerDescription"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntegerDescription"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixAlphabetDecoder": {
+  "abstract" : [
+    {
+      "text" : "Decodes values in ",
+      "type" : "text"
+    },
+    {
+      "code" : "0",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ",
+      "type" : "text"
+    },
+    {
+      "code" : "36",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " from ASCII.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnyRadixAlphabetDecoder"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixAlphabetDecoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyRadixAlphabetDecoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.AnyRadixAlphabetDecoder",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixalphabetdecoder"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixSolution": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "solution",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a power that may, or may not, be zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnyRadixSolution"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyRadixSolution"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.AnyRadixSolution",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Decoder": {
+  "abstract" : [
+    {
+      "text" : "A decoder decoding an integer description.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Decoder"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Decoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Decoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.Decoder",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoder"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix": {
+  "abstract" : [
+    {
+      "text" : "A decoder decoding an integer description by decoding the radix.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DecoderDecodingRadix"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DecoderDecodingRadix"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.DecoderDecodingRadix",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder": {
+  "abstract" : [
+    {
+      "text" : "An encoder encoding an integer description.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Encoder"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Encoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.Encoder",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "solution",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a non-zero power.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ImperfectRadixSolution"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ImperfectRadixSolution"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.ImperfectRadixSolution",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/MaxRadixAlphabetEncoder": {
+  "abstract" : [
+    {
+      "text" : "Encodes values in ",
+      "type" : "text"
+    },
+    {
+      "code" : "0",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ",
+      "type" : "text"
+    },
+    {
+      "code" : "36",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ASCII.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MaxRadixAlphabetEncoder"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/MaxRadixAlphabetEncoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MaxRadixAlphabetEncoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.MaxRadixAlphabetEncoder",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/maxradixalphabetencoder"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "solution",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a power of zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PerfectRadixSolution"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PerfectRadixSolution"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerDescription.PerfectRadixSolution",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/makeSignBody(from:)": {
+  "abstract" : [
+    {
+      "text" : "Returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "UTF-8",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " encoded integer’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "body",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeSignBody"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> (sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SubSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/makeSignBody(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeSignBody(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/makesignbody(from:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/makeSignRadixBody(from:)": {
+  "abstract" : [
+    {
+      "text" : "Returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "UTF-8",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " encoded integer’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "code" : "radix",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and ",
+      "type" : "text"
+    },
+    {
+      "code" : "body",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeSignRadixBody"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> (sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", radix"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SubSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/makeSignRadixBody(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeSignRadixBody(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/makesignradixbody(from:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/removeLeadingRadix(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "UTF-8",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " encoded ",
+      "type" : "text"
+    },
+    {
+      "code" : "radix",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " prefix, if it exists.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeLeadingRadix"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/removeLeadingRadix(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeLeadingRadix(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/removeleadingradix(from:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/removeLeadingSign(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "UTF-8",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " encoded ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " prefix, if it exists.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeLeadingSign"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/removeLeadingSign(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeLeadingSign(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/removeleadingsign(from:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/truncating(digits:radix:as:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance by truncating the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "digits",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "radix",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "truncating"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "digits"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
+      "text" : "UnsafeUTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "radix"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/truncating(digits:radix:as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "truncating(digits:radix:as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/truncating(digits:radix:as:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/withUnsafeTemporarySignPrefix(minus:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Performs an action with a temporary allocation that contains a minus sign or is empty.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withUnsafeTemporarySignPrefix"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "minus"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
+      "text" : "UnsafeUTF8"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/withUnsafeTemporarySignPrefix(minus:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withUnsafeTemporarySignPrefix(minus:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/withunsafetemporarysignprefix(minus:perform:)"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

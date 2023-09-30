@@ -134,7 +134,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "This member has two’s complement semantics.",
+                  "text" : "This member has un\/signed two’s complement semantics.",
                   "type" : "text"
                 }
               ],

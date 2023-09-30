@@ -241,6 +241,31 @@
           "type" : "heading"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "The description may contain a minus sign (-), followed by one",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "or more numeric digits (0-9) or letters (a-z or A-Z). These represent",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the integer’s sign and magnitude. Zero is always non-negative.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "code" : [
             "┌──────────────┬───────┬─────────── → ────────────┐",
             "│ self         │ radix │ uppercase  │ description │",

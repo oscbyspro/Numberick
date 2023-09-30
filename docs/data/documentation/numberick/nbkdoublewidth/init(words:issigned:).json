@@ -1,0 +1,538 @@
+{
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/NBKBinaryInteger-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:isSigned:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "High",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "NBKFixedWidthInteger",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ", ",
+          "type" : "text"
+        },
+        {
+          "code" : "High.Digit",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "NBKCoreInteger",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ", and ",
+          "type" : "text"
+        },
+        {
+          "code" : "High.Digit.BitPattern",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "UInt",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "NBKDoubleWidthKit",
+    "externalID" : "s:17NBKDoubleWidthKit0aB0V5words8isSignedACyxGSgqd___SbtcSkRd__Su7ElementRtd__lufc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "?("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "words"
+      },
+      {
+        "kind" : "text",
+        "text" : ": some "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sk",
+        "text" : "RandomAccessCollection"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Su",
+        "text" : "UInt"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "isSigned"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(words:isSigned:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "?("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "words"
+            },
+            {
+              "kind" : "text",
+              "text" : ": some "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sk",
+              "text" : "RandomAccessCollection"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Su",
+              "text" : "UInt"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "isSigned"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "code" : "words",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " are interpreted as a binary integer with ",
+              "type" : "text"
+            },
+            {
+              "code" : "isSigned",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " signedness.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "┌────────────────────────────────────────────────┬───────── → ───────────┐",
+            "│ words                                          │ isSigned │ self       │",
+            "├────────────────────────────────────────────────┼───────── → ───────────┤",
+            "│ [UInt](                )                       │ true     │ Int256( 0) │",
+            "│ [UInt](Int256(  ).words)                       │ true     │ Int256( 0) │",
+            "│ [UInt](Int256.min.words)                       │ true     │ Int256.min │",
+            "│ [UInt](Int256.max.words)                       │ true     │ Int256.max │",
+            "├────────────────────────────────────────────────┼───────── → ───────────┤",
+            "│ [UInt](                )                       │ false    │ Int256( 0) │",
+            "│ [UInt](Int256(  ).words)                       │ false    │ Int256( 0) │",
+            "│ [UInt](Int256.min.words)                       │ false    │ nil        │",
+            "│ [UInt](Int256.max.words)                       │ false    │ Int256.max │",
+            "├────────────────────────────────────────────────┼───────── → ───────────┤",
+            "| [UInt](repeating:  0, count: Int256.count + 1) │ true     │ Int256( 0) │",
+            "| [UInt](repeating:  1, count: Int256.count + 1) │ true     │ nil        │",
+            "| [UInt](repeating: ~0, count: Int256.count + 1) │ true     │ Int256(-1) │",
+            "| [UInt](repeating: ~1, count: Int256.count + 1) │ true     │ nil        │",
+            "├────────────────────────────────────────────────┼───────── → ───────────┤",
+            "| [UInt](repeating:  0, count: Int256.count + 1) │ false    │ Int256( 0) │",
+            "| [UInt](repeating:  1, count: Int256.count + 1) │ false    │ nil        │",
+            "| [UInt](repeating: ~0, count: Int256.count + 1) │ false    │ nil        │",
+            "| [UInt](repeating: ~1, count: Int256.count + 1) │ false    │ nil        │",
+            "└────────────────────────────────────────────────┴───────── → ───────────┘"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "This method returns zero when the given collection of ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "words",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " is empty.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbkdoublewidth\/init(words:issigned:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth": {
+  "abstract" : [
+    {
+      "text" : "A composable, large, fixed-width, two’s complement, binary integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKDoubleWidth"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKDoubleWidth",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/NBKBinaryInteger-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/NBKBinaryInteger-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "NBKBinaryInteger Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/nbkbinaryinteger-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/init(words:isSigned:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKCoreInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit.BitPattern",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "UInt",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isSigned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:isSigned:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:isSigned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(words:issigned:)"
+}
+}
+}

@@ -263,8 +263,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness"
       ],
       "title" : "Models"
     }
@@ -278,7 +277,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count-9nc1o"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count-9nc1o",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/sign"
       ],
       "title" : "Instance Properties"
     },
@@ -578,6 +578,42 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint\/init(_:issigned:count:as:)"
 },
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/sign": {
+  "abstract" : [
+    {
+      "text" : "The sign extension of the un\/signed source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/sign",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sign",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/sign"
+},
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/subscript(_:)-7s780": {
   "abstract" : [
 
@@ -713,40 +749,6 @@
   "title" : "NBKEndianness",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkendianness"
-},
-"doc://Numberick/documentation/Numberick/NBKTwinHeaded": {
-  "abstract" : [
-    {
-      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKTwinHeaded",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbktwinheaded"
 },
 "doc://Numberick/s8SendableP": {
   "identifier" : "doc:\/\/Numberick\/s8SendableP",

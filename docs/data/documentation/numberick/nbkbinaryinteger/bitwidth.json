@@ -120,20 +120,27 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
+          "content" : [
             {
-              "text" : "The bit width of a valid binary integer is positive and nonzero.",
-              "type" : "text"
+              "inlineContent" : [
+                {
+                  "text" : "This member is positive and nonzero.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "paragraph"
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
         },
         {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "This member has two’s complement semantics.",
+                  "text" : "This member has un\/signed two’s complement semantics.",
                   "type" : "text"
                 }
               ],

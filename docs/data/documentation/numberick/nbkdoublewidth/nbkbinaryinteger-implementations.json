@@ -53,7 +53,9 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(bit:)-55evi",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(digit:)-1k0ze",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(digit:)-7enbr",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(sign:magnitude:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(sign:magnitude:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:isSigned:)"
       ],
       "title" : "Initializers"
     },
@@ -2934,6 +2936,267 @@
   "title" : "init(sign:magnitude:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(sign:magnitude:)"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/init(words:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKCoreInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit.BitPattern",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "UInt",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(words:)"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/init(words:isSigned:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKCoreInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Digit.BitPattern",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "UInt",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isSigned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:isSigned:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:isSigned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(words:issigned:)"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/isEven": {
   "abstract" : [

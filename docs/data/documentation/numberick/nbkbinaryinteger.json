@@ -182,7 +182,7 @@
               "type" : "codeVoice"
             },
             {
-              "text" : ", it has ",
+              "text" : ", it has un\/signed ",
               "type" : "text"
             },
             {
@@ -307,7 +307,9 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:radix:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(digit:)-2f5it",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:isSigned:)"
       ],
       "title" : "Initializers"
     },
@@ -3766,6 +3768,141 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(sign:magnitude:)"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(words:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "init(words:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(words:)"
+},
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(words:isSigned:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isSigned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:isSigned:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "init(words:isSigned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(words:issigned:)"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/isEven": {
   "abstract" : [
     {
@@ -5245,86 +5382,6 @@
       "type" : "text"
     }
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Magnitude",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",

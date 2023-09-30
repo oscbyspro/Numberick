@@ -32,8 +32,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-4wjjr",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-9ygmi"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-9ygmi",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-4wjjr"
       ],
       "title" : "NBKFixedWidthInteger Implementations"
     }

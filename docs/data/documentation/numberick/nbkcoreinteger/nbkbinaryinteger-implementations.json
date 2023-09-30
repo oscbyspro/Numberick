@@ -33,6 +33,14 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/init(words:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/init(words:isSigned:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formOnesComplement()",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementReportingOverflow()",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/formTwosComplementSubsequence(_:)",
@@ -267,6 +275,139 @@
   "title" : "formTwosComplementSubsequence(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkcoreinteger\/formtwoscomplementsubsequence(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/init(words:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/init(words:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/init(words:)"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger/init(words:isSigned:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isSigned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/init(words:isSigned:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:isSigned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger\/init(words:issigned:)"
 },
 "doc://Numberick/documentation/Numberick/NBKCoreInteger/onesComplement()": {
   "abstract" : [

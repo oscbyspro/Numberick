@@ -48,8 +48,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/dividingFullWidthReportingOverflow(_:)-2geg8",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/dividingFullWidthReportingOverflow(_:)-6na1u"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/dividingFullWidthReportingOverflow(_:)-6na1u",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/dividingFullWidthReportingOverflow(_:)-2geg8"
       ],
       "title" : "NBKCoreInteger Implementations"
     }

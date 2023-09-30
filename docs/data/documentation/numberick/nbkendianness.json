@@ -139,8 +139,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth"
       ],
       "title" : "Models"
     }
@@ -418,40 +417,6 @@
   "title" : "system",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkendianness\/system"
-},
-"doc://Numberick/documentation/Numberick/NBKTwinHeaded": {
-  "abstract" : [
-    {
-      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKTwinHeaded",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKTwinHeaded"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKTwinHeaded",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbktwinheaded"
 },
 "doc://Numberick/s8SendableP": {
   "identifier" : "doc:\/\/Numberick\/s8SendableP",
