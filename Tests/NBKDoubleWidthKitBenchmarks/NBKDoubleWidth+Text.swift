@@ -84,22 +84,24 @@ final class NBKDoubleWidthBenchmarksOnTextAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingUsingSwiftStdlibRadix10() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(10)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.someSwiftFixedWidthIntegerType(T.self).init(encoded, radix: radix)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(16)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.someSwiftFixedWidthIntegerType(T.self).init(encoded, radix: radix)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -196,22 +198,24 @@ final class NBKDoubleWidthBenchmarksOnTextAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingUsingSwiftStdlibRadix10() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(10)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.someSwiftFixedWidthIntegerType(T.self).init(encoded, radix: radix)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(16)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.someSwiftFixedWidthIntegerType(T.self).init(encoded, radix: radix)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
