@@ -37,6 +37,22 @@ BitPattern == Magnitude, Digit == Self, Magnitude: NBKCoreInteger { }
 extension NBKCoreInteger {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Comparisons
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func signum()  -> Int {
+        Int(bit: self.isMoreThanZero) - Int(bit: self.isLessThanZero)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Text
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public func description(radix: Int, uppercase: Bool) -> String {
+        String(NBK.someSwiftBinaryInteger(self), radix: radix, uppercase: uppercase)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Words
     //=------------------------------------------------------------------------=
     
@@ -48,14 +64,6 @@ extension NBKCoreInteger {
         let chunks = NBKChunkedInt(words, isSigned: isSigned, as: Self.self)
         self  = chunks[0 as Int]  // with sign extension in case it is empty
         guard self.isLessThanZero != chunks.sign.isZero, chunks.dropFirst().allSatisfy({ $0 == chunks.sign }) else { return nil }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Signum
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public func signum()  -> Int {
-        Int(bit: self.isMoreThanZero) - Int(bit: self.isLessThanZero)
     }
     
     //=------------------------------------------------------------------------=
