@@ -27,13 +27,18 @@ extension NBKSigned {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        let  isLessThanZero = source.signum()  == -1 as Int
-        guard var magnitude = Magnitude(words: NBKStaticBigInt(source)) else { return nil }
-        //=--------------------------------------=
-        if  isLessThanZero {
-            magnitude.formTwosComplement()
+        let isLessThanZero = source.signum() == -1
+        
+        //  TODO: a better solution than this mess
+        let magnitude = NBK.withUnsafeTemporaryAllocation(copying: NBKStaticBigInt(source)) { words in
+            if  isLessThanZero {
+                NBK.SBISS.formTwosComplement(&words)
+            }
+            
+            return Magnitude(words: words)
         }
-        //=--------------------------------------=
+        
+        guard let magnitude else { return nil }
         self.init(sign: NBK.Sign(isLessThanZero), magnitude: magnitude)
     }
     
@@ -43,9 +48,13 @@ extension NBKSigned {
         self.init(source)
     }
     
+    @inlinable init?(exactlyIntegerLiteral source: Int) {
+        self.init(exactly: source)
+    }
+    
     #endif
     //=------------------------------------------------------------------------=
-    // MARK: Details x String Literal Type
+    // MARK: Initializers x String Literal Type
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance from the given string literal.

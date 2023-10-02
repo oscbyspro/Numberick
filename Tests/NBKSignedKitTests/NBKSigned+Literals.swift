@@ -19,6 +19,33 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
+// MARK: * NBK x Signed x Literals
+//*============================================================================*
+
+final class NBKSignedTestsOnLiterals: XCTestCase {
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testFromIntegerLiteralAsSInt32() {
+        XCTAssertEqual(NBKSigned<UInt32>(exactlyIntegerLiteral:  4294967296), nil)
+        XCTAssertEqual(NBKSigned<UInt32>(exactlyIntegerLiteral:  4294967295), NBKSigned.max)
+        XCTAssertEqual(NBKSigned<UInt32>(exactlyIntegerLiteral: -4294967295), NBKSigned.min)
+        XCTAssertEqual(NBKSigned<UInt32>(exactlyIntegerLiteral: -4294967296), nil)
+    }
+    
+    func testFromIntegerLiteralAsSInt64() {
+        #if SBI && swift(>=5.8)
+        XCTAssertEqual(NBKSigned<UInt64>(exactlyIntegerLiteral:  18446744073709551616), nil)
+        XCTAssertEqual(NBKSigned<UInt64>(exactlyIntegerLiteral:  18446744073709551615), NBKSigned.max)
+        XCTAssertEqual(NBKSigned<UInt64>(exactlyIntegerLiteral: -18446744073709551615), NBKSigned.min)
+        XCTAssertEqual(NBKSigned<UInt64>(exactlyIntegerLiteral: -18446744073709551616), nil)
+        #endif
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Signed x Literals x SIntXL
 //*============================================================================*
 
@@ -77,8 +104,8 @@ final class NBKSignedTestsOnLiteralsAsSIntXL: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral: (-00057896044618658097711785492504343953926634992332820282019728792003956564819968)), T.min256 / 2 - 1)
         XCTAssertEqual(T(exactlyIntegerLiteral: (-00057896044618658097711785492504343953926634992332820282019728792003956564819969)), T.min256 / 2 - 2)
         #else
-        XCTAssertEqual( T(integerLiteral: Int.max),  T(M(x64:[UInt64(UInt.max / 2 + 0), 0, 0, 0] as X)))
-        XCTAssertEqual( T(integerLiteral: Int.min), -T(M(x64:[UInt64(UInt.max / 2 + 1), 0, 0, 0] as X)))
+        XCTAssertEqual(T(integerLiteral: Int.max),  T(M(x64:[UInt64(UInt.max / 2 + 0), 0, 0, 0] as X)))
+        XCTAssertEqual(T(integerLiteral: Int.min), -T(M(x64:[UInt64(UInt.max / 2 + 1), 0, 0, 0] as X)))
         #endif
     }
     
