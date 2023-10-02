@@ -226,7 +226,7 @@ file: StaticString = #file, line: UInt = #line) where Base.Element: Equatable {
         let index0 = base.index(base.startIndex, offsetBy: distance + 0)
         let index1 = base.index(base.startIndex, offsetBy: distance + 1)
         //=--------------------------------------=
-        XCTAssertEqual(base[index0], expectation[distance], file: file, line: line)
+        XCTAssertEqual(base[index0],expectation[distance], file: file, line: line)
         //=--------------------------------------=
         XCTAssertEqual(base.index(before: index1), index0, file: file, line: line)
         XCTAssertEqual(base.index(after:  index0), index1, file: file, line: line)
