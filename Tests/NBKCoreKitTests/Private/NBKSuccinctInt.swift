@@ -22,26 +22,47 @@ private typealias Y = [UInt32]
 
 final class NBKSuccinctIntTests: XCTestCase {
     
+    typealias T = NBK.SuccinctInt<[UInt]>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testIsValid() {
+        NBKAssertIsValid([      ] as W, true,  true )
+        NBKAssertIsValid([      ] as W, false, true )
+        
+        NBKAssertIsValid([ 0,  1] as W, true,  true )
+        NBKAssertIsValid([ 0,  1] as W, false, true )
+        NBKAssertIsValid([~0, ~1] as W, true,  true )
+        NBKAssertIsValid([~0, ~1] as W, false, true )
+        
+        NBKAssertIsValid([ 1,  0] as W, true,  true )
+        NBKAssertIsValid([ 1,  0] as W, false, false)
+        NBKAssertIsValid([~1, ~0] as W, true,  false)
+        NBKAssertIsValid([~1, ~0] as W, false, true )
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testFromStrictSignedInteger() {
-        NBKAssertFromStrictSignedInteger([   0,  0,  0,  0] as W, [              ] as W, false)
-        NBKAssertFromStrictSignedInteger([   1,  0,  0,  0] as W, [ 1            ] as W, false)
-        NBKAssertFromStrictSignedInteger([   1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
-        NBKAssertFromStrictSignedInteger([   1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
-        NBKAssertFromStrictSignedInteger([   1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   0,  0,  0,  0] as W, [              ] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  0,  0,  0] as W, [ 1            ] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
         
-        NBKAssertFromStrictSignedInteger([  ~0, ~0, ~0, ~0] as W, [              ] as W, true )
-        NBKAssertFromStrictSignedInteger([  ~1, ~0, ~0, ~0] as W, [~1            ] as W, true )
-        NBKAssertFromStrictSignedInteger([  ~1, ~2, ~0, ~0] as W, [~1, ~2        ] as W, true )
-        NBKAssertFromStrictSignedInteger([  ~1, ~2, ~3, ~0] as W, [~1, ~2, ~3    ] as W, true )
-        NBKAssertFromStrictSignedInteger([  ~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~0, ~0, ~0, ~0] as W, [              ] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~0, ~0, ~0] as W, [~1            ] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~0, ~0] as W, [~1, ~2        ] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~0] as W, [~1, ~2, ~3    ] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, true )
     }
     
     func testFromStrictSignedIntegerThatIsEmptyReturnsNil() {
-        NBKAssertFromStrictSignedInteger(W(), nil, nil)
+        NBKAssertFromStrictSignedIntegerSubSequence(W(), nil, nil)
     }
     
     func testFromStrictUnsignedIntegerSubSequence() {
@@ -67,7 +88,21 @@ final class NBKSuccinctIntTests: XCTestCase {
 // MARK: * NBK x Succinct Int x Assertions
 //*============================================================================*
 
-private func NBKAssertFromStrictSignedInteger(
+private func NBKAssertIsValid(
+_ body: [UInt], _ sign: Bool, _ isValid: Bool,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBK.SuccinctInt<[UInt]>
+    //=------------------------------------------=
+    XCTAssertEqual(T.isValid(body, sign: sign), isValid, file: file, line: line)
+    //=------------------------------------------=
+    if  isValid {
+        XCTAssertNotNil(T(           body, sign: sign), file: file, line: line)
+        XCTAssertNotNil(T(unchecked: body, sign: sign), file: file, line: line)
+    }
+}
+
+private func NBKAssertFromStrictSignedIntegerSubSequence(
 _ source: [UInt], _ body: [UInt]?, _ sign: Bool?,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=

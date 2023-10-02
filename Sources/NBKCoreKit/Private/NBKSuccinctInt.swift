@@ -29,15 +29,23 @@ extension NBK {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(_ body: Base, sign: Bool) {
+            precondition(Self.isValid(body, sign: sign))
             self.body = body
             self.sign = sign
-            precondition(self.body.last != Base.Element(repeating: sign))
         }
         
         @inlinable public init(unchecked body: Base, sign: Bool) {
+            Swift.assert(Self.isValid(body, sign: sign))
             self.body = body
             self.sign = sign
-            Swift.assert(self.body.last != Base.Element(repeating: sign))
+        }
+                
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        @inlinable public static func isValid(_ body: Base, sign: Bool) -> Bool {
+            body.last != Base.Element(repeating: sign)
         }
     }
 }

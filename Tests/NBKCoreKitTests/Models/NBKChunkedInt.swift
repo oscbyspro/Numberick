@@ -202,8 +202,8 @@ file: StaticString = #file, line: UInt  = #line) {
     let rhsUnsigned = rhs.map(B.Magnitude.init(bitPattern:))
     //=------------------------------------------=
     func with(isSigned: Bool) {
-        NBKAssertIteration(T(lhs,         isSigned: isSigned), rhs,         file: file, line: line)
-        NBKAssertIteration(T(lhsUnsigned, isSigned: isSigned), rhsUnsigned, file: file, line: line)
+        NBKAssertElementsEqual(T(lhs,         isSigned: isSigned), rhs,         file: file, line: line)
+        NBKAssertElementsEqual(T(lhsUnsigned, isSigned: isSigned), rhsUnsigned, file: file, line: line)
     }
     //=------------------------------------------=
     if isSigned == nil || isSigned == true  { with(isSigned: true ) }
@@ -214,82 +214,36 @@ file: StaticString = #file, line: UInt  = #line) {
 // MARK: + Collection
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertIteration<Base: RandomAccessCollection, Element>(
-_ lhs: NBKChunkedInt<Base, Element>, _ rhs: [Element],
-file: StaticString = #file, line: UInt  = #line) {
-    XCTAssertEqual(Array(lhs),            rhs,            file: file, line: line)
-    XCTAssertEqual(Array(lhs.reversed()), rhs.reversed(), file: file, line: line)
-    
-    testIndices: do {
-        for lhsIndex in lhs.indices.enumerated() {
-            XCTAssertEqual(lhs[lhsIndex.element], rhs[lhsIndex.offset], file: file, line: line)
-        }
-    }
-    
-    testFrontToBack: do {
-        var lhsIndex = lhs.startIndex
-        var rhsIndex = rhs.startIndex
-        while lhsIndex < lhs.endIndex {
-            let lhsIndexAfter = lhs.index(after: lhsIndex)
-            let rhsIndexAfter = rhs.index(after: lhsIndex)
-            
-            XCTAssertEqual(lhs[lhsIndex], rhs[rhsIndex], file: file, line: line)
-            XCTAssertEqual(lhsIndexAfter, rhsIndexAfter, file: file, line: line)
-            
-            lhs.formIndex(after: &lhsIndex)
-            rhs.formIndex(after: &rhsIndex)
-        }
-    }
-    
-    testBackToFront: do {
-        var lhsIndex = lhs.endIndex
-        var rhsIndex = rhs.endIndex
-        while lhsIndex > lhs.startIndex {
-            let lhsIndexBefore = lhs.index(before: lhsIndex)
-            let rhsIndexBefore = rhs.index(before: lhsIndex)
-            
-            lhs.formIndex(before: &lhsIndex)
-            rhs.formIndex(before: &rhsIndex)
-            
-            XCTAssertEqual(lhs[lhsIndex],  rhs[rhsIndex],  file: file, line: line)
-            XCTAssertEqual(lhsIndexBefore, rhsIndexBefore, file: file, line: line)
-        }
-    }
-    
-    testDropFirst: do {
-        for dropFirst in 0 ..< (2 * lhs.count) {
-            let lhsDropFirst = lhs.dropFirst(dropFirst)
-            let rhsDropFirst = rhs.dropFirst(dropFirst)
+private func NBKAssertElementsEqual<Base: RandomAccessCollection>(
+_ base: Base, _ expectation: [Base.Element],
+file: StaticString = #file, line: UInt = #line) where Base.Element: Equatable {
+    //=------------------------------------------=
+    XCTAssertEqual(Array(base), expectation, file: file,  line: line)
+    XCTAssertEqual(Array(base.indices.map({ base[$0] })), expectation, file: file, line: line)
+    //=------------------------------------------=
+    for distance in 0 ..< base.count {
+        //=--------------------------------------=
+        let index0 = base.index(base.startIndex, offsetBy: distance + 0)
+        let index1 = base.index(base.startIndex, offsetBy: distance + 1)
+        //=--------------------------------------=
+        XCTAssertEqual(base[index0],expectation[distance], file: file, line: line)
+        //=--------------------------------------=
+        XCTAssertEqual(base.index(before: index1), index0, file: file, line: line)
+        XCTAssertEqual(base.index(after:  index0), index1, file: file, line: line)
 
-            let lhsDropFirstIndices = lhs.indices[lhsDropFirst.indices]
-            let rhsDropFirstIndices = rhs.indices[rhsDropFirst.indices]
-            
-            XCTAssertEqual(Array(lhsDropFirst),             Array(rhsDropFirst),             file: file, line: line)
-            XCTAssertEqual(Array(lhs[lhsDropFirstIndices]), Array(rhs[rhsDropFirstIndices]), file: file, line: line)
-            
-            if  let first = lhs.dropFirst(dropFirst).first {
-                let firstIndex = lhs.index(lhs.startIndex, offsetBy: dropFirst)
-                XCTAssertEqual(first, lhs[firstIndex],  file: file, line: line)
-            }
-        }
+        XCTAssertEqual(base.index(base.endIndex, offsetBy: distance + 0 - base.count), index0, file: file, line: line)
+        XCTAssertEqual(base.index(base.endIndex, offsetBy: distance + 1 - base.count), index1, file: file, line: line)
+        //=--------------------------------------=
+        XCTAssertEqual(base.distance(from: base.startIndex, to: index0), distance + 0, file: file, line: line)
+        XCTAssertEqual(base.distance(from: base.startIndex, to: index1), distance + 1, file: file, line: line)
+        
+        XCTAssertEqual(base.distance(from: index0, to: base.endIndex), base.count - distance - 0, file: file, line: line)
+        XCTAssertEqual(base.distance(from: index1, to: base.endIndex), base.count - distance - 1, file: file, line: line)
     }
-    
-    testDropLast: do {
-        for dropLast in 0 ..< (2 * lhs.count) {
-            let lhsDropLast = lhs.dropFirst(dropLast)
-            let rhsDropLast = rhs.dropFirst(dropLast)
-
-            let lhsDropLastIndices = lhs.indices[lhsDropLast.indices]
-            let rhsDropLastIndices = rhs.indices[rhsDropLast.indices]
-            
-            XCTAssertEqual(Array(lhsDropLast),             Array(rhsDropLast),             file: file, line: line)
-            XCTAssertEqual(Array(lhs[lhsDropLastIndices]), Array(rhs[rhsDropLastIndices]), file: file, line: line)
-            
-            if  let last = lhs.dropLast(dropLast).last {
-                let lastIndex = lhs.index(lhs.endIndex, offsetBy: ~dropLast)
-                XCTAssertEqual(last, lhs[lastIndex], file: file, line: line)
-            }
-        }
+    //=------------------------------------------=
+    for distance in 0 ... base.count + 1 {
+        XCTAssert(base.prefix(distance).elementsEqual(expectation.prefix(distance)), file: file, line: line)
+        XCTAssert(base.suffix(distance).elementsEqual(expectation.suffix(distance)), file: file, line: line)
     }
 }
 

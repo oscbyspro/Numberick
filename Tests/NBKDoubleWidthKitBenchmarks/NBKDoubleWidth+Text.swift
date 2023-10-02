@@ -84,22 +84,24 @@ final class NBKDoubleWidthBenchmarksOnTextAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingUsingSwiftStdlibRadix10() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(10)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(16)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -110,7 +112,7 @@ final class NBKDoubleWidthBenchmarksOnTextAsInt256: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -121,7 +123,7 @@ final class NBKDoubleWidthBenchmarksOnTextAsInt256: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -196,22 +198,24 @@ final class NBKDoubleWidthBenchmarksOnTextAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingUsingSwiftStdlibRadix10() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(10)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
     }
     
     func testDecodingUsingSwiftStdlibRadix16() {
+        let type    = type(of: NBK.someSwiftFixedWidthInteger(T.zero)) // Swift 5.7
         var radix   = NBK.blackHoleIdentity(16)
         var encoded = NBK.blackHoleIdentity(Self.encoded)
         
         for _ in 0 ..< 50_000 {
-            NBK.blackHole(NBK.integerAsStdlib(encoded, radix: radix, as: T.self)!)
+            NBK.blackHole(type.init(encoded, radix: radix)!)
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&encoded)
         }
@@ -222,7 +226,7 @@ final class NBKDoubleWidthBenchmarksOnTextAsUInt256: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -233,7 +237,7 @@ final class NBKDoubleWidthBenchmarksOnTextAsUInt256: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }

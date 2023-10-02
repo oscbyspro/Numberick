@@ -89,7 +89,7 @@ final class NBKFlexibleWidthBenchmarksOnTextAsUIntXL: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
@@ -100,7 +100,7 @@ final class NBKFlexibleWidthBenchmarksOnTextAsUIntXL: XCTestCase {
         var decoded = NBK.blackHoleIdentity(Self.decoded)
         
         for _ in 0 ..< 1_000 {
-            NBK.blackHole(NBK.descriptionAsStdlib(decoded, radix: radix))
+            NBK.blackHole(String(NBK.someSwiftBinaryInteger(decoded), radix: radix))
             NBK.blackHoleInoutIdentity(&radix)
             NBK.blackHoleInoutIdentity(&decoded)
         }
