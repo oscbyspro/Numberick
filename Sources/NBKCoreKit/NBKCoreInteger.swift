@@ -170,7 +170,7 @@ extension NBKCoreInteger {
         let rhsIsLessThanZero: Bool =  /*--*/self.isLessThanZero
         let minus: Bool = lhsIsLessThanZero != rhsIsLessThanZero
         //=--------------------------------------=
-        var qro = NBK.bitCast(self.magnitude.dividingFullWidthReportingOverflow(NBK.magnitude(of: other))) as PVO<QR<Self, Self>>
+        var qro = NBK.bitCast(self.magnitude.dividingFullWidthReportingOverflow(NBK.TupleInteger.magnitude(of: other))) as PVO<QR<Self, Self>>
         //=--------------------------------------=
         if  minus {
             qro.partialValue.quotient.formTwosComplement()
