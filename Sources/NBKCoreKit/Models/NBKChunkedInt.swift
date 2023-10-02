@@ -52,7 +52,7 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     //=------------------------------------------------------------------------=
     
     /// The un/signed source.
-    @usableFromInline let base: Base
+    public let base: Base
     
     /// The sign extension of the un/signed source.
     public let sign:  Element
