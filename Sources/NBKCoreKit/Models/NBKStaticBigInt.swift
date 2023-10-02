@@ -102,19 +102,11 @@ extension NBKStaticBigInt {
     }
     
     @inlinable public func index(after index: Int) -> Int {
-        index +  1 as Int
-    }
-    
-    @inlinable public func formIndex(after index: inout Int) {
-        index += 1 as Int
+        index + 1 as Int
     }
     
     @inlinable public func index(before index: Int) -> Int {
-        index -  1 as Int
-    }
-    
-    @inlinable public func formIndex(before index: inout Int) {
-        index -= 1 as Int
+        index - 1 as Int
     }
     
     @inlinable public func index(_ index: Int, offsetBy distance: Int) -> Int {
