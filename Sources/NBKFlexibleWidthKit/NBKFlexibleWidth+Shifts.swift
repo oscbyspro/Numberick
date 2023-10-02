@@ -80,6 +80,13 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func bitshiftedLeft(major: Int) -> Self {
         var result = self; result.bitshiftLeft(major: major); return result
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Left x Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int x Private
@@ -88,7 +95,7 @@ extension NBKFlexibleWidth.Magnitude {
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - major: `0 <= major < self.endIndex`
+    ///   - major: `0 <= major`
     ///   - minor: `1 <= minor < UInt.bitWidth`
     ///
     @inlinable mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
@@ -102,14 +109,14 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.resize(minCount: self.storage.elements.count + major + rollover)
         
         self.storage.withUnsafeMutableBufferPointer {
-            SUI.bitshiftLeft(&$0, major: major, minorAtLeastOne: minor)
+            NBK.SUI.bitshiftLeft(&$0, major: major, minorAtLeastOne: minor)
         }
     }
     
     /// Performs a left shift.
     ///
     /// - Parameters:
-    ///   - major: `1 <= major < self.endIndex`
+    ///   - major: `1 <= major`
     ///
     @inlinable mutating func bitshiftLeft(majorAtLeastOne major: Int) {
         defer {
@@ -121,7 +128,7 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.resize(minCount: self.storage.elements.count + major)
         
         self.storage.withUnsafeMutableBufferPointer {
-            SUI.bitshiftLeft(&$0, majorAtLeastOne: major)
+            NBK.SUI.bitshiftLeft(&$0, majorAtLeastOne: major)
         }
     }
 }
@@ -139,7 +146,7 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
         lhs.bitshiftRightSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
-
+    
     @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
         var lhs = lhs; lhs >>= rhs; return lhs
     }
@@ -194,6 +201,13 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public func bitshiftedRight(major: Int) -> Self {
         var result = self; result.bitshiftRight(major: major); return result
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Right x Algorithms
+//=----------------------------------------------------------------------------=
+
+extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Int x Private
@@ -202,7 +216,7 @@ extension NBKFlexibleWidth.Magnitude {
     /// Performs an unsigned right shift.
     ///
     /// - Parameters:
-    ///   - major: `1 <= major < self.endIndex`
+    ///   - major: `1 <= major`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
     @inlinable mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
@@ -218,7 +232,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         self.storage.withUnsafeMutableBufferPointer {
-            SUI.bitshiftRight(&$0, major: major, minorAtLeastOne: minor)
+            NBK.SUI.bitshiftRight(&$0, major: major, minorAtLeastOne: minor)
         }
         
         self.storage.resize(maxCount: maxCount)
@@ -227,7 +241,7 @@ extension NBKFlexibleWidth.Magnitude {
     /// Performs an unsigned right shift.
     ///
     /// - Parameters:
-    ///   - major: `1 <= major < self.endIndex`
+    ///   - major: `1 <= major`
     ///
     @inlinable mutating func bitshiftRight(majorAtLeastOne major: Int) {
         defer {
@@ -239,7 +253,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         //=--------------------------------------=
         self.storage.withUnsafeMutableBufferPointer {
-            SUI.bitshiftRight(&$0, majorAtLeastOne: major)
+            NBK.SUI.bitshiftRight(&$0, majorAtLeastOne: major)
         }
         
         self.storage.resize(maxCount: self.storage.elements.count - major)

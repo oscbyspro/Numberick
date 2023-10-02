@@ -60,7 +60,7 @@ extension NBKFlexibleWidth.Magnitude {
     
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
         self.withUnsafeMutableBufferPointer {
-            SUISS.formQuotientWithRemainderReportingOverflow(&$0, dividingBy: other)
+            NBK.SUISS.formQuotientWithRemainderReportingOverflow(&$0, dividingBy: other)
         }
     }
 }

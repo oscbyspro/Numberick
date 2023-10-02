@@ -32,7 +32,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var isPowerOf2: Bool {
-        self.withUnsafeBufferPointer({ SBISS.nonzeroBitCount(of: $0, equals: 1) })
+        self.withUnsafeBufferPointer({ NBK.SBISS.nonzeroBitCount(of: $0, equals: 1) })
     }
     
     @inlinable public func signum() -> Int {
@@ -60,30 +60,33 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        other.storage.elements.withUnsafeBufferPointer { rhs in
-            SUISS.compare(lhs, to: rhs)
-        }}
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+            other.storage.elements.withUnsafeBufferPointer { rhs in
+                NBK.SUISS.compare(lhs, to: rhs)
+            }
+        }
     }
     
     @inlinable public func compared(to other: Self, at index: Int) -> Int {
-        self .storage.elements.withUnsafeBufferPointer { lhs in
-        other.storage.elements.withUnsafeBufferPointer { rhs in
-            SUISS.compare(lhs, to: rhs, at: index)
-        }}
+        self.storage.elements.withUnsafeBufferPointer { lhs in
+            other.storage.elements.withUnsafeBufferPointer { rhs in
+                NBK.SUISS.compare(lhs, to: rhs, at: index)
+            }
+        }
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
         self.storage.elements.withUnsafeBufferPointer { lhs in
-        SBI.withUnsafeBufferPointer(to: other) { rhs in
-            SUISS.compare(lhs, to: rhs)
-        }}
+            NBK.SBI.withUnsafeBufferPointer(to:other) { rhs in
+                NBK.SUISS.compare(lhs, to: rhs)
+            }
+        }
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit, at index: Int) -> Int {
         self.storage.elements.withUnsafeBufferPointer { lhs in
-            SBI.withUnsafeBufferPointer(to: other) { rhs in
-                SUISS.compare(lhs, to: rhs, at: index)
+            NBK.SBI.withUnsafeBufferPointer(to:other) { rhs in
+                NBK.SUISS.compare(lhs, to: rhs, at: index)
             }
         }
     }

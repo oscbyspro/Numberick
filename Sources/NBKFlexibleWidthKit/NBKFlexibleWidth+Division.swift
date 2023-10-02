@@ -99,8 +99,8 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.append(0 as UInt)
         
         if !shift.isZero {
-            divisor/*-*/.withUnsafeMutableBufferPointer({ SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
-            self.storage.withUnsafeMutableBufferPointer({ SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            divisor/*-*/.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         let divisorLast0 = divisor.elements[divisorLastIndex] as UInt
@@ -124,9 +124,10 @@ extension NBKFlexibleWidth.Magnitude {
                     }
                     //=--------------------------=
                     if !digit.isZero {
-                        var overflow =  SUISS.decrement(&storage, by: divisor.elements, times: digit, at: quotientIndex).overflow
-                        while overflow  {
-                            overflow = !SUISS.increment(&storage, by: divisor.elements, at: quotientIndex).overflow; digit &-= 01
+                        var overflow =  NBK.SUISS.decrement(&storage, by: divisor.elements, times: digit, at: quotientIndex).overflow
+                        while overflow {
+                            digit  &-= 1 as Digit
+                            overflow = !NBK.SUISS.increment(&storage, by: divisor.elements, at: quotientIndex).overflow
                         }
                     }
                     //=--------------------------=
@@ -139,7 +140,7 @@ extension NBKFlexibleWidth.Magnitude {
         // undo shift before division
         //=--------------------------------------=
         if !shift.isZero {
-            self.storage.withUnsafeMutableBufferPointer({ SUI.bitshiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         self.storage.normalize()

@@ -42,30 +42,4 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable public var words: ContiguousArray<UInt> {
         _read { yield self.storage.elements }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-        
-    /// The least significant word.
-    ///
-    /// - Note: This member is required by `Swift.BinaryInteger`.
-    ///
-    @inlinable public var _lowWord: UInt {
-        self.first as UInt
-    }
-    
-    /// The least significant word.
-    @inlinable public var first: UInt {
-        self.withUnsafeBufferPointer({ $0[0] })
-    }
-    
-    /// The most significant word.
-    @inlinable public var last: UInt {
-        self.withUnsafeBufferPointer({ $0[$0.count - 1] })
-    }
-    
-    @inlinable subscript(index: Int) -> UInt {
-        index < self.storage.elements.endIndex ? self.storage.elements[index] : 0 as UInt
-    }
 }

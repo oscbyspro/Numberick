@@ -101,6 +101,19 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertToWords(T(x32:[1, 2, 3, 4, 5, 6, 7, 0] as Y), [1, 2, 3, 4, 5, 6, 7   ])
         NBKAssertToWords(T(x32:[1, 2, 3, 4, 5, 6, 7, 8] as Y), [1, 2, 3, 4, 5, 6, 7, 8])
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
+    func testSubscriptSignExtension() {
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int( 0)], 1 as UInt)
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int( 1)], 2 as UInt)
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int( 2)], 3 as UInt)
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int( 3)], 4 as UInt)
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int( 4)], 0 as UInt)
+        XCTAssertEqual(T(words:[1, 2, 3, 4] as W)[Int.max], 0 as UInt)
+    }
 }
 
 //*============================================================================*

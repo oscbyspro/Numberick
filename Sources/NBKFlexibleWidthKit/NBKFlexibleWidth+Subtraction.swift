@@ -60,7 +60,7 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.resize(minCount: other.storage.elements.count + index)
         defer{ self.storage.normalize() }
         return self.storage.withUnsafeMutableBufferPointer {
-            SUISS.decrement(&$0, by: other.storage.elements, at: index).overflow
+            NBK.SUISS.decrement(&$0, by: other.storage.elements, at: index).overflow
         }
     }
     

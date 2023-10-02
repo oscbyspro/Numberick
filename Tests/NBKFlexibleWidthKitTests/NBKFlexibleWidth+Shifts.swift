@@ -113,6 +113,11 @@ final class NBKFlexibleWidthTestsOnShiftsAsUIntXL: XCTestCase {
         XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> -64, T(x64:[0, 1, 2, 3, 4] as X))
     }
     
+    func testBitshiftingLeftByMoreThanBitWidthDoesNotTrap() {
+        NBKAssertShiftLeft (T(x64:[1] as X),  (UInt.bitWidth + 1), T(x64:[0, 2] as X))
+        NBKAssertShiftRight(T(x64:[1] as X), -(UInt.bitWidth + 1), T(x64:[0, 2] as X))
+    }
+    
     func testBitshiftingRightDoesNotTrap() {
         XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> Int.max, T.zero)
         XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) << Int.min, T.zero)
@@ -157,15 +162,17 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by:   rhs); return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs {
+    if  major >= 0, minor >= 0 {
         XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
-        
+    }
+    
+    if  major >= 0, minor >= 0 {
         XCTAssertEqual(lhs.bitshiftedLeft(major: major, minor: minor), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
-    //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+    
+    if  major >= 0, minor == 0 {
         XCTAssertEqual(lhs.bitshiftedLeft(major: major), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major); return lhs }(), result, file: file, line: line)
     }
@@ -189,15 +196,17 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: rhs); return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs {
+    if  major >= 0, minor >= 0 {
         XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
-        
+    }
+    
+    if  major >= 0, minor >= 0 {
         XCTAssertEqual(lhs.bitshiftedRight(major: major, minor: minor), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
-    //=------------------------------------------=
-    if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
+
+    if  major >= 0, minor == 0 {
         XCTAssertEqual(lhs.bitshiftedRight(major: major), result, file: file, line: line)
         XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major); return lhs }(), result, file: file, line: line)
     }

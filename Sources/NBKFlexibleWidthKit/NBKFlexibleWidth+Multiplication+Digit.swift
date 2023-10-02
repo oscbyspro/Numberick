@@ -43,7 +43,7 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.reserveCapacity(self.storage.elements.count + 1)
         
         let carry = self.storage.withUnsafeMutableBufferPointer {
-            SUISS.multiplyFullWidth(&$0, by: multiplicand, add: addend)
+            NBK.SUISS.multiplyFullWidth(&$0, by: multiplicand, add: addend)
         }
         
         if !carry.isZero {
