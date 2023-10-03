@@ -89,12 +89,13 @@ final class NBKStaticBigIntTestsOnCollection: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testIteration() {
-        NBKAssertElementsEqual(T( 0),  [UInt.min])
-        NBKAssertElementsEqual(T(-1),  [UInt.max])
+    func testWords() {
+        NBKAssertElementsEqual(T( 1), [UInt( 1)])
+        NBKAssertElementsEqual(T( 0), [UInt(  )])
+        NBKAssertElementsEqual(T(-1), [UInt.max])
     }
     
-    func testIterationX64() throws {
+    func testWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
         NBKAssertElementsEqual(T(-0x8000000000000001), [UInt(bitPattern: Int.max), UInt.max])
@@ -106,7 +107,7 @@ final class NBKStaticBigIntTestsOnCollection: XCTestCase {
         NBKAssertElementsEqual(bottom256, [0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918])
     }
     
-    func testIterationX32() throws {
+    func testWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
         NBKAssertElementsEqual(T(-0x80000001), [UInt(bitPattern: Int.max), UInt.max])
@@ -138,7 +139,7 @@ file: StaticString = #file, line: UInt = #line) where Base.Element: Equatable {
         let index0 = base.index(base.startIndex, offsetBy: distance + 0)
         let index1 = base.index(base.startIndex, offsetBy: distance + 1)
         //=--------------------------------------=
-        XCTAssertEqual(base[index0], expectation[distance], file: file, line: line)
+        XCTAssertEqual(base[index0],expectation[distance], file: file, line: line)
         //=--------------------------------------=
         XCTAssertEqual(base.index(before: index1), index0, file: file, line: line)
         XCTAssertEqual(base.index(after:  index0), index1, file: file, line: line)
