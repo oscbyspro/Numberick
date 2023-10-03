@@ -54,6 +54,25 @@ Hashable, Sendable, SignedNumeric {
     public typealias Digit = NBKSigned<Magnitude.Digit>
     
     //=------------------------------------------------------------------------=
+    // MARK: Meta Data
+    //=------------------------------------------------------------------------=
+    
+    /// A `description` of this type.
+    ///
+    /// ```
+    /// ┌────────────────── → ─────────────────── = ───────┐
+    /// │ type              │ description         │ a.k.a  │
+    /// ├────────────────── → ─────────────────── = ───────┤
+    /// │ NBKSigned<UInt>   │ "NBKSigned<UInt>"   │ SInt   │
+    /// │ NBKSigned<UIntXL> │ "NBKSigned<UIntXL>" │ SIntXL │
+    /// └────────────────── → ─────────────────── = ───────┘
+    /// ```
+    ///
+    @inlinable public static var description: String {
+        String(describing: Self.self)
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
     

@@ -22,12 +22,12 @@ extension NBKSigned {
     
     @inlinable public init(integerLiteral source: StaticBigInt) {
         if  let value = Self(exactlyIntegerLiteral: source) { self = value } else {
-            preconditionFailure("\(Self.self) cannot represent \(source)")
+            preconditionFailure("\(Self.description) cannot represent \(source)")
         }
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        let  isLessThanZero = source.signum()  == -1 as Int
+        let isLessThanZero: Bool = source.signum() == -1 as Int
         guard let magnitude = Magnitude(words: NBK.MaybeTwosComplement(NBKStaticBigInt(source), formTwosComplement: isLessThanZero)) else { return nil }
         self.init(sign: NBK.Sign(isLessThanZero), magnitude: magnitude)
     }
@@ -69,7 +69,7 @@ extension NBKSigned {
     ///
     @inlinable public init(stringLiteral source: StaticString) {
         if  let value = Self(exactlyStringLiteral: source) { self = value } else {
-            preconditionFailure("\(Self.self) cannot represent \(source)")
+            preconditionFailure("\(Self.description) cannot represent \(source)")
         }
     }
     

@@ -41,6 +41,11 @@ final class NBKSignedTestsOnText: XCTestCase {
         XCTAssertEqual("10", String(describing: T(10)))
     }
     
+    func testMetaTypeDescriptionCouldUseSomeLove() {
+        XCTAssertEqual("NBKSigned<UInt>",   NBKSigned<UInt>  .description)
+        XCTAssertEqual("NBKSigned<UInt64>", NBKSigned<UInt64>.description)
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Decode
     //=------------------------------------------------------------------------=
