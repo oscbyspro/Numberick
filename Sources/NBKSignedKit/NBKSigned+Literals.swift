@@ -27,18 +27,8 @@ extension NBKSigned {
     }
     
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
-        let isLessThanZero = source.signum() == -1
-        
-        //  TODO: a better solution than this mess
-        let magnitude = NBK.withUnsafeTemporaryAllocation(copying: NBKStaticBigInt(source)) { words in
-            if  isLessThanZero {
-                NBK.SBISS.formTwosComplement(&words)
-            }
-            
-            return Magnitude(words: words)
-        }
-        
-        guard let magnitude else { return nil }
+        let  isLessThanZero = source.signum()  == -1 as Int
+        guard let magnitude = Magnitude(words: NBK.MaybeTwosComplement(NBKStaticBigInt(source), formTwosComplement: isLessThanZero)) else { return nil }
         self.init(sign: NBK.Sign(isLessThanZero), magnitude: magnitude)
     }
     
