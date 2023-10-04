@@ -10,7 +10,7 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Signed x Numbers x Decode
+// MARK: * NBK x Signed x Numbers x Decoding
 //*============================================================================*
 
 extension NBKSigned {
@@ -98,7 +98,7 @@ extension NBKSigned where Magnitude: FixedWidthInteger {
 }
 
 //*============================================================================*
-// MARK: * NBK x Signed x Numbers x Encode
+// MARK: * NBK x Signed x Numbers x Encoding
 //*============================================================================*
 
 extension NBKBinaryInteger {
@@ -118,6 +118,6 @@ extension NBKBinaryInteger {
     }
     
     @inlinable public init(clamping source: NBKSigned<Magnitude>) where Self: NBKFixedWidthInteger {
-        self = Self(sign: source.sign, magnitude: source.magnitude) ?? (source.sign == .minus ? Self.min : Self.max)
+        self = Self(sign: source.sign, magnitude: source.magnitude) ?? (source.sign == FloatingPointSign.plus ? Self.max : Self.min)
     }
 }

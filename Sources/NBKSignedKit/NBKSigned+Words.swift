@@ -79,7 +79,7 @@ extension NBKSigned {
         }
         
         @inlinable public subscript(index: Int) -> UInt {
-            index < self.base.endIndex ? self.base[self.base.index(self.base.startIndex, offsetBy: index)] : self.sign
+            index < self.base.count ? self.base[self.base.index(self.base.startIndex, offsetBy: index)] : self.sign
         }
         
         //=--------------------------------------------------------------------=

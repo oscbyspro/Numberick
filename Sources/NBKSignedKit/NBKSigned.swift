@@ -101,6 +101,21 @@ Hashable, Sendable, SignedNumeric {
     }
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Components
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from the given `sign` and `magnitude`.
+    @inlinable public init(components: SM<Magnitude>) {
+        (sign: self.sign,  magnitude: self.magnitude) = components
+    }
+    
+    /// The `sign` and `magnitude` of this value.
+    @inlinable public var components: SM<Magnitude> {
+        get { (sign: self.sign, magnitude: self.magnitude) }
+        set { (self.sign, self.magnitude) = newValue as SM }
+    }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Normalization
     //=------------------------------------------------------------------------=
     

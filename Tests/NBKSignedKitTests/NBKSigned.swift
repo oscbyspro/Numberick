@@ -44,7 +44,14 @@ final class NBKSignedTests: XCTestCase {
         XCTAssertEqual(T(sign: .minus, magnitude: 1).magnitude, 1 as M)
     }
     
-    func testNormalized() {
+    func testComponents() {
+        NBKAssertComponentsGetSetInit(T(sign: .plus , magnitude: 0), .plus,  0 as M)
+        NBKAssertComponentsGetSetInit(T(sign: .plus , magnitude: 1), .plus,  1 as M)
+        NBKAssertComponentsGetSetInit(T(sign: .minus, magnitude: 0), .minus, 0 as M)
+        NBKAssertComponentsGetSetInit(T(sign: .minus, magnitude: 1), .minus, 1 as M)
+    }
+    
+    func testNormalization() {
         NBKAssertNormalization(T(sign: .plus , magnitude: 0), true,  .plus,  0 as M)
         NBKAssertNormalization(T(sign: .plus , magnitude: 1), true,  .plus,  1 as M)
         NBKAssertNormalization(T(sign: .minus, magnitude: 0), false, .plus,  0 as M)
@@ -55,6 +62,25 @@ final class NBKSignedTests: XCTestCase {
 //*============================================================================*
 // MARK: * NBK x Signed x Assertions
 //*============================================================================*
+
+private func NBKAssertComponentsGetSetInit<M>(
+_ value: NBKSigned<M>, _ sign: NBKSigned<M>.Sign, _ magnitude: M,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBKSigned<M>
+    //=------------------------------------------=
+    XCTAssertEqual(value.sign,      sign,      file: file, line: line)
+    XCTAssertEqual(value.magnitude, magnitude, file: file, line: line)
+    
+    XCTAssertEqual(value.components.sign,      sign,      file: file, line: line)
+    XCTAssertEqual(value.components.magnitude, magnitude, file: file, line: line)
+    
+    NBKAssertIdentical(value, T(sign: sign, magnitude: magnitude), file: file, line: line)
+    NBKAssertIdentical(value, T(components: SM(sign: sign, magnitude: magnitude)), file: file, line: line)
+    
+    NBKAssertIdentical(value, { var x = T(); x.sign = sign; x.magnitude =  magnitude; return x }(), file: file, line: line)
+    NBKAssertIdentical(value, { var x = T(); x.components = SM(sign: sign, magnitude: magnitude); return x }(), file: file, line: line)
+}
 
 private func NBKAssertNormalization<M>(
 _ integer: NBKSigned<M>, _ isNormal: Bool, _ sign: NBKSigned<M>.Sign, _ magnitude: M,

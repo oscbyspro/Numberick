@@ -58,36 +58,18 @@ extension NBKSigned {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-        if  lhs.sign != rhs.sign {
-            return lhs.isZero && rhs.isZero
-        }   else {
-            return lhs.magnitude == rhs.magnitude
-        }
+        lhs.compared(to: rhs).isZero
     }
     
     @inlinable public static func <(lhs: Self, rhs: Self) -> Bool {
-        if  lhs.sign != rhs.sign {
-            return (lhs.sign != Sign.plus) && !(lhs.isZero && rhs.isZero)
-        }   else {
-            return (lhs.sign == Sign.plus) ? lhs.magnitude < rhs.magnitude : rhs.magnitude < lhs.magnitude
-        }
+        lhs.compared(to: rhs) == -1
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        if  self.sign != other.sign {
-            return  self.isZero && other.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
-        }   else {
-            let m = self.magnitude.compared(to: other.magnitude)
-            return  self.sign == Sign.plus ? m : -m
-        }
+        NBK.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        if  self.sign != other.sign {
-            return  self.isZero && other.isZero ? 0 : self.sign == Sign.plus ? 1 : -1
-        }   else {
-            let m = self.magnitude.compared(to: other.magnitude)
-            return  self.sign == Sign.plus ? m : -m
-        }
+        NBK.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
     }
 }
