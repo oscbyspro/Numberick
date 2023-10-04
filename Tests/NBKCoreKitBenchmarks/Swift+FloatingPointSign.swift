@@ -42,8 +42,8 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
         var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(T(abc))
-            NBK.blackHole(T(xyz))
+            NBK.blackHole(T(bit: abc))
+            NBK.blackHole(T(bit: xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
