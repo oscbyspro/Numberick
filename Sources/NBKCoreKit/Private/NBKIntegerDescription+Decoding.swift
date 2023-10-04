@@ -36,7 +36,9 @@ extension NBK.IntegerDescription {
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///
-    @frozen public struct Decoder {
+    @frozen public struct Decoder<Magnitude: NBKUnsignedInteger> {
+        
+        public typealias Components = (sign: NBK.Sign, magnitude: Magnitude)
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -53,63 +55,21 @@ extension NBK.IntegerDescription {
         }
         
         //=--------------------------------------------------------------------=
-        // MARK: Utilities x Binary Integer
+        // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: some StringProtocol, as type: T.Type = T.self) -> T? {
-            var description = String(description)
-            return description.withUTF8({ self.decode($0) })
-        }
-        
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: StaticString, as type: T.Type = T.self) -> T? {
-            description.withUTF8Buffer({ self.decode($0) })
-        }
-        
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: NBK.UnsafeUTF8, as type: T.Type = T.self) -> T? {
-            guard  let components: SM<T.Magnitude> = self.decodeCodeBlock(description) else { return nil }
-            return T(sign: components.sign, magnitude: components.magnitude)
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities x Sign & Magnitude
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: some StringProtocol, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            var description = String(description)
-            return description.withUTF8({ self.decode($0) })
+        @inlinable public func decode(_ description: some StringProtocol) -> Components? {
+            var description = String(description); return description.withUTF8(self.decode)
         }
 
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: StaticString, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            description.withUTF8Buffer({ self.decode($0) })
+        @inlinable public func decode(_ description: StaticString) -> Components? {
+            description.withUTF8Buffer(self.decode)
         }
         
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: NBK.UnsafeUTF8, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            self.decodeCodeBlock(description)
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities x Private x Algorithms
-        //=--------------------------------------------------------------------=
-        
-        /// ### Development 1
-        ///
-        /// Consider throwing errors instead of returning optionals.
-        ///
-        /// ### Development 2
-        ///
-        /// `@inline(always)` is required for performance reasons (with optionals, not errors).
-        ///
-        @inline(__always) @inlinable func decodeCodeBlock<M: NBKUnsignedInteger>(
-        _   description: NBK.UnsafeUTF8, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
+        @inlinable public func decode(_ description: NBK.UnsafeUTF8) -> Components? {
             let components = NBK.IntegerDescription.makeSignBody(from: description)
             let digits = NBK.UnsafeUTF8(rebasing: components.body)
-            guard  let magnitude: M = NBK.IntegerDescription.decode(digits: digits, solution: self.solution) else { return nil }
+            guard let magnitude: Magnitude = NBK.IntegerDescription.decode(digits: digits, solution: self.solution) else { return nil }
             return SM(sign: components.sign, magnitude: magnitude)
         }
     }
@@ -138,74 +98,34 @@ extension NBK.IntegerDescription {
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///
-    @frozen public struct DecoderDecodingRadix {
+    @frozen public struct DecoderDecodingRadix<Magnitude> where Magnitude: NBKUnsignedInteger {
+        
+        public typealias Components = (sign: NBK.Sign, radix: Int, magnitude: Magnitude)
         
         //=--------------------------------------------------------------------=
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
         @inlinable public init() { }
-        
+
         //=--------------------------------------------------------------------=
-        // MARK: Utilities x Binary Integer
-        //=--------------------------------------------------------------------=
-        
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: some StringProtocol, as type: T.Type = T.self) -> T? {
-            var description = String(description)
-            return description.withUTF8({ self.decode($0) })
-        }
-        
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: StaticString, as type: T.Type = T.self) -> T? {
-            description.withUTF8Buffer({ self.decode($0) })
-        }
-        
-        @inlinable public func decode<T: NBKBinaryInteger>(
-        _   description: NBK.UnsafeUTF8, as type: T.Type = T.self) -> T? {
-            guard  let components: SM<T.Magnitude> = self.decodeCodeBlock(description) else { return nil }
-            return T(sign: components.sign, magnitude: components.magnitude)
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities x Sign & Magnitude
+        // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: some StringProtocol, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            var description = String(description)
-            return description.withUTF8({ self.decode($0) })
+        @inlinable public func decode(_ description: some StringProtocol) -> Components? {
+            var description = String(description); return description.withUTF8(self.decode)
         }
         
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: StaticString, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            description.withUTF8Buffer({ self.decode($0) })
+        @inlinable public func decode(_ description: StaticString) -> Components? {
+            description.withUTF8Buffer(self.decode)
         }
         
-        @inlinable public func decode<M: NBKUnsignedInteger>(
-        _   description: NBK.UnsafeUTF8, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
-            self.decodeCodeBlock(description)
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities x Private x Algorithms
-        //=--------------------------------------------------------------------=
-        
-        /// ### Development 1
-        ///
-        /// Consider throwing errors instead of returning optionals.
-        ///
-        /// ### Development 2
-        ///
-        /// `@inline(always)` is required for performance reasons (with optionals, not errors).
-        ///
-        @inline(__always) @inlinable func decodeCodeBlock<M: NBKUnsignedInteger>(
-        _   description: NBK.UnsafeUTF8, as type: SM<M>.Type = SM<M>.self) -> SM<M>? {
+        @inlinable public func decode(_ description: NBK.UnsafeUTF8) -> Components? {
             let components = NBK.IntegerDescription.makeSignRadixBody(from: description)
             let solution = AnyRadixSolution<UInt>(components.radix)
-            let digits = NBK.UnsafeUTF8(rebasing: components.body)
-            guard  let magnitude: M = NBK.IntegerDescription.decode(digits: digits, solution: solution) else { return nil }
-            return SM(sign: components.sign, magnitude: magnitude)
+            let digits = NBK.UnsafeUTF8(rebasing: components.body )
+            guard let magnitude: Magnitude = NBK.IntegerDescription.decode(digits: digits, solution: solution) else { return nil }
+            return (sign: components.sign, radix: components.radix, magnitude: magnitude)
         }
     }
 }

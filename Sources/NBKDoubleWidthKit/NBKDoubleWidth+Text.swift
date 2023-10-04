@@ -20,8 +20,9 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        let decoder = NBK.IntegerDescription.Decoder(radix: radix)
-        if let value: Self = decoder.decode(description) { self = value } else { return nil }
+        let decoder = NBK.IntegerDescription.Decoder<Magnitude>(radix: radix)
+        guard let components = decoder.decode(description) else { return nil }
+        self.init(sign: components.sign, magnitude: components.magnitude)
     }
     
     //=------------------------------------------------------------------------=

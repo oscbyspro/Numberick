@@ -73,7 +73,6 @@
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
     public typealias SAM<Magnitude> = NBK.SignAndMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger
-
     
     /// A namespace for `Numberick` development.
     ///

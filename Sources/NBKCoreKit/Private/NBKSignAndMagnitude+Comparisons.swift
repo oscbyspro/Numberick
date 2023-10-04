@@ -27,7 +27,7 @@ extension NBK.SignAndMagnitude {
     ///
     @inlinable public static func compare<Other: NBKUnsignedInteger>(
     _   lhs: Components, to rhs: NBK.SignAndMagnitude<Other>.Components, using compare: (Magnitude, Other) -> Int) -> Int {
-        let absoluteValue: Int
+        let absoluteValue:  Int
         
         if  lhs.sign == rhs.sign {
             absoluteValue = compare(lhs.magnitude, rhs.magnitude)
