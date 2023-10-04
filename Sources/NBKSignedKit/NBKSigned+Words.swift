@@ -26,7 +26,7 @@ extension NBKSigned {
     @inlinable public init?(words: some RandomAccessCollection<UInt>, isSigned: Bool) {
         let isLessThanZero: Bool = isSigned && words.last?.mostSignificantBit == true
         guard let magnitude = Magnitude(words: NBK.MaybeTwosComplement(words, formTwosComplement: isLessThanZero)) else { return nil }
-        self.init(sign: Sign(isLessThanZero), magnitude: magnitude)
+        self.init(sign: Sign(bit: isLessThanZero), magnitude: magnitude)
     }
     
     //=------------------------------------------------------------------------=

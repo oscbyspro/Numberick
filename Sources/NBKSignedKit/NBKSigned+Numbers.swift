@@ -66,13 +66,13 @@ extension NBKSigned {
     }
     
     @inlinable public init?<T: BinaryInteger>(exactly source: T) {
-        let sign = Sign(source < T.zero)
+        let sign = Sign(bit:  source < T.zero)
         guard let magnitude = Magnitude(exactly: source.magnitude) else { return nil }
         self.init(sign: sign, magnitude: magnitude)
     }
     
     @inlinable public init<T: BinaryInteger>(clamping source: T) {
-        let sign = Sign(source < T.zero)
+        let sign = Sign(bit:  source < T.zero)
         let magnitude = Magnitude(clamping: source.magnitude)
         self.init(sign: sign, magnitude: magnitude)
     }

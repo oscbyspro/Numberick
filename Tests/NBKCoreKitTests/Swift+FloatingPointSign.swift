@@ -30,11 +30,11 @@ final class SwiftTestsOnFloatingPointSign: XCTestCase {
     }
     
     func testBit() {
-        XCTAssertEqual(T(false), T.plus )
-        XCTAssertEqual(T(true ), T.minus)
-        
         XCTAssertEqual(T.plus .bit, false)
         XCTAssertEqual(T.minus.bit, true )
+        
+        XCTAssertEqual(T(bit: false), T.plus )
+        XCTAssertEqual(T(bit: true ), T.minus)
     }
     
     //=------------------------------------------------------------------------=

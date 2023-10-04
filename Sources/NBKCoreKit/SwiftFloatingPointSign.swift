@@ -28,8 +28,8 @@ extension Swift.FloatingPointSign {
     /// └────── → ───── = ──┘
     /// ```
     ///
-    @_transparent public init(_ bit: Bool) {
-        self = Swift.unsafeBitCast(bit, to: Self.self)
+    @inlinable public init(bit: Bool) {
+        self = bit ? Self.minus : Self.plus
     }
     
     //=------------------------------------------------------------------------=
@@ -47,8 +47,8 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ────┘
     /// ```
     ///
-    @_transparent public var ascii: UInt8 {
-        UInt8(ascii: self.bit ? "-" : "+")
+    @inlinable public var ascii: UInt8 {
+        UInt8(ascii: self == Self.plus ? "+" : "-")
     }
     
     /// The `bit` representation of this value.
@@ -62,23 +62,8 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ──────┘
     /// ```
     ///
-    @_transparent public var bit: Bool {
-        Swift.unsafeBitCast(self, to: Bool.self)
-    }
-    
-    /// The `data` representation of this value.
-    ///
-    /// ```
-    /// ┌────────── → ─────────┐
-    /// │ sign      │ data     │
-    /// ├────── = ─ → ─────────┤
-    /// │ plus  │ 0 │ UInt8(0) │
-    /// │ minus │ 1 │ UInt8(1) │
-    /// └────── = ─ → ─────────┘
-    /// ```
-    ///
-    @_transparent @usableFromInline var data: UInt8 {
-        Swift.unsafeBitCast(self, to: UInt8.self)
+    @inlinable public var bit: Bool {
+        self == Self.plus ? false : true
     }
     
     //=------------------------------------------------------------------------=
@@ -96,7 +81,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ───── = ──┘
     /// ```
     ///
-    @_transparent public mutating func toggle() {
+    @inlinable public mutating func toggle() {
         self = ~self
     }
     
@@ -111,7 +96,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ───── = ──┘
     /// ```
     ///
-    @_transparent public func toggled() -> Self {
+    @inlinable public func toggled() -> Self {
         ~self
     }
     
@@ -126,7 +111,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ───── = ──┘
     /// ```
     ///
-    @_transparent public static prefix func ~(sign: Self) -> Self {
+    @inlinable public static prefix func ~(sign: Self) -> Self {
         sign ^ minus
     }
     
@@ -143,7 +128,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func &=(lhs: inout Self, rhs: Self) {
+    @inlinable public static func &=(lhs: inout Self, rhs: Self) {
         lhs = lhs & rhs
     }
     
@@ -160,8 +145,8 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func &(lhs: Self, rhs: Self) -> Self {
-        Swift.unsafeBitCast(lhs.data & rhs.data, to: Self.self)
+    @inlinable public static func &(lhs: Self, rhs: Self) -> Self {
+        lhs == rhs ? lhs : Self.plus
     }
     
     /// Forms the logical `OR` of `lhs` and `rhs`.
@@ -177,7 +162,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func |=(lhs: inout Self, rhs: Self) {
+    @inlinable public static func |=(lhs: inout Self, rhs: Self) {
         lhs = lhs | rhs
     }
     
@@ -194,8 +179,8 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func |(lhs: Self, rhs: Self) -> Self {
-        Swift.unsafeBitCast(lhs.data | rhs.data, to: Self.self)
+    @inlinable public static func |(lhs: Self, rhs: Self) -> Self {
+        lhs == Self.plus ? rhs : lhs
     }
     
     /// Forms the logical `XOR` of `lhs` and `rhs`.
@@ -211,7 +196,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func ^=(lhs: inout Self, rhs: Self) {
+    @inlinable public static func ^=(lhs: inout Self, rhs: Self) {
         lhs = lhs ^ rhs
     }
     
@@ -228,7 +213,7 @@ extension Swift.FloatingPointSign {
     /// └────── = ─ → ────── = ─ → ──── = ────┘
     /// ```
     ///
-    @_transparent public static func ^(lhs: Self, rhs: Self) -> Self {
-        Swift.unsafeBitCast(lhs.data ^ rhs.data, to: Self.self)
+    @inlinable public static func ^(lhs: Self, rhs: Self) -> Self {
+        lhs == rhs ? Self.plus : Self.minus
     }
 }
