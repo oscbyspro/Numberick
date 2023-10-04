@@ -1,3 +1,4 @@
+
 //=----------------------------------------------------------------------------=
 // This source file is part of the Numberick open source project.
 //
@@ -7,13 +8,11 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
-// MARK: * NBK x Comparisons
+// MARK: * NBK x Sign & Magnitude x Comparisons
 //*============================================================================*
 
-extension NBK {
+extension NBK.SignAndMagnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -26,8 +25,8 @@ extension NBK {
     ///
     /// - Returns: One of the following values: -1 (less), 0 (same), or 1 (more).
     ///
-    @inlinable public static func compare<A: NBKUnsignedInteger, B: NBKUnsignedInteger>(
-    _   lhs: SM<A>, to rhs: SM<B>, using compare: (A, B) -> Int) -> Int {
+    @inlinable public static func compare<Other: NBKUnsignedInteger>(
+    _   lhs: Components, to rhs: NBK.SignAndMagnitude<Other>.Components, using compare: (Magnitude, Other) -> Int) -> Int {
         let absoluteValue: Int
         
         if  lhs.sign == rhs.sign {

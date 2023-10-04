@@ -66,10 +66,10 @@ extension NBKSigned {
     }
     
     @inlinable public func compared(to other: Self) -> Int {
-        NBK.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
+        NBK.SAM.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        NBK.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
+        NBK.SAM.compare(self.components, to: other.components, using:{ $0.compared(to: $1) })
     }
 }
