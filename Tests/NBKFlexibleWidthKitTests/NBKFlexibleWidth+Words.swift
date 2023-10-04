@@ -48,7 +48,7 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertFromWordsIsSigned(Array([~0/2 + 0]), false, T(words:[~0/2 + 0]))
     }
     
-    func testWords() {
+    func testToWords() {
         NBKAssertToWords(T(words:[0         ]), [0         ])
         NBKAssertToWords(T(words:[1         ]), [1         ])
         NBKAssertToWords(T(words:[1, 2      ]), [1, 2      ])
@@ -62,7 +62,7 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertToWords(T(words:[1, 2, 3, 4]), [1, 2, 3, 4])
     }
     
-    func testWordsX64() throws {
+    func testToWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
         NBKAssertToWords(T(x64:[0         ] as X), [0         ])
@@ -78,7 +78,7 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertToWords(T(x64:[1, 2, 3, 4] as X), [1, 2, 3, 4])
     }
     
-    func testWordsX32() throws {
+    func testToWordsX32() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt32>.size else { throw XCTSkip() }
         
         NBKAssertToWords(T(x32:[0                     ] as Y), [0                     ])
