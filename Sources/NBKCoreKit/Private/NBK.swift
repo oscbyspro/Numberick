@@ -72,6 +72,13 @@
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
+    public typealias SAM<Magnitude> = NBK.SignAndMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger
+
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
     public typealias SBI<Base> =  NBK.StrictBinaryInteger<Base> where
     Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
