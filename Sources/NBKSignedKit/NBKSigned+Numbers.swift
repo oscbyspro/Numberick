@@ -56,6 +56,8 @@ extension NBKSigned {
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Binary Integer
     //=------------------------------------------------------------------------=
+    // NOTE: Using init(sign:magnitude:) is more efficient than init(words:).
+    //=------------------------------------------------------------------------=
     
     @inlinable public init(_ source: some BinaryInteger) {
         if  let value = Self(exactly: source) { self = value } else {

@@ -57,6 +57,10 @@ Hashable, Sendable, SignedNumeric {
     // MARK: Meta Data
     //=------------------------------------------------------------------------=
     
+    @inlinable public static var isSigned: Bool {
+        true
+    }
+    
     /// A `description` of this type.
     ///
     /// ```

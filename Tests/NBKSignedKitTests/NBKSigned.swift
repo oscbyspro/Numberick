@@ -13,6 +13,10 @@ import NBKCoreKit
 import NBKSignedKit
 import XCTest
 
+private typealias W = [UInt]
+private typealias X = [UInt64]
+private typealias Y = [UInt32]
+
 //*============================================================================*
 // MARK: * NBK x Signed
 //*============================================================================*
