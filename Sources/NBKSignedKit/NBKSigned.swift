@@ -65,7 +65,7 @@ Hashable, Sendable, SignedNumeric {
     ///
     /// ```
     /// ┌────────────────── → ─────────────────── = ───────┐
-    /// │ type              │ description         │ a.k.a  │
+    /// │ type              │ description         │ a.k.a. │
     /// ├────────────────── → ─────────────────── = ───────┤
     /// │ NBKSigned<UInt>   │ "NBKSigned<UInt>"   │ SInt   │
     /// │ NBKSigned<UIntXL> │ "NBKSigned<UIntXL>" │ SIntXL │
@@ -112,6 +112,16 @@ Hashable, Sendable, SignedNumeric {
     /// Returns the sign when for all values, except negative zero where it returns `plus`.
     @inlinable public var normalizedSign: Sign {
         self.isNormal ? self.sign : Sign.plus
+    }
+    
+    /// Turns negative zero into positive zero.
+    @inlinable public mutating func normalize() {
+        self.sign = self.normalizedSign
+    }
+    
+    /// Turns negative zero into positive zero.
+    @inlinable public func normalized() -> Self {
+        Self(sign: self.normalizedSign, magnitude: self.magnitude)
     }
 }
 

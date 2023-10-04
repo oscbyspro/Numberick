@@ -53,23 +53,23 @@ final class NBKSignedTestsOnWords: XCTestCase {
     }
     
     func testToWords() {
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude: ~0/1 - 0).words, [~0/1 - 0,  0] as W)
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude: ~0/1 - 1).words, [~0/1 - 1,  0] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude: ~0/1 - 0).words, [ 0/1 + 1, ~0] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude: ~0/1 - 1).words, [ 0/1 + 2, ~0] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude: ~0/1 - 0), [~0/1 - 0,  0] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude: ~0/1 - 1), [~0/1 - 1,  0] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude: ~0/1 - 0), [ 0/1 + 1, ~0] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude: ~0/1 - 1), [ 0/1 + 2, ~0] as W)
         
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude: ~0/2 + 2).words, [~0/2 + 2,  0] as W)
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude: ~0/2 + 1).words, [~0/2 + 1,  0] as W)
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude: ~0/2 + 0).words, [~0/2 + 0,   ] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude: ~0/2 + 2), [~0/2 + 2,  0] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude: ~0/2 + 1), [~0/2 + 1,  0] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude: ~0/2 + 0), [~0/2 + 0,   ] as W)
         
-        NBKAssertElementsEqual(T(sign: .minus, magnitude: ~0/2 + 2).words, [~0/2 + 0, ~0] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude: ~0/2 + 1).words, [~0/2 + 1,   ] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude: ~0/2 + 0).words, [~0/2 + 2,   ] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude: ~0/2 + 2), [~0/2 + 0, ~0] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude: ~0/2 + 1), [~0/2 + 1,   ] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude: ~0/2 + 0), [~0/2 + 2,   ] as W)
         
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude:  0/1 + 0).words, [ 0/1 + 0,   ] as W)
-        NBKAssertElementsEqual(T(sign: .plus,  magnitude:  0/1 + 1).words, [ 0/1 + 1,   ] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude:  0/1 + 0).words, [ 0/1 + 0,   ] as W)
-        NBKAssertElementsEqual(T(sign: .minus, magnitude:  0/1 + 1).words, [~0/1 + 0,   ] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude:  0/1 + 0), [ 0/1 + 0,   ] as W)
+        NBKAssertToWords(T(sign: .plus,  magnitude:  0/1 + 1), [ 0/1 + 1,   ] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude:  0/1 + 0), [ 0/1 + 0,   ] as W)
+        NBKAssertToWords(T(sign: .minus, magnitude:  0/1 + 1), [~0/1 + 0,   ] as W)
     }
 }
 
@@ -99,6 +99,14 @@ file: StaticString = #file, line: UInt = #line) {
     
     NBKAssertIdentical(                  T(words:    words, isSigned: isSigned),    integer, file: file, line: line)
     NBKAssertIdentical(integer.flatMap({ T(words: $0.words, isSigned: isSigned) }), integer, file: file, line: line)
+}
+
+private func NBKAssertToWords<M: NBKUnsignedInteger>(
+_ integer: NBKSigned<M>, _ words: [UInt],
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    NBKAssertElementsEqual(integer.words, words,    file: file, line: line)
+    NBKAssertFromWords(words, integer.normalized(), file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=

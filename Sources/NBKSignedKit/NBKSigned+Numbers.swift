@@ -36,7 +36,7 @@ extension NBKSigned {
         let magnitude = Magnitude(digit: digit.magnitude)
         self.init(sign: sign, magnitude: magnitude)
     }
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Magnitude
     //=------------------------------------------------------------------------=
@@ -61,7 +61,7 @@ extension NBKSigned {
     
     @inlinable public init(_ source: some BinaryInteger) {
         if  let value = Self(exactly: source) { self = value } else {
-            preconditionFailure("\(Self.self) cannot represent \(source)")
+            preconditionFailure("\(Self.description) cannot represent \(source)")
         }
     }
     

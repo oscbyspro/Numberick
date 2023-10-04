@@ -37,18 +37,18 @@ final class NBKSignedTests: XCTestCase {
         XCTAssertEqual(T(sign: .minus, magnitude: 1).sign, .minus)
     }
     
-    func testIsNormal() {
-        XCTAssertEqual(T(sign: .plus , magnitude: 0).isNormal, true )
-        XCTAssertEqual(T(sign: .plus , magnitude: 1).isNormal, true )
-        XCTAssertEqual(T(sign: .minus, magnitude: 0).isNormal, false)
-        XCTAssertEqual(T(sign: .minus, magnitude: 1).isNormal, true )
+    func testMagnitude() {
+        XCTAssertEqual(T(sign: .plus , magnitude: 0).magnitude, 0 as M)
+        XCTAssertEqual(T(sign: .plus , magnitude: 1).magnitude, 1 as M)
+        XCTAssertEqual(T(sign: .minus, magnitude: 0).magnitude, 0 as M)
+        XCTAssertEqual(T(sign: .minus, magnitude: 1).magnitude, 1 as M)
     }
     
-    func testNormalizedSign() {
-        XCTAssertEqual(T(sign: .plus , magnitude: 0).normalizedSign, .plus )
-        XCTAssertEqual(T(sign: .plus , magnitude: 1).normalizedSign, .plus )
-        XCTAssertEqual(T(sign: .minus, magnitude: 0).normalizedSign, .plus )
-        XCTAssertEqual(T(sign: .minus, magnitude: 1).normalizedSign, .minus)
+    func testNormalized() {
+        NBKAssertNormalization(T(sign: .plus , magnitude: 0), true,  .plus,  0 as M)
+        NBKAssertNormalization(T(sign: .plus , magnitude: 1), true,  .plus,  1 as M)
+        NBKAssertNormalization(T(sign: .minus, magnitude: 0), false, .plus,  0 as M)
+        NBKAssertNormalization(T(sign: .minus, magnitude: 1), true,  .minus, 1 as M)
     }
 }
 
@@ -56,9 +56,40 @@ final class NBKSignedTests: XCTestCase {
 // MARK: * NBK x Signed x Assertions
 //*============================================================================*
 
+private func NBKAssertNormalization<M>(
+_ integer: NBKSigned<M>, _ isNormal: Bool, _ sign: NBKSigned<M>.Sign, _ magnitude: M,
+file: StaticString = #file, line: UInt = #line) {
+    
+    brr: do {
+        XCTAssertEqual(integer.isNormal,   isNormal, file: file, line: line)
+        XCTAssertEqual(integer.normalizedSign, sign, file: file, line: line)
+        XCTAssertEqual(integer.magnitude, magnitude, file: file, line: line)
+    }
+
+    brr: do {
+        XCTAssertEqual(integer.normalized().isNormal,  true,      file: file, line: line)
+        XCTAssertEqual(integer.normalized().sign,      sign,      file: file, line: line)
+        XCTAssertEqual(integer.normalized().magnitude, magnitude, file: file, line: line)
+    }
+    
+    brr: do {
+        var integer = integer; integer.normalize()
+        XCTAssertEqual(integer.isNormal,  true,      file: file, line: line)
+        XCTAssertEqual(integer.sign,      sign,      file: file, line: line)
+        XCTAssertEqual(integer.magnitude, magnitude, file: file, line: line)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Shared
+//=----------------------------------------------------------------------------=
+
 func NBKAssertIdentical<M>(_ lhs: NBKSigned<M>?, _ rhs: NBKSigned<M>?, file: StaticString = #file, line: UInt = #line) {
-    let  success: Bool = lhs?.sign == rhs?.sign && lhs?.magnitude == rhs?.magnitude
-    func description(of x: NBKSigned<M>?) -> String { x.map({ "\($0.sign)\($0.magnitude)" }) ?? "nil" }
+    func description(of  integer: NBKSigned<M>?) -> String {
+        integer.map({ "\($0.sign)\($0.magnitude)" }) ?? "nil"
+    }
+    
+    let success: Bool = lhs?.sign == rhs?.sign && lhs?.magnitude == rhs?.magnitude
     XCTAssert(success, "(\(description(of: lhs)) is not identical to \(description(of: rhs))", file: file, line: line)
 }
 
