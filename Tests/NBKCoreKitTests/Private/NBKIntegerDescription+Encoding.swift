@@ -43,7 +43,13 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let encoder = NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase)
     //=------------------------------------------=
-    XCTAssertEqual(encoder.encode(sign: sign, magnitude: magnitude), result, file: file, line: line)
+    brr: do {
+        XCTAssertEqual(encoder.encode((sign: sign, magnitude: magnitude)), result, file: file, line: line)
+    }
+    
+    if  magnitude.count <= 1 {
+        XCTAssertEqual(encoder.encode((sign: sign, magnitude: magnitude.first ?? 0)), result, file: file, line: line)
+    }
 }
 
 #endif

@@ -67,14 +67,15 @@ extension NBKDoubleWidth {
     ///
     /// - Note: The decoding strategy is case insensitive.
     ///
-    @inlinable public init(stringLiteral source: StaticString) {
-        if  let value = Self(exactlyStringLiteral: source) { self = value } else {
-            preconditionFailure("\(Self.description) cannot represent \(source)")
+    @inlinable public init(stringLiteral description: StaticString) {
+        if  let value = Self(exactlyStringLiteral: description) { self = value } else {
+            preconditionFailure("\(Self.description) cannot represent \(description)")
         }
     }
     
-    @inlinable init?(exactlyStringLiteral source: StaticString) {
-        let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
-        if let value: Self = decoder.decode(source) { self = value } else { return nil }
+    @inlinable init?(exactlyStringLiteral description: StaticString) {
+        let decoder = NBK.IntegerDescription.DecoderDecodingRadix<Magnitude>()
+        guard let components = decoder.decode(description) else { return nil }
+        self.init(sign: components.sign, magnitude: components.magnitude)        
     }
 }

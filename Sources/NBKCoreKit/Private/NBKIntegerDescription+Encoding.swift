@@ -55,35 +55,35 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public func encode(_ integer: some NBKBinaryInteger) -> String {
-            let isLessThanZero: Bool = integer.isLessThanZero
+            let isLessThanZero = integer.isLessThanZero
             return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
-                self.encode(minus: isLessThanZero, magnitude: &$0)
-            }
-        }
-        
-        @inlinable public func encode(sign: FloatingPointSign, magnitude: some RandomAccessCollection<UInt>) -> String {
-            let isLessThanZero: Bool = (sign == FloatingPointSign.minus) && !magnitude.allSatisfy({ $0.isZero })
-            return NBK.withUnsafeTemporaryAllocation(copying: magnitude) {
-                self.encode(minus: isLessThanZero, magnitude: &$0)
-            }
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Utilities x Private
-        //=--------------------------------------------------------------------=
-        
-        /// ### Development
-        ///
-        /// - `@inlinable` is not required (nongeneric algorithm).
-        ///
-        @usableFromInline func encode(minus: Bool, magnitude: inout NBK.UnsafeMutableWords) -> String {
-            NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus) { prefix in
                 NBK.IntegerDescription.encode(
-                magnitude: &magnitude,
+                magnitude: &$0,
                 solution: solution as AnyRadixSolution<UInt>,
                 alphabet: alphabet as MaxRadixAlphabetEncoder,
-                prefix: prefix as  NBK.UnsafeUTF8,
-                suffix: NBK.UnsafeUTF8(start: nil, count: 0 as Int))
+                minus: isLessThanZero as Bool)
+            }
+        }
+        
+        @inlinable public func encode(_ components: SM<some NBKUnsignedInteger>) -> String {
+            let isLessThanZero = NBK.ISM.isLessThanZero(components)
+            return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude.words) {
+                NBK.IntegerDescription.encode(
+                magnitude: &$0,
+                solution: solution as AnyRadixSolution<UInt>,
+                alphabet: alphabet as MaxRadixAlphabetEncoder,
+                minus: isLessThanZero as Bool)
+            }
+        }
+        
+        @_disfavoredOverload @inlinable public func encode(_ components: SM<some RandomAccessCollection<UInt>>) -> String {
+            let isLessThanZero = NBK.SSMSS.isLessThanZero(components)
+            return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude) {
+                NBK.IntegerDescription.encode(
+                magnitude: &$0,
+                solution: solution as AnyRadixSolution<UInt>,
+                alphabet: alphabet as MaxRadixAlphabetEncoder,
+                minus: isLessThanZero as Bool)
             }
         }
     }
@@ -94,6 +94,29 @@ extension NBK.IntegerDescription {
 //*============================================================================*
 
 extension NBK.IntegerDescription {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Encodes the magnitude, with or without a minus sign, using the given UTF-8 format.
+    ///
+    /// ### Development
+    ///
+    /// - `@inlinable` is not required (nongeneric algorithm).
+    ///
+    @usableFromInline static func encode(
+    magnitude: inout NBK.UnsafeMutableWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
+    minus: Bool) -> String {
+        NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus) { prefix in
+            NBK.IntegerDescription.encode(
+            magnitude: &magnitude,
+            solution: solution as AnyRadixSolution<UInt>,
+            alphabet: alphabet as MaxRadixAlphabetEncoder,
+            prefix: prefix as  NBK.UnsafeUTF8,
+            suffix: NBK.UnsafeUTF8(start: nil, count: 0 as Int))
+        }
+    }
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities

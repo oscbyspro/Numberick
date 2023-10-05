@@ -72,7 +72,7 @@ extension NBKSigned {
     }
     
     @inlinable init?(exactlyStringLiteral source: StaticString) {
-        let decoder = NBK.IntegerDescription.DecoderDecodingRadix()
+        let decoder = NBK.IntegerDescription.DecoderDecodingRadix<Magnitude>()
         guard let components: SM<Magnitude> = decoder.decode(source) else { return nil }
         self.init(sign: components.sign, magnitude: components.magnitude)
     }

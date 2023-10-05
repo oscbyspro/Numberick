@@ -39,8 +39,9 @@ extension NBKFlexibleWidth.Magnitude {
     /// - Note: The decoding strategy is case insensitive.
     ///
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        let decoder = NBK.IntegerDescription.Decoder(radix: radix)
-        if let value: Self = decoder.decode(description) { self = value } else { return nil }
+        let decoder = NBK.IntegerDescription.Decoder<Magnitude>(radix: radix)
+        guard let components: SM<Magnitude> = decoder.decode(description) else { return nil }
+        self.init(sign: components.sign, magnitude: components.magnitude)
     }
     
     //=------------------------------------------------------------------------=
@@ -63,7 +64,6 @@ extension NBKFlexibleWidth.Magnitude {
     /// ```
     ///
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        let encoder = NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase)
-        return encoder.encode(self) as String
+        NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase).encode(self)
     }
 }

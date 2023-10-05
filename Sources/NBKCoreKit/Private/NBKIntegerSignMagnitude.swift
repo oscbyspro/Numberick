@@ -8,13 +8,13 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Sign & Magnitude
+// MARK: * NBK x Integer Sign Magnitude
 //*============================================================================*
 
 extension NBK {
     
-    /// A namespace for sign and magnitude algorithms.
-    @frozen public enum SignAndMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger {
+    /// A namespace for integer sign-magnitude algorithms.
+    @frozen public enum IntegerSignMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger {
         
         /// The sign and of this type.
         public typealias Sign = NBK.Sign

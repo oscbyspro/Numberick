@@ -64,7 +64,7 @@ extension NBKSigned {
     /// - Note: The decoding strategy is case insensitive.
     ///
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
-        let decoder = NBK.IntegerDescription.Decoder(radix: radix)
+        let decoder = NBK.IntegerDescription.Decoder<Magnitude>(radix: radix)
         guard let components: SM<Magnitude> = decoder.decode(description) else { return nil }
         self.init(sign: components.sign, magnitude: components.magnitude)
     }
@@ -110,8 +110,7 @@ extension NBKSigned {
     /// ```
     ///
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {
-        let encoder = NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase)
-        return encoder.encode(sign: self.sign, magnitude: self.magnitude.words) as String
+        NBK.IntegerDescription.Encoder(radix: radix, uppercase: uppercase).encode(self.components)
     }
 }
 
@@ -126,6 +125,10 @@ extension String {
     //=------------------------------------------------------------------------=
     
     /// Creates a string representing the given value, in the given format.
+    ///
+    /// The description may contain a minus sign (-), followed by one
+    /// or more numeric digits (0-9) or letters (a-z or A-Z). These represent
+    /// the integer's sign and magnitude. Zero is always non-negative.
     ///
     /// ```
     /// ┌──────────────┬───────┬─────────── → ────────────┐

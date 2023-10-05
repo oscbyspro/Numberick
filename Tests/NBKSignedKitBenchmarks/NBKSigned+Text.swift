@@ -19,7 +19,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Signed x Text x UIntXL
+// MARK: * NBK x Signed x Text x SIntXL
 //*============================================================================*
 
 final class NBKSignedBenchmarksOnTextAsSIntXL: XCTestCase {
