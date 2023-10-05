@@ -17,7 +17,7 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Addition
+// MARK: * NBK x Strict Unsigned Integer x Addition x Sub Sequence
 //*============================================================================*
 
 final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {

@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Sign & Magnitude x Comparisons
+// MARK: * NBK x Integer Sign Magnitude x Comparisons
 //*============================================================================*
 
-final class NBKSignAndMagnitudeTestsOnComparisons: XCTestCase {
+final class NBKIntegerSignMagnitudeTestsOnComparisons: XCTestCase {
         
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -47,17 +47,36 @@ final class NBKSignAndMagnitudeTestsOnComparisons: XCTestCase {
         NBKAssertCompareTo(SM(.minus, UInt(3)), SM(.plus,  UInt(2)), -Int(1))
         NBKAssertCompareTo(SM(.minus, UInt(3)), SM(.minus, UInt(2)), -Int(1))
     }
+    
+    func testCompareToZero() {
+        NBKAssertCompareToZero(SM(.plus,  UInt(0)),  Int(0))
+        NBKAssertCompareToZero(SM(.plus,  UInt(1)),  Int(1))
+        NBKAssertCompareToZero(SM(.plus,  UInt(2)),  Int(1))
+        
+        NBKAssertCompareToZero(SM(.minus, UInt(0)),  Int(0))
+        NBKAssertCompareToZero(SM(.minus, UInt(1)), -Int(1))
+        NBKAssertCompareToZero(SM(.minus, UInt(2)), -Int(1))
+    }
 }
 
 //*============================================================================*
-// MARK: * NBK x Sign & Magnitude x Comparisons x Assertions
+// MARK: * NBK x Integer Sign Magnitude x Comparisons x Assertions
 //*============================================================================*
 
-private func NBKAssertCompareTo<M: NBKUnsignedInteger>(
-_ lhs: SM<M>, _ rhs: SM<M>, _ signum: Int,
+private func NBKAssertCompareTo<Magnitude: NBKUnsignedInteger>(
+_ lhs: SM<Magnitude>, _ rhs: SM<Magnitude>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.SAM.compare(lhs, to: rhs, using:{ $0.compared(to: $1) }), signum, file: file, line: line)
+    XCTAssertEqual(NBK.ISM.compare(lhs, to: rhs, using:{ $0.compared(to: $1) }), signum, file: file, line: line)
+}
+
+private func NBKAssertCompareToZero<Magnitude: NBKUnsignedInteger>(
+_ components: SM<Magnitude>, _ signum: Int,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    XCTAssert(NBK.ISM.signum/*----*/(components) == signum,                file: file, line: line)
+    XCTAssert(NBK.ISM.isLessThanZero(components) == signum.isLessThanZero, file: file, line: line)
+    XCTAssert(NBK.ISM.isMoreThanZero(components) == signum.isMoreThanZero, file: file, line: line)
 }
 
 #endif

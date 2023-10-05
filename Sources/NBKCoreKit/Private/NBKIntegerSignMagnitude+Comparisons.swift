@@ -9,10 +9,36 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Sign & Magnitude x Comparisons
+// MARK: * NBK x Integer Sign Magnitude x Comparisons
 //*============================================================================*
 
-extension NBK.SignAndMagnitude {
+extension NBK.IntegerSignMagnitude {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Returns whether `components` is less than `zero`.
+    @inlinable public static func isLessThanZero(_ components: Components) -> Bool {
+        components.sign == Sign.minus && !components.magnitude.isZero
+    }
+    
+    /// Returns whether `components` is more than `zero`.
+    @inlinable public static func isMoreThanZero(_ components: Components) -> Bool {
+        components.sign == Sign.plus  && !components.magnitude.isZero
+    }
+    
+    /// A three-way comparison of `components` against `zero`.
+    @inlinable public static func signum(_ components: Components) ->  Int {
+        components.magnitude.isZero ? 0 : components.sign == Sign.plus ? 1 : -1
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Composition
+//=----------------------------------------------------------------------------=
+
+extension NBK.IntegerSignMagnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -26,7 +52,7 @@ extension NBK.SignAndMagnitude {
     /// - Returns: One of the following values: -1 (less), 0 (same), or 1 (more).
     ///
     @inlinable public static func compare<Other: NBKUnsignedInteger>(
-    _   lhs: Components, to rhs: NBK.SignAndMagnitude<Other>.Components, using compare: (Magnitude, Other) -> Int) -> Int {
+    _   lhs: Components, to rhs: NBK.IntegerSignMagnitude<Other>.Components, using compare: (Magnitude, Other) -> Int) -> Int {
         let absoluteValue:  Int
         
         if  lhs.sign == rhs.sign {

@@ -33,15 +33,15 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(.plus,  UInt32 .max,   016, "+00ffffffff")
         NBKAssertDecoding( nil,   UInt32?(nil),  016, "+0100000000")
         
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt32?(nil), "-004294967296")
-        NBKAssertDecodingByDecodingRadix(.minus, 010, UInt32 .max,  "-004294967295")
-        NBKAssertDecodingByDecodingRadix(.plus,  010, UInt32 .max,  "+004294967295")
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt32?(nil), "+004294967296")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt32?(nil), "-004294967296")
+        NBKAssertDecodingByDecodingRadix(.minus, UInt32 .max,  "-004294967295")
+        NBKAssertDecodingByDecodingRadix(.plus,  UInt32 .max,  "+004294967295")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt32?(nil), "+004294967296")
         
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt32?(nil), "-0x0100000000")
-        NBKAssertDecodingByDecodingRadix(.minus, 016, UInt32 .max,  "-0x00ffffffff")
-        NBKAssertDecodingByDecodingRadix(.plus,  016, UInt32 .max,  "+0x00ffffffff")
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt32?(nil), "+0x0100000000")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt32?(nil), "-0x0100000000")
+        NBKAssertDecodingByDecodingRadix(.minus, UInt32 .max,  "-0x00ffffffff")
+        NBKAssertDecodingByDecodingRadix(.plus,  UInt32 .max,  "+0x00ffffffff")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt32?(nil), "+0x0100000000")
     }
     
     func testDecodingUInt64() {
@@ -55,20 +55,27 @@ final class NBKIntegerDescriptionTestsOnDecoding: XCTestCase {
         NBKAssertDecoding(.plus,  UInt64 .max,   016, "+0000ffffffffffffffff")
         NBKAssertDecoding( nil,   UInt64?(nil),  016, "+00010000000000000000")
         
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt64?(nil), "-0018446744073709551616")
-        NBKAssertDecodingByDecodingRadix(.minus, 010, UInt64 .max,  "-0018446744073709551615")
-        NBKAssertDecodingByDecodingRadix(.plus,  010, UInt64 .max,  "+0018446744073709551615")
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt64?(nil), "+0018446744073709551616")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt64?(nil), "-0018446744073709551616")
+        NBKAssertDecodingByDecodingRadix(.minus, UInt64 .max,  "-0018446744073709551615")
+        NBKAssertDecodingByDecodingRadix(.plus,  UInt64 .max,  "+0018446744073709551615")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt64?(nil), "+0018446744073709551616")
         
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt64?(nil), "-0x00010000000000000000")
-        NBKAssertDecodingByDecodingRadix(.minus, 016, UInt64 .max,  "-0x0000ffffffffffffffff")
-        NBKAssertDecodingByDecodingRadix(.plus,  016, UInt64 .max,  "+0x0000ffffffffffffffff")
-        NBKAssertDecodingByDecodingRadix( nil,   nil, UInt64?(nil), "+0x00010000000000000000")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt64?(nil), "-0x00010000000000000000")
+        NBKAssertDecodingByDecodingRadix(.minus, UInt64 .max,  "-0x0000ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadix(.plus,  UInt64 .max,  "+0x0000ffffffffffffffff")
+        NBKAssertDecodingByDecodingRadix( nil,   UInt64?(nil), "+0x00010000000000000000")
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
+    
+    func testDecodingInvalidInputsReturnsNil() {
+        NBKAssertDecoding(nil, UInt64?(nil), 010, "!0000000000000000001")
+        NBKAssertDecoding(nil, UInt64?(nil), 010, "1000000000000000000!")
+        NBKAssertDecoding(nil, UInt64?(nil), 016, "!0000000000000000001")
+        NBKAssertDecoding(nil, UInt64?(nil), 016, "1000000000000000000!")
+    }
     
     func testDecodingStringWithoutDigitsReturnsNil() {
         NBKAssertDecoding(nil, UInt32?(nil), 010, "+")
@@ -89,37 +96,31 @@ final class NBKIntegerDescriptionTestsOnDecodingAsCoreInteger: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingRadix10AsUInt32() {
-        typealias T = UInt32
+        NBKAssertDecodingDigitsByTruncating(UInt32(1234567890), 010, "1234567890")
+        NBKAssertDecodingDigitsByTruncating(UInt32(4294967295), 010, "4294967295")
         
-        NBKAssertDecodingDigitsByTruncating(T(1234567890), 010, "1234567890")
-        NBKAssertDecodingDigitsByTruncating(T(4294967295), 010, "4294967295")
-        
-        NBKAssertDecodingDigitsByTruncating(T(0000000000), 010, "4294967296" ) // + 01
-        NBKAssertDecodingDigitsByTruncating(T(4294967286), 010, "42949672950") // * 10
+        NBKAssertDecodingDigitsByTruncating(UInt32(0000000000), 010, "4294967296" ) // + 01
+        NBKAssertDecodingDigitsByTruncating(UInt32(4294967286), 010, "42949672950") // * 10
     }
     
     func testDecodingRadix16AsUInt32() {
-        typealias T = UInt32
+        NBKAssertDecodingDigitsByTruncating(UInt32(0x12345678), 016, "12345678")
+        NBKAssertDecodingDigitsByTruncating(UInt32(0xffffffff), 016, "ffffffff")
         
-        NBKAssertDecodingDigitsByTruncating(T(0x12345678), 016, "12345678")
-        NBKAssertDecodingDigitsByTruncating(T(0xffffffff), 016, "ffffffff")
-        
-        NBKAssertDecodingDigitsByTruncating(T(0x00000000), 016, "100000000") // + 01
-        NBKAssertDecodingDigitsByTruncating(T(0xfffffff0), 016, "ffffffff0") // * 16
+        NBKAssertDecodingDigitsByTruncating(UInt32(0x00000000), 016, "100000000") // + 01
+        NBKAssertDecodingDigitsByTruncating(UInt32(0xfffffff0), 016, "ffffffff0") // * 16
     }
     
     func testDecodingStringWithoutDigitsReturnsNilAsUInt32() {
-        typealias T = UInt32
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 010,  "")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 010, "+")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 010, "-")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 010, "~")
         
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010,  "")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "+")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "-")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "~")
-        
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016,  "")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "+")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "-")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "~")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 016,  "")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 016, "+")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 016, "-")
+        NBKAssertDecodingDigitsByTruncating(UInt32?.none, 016, "~")
     }
     
     //=------------------------------------------------------------------------=
@@ -127,37 +128,31 @@ final class NBKIntegerDescriptionTestsOnDecodingAsCoreInteger: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDecodingRadix10AsUInt64() {
-        typealias T = UInt64
+        NBKAssertDecodingDigitsByTruncating(UInt64(12345678901234567890), 010, "12345678901234567890")
+        NBKAssertDecodingDigitsByTruncating(UInt64(18446744073709551615), 010, "18446744073709551615")
         
-        NBKAssertDecodingDigitsByTruncating(T(12345678901234567890), 010, "12345678901234567890")
-        NBKAssertDecodingDigitsByTruncating(T(18446744073709551615), 010, "18446744073709551615")
-        
-        NBKAssertDecodingDigitsByTruncating(T(00000000000000000000), 010, "18446744073709551616" ) // + 01
-        NBKAssertDecodingDigitsByTruncating(T(18446744073709551606), 010, "184467440737095516150") // * 10
+        NBKAssertDecodingDigitsByTruncating(UInt64(00000000000000000000), 010, "18446744073709551616" ) // + 01
+        NBKAssertDecodingDigitsByTruncating(UInt64(18446744073709551606), 010, "184467440737095516150") // * 10
     }
     
     func testDecodingRadix16AsUInt64() {
-        typealias T = UInt64
+        NBKAssertDecodingDigitsByTruncating(UInt64(0x123456789abcdef0), 016, "123456789abcdef0")
+        NBKAssertDecodingDigitsByTruncating(UInt64(0xffffffffffffffff), 016, "ffffffffffffffff")
         
-        NBKAssertDecodingDigitsByTruncating(T(0x123456789abcdef0), 016, "123456789abcdef0")
-        NBKAssertDecodingDigitsByTruncating(T(0xffffffffffffffff), 016, "ffffffffffffffff")
-        
-        NBKAssertDecodingDigitsByTruncating(T(0x0000000000000000), 016, "10000000000000000") // + 01
-        NBKAssertDecodingDigitsByTruncating(T(0xfffffffffffffff0), 016, "ffffffffffffffff0") // * 16
+        NBKAssertDecodingDigitsByTruncating(UInt64(0x0000000000000000), 016, "10000000000000000") // + 01
+        NBKAssertDecodingDigitsByTruncating(UInt64(0xfffffffffffffff0), 016, "ffffffffffffffff0") // * 16
     }
     
     func testDecodingStringWithoutDigitsReturnsNilAsUInt64() {
-        typealias T = UInt64
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 010,  "")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 010, "+")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 010, "-")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 010, "~")
         
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010,  "")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "+")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "-")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 010, "~")
-        
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016,  "")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "+")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "-")
-        NBKAssertDecodingDigitsByTruncating(T?.none, 016, "~")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 016,  "")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 016, "+")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 016, "-")
+        NBKAssertDecodingDigitsByTruncating(UInt64?.none, 016, "~")
     }
 }
 
@@ -185,7 +180,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertDecodingByDecodingRadix<Magnitude: NBKUnsignedInteger>(
-_ sign: FloatingPointSign?, _ radix: Int?, _ magnitude: Magnitude?, _ description: StaticString,
+_ sign: FloatingPointSign?, _ magnitude: Magnitude?, _ description: StaticString,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let decoder = NBK.IntegerDescription.DecoderDecodingRadix<Magnitude>()
@@ -193,14 +188,12 @@ file: StaticString = #file, line: UInt = #line) {
     brr: do {
         let components = decoder.decode(description)
         XCTAssertEqual(sign,      components?.sign,      file: file, line: line)
-        XCTAssertEqual(radix,     components?.radix,     file: file, line: line)
         XCTAssertEqual(magnitude, components?.magnitude, file: file, line: line)
     }
     
     brr: do {
         let components = decoder.decode(description.description)
         XCTAssertEqual(sign,      components?.sign,      file: file, line: line)
-        XCTAssertEqual(radix,     components?.radix,     file: file, line: line)
         XCTAssertEqual(magnitude, components?.magnitude, file: file, line: line)
     }
 }

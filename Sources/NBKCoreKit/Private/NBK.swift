@@ -65,14 +65,8 @@
     public typealias Wide3<T> = (high: T, mid: T.Magnitude, low: T.Magnitude) where T: NBKFixedWidthInteger
     
     //=------------------------------------------------------------------------=
-    // MARK: Namespaces
+    // MARK: Namespaces x Binary Integer
     //=------------------------------------------------------------------------=
-    
-    /// A namespace for `Numberick` development.
-    ///
-    /// - Warning: Do not use this namespace outside of `Numberick` development.
-    ///
-    public typealias SAM<Magnitude> = NBK.SignAndMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger
     
     /// A namespace for `Numberick` development.
     ///
@@ -114,5 +108,29 @@
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
     public typealias SUISS<Base>  = NBK.StrictUnsignedInteger<Base>.SubSequence where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Namespaces x Sign & Magnitude
+    //=------------------------------------------------------------------------=
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias ISM<Magnitude> = NBK.IntegerSignMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SSM<Base> = NBK.StrictSignMagnitude<Base> where
+    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias SSMSS<Base> = NBK.StrictSignMagnitude<Base>.SubSequence where
     Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 }
