@@ -67,10 +67,9 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(by distance: Int) {
-        let distance = NBK.ZeroOrMore(distance)
-        let major = NBK .quotient(of: distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+    @inlinable public mutating func bitshiftLeft(@NBK.ZeroOrMore by distance: Int) {
+        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
         return self.bitshiftLeft(major: major, minor: minor)
     }
     
@@ -188,10 +187,9 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(by distance: Int) {
-        let distance = NBK.ZeroOrMore(distance)
-        let major = NBK .quotient(of: distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+    @inlinable public mutating func bitshiftRight(@NBK.ZeroOrMore by distance: Int) {
+        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
         return self.bitshiftRight(major: major, minor: minor)
     }
     
