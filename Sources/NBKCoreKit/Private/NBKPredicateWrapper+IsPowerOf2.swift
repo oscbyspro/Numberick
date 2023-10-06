@@ -13,9 +13,9 @@
 
 extension NBK {
     
-    public typealias PowerOf2<Value> = _NBKPredicateWrapper<IsPowerOf2<Value>> where Value: NBKFixedWidthInteger
+    public typealias PowerOf2<Value> = _NBKPredicateWrapper<IsPowerOf2<Value>> where Value: NBKBinaryInteger
     
-    public typealias NonPowerOf2<Value> = _NBKPredicateWrapper<IsNonPowerOf2<Value>> where Value: NBKFixedWidthInteger
+    public typealias NonPowerOf2<Value> = _NBKPredicateWrapper<IsNonPowerOf2<Value>> where Value: NBKBinaryInteger
 }
 
 //*============================================================================*
@@ -28,7 +28,7 @@ extension NBK {
     // MARK: * Is Power Of 2
     //*============================================================================*
     
-    @frozen public enum IsPowerOf2<Value>: _NBKPredicate where Value: NBKFixedWidthInteger {
+    @frozen public enum IsPowerOf2<Value>: _NBKPredicate where Value: NBKBinaryInteger {
         
         //=------------------------------------------------------------------------=
         // MARK: Utilities
@@ -43,5 +43,5 @@ extension NBK {
     // MARK: * Is Non Power Of 2
     //*============================================================================*
     
-    public typealias IsNonPowerOf2<Value> = IsNot<IsPowerOf2<Value>> where Value: NBKFixedWidthInteger
+    public typealias IsNonPowerOf2<Value> = IsNot<IsPowerOf2<Value>> where Value: NBKBinaryInteger
 }

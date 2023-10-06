@@ -13,17 +13,17 @@
 
 extension NBK {
     
-    public typealias Zero<Value> = _NBKPredicateWrapper<IsZero<Value>> where Value: Numeric & Equatable
+    public typealias Zero<Value> = _NBKPredicateWrapper<IsZero<Value>> where Value: NBKBinaryInteger
     
-    public typealias NonZero<Value> = _NBKPredicateWrapper<IsNonZero<Value>> where Value: Numeric & Equatable
+    public typealias NonZero<Value> = _NBKPredicateWrapper<IsNonZero<Value>> where Value: NBKBinaryInteger
     
-    public typealias ZeroOrLess<Value> = _NBKPredicateWrapper<IsZeroOrLess<Value>> where Value: Numeric & Comparable
+    public typealias ZeroOrLess<Value> = _NBKPredicateWrapper<IsZeroOrLess<Value>> where Value: NBKBinaryInteger
     
-    public typealias ZeroOrMore<Value> = _NBKPredicateWrapper<IsZeroOrMore<Value>> where Value: Numeric & Comparable
+    public typealias ZeroOrMore<Value> = _NBKPredicateWrapper<IsZeroOrMore<Value>> where Value: NBKBinaryInteger
     
-    public typealias LessThanZero<Value> = _NBKPredicateWrapper<IsLessThanZero<Value>> where Value: Numeric & Comparable
+    public typealias LessThanZero<Value> = _NBKPredicateWrapper<IsLessThanZero<Value>> where Value: NBKBinaryInteger
     
-    public typealias MoreThanZero<Value> = _NBKPredicateWrapper<IsMoreThanZero<Value>> where Value: Numeric & Comparable
+    public typealias MoreThanZero<Value> = _NBKPredicateWrapper<IsMoreThanZero<Value>> where Value: NBKBinaryInteger
 }
 
 //*============================================================================*
@@ -36,14 +36,14 @@ extension NBK {
     // MARK: * Is Zero
     //*============================================================================*
     
-    @frozen public enum IsZero<Value>: _NBKPredicate where Value: Numeric & Equatable {
+    @frozen public enum IsZero<Value>: _NBKPredicate where Value: NBKBinaryInteger {
         
         //=------------------------------------------------------------------------=
         // MARK: Utilities
         //=------------------------------------------------------------------------=
         
         @inlinable static public func validate(_ value: Value) -> Bool {
-            value == Value.zero
+            value.isZero
         }
     }
     
@@ -51,14 +51,14 @@ extension NBK {
     // MARK: * Is Less Than Zero
     //*============================================================================*
     
-    @frozen public enum IsLessThanZero<Value>: _NBKPredicate where Value: Numeric & Comparable {
+    @frozen public enum IsLessThanZero<Value>: _NBKPredicate where Value: NBKBinaryInteger {
         
         //=------------------------------------------------------------------------=
         // MARK: Utilities
         //=------------------------------------------------------------------------=
         
         @inlinable static public func validate(_ value: Value) -> Bool {
-            value < Value.zero
+            value.isLessThanZero
         }
     }
     
@@ -66,14 +66,14 @@ extension NBK {
     // MARK: * Is More Than Zero
     //*============================================================================*
     
-    @frozen public enum IsMoreThanZero<Value>: _NBKPredicate where Value: Numeric & Comparable {
+    @frozen public enum IsMoreThanZero<Value>: _NBKPredicate where Value: NBKBinaryInteger {
         
         //=------------------------------------------------------------------------=
         // MARK: Utilities
         //=------------------------------------------------------------------------=
         
         @inlinable static public func validate(_ value: Value) -> Bool {
-            value > Value.zero
+            value.isMoreThanZero
         }
     }
     
@@ -81,17 +81,17 @@ extension NBK {
     // MARK: * Is Non Zero
     //*============================================================================*
     
-    public typealias IsNonZero<Value> = IsNot<IsZero<Value>> where Value: Numeric & Equatable
+    public typealias IsNonZero<Value> = IsNot<IsZero<Value>> where Value: NBKBinaryInteger
     
     //*============================================================================*
     // MARK: * Is Zero Or Less
     //*============================================================================*
     
-    public typealias IsZeroOrLess<Value> = IsNot<IsMoreThanZero<Value>> where Value: Numeric & Comparable
+    public typealias IsZeroOrLess<Value> = IsNot<IsMoreThanZero<Value>> where Value: NBKBinaryInteger
     
     //*============================================================================*
     // MARK: * Is Zero Or More
     //*============================================================================*
     
-    public typealias IsZeroOrMore<Value> = IsNot<IsLessThanZero<Value>> where Value: Numeric & Comparable
+    public typealias IsZeroOrMore<Value> = IsNot<IsLessThanZero<Value>> where Value: NBKBinaryInteger
 }
