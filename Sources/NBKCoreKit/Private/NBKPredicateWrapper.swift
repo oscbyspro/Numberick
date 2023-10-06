@@ -76,7 +76,9 @@
 /// A predicate that can be referenced by the type system.
 public protocol _NBKPredicate<Value> {
     
+    /// The type this predicate can validate.
     associatedtype Value
     
+    /// Returns whether the given `value` satisfies this predicate.
     @inlinable static func validate(_ value: Value) -> Bool
 }
