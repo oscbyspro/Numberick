@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Predicate Wrapper
+// MARK: * NBK x Precondition
 //*============================================================================*
 
-final class NBKPredicateWrapperTests: XCTestCase {
+final class NBKPreconditionTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Is Zero
@@ -124,17 +124,17 @@ final class NBKPredicateWrapperTests: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Predicate Wrapper x Assertions
+// MARK: * NBK x Precondition x Assertions
 //*============================================================================*
 
-private func NBKAssert<Predicate: _NBKPredicate>(
-_ value: Predicate.Value, _ success: Bool, _ predicate: _NBKPredicateWrapper<Predicate>.Type,
+private func NBKAssert<Predicate: _NBKPrecondition_Predicate>(
+_ value: Predicate.Value, _ success: Bool, _ predicate: _NBKPrecondition<Predicate>.Type,
 file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable {
     //=------------------------------------------=
-    typealias T = _NBKPredicateWrapper<Predicate>
-    typealias N = _NBKPredicateWrapper<NBK.IsNot<Predicate>>
+    typealias T = _NBKPrecondition<Predicate>
+    typealias N = _NBKPrecondition<NBK.IsNot<Predicate>>
     //=------------------------------------------=
-    func wrapping<X>(@_NBKPredicateWrapper<X> _ wrapped: X.Value, precondition type: X.Type) where X: _NBKPredicate<Predicate.Value> {
+    func wrapping<X>(@_NBKPrecondition<X> _ wrapped: X.Value, precondition type: _NBKPrecondition<X>.Type) where X.Value == Predicate.Value {
         XCTAssertEqual(wrapped, value, file:  file,  line: line)
         XCTAssertEqual($wrapped.value, value, file:  file, line: line)
         XCTAssertEqual($wrapped.wrappedValue, value, file: file, line: line)
@@ -145,11 +145,11 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
     }
     
     if  success {
-        wrapping(value, precondition: T.Predicate.self)
+        wrapping(value, precondition: T.self)
         XCTAssertEqual(T(/*------*/ value).value, value, file: file, line: line)
         XCTAssertEqual(T(unchecked: value).value, value, file: file, line: line)
     }   else {
-        wrapping(value, precondition: N.Predicate.self)
+        wrapping(value, precondition: N.self)
         XCTAssertEqual(N(/*------*/ value).value, value, file: file, line: line)
         XCTAssertEqual(N(unchecked: value).value, value, file: file, line: line)
     }
