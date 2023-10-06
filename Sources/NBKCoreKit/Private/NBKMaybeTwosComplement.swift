@@ -13,7 +13,7 @@
 
 extension NBK {
     
-    /// A dynamic, lazy, two's complement collection.
+    /// A dynamic, lazy, two's complement sequence.
     ///
     /// ### Development
     ///
@@ -58,12 +58,6 @@ extension NBK {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        /// Returns the word at the given index, or its two's complement sub seqeuence.
-        ///
-        /// ### Development
-        ///
-        /// The index comparison performs poorly (Swift 5.8).
-        ///
         @inlinable public subscript(index:  Base.Index) -> Base.Element {
             self.base[index] ^ self.mask &+ Base.Element(bit: index < self.stop)
         }

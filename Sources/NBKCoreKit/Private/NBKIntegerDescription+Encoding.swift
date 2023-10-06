@@ -46,7 +46,7 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(radix: Int, uppercase: Bool) {
-            self.solution = AnyRadixSolution<UInt>(radix)
+            self.solution = AnyRadixSolution<UInt>.init(radix)
             self.alphabet = MaxRadixAlphabetEncoder(uppercase: uppercase)
         }
         
@@ -59,9 +59,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: solution as AnyRadixSolution<UInt>,
-                alphabet: alphabet as MaxRadixAlphabetEncoder,
-                minus: isLessThanZero as Bool)
+                solution: self.solution as AnyRadixSolution<UInt>,
+                alphabet: self.alphabet as MaxRadixAlphabetEncoder,
+                minus:   isLessThanZero as Bool)
             }
         }
         
@@ -70,9 +70,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude.words) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: solution as AnyRadixSolution<UInt>,
-                alphabet: alphabet as MaxRadixAlphabetEncoder,
-                minus: isLessThanZero as Bool)
+                solution: self.solution as AnyRadixSolution<UInt>,
+                alphabet: self.alphabet as MaxRadixAlphabetEncoder,
+                minus:   isLessThanZero as Bool)
             }
         }
         
@@ -81,9 +81,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: solution as AnyRadixSolution<UInt>,
-                alphabet: alphabet as MaxRadixAlphabetEncoder,
-                minus: isLessThanZero as Bool)
+                solution: self.solution as AnyRadixSolution<UInt>,
+                alphabet: self.alphabet as MaxRadixAlphabetEncoder,
+                minus:   isLessThanZero as Bool)
             }
         }
     }

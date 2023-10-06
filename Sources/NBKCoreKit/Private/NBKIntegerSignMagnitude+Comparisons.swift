@@ -29,8 +29,8 @@ extension NBK.IntegerSignMagnitude {
     }
     
     /// A three-way comparison of `components` against `zero`.
-    @inlinable public static func signum(_ components: Components) ->  Int {
-        components.magnitude.isZero ? 0 : components.sign == Sign.plus ? 1 : -1
+    @inlinable public static func signum(_ components: Components) -> Int {
+        components.magnitude.isZero ? 0 :  components.sign == Sign.plus ? 1 : -1
     }
 }
 

@@ -83,24 +83,6 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Accessors
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the element at the given index.
-    ///
-    /// The elements are ordered from least significant to most, with infinite sign extension.
-    ///
-    @inlinable public subscript(index: Int) -> Element {
-        if  Self.Element.bitWidth > Base.Element.bitWidth {
-            return Major.element(index, base: self.base, sign: self.sign)
-        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
-            return Minor.element(index, base: self.base, sign: self.sign)
-        }   else {
-            return Equal.element(index, base: self.base, sign: self.sign)
-        }
-    }
-    
-    //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
@@ -111,6 +93,16 @@ Element: NBKCoreInteger, Base: RandomAccessCollection, Base.Element: NBKCoreInte
             return Minor.count(of:  base)
         }   else {
             return Equal.count(of:  base)
+        }
+    }
+    
+    @inlinable static func element(_ index: Int, base: Base, sign: Element) -> Element {
+        if  Self.Element.bitWidth > Base.Element.bitWidth {
+            return Major.element(index, base: base, sign: sign)
+        }   else if Self.Element.bitWidth < Base.Element.bitWidth {
+            return Minor.element(index, base: base, sign: sign)
+        }   else {
+            return Equal.element(index, base: base, sign: sign)
         }
     }
 }
@@ -225,6 +217,14 @@ extension NBKChunkedInt {
     
     @inlinable public var indices: Range<Int> {
         0 as Int ..< self.count
+    }
+    
+    /// Returns the element at the given index.
+    ///
+    /// The elements are ordered from least significant to most, with infinite sign extension.
+    ///
+    @inlinable public subscript(index: Int) -> Element {
+        Self.element(index, base: self.base, sign: self.sign)
     }
     
     //=------------------------------------------------------------------------=
