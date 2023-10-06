@@ -27,57 +27,57 @@ final class NBKPredicateWrapperTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsZero() {
-        NBKAssert(Int.min, false, NBK.IsZero.self)
-        NBKAssert(Int(-2), false, NBK.IsZero.self)
-        NBKAssert(Int(-1), false, NBK.IsZero.self)
-        NBKAssert(Int( 0), true,  NBK.IsZero.self)
-        NBKAssert(Int( 1), false, NBK.IsZero.self)
-        NBKAssert(Int.max, false, NBK.IsZero.self)
+        NBKAssert(Int.min, false, NBK.Zero.self)
+        NBKAssert(Int(-2), false, NBK.Zero.self)
+        NBKAssert(Int(-1), false, NBK.Zero.self)
+        NBKAssert(Int( 0), true,  NBK.Zero.self)
+        NBKAssert(Int( 1), false, NBK.Zero.self)
+        NBKAssert(Int.max, false, NBK.Zero.self)
     }
     
     func testIsNonZero() {
-        NBKAssert(Int.min, true,  NBK.IsNonZero.self)
-        NBKAssert(Int(-2), true,  NBK.IsNonZero.self)
-        NBKAssert(Int(-1), true,  NBK.IsNonZero.self)
-        NBKAssert(Int( 0), false, NBK.IsNonZero.self)
-        NBKAssert(Int( 1), true,  NBK.IsNonZero.self)
-        NBKAssert(Int.max, true,  NBK.IsNonZero.self)
+        NBKAssert(Int.min, true,  NBK.NonZero.self)
+        NBKAssert(Int(-2), true,  NBK.NonZero.self)
+        NBKAssert(Int(-1), true,  NBK.NonZero.self)
+        NBKAssert(Int( 0), false, NBK.NonZero.self)
+        NBKAssert(Int( 1), true,  NBK.NonZero.self)
+        NBKAssert(Int.max, true,  NBK.NonZero.self)
     }
     
     func testIsZeroOrLess() {
-        NBKAssert(Int.min, true,  NBK.IsZeroOrLess.self)
-        NBKAssert(Int(-2), true,  NBK.IsZeroOrLess.self)
-        NBKAssert(Int(-1), true,  NBK.IsZeroOrLess.self)
-        NBKAssert(Int( 0), true,  NBK.IsZeroOrLess.self)
-        NBKAssert(Int( 1), false, NBK.IsZeroOrLess.self)
-        NBKAssert(Int.max, false, NBK.IsZeroOrLess.self)
+        NBKAssert(Int.min, true,  NBK.ZeroOrLess.self)
+        NBKAssert(Int(-2), true,  NBK.ZeroOrLess.self)
+        NBKAssert(Int(-1), true,  NBK.ZeroOrLess.self)
+        NBKAssert(Int( 0), true,  NBK.ZeroOrLess.self)
+        NBKAssert(Int( 1), false, NBK.ZeroOrLess.self)
+        NBKAssert(Int.max, false, NBK.ZeroOrLess.self)
     }
     
     func testIsZeroOrMore() {
-        NBKAssert(Int.min, false, NBK.IsZeroOrMore.self)
-        NBKAssert(Int(-2), false, NBK.IsZeroOrMore.self)
-        NBKAssert(Int(-1), false, NBK.IsZeroOrMore.self)
-        NBKAssert(Int( 0), true,  NBK.IsZeroOrMore.self)
-        NBKAssert(Int( 1), true,  NBK.IsZeroOrMore.self)
-        NBKAssert(Int.max, true,  NBK.IsZeroOrMore.self)
+        NBKAssert(Int.min, false, NBK.ZeroOrMore.self)
+        NBKAssert(Int(-2), false, NBK.ZeroOrMore.self)
+        NBKAssert(Int(-1), false, NBK.ZeroOrMore.self)
+        NBKAssert(Int( 0), true,  NBK.ZeroOrMore.self)
+        NBKAssert(Int( 1), true,  NBK.ZeroOrMore.self)
+        NBKAssert(Int.max, true,  NBK.ZeroOrMore.self)
     }
     
     func testIsLessThanZero() {
-        NBKAssert(Int.min, true,  NBK.IsLessThanZero.self)
-        NBKAssert(Int(-2), true,  NBK.IsLessThanZero.self)
-        NBKAssert(Int(-1), true,  NBK.IsLessThanZero.self)
-        NBKAssert(Int( 0), false, NBK.IsLessThanZero.self)
-        NBKAssert(Int( 1), false, NBK.IsLessThanZero.self)
-        NBKAssert(Int.max, false, NBK.IsLessThanZero.self)
+        NBKAssert(Int.min, true,  NBK.LessThanZero.self)
+        NBKAssert(Int(-2), true,  NBK.LessThanZero.self)
+        NBKAssert(Int(-1), true,  NBK.LessThanZero.self)
+        NBKAssert(Int( 0), false, NBK.LessThanZero.self)
+        NBKAssert(Int( 1), false, NBK.LessThanZero.self)
+        NBKAssert(Int.max, false, NBK.LessThanZero.self)
     }
     
     func testIsMoreThanZero() {
-        NBKAssert(Int.min, false, NBK.IsMoreThanZero.self)
-        NBKAssert(Int(-2), false, NBK.IsMoreThanZero.self)
-        NBKAssert(Int(-1), false, NBK.IsMoreThanZero.self)
-        NBKAssert(Int( 0), false, NBK.IsMoreThanZero.self)
-        NBKAssert(Int( 1), true,  NBK.IsMoreThanZero.self)
-        NBKAssert(Int.max, true,  NBK.IsMoreThanZero.self)
+        NBKAssert(Int.min, false, NBK.MoreThanZero.self)
+        NBKAssert(Int(-2), false, NBK.MoreThanZero.self)
+        NBKAssert(Int(-1), false, NBK.MoreThanZero.self)
+        NBKAssert(Int( 0), false, NBK.MoreThanZero.self)
+        NBKAssert(Int( 1), true,  NBK.MoreThanZero.self)
+        NBKAssert(Int.max, true,  NBK.MoreThanZero.self)
     }
     
     //=------------------------------------------------------------------------=
@@ -85,40 +85,40 @@ final class NBKPredicateWrapperTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsPowerOf2() {
-        NBKAssert(Int.min, false, NBK.IsPowerOf2.self)
-        NBKAssert(Int(-2), false, NBK.IsPowerOf2.self)
-        NBKAssert(Int(-1), false, NBK.IsPowerOf2.self)
-        NBKAssert(Int( 0), false, NBK.IsPowerOf2.self)
-        NBKAssert(Int( 1), true,  NBK.IsPowerOf2.self)
-        NBKAssert(Int.max, false, NBK.IsPowerOf2.self)
+        NBKAssert(Int.min, false, NBK.PowerOf2.self)
+        NBKAssert(Int(-2), false, NBK.PowerOf2.self)
+        NBKAssert(Int(-1), false, NBK.PowerOf2.self)
+        NBKAssert(Int( 0), false, NBK.PowerOf2.self)
+        NBKAssert(Int( 1), true,  NBK.PowerOf2.self)
+        NBKAssert(Int.max, false, NBK.PowerOf2.self)
         
         for i in 0 ..< Int.bitWidth {
-            NBKAssert(Int(3) << i, false, NBK.IsPowerOf2.self)
-            NBKAssert(Int(1) << i, i + 2 <= Int.bitWidth, NBK.IsPowerOf2.self)
+            NBKAssert(Int(3) << i, false, NBK.PowerOf2.self)
+            NBKAssert(Int(1) << i, i + 2 <= Int.bitWidth, NBK.PowerOf2.self)
         }
         
         for i in 0 ..< Int.bitWidth - 1 {
-            NBKAssert(UInt(1) << i, true, NBK.IsPowerOf2.self)
-            NBKAssert(UInt(3) << i, i + 1 >= Int.bitWidth, NBK.IsPowerOf2.self)
+            NBKAssert(UInt(1) << i, true, NBK.PowerOf2.self)
+            NBKAssert(UInt(3) << i, i + 1 >= Int.bitWidth, NBK.PowerOf2.self)
         }
     }
     
     func testIsNonPowerOf2() {
-        NBKAssert(Int.min, true,  NBK.IsNonPowerOf2.self)
-        NBKAssert(Int(-2), true,  NBK.IsNonPowerOf2.self)
-        NBKAssert(Int(-1), true,  NBK.IsNonPowerOf2.self)
-        NBKAssert(Int( 0), true,  NBK.IsNonPowerOf2.self)
-        NBKAssert(Int( 1), false, NBK.IsNonPowerOf2.self)
-        NBKAssert(Int.max, true,  NBK.IsNonPowerOf2.self)
+        NBKAssert(Int.min, true,  NBK.NonPowerOf2.self)
+        NBKAssert(Int(-2), true,  NBK.NonPowerOf2.self)
+        NBKAssert(Int(-1), true,  NBK.NonPowerOf2.self)
+        NBKAssert(Int( 0), true,  NBK.NonPowerOf2.self)
+        NBKAssert(Int( 1), false, NBK.NonPowerOf2.self)
+        NBKAssert(Int.max, true,  NBK.NonPowerOf2.self)
         
         for i in 0 ..< Int.bitWidth {
-            NBKAssert(Int(3) << i, true, NBK.IsNonPowerOf2.self)
-            NBKAssert(Int(1) << i, i + 1 >= Int.bitWidth, NBK.IsNonPowerOf2.self)
+            NBKAssert(Int(3) << i, true, NBK.NonPowerOf2.self)
+            NBKAssert(Int(1) << i, i + 1 >= Int.bitWidth, NBK.NonPowerOf2.self)
         }
         
         for i in 0 ..< Int.bitWidth - 1 {
-            NBKAssert(UInt(1) << i, false, NBK.IsNonPowerOf2.self)
-            NBKAssert(UInt(3) << i, i + 2  <= Int.bitWidth, NBK.IsNonPowerOf2.self)
+            NBKAssert(UInt(1) << i, false, NBK.NonPowerOf2.self)
+            NBKAssert(UInt(3) << i, i + 2  <= Int.bitWidth, NBK.NonPowerOf2.self)
         }
     }
 }
@@ -128,7 +128,7 @@ final class NBKPredicateWrapperTests: XCTestCase {
 //*============================================================================*
 
 private func NBKAssert<Predicate: _NBKPredicate>(
-_ value: Predicate.Value, _ success: Bool, _ predicate: Predicate.Type,
+_ value: Predicate.Value, _ success: Bool, _ predicate: _NBKPredicateWrapper<Predicate>.Type,
 file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable {
     //=------------------------------------------=
     typealias T = _NBKPredicateWrapper<Predicate>

@@ -21,9 +21,9 @@ extension NBK {
     
     public typealias ZeroOrMore<Value> = _NBKPredicateWrapper<IsZeroOrMore<Value>> where Value: Numeric & Comparable
     
-    public typealias LessThanZero<Value> = _NBKPredicateWrapper<IsZeroOrLess<Value>> where Value: Numeric & Comparable
+    public typealias LessThanZero<Value> = _NBKPredicateWrapper<IsLessThanZero<Value>> where Value: Numeric & Comparable
     
-    public typealias MoreThanZero<Value> = _NBKPredicateWrapper<IsZeroOrMore<Value>> where Value: Numeric & Comparable
+    public typealias MoreThanZero<Value> = _NBKPredicateWrapper<IsMoreThanZero<Value>> where Value: Numeric & Comparable
 }
 
 //*============================================================================*
