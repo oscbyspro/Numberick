@@ -84,6 +84,10 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
     //=------------------------------------------=
+    if  let rhs = NBK.NonZero(exactly: rhs) {
+        NBKAssertDivisionByDigitInRangeWithNonZeroDivisor(lhs, rhs, range, quotient, remainder, overflow, file: file, line: line)
+    }
+    //=------------------------------------------=
     brrrrrrrrrrr: do {
         let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs, in: range)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
@@ -138,6 +142,61 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
+    }
+}
+
+private func NBKAssertDivisionByDigitInRangeWithNonZeroDivisor(
+_ lhs: [UInt], _ rhs: NBK.NonZero<UInt>, _ range: Range<Int>, _ quotient: [UInt], _ remainder: UInt, _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
+    //=------------------------------------------=
+    brrrrrrrrrrr: do {
+        let rem = T.remainder(lhs, dividingBy: rhs, in: range)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    brrrrrrrrrrr: do {
+        var lhs = lhs
+        let rem = T.formQuotientWithRemainder(&lhs, dividingBy: rhs, in: range)
+        XCTAssertEqual(lhs, quotient,  file: file, line: line)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex {
+        let rem = T.remainder(lhs, dividingBy: rhs, in: ..<range.upperBound)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex {
+        var lhs = lhs
+        let rem = T.formQuotientWithRemainder(&lhs, dividingBy: rhs, in: ..<range.upperBound)
+        XCTAssertEqual(lhs, quotient,  file: file, line: line)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        let rem = T.remainder(lhs, dividingBy: rhs, in: range.lowerBound...)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.upperBound == lhs.endIndex {
+        var lhs = lhs
+        let rem = T.formQuotientWithRemainder(&lhs, dividingBy: rhs, in: range.lowerBound...)
+        XCTAssertEqual(lhs, quotient,  file: file, line: line)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
+        let rem = T.remainder(lhs, dividingBy: rhs)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
+    }
+    
+    if  range.lowerBound == lhs.startIndex, range.upperBound == lhs.endIndex {
+        var lhs = lhs
+        let rem = T.formQuotientWithRemainder(&lhs, dividingBy: rhs)
+        XCTAssertEqual(lhs, quotient,  file: file, line: line)
+        XCTAssertEqual(rem, remainder, file: file, line: line)
     }
 }
 

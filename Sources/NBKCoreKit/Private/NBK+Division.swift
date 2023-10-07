@@ -8,87 +8,97 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Division x Int or UInt
+// MARK: * NBK x Division
 //*============================================================================*
 
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Int
+    // MARK: Transformation x where Divisor is Power of 2
     //=------------------------------------------------------------------------=
     
-    /// Returns the `quotient` of dividing this value by its bit width.
+    /// Returns the `quotient` of dividing this the `dividend` by the `divisor`.
     ///
-    /// - Parameter value: `0 <= value <= max`
+    /// ### Development
     ///
-    @inlinable public static func quotientDividingByBitWidthAssumingIsAtLeastZero(_ value: Int) -> Int {
-        assert(value >= 0, NBK.callsiteOutOfBoundsInfo())
-        return Int(bitPattern: NBK.quotientDividingByBitWidth(UInt(bitPattern: value)))
+    /// Must use `init(bitPattern)` for performance reasons (see Int256 division).
+    ///
+    @inlinable public static func quotient<T: NBKCoreInteger>(
+    of  dividend: ZeroOrMore<T>, dividingBy divisor: PowerOf2<T>) -> T where T.Magnitude == UInt {
+        dividend.value &>> T(bitPattern: divisor.value.trailingZeroBitCount)
     }
     
-    /// Returns the `remainder` of dividing this value by its bit width.
-    ///
-    /// - Parameter value: `0 <= value <= max`
-    ///
-    @inlinable public static func remainderDividingByBitWidthAssumingIsAtLeastZero(_ value: Int) -> Int {
-        assert(value >= 0, NBK.callsiteOutOfBoundsInfo())
-        return Int(bitPattern: NBK.remainderDividingByBitWidth(UInt(bitPattern: value)))
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformation x UInt
-    //=------------------------------------------------------------------------=
-    
-    /// Returns the `quotient` of dividing this value by its bit width.
-    ///
-    /// - Parameter value: `0 <= value <= max`
-    ///
-    @inlinable public static func quotientDividingByBitWidth(_ value: UInt) -> UInt {
-        value &>> UInt(bitPattern: UInt.bitWidth.trailingZeroBitCount)
-    }
-    
-    /// Returns the `remainder` of dividing this value by its bit width.
-    ///
-    /// - Parameter value: `0 <= value <= max`
-    ///
-    @inlinable public static func remainderDividingByBitWidth(_ value: UInt) -> UInt {
-        value & UInt(bitPattern: UInt.bitWidth &- 1)
+    /// Returns the `remainder` of dividing this the `dividend` by the `divisor`.
+    @inlinable public static func remainder<T: NBKCoreInteger>(
+    of  dividend: ZeroOrMore<T>, dividingBy divisor: PowerOf2<T>) -> T {
+        dividend.value & (divisor.value &- 1 as T)
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Division x Binary Integer
+// MARK: * NBK x Division x Least Positive Residue x Binary Integer By Word
 //*============================================================================*
 
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
+
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
+    ///
+    /// - Note: In the case of `overflow`, the result is the truncated `dividend`.
+    ///
+    @inlinable public static func leastPositiveResidueReportingOverflow<T: BinaryInteger, U: NBKCoreInteger>(
+    of  dividend: T, dividingBy divisor: U) -> PVO<U> where U.Magnitude == UInt {
+        NBK.bitCast(self.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: divisor.magnitude))
+    }
     
     /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
     ///
     /// - Note: In the case of `overflow`, the result is the truncated `dividend`.
     ///
-    @inlinable public static func leastPositiveResidueReportingOverflow<T>(
-    of dividend: T, dividingBy divisor: UInt) -> PVO<UInt> where T: BinaryInteger {
-        typealias SUI = StrictUnsignedInteger<T.Magnitude.Words>
+    @inlinable public static func leastPositiveResidueReportingOverflow<T: BinaryInteger>(
+    of  dividend: T, dividingBy divisor: UInt) -> PVO<UInt> {
         //=--------------------------------------=
-        if  divisor.isPowerOf2 {
-            return PVO(partialValue: dividend._lowWord & (divisor &- 1), overflow: false)
+        if  divisor.isZero {
+            return PVO(dividend._lowWord, true)
         }
         //=--------------------------------------=
-        let (minus) = T.isSigned && dividend < T.zero
-        let (remainder, overflow) = SUI.SubSequence.remainderReportingOverflow(dividend.magnitude.words, dividingBy: divisor)
-        return PVO(partialValue: minus && !remainder.isZero ? (divisor &- remainder) : remainder, overflow: overflow)
+        return PVO(self.leastPositiveResidue(of: dividend, dividingBy: NonZero(unchecked: divisor)), false)
     }
     
-    /// Returns the least positive `residue` of dividing the `dividend` by `source.bitWidth`.
-    ///
-    /// - Note: Numberick integers have positive, nonzero, bit widths.
-    ///
-    @inlinable public static func leastPositiveResidue<T: NBKFixedWidthInteger>(
-    of dividend: some BinaryInteger, dividingByBitWidthOf source: T.Type) -> Int {
-        Int(bitPattern: NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: UInt(bitPattern: T.bitWidth)).partialValue)
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x where Divisor is Non Zero
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
+    @inlinable public static func leastPositiveResidue<T: BinaryInteger, U: NBKCoreInteger>(
+    of  dividend: T,  dividingBy divisor: NonZero<U>) -> U where U.Magnitude == UInt {
+        U(bitPattern: NBK.leastPositiveResidue(of: dividend, dividingBy: NBK.NonZero(unchecked: divisor.value.magnitude)))
+    }
+    
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
+    @inlinable public static func leastPositiveResidue<T: BinaryInteger>(
+    of  dividend: T, dividingBy divisor: NonZero<UInt>) -> UInt {
+        typealias SUI = StrictUnsignedInteger<T.Magnitude.Words>
+        //=--------------------------------------=
+        if  let divisor = PowerOf2(exactly: divisor.value) {
+            return self.leastPositiveResidue(of: dividend, dividingBy: divisor)
+        }
+        //=--------------------------------------=
+        let minus = T.isSigned && dividend < T.zero
+        let remainder = SUI.SubSequence.remainder(dividend.magnitude.words, dividingBy: divisor)
+        return minus && !remainder.isZero ? divisor.value &- remainder : remainder
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x where Divisor is Power of 2
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the least positive `residue` of dividing the `dividend` by the `divisor`.
+    @inlinable public static func leastPositiveResidue<T: BinaryInteger, U: NBKCoreInteger>(
+    of  dividend: T, dividingBy divisor: PowerOf2<U>) -> U where U.Magnitude == UInt {
+        U(bitPattern: dividend._lowWord & UInt(bitPattern: divisor.value &- 1 as U))
     }
 }
