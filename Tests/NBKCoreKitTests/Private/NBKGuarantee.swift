@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Precondition
+// MARK: * NBK x Guarantee
 //*============================================================================*
 
-final class NBKPreconditionTests: XCTestCase {
+final class NBKGuaranteeTests: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Is Zero
@@ -124,17 +124,17 @@ final class NBKPreconditionTests: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Precondition x Assertions
+// MARK: * NBK x Guarantee x Assertions
 //*============================================================================*
 
-private func NBKAssert<Predicate: _NBKPrecondition_Predicate>(
-_ value: Predicate.Value, _ success: Bool, _ predicate: _NBKPrecondition<Predicate>.Type,
+private func NBKAssert<Predicate: _NBKPredicate>(
+_ value: Predicate.Value, _ success: Bool, _ predicate: _NBKGuarantee<Predicate>.Type,
 file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable {
     //=------------------------------------------=
-    typealias T = _NBKPrecondition<Predicate>
-    typealias N = _NBKPrecondition<NBK.IsNot<Predicate>>
+    typealias T = _NBKGuarantee<Predicate>
+    typealias N = _NBKGuarantee<NBK.IsNot<Predicate>>
     //=------------------------------------------=
-    func wrapping<X>(@_NBKPrecondition<X> _ wrapped: X.Value, precondition type: _NBKPrecondition<X>.Type) where X.Value == Predicate.Value {
+    func wrapping<X>(@_NBKGuarantee<X> _ wrapped: X.Value, precondition type: _NBKGuarantee<X>.Type) where X.Value == Predicate.Value {
         XCTAssertEqual(wrapped, value, file:  file,  line: line)
         XCTAssertEqual($wrapped.value, value, file:  file, line: line)
         XCTAssertEqual($wrapped.wrappedValue, value, file: file, line: line)

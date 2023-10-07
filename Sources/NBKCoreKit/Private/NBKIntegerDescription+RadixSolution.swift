@@ -41,6 +41,7 @@ extension NBK.IntegerDescription {
         
         @inlinable public init?(_ solution: AnyRadixSolution<Element>) {
             guard  solution.power.isZero else { return nil }
+            Swift.assert(solution.exponent.isPowerOf2)
             Swift.assert([2, 4, 16].contains(solution.base))
             self.solution = solution
         }
