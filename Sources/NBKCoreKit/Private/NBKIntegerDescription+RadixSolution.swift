@@ -58,10 +58,6 @@ extension NBK.IntegerDescription {
             self.solution.exponent
         }
         
-        @inlinable public var power: Element {
-            self.solution.power
-        }
-        
         //=--------------------------------------------------------------------=
         // MARK: Utilities
         //=--------------------------------------------------------------------=

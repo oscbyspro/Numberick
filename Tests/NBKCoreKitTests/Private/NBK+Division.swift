@@ -27,7 +27,7 @@ final class NBKTestsOnDivision: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingAtLeastZeroByPowerOf2() {
-        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger<UInt> {
             NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(0), T(0))
             NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(0), T(1))
             NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(0), T(2))
@@ -54,9 +54,8 @@ final class NBKTestsOnDivision: XCTestCase {
             NBKAssertDividingAtLeastZeroByPowerOf2(T.max, T(T.bitWidth/8),  T.max / T(T.bitWidth/8), T.max % T(T.bitWidth/8))
         }
         
-        for type: any NBKCoreInteger.Type in [Int32.self, Int64.self, UInt32.self, UInt64.self] {
-            whereIs(type)
-        }
+        whereIs( Int.self)
+        whereIs(UInt.self)
     }
     
     //=------------------------------------------------------------------------=
@@ -208,7 +207,7 @@ final class NBKTestsOnDivision: XCTestCase {
 
 private func NBKAssertDividingAtLeastZeroByPowerOf2<T: NBKCoreInteger>(
 _ dividend: T, _ divisor: T, _ quotient: T, _ remainder: T,
-file: StaticString = #file, line: UInt = #line) {
+file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     let dividend = NBK.ZeroOrMore(dividend), divisor = NBK.PowerOf2(divisor)
     //=------------------------------------------=

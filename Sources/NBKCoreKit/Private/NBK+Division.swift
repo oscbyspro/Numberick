@@ -14,13 +14,18 @@
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformation where Divisor is Power of 2
+    // MARK: Transformation x where Divisor is Power of 2
     //=------------------------------------------------------------------------=
     
     /// Returns the `quotient` of dividing this the `dividend` by the `divisor`.
+    ///
+    /// ### Development
+    ///
+    /// Must use `init(bitPattern)` for performance reasons (see Int256 division).
+    ///
     @inlinable public static func quotient<T: NBKCoreInteger>(
-    of  dividend: ZeroOrMore<T>, dividingBy divisor: PowerOf2<T>) -> T {
-        dividend.value &>> divisor.value.trailingZeroBitCount
+    of  dividend: ZeroOrMore<T>, dividingBy divisor: PowerOf2<T>) -> T where T.Magnitude == UInt {
+        dividend.value &>> T(bitPattern: divisor.value.trailingZeroBitCount)
     }
     
     /// Returns the `remainder` of dividing this the `dividend` by the `divisor`.
@@ -31,7 +36,7 @@ extension NBK {
 }
 
 //*============================================================================*
-// MARK: * NBK x Division x Least Positive Residue x Int or UInt
+// MARK: * NBK x Division x Least Positive Residue x Binary Integer By Word
 //*============================================================================*
 
 extension NBK {
