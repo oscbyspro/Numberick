@@ -61,11 +61,11 @@ extension NBK {
     @inlinable public static func leastPositiveResidueReportingOverflow<T: BinaryInteger>(
     of  dividend: T, dividingBy divisor: UInt) -> PVO<UInt> {
         //=--------------------------------------=
-        if  divisor.isZero {
+        guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(dividend._lowWord, true)
         }
         //=--------------------------------------=
-        return PVO(self.leastPositiveResidue(of: dividend, dividingBy: NonZero(unchecked: divisor)), false)
+        return PVO(self.leastPositiveResidue(of: dividend, dividingBy: divisor), false)
     }
     
     //=------------------------------------------------------------------------=

@@ -52,11 +52,11 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     @inlinable public static func remainderReportingOverflow(
     _   base: Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
-        if  divisor.isZero {
+        guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(range.isEmpty ? 0 as Base.Element : base[range.lowerBound], true)
         }
         //=--------------------------------------=
-        return PVO(self.remainder(base, dividingBy: NBK.NonZero(unchecked: divisor), in: range), false)
+        return PVO(self.remainder(base, dividingBy: divisor, in: range), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -133,11 +133,11 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
     _   base: inout Base, dividingBy divisor: Base.Element, in range: Range<Base.Index>) -> PVO<Base.Element> {
         //=--------------------------------------=
-        if  divisor.isZero {
+        guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(range.isEmpty ? 0 as Base.Element : base[range.lowerBound], true)
         }
         //=--------------------------------------=
-        return PVO(self.formQuotientWithRemainder(&base, dividingBy: NBK.NonZero(unchecked: divisor), in: range), false)
+        return PVO(self.formQuotientWithRemainder(&base, dividingBy: divisor, in: range), false)
     }
     
     //=------------------------------------------------------------------------=
