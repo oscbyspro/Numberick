@@ -163,3 +163,18 @@ extension NBK {
         }
     }
 }
+
+//*============================================================================*
+// MARK: * NBK x Guarantee x Miscellaneous
+//*============================================================================*
+
+extension NBK.PowerOf2 {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public init<T>(bitWidth: T.Type) where T: NBKCoreInteger, Value: NBKCoreInteger<UInt>  {
+        self.init(unchecked: Value(bitPattern: T.bitWidth))
+    }
+}

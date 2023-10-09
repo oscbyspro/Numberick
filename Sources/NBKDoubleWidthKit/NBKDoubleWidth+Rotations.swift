@@ -34,8 +34,8 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitrotatedLeft(@NBK.ZeroOrMore by distance: Int) -> Self {
-        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitrotatedLeft(major: major, minor: minor)
     }
     
@@ -148,8 +148,8 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public func bitrotatedRight(@NBK.ZeroOrMore by distance: Int) -> Self {
-        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let major = NBK .quotient(of: $distance, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(of: $distance, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitrotatedRight(major: major, minor: minor)
     }
     

@@ -164,8 +164,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = NBK .quotient(of: shift, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: shift, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let major = NBK .quotient(of: shift, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(of: shift, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
         
         let top = shift.value.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift.value)
         let lhs = lhs.bitshiftedLeft(major: major, minor: minor) as Self
@@ -228,8 +228,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        let major = NBK .quotient(of: shift, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
-        let minor = NBK.remainder(of: shift, dividingBy: NBK.PowerOf2(unchecked: UInt.bitWidth))
+        let major = NBK .quotient(of: shift, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(of: shift, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
         
         let lhs = lhs.bitshiftedLeft(major: major, minor: minor) as NBKDoubleWidth<Self>
         let rhs = rhs.bitshiftedLeft(major: major, minor: minor) as Self
