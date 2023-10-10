@@ -1420,7 +1420,7 @@ private func NBKAssertEncodeText<H: NBKFixedWidthInteger>(
 _ integer: NBKDoubleWidth<H>, _ radix: Int, _ uppercase: Bool, _ text: String,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    if  radix == 10, uppercase == false {
+    if  radix == 10 {
         XCTAssertEqual(String.init(integer), text, file: file, line: line)
         XCTAssertEqual(integer.description,  text, file: file, line: line)
     }

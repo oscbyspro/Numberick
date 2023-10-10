@@ -45,6 +45,13 @@ final class NBKDoubleWidthTestsOnStridesAsInt256: XCTestCase {
         XCTAssertEqual(T(  ).distance(to:  T(  ).advanced(by:  Int.min)),  Int.min)
         XCTAssertEqual(T.max.distance(to:  T.max.advanced(by:  Int.min)),  Int.min)
     }
+    
+    func testDistanceToExpectingCrashBecauseStrideCannotRepresentDistance() {
+        //XCTAssertNotNil(T.min.distance(to:  T.min.advanced(by:  Int.max).advanced(by:  1)))
+        //XCTAssertNotNil(T(  ).distance(to:  T(  ).advanced(by:  Int.max).advanced(by:  1)))
+        //XCTAssertNotNil(T(  ).distance(to:  T(  ).advanced(by:  Int.min).advanced(by: -1)))
+        //XCTAssertNotNil(T.max.distance(to:  T.max.advanced(by:  Int.min).advanced(by: -1)))
+    }
 }
 
 //*============================================================================*
@@ -69,6 +76,11 @@ final class NBKDoubleWidthTestsOnStridesAsUInt256: XCTestCase {
         XCTAssertEqual(T(  ).distance(to:  T(  ).advanced(by:  Int.max)),  Int.max)
         XCTAssertEqual(T.max.distance(to:  T.max.advanced(by: -Int.max)), -Int.max)
         XCTAssertEqual(T.max.distance(to:  T.max.advanced(by:  Int.min)),  Int.min)
+    }
+    
+    func testDistanceToExpectingCrashBecauseStrideCannotRepresentDistance() {
+        //XCTAssertNotNil(T(  ).distance(to:  T(  ).advanced(by:  Int.max).advanced(by:  1)))
+        //XCTAssertNotNil(T.max.distance(to:  T.max.advanced(by:  Int.min).advanced(by: -1)))
     }
 }
 

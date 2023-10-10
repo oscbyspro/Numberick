@@ -142,8 +142,8 @@ extension NBK.IntegerDescription {
             self.solution.exponent
         }
         
-        @inlinable public var power: Element {
-            self.solution.power
+        @inlinable public var power: NBK.NonZero<Element> {
+            NBK.NonZero(unchecked: self.solution.power)
         }
         
         //=--------------------------------------------------------------------=

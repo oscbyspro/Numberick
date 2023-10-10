@@ -271,7 +271,7 @@ extension NBK.IntegerDescription {
             forwards: while wordsIndex < count {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: Int(bitPattern: solution.exponent)))
                 guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return nil }
-                let carry = NBK.SUISS.multiplyFullWidth(&words, by: solution.power, add: element, in: ..<wordsIndex)
+                let carry = NBK.SUISS.multiplyFullWidth(&words, by: solution.power.value, add: element, in: ..<wordsIndex)
                 words.baseAddress!.advanced(by: wordsIndex).initialize(to: carry)
                 words.formIndex(after: &wordsIndex)
             }

@@ -156,9 +156,8 @@ extension NBK.IntegerDescription {
             // pointee: initialization
             //=----------------------------------=
             rebasing: repeat {
-                let chunk = NBK.SUISS.formQuotientWithRemainder(&magnitude,
-                dividingBy: NBK.NonZero(unchecked: solution.power),
-                in: Range(uncheckedBounds: (magnitude.startIndex, magnitudeEndIndex)))
+                let chunk = NBK.SUISS.formQuotientWithRemainder(
+                &magnitude, dividingBy: solution.power,in: PartialRangeUpTo(magnitudeEndIndex))
                 magnitudeEndIndex = NBK.dropLast(from: magnitude, while:{ $0.isZero }).endIndex
                 chunks.baseAddress!.advanced(by: chunksIndex).initialize(to: chunk)
                 chunks.formIndex(after: &chunksIndex)
