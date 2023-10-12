@@ -134,7 +134,12 @@ _ value: Predicate.Value, _ success: Bool, _ predicate: _NBKGuarantee<Predicate>
 file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable {
     //=------------------------------------------=
     typealias T = _NBKGuarantee<Predicate>
+    typealias I = _NBKGuarantee<Predicate>.Inverse
     typealias N = _NBKGuarantee<NBK.IsNot<Predicate>>
+    //=------------------------------------------=
+    NBKAssertSwitch(value,  success, T.self, file: file, line: line)
+    NBKAssertSwitch(value, !success, I.self, file: file, line: line)
+    NBKAssertSwitch(value, !success, N.self, file: file, line: line)
     //=------------------------------------------=
     func wrapping<X>(@_NBKGuarantee<X> _ wrapped: X.Value, precondition: _NBKGuarantee<X>.Type) where X.Value == Predicate.Value {
         XCTAssertEqual(wrapped, value, file:  file,  line: line)
@@ -156,6 +161,27 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
         XCTAssertEqual(N(/*------*/ value).value,  value, file: file, line: line)
         XCTAssertEqual(N(unchecked: value).value,  value, file: file, line: line)
     }
+}
+
+private func NBKAssertSwitch<Predicate: _NBKPredicate>(
+_ value: Predicate.Value, _ success: Bool, _ precondition: _NBKGuarantee<Predicate>.Type,
+file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable {
+    
+    var counter: Int = 0
+    let result: String = precondition.switch(value) {
+        counter += 1
+        XCTAssertEqual($0.value, value, file: file, line: line)
+        XCTAssertTrue (Predicate.validate((value)), file: file, line: line)
+        return "success"
+    }   false: {
+        counter += 1
+        XCTAssertEqual($0.value, value, file: file, line: line)
+        XCTAssertFalse(Predicate.validate((value)), file: file, line: line)
+        return "failure"
+    }
+    
+    XCTAssertEqual(Int(1), counter, file: file, line: line)
+    XCTAssertEqual(result, success ? "success" : "failure", file: file, line: line)
 }
 
 #endif

@@ -20,6 +20,9 @@
     /// The value of this type.
     public typealias Value = Predicate.Value
     
+    /// The inverse of this type.
+    public typealias Inverse = _NBKGuarantee<Predicate.Inverse>
+    
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
@@ -118,6 +121,9 @@ public protocol _NBKPredicate<Value> {
     /// The type this predicate can validate.
     associatedtype Value
     
+    /// A predicate that returns the opposite result of this type.
+    associatedtype Inverse: _NBKPredicate<Value> = NBK.IsNot<Self>
+    
     /// Returns whether the given `value` satisfies this predicate.
     @inlinable static func validate(_ value: Value) -> Bool
 }
@@ -130,6 +136,9 @@ extension NBK {
     
     /// A predicate that returns the inverse result of another predicate.
     @frozen public enum IsNot<Predicate: _NBKPredicate>: _NBKPredicate {
+                
+        public typealias Inverse = Predicate
+        
         @inlinable static public func validate(_ value: Predicate.Value) -> Bool {
             !Predicate.validate(value)
         }
@@ -167,6 +176,27 @@ extension NBK {
 //*============================================================================*
 // MARK: * NBK x Guarantee x Miscellaneous
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Switch
+//=----------------------------------------------------------------------------=
+
+extension _NBKGuarantee {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Performs an action on this type or its inverse.
+    @inlinable public static func `switch`<T>(_ value: Value, true: (Self) throws -> T, false: (Inverse) throws -> T) rethrows -> T {
+        switch Predicate.validate(value) {
+        case  true: return try `true` (Self   (unchecked: value))
+        case false: return try `false`(Inverse(unchecked: value)) }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Power of 2
+//=----------------------------------------------------------------------------=
 
 extension NBK.PowerOf2 {
     
