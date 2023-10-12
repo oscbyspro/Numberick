@@ -16,6 +16,8 @@ jobs:
             machine: macos-12
           - xcode: '14.3'
             machine: macos-13
+          - xcode: '15.0'
+            machine: macos-14
             
     runs-on: ${{ matrix.element.machine }}
     
