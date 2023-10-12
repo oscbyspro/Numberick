@@ -189,18 +189,18 @@ extension NBK.IntegerDescription {
         var magnitude: Magnitude?
         
         if  solution.power.isZero {
-            self.decode(digits: digits, solution:   PerfectRadixSolution(solution)!) { magnitude = Magnitude(words: $0) }
+            self.decode(digits: digits, solution:   PerfectRadixSolution(solution)!, success:{ magnitude = Magnitude(words: $0) })
         }   else {
-            self.decode(digits: digits, solution: ImperfectRadixSolution(solution)!) { magnitude = Magnitude(words: $0) }
+            self.decode(digits: digits, solution: ImperfectRadixSolution(solution)!, success:{ magnitude = Magnitude(words: $0) })
         }
         
         return magnitude as Magnitude?
     }
     
     @usableFromInline static func decode(
-    digits: NBK.UnsafeUTF8, solution: PerfectRadixSolution<UInt>, perform: (NBK.UnsafeWords) -> Void) -> Void? {
+    digits: NBK.UnsafeUTF8, solution: PerfectRadixSolution<UInt>, success: (NBK.UnsafeWords) -> Void) {
         //=--------------------------------------=
-        guard !digits.isEmpty else { return nil }
+        guard !digits.isEmpty else { return }
         //=--------------------------------------=
         var digits    = digits.drop(while:{ $0 == 48 })
         let quotient  = digits.count &>> solution.exponent.trailingZeroBitCount
@@ -221,28 +221,28 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             backwards: while wordsIndex < quotient {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: Int(bitPattern: solution.exponent)))
-                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return nil }
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return }
                 words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
                 words.formIndex(after: &wordsIndex)
             }
             
             backwards: if !remainder.isZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: remainder))
-                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return nil }
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern: solution.base)) else { return }
                 words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
                 words.formIndex(after: &wordsIndex)
             }
             
             Swift.assert(digits.isEmpty)
             Swift.assert(wordsIndex == (count))
-            perform(UnsafeBufferPointer(words))
+            success(UnsafeBufferPointer(words))
         }
     }
     
     @usableFromInline static func decode(
-    digits: NBK.UnsafeUTF8, solution: ImperfectRadixSolution<UInt>, perform: (NBK.UnsafeWords) -> Void) -> Void? {
+    digits: NBK.UnsafeUTF8, solution: ImperfectRadixSolution<UInt>, success: (NBK.UnsafeWords) -> Void) {
         //=--------------------------------------=
-        guard !digits.isEmpty else { return nil }
+        guard !digits.isEmpty else { return }
         //=--------------------------------------=
         var digits   = digits.drop(while:{ $0 == 48 })
         let division = digits.count.quotientAndRemainder(dividingBy: Int(bitPattern: solution.exponent))
@@ -263,14 +263,14 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             forwards: if division.remainder.isMoreThanZero {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: division.remainder))
-                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return nil }
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return }
                 words.baseAddress!.advanced(by: wordsIndex).initialize(to: element)
                 words.formIndex(after: &wordsIndex)
             }
             
             forwards: while wordsIndex < count {
                 let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: Int(bitPattern: solution.exponent)))
-                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return nil }
+                guard let element: UInt = self.truncating(digits: chunk, radix: Int(bitPattern:  solution.base)) else { return }
                 let carry = NBK.SUISS.multiplyFullWidth(&words, by: solution.power.value, add: element, in: ..<wordsIndex)
                 words.baseAddress!.advanced(by: wordsIndex).initialize(to: carry)
                 words.formIndex(after: &wordsIndex)
@@ -278,7 +278,7 @@ extension NBK.IntegerDescription {
             
             Swift.assert(digits.isEmpty)
             Swift.assert(wordsIndex == (count))
-            perform(UnsafeBufferPointer(words))
+            success(UnsafeBufferPointer(words))
         }
     }
 }

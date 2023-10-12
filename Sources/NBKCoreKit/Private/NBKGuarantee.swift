@@ -121,7 +121,7 @@ public protocol _NBKPredicate<Value> {
     /// The type this predicate can validate.
     associatedtype Value
     
-    /// A predicate that returns the opposite result of this type.
+    /// A predicate with the opposite assertion of this type.
     associatedtype Inverse: _NBKPredicate<Value> = NBK.IsNot<Self>
     
     /// Returns whether the given `value` satisfies this predicate.
