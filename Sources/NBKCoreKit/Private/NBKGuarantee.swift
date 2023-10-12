@@ -174,6 +174,10 @@ extension NBK.PowerOf2 {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
+    /// Wraps the fixed bit width of the given integer type.
+    ///
+    /// - Note: All core integer bit widths are powers of 2.
+    ///
     @inlinable public init<T>(bitWidth: T.Type) where T: NBKCoreInteger, Value: NBKCoreInteger<UInt>  {
         self.init(unchecked: Value(bitPattern: T.bitWidth))
     }

@@ -63,14 +63,14 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
     }
     
     func testDecodingRadix03() {
-        NBKAssertDecodingText(T.min, 03,        "-21221122120" +
-        "12222212211110210202220000022211002111211122012220" +
-        "12122202101121021220012201000100012101202122101020" +
-        "20010111121211022111102111220220201211121011101022" )
-        NBKAssertDecodingText(T.max, 03,         "21221122120" +
-        "12222212211110210202220000022211002111211122012220" +
-        "12122202101121021220012201000100012101202122101020" +
-        "20010111121211022111102111220220201211121011101021" )
+        NBKAssertDecodingText(T.min, 03,       
+        /*--------------------------*/"-212211221201222221221111021020222" +
+        "0000022211002111211122012220121222021011210212200122010001000121" +
+        "0120212210102020010111121211022111102111220220201211121011101022" )
+        NBKAssertDecodingText(T.max, 03,         
+        /*---------------------------*/"212211221201222221221111021020222" +
+        "0000022211002111211122012220121222021011210212200122010001000121" +
+        "0120212210102020010111121211022111102111220220201211121011101021" )
     }
     
     func testDecodingRadix04() {
@@ -162,10 +162,10 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
     func testDecodingInvalidCharactersReturnsNil() {
         NBKAssertDecodingText(T?.none, 16, "/")
         NBKAssertDecodingText(T?.none, 16, "G")
-
+        
         NBKAssertDecodingText(T?.none, 10, "/")
         NBKAssertDecodingText(T?.none, 10, ":")
-
+        
         NBKAssertDecodingText(T?.none, 10, String(repeating: "1", count: 19) + "/")
         NBKAssertDecodingText(T?.none, 10, String(repeating: "1", count: 19) + ":")
     }
@@ -261,7 +261,7 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
             var power = T(radix)
             let top: Character = alphabet[radix - 1]
             
-            for exponent in 1 ..< Int.max {
+            for exponent in 1 ... Int.max {
                 NBKAssertEncodingText(power - 1, radix, false,       String(repeating: top, count: exponent))
                 NBKAssertEncodingText(power,     radix, false, "1" + String(repeating: "0", count: exponent))
                 NBKAssertEncodingText(power + 1, radix, false, "1" + String(repeating: "0", count: exponent - 1) + "1")
@@ -497,7 +497,7 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
             var power = T(radix)
             let top: Character = alphabet[radix - 1]
             
-            for exponent in 1 ..< Int.max {
+            for exponent in 1 ... Int.max {
                 NBKAssertEncodingText(power - 1, radix, false,       String(repeating: top, count: exponent))
                 NBKAssertEncodingText(power,     radix, false, "1" + String(repeating: "0", count: exponent))
                 NBKAssertEncodingText(power + 1, radix, false, "1" + String(repeating: "0", count: exponent - 1) + "1")
@@ -520,9 +520,9 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    var radix: Int = 10
-    var x64 = (UInt64(), UInt64(), UInt64(), UInt64())
-    var txt = (String())
+    var radix = 10 as Int
+    var x64   = (UInt64(), UInt64(), UInt64(), UInt64())
+    var ascii = (String())
     
     //=------------------------------------------------------------------------=
     // MARK: Set Up, Tear Down
@@ -534,17 +534,17 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.1 = UInt64()
         self.x64.2 = UInt64()
         self.x64.3 = UInt64()
-        self.txt   = String()
+        self.ascii = String()
     }
     
     override func tearDown() {
         let decoded = T(x64: self.x64)
-        var encoded = String(self.txt.drop{  $0 == "0"  })
+        var encoded = String(self.ascii.drop{  $0 == "0"  })
         if  encoded.isEmpty {
-            encoded.append(contentsOf: self.txt.suffix(1))
+            encoded.append(contentsOf: self.ascii.suffix(1))
         }
         
-        NBKAssertDecodingText(decoded, self.radix,            txt)
+        NBKAssertDecodingText(decoded, self.radix,          ascii)
         NBKAssertDecodingText(decoded, self.radix,        encoded)
         NBKAssertEncodingText(decoded, self.radix, true,  encoded.uppercased())
         NBKAssertEncodingText(decoded, self.radix, false, encoded.lowercased())
@@ -560,7 +560,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         1111111111111110111111011111110011111011111110101111100111111000\
         1111011111110110111101011111010011110011111100101111000111110000\
         1110111111101110111011011110110011101011111010101110100111101000\
@@ -574,7 +574,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0001111100011110000111010001110000011011000110100001100100011000\
         0001011100010110000101010001010000010011000100100001000100010000\
         0000111100001110000011010000110000001011000010100000100100001000\
@@ -590,7 +590,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000001202200212221120001222202211110211\
         2122212010220102122202121101120111112200201101101222110200202110\
         0220201022101000210101202220120002101202101120201012012212012002
@@ -603,7 +603,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000012210112211101210122010202201212\
         2200112221212101221211222010022020100210220200100011100100222021\
         2000121220012212111000111110212212201000011111112211120210102101
@@ -618,7 +618,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         3333333233313330332333223321332033133312331133103303330233013300\
         3233323232313230322332223221322032133212321132103203320232013200
         """
@@ -630,7 +630,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0133013201310130012301220121012001130112011101100103010201010100\
         0033003200310030002300220021002000130012001100100003000200010000
         """
@@ -644,7 +644,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000012224200130200441041444042343242340402322434230\
         2203100014323101131021202442142123441124102101232423332422334024
         """
@@ -656,7 +656,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000424043311031102404011202312202132022104340041\
         4431003121344314114341012313341313423214420311244321214230031301
         """
@@ -670,7 +670,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000102141010531040333210533123011525130\
         3433311132532415235332533224344010103324220312020213104050423132
         """
@@ -682,7 +682,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000004353050531332542114015530141512113\
         1210015440102001011522210020211244125255022541512055450000200144
         """
@@ -696,7 +696,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000001305333621612661215031353503\
         1603616341660421351201115002605631306624232666655230226263060363
         """
@@ -708,7 +708,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000114142063044505436351120634\
         3333263503132100565010106005630324255134635601621240633030645403
         """
@@ -722,7 +722,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000001777767737637376574770\
         7577336575171762743703577356675472765351721637467136234370560740
         """
@@ -734,7 +734,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000174360721603306414430\
         0561302505011422042100170340641402605011020034060120200300400400
         """
@@ -748,7 +748,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000052625846058684424\
         7876381258254151448064135842067326638330711686502352346635185162
         """
@@ -760,7 +760,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000005715741718122655\
         8048777185486326632382030431086760556185430443785630144484523371
         """
@@ -774,7 +774,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000011579030850545\
         5567723526024286119531261069242336003260839703036409543150199264
         """
@@ -786,7 +786,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000001407490462640\
         1341155369551180448584754667373453244490859944217516317499064576
         """
@@ -800,7 +800,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000010019774172\
         675069499548a05a7794803603a4157366204225264092700a8157a30a948720
         """
@@ -812,7 +812,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000001380227a9a\
         3a453071005401517000a3500756239a46834284766655651370a28295109a06
         """
@@ -826,7 +826,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000029231468\
         41b6624b4657b76b759711256462675490811529026b8b03507956b900591aa8
         """
@@ -838,7 +838,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000000000000000000000000000000000000000000000000000000404b13b\
         22595a847521b8ab337490660a0b7439b1495399a8b2918a9521301732309054
         """
@@ -852,7 +852,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000000178a92\
         980701228a277594134c94bb7165a938c70c03a705750115a339820831351c78
         """
@@ -864,7 +864,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000000000000000000000000000000000000000000000000000000268a5\
         1c5770b549c51487a17526804a0a14c0c44bbc981573456a275580297a4a7834
         """
@@ -878,7 +878,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000000001c38\
         14cbd353812dca285cc376972998797340345da539017abd8236000c88ca00da
         """
@@ -890,7 +890,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000000000329\
         76a45325cd6dda6ac91cb8c9bccbbc61488833c2225a774c2da97ab4d4565d3a
         """
@@ -904,7 +904,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000000000042\
         314e1223518107b1362e160a5ad29226b4e3e2d35ea57996aaa3242db02966ae
         """
@@ -916,7 +916,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000000000000000000000000000000000000000000000000000007\
         864d3605e05bd91d94b651ccc4e3078d6edc902745e03953a310b0de5c602701
         """
@@ -930,7 +930,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0
         """
     }
@@ -941,7 +941,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100
         """
     }
@@ -954,7 +954,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         05g7d81gc01cdbf42565444eaa12342c35gd9f66bbg36c8d8841baa7a8faab0e
         """
     }
@@ -965,7 +965,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00c5b2gcge3c140g4d527274dgd5cg7g58babg3e21bg76739a559151527ce653
         """
     }
@@ -978,7 +978,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0031fhf5dce9fgc12bg164e9h35028896f83ddhh8be5286c3e9h17360bg1bg32
         """
     }
@@ -989,7 +989,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0006e51f0da7284a3bb14747c33cgb1hfa3120c549aec7hh58g39hg075a02c3a
         """
     }
@@ -1002,7 +1002,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000237ibab6cg652id30fgh76hdai93dhfh7dhagfdc5eb7f782c55d551ed74g6
         """
     }
@@ -1013,7 +1013,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000050cae6cb5210060eg1g2iicc8e689a04g25829g2f5bc8c84ea4a8a1348f4
         """
     }
@@ -1026,7 +1026,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000020392d6ac9d1jd12d3a88c61i7ba748483ai05hf66c6a7g42977fbe8ei34
         """
     }
@@ -1037,7 +1037,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000004hd5e33e5189jajhc248c2a513ae74fba267d1b3d1743i8ebgb30i9318g
         """
     }
@@ -1050,7 +1050,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000027gdj7593kjg0f1c5cga4aca1e1d5f08h72cebhcbc1c6cek06cf13eaddh
         """
     }
@@ -1061,7 +1061,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000006124cec92463a07f87dgg069g06715hcg4j03fha2f1gafce80g895g09a
         """
     }
@@ -1074,7 +1074,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000003b5jk54f19beiidebchgec3ffc28aggdd74h75ijdc00i4ea0ji14954c0
         """
     }
@@ -1085,7 +1085,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000098djlg8ll6ge66j798kd129gf43e7c6586a31h5a25adg2l78kj3a82b6
         """
     }
@@ -1098,7 +1098,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000069a79baglcjbdblbk5111bb46b66g2b7a2f596763kmm7c3hbl336kl14
         """
     }
@@ -1109,7 +1109,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000hl580j6lii99g9c5137ji22ab5i41mba3lh6091cakd4h6llil689h12
         """
     }
@@ -1122,7 +1122,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         00000000e4eikjgk76jj7i2fbn6ihk3ngef39fb00gjl3086em4k7g3ag5647hh8
         """
     }
@@ -1133,7 +1133,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000001h9gbi9kc8ig99kj5lil4in9d6e81la5d0h872fff899ebj57j88732g
         """
     }
@@ -1146,7 +1146,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000001cea1fa4l49o4dnedkkdcnmfc3509hg185baem9bdo6e5b1dediecike
         """
     }
@@ -1157,7 +1157,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000004e4i6362kk6ad7abh2b4j0log0gbjn96nl1d8j88mh9m36enbbmf381
         """
     }
@@ -1170,7 +1170,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000004dd8f12of8578gn3cho4kjg1nm4ck49ihk7nahjpeie4d78426fjja8
         """
     }
@@ -1181,7 +1181,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000e7a4822n1867n87cpm330nai4o7gj05b5j013bb0in29cncoodh584
         """
     }
@@ -1194,7 +1194,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000fo7qe0hopd7gqfbj7q7m4jdh2445pb279oj8a0lakof2akafj55n52
         """
     }
@@ -1205,7 +1205,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000001p4pcg5j6ogq1hng5neo9oj2bk10d12on0go5nd0dcnnj04demflba
         """
     }
@@ -1218,7 +1218,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000000028lp360pqr9fgjmgalj15e5kknmk8pd61irgj23bbe6nbafahp3e6o
         """
     }
@@ -1229,7 +1229,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000000007odiqi7ipkbell34qeml609e642lhrao5n03422ik497coam17kmo
         """
     }
@@ -1242,7 +1242,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         00000000000acrhqlapaaob766is1eng6erp522m0f5opigage3d3j4k7f9n8ff2
         """
     }
@@ -1253,7 +1253,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000017nr4pcg1heg13dh8cgggmn4q34frqm65gn8ec0j45591bmqfhffb
         """
     }
@@ -1266,7 +1266,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000000001nmr6nq4fe87dse4p4i0ama7co4moqch8081liop9spg2kl9rn95e
         """
     }
@@ -1277,7 +1277,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000006g1ldfsednredtimcop3b5l3q70e4kitjnhrn4eql74ecaf5j1mg
         """
     }
@@ -1290,7 +1290,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000000000a30ts5ohp5e917o3nehp8urue2rb4e97icid1me5tcmpil25fi6m
         """
     }
@@ -1301,7 +1301,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000000000171hhf8063e3r4a99sra00a157pihstia75dmk5kfae5nnn9ab6l
         """
     }
@@ -1314,7 +1314,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000001vvuvnufnunpv3rvdtfkufpf3s7ftrmupqvat7kefpn5sjhu5of0
         """
     }
@@ -1325,7 +1325,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000000007ou3ke1m6gp30bhc58k2c91240f1o6go2oa1440e1g50g1g4080
         """
     }
@@ -1338,7 +1338,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         0000000000000dodf9g17rn5pvw3et1k184sgnb11u6u7uhk2n9b3bhtfwrh14fb
         """
     }
@@ -1349,7 +1349,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000000001m3p6weqc5jk0wsb37sv08ileepww3jad5cr0cfhd0g1aq8in3s
         """
     }
@@ -1362,7 +1362,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         00000000000003304fs1ae3ixjsrahw1k6lt33dlup2jc54b1p3xxaghpss3swhe
         """
     }
@@ -1373,7 +1373,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         00000000000000cpwunuqgcm028uqxuqmjst7gk65egpsowcgixwuci6x899aa2k
         """
     }
@@ -1386,7 +1386,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         00000000000000pcyhqj7yk3vq8j4l4vfa7wes91wah4p1y3op2k48s4pv0y189o
         """
     }
@@ -1397,7 +1397,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         0000000000000032wujn2mg481jyhidxmv5271ucr21qfj9jdvqm429mwneu6b2v
         """
     }
@@ -1410,7 +1410,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0xf7f6f5f4f3f2f1f0
         self.x64.1 = 0xefeeedecebeae9e8
         self.x64.0 = 0xe7e6e5e4e3e2e1e0
-        self.txt = """
+        self.ascii = """
         000000000000006dp15j43ld5l8i7wvimlj7kxgbfxkxkgmo66lge382296ouqjk
         """
     }
@@ -1421,7 +1421,7 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
         self.x64.2 = 0x1716151413121110
         self.x64.1 = 0x0f0e0d0c0b0a0908
         self.x64.0 = 0x0706050403020100
-        self.txt = """
+        self.ascii = """
         000000000000000rx55jlhq7obx1pvd9861yo6c11bed0cd8s8wz2hpvczt00c1s
         """
     }

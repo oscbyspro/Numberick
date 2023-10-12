@@ -93,13 +93,13 @@ final class NBKGuaranteeTests: XCTestCase {
         NBKAssert(Int.max, false, NBK.PowerOf2.self)
         
         for i in 0 ..< Int.bitWidth {
-            NBKAssert(Int(3) << i, false, NBK.PowerOf2.self)
-            NBKAssert(Int(1) << i, i + 2 <= Int.bitWidth, NBK.PowerOf2.self)
+            NBKAssert( Int(3) << i, false, NBK.PowerOf2.self)
+            NBKAssert( Int(1) << i, i + 2  <= Int.bitWidth, NBK.PowerOf2.self)
         }
         
-        for i in 0 ..< Int.bitWidth - 1 {
-            NBKAssert(UInt(1) << i, true, NBK.PowerOf2.self)
-            NBKAssert(UInt(3) << i, i + 1 >= Int.bitWidth, NBK.PowerOf2.self)
+        for i in 0 ..< Int.bitWidth {
+            NBKAssert(UInt(1) << i, true,  NBK.PowerOf2.self)
+            NBKAssert(UInt(3) << i, i + 1  >= Int.bitWidth, NBK.PowerOf2.self)
         }
     }
     
@@ -112,11 +112,13 @@ final class NBKGuaranteeTests: XCTestCase {
         NBKAssert(Int.max, true,  NBK.NonPowerOf2.self)
         
         for i in 0 ..< Int.bitWidth {
-            NBKAssert(Int(3) << i, true, NBK.NonPowerOf2.self)
-            NBKAssert(Int(1) << i, i + 1 >= Int.bitWidth, NBK.NonPowerOf2.self)
+            NBKAssert( Int(3) << i, true,  NBK.NonPowerOf2.self)
+            NBKAssert( Int(1) << i, i + 1  >= Int.bitWidth, NBK.NonPowerOf2.self)
+            
+            print(Int(1) << i, Int(3) << i)
         }
         
-        for i in 0 ..< Int.bitWidth - 1 {
+        for i in 0 ..< Int.bitWidth {
             NBKAssert(UInt(1) << i, false, NBK.NonPowerOf2.self)
             NBKAssert(UInt(3) << i, i + 2  <= Int.bitWidth, NBK.NonPowerOf2.self)
         }
@@ -134,7 +136,7 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
     typealias T = _NBKGuarantee<Predicate>
     typealias N = _NBKGuarantee<NBK.IsNot<Predicate>>
     //=------------------------------------------=
-    func wrapping<X>(@_NBKGuarantee<X> _ wrapped: X.Value, precondition type: _NBKGuarantee<X>.Type) where X.Value == Predicate.Value {
+    func wrapping<X>(@_NBKGuarantee<X> _ wrapped: X.Value, precondition: _NBKGuarantee<X>.Type) where X.Value == Predicate.Value {
         XCTAssertEqual(wrapped, value, file:  file,  line: line)
         XCTAssertEqual($wrapped.value, value, file:  file, line: line)
         XCTAssertEqual($wrapped.wrappedValue, value, file: file, line: line)
@@ -142,16 +144,17 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
     
     brr: do {
         XCTAssertEqual(T(exactly: value) != nil, success, file: file, line: line)
+        XCTAssertEqual(N(exactly: value) == nil, success, file: file, line: line)
     }
     
     if  success {
         wrapping(value, precondition: T.self)
-        XCTAssertEqual(T(/*------*/ value).value, value, file: file, line: line)
-        XCTAssertEqual(T(unchecked: value).value, value, file: file, line: line)
+        XCTAssertEqual(T(/*------*/ value).value,  value, file: file, line: line)
+        XCTAssertEqual(T(unchecked: value).value,  value, file: file, line: line)
     }   else {
         wrapping(value, precondition: N.self)
-        XCTAssertEqual(N(/*------*/ value).value, value, file: file, line: line)
-        XCTAssertEqual(N(unchecked: value).value, value, file: file, line: line)
+        XCTAssertEqual(N(/*------*/ value).value,  value, file: file, line: line)
+        XCTAssertEqual(N(unchecked: value).value,  value, file: file, line: line)
     }
 }
 

@@ -20,7 +20,7 @@ let withStaticBigInt = false
 // MARK: + Version < iOS 16.4, macOS 13.3
 //=----------------------------------------------------------------------------=
 
-var package = Package(
+let package = Package(
     name: "Numberick",
     platforms: [
         .iOS(.v14),
