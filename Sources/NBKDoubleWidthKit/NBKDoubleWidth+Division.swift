@@ -208,19 +208,19 @@ extension NBKDoubleWidth where High == High.Magnitude {
         assert(rhs.isZero == false, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift.value, "save shift distance")
         //=--------------------------------------=
-        let lhsIs0XXX = lhs.high.high.isZero as Bool
-        let lhsIs00XX = lhsIs0XXX && lhs.high.low.isZero as Bool
+        let lhsWas0XXX = lhs.high.high.isZero as Bool
+        let lhsWas00XX = lhsWas0XXX && lhs.high.low.isZero as Bool
         //=--------------------------------------=
         // division: 2222
         //=--------------------------------------=
-        if  lhsIs00XX {
+        if  lhsWas00XX {
             return Self.divide2222Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
         // division: 3121
         //=--------------------------------------=
-        let rhsIs0X = UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth)
-        if  rhsIs0X {
+        let rhsWas0X = UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth)
+        if  rhsWas0X {
             assert(lhs.high.high.isZero, "quotient must fit in two halves")
             let (quotient, remainder) = Self.divide3121Unchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(low: remainder))
@@ -236,8 +236,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
-        if  lhsIs0XXX, rhs > Self(high:  lhs.high.low, low: lhs.low.high) {
-            assert(lhs.high.high.isZero, "quotient must fit in one half")
+        if  lhsWas0XXX, lhs.high.high.isZero, rhs > Self(high: lhs.high.low, low: lhs.low.high) {
             let (quotient, remainder) = Self.divide3212MSBUnchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(low: quotient), remainder.bitshiftedRight(major: major, minor: minor))
         }
