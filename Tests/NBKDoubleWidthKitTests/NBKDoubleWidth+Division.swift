@@ -329,9 +329,9 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Double Width x Division x UInt256 x Code Coverage
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Code Coverage
+//=----------------------------------------------------------------------------=
 
 final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
     
@@ -354,6 +354,32 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
         dividend.low  = M.max
         
         NBKAssertDivisionFullWidth(dividend, T.max, T.max << 64 + 1, T.max << 64)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Double Width x Division x Open Source Issues
+//*============================================================================*
+
+final class NBKDoubleWidthTestsOnDivisionOpenSourceIssues: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    ///  https://github.com/apple/swift-numerics/issues/272
+    func testSwiftNumericsIssues272() {
+        NBKAssertDivision(
+        UInt128(3) << 96,
+        UInt128(2) << 96,
+        UInt128(1) << 00,
+        UInt128(1) << 96)
+        
+        NBKAssertDivision(
+        UInt128("311758830729407788314878278112166161571"),
+        UInt128("259735543268722398904715765931073125012"),
+        UInt128("000000000000000000000000000000000000001"),
+        UInt128("052023287460685389410162512181093036559"))
     }
 }
 
