@@ -367,6 +367,18 @@ final class NBKDoubleWidthTestsOnDivisionOpenSourceIssues: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    ///  https://github.com/oscbyspro/Numberick/issues/101
+    ///
+    /// - FIXME: This example causes an assertion failure.
+    ///
+    func testNumberickIssues101() {
+        //NBKAssertDivision(
+        //UInt256("3360506852691063560493141264855294697309369118818719524903"),
+        //UInt256("0000000000000000000038792928317726192474768301090870907748"),
+        //UInt256("0000000000000000000000000000000000000086626789943967710436"),
+        //UInt256("0000000000000000000016136758413064865246015978698186666775"))
+    }
+    
     ///  https://github.com/apple/swift-numerics/issues/272
     func testSwiftNumericsIssues272() {
         NBKAssertDivision(
