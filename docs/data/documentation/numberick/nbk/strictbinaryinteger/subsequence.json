@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerV11SubSequenceO",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerO11SubSequenceO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -236,7 +236,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",

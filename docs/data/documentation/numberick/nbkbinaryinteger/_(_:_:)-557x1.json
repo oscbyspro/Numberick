@@ -89,7 +89,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "role" : "symbol",

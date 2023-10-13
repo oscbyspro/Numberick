@@ -16,15 +16,10 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:)-8j2y7"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:)-8j2y7",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:)-7ywgi"
       ],
       "title" : "NBKBinaryInteger Implementations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/init(_:)"
-      ],
-      "title" : "NBKFixedWidthInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -298,6 +293,36 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(_:)-7ywgi": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:)-7ywgi",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(_:)-7ywgi"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(_:)-8j2y7": {
   "abstract" : [
 
@@ -370,36 +395,6 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(_:)-9p8eg"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/init(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/init(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/init(_:)"
 }
 }
 }

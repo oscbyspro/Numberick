@@ -44,6 +44,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/difference(from:by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/dropLast(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/firstRange(of:)-6v90m",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/formIndex(before:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/joined(separator:)-1dkon",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/last(where:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/lastIndex(of:)",
@@ -512,6 +513,67 @@
   "title" : "firstRange(of:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint\/firstrange(of:)-6v90m"
+},
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/formIndex(before:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "before"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/formIndex(before:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formIndex(before:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/formindex(before:)"
 },
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/joined(separator:)-1dkon": {
   "abstract" : [

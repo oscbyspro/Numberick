@@ -33,8 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/lazy",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/underestimatedCount-22ffl"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/lazy"
       ],
       "title" : "Instance Properties"
     },
@@ -2755,40 +2754,6 @@
   "title" : "starts(with:by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint\/starts(with:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBKChunkedInt/underestimatedCount-22ffl": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "underestimatedCount"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/underestimatedCount-22ffl",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "underestimatedCount",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkchunkedint\/underestimatedcount-22ffl"
 },
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/withContiguousStorageIfAvailable(_:)": {
   "abstract" : [

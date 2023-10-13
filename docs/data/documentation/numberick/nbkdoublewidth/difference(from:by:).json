@@ -148,7 +148,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "platforms" : [

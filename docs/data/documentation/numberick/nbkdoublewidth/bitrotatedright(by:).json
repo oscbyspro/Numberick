@@ -140,7 +140,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKDoubleWidthKit"
+        ]
       }
     ],
     "role" : "symbol",
@@ -174,6 +177,30 @@
             {
               "kind" : "text",
               "text" : "("
+            },
+            {
+              "kind" : "attribute",
+              "text" : "@"
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+              "kind" : "attribute",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrMore",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO10ZeroOrMorea",
+              "text" : "ZeroOrMore"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "externalParam",
@@ -282,6 +309,82 @@
   "title" : "Numberick",
   "type" : "topic",
   "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/ZeroOrMore": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is zero or more.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrMore"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrMore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrMore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.ZeroOrMore",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/zeroormore"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth": {
   "abstract" : [

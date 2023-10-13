@@ -46,7 +46,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -165,7 +168,23 @@
         {
           "inlineContent" : [
             {
-              "text" : "Max power and exponent in ",
+              "text" : "The largest ",
+              "type" : "text"
+            },
+            {
+              "code" : "exponent",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "power",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " in ",
               "type" : "text"
             },
             {
@@ -314,7 +333,6 @@
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/base",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/exponent",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/power",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/solution"
       ],
       "title" : "Instance Properties"
@@ -693,39 +711,6 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/init(_:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/power": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "power"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/power",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "power",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/power"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/solution": {
   "abstract" : [

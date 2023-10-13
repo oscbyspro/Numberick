@@ -277,20 +277,15 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count-9nc1o",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/base-swift.property",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/sign"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/subscript(_:)-7s780"
-      ],
-      "title" : "Subscripts"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/Base"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/Base-swift.typealias"
       ],
       "title" : "Type Aliases"
     },
@@ -387,7 +382,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint"
 },
-"doc://Numberick/documentation/Numberick/NBKChunkedInt/Base": {
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/Base-swift.typealias": {
   "abstract" : [
 
   ],
@@ -405,7 +400,7 @@
       "text" : "Base"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/Base",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/Base-swift.typealias",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -416,7 +411,7 @@
   "role" : "symbol",
   "title" : "NBKChunkedInt.Base",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkchunkedint\/base"
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/base-swift.typealias"
 },
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/BidirectionalCollection-Implementations": {
   "abstract" : [
@@ -462,7 +457,43 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint\/sequence-implementations"
 },
-"doc://Numberick/documentation/Numberick/NBKChunkedInt/count-9nc1o": {
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/base-swift.property": {
+  "abstract" : [
+    {
+      "text" : "The un\/signed source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "base"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/base-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "base",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/base-swift.property"
+},
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/count": {
   "abstract" : [
 
   ],
@@ -489,12 +520,12 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count-9nc1o",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/count",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "count",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkchunkedint\/count-9nc1o"
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/count"
 },
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/init(_:isSigned:count:as:)": {
   "abstract" : [
@@ -613,40 +644,6 @@
   "title" : "sign",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint\/sign"
-},
-"doc://Numberick/documentation/Numberick/NBKChunkedInt/subscript(_:)-7s780": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/subscript(_:)-7s780",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkchunkedint\/subscript(_:)-7s780"
 },
 "doc://Numberick/documentation/Numberick/NBKCoreInteger": {
   "abstract" : [

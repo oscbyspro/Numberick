@@ -40,9 +40,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/addReportingOverflow(_:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addReportingOverflow(_:)-7dsb2"
       ],
-      "title" : "NBKCoreInteger Implementations"
+      "title" : "NBKFixedWidthInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -260,7 +260,41 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick"
 },
-"doc://Numberick/documentation/Numberick/NBKCoreInteger/addReportingOverflow(_:)": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/addReportingOverflow(_:)-7dsb2": {
   "abstract" : [
 
   ],
@@ -295,46 +329,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/addReportingOverflow(_:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addReportingOverflow(_:)-7dsb2",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addReportingOverflow(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkcoreinteger\/addreportingoverflow(_:)"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
-  "abstract" : [
-    {
-      "text" : "An integer type with a fixed bit width for every instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKFixedWidthInteger"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKFixedWidthInteger"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKFixedWidthInteger",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/addreportingoverflow(_:)-7dsb2"
 },
 "doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/addReportingOverflow(_:)-7k5cn": {
   "abstract" : [

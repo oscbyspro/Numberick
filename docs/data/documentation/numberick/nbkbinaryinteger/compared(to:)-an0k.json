@@ -8,9 +8,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/compared(to:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/compared(to:)-6jzcv"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -234,6 +234,56 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/compared(to:)-6jzcv": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "compared"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/compared(to:)-6jzcv",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "compared(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/compared(to:)-6jzcv"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/compared(to:)-an0k": {
   "abstract" : [
     {
@@ -288,56 +338,6 @@
   "title" : "compared(to:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/compared(to:)-an0k"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/compared(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "compared"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/compared(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "compared(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/compared(to:)"
 }
 }
 }

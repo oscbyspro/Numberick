@@ -729,6 +729,12 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
       ],
       "title" : "Abbreviations"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift"
+      ],
+      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -1480,6 +1486,17 @@
   "title" : "SM",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/sm"
+},
+"doc://Numberick/documentation/Numberick/Swift": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Swift",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift"
 },
 "doc://Numberick/documentation/Numberick/UInt1024": {
   "abstract" : [

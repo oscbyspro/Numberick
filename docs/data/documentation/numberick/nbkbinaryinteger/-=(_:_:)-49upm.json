@@ -32,10 +32,10 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/-=(_:_:)-pept",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/-=(_:_:)-100ot"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-100ot",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-pept"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -341,6 +341,71 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/-=(_:_:)-100ot": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "-="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-100ot",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "-=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/-=(_:_:)-49upm": {
   "abstract" : [
     {
@@ -443,72 +508,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-49upm"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/-=(_:_:)-100ot": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "-="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/-=(_:_:)-100ot",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "-=(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-100ot"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/-=(_:_:)-pept": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/-=(_:_:)-pept": {
   "abstract" : [
 
   ],
@@ -574,12 +574,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/-=(_:_:)-pept",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-pept",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "-=(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/-=(_:_:)-pept"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept"
 }
 }
 }

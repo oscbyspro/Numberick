@@ -33,8 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/lazy",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/underestimatedCount-2luxn"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/lazy"
       ],
       "title" : "Instance Properties"
     },
@@ -2554,40 +2553,6 @@
   "title" : "starts(with:by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/starts(with:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/underestimatedCount-2luxn": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "underestimatedCount"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/underestimatedCount-2luxn",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "underestimatedCount",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/underestimatedcount-2luxn"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/withContiguousStorageIfAvailable(_:)-875hn": {
   "abstract" : [

@@ -109,7 +109,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerVAASMRzrlE13bitshiftRight_11environment15majorAtLeastOneyxz_7ElementSTQzSitFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerOAASMRzrlE13bitshiftRight_11environment15majorAtLeastOneyxz_7ElementSTQzSitFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -195,7 +195,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "role" : "symbol",
@@ -464,7 +467,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",

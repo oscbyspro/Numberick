@@ -220,7 +220,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKDoubleWidthKit"
+        ]
       }
     ],
     "role" : "symbol",

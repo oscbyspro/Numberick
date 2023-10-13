@@ -20,11 +20,11 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerV",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerO",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "struct"
+        "text" : "enum"
       },
       {
         "kind" : "text",
@@ -37,7 +37,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -47,8 +50,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Structure",
-    "symbolKind" : "struct",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
     "title" : "NBK.StrictBinaryInteger"
   },
   "primaryContentSections" : [
@@ -63,16 +66,8 @@
           ],
           "tokens" : [
             {
-              "kind" : "attribute",
-              "text" : "@frozen"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "keyword",
-              "text" : "struct"
+              "text" : "enum"
             },
             {
               "kind" : "text",
@@ -371,7 +366,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",

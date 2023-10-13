@@ -1,0 +1,1958 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/NBKBinaryInteger-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "NBKBinaryInteger Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/(_:_:)-14ydt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/(_:_:)-5nlza",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/=(_:_:)-1igl6",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/=(_:_:)-3pv61",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_(_:_:)-132ma",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_(_:_:)-8rgm3",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_=(_:_:)-1h187",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_=(_:_:)-5zqiv"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(_:)-8l5wk",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(bit:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(digit:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(sign:magnitude:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(words:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(words:isSigned:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/description",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isEven",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isLessThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isMoreThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isOdd",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isPowerOf2",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/leastSignificantBit",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/mostSignificantBit"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/description(radix:uppercase:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formOnesComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplementReportingOverflow()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplementSubsequence(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/onesComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/quotientAndRemainder(dividingBy:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplement()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplementReportingOverflow()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplementSubsequence(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/swift\/uint64\/nbkbinaryinteger-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/Swift": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Swift",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt64"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt64",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64//(_:_:)-14ydt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "\/"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/(_:_:)-14ydt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "\/(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/\/(_:_:)-14ydt"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64//(_:_:)-5nlza": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "\/"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/(_:_:)-5nlza",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "\/(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/\/(_:_:)-5nlza"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64//=(_:_:)-1igl6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "\/="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/=(_:_:)-1igl6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "\/=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/\/=(_:_:)-1igl6"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64//=(_:_:)-3pv61": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "\/="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/\/=(_:_:)-3pv61",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "\/=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/\/=(_:_:)-3pv61"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/_(_:_:)-132ma": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "%"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_(_:_:)-132ma",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "%(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/_(_:_:)-132ma"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/_(_:_:)-8rgm3": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "%"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_(_:_:)-8rgm3",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "%(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/_(_:_:)-8rgm3"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/_=(_:_:)-1h187": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "%="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_=(_:_:)-1h187",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "%=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/_=(_:_:)-1h187"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/_=(_:_:)-5zqiv": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "%="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/_=(_:_:)-5zqiv",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "%=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/_=(_:_:)-5zqiv"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/description"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/description(radix:uppercase:)": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "description",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of this value in the given ASCII format.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "radix"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "uppercase"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/description(radix:uppercase:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description(radix:uppercase:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/description(radix:uppercase:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/formOnesComplement()": {
+  "abstract" : [
+    {
+      "text" : "Forms the one’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formOnesComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formOnesComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formOnesComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/formonescomplement()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/formTwosComplement()": {
+  "abstract" : [
+    {
+      "text" : "Forms the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formTwosComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formTwosComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/formtwoscomplement()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/formTwosComplementReportingOverflow()": {
+  "abstract" : [
+    {
+      "text" : "Forms the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formTwosComplementReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplementReportingOverflow()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formTwosComplementReportingOverflow()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/formtwoscomplementreportingoverflow()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/formTwosComplementSubsequence(_:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the two’s complement subsequence of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "carry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formTwosComplementSubsequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/formTwosComplementSubsequence(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formTwosComplementSubsequence(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/formtwoscomplementsubsequence(_:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(_:)-8l5wk": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(_:)-8l5wk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(_:)-8l5wk"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(bit:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given bit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "bit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(bit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(bit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(bit:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(digit:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given digit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Digit"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(digit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(digit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(digit:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(sign:magnitude:)": {
+  "abstract" : [
+    {
+      "text" : "Tries to create a value equal to the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "magnitude",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " pair.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17FloatingPointSignO",
+      "text" : "FloatingPointSign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(sign:magnitude:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(sign:magnitude:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(sign:magnitude:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(words:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(words:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(words:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/init(words:isSigned:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new instance from the given collection of ",
+      "type" : "text"
+    },
+    {
+      "code" : "words",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "words"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isSigned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/init(words:isSigned:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(words:isSigned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/init(words:issigned:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isEven": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is even.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEven"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isEven",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEven",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/iseven"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isLessThanZero": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is less than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isLessThanZero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isLessThanZero",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isLessThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/islessthanzero"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isMoreThanZero": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is more than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isMoreThanZero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isMoreThanZero",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isMoreThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/ismorethanzero"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isOdd": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is odd.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isOdd"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isOdd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isOdd",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/isodd"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isPowerOf2": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is a power of two.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isPowerOf2"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isPowerOf2",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isPowerOf2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/ispowerof2"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/isZero": {
+  "abstract" : [
+    {
+      "text" : "Returns whether this value is equal to zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isZero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/isZero",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/iszero"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/leastSignificantBit": {
+  "abstract" : [
+    {
+      "text" : "Returns the least significant bit in its binary representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "leastSignificantBit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/leastSignificantBit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "leastSignificantBit",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/leastsignificantbit"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/mostSignificantBit": {
+  "abstract" : [
+    {
+      "text" : "Returns the most significant bit in its binary representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mostSignificantBit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/mostSignificantBit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mostSignificantBit",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/mostsignificantbit"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/onesComplement()": {
+  "abstract" : [
+    {
+      "text" : "Returns the one’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "onesComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/onesComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "onesComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/onescomplement()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/quotientAndRemainder(dividingBy:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "quotientAndRemainder"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit2QRa",
+      "text" : "QR"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/quotientAndRemainder(dividingBy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "quotientAndRemainder(dividingBy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/quotientandremainder(dividingby:)"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/twosComplement()": {
+  "abstract" : [
+    {
+      "text" : "Returns the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "twosComplement"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplement()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "twosComplement()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/twoscomplement()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/twosComplementReportingOverflow()": {
+  "abstract" : [
+    {
+      "text" : "Returns the two’s complement of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "twosComplementReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3PVOa",
+      "text" : "PVO"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplementReportingOverflow()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "twosComplementReportingOverflow()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/twoscomplementreportingoverflow()"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64/twosComplementSubsequence(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the two’s complement subsequence of ",
+      "type" : "text"
+    },
+    {
+      "code" : "self",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "carry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", along with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "twosComplementSubsequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3PVOa",
+      "text" : "PVO"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64\/twosComplementSubsequence(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "twosComplementSubsequence(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64\/twoscomplementsubsequence(_:)"
+}
+}
+}

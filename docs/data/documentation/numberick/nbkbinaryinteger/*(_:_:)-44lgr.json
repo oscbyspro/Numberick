@@ -32,10 +32,10 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-b5dc",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-53xcf"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-53xcf",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-b5dc"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -431,7 +431,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-44lgr"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/*(_:_:)-53xcf": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/*(_:_:)-53xcf": {
   "abstract" : [
 
   ],
@@ -485,14 +485,14 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-53xcf",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-53xcf",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "*(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-53xcf"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/*(_:_:)-b5dc": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/*(_:_:)-b5dc": {
   "abstract" : [
 
   ],
@@ -554,12 +554,12 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-b5dc",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-b5dc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "*(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-b5dc"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc"
 }
 }
 }

@@ -241,7 +241,17 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth"
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int16",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int32",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt16",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt8"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -305,9 +315,9 @@
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:)-9p8eg",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:radix:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)-91tb7",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(digit:)-2f5it",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)-4otu9",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:isSigned:)"
       ],
@@ -318,14 +328,14 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/bitWidth",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/description-2oong",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isEven",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isLessThanZero",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isMoreThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isLessThanZero-4qdio",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isMoreThanZero-55vb1",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isOdd",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isPowerOf2",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isPowerOf2-1zodo",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isZero-6lcoa",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/leadingZeroBitCount",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/leastSignificantBit",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/mostSignificantBit",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/leastSignificantBit-11664",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/mostSignificantBit-1v1ti",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/nonzeroBitCount",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/trailingZeroBitCount"
       ],
@@ -3592,7 +3602,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(_:radix:)"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(bit:)": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(bit:)-91tb7": {
   "abstract" : [
     {
       "text" : "Creates a new instance from the given bit.",
@@ -3627,13 +3637,13 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)-91tb7",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "init(bit:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(bit:)"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(bit:)-91tb7"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(digit:)-2f5it": {
   "abstract" : [
@@ -3685,7 +3695,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(digit:)-2f5it"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(sign:magnitude:)": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(sign:magnitude:)-4otu9": {
   "abstract" : [
     {
       "text" : "Tries to create a value equal to the given ",
@@ -3760,13 +3770,13 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)-4otu9",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "init(sign:magnitude:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(sign:magnitude:)"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(sign:magnitude:)-4otu9"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(words:)": {
   "abstract" : [
@@ -3940,7 +3950,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/iseven"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isLessThanZero": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isLessThanZero-4qdio": {
   "abstract" : [
     {
       "text" : "Returns whether this value is less than zero.",
@@ -3971,15 +3981,15 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isLessThanZero",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isLessThanZero-4qdio",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "isLessThanZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/islessthanzero"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/islessthanzero-4qdio"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isMoreThanZero": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isMoreThanZero-55vb1": {
   "abstract" : [
     {
       "text" : "Returns whether this value is more than zero.",
@@ -4010,13 +4020,13 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isMoreThanZero",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isMoreThanZero-55vb1",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "isMoreThanZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/ismorethanzero"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/ismorethanzero-55vb1"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/isOdd": {
   "abstract" : [
@@ -4055,7 +4065,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/isodd"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isPowerOf2": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isPowerOf2-1zodo": {
   "abstract" : [
     {
       "text" : "Returns whether this value is a power of two.",
@@ -4086,15 +4096,15 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isPowerOf2",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isPowerOf2-1zodo",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "isPowerOf2",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/ispowerof2"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/ispowerof2-1zodo"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isZero": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/isZero-6lcoa": {
   "abstract" : [
     {
       "text" : "Returns whether this value is equal to zero.",
@@ -4125,13 +4135,13 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isZero",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/isZero-6lcoa",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "isZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/iszero"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/iszero-6lcoa"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/leadingZeroBitCount": {
   "abstract" : [
@@ -4171,7 +4181,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/leadingzerobitcount"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/leastSignificantBit": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/leastSignificantBit-11664": {
   "abstract" : [
     {
       "text" : "Returns the least significant bit in its binary representation.",
@@ -4202,15 +4212,15 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/leastSignificantBit",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/leastSignificantBit-11664",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "leastSignificantBit",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/leastsignificantbit"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/leastsignificantbit-11664"
 },
-"doc://Numberick/documentation/Numberick/NBKBinaryInteger/mostSignificantBit": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/mostSignificantBit-1v1ti": {
   "abstract" : [
     {
       "text" : "Returns the most significant bit in its binary representation.",
@@ -4241,13 +4251,13 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/mostSignificantBit",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/mostSignificantBit-1v1ti",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "mostSignificantBit",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/mostsignificantbit"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/mostsignificantbit-1v1ti"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/nonzeroBitCount": {
   "abstract" : [
@@ -5510,6 +5520,326 @@
   "title" : "NBKUnsignedInteger",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkunsignedinteger"
+},
+"doc://Numberick/documentation/Numberick/Swift/Int": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/int"
+},
+"doc://Numberick/documentation/Numberick/Swift/Int16": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s5Int16V",
+      "text" : "Int16"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int16",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int16"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int16",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/int16"
+},
+"doc://Numberick/documentation/Numberick/Swift/Int32": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int32",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int32"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int32",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/int32"
+},
+"doc://Numberick/documentation/Numberick/Swift/Int64": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int64"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int64",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/int64"
+},
+"doc://Numberick/documentation/Numberick/Swift/Int8": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s4Int8V",
+      "text" : "Int8"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Int8"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Int8",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/int8"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt16": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s6UInt16V",
+      "text" : "UInt16"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt16",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt16"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt16",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint16"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt32": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s6UInt32V",
+      "text" : "UInt32"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt32"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt32",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint32"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt64": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt64",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt64"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt64",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint64"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt8": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt8",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UInt8"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UInt8",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint8"
 },
 "doc://Numberick/s18AdditiveArithmeticP": {
   "identifier" : "doc:\/\/Numberick\/s18AdditiveArithmeticP",

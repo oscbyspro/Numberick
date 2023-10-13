@@ -46,7 +46,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -165,7 +168,23 @@
         {
           "inlineContent" : [
             {
-              "text" : "Max power and exponent in ",
+              "text" : "The largest ",
+              "type" : "text"
+            },
+            {
+              "code" : "exponent",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "power",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " in ",
               "type" : "text"
             },
             {

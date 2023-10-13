@@ -46,7 +46,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -165,7 +168,23 @@
         {
           "inlineContent" : [
             {
-              "text" : "Max power and exponent in ",
+              "text" : "The largest ",
+              "type" : "text"
+            },
+            {
+              "code" : "exponent",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "power",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " in ",
               "type" : "text"
             },
             {
@@ -778,7 +797,28 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NonZero"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/power",

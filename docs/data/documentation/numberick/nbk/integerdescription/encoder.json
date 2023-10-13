@@ -38,7 +38,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -164,8 +167,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(sign:magnitude:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-4gikm",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-4u3jc",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-q1t9"
       ],
       "title" : "Instance Methods"
     }
@@ -308,7 +312,59 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/encode(_:)": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/encode(_:)-4gikm": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "encode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit2SMa",
+      "text" : "SM"
+    },
+    {
+      "kind" : "text",
+      "text" : "<some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit18NBKUnsignedIntegerP",
+      "text" : "NBKUnsignedInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-4gikm",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "encode(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(_:)-4gikm"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/encode(_:)-4u3jc": {
   "abstract" : [
 
   ],
@@ -344,14 +400,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-4u3jc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "encode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(_:)"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(_:)-4u3jc"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/encode(sign:magnitude:)": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/encode(_:)-q1t9": {
   "abstract" : [
 
   ],
@@ -373,29 +429,13 @@
       "text" : "("
     },
     {
-      "kind" : "externalParam",
-      "text" : "sign"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17FloatingPointSignO",
-      "text" : "FloatingPointSign"
+      "preciseIdentifier" : "s:10NBKCoreKit2SMa",
+      "text" : "SM"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "magnitude"
-    },
-    {
-      "kind" : "text",
-      "text" : ": some "
+      "text" : "<some "
     },
     {
       "kind" : "typeIdentifier",
@@ -413,7 +453,7 @@
     },
     {
       "kind" : "text",
-      "text" : ">) -> "
+      "text" : ">>) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -421,12 +461,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(sign:magnitude:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/Encoder\/encode(_:)-q1t9",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "encode(sign:magnitude:)",
+  "title" : "encode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(sign:magnitude:)"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/encoder\/encode(_:)-q1t9"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/Encoder/init(radix:uppercase:)": {
   "abstract" : [

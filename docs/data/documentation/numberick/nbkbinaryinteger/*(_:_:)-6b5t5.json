@@ -32,10 +32,10 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-53xcf",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-b5dc"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-53xcf",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-b5dc"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -325,6 +325,67 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/*(_:_:)-53xcf": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "*"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-53xcf",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "*(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/*(_:_:)-6b5t5": {
   "abstract" : [
     {
@@ -415,68 +476,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-6b5t5"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/*(_:_:)-53xcf": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "*"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-53xcf",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "*(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-53xcf"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/*(_:_:)-b5dc": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/*(_:_:)-b5dc": {
   "abstract" : [
 
   ],
@@ -538,12 +538,12 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/*(_:_:)-b5dc",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/*(_:_:)-b5dc",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "*(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/*(_:_:)-b5dc"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc"
 }
 }
 }

@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -14,11 +20,11 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO10TwinHeadeda",
+    "externalID" : "s:10NBKCoreKit3NBKO10TwinHeadedV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "typealias"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -31,7 +37,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -41,8 +50,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "NBK.TwinHeaded"
   },
   "primaryContentSections" : [
@@ -57,8 +66,16 @@
           ],
           "tokens" : [
             {
+              "kind" : "attribute",
+              "text" : "@frozen"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -70,16 +87,56 @@
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Base"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "_NBKTwinHeaded"
+              "text" : "Base"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sk",
+              "text" : "RandomAccessCollection"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/SK",
+        "doc:\/\/Numberick\/Sl",
+        "doc:\/\/Numberick\/SM",
+        "doc:\/\/Numberick\/Sk",
+        "doc:\/\/Numberick\/s8SendableP",
+        "doc:\/\/Numberick\/ST"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -89,6 +146,55 @@
   },
   "sections" : [
 
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-13ihw",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-1l5zu",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-4zmpu",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(rebasing:)-172bd",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(rebasing:)-1x43e"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/base-swift.property",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/count",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/direction",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/isBackToFront",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/isFrontToBack"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseIndex(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseIndices(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseSubscriptIndex(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/reverse()-4l7bu",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/reversed()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Base-swift.typealias"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/BidirectionalCollection-Implementations",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Collection-Implementations",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/MutableCollection-Implementations",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/RandomAccessCollection-Implementations",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Sequence-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
   ],
   "variants" : [
     {
@@ -104,6 +210,31 @@
   ]
 , 
 "references": {
+"doc://Numberick/SK": {
+  "identifier" : "doc:\/\/Numberick\/SK",
+  "title" : "Swift.BidirectionalCollection",
+  "type" : "unresolvable"
+},
+"doc://Numberick/SM": {
+  "identifier" : "doc:\/\/Numberick\/SM",
+  "title" : "Swift.MutableCollection",
+  "type" : "unresolvable"
+},
+"doc://Numberick/ST": {
+  "identifier" : "doc:\/\/Numberick\/ST",
+  "title" : "Swift.Sequence",
+  "type" : "unresolvable"
+},
+"doc://Numberick/Sk": {
+  "identifier" : "doc:\/\/Numberick\/Sk",
+  "title" : "Swift.RandomAccessCollection",
+  "type" : "unresolvable"
+},
+"doc://Numberick/Sl": {
+  "identifier" : "doc:\/\/Numberick\/Sl",
+  "title" : "Swift.Collection",
+  "type" : "unresolvable"
+},
 "doc://Numberick/documentation/Numberick": {
   "abstract" : [
     {
@@ -162,12 +293,15 @@
 },
 "doc://Numberick/documentation/Numberick/NBK/TwinHeaded": {
   "abstract" : [
-
+    {
+      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -190,6 +324,937 @@
   "title" : "NBK.TwinHeaded",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/twinheaded"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/Base-swift.typealias": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Base"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Base-swift.typealias",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Base"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TwinHeaded.Base",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/base-swift.typealias"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/BidirectionalCollection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/BidirectionalCollection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "BidirectionalCollection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/bidirectionalcollection-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/Collection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Collection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Collection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/collection-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/MutableCollection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/MutableCollection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MutableCollection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/mutablecollection-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/RandomAccessCollection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/RandomAccessCollection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RandomAccessCollection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/randomaccesscollection-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/Sequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/sequence-implementations"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/base-swift.property": {
+  "abstract" : [
+    {
+      "text" : "The base collection that is viewed through this instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "base"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/base-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "base",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/base-swift.property"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/baseIndex(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the base collection’s corresponding index.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseIndex(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseIndex(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/baseindex(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/baseIndices(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the base collection’s corresponding indices.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseIndices"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sn",
+      "text" : "Range"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sn",
+      "text" : "Range"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseIndices(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseIndices(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/baseindices(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/baseSubscriptIndex(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the base collection’s corresponding subscript index.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseSubscriptIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/baseSubscriptIndex(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseSubscriptIndex(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/basesubscriptindex(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/count": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/count",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/count"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/direction": {
+  "abstract" : [
+    {
+      "text" : "Returns the direction of iteratorn as 1 (front-to-back) or -1 (back-to-front).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "direction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/direction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "direction",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/direction"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/init(_:reversed:)-13ihw": {
+  "abstract" : [
+    {
+      "text" : "Creates a view presenting the collection’s elements in a dynamic order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s18ReversedCollectionV",
+      "text" : "ReversedCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "reversed"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-13ihw",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:reversed:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/init(_:reversed:)-13ihw"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/init(_:reversed:)-1l5zu": {
+  "abstract" : [
+    {
+      "text" : "Creates a view presenting the collection’s elements in a dynamic order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "reversed"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-1l5zu",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:reversed:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/init(_:reversed:)-1l5zu"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/init(_:reversed:)-4zmpu": {
+  "abstract" : [
+    {
+      "text" : "Creates a view presenting the collection’s elements in a dynamic order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV",
+      "text" : "TwinHeaded"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "reversed"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(_:reversed:)-4zmpu",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:reversed:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/init(_:reversed:)-4zmpu"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/init(rebasing:)-172bd": {
+  "abstract" : [
+    {
+      "text" : "Creates a collection with the same data and direction as the given subsequence.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Base",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "RandomAccessCollection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rebasing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV",
+      "text" : "TwinHeaded"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV11SubSequencea",
+      "text" : "SubSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(rebasing:)-172bd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rebasing:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/init(rebasing:)-172bd"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/init(rebasing:)-1x43e": {
+  "abstract" : [
+    {
+      "text" : "Creates a collection with the same data and direction as the given subsequence.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Base",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "RandomAccessCollection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rebasing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV",
+      "text" : "TwinHeaded"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV11SubSequencea",
+      "text" : "SubSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/init(rebasing:)-1x43e",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rebasing:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/init(rebasing:)-1x43e"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/isBackToFront": {
+  "abstract" : [
+    {
+      "text" : "Returns whether the base collection’s elements are presented back-to-front.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isBackToFront"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/isBackToFront",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isBackToFront",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/isbacktofront"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/isFrontToBack": {
+  "abstract" : [
+    {
+      "text" : "Returns whether the base collection’s elements are presented front-to-back.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isFrontToBack"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/isFrontToBack",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isFrontToBack",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/isfronttoback"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/reverse()-4l7bu": {
+  "abstract" : [
+    {
+      "text" : "Forms this collection but reversed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reverse"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/reverse()-4l7bu",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reverse()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/reverse()-4l7bu"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded/reversed()": {
+  "abstract" : [
+    {
+      "text" : "Returns this collection but reversed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reversed"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10TwinHeadedV",
+      "text" : "TwinHeaded"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded\/reversed()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reversed()",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/twinheaded\/reversed()"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

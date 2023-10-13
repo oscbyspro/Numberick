@@ -106,7 +106,7 @@
             {
               "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerV",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerO",
               "text" : "StrictBinaryInteger"
             },
             {
@@ -379,7 +379,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",

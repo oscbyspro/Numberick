@@ -32,10 +32,10 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-9ygmi",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-4wjjr"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/+(_:_:)-9ygmi",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/+(_:_:)-4wjjr"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -431,7 +431,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-22nkj"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/+(_:_:)-4wjjr": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/+(_:_:)-4wjjr": {
   "abstract" : [
 
   ],
@@ -485,14 +485,14 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-4wjjr",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/+(_:_:)-4wjjr",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "+(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-4wjjr"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-4wjjr"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/+(_:_:)-9ygmi": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/+(_:_:)-9ygmi": {
   "abstract" : [
 
   ],
@@ -554,12 +554,12 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/+(_:_:)-9ygmi",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/+(_:_:)-9ygmi",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "+(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/+(_:_:)-9ygmi"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-9ygmi"
 }
 }
 }

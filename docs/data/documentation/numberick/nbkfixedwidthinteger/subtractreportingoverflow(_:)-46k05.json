@@ -40,9 +40,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/subtractReportingOverflow(_:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/subtractReportingOverflow(_:)-4f335"
       ],
-      "title" : "NBKCoreInteger Implementations"
+      "title" : "NBKFixedWidthInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -260,48 +260,6 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick"
 },
-"doc://Numberick/documentation/Numberick/NBKCoreInteger/subtractReportingOverflow(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "subtractReportingOverflow"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/subtractReportingOverflow(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subtractReportingOverflow(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkcoreinteger\/subtractreportingoverflow(_:)"
-},
 "doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
   "abstract" : [
     {
@@ -414,6 +372,48 @@
   "title" : "subtractReportingOverflow(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/subtractreportingoverflow(_:)-46k05"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/subtractReportingOverflow(_:)-4f335": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "subtractReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/subtractReportingOverflow(_:)-4f335",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subtractReportingOverflow(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/subtractreportingoverflow(_:)-4f335"
 }
 }
 }

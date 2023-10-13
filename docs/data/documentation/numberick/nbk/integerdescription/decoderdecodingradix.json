@@ -38,7 +38,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
       }
     ],
     "navigatorTitle" : [
@@ -82,6 +85,40 @@
             {
               "kind" : "identifier",
               "text" : "DecoderDecodingRadix"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Magnitude"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Magnitude"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKUnsignedInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit18NBKUnsignedIntegerP",
+              "text" : "NBKUnsignedInteger"
             }
           ]
         }
@@ -190,12 +227,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-17ez3",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-3ks7m",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-5jn2b",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-67qk3",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-7e7w8",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-84cje"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4bl2n",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4capf",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4rxbm"
       ],
       "title" : "Instance Methods"
     }
@@ -338,7 +372,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-17ez3": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:)-4bl2n": {
   "abstract" : [
 
   ],
@@ -357,15 +391,7 @@
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(some "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
@@ -374,15 +400,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -395,38 +413,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">.Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit2SMa",
-      "text" : "SM"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "M"
+      "text" : "Magnitude"
     },
     {
       "kind" : "text",
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-17ez3",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4bl2n",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "decode(_:as:)",
+  "title" : "decode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-17ez3"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:)-4bl2n"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-3ks7m": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:)-4capf": {
   "abstract" : [
 
   ],
@@ -445,85 +446,7 @@
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(some "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sy",
-      "text" : "StringProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-3ks7m",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "decode(_:as:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-3ks7m"
-},
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-5jn2b": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "decode"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
@@ -532,15 +455,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -553,38 +468,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">.Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit2SMa",
-      "text" : "SM"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "M"
+      "text" : "Magnitude"
     },
     {
       "kind" : "text",
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-5jn2b",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4capf",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "decode(_:as:)",
+  "title" : "decode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-5jn2b"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:)-4capf"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-67qk3": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:)-4rxbm": {
   "abstract" : [
 
   ],
@@ -603,15 +501,7 @@
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
@@ -629,94 +519,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-67qk3",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "decode(_:as:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-67qk3"
-},
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-7e7w8": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "decode"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-      "text" : "UnsafeUTF8"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -729,106 +532,19 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "M"
-    },
-    {
-      "kind" : "text",
-      "text" : ">.Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit2SMa",
-      "text" : "SM"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "M"
+      "text" : "Magnitude"
     },
     {
       "kind" : "text",
       "text" : ">?"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-7e7w8",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:)-4rxbm",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "decode(_:as:)",
+  "title" : "decode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-7e7w8"
-},
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/decode(_:as:)-84cje": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "decode"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12StaticStringV",
-      "text" : "StaticString"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/DecoderDecodingRadix\/decode(_:as:)-84cje",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "decode(_:as:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:as:)-84cje"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:)-4rxbm"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/DecoderDecodingRadix/init()": {
   "abstract" : [
@@ -850,6 +566,40 @@
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/init()"
+},
+"doc://Numberick/documentation/Numberick/NBKUnsignedInteger": {
+  "abstract" : [
+    {
+      "text" : "An unsigned, binary, integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKUnsignedInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKUnsignedInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKUnsignedInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKUnsignedInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkunsignedinteger"
 },
 "doc://Numberick/s8SendableP": {
   "identifier" : "doc:\/\/Numberick\/s8SendableP",

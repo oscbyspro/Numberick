@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "RandomAccessCollection.formIndex(before:)",
+      "code" : "BidirectionalCollection.formIndex(before:)",
       "type" : "codeVoice"
     },
     {
@@ -18,7 +18,7 @@
       [
         "doc:\/\/Numberick\/documentation\/Numberick",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/RandomAccessCollection-Implementations"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/BidirectionalCollection-Implementations"
       ]
     ]
   },
@@ -28,72 +28,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "conformance" : {
-      "availabilityPrefix" : [
-        {
-          "text" : "Available when",
-          "type" : "text"
-        }
-      ],
-      "conformancePrefix" : [
-        {
-          "text" : "Conforms when",
-          "type" : "text"
-        }
-      ],
-      "constraints" : [
-        {
-          "code" : "Base",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "RandomAccessCollection",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ", ",
-          "type" : "text"
-        },
-        {
-          "code" : "Element",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "NBKCoreInteger",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ", and ",
-          "type" : "text"
-        },
-        {
-          "code" : "Base.Element",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "NBKCoreInteger",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ".",
-          "type" : "text"
-        }
-      ]
-    },
-    "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit13NBKChunkedIntV9formIndex6beforeySiz_tF",
+    "extendedModule" : "Swift",
+    "externalID" : "s:SKsE9formIndex6beforey0B0Qzz_tF::SYNTHESIZED::s:10NBKCoreKit13NBKChunkedIntV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -129,8 +65,15 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Index"
       },
       {
         "kind" : "text",
@@ -139,7 +82,10 @@
     ],
     "modules" : [
       {
-        "name" : "Numberick"
+        "name" : "Numberick",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "role" : "symbol",
@@ -184,7 +130,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "index"
+              "text" : "i"
             },
             {
               "kind" : "text",
@@ -200,8 +146,15 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Index"
             },
             {
               "kind" : "text",
@@ -283,85 +236,21 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkchunkedint"
 },
-"doc://Numberick/documentation/Numberick/NBKChunkedInt/RandomAccessCollection-Implementations": {
+"doc://Numberick/documentation/Numberick/NBKChunkedInt/BidirectionalCollection-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/RandomAccessCollection-Implementations",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt\/BidirectionalCollection-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "RandomAccessCollection Implementations",
+  "title" : "BidirectionalCollection Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkchunkedint\/randomaccesscollection-implementations"
+  "url" : "\/documentation\/numberick\/nbkchunkedint\/bidirectionalcollection-implementations"
 },
 "doc://Numberick/documentation/Numberick/NBKChunkedInt/formIndex(before:)": {
   "abstract" : [
 
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Base",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "RandomAccessCollection",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Element",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Base.Element",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -397,8 +286,15 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
     },
     {
       "kind" : "text",

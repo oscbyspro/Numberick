@@ -72,13 +72,11 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian-2bai4",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian-bcs2",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitWidth-swift.property",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/byteSwapped",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leadingZeroBitCount",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian-14uvk",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian-7u58x",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/nonzeroBitCount"
       ],
       "title" : "Instance Properties"
@@ -95,8 +93,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitWidth-swift.type.property",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/max-qxvo",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/min-9k4hc"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/max",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/min"
       ],
       "title" : "Type Properties"
     },
@@ -1373,7 +1371,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/__(_:_:)-6p28k"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bigEndian-2bai4": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bigEndian": {
   "abstract" : [
 
   ],
@@ -1476,45 +1474,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian-2bai4",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "bigEndian",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bigendian-2bai4"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bigEndian-bcs2": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bigEndian"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bigEndian-bcs2",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bigEndian",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bigendian-bcs2"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bigendian"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitWidth-swift.property": {
   "abstract" : [
@@ -2558,40 +2523,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/leadingzerobitcount"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/littleEndian-14uvk": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "littleEndian"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian-14uvk",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "littleEndian",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/littleendian-14uvk"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/littleEndian-7u58x": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/littleEndian": {
   "abstract" : [
 
   ],
@@ -2694,14 +2626,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian-7u58x",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/littleEndian",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "littleEndian",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/littleendian-7u58x"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/littleendian"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/max-qxvo": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/max": {
   "abstract" : [
 
   ],
@@ -2812,14 +2744,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/max-qxvo",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/max",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "max",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/max-qxvo"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/max"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/min-9k4hc": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/min": {
   "abstract" : [
 
   ],
@@ -2930,12 +2862,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/min-9k4hc",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/min",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "min",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/min-9k4hc"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/min"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/nonzeroBitCount": {
   "abstract" : [

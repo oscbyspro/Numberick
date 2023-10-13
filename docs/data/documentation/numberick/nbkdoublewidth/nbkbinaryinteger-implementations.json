@@ -62,20 +62,15 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/description-swift.property-3jo5c",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/description-swift.property",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isEven",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero-4s4mr",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero-5pqdf",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero-2k0va",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero-81nvq",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isOdd",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isPowerOf2",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero-315ie",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero-85wel",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit-3vlel",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit-7xwqj",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit-69j8k",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit-8lvf6",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/trailingZeroBitCount"
       ],
       "title" : "Instance Properties"
@@ -1117,7 +1112,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/description(radix:uppercase:)"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/description-swift.property-3jo5c": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/description-swift.property": {
   "abstract" : [
 
   ],
@@ -1144,12 +1139,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/description-swift.property-3jo5c",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/description-swift.property",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "description",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/description-swift.property-3jo5c"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/description-swift.property"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/divideReportingOverflow(by:)-3o5v2": {
   "abstract" : [
@@ -3235,44 +3230,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/iseven"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isLessThanZero-4s4mr": {
-  "abstract" : [
-    {
-      "text" : "Returns whether this value is less than zero.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isLessThanZero"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero-4s4mr",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isLessThanZero",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/islessthanzero-4s4mr"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isLessThanZero-5pqdf": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isLessThanZero": {
   "abstract" : [
     {
       "text" : "Returns whether this value is less than zero.",
@@ -3366,51 +3324,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero-5pqdf",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isLessThanZero",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isLessThanZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/islessthanzero-5pqdf"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/islessthanzero"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isMoreThanZero-2k0va": {
-  "abstract" : [
-    {
-      "text" : "Returns whether this value is more than zero.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isMoreThanZero"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero-2k0va",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isMoreThanZero",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/ismorethanzero-2k0va"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isMoreThanZero-81nvq": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isMoreThanZero": {
   "abstract" : [
     {
       "text" : "Returns whether this value is more than zero.",
@@ -3504,12 +3425,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero-81nvq",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isMoreThanZero",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isMoreThanZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/ismorethanzero-81nvq"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/ismorethanzero"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/isOdd": {
   "abstract" : [
@@ -3585,44 +3506,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/ispowerof2"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isZero-315ie": {
-  "abstract" : [
-    {
-      "text" : "Returns whether this value is equal to zero.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isZero"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero-315ie",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isZero",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/iszero-315ie"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isZero-85wel": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/isZero": {
   "abstract" : [
     {
       "text" : "Returns whether this value is equal to zero.",
@@ -3716,14 +3600,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero-85wel",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/isZero",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isZero",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/iszero-85wel"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/iszero"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/leastSignificantBit-3vlel": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/leastSignificantBit": {
   "abstract" : [
     {
       "text" : "Returns the least significant bit in its binary representation.",
@@ -3817,51 +3701,14 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit-3vlel",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "leastSignificantBit",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/leastsignificantbit-3vlel"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/leastsignificantbit"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/leastSignificantBit-7xwqj": {
-  "abstract" : [
-    {
-      "text" : "Returns the least significant bit in its binary representation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "leastSignificantBit"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/leastSignificantBit-7xwqj",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "leastSignificantBit",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/leastsignificantbit-7xwqj"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/mostSignificantBit-69j8k": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/mostSignificantBit": {
   "abstract" : [
     {
       "text" : "Returns the most significant bit in its binary representation.",
@@ -3955,49 +3802,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit-69j8k",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mostSignificantBit",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/mostsignificantbit-69j8k"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/mostSignificantBit-8lvf6": {
-  "abstract" : [
-    {
-      "text" : "Returns the most significant bit in its binary representation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "mostSignificantBit"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/mostSignificantBit-8lvf6",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "mostSignificantBit",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/mostsignificantbit-8lvf6"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/mostsignificantbit"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/onesComplement()": {
   "abstract" : [

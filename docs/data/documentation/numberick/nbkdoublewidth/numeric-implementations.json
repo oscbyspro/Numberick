@@ -40,7 +40,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/magnitude-swift.property-34wnl"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/magnitude-swift.property"
       ],
       "title" : "Instance Properties"
     }
@@ -216,7 +216,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(exactly:)-5v9ae"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/magnitude-swift.property-34wnl": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/magnitude-swift.property": {
   "abstract" : [
 
   ],
@@ -324,12 +324,12 @@
       "text" : "Magnitude"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/magnitude-swift.property-34wnl",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/magnitude-swift.property",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "magnitude",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/magnitude-swift.property-34wnl"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/magnitude-swift.property"
 }
 }
 }

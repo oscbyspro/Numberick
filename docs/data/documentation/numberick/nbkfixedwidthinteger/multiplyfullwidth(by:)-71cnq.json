@@ -40,9 +40,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/multiplyFullWidth(by:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/multiplyFullWidth(by:)-50pop"
       ],
-      "title" : "NBKCoreInteger Implementations"
+      "title" : "NBKFixedWidthInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -330,7 +330,41 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick"
 },
-"doc://Numberick/documentation/Numberick/NBKCoreInteger/multiplyFullWidth(by:)": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/multiplyFullWidth(by:)-50pop": {
   "abstract" : [
 
   ],
@@ -372,46 +406,12 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/multiplyFullWidth(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/multiplyFullWidth(by:)-50pop",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "multiplyFullWidth(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkcoreinteger\/multiplyfullwidth(by:)"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
-  "abstract" : [
-    {
-      "text" : "An integer type with a fixed bit width for every instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKFixedWidthInteger"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKFixedWidthInteger"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKFixedWidthInteger",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/multiplyfullwidth(by:)-50pop"
 },
 "doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/multiplyFullWidth(by:)-71cnq": {
   "abstract" : [

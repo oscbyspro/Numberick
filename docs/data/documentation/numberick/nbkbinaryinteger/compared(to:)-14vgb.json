@@ -8,9 +8,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/compared(to:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/compared(to:)-6jzcv"
       ],
-      "title" : "NBKFixedWidthInteger Implementations"
+      "title" : "NBKBinaryInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -313,7 +313,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/compared(to:)-14vgb"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/compared(to:)": {
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/compared(to:)-6jzcv": {
   "abstract" : [
 
   ],
@@ -356,12 +356,12 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/compared(to:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/compared(to:)-6jzcv",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "compared(to:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/compared(to:)"
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/compared(to:)-6jzcv"
 }
 }
 }

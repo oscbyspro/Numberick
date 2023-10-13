@@ -33,17 +33,11 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last-60hwa"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/difference(from:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/difference(from:by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/dropLast(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/firstRange(of:)-183tn",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/formIndex(before:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last(where:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/lastIndex(of:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/lastIndex(where:)",
@@ -512,6 +506,67 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/firstrange(of:)-183tn"
 },
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/formIndex(before:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "before"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/formIndex(before:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formIndex(before:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/formindex(before:)"
+},
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/last(where:)": {
   "abstract" : [
 
@@ -605,51 +660,6 @@
   "title" : "last(where:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/last(where:)"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/last-60hwa": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "last"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last-60hwa",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "last",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/last-60hwa"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/lastIndex(of:)": {
   "abstract" : [

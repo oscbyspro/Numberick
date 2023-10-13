@@ -40,9 +40,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/addReportingOverflow(_:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addReportingOverflow(_:)-7dsb2"
       ],
-      "title" : "NBKCoreInteger Implementations"
+      "title" : "NBKFixedWidthInteger Implementations"
     }
   ],
   "hierarchy" : {
@@ -276,48 +276,6 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick"
 },
-"doc://Numberick/documentation/Numberick/NBKCoreInteger/addReportingOverflow(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "addReportingOverflow"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger\/addReportingOverflow(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "addReportingOverflow(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkcoreinteger\/addreportingoverflow(_:)"
-},
 "doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
   "abstract" : [
     {
@@ -438,6 +396,48 @@
   "title" : "addReportingOverflow(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/addreportingoverflow(_:)-3sbvr"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/addReportingOverflow(_:)-7dsb2": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "addReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addReportingOverflow(_:)-7dsb2",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "addReportingOverflow(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/addreportingoverflow(_:)-7dsb2"
 }
 }
 }

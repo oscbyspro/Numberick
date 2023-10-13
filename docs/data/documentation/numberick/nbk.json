@@ -155,22 +155,30 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SuccinctInt"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/MaybeTwosComplement",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SuccinctInt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IO",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ISM",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/LessThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/MoreThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/NonPowerOf2",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/NonZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/PowerOf2",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SBI",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SBISS",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSI",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSISS",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSM",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSMSS",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SUI",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SUISS",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Sign",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/U128X32",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/U128X64",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/U256X32",
@@ -181,7 +189,10 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeUTF8",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeWords",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Wide2",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Wide3"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Wide3",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Zero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrLess",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrMore"
       ],
       "title" : "Type Aliases"
     },
@@ -204,15 +215,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/blackHoleInoutIdentity(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/callsiteOutOfBoundsInfo(function:file:line:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/callsiteOverflowInfo(function:file:line:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/compare22S(_:to:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/compare33S(_:to:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/decrement32B(_:by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/decrement33B(_:by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/descriptionAsStdlib(_:radix:uppercase:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/divide3212MSBUnchecked(_:by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/dropLast(from:while:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/increment32B(_:by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/increment33B(_:by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(_:as:)-1wo9x",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(_:as:)-67xkt",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(clamping:as:)-4r4ah",
@@ -221,19 +224,19 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(exactly:as:)-8dwkj",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(truncating:as:)-6rhdy",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(truncating:as:)-7lcao",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/integerAsStdlib(_:radix:as:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingByBitWidthOf:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/magnitude(of:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/multiplying213(_:by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotientDividingByBitWidth(_:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotientDividingByBitWidthAssumingIsAtLeastZero(_:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainderDividingByBitWidth(_:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainderDividingByBitWidthAssumingIsAtLeastZero(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-1fro3",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-4ze6o",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-7ndmt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)-2266l",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)-5ngr",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotient(of:dividingBy:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainder(of:dividingBy:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removePrefix(from:count:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removePrefix(from:maxLength:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removeSuffix(from:count:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removeSuffix(from:maxLength:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftBinaryInteger(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftFixedWidthInteger(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(copying:perform:)"
       ],
       "title" : "Type Methods"
@@ -241,8 +244,17 @@
     {
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerSignMagnitude",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsLessThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsMoreThanZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsNot",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsPowerOf2",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsZero",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictSignMagnitude",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictSignedInteger",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleInteger"
       ],
       "title" : "Enumerations"
     }
@@ -419,6 +431,48 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/io"
 },
+"doc://Numberick/documentation/Numberick/NBK/ISM": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ISM"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ISM",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ISM"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.ISM",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ism"
+},
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription": {
   "abstract" : [
     {
@@ -452,6 +506,414 @@
   "title" : "NBK.IntegerDescription",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerSignMagnitude": {
+  "abstract" : [
+    {
+      "text" : "A namespace for integer sign-magnitude algorithms.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntegerSignMagnitude"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerSignMagnitude",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntegerSignMagnitude"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IntegerSignMagnitude",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integersignmagnitude"
+},
+"doc://Numberick/documentation/Numberick/NBK/IsLessThanZero": {
+  "abstract" : [
+    {
+      "text" : "A predicate that returns whether a value is less than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsLessThanZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsLessThanZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsLessThanZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IsLessThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/islessthanzero"
+},
+"doc://Numberick/documentation/Numberick/NBK/IsMoreThanZero": {
+  "abstract" : [
+    {
+      "text" : "A predicate that returns whether a value is more than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsMoreThanZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsMoreThanZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsMoreThanZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IsMoreThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ismorethanzero"
+},
+"doc://Numberick/documentation/Numberick/NBK/IsNot": {
+  "abstract" : [
+    {
+      "text" : "A predicate that returns the inverse result of another predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsNot"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsNot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsNot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IsNot",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/isnot"
+},
+"doc://Numberick/documentation/Numberick/NBK/IsPowerOf2": {
+  "abstract" : [
+    {
+      "text" : "A predicate that returns whether a value is a power of two.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsPowerOf2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsPowerOf2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsPowerOf2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IsPowerOf2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ispowerof2"
+},
+"doc://Numberick/documentation/Numberick/NBK/IsZero": {
+  "abstract" : [
+    {
+      "text" : "A predicate that returns whether a value is zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IsZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.IsZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/iszero"
+},
+"doc://Numberick/documentation/Numberick/NBK/LessThanZero": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is less than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LessThanZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/LessThanZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LessThanZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.LessThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/lessthanzero"
+},
+"doc://Numberick/documentation/Numberick/NBK/MaybeTwosComplement": {
+  "abstract" : [
+    {
+      "text" : "A dynamic, lazy, two’s complement sequence.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MaybeTwosComplement"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/MaybeTwosComplement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MaybeTwosComplement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.MaybeTwosComplement",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/maybetwoscomplement"
+},
+"doc://Numberick/documentation/Numberick/NBK/MoreThanZero": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is more than zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MoreThanZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/MoreThanZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MoreThanZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.MoreThanZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/morethanzero"
+},
+"doc://Numberick/documentation/Numberick/NBK/NonPowerOf2": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is not a power of two.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NonPowerOf2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/NonPowerOf2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NonPowerOf2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.NonPowerOf2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/nonpowerof2"
+},
+"doc://Numberick/documentation/Numberick/NBK/NonZero": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is not zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NonZero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/NonZero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NonZero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.NonZero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/nonzero"
+},
+"doc://Numberick/documentation/Numberick/NBK/PowerOf2": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is a power of two.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PowerOf2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/PowerOf2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PowerOf2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.PowerOf2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/powerof2"
 },
 "doc://Numberick/documentation/Numberick/NBK/SBI": {
   "abstract" : [
@@ -621,6 +1083,90 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/ssiss"
 },
+"doc://Numberick/documentation/Numberick/NBK/SSM": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSM"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSM",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSM"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.SSM",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ssm"
+},
+"doc://Numberick/documentation/Numberick/NBK/SSMSS": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SSMSS"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SSMSS",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SSMSS"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.SSMSS",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ssmss"
+},
 "doc://Numberick/documentation/Numberick/NBK/SUI": {
   "abstract" : [
     {
@@ -749,7 +1295,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -772,6 +1318,40 @@
   "title" : "NBK.StrictBinaryInteger",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger"
+},
+"doc://Numberick/documentation/Numberick/NBK/StrictSignMagnitude": {
+  "abstract" : [
+    {
+      "text" : "A namespace for strict sign-magnitude algorithms.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StrictSignMagnitude"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictSignMagnitude",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StrictSignMagnitude"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.StrictSignMagnitude",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/strictsignmagnitude"
 },
 "doc://Numberick/documentation/Numberick/NBK/StrictSignedInteger": {
   "abstract" : [
@@ -875,14 +1455,51 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/succinctint"
 },
-"doc://Numberick/documentation/Numberick/NBK/TwinHeaded": {
+"doc://Numberick/documentation/Numberick/NBK/TupleInteger": {
   "abstract" : [
-
+    {
+      "text" : "A namespace for tuple integer algorithms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TupleInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TupleInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tupleinteger"
+},
+"doc://Numberick/documentation/Numberick/NBK/TwinHeaded": {
+  "abstract" : [
+    {
+      "text" : "A collection that iterates forwards or backwards in a dynamic but branchless way.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -1351,6 +1968,108 @@
   "title" : "NBK.Wide3",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/wide3"
+},
+"doc://Numberick/documentation/Numberick/NBK/Zero": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Zero"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/Zero",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Zero"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.Zero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/zero"
+},
+"doc://Numberick/documentation/Numberick/NBK/ZeroOrLess": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is zero or less.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrLess"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrLess",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrLess"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.ZeroOrLess",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/zeroorless"
+},
+"doc://Numberick/documentation/Numberick/NBK/ZeroOrMore": {
+  "abstract" : [
+    {
+      "text" : "A precondition asserting that a value is zero or more.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrMore"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ZeroOrMore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZeroOrMore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.ZeroOrMore",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/zeroormore"
 },
 "doc://Numberick/documentation/Numberick/NBK/arrayIndex(_:offsetBy:limitedBy:)": {
   "abstract" : [
@@ -2298,810 +3017,6 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/callsiteoverflowinfo(function:file:line:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/compare22S(_:to:)": {
-  "abstract" : [
-    {
-      "text" : "A three-way comparison that returns: ",
-      "type" : "text"
-    },
-    {
-      "code" : "-1",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (less), ",
-      "type" : "text"
-    },
-    {
-      "code" : "0",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (same), or ",
-      "type" : "text"
-    },
-    {
-      "code" : "1",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (more).",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "compare22S"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/compare22S(_:to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "compare22S(_:to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/compare22s(_:to:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/compare33S(_:to:)": {
-  "abstract" : [
-    {
-      "text" : "A three-way comparison that returns: ",
-      "type" : "text"
-    },
-    {
-      "code" : "-1",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (less), ",
-      "type" : "text"
-    },
-    {
-      "code" : "0",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (same), or ",
-      "type" : "text"
-    },
-    {
-      "code" : "1",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " (more).",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "compare33S"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/compare33S(_:to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "compare33S(_:to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/compare33s(_:to:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/decrement32B(_:by:)": {
-  "abstract" : [
-    {
-      "text" : "Forms the ",
-      "type" : "text"
-    },
-    {
-      "code" : "difference",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of ",
-      "type" : "text"
-    },
-    {
-      "code" : "lhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : "rhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", and returns an ",
-      "type" : "text"
-    },
-    {
-      "code" : "overflow",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " indicator.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "In the case of overflow, the result is truncated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "decrement32B"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/decrement32B(_:by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "decrement32B(_:by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/decrement32b(_:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/decrement33B(_:by:)": {
-  "abstract" : [
-    {
-      "text" : "Forms the ",
-      "type" : "text"
-    },
-    {
-      "code" : "difference",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of ",
-      "type" : "text"
-    },
-    {
-      "code" : "lhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : "rhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", and returns an ",
-      "type" : "text"
-    },
-    {
-      "code" : "overflow",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " indicator.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "In the case of overflow, the result is truncated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "decrement33B"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/decrement33B(_:by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "decrement33B(_:by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/decrement33b(_:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/descriptionAsStdlib(_:radix:uppercase:)": {
-  "abstract" : [
-    {
-      "text" : "Creates a description from an integer by using Swift’s standard library method.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "descriptionAsStdlib"
-    },
-    {
-      "kind" : "text",
-      "text" : "(some "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sz",
-      "text" : "BinaryInteger"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "radix"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "uppercase"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/descriptionAsStdlib(_:radix:uppercase:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "descriptionAsStdlib(_:radix:uppercase:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/descriptionasstdlib(_:radix:uppercase:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/divide3212MSBUnchecked(_:by:)": {
-  "abstract" : [
-    {
-      "text" : "Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "divide3212MSBUnchecked"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/divide3212MSBUnchecked(_:by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "divide3212MSBUnchecked(_:by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/divide3212msbunchecked(_:by:)"
-},
 "doc://Numberick/documentation/Numberick/NBK/dropLast(from:while:)": {
   "abstract" : [
     {
@@ -3218,328 +3133,6 @@
   "title" : "dropLast(from:while:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/droplast(from:while:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/increment32B(_:by:)": {
-  "abstract" : [
-    {
-      "text" : "Forms the ",
-      "type" : "text"
-    },
-    {
-      "code" : "sum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of ",
-      "type" : "text"
-    },
-    {
-      "code" : "lhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : "rhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", and returns an ",
-      "type" : "text"
-    },
-    {
-      "code" : "overflow",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " indicator.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "In the case of overflow, the result is truncated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "increment32B"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/increment32B(_:by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "increment32B(_:by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/increment32b(_:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/increment33B(_:by:)": {
-  "abstract" : [
-    {
-      "text" : "Forms the ",
-      "type" : "text"
-    },
-    {
-      "code" : "sum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of ",
-      "type" : "text"
-    },
-    {
-      "code" : "lhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : "rhs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", and returns an ",
-      "type" : "text"
-    },
-    {
-      "code" : "overflow",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " indicator.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "In the case of overflow, the result is truncated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "increment33B"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/increment33B(_:by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "increment33B(_:by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/increment33b(_:by:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/initOrBitCast(_:as:)-1wo9x": {
   "abstract" : [
@@ -4269,113 +3862,6 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/initorbitcast(truncating:as:)-7lcao"
 },
-"doc://Numberick/documentation/Numberick/NBK/integerAsStdlib(_:radix:as:)": {
-  "abstract" : [
-    {
-      "text" : "Creates an integer from a description by using Swift’s standard library method.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "integerAsStdlib"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(some "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sy",
-      "text" : "StringProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "radix"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "as"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sq",
-      "text" : "Optional"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/integerAsStdlib(_:radix:as:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "integerAsStdlib(_:radix:as:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerasstdlib(_:radix:as:)"
-},
 "doc://Numberick/documentation/Numberick/NBK/isBigEndian": {
   "abstract" : [
 
@@ -4460,7 +3946,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/islittleendian"
 },
-"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidue(of:dividingByBitWidthOf:)": {
+"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidue(of:dividingBy:)-1fro3": {
   "abstract" : [
     {
       "text" : "Returns the least positive ",
@@ -4479,11 +3965,144 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " by ",
+      "text" : " by the ",
       "type" : "text"
     },
     {
-      "code" : "source.bitWidth",
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "leastPositiveResidue"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "PowerOf2"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-1fro3",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "leastPositiveResidue(of:dividingBy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresidue(of:dividingby:)-1fro3"
+},
+"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidue(of:dividingBy:)-4ze6o": {
+  "abstract" : [
+    {
+      "text" : "Returns the least positive ",
+      "type" : "text"
+    },
+    {
+      "code" : "residue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
       "type" : "codeVoice"
     },
     {
@@ -4530,12 +4149,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sz",
-      "text" : "BinaryInteger"
+      "text" : "T"
     },
     {
       "kind" : "text",
@@ -4543,7 +4161,126 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "dividingByBitWidthOf"
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NonZero"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-4ze6o",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "leastPositiveResidue(of:dividingBy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresidue(of:dividingby:)-4ze6o"
+},
+"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidue(of:dividingBy:)-7ndmt": {
+  "abstract" : [
+    {
+      "text" : "Returns the least positive ",
+      "type" : "text"
+    },
+    {
+      "code" : "residue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "leastPositiveResidue"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
     },
     {
       "kind" : "text",
@@ -4555,22 +4292,54 @@
     },
     {
       "kind" : "text",
-      "text" : ".Type) -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NonZero"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingByBitWidthOf:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidue(of:dividingBy:)-7ndmt",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "leastPositiveResidue(of:dividingByBitWidthOf:)",
+  "title" : "leastPositiveResidue(of:dividingBy:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresidue(of:dividingbybitwidthof:)"
+  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresidue(of:dividingby:)-7ndmt"
 },
-"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidueReportingOverflow(of:dividingBy:)": {
+"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidueReportingOverflow(of:dividingBy:)-2266l": {
   "abstract" : [
     {
       "text" : "Returns the least positive ",
@@ -4686,29 +4455,37 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)-2266l",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "leastPositiveResidueReportingOverflow(of:dividingBy:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresiduereportingoverflow(of:dividingby:)"
+  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresiduereportingoverflow(of:dividingby:)-2266l"
 },
-"doc://Numberick/documentation/Numberick/NBK/magnitude(of:)": {
+"doc://Numberick/documentation/Numberick/NBK/leastPositiveResidueReportingOverflow(of:dividingBy:)-5ngr": {
   "abstract" : [
     {
-      "text" : "Returns the ",
+      "text" : "Returns the least positive ",
       "type" : "text"
     },
     {
-      "code" : "magnitude",
+      "code" : "residue",
       "type" : "codeVoice"
     },
     {
-      "text" : " of the given ",
+      "text" : " of dividing the ",
       "type" : "text"
     },
     {
-      "code" : "value",
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
       "type" : "codeVoice"
     },
     {
@@ -4735,7 +4512,136 @@
     },
     {
       "kind" : "identifier",
-      "text" : "magnitude"
+      "text" : "leastPositiveResidueReportingOverflow"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3PVOa",
+      "text" : "PVO"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/leastPositiveResidueReportingOverflow(of:dividingBy:)-5ngr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "leastPositiveResidueReportingOverflow(of:dividingBy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/leastpositiveresiduereportingoverflow(of:dividingby:)-5ngr"
+},
+"doc://Numberick/documentation/Numberick/NBK/quotient(of:dividingBy:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing this the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "quotient"
     },
     {
       "kind" : "text",
@@ -4768,8 +4674,40 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
+      "text" : "ZeroOrMore"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividingBy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "PowerOf2"
     },
     {
       "kind" : "text",
@@ -4785,70 +4723,40 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Magnitude"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/magnitude(of:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotient(of:dividingBy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "magnitude(of:)",
+  "title" : "quotient(of:dividingBy:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/magnitude(of:)"
+  "url" : "\/documentation\/numberick\/nbk\/quotient(of:dividingby:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/multiplying213(_:by:)": {
+"doc://Numberick/documentation/Numberick/NBK/remainder(of:dividingBy:)": {
   "abstract" : [
     {
       "text" : "Returns the ",
       "type" : "text"
     },
     {
-      "code" : "product",
+      "code" : "remainder",
       "type" : "codeVoice"
     },
     {
-      "text" : " of multiplying ",
+      "text" : " of dividing this the ",
       "type" : "text"
     },
     {
-      "code" : "lhs",
+      "code" : "dividend",
       "type" : "codeVoice"
     },
     {
-      "text" : " by ",
+      "text" : " by the ",
       "type" : "text"
     },
     {
-      "code" : "rhs",
+      "code" : "divisor",
       "type" : "codeVoice"
     },
     {
@@ -4875,7 +4783,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "multiplying213"
+      "text" : "remainder"
     },
     {
       "kind" : "text",
@@ -4890,6 +4798,14 @@
       "text" : ">("
     },
     {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
       "text" : "NBK"
@@ -4900,8 +4816,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide2a",
-      "text" : "Wide2"
+      "text" : "ZeroOrMore"
     },
     {
       "kind" : "text",
@@ -4917,19 +4832,11 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "by"
+      "text" : "dividingBy"
     },
     {
       "kind" : "text",
       "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -4942,8 +4849,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO5Wide3a",
-      "text" : "Wide3"
+      "text" : "PowerOf2"
     },
     {
       "kind" : "text",
@@ -4955,263 +4861,19 @@
     },
     {
       "kind" : "text",
-      "text" : ">"
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/multiplying213(_:by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainder(of:dividingBy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "multiplying213(_:by:)",
+  "title" : "remainder(of:dividingBy:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/multiplying213(_:by:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/quotientDividingByBitWidth(_:)": {
-  "abstract" : [
-    {
-      "text" : "Returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "quotient",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of dividing this value by its bit width.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "quotientDividingByBitWidth"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotientDividingByBitWidth(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "quotientDividingByBitWidth(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/quotientdividingbybitwidth(_:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/quotientDividingByBitWidthAssumingIsAtLeastZero(_:)": {
-  "abstract" : [
-    {
-      "text" : "Returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "quotient",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of dividing this value by its bit width.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "quotientDividingByBitWidthAssumingIsAtLeastZero"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/quotientDividingByBitWidthAssumingIsAtLeastZero(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "quotientDividingByBitWidthAssumingIsAtLeastZero(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/quotientdividingbybitwidthassumingisatleastzero(_:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/remainderDividingByBitWidth(_:)": {
-  "abstract" : [
-    {
-      "text" : "Returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "remainder",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of dividing this value by its bit width.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "remainderDividingByBitWidth"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainderDividingByBitWidth(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "remainderDividingByBitWidth(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/remainderdividingbybitwidth(_:)"
-},
-"doc://Numberick/documentation/Numberick/NBK/remainderDividingByBitWidthAssumingIsAtLeastZero(_:)": {
-  "abstract" : [
-    {
-      "text" : "Returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "remainder",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " of dividing this value by its bit width.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "remainderDividingByBitWidthAssumingIsAtLeastZero"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/remainderDividingByBitWidthAssumingIsAtLeastZero(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "remainderDividingByBitWidthAssumingIsAtLeastZero(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/remainderdividingbybitwidthassumingisatleastzero(_:)"
+  "url" : "\/documentation\/numberick\/nbk\/remainder(of:dividingby:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/removePrefix(from:count:)": {
   "abstract" : [
@@ -5648,6 +5310,176 @@
   "title" : "removeSuffix(from:maxLength:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/removesuffix(from:maxlength:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/someSwiftBinaryInteger(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "value",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " as some ",
+      "type" : "text"
+    },
+    {
+      "code" : "Swift.BinaryInteger",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "someSwiftBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sz",
+      "text" : "BinaryInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftBinaryInteger(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "someSwiftBinaryInteger(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/someswiftbinaryinteger(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/someSwiftFixedWidthInteger(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "value",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " as some ",
+      "type" : "text"
+    },
+    {
+      "code" : "Swift.FixedWidthInteger",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "someSwiftFixedWidthInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17FixedWidthIntegerP",
+      "text" : "FixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftFixedWidthInteger(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "someSwiftFixedWidthInteger(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/someswiftfixedwidthinteger(_:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/withUnsafeTemporaryAllocation(copying:perform:)": {
   "abstract" : [

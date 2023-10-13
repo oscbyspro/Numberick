@@ -723,9 +723,9 @@
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/ascending",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/descending",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/first-9s2wl",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/first",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/high-swift.property",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last-3wlna",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/lastIndex",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/low-swift.property",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/tail"
@@ -5054,7 +5054,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/dividingfullwidthreportingoverflow(_:)-27oc0"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/first-9s2wl": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/first": {
   "abstract" : [
     {
       "text" : "The least significant word.",
@@ -5148,12 +5148,12 @@
       "text" : "UInt"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/first-9s2wl",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/first",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "first",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/first-9s2wl"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/first"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/formQuotientWithRemainderReportingOverflow(dividingBy:)": {
   "abstract" : [
@@ -5915,7 +5915,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/issigned-94hrq"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/last-3wlna": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/last": {
   "abstract" : [
     {
       "text" : "The most significant word.",
@@ -6009,12 +6009,12 @@
       "text" : "UInt"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last-3wlna",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/last",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "last",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/last-3wlna"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/last"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/lastIndex": {
   "abstract" : [
