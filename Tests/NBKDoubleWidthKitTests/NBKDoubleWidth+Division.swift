@@ -367,9 +367,9 @@ final class NBKDoubleWidthTestsOnDivisionOpenSourceIssues: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    ///  https://github.com/oscbyspro/Numberick/issues/101
+    /// https://github.com/oscbyspro/Numberick/issues/101
     ///
-    /// - Note: Checks whether 3212-branch knows when the quotient fits.
+    /// - Note: Checks whether the 3212-path knows when the quotient fits.
     ///
     func testNumberickIssues101() {
         NBKAssertDivision(
@@ -379,7 +379,10 @@ final class NBKDoubleWidthTestsOnDivisionOpenSourceIssues: XCTestCase {
         UInt256("0000000000000000000016136758413064865246015978698186666775"))
     }
     
-    ///  https://github.com/apple/swift-numerics/issues/272
+    /// https://github.com/apple/swift-numerics/issues/272
+    ///
+    /// - Note: Said to cause a crash and return an incorrect division result.
+    ///
     func testSwiftNumericsIssues272() {
         NBKAssertDivision(
         UInt128(3) << 96,
@@ -405,7 +408,7 @@ _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool 
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+        XCTAssertEqual(lhs, rhs * quotient + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
     }
     //=------------------------------------------=
     if !overflow {

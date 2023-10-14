@@ -147,8 +147,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 1111
         //=--------------------------------------=
-        let lhsIs0X = lhs.high.isZero as Bool
-        if  lhsIs0X {
+        if  lhs.high.isZero {
             assert(rhs.high.isZero, "divisors greater than or equal should go fast path")
             let (quotient, remainder) = lhs.low.quotientAndRemainder(dividingBy: rhs.low)
             return QR(Self(low: quotient), Self(low: remainder))
@@ -156,8 +155,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 2121
         //=--------------------------------------=
-        let rhsIs0X = UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth)
-        if  rhsIs0X {
+        if  UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth) {
             let (quotient, remainder) = Self.divide2121(lhs, by: rhs.low)
             return QR(quotient, Self(low: remainder))
         }
@@ -204,24 +202,20 @@ extension NBKDoubleWidth where High == High.Magnitude {
     
     /// An adaptation of "Fast Recursive Division" by Christoph Burnikel and Joachim Ziegler.
     @inlinable static func divide4222Unchecked(_ lhs: NBKDoubleWidth<Self>, by rhs: Self, shift: NBK.ZeroOrMore<Int>) -> QR<Self, Self> {
-        assert(rhs > lhs.high, "quotient must fit in two halves")
         assert(rhs.isZero == false, "must not divide by zero")
         assert(rhs.leadingZeroBitCount == shift.value, "save shift distance")
-        //=--------------------------------------=
-        let lhsWas0XXX = lhs.high.high.isZero as Bool
-        let lhsWas00XX = lhsWas0XXX && lhs.high.low.isZero as Bool
+        assert(rhs > lhs.high, "quotient must fit in two halves")
         //=--------------------------------------=
         // division: 2222
         //=--------------------------------------=
-        if  lhsWas00XX {
+        if  lhs.high.isZero {
             return Self.divide2222Unchecked(lhs.low, by: rhs, shift: shift)
         }
         //=--------------------------------------=
         // division: 3121
         //=--------------------------------------=
-        let rhsWas0X = UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth)
-        if  rhsWas0X {
-            assert(lhs.high.high.isZero, "quotient must fit in two halves")
+        if  UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth) {
+            assert(lhs.high.high.isZero,  "quotient must fit in two halves") //  because lhs.high < rhs && rhs.high == 0
             let (quotient, remainder) = Self.divide3121Unchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(low: remainder))
         }
@@ -236,7 +230,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
-        if  lhsWas0XXX, lhs.high.high.isZero, rhs > Self(high: lhs.high.low, low: lhs.low.high) {
+        if  lhs.high.high.isZero, rhs > Self(high: lhs.high.low, low: lhs.low.high) {
             let (quotient, remainder) = Self.divide3212MSBUnchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
             return QR(Self(low: quotient), remainder.bitshiftedRight(major: major, minor: minor))
         }
