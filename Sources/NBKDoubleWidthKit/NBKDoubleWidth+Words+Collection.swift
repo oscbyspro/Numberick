@@ -22,6 +22,14 @@ extension NBKDoubleWidth {
     // MARK: Accessors
     //=------------------------------------------------------------------------=
     
+    /// Checks whether this collection is empty.
+    ///
+    /// - Note: `NBKDoubleWidth` contains at least two elements.
+    ///
+    @inlinable public var isEmpty: Bool {
+        false
+    }
+    
     /// The index of the least significant word.
     @inlinable public var startIndex: Int {
         0 as Int

@@ -61,9 +61,10 @@ extension NBKCoreInteger {
     }
     
     @inlinable public init?(words: some RandomAccessCollection<UInt>, isSigned: Bool) {
-        let chunks = NBKChunkedInt(words, isSigned: isSigned, as: Self.self)
-        self  = chunks[0 as Int]  // with sign extension in case it is empty
-        guard self.isLessThanZero != chunks.sign.isZero, chunks.dropFirst().allSatisfy({ $0 == chunks.sign }) else { return nil }
+        let chunks = NBKChunkedInt(words, isSigned: isSigned, as: Magnitude.self)
+        self = Self(bitPattern: chunks[0 as Int]) // with sign extension in case it is empty
+        guard self.isLessThanZero != chunks.sign.isZero else  { return nil }
+        for index in chunks.indices.dropFirst() where chunks[index] != chunks.sign { return nil }
     }
     
     //=------------------------------------------------------------------------=

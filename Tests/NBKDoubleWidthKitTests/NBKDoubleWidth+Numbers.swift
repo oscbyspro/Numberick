@@ -549,7 +549,7 @@ private func NBKAssertNumbers<I: NBKBinaryInteger, O: NBKBinaryInteger>(
 from value: I, exactly: O?, clamping: O, truncating: O,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    if  let exactly = exactly {
+    if  let exactly {
         XCTAssertEqual(O(value), exactly, file: file, line: line)
     }
     //=------------------------------------------=

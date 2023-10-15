@@ -21,7 +21,7 @@ extension NBK.IntegerDescription {
     ///
     /// ### Solution
     ///
-    /// Max power and exponent in `pow(base, exponent) <= Element.max + 1`.
+    /// The largest `exponent` and `power` in `pow(base, exponent) <= Element.max + 1`.
     ///
     /// - The `base` is `>= 2` and `<= 36`
     /// - The `exponent` is `>= 1` and `<= Element.bitWidth`
@@ -41,6 +41,7 @@ extension NBK.IntegerDescription {
         
         @inlinable public init?(_ solution: AnyRadixSolution<Element>) {
             guard  solution.power.isZero else { return nil }
+            Swift.assert(solution.exponent.isPowerOf2)
             Swift.assert([2, 4, 16].contains(solution.base))
             self.solution = solution
         }
@@ -55,10 +56,6 @@ extension NBK.IntegerDescription {
         
         @inlinable public var exponent: Element {
             self.solution.exponent
-        }
-        
-        @inlinable public var power: Element {
-            self.solution.power
         }
         
         //=--------------------------------------------------------------------=
@@ -109,7 +106,7 @@ extension NBK.IntegerDescription {
     ///
     /// ### Solution
     ///
-    /// Max power and exponent in `pow(base, exponent) <= Element.max + 1`.
+    /// The largest `exponent` and `power` in `pow(base, exponent) <= Element.max + 1`.
     ///
     /// - The `base` is `>= 2` and `<= 36`
     /// - The `exponent` is `>= 1` and `<= Element.bitWidth`
@@ -145,8 +142,8 @@ extension NBK.IntegerDescription {
             self.solution.exponent
         }
         
-        @inlinable public var power: Element {
-            self.solution.power
+        @inlinable public var power: NBK.NonZero<Element> {
+            NBK.NonZero(unchecked: self.solution.power)
         }
         
         //=--------------------------------------------------------------------=
@@ -199,7 +196,7 @@ extension NBK.IntegerDescription {
     ///
     /// ### Solution
     ///
-    /// Max power and exponent in `pow(base, exponent) <= Element.max + 1`.
+    /// The largest `exponent` and `power` in `pow(base, exponent) <= Element.max + 1`.
     ///
     /// - The `base` is `>= 2` and `<= 36`
     /// - The `exponent` is `>= 1` and `<= Element.bitWidth`
@@ -237,26 +234,26 @@ extension NBK.IntegerDescription {
         ///
         @inlinable public init(_ radix: Int) {
             precondition(2 ... 36 ~=  radix)
-            //=----------------------------------=
-            self.base = NBK.initOrBitCast(truncating: radix)
-            // all core integers can represent the range 2 ... 36
-            
-            switch radix.isPowerOf2 {
-            case  true: (self.exponent, self.power) = Self.exponentiate(baseAsAnyPowerOf2From2Unchecked: self.base)
-            case false: (self.exponent, self.power) = Self.exponentiate(baseAsNonPowerOf2From2Unchecked: self.base) }
+            (self.base) = NBK.initOrBitCast(truncating: radix) // <= 36
+            (self.exponent, self.power) = NBK.PowerOf2.switch(self.base,
+            true: Self.exponentiate, false: Self.exponentiate)
         }
 
         //=--------------------------------------------------------------------=
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        /// Returns the largest exponent in `pow(radix, exponent) <= Element.max + 1`.
-        @inlinable static func exponentiate(baseAsAnyPowerOf2From2Unchecked base: Element) -> Exponentiation {
-            Swift.assert(base >= 2)
-            Swift.assert(base.isPowerOf2)
+        /// Exponentiates `base` through `Element.max + 1`.
+        ///
+        /// - Parameter base: Any power of 2 greater than 1.
+        ///
+        /// - Returns: The `exponent` and `power` where `0` represents `Element.max + 1`.
+        ///
+        @inlinable static func exponentiate(_ base: NBK.PowerOf2<Element>) -> Exponentiation {
+            precondition(base.value > 1)
             //=----------------------------------=
-            let exponentiation: Exponentiation
-            let zeros: Element = NBK.initOrBitCast(truncating: base.trailingZeroBitCount)
+            let exponentiation:  Exponentiation
+            let zeros: Element = NBK.initOrBitCast(truncating: base.value.trailingZeroBitCount)
             //=----------------------------------=
             // radix: 002, 004, 016, 256, ...
             //=----------------------------------=
@@ -274,10 +271,16 @@ extension NBK.IntegerDescription {
             return exponentiation as Exponentiation
         }
         
-        /// Returns the largest exponent in `pow(radix, exponent) <= Element.max + 1`.
-        @inlinable static func exponentiate(baseAsNonPowerOf2From2Unchecked base: Element) -> Exponentiation {
-            Swift.assert(base >= 2)
-            Swift.assert(base.isPowerOf2 == false)
+        /// Exponentiates `base` through `Element.max + 1`.
+        ///
+        /// - Parameter base: Any non-power of 2 greater than 1.
+        ///
+        /// - Returns: The `exponent` and `power` where `0` represents `Element.max + 1`.
+        ///
+        /// - Note: The power returned by this method is non-zero.
+        ///
+        @inlinable static func exponentiate(_ base: NBK.NonPowerOf2<Element>) -> Exponentiation {
+            precondition(base.value > 1)
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
@@ -285,7 +288,7 @@ extension NBK.IntegerDescription {
             return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) { squares in
                 let start = squares.baseAddress!
                 var position = start as UnsafeMutablePointer<Exponentiation>
-                var exponentiation = Exponentiation(1 as Element, base as Element)
+                var exponentiation = Exponentiation(1 as Element, base.value)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=

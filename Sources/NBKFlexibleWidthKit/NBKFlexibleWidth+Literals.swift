@@ -29,9 +29,9 @@ extension NBKFlexibleWidth.Magnitude {
     @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
         guard  Self.isSigned || source.signum() >= 0 as Int else { return nil }
         //=--------------------------------------=
-        let bitWidth = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
-        let major = NBK .quotientDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
-        let minor = NBK.remainderDividingByBitWidthAssumingIsAtLeastZero(bitWidth)
+        let width = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
+        let major = NBK .quotient(of: NBK.ZeroOrMore(unchecked: width), dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(of: NBK.ZeroOrMore(unchecked: width), dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
         let count = major &+ Int(bit: minor.isMoreThanZero)
         //=--------------------------------------=
         self = Self.uninitialized(count: count) { words in

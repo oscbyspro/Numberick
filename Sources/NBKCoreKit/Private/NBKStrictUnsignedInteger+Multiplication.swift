@@ -57,7 +57,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// and `multiplicand` then adding `addend` in the given `range`.
     @inlinable public static func multiplyFullWidth(
     _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element, in range: some RangeExpression<Base.Index>) -> Base.Element {
-        let range = range.relative(to: base)
+        let range = range.relative(to: base) as Range<Base.Index>
         return self.multiplyFullWidth(&base, by: multiplicand, add: addend, in: range)
     }
     

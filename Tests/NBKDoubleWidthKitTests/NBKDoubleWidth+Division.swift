@@ -329,9 +329,9 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256: XCTestCase {
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Double Width x Division x UInt256 x Code Coverage
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Code Coverage
+//=----------------------------------------------------------------------------=
 
 final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
     
@@ -358,6 +358,47 @@ final class NBKDoubleWidthTestsOnDivisionAsUInt256CodeCoverage: XCTestCase {
 }
 
 //*============================================================================*
+// MARK: * NBK x Double Width x Division x Open Source Issues
+//*============================================================================*
+
+final class NBKDoubleWidthTestsOnDivisionOpenSourceIssues: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/oscbyspro/Numberick/issues/101
+    ///
+    /// - Note: Checks whether the 3212-path knows when the quotient fits.
+    ///
+    func testNumberickIssues101() {
+        NBKAssertDivision(
+        UInt256("3360506852691063560493141264855294697309369118818719524903"),
+        UInt256("0000000000000000000038792928317726192474768301090870907748"),
+        UInt256("0000000000000000000000000000000000000086626789943967710436"),
+        UInt256("0000000000000000000016136758413064865246015978698186666775"))
+    }
+    
+    /// https://github.com/apple/swift-numerics/issues/272
+    ///
+    /// - Note: Said to cause a crash and return an incorrect division result.
+    ///
+    func testSwiftNumericsIssues272() {
+        NBKAssertDivision(
+        UInt128(3) << 96,
+        UInt128(2) << 96,
+        UInt128(1) << 00,
+        UInt128(1) << 96)
+        
+        NBKAssertDivision(
+        UInt128("311758830729407788314878278112166161571"),
+        UInt128("259735543268722398904715765931073125012"),
+        UInt128("000000000000000000000000000000000000001"),
+        UInt128("052023287460685389410162512181093036559"))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Double Width x Division x Assertions
 //*============================================================================*
 
@@ -367,7 +408,7 @@ _ quotient: NBKDoubleWidth<H>, _ remainder: NBKDoubleWidth<H>, _ overflow: Bool 
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+        XCTAssertEqual(lhs, rhs * quotient + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
     }
     //=------------------------------------------=
     if !overflow {

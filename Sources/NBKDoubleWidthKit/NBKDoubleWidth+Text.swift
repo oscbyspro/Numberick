@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKDoubleWidth {
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Decode
+    // MARK: Details x Decoding
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(_ description: some StringProtocol, radix: Int) {
@@ -26,7 +26,7 @@ extension NBKDoubleWidth {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Details x Encode
+    // MARK: Details x Encoding
     //=------------------------------------------------------------------------=
     
     @inlinable public func description(radix: Int, uppercase: Bool) -> String {

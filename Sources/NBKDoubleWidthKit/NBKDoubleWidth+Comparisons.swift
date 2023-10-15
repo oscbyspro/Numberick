@@ -73,17 +73,17 @@ extension NBKDoubleWidth {
     }
     
     @_disfavoredOverload @inlinable public func compared(to other: Digit) -> Int {
-        let discriminant = UInt(repeating: other.isLessThanZero)
+        let environment = UInt(repeating: other.isLessThanZero)
         
         backwards: do {
-            let lhsWord: Digit = self .tail
-            let rhsWord: Digit = Digit(bitPattern: discriminant)
+            let lhsWord: Digit = self.tail
+            let rhsWord: Digit = Digit(bitPattern: environment)
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
         
         backwards: for index in (1 ..< self.lastIndex).reversed() {
-            let lhsWord: UInt = self [index]
-            let rhsWord: UInt = discriminant
+            let lhsWord: UInt = self[index]
+            let rhsWord: UInt = environment
             if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
         }
         

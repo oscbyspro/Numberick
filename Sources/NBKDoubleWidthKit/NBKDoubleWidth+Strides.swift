@@ -22,23 +22,14 @@ extension NBKDoubleWidth {
     @inlinable public func distance(to other: Self) -> Int {
         let distance = other.subtractingReportingOverflow(self)
         let distanceIsLessThanZero = distance.partialValue.isLessThanZero != distance.overflow
-        
-        let sign   = UInt(repeating: distanceIsLessThanZero)
-        let stride = Int(bitPattern: distance.partialValue.first)
-                
-        guard distance.partialValue.dropFirst().allSatisfy({ $0 == sign }),
-        stride.isLessThanZero == distanceIsLessThanZero else {
-            preconditionFailure("stride cannot represent distance")
-        }
-        
-        return stride as Int
+        return Int(words: distance.partialValue, isSigned: distanceIsLessThanZero)!
     }
     
     @inlinable public func advanced(by distance: Int) -> Self {
-        if  Self.isSigned || distance >= 0  {
+        if  Self.isSigned || distance >= 0  as Int {
             return self + Digit(bitPattern: distance)
         }   else {
-            return self - Digit(bitPattern: distance.magnitude)
+            return self - Digit(bitPattern: distance.twosComplement())
         }
     }
 }

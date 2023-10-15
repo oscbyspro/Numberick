@@ -145,24 +145,20 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
         var destination = base.startIndex as Base.Index
         var source = base.index(destination, offsetBy: major)
         //=--------------------------------------=
-        precondition(base.startIndex < base.endIndex)//   dunno, the compiler seems to have a hard time
         precondition(base.startIndex < source && source < base.endIndex, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         while destination < base.endIndex  {
             let element:  Base.Element
-            let distance: Int
-
+            
             if  source  < base.endIndex {
                 element = base[source]
-                distance  = 1 as Int
+                base.formIndex(after: &source)
             }   else {
                 element = environment
-                distance  = 0 as Int
             }
             
             base[destination] = element
             base.formIndex(after: &destination)
-            base.formIndex(&source, offsetBy: distance)
         }
     }
 }
