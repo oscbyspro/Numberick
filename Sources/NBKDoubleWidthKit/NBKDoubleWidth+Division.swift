@@ -215,7 +215,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
         // division: 3121
         //=--------------------------------------=
         if  UInt(bitPattern: shift.value) >= UInt(bitPattern: High.bitWidth) {
-            assert(lhs.high.high.isZero,  "quotient must fit in two halves") //  because lhs.high < rhs && rhs.high == 0
+            assert(lhs.high.high.isZero,  "quotient must fit in two halves") // because  lhs.high < rhs && rhs.high == 0
             let (quotient, remainder) = Self.divide3121Unchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs.low)
             return QR(quotient, Self(low: remainder))
         }
