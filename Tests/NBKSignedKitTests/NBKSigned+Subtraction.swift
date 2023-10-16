@@ -102,6 +102,35 @@ final class NBKSignedTestsOnSubtractionAsSIntXL: XCTestCase {
 }
 
 //*============================================================================*
+// MARK: * NBK x Signed x Subtraction x Open Source Issues
+//*============================================================================*
+
+final class NBKSignedTestsOnSubtractionOpenSourceIssues: XCTestCase {
+    
+    typealias SIntXL = NBKSigned<UIntXL>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/apple/swift-numerics/pull/246
+    ///
+    /// - Note: Said to return incorrect values.
+    ///
+    func testSwiftNumericsPull246() {
+        NBKAssertSubtraction(
+        SIntXL("-0922337203685477587"),
+        SIntXL("-9223372036854775808"),
+        SIntXL("08301034833169298221"))
+        
+        NBKAssertSubtraction(
+        SIntXL(Int.max),
+        SIntXL(sign: .minus, magnitude: UIntXL(UInt.max - UInt(Int.max.magnitude))),
+        SIntXL(sign: .plus,  magnitude: UIntXL(UInt.max)))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Signed x Subtraction x Assertions
 //*============================================================================*
 

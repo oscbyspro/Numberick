@@ -11,6 +11,7 @@
 
 import NBKCoreKit
 import NBKSignedKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -163,6 +164,34 @@ final class NBKSignedTestsOnNumbers: XCTestCase {
         NBKAssertIdentical(T(          M.max), T.max)
         NBKAssertIdentical(T(exactly:  M.max), T.max)
         NBKAssertIdentical(T(clamping: M.max), T.max)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Signed x Numbers x Open Source Issues
+//*============================================================================*
+
+final class NBKSignedTestsOnNumbersOpenSourceIssues: XCTestCase {
+    
+    typealias SIntXL = NBKSigned<UIntXL>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/apple/swift-numerics/pull/254
+    ///
+    /// - Note: Said to crash and return incorrect values.
+    ///
+    func testSwiftNumericsPull254() {
+        XCTAssertEqual(UInt64(          SIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(SIntXL(          UInt64(UInt64.max)), SIntXL(UInt64.max))
+        
+        XCTAssertEqual(UInt64(exactly:  SIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(SIntXL(exactly:  UInt64(UInt64.max)), SIntXL(UInt64.max))
+        
+        XCTAssertEqual(UInt64(clamping: SIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(SIntXL(clamping: UInt64(UInt64.max)), SIntXL(UInt64.max))
     }
 }
 

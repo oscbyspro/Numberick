@@ -240,6 +240,46 @@ final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
 }
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Numbers x Open Source Issues
+//*============================================================================*
+
+final class NBKFlexibleWidthTestsOnNumbersOpenSourceIssues: XCTestCase {
+        
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/apple/swift-numerics/pull/254
+    ///
+    /// - Note: Said to crash and return incorrect values.
+    ///
+    func testSwiftNumericsPull254() {
+        XCTAssertEqual(UInt64(          UIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(UIntXL(          UInt64(UInt64.max)), UIntXL(UInt64.max))
+        
+        XCTAssertEqual(UInt64(exactly:  UIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(UIntXL(exactly:  UInt64(UInt64.max)), UIntXL(UInt64.max))
+        
+        XCTAssertEqual(UInt64(clamping: UIntXL(UInt64.max)), UInt64(UInt64.max))
+        XCTAssertEqual(UIntXL(clamping: UInt64(UInt64.max)), UIntXL(UInt64.max))
+    }
+    
+    /// https://github.com/apple/swift-numerics/pull/258
+    ///
+    /// - Note: Said to crash when using Float80 (can't test it).
+    ///
+    func testSwiftNumericsPull258() {
+        XCTAssertEqual(
+        Float32(exactly: UInt64(UInt64(1) << Float32.significandBitCount)),
+        Float32(exactly: UIntXL(UInt64(1) << Float32.significandBitCount)))
+        
+        XCTAssertEqual(
+        Float64(exactly: UInt64(UInt64(1) << Float64.significandBitCount)),
+        Float64(exactly: UIntXL(UInt64(1) << Float64.significandBitCount)))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Numbers x Assertions
 //*============================================================================*
 

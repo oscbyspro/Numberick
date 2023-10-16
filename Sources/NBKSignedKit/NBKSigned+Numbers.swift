@@ -107,17 +107,18 @@ extension NBKBinaryInteger {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable public init(_ source: NBKSigned<Magnitude>) {
+    @inlinable public init<T>(_ source: NBKSigned<T>) {
         if  let value = Self(exactly: source) { self = value } else {
             preconditionFailure("\(Self.self) cannot represent \(source)")
         }
     }
     
-    @inlinable public init?(exactly source: NBKSigned<Magnitude>) {
-        self.init(sign: source.sign, magnitude: source.magnitude)
+    @inlinable public init?<T>(exactly source: NBKSigned<T>) {
+        guard let magnitude: Magnitude = NBK.initOrBitCast(exactly: source.magnitude) else { return nil }
+        self.init(sign: source.sign, magnitude: magnitude)
     }
     
-    @inlinable public init(clamping source: NBKSigned<Magnitude>) where Self: NBKFixedWidthInteger {
-        self = Self(sign: source.sign, magnitude: source.magnitude) ?? (source.sign == FloatingPointSign.plus ? Self.max : Self.min)
+    @inlinable public init<T>(clamping source: NBKSigned<T>) where Self: NBKFixedWidthInteger {
+        self = Self(exactly: source) ?? (source.sign == FloatingPointSign.plus ? Self.max : Self.min)
     }
 }

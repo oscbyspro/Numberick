@@ -90,6 +90,43 @@ final class NBKSignedTestsOnDivisionAsSIntXL: XCTestCase {
 }
 
 //*============================================================================*
+// MARK: * NBK x Signed x Division x Open Source Issues
+//*============================================================================*
+
+final class NBKSignedTestsOnDivisionOpenSourceIssues: XCTestCase {
+    
+    typealias SIntXL = NBKSigned<UIntXL>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/apple/swift-numerics/pull/250
+    ///
+    /// - Note: Said to crash and return incorrect values.
+    ///
+    func testSwiftNumericsPull250() {
+        NBKAssertDivision(
+        SIntXL("-9223372036854775808"),
+        SIntXL("-0000000000000000001"),
+        SIntXL("+9223372036854775808"),
+        SIntXL("-0000000000000000000"))
+        
+        NBKAssertDivision(
+        SIntXL("+18446744073709551615"),
+        SIntXL("-00000000000000000001"),
+        SIntXL("-18446744073709551615"),
+        SIntXL("+00000000000000000000"))
+        
+        NBKAssertDivision(
+        SIntXL("-340282366920938463481821351505477763074"),
+        SIntXL("+000000000000000000018446744073709551629"),
+        SIntXL("-000000000000000000018446744073709551604"),
+        SIntXL("-000000000000000000000000000000000000158"))
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Signed x Division x Assertions
 //*============================================================================*
 

@@ -10,6 +10,7 @@
 #if DEBUG
 
 import NBKSignedKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -48,6 +49,28 @@ final class NBKSignedTestsOnNegation: XCTestCase {
             XCTAssertNotNil(x.negate())
             XCTAssertNotNil(x.negated())
         }
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Signed x Negation x Open Source Issues
+//*============================================================================*
+
+final class NBKSignedTestsOnNegationOpenSourceIssues: XCTestCase {
+    
+    typealias SIntXL = NBKSigned<UIntXL>
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// https://github.com/apple/swift-numerics/pull/253
+    ///
+    /// - Note: Said to return incorrect values.
+    ///
+    func testSwiftNumericsPull253() {
+        NBKAssertNegation(SIntXL(Int.min), SIntXL(Int.min.magnitude))
+        NBKAssertNegation(SIntXL(Int.min.magnitude), SIntXL(Int.min))
     }
 }
 
