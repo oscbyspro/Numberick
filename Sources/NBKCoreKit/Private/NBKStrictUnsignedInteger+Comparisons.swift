@@ -24,7 +24,7 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base) -> Int where Base == UnsafeBufferPointer<T> {
+    @inlinable public static func compare(_ lhs: Base, to rhs: Base) -> Int {
         let lhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: lhs)
         let rhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: rhs)
         return lhs.compared(toSameSign: rhs) as Int
@@ -34,12 +34,12 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compare<T>(_ lhs: Base, to rhs: Base, at index: Int) -> Int where Base == UnsafeBufferPointer<T> {
+    @inlinable public static func compare(_ lhs: Base, to rhs: Base, at index: Base.Index) -> Int {
         let partition = Swift.min(index, lhs.endIndex)
-        let suffix = Base(rebasing: lhs.suffix(from: partition))
-        let comparison = self.compare(suffix, to: rhs) as Int
+        let suffix = lhs.suffix(from: partition)
+        let comparison = NBK.SUISS<Base.SubSequence>.compare(suffix, to: rhs[...])
         if !comparison.isZero { return comparison }
-        let prefix = Base(rebasing: lhs.prefix(upTo: partition))
+        let prefix = lhs.prefix(upTo: partition)
         return Int(bit: !prefix.allSatisfy({ $0.isZero }))
     }
 }

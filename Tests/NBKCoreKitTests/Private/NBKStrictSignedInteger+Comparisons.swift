@@ -116,8 +116,13 @@ private func NBKAssertComparison(
 _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictSignedInteger<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.StrictSignedInteger
     //=------------------------------------------=
+    brr: do {
+        XCTAssertEqual(T.compare(lhs, to: rhs),  signum, file: file, line: line)
+        XCTAssertEqual(T.compare(rhs, to: lhs), -signum, file: file, line: line)
+    }
+    
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
         XCTAssertEqual(T.compare(lhs, to: rhs),  signum, file: file, line: line)
@@ -129,14 +134,18 @@ private func NBKAssertComparisonAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictSignedInteger<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.StrictSignedInteger
     //=------------------------------------------=
+    NBKAssertComparison(lhs, [UInt](repeating: 0, count: index) + rhs, signum, file: file, line: line)
+    //=------------------------------------------=
+    brr: do {
+        XCTAssertEqual(T.compare(lhs, to: rhs, at: index), signum, file: file, line: line)
+    }
+    
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
         XCTAssertEqual(T.compare(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
-    //=------------------------------------------=
-    NBKAssertComparison(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
 }
 
 #endif

@@ -49,7 +49,7 @@ private func NBKAssertOnesComplement(
 _ operand: [UInt], _ result: [UInt],
 file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
-    typealias SBI = NBK.StrictBinaryInteger<[UInt]>.SubSequence
+    typealias SBI = NBK.SBISS
     //=------------------------------------------=
     brr: do {
         var operand = operand
@@ -62,7 +62,7 @@ private func NBKAssertTwosComplement(
 _ operand: [UInt], _ result: [UInt],
 file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
-    typealias SBI = NBK.StrictBinaryInteger<[UInt]>.SubSequence
+    typealias SBI = NBK.SBISS
     //=------------------------------------------=
     brr: do {
         var operand = operand

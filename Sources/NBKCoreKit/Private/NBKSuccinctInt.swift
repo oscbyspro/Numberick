@@ -29,13 +29,13 @@ extension NBK {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(_ body: Base, sign: Bool) {
-            precondition(Self.isValid(body, sign: sign))
+            precondition(Self.validate(body, sign: sign))
             self.body = body
             self.sign = sign
         }
         
         @inlinable public init(unchecked body: Base, sign: Bool) {
-            Swift.assert(Self.isValid(body, sign: sign))
+            Swift.assert(Self.validate(body, sign: sign))
             self.body = body
             self.sign = sign
         }
@@ -44,9 +44,91 @@ extension NBK {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public static func isValid(_ body: Base, sign: Bool) -> Bool {
+        @inlinable public static func validate(_ body: Base, sign: Bool) -> Bool {
             body.last != Base.Element(repeating: sign)
         }
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Strict Binary Integer
+//=----------------------------------------------------------------------------=
+
+extension NBK.SuccinctInt {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from a strict signed integer subsequence.
+    ///
+    /// ```
+    /// ┌─────────────── → ───────────────┬───────┐
+    /// │ source         │ body           │ sign  │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │  0,  0,  0,  0 │                │ false │
+    /// │  1,  2,  0,  0 │  1,  2         │ false │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2         │ true  │
+    /// │ ~0, ~0, ~0, ~0 │                │ true  │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │                │                │ nil   │
+    /// └─────────────── → ───────────────┴───────┘
+    /// ```
+    ///
+    @inlinable public init?<T>(fromStrictSignedIntegerSubSequence source: T)
+    where T: RandomAccessCollection, Base == T.SubSequence {
+        //=--------------------------------------=
+        guard let sign = source.last?.mostSignificantBit else { return nil }
+        //=--------------------------------------=
+        let bits = UInt(repeating: sign)
+        let body = NBK.dropLast(from: source, while:{ $0 == bits })
+        self.init(unchecked: body, sign: sign)
+    }
+    
+    /// Creates a new instance from a strict unsigned integer subsequence.
+    ///
+    /// ```
+    /// ┌─────────────── → ───────────────┬───────┐
+    /// │ source         │ body           │ sign  │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │  0,  0,  0,  0 │                │ false │
+    /// │  1,  2,  0,  0 │  1,  2         │ false │
+    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2, ~0, ~0 │ false │
+    /// │ ~0, ~0, ~0, ~0 │ ~0, ~0, ~0, ~0 │ false │
+    /// ├─────────────── → ───────────────┼───────┤
+    /// │                │                │ false │
+    /// └─────────────── → ───────────────┴───────┘
+    /// ```
+    ///
+    /// ### Development
+    ///
+    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
+    ///
+    @inline(__always) @inlinable public init<T>(fromStrictUnsignedIntegerSubSequence source: T)
+    where T: RandomAccessCollection, Base == T.SubSequence {
+        let body = NBK.dropLast(from: source, while:{ $0.isZero })
+        self.init(unchecked: body, sign: false)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
+
+extension NBK.SuccinctInt {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates an instance using the memory as the given sub sequence.
+    @inlinable public init<T>(rebasing other: NBK.SuccinctInt<Base.SubSequence>) where Base == UnsafeBufferPointer<T> {
+        self.init(unchecked: Base(rebasing: other.body), sign: other.sign)
+    }
+    
+    /// Creates an instance using the memory as the given sub sequence.
+    @inlinable public init<T>(rebasing other: NBK.SuccinctInt<Base.SubSequence>) where Base == UnsafeMutableBufferPointer<T> {
+        self.init(unchecked: Base(rebasing: other.body), sign: other.sign)
     }
 }
 
@@ -94,74 +176,23 @@ extension NBK.SuccinctInt {
         //=--------------------------------------=
         // Word By Word, Back To Front
         //=--------------------------------------=
-        for index in self.body.indices.reversed() {
-            let lhsWord  = self .body[index] as Base.Element
-            let rhsWord  = other.body[index] as Base.Element
-            if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
+        var lhsIndex = self .body.endIndex
+        var rhsIndex = other.body.endIndex
+        
+        backwards: while lhsIndex > self.body.startIndex {
+            self .body.formIndex(before: &lhsIndex)
+            other.body.formIndex(before: &rhsIndex)
+            
+            let lhsWord  = self .body[lhsIndex] as Base.Element
+            let rhsWord  = other.body[rhsIndex] as Base.Element
+            
+            if  lhsWord != rhsWord {
+                return lhsWord < rhsWord ? -1 : 1
+            }
         }
         //=--------------------------------------=
         // Same
         //=--------------------------------------=
         return 0 as Int as Int as Int as Int as Int
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + where Base is Unsafe Buffer Pointer
-//=----------------------------------------------------------------------------=
-
-extension NBK.SuccinctInt {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers
-    //=------------------------------------------------------------------------=
-    
-    /// Creates a new instance from a strict signed integer subsequence.
-    ///
-    /// ```
-    /// ┌─────────────── → ───────────────┬───────┐
-    /// │ source         │ body           │ sign  │
-    /// ├─────────────── → ───────────────┼───────┤
-    /// │  0,  0,  0,  0 │                │ false │
-    /// │  1,  2,  0,  0 │  1,  2         │ false │
-    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2         │ true  │
-    /// │ ~0, ~0, ~0, ~0 │                │ true  │
-    /// ├─────────────── → ───────────────┼───────┤
-    /// │                │                │ nil   │
-    /// └─────────────── → ───────────────┴───────┘
-    /// ```
-    ///
-    /// ### Development
-    ///
-    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
-    ///
-    @inline(__always) @inlinable public init?<T>(fromStrictSignedIntegerSubSequence source: Base) where Base == UnsafeBufferPointer<T> {
-        guard let sign = source.last?.mostSignificantBit else { return nil }
-        let bits = UInt(repeating: sign)
-        let body = Base(rebasing:  NBK.dropLast(from: source, while:{ $0 == bits }))
-        self.init(unchecked: body, sign: sign)
-    }
-    
-    /// Creates a new instance from a strict unsigned integer subsequence.
-    ///
-    /// ```
-    /// ┌─────────────── → ───────────────┬───────┐
-    /// │ source         │ body           │ sign  │
-    /// ├─────────────── → ───────────────┼───────┤
-    /// │  0,  0,  0,  0 │                │ false │
-    /// │  1,  2,  0,  0 │  1,  2         │ false │
-    /// │ ~1, ~2, ~0, ~0 │ ~1, ~2, ~0, ~0 │ false │
-    /// │ ~0, ~0, ~0, ~0 │ ~0, ~0, ~0, ~0 │ false │
-    /// ├─────────────── → ───────────────┼───────┤
-    /// │                │                │ false │
-    /// └─────────────── → ───────────────┴───────┘
-    /// ```
-    ///
-    /// ### Development
-    ///
-    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
-    ///
-    @inline(__always) @inlinable public init<T>(fromStrictUnsignedIntegerSubSequence source: Base) where Base == UnsafeBufferPointer<T> {
-        self.init(unchecked: Base(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
     }
 }
