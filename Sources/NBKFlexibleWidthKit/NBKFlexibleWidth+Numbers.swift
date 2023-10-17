@@ -20,6 +20,8 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     public static let zero = Self(digit: 0)
+
+    public static let one  = Self(digit: 1)
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers x Digit

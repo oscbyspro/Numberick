@@ -104,9 +104,9 @@ final class NBKFlexibleWidthBenchmarksOnDivisionAsUIntXL: XCTestCase {
     // MARK: Tests x Full Width
     //=------------------------------------------------------------------------=
     
-    func testDividingFullWidthAs256() {
+    func testDividingFullWidthAs256WhenDivisorIsNormalized() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0, ~1, ~0, ~0, ~0] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0] as X)) // msb == true
 
         for _ in 0 ..< 250_000 {
             NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
@@ -115,9 +115,31 @@ final class NBKFlexibleWidthBenchmarksOnDivisionAsUIntXL: XCTestCase {
         }
     }
 
-    func testDividingFullWidthReportingOverflowAs256() {
+    func testDividingFullWidthReportingOverflowAs256WhenDivisorIsNormalized() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0, ~1, ~0, ~0, ~0] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0] as X)) // msb == true
+
+        for _ in 0 ..< 250_000 {
+            NBK.blackHole(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+        }
+    }
+    
+    func testDividingFullWidthAs256WhenDivisorIsNotNormalized() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0, ~1, ~0, ~0, ~0] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0/2] as X)) // msb == false
+
+        for _ in 0 ..< 250_000 {
+            NBK.blackHole(lhs.quotientAndRemainder(dividingBy: rhs))
+            NBK.blackHoleInoutIdentity(&rhs)
+            NBK.blackHoleInoutIdentity(&lhs)
+        }
+    }
+
+    func testDividingFullWidthReportingOverflowAs256WhenDivisorIsNotNormalized() {
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0, ~1, ~0, ~0, ~0] as X))
+        var rhs = NBK.blackHoleIdentity(T(x64:[~0, ~0, ~0, ~0/2] as X)) // msb == false
 
         for _ in 0 ..< 250_000 {
             NBK.blackHole(lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs))

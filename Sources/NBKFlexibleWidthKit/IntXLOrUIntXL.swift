@@ -16,12 +16,22 @@ import NBKCoreKit
 public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral where Magnitude == UIntXL {
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Numbers
+    //=------------------------------------------------------------------------=
+    
+    /// An instance that is equal to `0`.
+    @inlinable static var zero: Self { get }
+    
+    /// An instance that is equal to `1`.
+    @inlinable static var one:  Self { get }
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  
-    func compared(to other: Self,  at index: Int) -> Int
+    @inlinable func compared(to other: Self, at index: Int) -> Int
         
-    func compared(to other: Digit, at index: Int) -> Int
+    @_disfavoredOverload @inlinable func compared(to other: Digit, at index: Int) -> Int
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Addition

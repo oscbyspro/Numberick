@@ -41,8 +41,8 @@ extension NBKFlexibleWidth.Magnitude {
         return   PVO(qro.partialValue.remainder, qro.overflow)
     }
     
-    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy other: Self) -> PVO<QR<Self, Self>> {
-        self.quotientAndRemainderReportingOverflowAsNormal(dividingBy: other)
+    @inlinable public func quotientAndRemainderReportingOverflow(dividingBy  other: Self) -> PVO<QR<Self, Self>> {
+        self.quotientAndRemainderReportingOverflowByLongDivision(dividingBy: other)
     }
 }
 
@@ -56,13 +56,15 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations x Private
     //=------------------------------------------------------------------------=
     
-    @inlinable func quotientAndRemainderReportingOverflowAsNormal(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+    /// Performs long division after some fast-path checks.
+    @inlinable func quotientAndRemainderReportingOverflowByLongDivision(dividingBy other: Self) -> PVO<QR<Self, Self>> {
         var (remainder) = self
-        let (quotient, overflow) = remainder.formRemainderWithQuotientReportingOverflowAsNormal(dividingBy: other)
+        let (quotient, overflow) = remainder.formRemainderWithQuotientReportingOverflowByLongDivision(dividingBy: other)
         return PVO(QR(quotient, remainder), overflow)
     }
     
-    @inlinable mutating func formRemainderWithQuotientReportingOverflowAsNormal(dividingBy other: Self) -> PVO<Self> {
+    /// Performs long division after some fast-path checks.
+    @inlinable mutating func formRemainderWithQuotientReportingOverflowByLongDivision(dividingBy other: Self) -> PVO<Self> {
         //=--------------------------------------=
         // divisor is zero
         //=--------------------------------------=
@@ -73,9 +75,9 @@ extension NBKFlexibleWidth.Magnitude {
         // divisor is one word
         //=--------------------------------------=
         if  other.count == 1 {
-            let qr: QR<Self, Digit> = self.quotientAndRemainder(dividingBy: other.first)
-            self.update(qr.remainder)
-            return PVO(qr.quotient, false)
+            let (q, r)  = self.quotientAndRemainder(dividingBy: other.first)
+            self.update(r)
+            return PVO((q), false)
         }
         //=--------------------------------------=
         // divisor is greater than or equal
@@ -84,66 +86,66 @@ extension NBKFlexibleWidth.Magnitude {
         if  comparison.isLessThanZero {
         }   else if comparison.isZero {
             self.updateZeroValue()
-            return PVO(001, false)
+            return PVO(Self.one,  false)
         }   else {
-            return PVO(000, false)
+            return PVO(Self.zero, false)
         }
         //=--------------------------------------=
-        // shift to clamp approximation
+        // normalization
         //=--------------------------------------=
-        var divisor: Storage = other.storage
-        let divisorLastIndex = divisor.elements.endIndex - 1 as Int
-        let shift = divisor.elements[divisorLastIndex].leadingZeroBitCount as Int
-        
-        var remainderIndex =  self.storage.elements.endIndex as Int
         self.storage.append(0 as UInt)
         
-        if !shift.isZero {
-            divisor/*-*/.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
-            self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
-        }
+        var other: Self = other
+        let shift: Int  = other.last.leadingZeroBitCount
         
-        let divisorLast0 = divisor.elements[divisorLastIndex] as UInt
-        assert(divisorLast0.mostSignificantBit)
+        if !shift.isZero {
+            self .storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            other.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+        }
         //=--------------------------------------=
-        // division: approximate quotient digits
+        // division
         //=--------------------------------------=
-        var quotientIndex = remainderIndex - divisor.elements.endIndex as Int
-        let quotient = Self.uninitialized(count:  quotientIndex + 1) { quotient in
-            self.storage.withUnsafeMutableBufferPointer { storage in
-                loop: repeat {
-                    let remainderLast0 = storage[remainderIndex]
-                    storage.formIndex(before:   &remainderIndex)
-                    let remainderLast1 = storage[remainderIndex]
+        let quotient = Self.uninitialized(count: self.count - other.count) { quotient in
+            self.storage.withUnsafeMutableBufferPointer { remainder in
+                other.storage.withUnsafeBufferPointer { divisor in
                     //=--------------------------=
-                    var digit:  UInt
-                    if  divisorLast0 == remainderLast0 {
-                        digit = UInt.max
-                    }   else {
-                        digit = divisorLast0.dividingFullWidth(HL(remainderLast0, remainderLast1)).quotient
-                    }
-                    //=--------------------------=
-                    if !digit.isZero {
-                        var overflow =  NBK.SUISS.decrement(&storage, by: divisor.elements, times: digit, at: quotientIndex).overflow
-                        while overflow {
-                            digit  &-= 1 as Digit
-                            overflow = !NBK.SUISS.increment(&storage, by: divisor.elements, at: quotientIndex).overflow
+                    let divisorLast: UInt = divisor.last!
+                    var remainderIndex = remainder.index(before: remainder.endIndex)
+                    for quotientIndex in quotient.indices.reversed() {
+                        //=----------------------=
+                        let remainderLast0 = remainder[remainderIndex]
+                        remainder.formIndex(before:   &remainderIndex)
+                        let remainderLast1 = remainder[remainderIndex]
+                        //=----------------------=
+                        var digit:  UInt
+                        if  divisorLast == remainderLast0 {
+                            digit = UInt.max
+                        }   else {
+                            digit = divisorLast.dividingFullWidth(HL(high: remainderLast0, low: remainderLast1)).quotient
                         }
+                        //=----------------------=
+                        if !digit.isZero {
+                            var overflow = (NBK).SUISS.decrement(&remainder, by: divisor, times: digit, at: quotientIndex).overflow
+                            correctQuotientAtMostTwice: while overflow {
+                                digit  &-= 1 as  Digit // the quotient digit is decremented until product ≤ remainder
+                                overflow = !NBK .SUISS.increment(&remainder, by: divisor, at: quotientIndex).overflow
+                            }
+                        }
+                        //=----------------------=
+                        quotient.baseAddress!.advanced(by: quotientIndex).initialize(to: digit)
                     }
-                    //=--------------------------=
-                    quotient[quotientIndex] = digit
-                    quotient.formIndex(before: &quotientIndex)
-                }   while quotientIndex >= quotient.startIndex
+                }
             }
         }
         //=--------------------------------------=
-        // undo shift before division
+        // normalization
         //=--------------------------------------=
         if !shift.isZero {
             self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         self.storage.normalize()
+        //=--------------------------------------=
         return PVO(partialValue: quotient, overflow: false)
     }
 }
