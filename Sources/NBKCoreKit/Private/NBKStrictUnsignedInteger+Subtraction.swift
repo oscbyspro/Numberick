@@ -43,13 +43,17 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
+    /// ### Development
+    ///
+    /// It is important to compare the index first before the bit.
+    ///
     @inlinable public static func decrement(
     _ base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= base.startIndex)
         Swift.assert(index <= base.endIndex  ) // void
         //=--------------------------------------=
-        while bit && index < base.endIndex {
+        while index < base.endIndex, bit {
             bit = base[index].subtractReportingOverflow(1 as Base.Element.Digit)
             base.formIndex(after: &index)
         }
@@ -274,8 +278,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     @inlinable public static func decrementInIntersection(
     _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
-        for elementsIndex in elements.indices {
-            self.decrementInIntersection(&base, by: elements[elementsIndex], plus: &bit, at: &index)
+        for element in elements {
+            self.decrementInIntersection(&base, by: element, plus: &bit, at: &index)
         }
     }
 }
