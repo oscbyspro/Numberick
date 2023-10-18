@@ -24,17 +24,17 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compare(_ lhs: Base, to rhs: Base) -> Int {
+    @inlinable public static func compare(_ lhs: Base, to rhs: some RandomAccessCollection<Base.Element>) -> Int {
         let lhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: lhs)
         let rhs = NBK.SuccinctInt(fromStrictUnsignedIntegerSubSequence: rhs)
-        return lhs.compared(toSameSign: rhs) as Int
+        return lhs.compared(toSameSignUnchecked: rhs) as Int
     }
     
     /// A three-way comparison of `lhs` against `rhs` at `index`.
     ///
     /// - Note: This operation interprets empty collections as zero.
     ///
-    @inlinable public static func compare(_ lhs: Base, to rhs: Base, at index: Base.Index) -> Int {
+    @inlinable public static func compare(_ lhs: Base, to rhs: some RandomAccessCollection<Base.Element>, at index: Base.Index) -> Int {
         let partition = Swift.min(index, lhs.endIndex)
         let suffix = lhs.suffix(from: partition)
         let comparison = NBK.SUISS<Base.SubSequence>.compare(suffix, to: rhs[...])

@@ -75,8 +75,8 @@ extension NBK.SuccinctInt {
     /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
-    @inlinable public init?<T>(fromStrictSignedIntegerSubSequence source: T)
-    where T: RandomAccessCollection, Base == T.SubSequence {
+    @inlinable public init?<T: RandomAccessCollection>(
+    fromStrictSignedIntegerSubSequence source: T) where Base == T.SubSequence {
         //=--------------------------------------=
         guard let sign = source.last?.mostSignificantBit else { return nil }
         //=--------------------------------------=
@@ -104,10 +104,9 @@ extension NBK.SuccinctInt {
     ///
     /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public init<T>(fromStrictUnsignedIntegerSubSequence source: T)
-    where T: RandomAccessCollection, Base == T.SubSequence {
-        let body = NBK.dropLast(from: source, while:{ $0.isZero })
-        self.init(unchecked: body, sign: false)
+    @inline(__always) @inlinable public init<T:  RandomAccessCollection>(
+    fromStrictUnsignedIntegerSubSequence source: T) where Base == T.SubSequence {
+        self.init(unchecked: NBK.dropLast(from: source, while:{ $0.isZero }), sign: false)
     }
 }
 
@@ -143,7 +142,7 @@ extension NBK.SuccinctInt {
     //=------------------------------------------------------------------------=
     
     /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(to rhs: Self) -> Int {
+    @inlinable public func compared<T>(to rhs: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
         //=--------------------------------------=
         // Plus & Minus
         //=--------------------------------------=
@@ -151,11 +150,11 @@ extension NBK.SuccinctInt {
             return self.sign ? -1 : 1
         }
         //=---------------------------------------=
-        return self.compared(toSameSign: rhs)
+        return self.compared(toSameSignUnchecked: rhs)
     }
     
     /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(toSameSign other: Self) -> Int {
+    @inlinable func compared<T>(toSameSignUnchecked other: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
         //=--------------------------------------=
         Swift.assert(self.sign == other.sign)
         //=--------------------------------------=
@@ -165,13 +164,13 @@ extension NBK.SuccinctInt {
             return self.sign == (self.body.count > other.body.count) ? -1 : 1
         }
         //=--------------------------------------=
-        return self.compared(toSameSignSameSize: other)
+        return self.compared(toSameSignSameSizeUnchecked: other)
     }
     
     /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(toSameSignSameSize other: Self) -> Int {
+    @inlinable func compared<T>(toSameSignSameSizeUnchecked other: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
         //=--------------------------------------=
-        Swift.assert(self.sign/*--*/ == other.sign/*--*/)
+        Swift.assert(self.sign == other.sign)
         Swift.assert(self.body.count == other.body.count)
         //=--------------------------------------=
         // Word By Word, Back To Front

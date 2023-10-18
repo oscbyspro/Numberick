@@ -24,9 +24,9 @@ extension NBK.StrictSignedInteger {
     ///
     /// ### Development
     ///
-    /// Specializing this it where `T == UInt` makes it faster.
+    /// Specializing it where `T == UInt` makes it faster.
     ///
-    @inlinable public static func compare(_ lhs: Base, to rhs: Base) -> Int {
+    @inlinable public static func compare(_ lhs: Base, to rhs: some RandomAccessCollection<Base.Element>) -> Int {
         let lhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: lhs)!
         let rhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: rhs)!
         return lhs.compared(to: rhs) as Int
@@ -36,12 +36,12 @@ extension NBK.StrictSignedInteger {
     ///
     /// ### Development
     ///
-    /// Specializing this it where `T == UInt` makes it faster.
+    /// Specializing it where `T == UInt` makes it faster.
     ///
-    @inlinable public static func compare(_ lhs: Base, to rhs: Base, at index: Base.Index) -> Int {
+    @inlinable public static func compare(_ lhs: Base, to rhs: some RandomAccessCollection<Base.Element>, at index: Base.Index) -> Int {
         let lhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: lhs)!
         let rhs = NBK.SuccinctInt(fromStrictSignedIntegerSubSequence: rhs)!
-        let partition = Swift.min(index, lhs.body.endIndex)
+        let partition  = min(index,lhs.body.endIndex)
         let suffix = lhs.body.suffix(from: partition)
         let comparison = NBK.SuccinctInt(unchecked: suffix, sign: lhs.sign).compared(to: rhs)
         if !comparison.isZero { return comparison }
