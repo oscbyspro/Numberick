@@ -21,7 +21,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `base` by `bit` at `index`.
+    /// Decrements `base` by `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
@@ -70,7 +70,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by `digit` at `index`.
+    /// Decrements `base` by `digit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
@@ -84,7 +84,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         return NBK.IO(index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by `digit` at `index`.
+    /// Partially decrements `base` by `digit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
@@ -144,7 +144,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by the sum of `digit` and `bit` at `index`.
+    /// Decrements `base` by the sum of `digit` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
@@ -158,7 +158,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         return NBK.IO(index: index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by the sum of `digit` and `bit` at `index`.
+    /// Partially decrements `base` by the sum of `digit` and `bit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
@@ -226,7 +226,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by the sum of `elements` and `bit` at `index`.
+    /// Decrements `base` by the sum of `elements` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
@@ -240,7 +240,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         return NBK.IO(index: index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by the sum of `elements` and `bit` at `index`.
+    /// Partially decrements `base` by the sum of `elements` and `bit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
@@ -294,8 +294,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `base` by the product of `elements` and `multiplicand` at `index`,
-    /// and the sum of `subtrahend` and `bit` at `index`.
+    /// Decrements `base` by the product of `elements` and `multiplicand`,
+    /// and the sum of `subtrahend` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///

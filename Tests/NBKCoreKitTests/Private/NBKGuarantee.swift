@@ -114,8 +114,6 @@ final class NBKGuaranteeTests: XCTestCase {
         for i in 0 ..< Int.bitWidth {
             NBKAssert( Int(3) << i, true,  NBK.NonPowerOf2.self)
             NBKAssert( Int(1) << i, i + 1  >= Int.bitWidth, NBK.NonPowerOf2.self)
-            
-            print(Int(1) << i, Int(3) << i)
         }
         
         for i in 0 ..< Int.bitWidth {
