@@ -107,31 +107,12 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         let quotient = Self.uninitialized(count: self.count - other.count) { quotient in
             self.storage.withUnsafeMutableBufferPointer { remainder in
-                other.storage.withUnsafeBufferPointer { divisor in
-                    //=--------------------------=
-                    let divisorLast: UInt = divisor.last!
-                    var remainderIndex = remainder.index(before: remainder.endIndex)
-                    for quotientIndex in quotient.indices.reversed() {
-                        //=----------------------=
-                        let remainderLast0 = remainder[remainderIndex]
-                        remainder.formIndex(before:   &remainderIndex)
-                        let remainderLast1 = remainder[remainderIndex]
-                        //=----------------------=
-                        var digit:  UInt
-                        if  divisorLast == remainderLast0 {
-                            digit = UInt.max
-                        }   else {
-                            digit = divisorLast.dividingFullWidth(HL(high: remainderLast0, low: remainderLast1)).quotient
-                        }
-                        //=----------------------=
-                        if !digit.isZero {
-                            var overflow = (NBK).SUISS.decrement(&remainder, by: divisor, times: digit, at: quotientIndex).overflow
-                            correctQuotientAtMostTwice: while overflow {
-                                digit  &-= 1 as  Digit // the quotient digit is decremented until product ≤ remainder
-                                overflow = !NBK .SUISS.increment(&remainder, by: divisor, at: quotientIndex).overflow
-                            }
-                        }
-                        //=----------------------=
+                other.storage.withUnsafeBufferPointer   { (divisor) in
+                    var remainderIndex  = remainder.endIndex as Int
+                    for (quotientIndex) in quotient.indices.reversed() {
+                        remainder.formIndex(before: &remainderIndex)
+                        let digit = NBK.SUI.quotientFromLongDivisionIteration211MSBUnchecked(
+                        dividing: &remainder[...remainderIndex], by: divisor)
                         quotient.baseAddress!.advanced(by: quotientIndex).initialize(to: digit)
                     }
                 }
@@ -145,6 +126,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         
         self.storage.normalize()
+        Swift.assert(quotient.storage.isNormal)
         //=--------------------------------------=
         return PVO(partialValue: quotient, overflow: false)
     }
