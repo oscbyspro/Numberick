@@ -26,57 +26,38 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testAddingLargeToLargeAtIndex() {
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [3, 0, 0, 0] as W, Int(0), [ 2, ~0, ~2, ~3] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 3, 0, 0] as W, Int(0), [~0,  1, ~1, ~3] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 0, 3, 0] as W, Int(0), [~0, ~1,  0, ~2] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 0, 0, 3] as W, Int(0), [~0, ~1, ~2, ~0] as W)
-        
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 0, 0, 3] as W, Int(0), [~0, ~1, ~2, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 0, 3   ] as W, Int(1), [~0, ~1, ~2, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [0, 3      ] as W, Int(2), [~0, ~1, ~2, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~1, ~2, ~3] as W, [3         ] as W, Int(3), [~0, ~1, ~2, ~0] as W)
+    func testAddingLargeToLarge() {
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [3, 0, 0, 0] as W, [ 2, ~0, ~2, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 3, 0, 0] as W, [~0,  1, ~1, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 0, 3, 0] as W, [~0, ~1,  0, ~2] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 0, 0, 3] as W, [~0, ~1, ~2, ~0] as W)
     }
     
-    func testAddingLargeToLargeAtIndexReportingOverflow() {
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~0, ~0, ~0] as W, [0, 0, 0, 0] as W, Int(0), [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~0, ~0, ~0, ~0] as W, [1, 0, 0, 0] as W, Int(0), [ 0,  0,  0,  0] as W, true)
+    func testAddingLargeToLargeReportingOverflow() {
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [0, 0, 0, 0] as W, [~0, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [1, 0, 0, 0] as W, [ 0,  0,  0,  0] as W, true)
         
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [4, 0, 0, 0] as W, Int(0), [ 0, ~1, ~1, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [4, 0, 0   ] as W, Int(1), [~3,  1, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [4, 0      ] as W, Int(2), [~3, ~2,  2,  0] as W, true)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [4         ] as W, Int(3), [~3, ~2, ~1,  3] as W, true)
-        
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [4, 0, 0, 0] as W, Int(0), [ 0, ~1, ~1, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [0, 4, 0, 0] as W, Int(0), [~3,  1, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [0, 0, 4, 0] as W, Int(0), [~3, ~2,  2,  0] as W, true)
-        NBKAssertSubSequenceAdditionAtIndex([~3, ~2, ~1, ~0] as W, [0, 0, 0, 4] as W, Int(0), [~3, ~2, ~1,  3] as W, true)
+        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [4, 0, 0, 0] as W, [ 0, ~1, ~1, ~0] as W)
+        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 4, 0, 0] as W, [~3,  1, ~0, ~0] as W)
+        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 0, 4, 0] as W, [~3, ~2,  2,  0] as W, true)
+        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 0, 0, 4] as W, [~3, ~2, ~1,  3] as W, true)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Tests x Small (and Large)
     //=------------------------------------------------------------------------=
     
-    func testAddingSmallToLargeAtIndex() {
-        NBKAssertSubSequenceAdditionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(3), Int(0), [ 3,  0,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0,  0,  0,  0] as W, UInt(3), Int(0), [ 2,  1,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0,  0,  0] as W, UInt(3), Int(0), [ 2,  0,  1,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0, ~0,  0] as W, UInt(3), Int(0), [ 2,  0,  0,  1] as W)
-        
-        NBKAssertSubSequenceAdditionByDigitAtIndex([ 0,  0,  0,  0] as W, UInt(3), Int(1), [ 0,  3,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0,  0,  0,  0] as W, UInt(3), Int(1), [~0,  3,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0,  0,  0] as W, UInt(3), Int(1), [~0,  2,  1,  0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0, ~0,  0] as W, UInt(3), Int(1), [~0,  2,  0,  1] as W)
+    func testAddingSmallToLarge() {
+        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt(3), [ 3,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt(3), [ 2,  1,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt(3), [ 2,  0,  1,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt(3), [ 2,  0,  0,  1] as W)
     }
     
-    func testAddingSmallToLargeAtIndexReportingOverflow() {
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(0), Int(0), [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~0, ~0, ~0, ~0] as W, UInt(1), Int(0), [ 0,  0,  0,  0] as W, true)
-        
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~3, ~2, ~1, ~0] as W, UInt(4), Int(0), [ 0, ~1, ~1, ~0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~3, ~2, ~1, ~0] as W, UInt(4), Int(1), [~3,  1, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~3, ~2, ~1, ~0] as W, UInt(4), Int(2), [~3, ~2,  2,  0] as W, true)
-        NBKAssertSubSequenceAdditionByDigitAtIndex([~3, ~2, ~1, ~0] as W, UInt(4), Int(3), [~3, ~2, ~1,  3] as W, true)
+    func testAddingSmallToLargeReportingOverflow() {
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt(0), [~0, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt(1), [ 0,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAdditionByDigit([~3, ~2, ~1, ~0] as W, UInt(4), [ 0, ~1, ~1, ~0] as W)
     }
 }
 
@@ -84,88 +65,88 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
 // MARK: * NBK x Strict Unsigned Integer x Addition x Assertions
 //*============================================================================*
 
-private func NBKAssertSubSequenceAdditionAtIndex(
-_ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ result: [UInt], _ overflow: Bool = false,
+private func NBKAssertSubSequenceAddition(
+_ lhs: [UInt], _ rhs: [UInt], _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
+    typealias T = NBK.SUISS
     //=------------------------------------------=
     // increment: elements + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.increment(&lhs,  by: rhs,  plus: false, at: index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs,   plus: false)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let max = T.increment(&lhs[min.index...], by: min.overflow)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
-        let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let sfx = Array(repeating: UInt.zero,  count: lhs[min.index... ].count)
+        let max = T.increment(&lhs[min.index...], by: sfx,  plus: min.overflow)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
 }
 
-private func NBKAssertSubSequenceAdditionByDigitAtIndex(
-_ lhs: [UInt], _ rhs: UInt, _ index: Int, _ result: [UInt], _ overflow: Bool = false,
+private func NBKAssertSubSequenceAdditionByDigit(
+_ lhs: [UInt], _ rhs: UInt, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<[UInt]>.SubSequence
+    typealias T = NBK.SUISS
     //=------------------------------------------=
-    NBKAssertSubSequenceAdditionAtIndex(lhs, [rhs], index, result, overflow, file: file, line: line)
+    NBKAssertSubSequenceAddition(lhs, [rhs], result, overflow, file: file, line: line)
     //=------------------------------------------=
     // increment: digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.increment(&lhs,  by: rhs,  at: index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, at: index)
-        let max = T.increment(&lhs,  by: min.overflow, at: min.index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let min = T.incrementInIntersection(&lhs, by: rhs)
+        let max = T.increment(&lhs[min.index...], by: min.overflow)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     //=------------------------------------------=
     // increment: digit + bit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.increment(&lhs,  by: rhs,  plus: false, at: index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let max = T.increment(&lhs,  by: rhs,   plus: false)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let max = T.increment(&lhs,  by: min.overflow, at:  min.index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false)
+        let max = T.increment(&lhs[min.index...], by: min.overflow)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false, at: index)
-        let sfx = Array(repeating:   UInt(),  count: lhs.suffix(from: min.index).count)
-        let max = T.increment(&lhs,  by: sfx,  plus: min.overflow,at: min.index)
-        XCTAssertEqual(lhs,          result,   file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let sfx = Array(repeating: UInt.zero,  count: lhs[min.index... ].count)
+        let max = T.increment(&lhs[min.index...], by: sfx,  plus: min.overflow)
+        XCTAssertEqual(lhs,          result,    file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
 }
 

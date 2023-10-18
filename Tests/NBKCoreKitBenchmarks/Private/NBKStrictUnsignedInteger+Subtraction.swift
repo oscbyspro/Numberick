@@ -34,7 +34,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc, by: UInt.max, plus: true))
             }
         }
     }
@@ -45,7 +45,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: UInt.max, at: 0))
+                NBK.blackHole(T.decrement(&abc, by: UInt.max))
             }
         }
     }
@@ -56,7 +56,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc, by: UInt.max, plus: true))
             }
         }
     }
@@ -68,7 +68,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: xyz, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc, by: xyz, plus: true))
             }
         }
     }
@@ -80,7 +80,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: xyz, times: UInt.max, plus: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc, by: xyz, times: UInt.max, plus: UInt.max, plus: true))
             }
         }
     }
@@ -95,7 +95,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max, plus: true))
             }
         }
     }
@@ -106,7 +106,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max, at: 0))
+                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max))
             }
         }
     }
@@ -117,7 +117,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc[0...], by: UInt.max, plus: true))
             }
         }
     }
@@ -129,7 +129,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: xyz, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc[0...], by: xyz, plus: true))
             }
         }
     }
@@ -141,7 +141,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: xyz, times: UInt.max, plus: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.decrement(&abc[0...], by: xyz, times: UInt.max, plus: UInt.max, plus: true))
             }
         }
     }

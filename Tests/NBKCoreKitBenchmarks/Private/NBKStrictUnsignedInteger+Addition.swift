@@ -34,7 +34,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc, by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc, by: UInt.max, plus: true))
             }
         }
     }
@@ -45,7 +45,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc, by: UInt.max, at: 0))
+                NBK.blackHole(T.increment(&abc, by: UInt.max))
             }
         }
     }
@@ -56,7 +56,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc, by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc, by: UInt.max, plus: true))
             }
         }
     }
@@ -68,7 +68,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc, by: xyz, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc, by: xyz, plus: true))
             }
         }
     }
@@ -83,7 +83,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc[0...], by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc[0...], by: UInt.max, plus: true))
             }
         }
     }
@@ -94,7 +94,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc[0...], by: UInt.max, at: 0))
+                NBK.blackHole(T.increment(&abc[0...], by: UInt.max))
             }
         }
     }
@@ -105,7 +105,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc[0...], by: UInt.max, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc[0...], by: UInt.max, plus: true))
             }
         }
     }
@@ -117,7 +117,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.increment(&abc[0...], by: xyz, plus: true, at: 0))
+                NBK.blackHole(T.increment(&abc[0...], by: xyz, plus: true))
             }
         }
     }
