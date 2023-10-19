@@ -16,7 +16,7 @@ extension NBK {
     /// A namespace for tuple binary integer algorithms.
     ///
     /// A tuple binary integer's signedness is determined by its `High` type.
-    ///
+    /// 
     @frozen public enum TupleBinaryInteger<High> where High: NBKFixedWidthInteger {
         
         /// An integer.
