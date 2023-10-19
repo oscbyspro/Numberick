@@ -8,13 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Multiplication
+// MARK: * NBK x Tuple Binary Integer x Multiplication x Unsigned
 //*============================================================================*
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
 
-extension NBK.TupleInteger where High: NBKUnsignedInteger {
+extension NBK.TupleBinaryInteger where High: NBKUnsignedInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

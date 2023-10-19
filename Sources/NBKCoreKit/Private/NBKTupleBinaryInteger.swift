@@ -8,13 +8,19 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer
+// MARK: * NBK x Tuple Binary Integer
 //*============================================================================*
 
 extension NBK {
     
-    /// A namespace for tuple integer algorithms.
-    @frozen public enum TupleInteger<High> where High: NBKFixedWidthInteger {
+    /// A namespace for tuple binary integer algorithms.
+    ///
+    /// A tuple binary integer's signedness is determined by its `High` type.
+    ///
+    @frozen public enum TupleBinaryInteger<High> where High: NBKFixedWidthInteger {
+        
+        /// An integer.
+        public typealias Wide1 = High
         
         /// An integer split into 2 parts.
         public typealias Wide2 = NBK.Wide2<High>
@@ -26,6 +32,6 @@ extension NBK {
         // MARK: * Magnitude
         //*====================================================================*
         
-        public typealias Magnitude = TupleInteger<High.Magnitude>
+        public typealias Magnitude = TupleBinaryInteger<High.Magnitude>
     }
 }

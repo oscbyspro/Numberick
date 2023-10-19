@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Multiplication
+// MARK: * NBK x Tuple Binary Integer x Multiplication
 //*============================================================================*
 
-final class NBKTupleIntegerTestsOnMultiplication: XCTestCase {
+final class NBKTupleBinaryIntegerTestsOnMultiplication: XCTestCase {
     
     typealias S  = Int64
     typealias S2 = NBK.Wide2<S>
@@ -38,14 +38,16 @@ final class NBKTupleIntegerTestsOnMultiplication: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Multiplication x Assertions
+// MARK: * NBK x Tuple Binary Integer x Multiplication x Assertions
 //*============================================================================*
 
 private func NBKAssertMultiplication213<High: NBKFixedWidthInteger & NBKUnsignedInteger>(
 _ lhs: NBK.Wide2<High>, _ rhs: High, _ product: NBK.Wide3<High>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let (high, mid, low) = NBK.TupleInteger.multiplying213(lhs, by: rhs)
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
+    let (high, mid, low) = T.multiplying213(lhs, by: rhs)
     XCTAssertEqual(low,  product.low,  file: file, line: line)
     XCTAssertEqual(mid,  product.mid,  file: file, line: line)
     XCTAssertEqual(high, product.high, file: file, line: line)
