@@ -28,15 +28,15 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///   - remainder: The `remainder` suffix from the `quotient` element's index.
     ///   It must be exactly one element wider than the `divisor`.
     ///   - divisor: The normalized `divisor`. Its last element's most significant
-    ///   bit must be set to ensure that the initial `quotient` approximation will 
-    ///   exceed the real `quotient` by at most 2.
+    ///   bit must be set to ensure that the initial `quotient` approximation does
+    ///   not exceed the real `quotient` by more than 2.
     ///
     /// - Returns: The `quotient` element at the `remainder`'s start index.
     ///
     /// ## Example Usage in Long Division Algorithm
     ///
     /// ```swift
-    /// //  use fast path
+    /// //  try fast path
     /// //  normalization
     ///
     /// var quotient = uninitialized(remainder.count - divisor.count) { quotient in
@@ -59,6 +59,10 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
         
         Swift.assert(remainder.count == divisor.count + 1,
         "the remainder must be exactly one element wider than the divisor")
+        
+        Swift.assert(NBK.SUISS.compare(remainder, to: divisor,
+        at:  remainder.dropFirst().startIndex).isLessThanZero,
+        "the quotient of each iteration must fit in one element")
         //=--------------------------------------=
         let numerator   = NBK.TBI<Base.Element>.suffix2(remainder)
         let denominator = NBK.TBI<Base.Element>.suffix1((divisor))
