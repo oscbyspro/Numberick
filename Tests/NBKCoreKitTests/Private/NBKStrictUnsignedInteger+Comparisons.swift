@@ -128,8 +128,13 @@ private func NBKAssertSubSequenceComparison(
 _ lhs: [UInt], _ rhs: [UInt], _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<UnsafeBufferPointer<UInt>>.SubSequence
+    typealias T = NBK.SUISS
     //=------------------------------------------=
+    brr: do {
+        XCTAssertEqual(T.compare(lhs, to: rhs),  signum, file: file, line: line)
+        XCTAssertEqual(T.compare(rhs, to: lhs), -signum, file: file, line: line)
+    }
+    
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
         XCTAssertEqual(T.compare(lhs, to: rhs),  signum, file: file, line: line)
@@ -141,14 +146,18 @@ private func NBKAssertSubSequenceComparisonAtIndex(
 _ lhs: [UInt], _ rhs: [UInt], _ index: Int, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.StrictUnsignedInteger<UnsafeBufferPointer<UInt>>.SubSequence
+    typealias T = NBK.SUISS
     //=------------------------------------------=
+    NBKAssertSubSequenceComparison(lhs, [UInt](repeating: 0, count: index) + rhs, signum, file: file, line: line)
+    //=------------------------------------------=
+    brr: do {
+        XCTAssertEqual(T.compare(lhs, to: rhs, at: index), signum, file: file, line: line)
+    }
+    
     lhs.withUnsafeBufferPointer { lhs in
     rhs.withUnsafeBufferPointer { rhs in
         XCTAssertEqual(T.compare(lhs, to: rhs, at: index), signum, file: file, line: line)
     }}
-    //=------------------------------------------=
-    NBKAssertSubSequenceComparison(lhs, Array(repeating: 0 as UInt, count: index) + rhs, signum, file: file, line: line)
 }
 
 #endif

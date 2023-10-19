@@ -51,17 +51,17 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt, at index: Int) -> Bool {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         if  other.isZero { return false }
         //=--------------------------------------=
         self.storage.resize(minCount: index + 1)
-        defer{ self.storage.normalize() }
-        return self.storage.withUnsafeMutableBufferPointer {
-            NBK.SUISS.decrement(&$0, by: other, at: index).overflow
+        
+        let overflow: Bool = self.storage.withUnsafeMutableBufferPointer(in: index...) {
+            NBK.SUISS.decrement(&$0, by: other).overflow
         }
+        
+        self.storage.normalize()
+        return overflow as Bool
     }
     
     @_disfavoredOverload @inlinable public func subtractingReportingOverflow(_ other: UInt, at index: Int) -> PVO<Self> {

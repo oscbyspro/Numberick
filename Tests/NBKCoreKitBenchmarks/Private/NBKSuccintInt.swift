@@ -22,7 +22,7 @@ private typealias Y = [UInt32]
 
 final class NBKSuccinctIntBenchmarks: XCTestCase {
     
-    typealias T = NBK.SuccinctInt<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.SuccinctInt
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

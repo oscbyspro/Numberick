@@ -22,15 +22,15 @@ extension NBK.TupleInteger where High: NBKUnsignedInteger {
     
     /// Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.
     ///
+    /// - Returns: The `quotient` is returned and the `remainder` replaces the dividend.
+    ///
     /// ### Development 1
     ///
-    /// Skipping the comparison does not make it faster.
+    /// The profiler says comparing is faster than overflow checking.
     ///
     /// ### Development 2
     ///
-    /// The approximation needs at most two adjustments, but the while loop is faster.
-    ///
-    /// - Returns: The `quotient` is returned and the `remainder` replaces the dividend.
+    /// The approximation needs at most two adjustments, but a loop is faster.
     ///
     @_transparent public static func divide3212MSBUnchecked(_ lhs: inout Wide3, by rhs: Wide2) -> High {
         assert(rhs.high.mostSignificantBit, "divisor must be normalized")

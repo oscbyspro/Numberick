@@ -29,13 +29,13 @@ extension NBK {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(_ body: Base, sign: Bool) {
-            precondition(Self.isValid(body, sign: sign))
+            precondition(Self.validate(body, sign: sign))
             self.body = body
             self.sign = sign
         }
         
         @inlinable public init(unchecked body: Base, sign: Bool) {
-            Swift.assert(Self.isValid(body, sign: sign))
+            Swift.assert(Self.validate(body, sign: sign))
             self.body = body
             self.sign = sign
         }
@@ -44,70 +44,14 @@ extension NBK {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        @inlinable public static func isValid(_ body: Base, sign: Bool) -> Bool {
+        @inlinable public static func validate(_ body: Base, sign: Bool) -> Bool {
             body.last != Base.Element(repeating: sign)
         }
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Comparisons
-//=----------------------------------------------------------------------------=
-
-extension NBK.SuccinctInt {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(to rhs: Self) -> Int {
-        //=--------------------------------------=
-        // Plus & Minus
-        //=--------------------------------------=
-        if  self.sign != rhs.sign {
-            return self.sign ? -1 : 1
-        }
-        //=---------------------------------------=
-        return self.compared(toSameSign: rhs)
-    }
-    
-    /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(toSameSign other: Self) -> Int {
-        //=--------------------------------------=
-        Swift.assert(self.sign == other.sign)
-        //=--------------------------------------=
-        // Long & Short
-        //=--------------------------------------=
-        if  self.body.count  != other.body.count {
-            return self.sign == (self.body.count > other.body.count) ? -1 : 1
-        }
-        //=--------------------------------------=
-        return self.compared(toSameSignSameSize: other)
-    }
-    
-    /// A three-way comparison of `self` against `other`.
-    @inlinable public func compared(toSameSignSameSize other: Self) -> Int {
-        //=--------------------------------------=
-        Swift.assert(self.sign/*--*/ == other.sign/*--*/)
-        Swift.assert(self.body.count == other.body.count)
-        //=--------------------------------------=
-        // Word By Word, Back To Front
-        //=--------------------------------------=
-        for index in self.body.indices.reversed() {
-            let lhsWord  = self .body[index] as Base.Element
-            let rhsWord  = other.body[index] as Base.Element
-            if  lhsWord != rhsWord { return lhsWord < rhsWord ? -1 : 1 }
-        }
-        //=--------------------------------------=
-        // Same
-        //=--------------------------------------=
-        return 0 as Int as Int as Int as Int as Int
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + where Base is Unsafe Buffer Pointer
+// MARK: + Strict Binary Integer
 //=----------------------------------------------------------------------------=
 
 extension NBK.SuccinctInt {
@@ -131,14 +75,13 @@ extension NBK.SuccinctInt {
     /// └─────────────── → ───────────────┴───────┘
     /// ```
     ///
-    /// ### Development
-    ///
-    /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
-    ///
-    @inline(__always) @inlinable public init?<T>(fromStrictSignedIntegerSubSequence source: Base) where Base == UnsafeBufferPointer<T> {
+    @inlinable public init?<T: RandomAccessCollection>(
+    fromStrictSignedIntegerSubSequence source: T) where Base == T.SubSequence {
+        //=--------------------------------------=
         guard let sign = source.last?.mostSignificantBit else { return nil }
+        //=--------------------------------------=
         let bits = UInt(repeating: sign)
-        let body = Base(rebasing:  NBK.dropLast(from: source, while:{ $0 == bits }))
+        let body = NBK.dropLast(from: source, while:{ $0 == bits })
         self.init(unchecked: body, sign: sign)
     }
     
@@ -161,7 +104,94 @@ extension NBK.SuccinctInt {
     ///
     /// `@inline(always)` is required for `NBKFlexibleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public init<T>(fromStrictUnsignedIntegerSubSequence source: Base) where Base == UnsafeBufferPointer<T> {
-        self.init(unchecked: Base(rebasing: NBK.dropLast(from: source, while:{ $0.isZero })), sign: false)
+    @inline(__always) @inlinable public init<T:  RandomAccessCollection>(
+    fromStrictUnsignedIntegerSubSequence source: T) where Base == T.SubSequence {
+        self.init(unchecked: NBK.dropLast(from: source, while:{ $0.isZero }), sign: false)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
+
+extension NBK.SuccinctInt {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Initializers
+    //=------------------------------------------------------------------------=
+    
+    /// Creates an instance using the memory as the given sub sequence.
+    @inlinable public init<T>(rebasing other: NBK.SuccinctInt<Base.SubSequence>) where Base == UnsafeBufferPointer<T> {
+        self.init(unchecked: Base(rebasing: other.body), sign: other.sign)
+    }
+    
+    /// Creates an instance using the memory as the given sub sequence.
+    @inlinable public init<T>(rebasing other: NBK.SuccinctInt<Base.SubSequence>) where Base == UnsafeMutableBufferPointer<T> {
+        self.init(unchecked: Base(rebasing: other.body), sign: other.sign)
+    }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Comparisons
+//=----------------------------------------------------------------------------=
+
+extension NBK.SuccinctInt {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// A three-way comparison of `self` against `other`.
+    @inlinable public func compared<T>(to rhs: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
+        //=--------------------------------------=
+        // Plus & Minus
+        //=--------------------------------------=
+        if  self.sign != rhs.sign {
+            return self.sign ? -1 : 1
+        }
+        //=---------------------------------------=
+        return self.compared(toSameSignUnchecked: rhs)
+    }
+    
+    /// A three-way comparison of `self` against `other`.
+    @inlinable func compared<T>(toSameSignUnchecked other: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
+        //=--------------------------------------=
+        Swift.assert(self.sign == other.sign)
+        //=--------------------------------------=
+        // Long & Short
+        //=--------------------------------------=
+        if  self.body.count  != other.body.count {
+            return self.sign == (self.body.count > other.body.count) ? -1 : 1
+        }
+        //=--------------------------------------=
+        return self.compared(toSameSignSameSizeUnchecked: other)
+    }
+    
+    /// A three-way comparison of `self` against `other`.
+    @inlinable func compared<T>(toSameSignSameSizeUnchecked other: NBK.SuccinctInt<T>) -> Int where T.Element == Base.Element {
+        //=--------------------------------------=
+        Swift.assert(self.sign == other.sign)
+        Swift.assert(self.body.count == other.body.count)
+        //=--------------------------------------=
+        // Word By Word, Back To Front
+        //=--------------------------------------=
+        var lhsIndex = self .body.endIndex
+        var rhsIndex = other.body.endIndex
+        
+        backwards: while lhsIndex > self.body.startIndex {
+            self .body.formIndex(before: &lhsIndex)
+            other.body.formIndex(before: &rhsIndex)
+            
+            let lhsWord  = self .body[lhsIndex] as Base.Element
+            let rhsWord  = other.body[rhsIndex] as Base.Element
+            
+            if  lhsWord != rhsWord {
+                return lhsWord < rhsWord ? -1 : 1
+            }
+        }
+        //=--------------------------------------=
+        // Same
+        //=--------------------------------------=
+        return 0 as Int as Int as Int as Int as Int
     }
 }

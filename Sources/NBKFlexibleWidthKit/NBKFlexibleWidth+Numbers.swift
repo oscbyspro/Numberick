@@ -65,7 +65,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public init?(exactly source: some BinaryFloatingPoint) {
-        if source.sign == .minus { return nil }
+        guard source.sign == FloatingPointSign.plus else { return nil }
         //=--------------------------------------=
         if source.isZero { self.init();  return }
         guard source.isFinite else { return nil }

@@ -111,8 +111,8 @@ extension NBKFlexibleWidth.Magnitude {
                     var remainderIndex  = remainder.endIndex as Int
                     for (quotientIndex) in quotient.indices.reversed() {
                         remainder.formIndex(before: &remainderIndex)
-                        let digit = NBK.SUI.quotientFromLongDivisionIteration211MSBUnchecked(
-                        dividing: &remainder[...remainderIndex], by: divisor)
+                        let digit = NBK.SUI.quotientFromLongDivisionIteration2111MSBUnchecked(
+                        dividing: &remainder[quotientIndex ... remainderIndex], by: divisor)
                         quotient.baseAddress!.advanced(by: quotientIndex).initialize(to: digit)
                     }
                 }

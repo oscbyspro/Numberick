@@ -89,14 +89,14 @@ final class NBKSuccinctIntTests: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertIsValid(
-_ body: [UInt], _ sign: Bool, _ isValid: Bool,
+_ body: [UInt], _ sign: Bool, _ success: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.SuccinctInt<[UInt]>
+    typealias T = NBK.SuccinctInt
     //=------------------------------------------=
-    XCTAssertEqual(T.isValid(body, sign: sign), isValid, file: file, line: line)
+    XCTAssertEqual(T.validate(body, sign: sign), success, file: file, line: line)
     //=------------------------------------------=
-    if  isValid {
+    if  success {
         XCTAssertNotNil(T(           body, sign: sign), file: file, line: line)
         XCTAssertNotNil(T(unchecked: body, sign: sign), file: file, line: line)
     }
@@ -106,11 +106,33 @@ private func NBKAssertFromStrictSignedIntegerSubSequence(
 _ source: [UInt], _ body: [UInt]?, _ sign: Bool?,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.SuccinctInt<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.SuccinctInt
     //=------------------------------------------=
-    source.withUnsafeBufferPointer {
-        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: $0).map({       $0.sign  }), sign, file: file, line: line)
-        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: $0).map({ Array($0.body) }), body, file: file, line: line)
+    var source = source
+    //=------------------------------------------=
+    brr: do {
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({ Array($0.body) }), body, file: file, line: line)
+    }
+    
+    source.withUnsafeBufferPointer { source in
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({ Array($0.body) }), body, file: file, line: line)
+    }
+    
+    source.withUnsafeBufferPointer { source in
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map(T.init(rebasing:)).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map(T.init(rebasing:)).map({ Array($0.body) }), body, file: file, line: line)
+    }
+    
+    source.withUnsafeMutableBufferPointer { source in
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map({ Array($0.body) }), body, file: file, line: line)
+    }
+    
+    source.withUnsafeMutableBufferPointer { source in
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map(T.init(rebasing:)).map({       $0.sign  }), sign, file: file, line: line)
+        XCTAssertEqual(T(fromStrictSignedIntegerSubSequence: source).map(T.init(rebasing:)).map({ Array($0.body) }), body, file: file, line: line)
     }
 }
 
@@ -118,12 +140,35 @@ private func NBKAssertFromStrictUnsignedIntegerSubSequence(
 _ source: [UInt], _ body: [UInt], _ sign: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    typealias T = NBK.SuccinctInt<UnsafeBufferPointer<UInt>>
+    typealias T = NBK.SuccinctInt
+    //=------------------------------------------=
+    var source = source
     //=------------------------------------------=
     XCTAssertEqual(sign, false, file: file, line: line)
-    source.withUnsafeBufferPointer {
-        XCTAssertEqual(      T(fromStrictUnsignedIntegerSubSequence: $0).sign,  sign, file: file, line: line)
-        XCTAssertEqual(Array(T(fromStrictUnsignedIntegerSubSequence: $0).body), body, file: file, line: line)
+    
+    brr: do {
+        XCTAssertEqual(      T(fromStrictUnsignedIntegerSubSequence: source).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(T(fromStrictUnsignedIntegerSubSequence: source).body), body, file: file, line: line)
+    }
+    
+    source.withUnsafeBufferPointer { source in
+        XCTAssertEqual(      T(fromStrictUnsignedIntegerSubSequence: source).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(T(fromStrictUnsignedIntegerSubSequence: source).body), body, file: file, line: line)
+    }
+    
+    source.withUnsafeBufferPointer { source in
+        XCTAssertEqual(      T(rebasing: T(fromStrictUnsignedIntegerSubSequence: source)).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(T(rebasing: T(fromStrictUnsignedIntegerSubSequence: source)).body), body, file: file, line: line)
+    }
+    
+    source.withUnsafeMutableBufferPointer { source in
+        XCTAssertEqual(      T(fromStrictUnsignedIntegerSubSequence: source).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(T(fromStrictUnsignedIntegerSubSequence: source).body), body, file: file, line: line)
+    }
+    
+    source.withUnsafeMutableBufferPointer { source in
+        XCTAssertEqual(      T(rebasing: T(fromStrictUnsignedIntegerSubSequence: source)).sign,  sign, file: file, line: line)
+        XCTAssertEqual(Array(T(rebasing: T(fromStrictUnsignedIntegerSubSequence: source)).body), body, file: file, line: line)
     }
 }
 

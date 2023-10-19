@@ -21,14 +21,14 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `base` by `bit` at `index`.
+    /// Decrements `base` by `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrement(
-    _ base: inout Base, by bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by bit: Bool) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(&base, by: &bit, at: &index)
         //=--------------------------------------=
@@ -43,13 +43,17 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
+    /// ### Development
+    ///
+    /// It is important to compare the index first before the bit.
+    ///
     @inlinable public static func decrement(
-    _ base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
+    _   base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= base.startIndex)
         Swift.assert(index <= base.endIndex  ) // void
         //=--------------------------------------=
-        while bit && index < base.endIndex {
+        while index < base.endIndex, bit {
             bit = base[index].subtractReportingOverflow(1 as Base.Element.Digit)
             base.formIndex(after: &index)
         }
@@ -66,30 +70,30 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by `digit` at `index`.
+    /// Decrements `base` by `digit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrement(
-    _ base: inout Base, by digit: Base.Element, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by digit: Base.Element) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool
+        var index: Base.Index = base.startIndex, bit: Bool
         //=--------------------------------------=
         bit = self.decrement(&base, by: digit, at: &index)
         //=--------------------------------------=
         return NBK.IO(index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by `digit` at `index`.
+    /// Partially decrements `base` by `digit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by digit: Base.Element, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by digit: Base.Element) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool
+        var index: Base.Index = base.startIndex, bit: Bool
         //=--------------------------------------=
         bit = self.decrementInIntersection(&base, by: digit, at: &index)
         //=--------------------------------------=
@@ -105,7 +109,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrement(
-    _ base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
+    _   base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
         var bit = self.decrementInIntersection(&base, by: digit, at: &index)
         //=--------------------------------------=
@@ -120,7 +124,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
+    _   base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
         Swift.assert(index >= base.startIndex)
         Swift.assert(index <  base.endIndex  )
@@ -140,30 +144,30 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by the sum of `digit` and `bit` at `index`.
+    /// Decrements `base` by the sum of `digit` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrement(
-    _ base: inout Base, by digit: Base.Element, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by digit: Base.Element, plus bit: Bool) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(&base, by: digit, plus: &bit, at: &index)
         //=--------------------------------------=
         return NBK.IO(index: index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by the sum of `digit` and `bit` at `index`.
+    /// Partially decrements `base` by the sum of `digit` and `bit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by digit: Base.Element, plus bit: Bool, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by digit: Base.Element, plus bit: Bool) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrementInIntersection(&base, by: digit, plus: &bit, at: &index)
         //=--------------------------------------=
@@ -181,7 +185,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrement(
-    _ base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
+    _   base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         self.decrementInIntersection(&base, by: digit, plus: &bit, at: &index)
         self.decrement(&base, by: &bit, at: &index)
     }
@@ -193,7 +197,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
+    _   base: inout Base, by digit: Base.Element, plus bit: inout Bool, at index: inout Base.Index) {
         //=--------------------------------------=
         Swift.assert(index >= base.startIndex)
         Swift.assert(index <  base.endIndex  )
@@ -222,30 +226,30 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
 
-    /// Decrements `base` by the sum of `elements` and `bit` at `index`.
+    /// Decrements `base` by the sum of `elements` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrement(
-    _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by elements: some Collection<Base.Element>, plus bit: Bool = false) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(&base, by: elements, plus: &bit, at: &index)
         //=--------------------------------------=
         return NBK.IO(index: index as Base.Index, overflow: bit as Bool)
     }
 
-    /// Partially decrements `base` by the sum of `elements` and `bit` at `index`.
+    /// Partially decrements `base` by the sum of `elements` and `bit`.
     ///
     /// - This operation does not continue beyond the operand intersection.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
+    _   base: inout Base, by elements: some Collection<Base.Element>, plus bit: Bool = false) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrementInIntersection(&base, by: elements, plus: &bit, at: &index)
         //=--------------------------------------=
@@ -261,7 +265,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrement(
-    _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
+    _   base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
         self.decrementInIntersection(&base, by: elements, plus: &bit, at: &index)
         self.decrement(&base, by: &bit, at: &index)
     }
@@ -273,9 +277,9 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @inlinable public static func decrementInIntersection(
-    _ base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
-        for elementsIndex in elements.indices {
-            self.decrementInIntersection(&base, by: elements[elementsIndex], plus: &bit, at: &index)
+    _   base: inout Base, by elements: some Collection<Base.Element>, plus bit: inout Bool, at index: inout Base.Index) {
+        for element in elements {
+            self.decrementInIntersection(&base, by: element, plus: &bit, at: &index)
         }
     }
 }
@@ -290,16 +294,16 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Decrements `base` by the product of `elements` and `multiplicand` at `index`,
-    /// and the sum of `subtrahend` and `bit` at `index`.
+    /// Decrements `base` by the product of `elements` and `multiplicand`,
+    /// and the sum of `subtrahend` and `bit`.
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
     @discardableResult @inlinable public static func decrement(
     _ base: inout Base, by elements: some Collection<Base.Element>, times multiplicand: Base.Element,
-    plus subtrahend: Base.Element = 0, plus bit: Bool = false, at index: Base.Index) -> NBK.IO<Base.Index> {
+    plus subtrahend: Base.Element = 0, plus bit: Bool = false) -> NBK.IO<Base.Index> {
         //=--------------------------------------=
-        var index: Base.Index = index, bit: Bool = bit
+        var index: Base.Index = base.startIndex, bit: Bool = bit
         //=--------------------------------------=
         self.decrement(&base, by: elements, times: multiplicand, plus: subtrahend, plus: &bit, at: &index)
         //=--------------------------------------=
