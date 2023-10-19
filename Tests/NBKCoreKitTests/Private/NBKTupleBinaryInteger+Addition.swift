@@ -13,18 +13,21 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Addition
+// MARK: * NBK x Tuple Binary Integer x Addition
 //*============================================================================*
 
-final class NBKTupleIntegerTestsOnAddition: XCTestCase {
+final class NBKTupleBinaryIntegerTestsOnAddition: XCTestCase {
     
-    typealias S  = Int64
-    typealias S2 = NBK.Wide2<S>
-    typealias S3 = NBK.Wide3<S>
+    typealias TS = NBK.TupleBinaryInteger< Int64>
+    typealias TM = NBK.TupleBinaryInteger<UInt64>
     
-    typealias M  = UInt64
-    typealias M2 = NBK.Wide2<M>
-    typealias M3 = NBK.Wide3<M>
+    typealias S1 = TS.Wide1
+    typealias S2 = TS.Wide2
+    typealias S3 = TS.Wide3
+    
+    typealias M1 = TM.Wide1
+    typealias M2 = TM.Wide2
+    typealias M3 = TM.Wide3
 
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -46,15 +49,17 @@ final class NBKTupleIntegerTestsOnAddition: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Addition x Assertions
+// MARK: * NBK x Tuple Binary Integer x Addition x Assertions
 //*============================================================================*
 
 private func NBKAssertAdding32B<High: NBKFixedWidthInteger & NBKUnsignedInteger>(
 _ lhs: NBK.Wide3<High>, _ rhs: NBK.Wide2<High>, _ sum: NBK.Wide3<High>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
     var x = lhs
-    let o = NBK.TupleInteger.increment32B(&x, by: rhs)
+    let o = T.increment32B(&x, by: rhs)
     XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
     XCTAssertEqual(x.high, sum.high, file: file, line: line)
@@ -65,8 +70,10 @@ private func NBKAssertAdding33B<High: NBKFixedWidthInteger & NBKUnsignedInteger>
 _ lhs: NBK.Wide3<High>, _ rhs: NBK.Wide3<High>, _ sum: NBK.Wide3<High>, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
     var x = lhs
-    let o = NBK.TupleInteger.increment33B(&x, by: rhs)
+    let o = T.increment33B(&x, by: rhs)
     XCTAssertEqual(x.low,  sum.low,  file: file, line: line)
     XCTAssertEqual(x.mid,  sum.mid,  file: file, line: line)
     XCTAssertEqual(x.high, sum.high, file: file, line: line)

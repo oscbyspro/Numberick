@@ -13,18 +13,21 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Complements
+// MARK: * NBK x Tuple Binary Integer x Complements
 //*============================================================================*
 
-final class NBKTupleIntegerTestsOnComplements: XCTestCase {
+final class NBKTupleBinaryIntegerTestsOnComplements: XCTestCase {
     
-    typealias S  = Int64
-    typealias S2 = NBK.Wide2<S>
-    typealias S3 = NBK.Wide3<S>
+    typealias TS = NBK.TupleBinaryInteger< Int64>
+    typealias TM = NBK.TupleBinaryInteger<UInt64>
     
-    typealias M  = UInt64
-    typealias M2 = NBK.Wide2<M>
-    typealias M3 = NBK.Wide3<M>
+    typealias S1 = TS.Wide1
+    typealias S2 = TS.Wide2
+    typealias S3 = TS.Wide3
+    
+    typealias M1 = TM.Wide1
+    typealias M2 = TM.Wide2
+    typealias M3 = TM.Wide3
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -46,14 +49,16 @@ final class NBKTupleIntegerTestsOnComplements: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Complements x Assertions
+// MARK: * NBK x Tuple Binary Integer x Complements x Assertions
 //*============================================================================*
 
 private func NBKAssertMagnitude<High: NBKFixedWidthInteger>(
 _ value: NBK.Wide2<High>, _ magnitude: NBK.Wide2<High.Magnitude>,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let result = NBK.TupleInteger.magnitude(of: value)
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
+    let result  = T.magnitude(of: value)
     //=------------------------------------------=
     if  let value = value as? NBK.Wide2<High.Magnitude> {
         XCTAssert(result == value, file: file, line: line)
@@ -62,7 +67,7 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     XCTAssert(result == magnitude, file: file, line: line)
-    XCTAssert(NBK.TupleInteger.magnitude(of: result) == magnitude, file: file, line: line)
+    XCTAssert(T.Magnitude.magnitude(of: result) == magnitude, file: file, line: line)
 }
 
 #endif

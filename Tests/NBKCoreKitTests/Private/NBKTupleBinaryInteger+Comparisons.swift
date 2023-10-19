@@ -13,18 +13,21 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Comparisons
+// MARK: * NBK x Tuple Binary Integer x Comparisons
 //*============================================================================*
 
-final class NBKTupleIntegerTestsOnComparisons: XCTestCase {
+final class NBKTupleBinaryIntegerTestsOnComparisons: XCTestCase {
     
-    typealias S  = Int64
-    typealias S2 = NBK.Wide2<S>
-    typealias S3 = NBK.Wide3<S>
+    typealias TS = NBK.TupleBinaryInteger< Int64>
+    typealias TM = NBK.TupleBinaryInteger<UInt64>
     
-    typealias M  = UInt64
-    typealias M2 = NBK.Wide2<M>
-    typealias M3 = NBK.Wide3<M>
+    typealias S1 = TS.Wide1
+    typealias S2 = TS.Wide2
+    typealias S3 = TS.Wide3
+    
+    typealias M1 = TM.Wide1
+    typealias M2 = TM.Wide2
+    typealias M3 = TM.Wide3
 
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -56,21 +59,25 @@ final class NBKTupleIntegerTestsOnComparisons: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Comparisons x Assertions
+// MARK: * NBK x Tuple Binary Integer x Comparisons x Assertions
 //*============================================================================*
 
 private func NBKAssertComparisons22S<High: NBKFixedWidthInteger & NBKUnsignedInteger>(
 _ lhs: NBK.Wide2<High>, _ rhs: NBK.Wide2<High>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.TupleInteger.compare22S(lhs, to: rhs), signum, file: file, line: line)
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
+    XCTAssertEqual(T.compare22S(lhs, to: rhs), signum, file: file, line: line)
 }
 
 private func NBKAssertComparisons33S<High: NBKFixedWidthInteger & NBKUnsignedInteger>(
 _ lhs: NBK.Wide3<High>, _ rhs: NBK.Wide3<High>, _ signum: Int,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.TupleInteger.compare33S(lhs, to: rhs), signum, file: file, line: line)
+    typealias T = NBK.TupleBinaryInteger<High>
+    //=------------------------------------------=
+    XCTAssertEqual(T.compare33S(lhs, to: rhs), signum, file: file, line: line)
 }
 
 #endif

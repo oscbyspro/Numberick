@@ -108,12 +108,10 @@ extension NBKFlexibleWidth.Magnitude {
         let quotient = Self.uninitialized(count: self.count - other.count) { quotient in
             self.storage.withUnsafeMutableBufferPointer { remainder in
                 other.storage.withUnsafeBufferPointer   { (divisor) in
-                    var remainderIndex  = remainder.endIndex as Int
-                    for (quotientIndex) in quotient.indices.reversed() {
-                        remainder.formIndex(before: &remainderIndex)
+                    for index in quotient.indices.reversed() {
                         let digit = NBK.SUI.quotientFromLongDivisionIteration2111MSBUnchecked(
-                        dividing: &remainder[quotientIndex ... remainderIndex], by: divisor)
-                        quotient.baseAddress!.advanced(by: quotientIndex).initialize(to: digit)
+                        dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)
+                        quotient.baseAddress!.advanced(by: index).initialize(to: digit)
                     }
                 }
             }

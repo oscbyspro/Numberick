@@ -72,43 +72,64 @@
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SBI<Base> =  NBK.StrictBinaryInteger<Base> where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SBI<Base> = NBK.StrictBinaryInteger<Base>
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SBISS<Base>  = NBK.StrictBinaryInteger<Base>.SubSequence where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SBISS<Base> = NBK.StrictBinaryInteger<Base>.SubSequence
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SSI<Base> =  NBK.StrictSignedInteger<Base> where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SSI<Base> = NBK.StrictSignedInteger<Base>
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SSISS<Base>  = NBK.StrictSignedInteger<Base>.SubSequence where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SSISS<Base> = NBK.StrictSignedInteger<Base>.SubSequence
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SUI<Base> =  NBK.StrictUnsignedInteger<Base> where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SUI<Base> = NBK.StrictUnsignedInteger<Base>
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SUISS<Base>  = NBK.StrictUnsignedInteger<Base>.SubSequence where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SUISS<Base> = NBK.StrictUnsignedInteger<Base>.SubSequence
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias TBI<High> = NBK.TupleBinaryInteger<High> 
+    where High: NBKFixedWidthInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias TSI<High> = NBK.TupleBinaryInteger<High> 
+    where High: NBKFixedWidthInteger & NBKSignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias TUI<High> = NBK.TupleBinaryInteger<High> 
+    where High: NBKFixedWidthInteger & NBKUnsignedInteger
     
     //=------------------------------------------------------------------------=
     // MARK: Namespaces x Sign & Magnitude
@@ -118,19 +139,20 @@
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias ISM<Magnitude> = NBK.IntegerSignMagnitude<Magnitude> where Magnitude: NBKUnsignedInteger
+    public typealias ISM<Magnitude> = NBK.IntegerSignMagnitude<Magnitude> 
+    where Magnitude: NBKUnsignedInteger
     
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SSM<Base> = NBK.StrictSignMagnitude<Base> where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SSM<Base> = NBK.StrictSignMagnitude<Base> 
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
     
     /// A namespace for `Numberick` development.
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
-    public typealias SSMSS<Base> = NBK.StrictSignMagnitude<Base>.SubSequence where
-    Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
+    public typealias SSMSS<Base> = NBK.StrictSignMagnitude<Base>.SubSequence 
+    where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 }

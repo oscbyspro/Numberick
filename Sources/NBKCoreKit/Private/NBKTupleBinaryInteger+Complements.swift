@@ -8,10 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Complements x Unsigned
+// MARK: * NBK x Tuple Binary Integer x Complements x Unsigned
 //*============================================================================*
 
-extension NBK.TupleInteger {
+extension NBK.TupleBinaryInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations

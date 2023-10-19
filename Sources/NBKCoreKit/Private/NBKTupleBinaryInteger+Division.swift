@@ -8,13 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Tuple Integer x Division
+// MARK: * NBK x Tuple Binary Integer x Division x Unsigned
 //*============================================================================*
-//=----------------------------------------------------------------------------=
-// MARK: + Unsigned
-//=----------------------------------------------------------------------------=
 
-extension NBK.TupleInteger where High: NBKUnsignedInteger {
+extension NBK.TupleBinaryInteger where High: NBKUnsignedInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformation
@@ -26,11 +23,11 @@ extension NBK.TupleInteger where High: NBKUnsignedInteger {
     ///
     /// ### Development 1
     ///
-    /// The profiler says comparing is faster than overflow checking.
+    /// Comparing is faster than overflow checking, according to time profiler.
     ///
     /// ### Development 2
     ///
-    /// The approximation needs at most two adjustments, but a loop is faster.
+    /// The approximation needs at most two corrections, but looping is faster.
     ///
     @_transparent public static func divide3212MSBUnchecked(_ lhs: inout Wide3, by rhs: Wide2) -> High {
         assert(rhs.high.mostSignificantBit, "divisor must be normalized")

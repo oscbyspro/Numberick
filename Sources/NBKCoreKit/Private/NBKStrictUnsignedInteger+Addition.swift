@@ -46,7 +46,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// ### Development
     ///
-    /// It is important to compare the index first before the bit.
+    /// Comparing the index before the bit is important for performance reasons.
     ///
     @inlinable public static func increment(
     _   base: inout Base, by bit: inout Bool, at index: inout Base.Index) {
