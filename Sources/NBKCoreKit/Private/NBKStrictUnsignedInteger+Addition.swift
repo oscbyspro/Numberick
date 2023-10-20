@@ -109,7 +109,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
-    @inlinable public static func increment(
+    @discardableResult @inlinable public static func increment(
     _   base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
         var bit = self.incrementInIntersection(&base, by: digit, at: &index)
@@ -124,7 +124,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Returns: An overflow indicator and its index in `base`.
     ///
-    @inlinable public static func incrementInIntersection(
+    @discardableResult @inlinable public static func incrementInIntersection(
     _   base: inout Base, by digit: Base.Element, at index: inout Base.Index) -> Bool {
         //=--------------------------------------=
         Swift.assert(index >= base.startIndex)
