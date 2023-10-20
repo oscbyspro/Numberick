@@ -17,6 +17,24 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
+    /// Unwraps the buffer's base address and count, if possible.
+    @inlinable public static func unwrapping<T>(
+    _   buffer: UnsafeBufferPointer<T>) -> (baseAddress: UnsafePointer<T>, count: Int)? {
+        guard let baseAddress = buffer.baseAddress  else { return nil }
+        return   (baseAddress:  baseAddress, count: buffer.count)
+    }
+    
+    /// Unwraps the buffer's base address and count, if possible.
+    @inlinable public static func unwrapping<T>(
+    _   buffer: UnsafeMutableBufferPointer<T>) -> (baseAddress: UnsafeMutablePointer<T>, count: Int)? {
+        guard let baseAddress = buffer.baseAddress  else { return nil }
+        return   (baseAddress:  baseAddress, count: buffer.count)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
     /// Copies the elements of the given `collection` to a temporary allocation.
     @inlinable public static func withUnsafeTemporaryAllocation<Element: NBKCoreInteger, Result>(
     copying collection: some Collection<Element>, perform: (inout UnsafeMutableBufferPointer<Element>) -> Result) -> Result {

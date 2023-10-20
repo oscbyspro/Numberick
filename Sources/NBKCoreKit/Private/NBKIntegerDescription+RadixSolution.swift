@@ -284,38 +284,40 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            let capacity = Element.bitWidth.trailingZeroBitCount - 1
-            return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) { squares in
-                let start = squares.baseAddress!
-                var position = start as UnsafeMutablePointer<Exponentiation>
-                var exponentiation = Exponentiation(1 as Element, base.value)
+            let capacity: Int = Element.bitWidth.trailingZeroBitCount - 1
+            return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) {
+                let squares = NBK.unwrapping($0)!
+                var pointer = squares.baseAddress
+                var current = Exponentiation(1, base.value)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
                 loop: while true {
-                    position.initialize(to: exponentiation)
-                    let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
+                    pointer.initialize(to: current)
+
+                    let product = current.power.multipliedReportingOverflow(by: current.power)
                     if  product.overflow { break loop }
                     
-                    exponentiation.exponent &<<= 1 as Element
-                    exponentiation.power = product.partialValue
-                    position = position.successor()
+                    current.exponent &<<= 1 as Element
+                    current.power = product.partialValue
+                    pointer = pointer.successor()
                 }
                 //=------------------------------=
-                // pointee: deinitialization by move
+                // pointee: move deinitialization
                 //=------------------------------=
-                Swift.assert(position <= start.advanced(by: squares.count))
-                loop: while  position >  start {
-                    position =  position.predecessor()
-                    let square  = position.move()
-                    let product = exponentiation.power.multipliedReportingOverflow(by: square.power)
+                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
+                loop: while   pointer > squares.baseAddress {
+                    pointer = pointer.predecessor()
+                    
+                    let square  = pointer.move()
+                    let product = current.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     
-                    exponentiation.exponent &+= square.exponent
-                    exponentiation.power = product.partialValue
+                    current.exponent &+= square.exponent
+                    current.power = product.partialValue
                 }
                 //=------------------------------=
-                return exponentiation as Exponentiation
+                return current as Exponentiation
             }
         }
     }

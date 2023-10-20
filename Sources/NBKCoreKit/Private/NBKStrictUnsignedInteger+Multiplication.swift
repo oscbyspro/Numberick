@@ -11,7 +11,7 @@
 // MARK: * NBK x Strict Unsigned Integer x Multiplication x Sub Sequence
 //*============================================================================*
 //=----------------------------------------------------------------------------=
-// MARK: + Digit + Digit + Range
+// MARK: + Digit + Digit
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {

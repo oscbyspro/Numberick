@@ -113,8 +113,8 @@ extension NBK.IntegerDescription {
             magnitude: &magnitude,
             solution: solution as AnyRadixSolution<UInt>,
             alphabet: alphabet as MaxRadixAlphabetEncoder,
-            prefix: prefix as  NBK.UnsafeUTF8,
-            suffix: NBK.UnsafeUTF8(start: nil, count: 0 as Int))
+            prefix: prefix as  UnsafeBufferPointer<UInt8>,
+            suffix: UnsafeBufferPointer<UInt8>(start: nil, count: 0 as Int))
         }
     }
     
@@ -137,8 +137,12 @@ extension NBK.IntegerDescription {
     @inlinable static func encode(
     magnitude: inout NBK.UnsafeMutableWords, solution: PerfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        let chunks = NBK.UnsafeWords(rebasing: NBK.dropLast(from: magnitude, while:{ $0.isZero }))
-        return self.encode(chunks: chunks, solution: AnyRadixSolution(solution), alphabet: alphabet, prefix: prefix, suffix: suffix)
+        return self.encode(
+        chunks:   UnsafeBufferPointer(rebasing: NBK.dropLast(from: magnitude, while:{ $0.isZero })),
+        solution: AnyRadixSolution(solution),
+        alphabet: alphabet  as MaxRadixAlphabetEncoder,
+        prefix:   prefix as UnsafeBufferPointer<UInt8>,
+        suffix:   suffix as UnsafeBufferPointer<UInt8>)
     }
     
     /// ### Development
@@ -149,29 +153,30 @@ extension NBK.IntegerDescription {
     magnitude: inout NBK.UnsafeMutableWords, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         let capacity: Int = solution.divisibilityByPowerUpperBound(magnitude: magnitude)
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
-            var index = chunks.startIndex
+        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) {
+            let chunked = NBK.unwrapping($0)!
+            var pointer = chunked.baseAddress
             var magnitude = magnitude[...]
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
-            rebasing: repeat {
+            rebasing: while !magnitude.isEmpty {
                 let chunk = NBK.SUISS.formQuotientWithRemainder(dividing: &magnitude, by: solution.power)
                 magnitude = NBK.dropLast(from: magnitude, while:{ $0.isZero })
-                chunks.baseAddress!.advanced(by: index).initialize(to: chunk)
-                chunks.formIndex(after: &index)
-            }   while !magnitude.isEmpty
+                pointer.initialize(to: chunk)
+                pointer = pointer.successor()
+            }
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
-            defer {
-                assert(index <= chunks.endIndex)
-                chunks.baseAddress!.deinitialize(count: index)
-            }
-            //=----------------------------------=
-            let solution = AnyRadixSolution(solution)
-            let chunks = NBK.UnsafeWords(start: chunks.baseAddress!, count: index)
-            return self.encode(chunks: chunks, solution: solution, alphabet: alphabet, prefix: prefix, suffix: suffix)
+            let count = chunked.baseAddress.distance(to: pointer)
+            defer{ chunked.baseAddress.deinitialize(count: count) }
+            return self.encode(
+            chunks:   UnsafeBufferPointer(start: chunked.baseAddress, count: count),
+            solution: AnyRadixSolution(solution),
+            alphabet: alphabet  as MaxRadixAlphabetEncoder,
+            prefix:   prefix as UnsafeBufferPointer<UInt8>,
+            suffix:   suffix as UnsafeBufferPointer<UInt8>)
         }
     }
     
@@ -187,31 +192,35 @@ extension NBK.IntegerDescription {
     chunks: NBK.UnsafeWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8,  suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
-        Swift.assert(chunks.count <= 1     || chunks.last != 0, "chunks must not contain redundant zeros")
-        Swift.assert(solution.power.isZero || chunks.allSatisfy({ $0 < solution.power }), "chunks must be less than solution's power")
+        Swift.assert(chunks.count <= 1 || chunks.last != 0,
+        "chunk sequence must not contain redundant zeros")
+        
+        Swift.assert(solution.power.isZero || chunks.allSatisfy({ $0 < solution.power }), 
+        "each chunk must be less than the radix solution's power")
         //=--------------------------------------=
         var remainders = chunks[...] as NBK.UnsafeWords.SubSequence
-        let mostSignificantChunk = remainders.popLast() ?? 0 as UInt
-        return self.withUnsafeTemporaryDescription(chunk: mostSignificantChunk, solution: solution, alphabet: alphabet) { first in
+        let high = remainders.popLast() ?? 0 as UInt
+        return self.withUnsafeTemporaryDescription(chunk: high, solution: solution, alphabet: alphabet) { first in
             //=----------------------------------=
             var count: Int
             count  = prefix.count
             count += first .count
-            count += remainders.count * Int(bitPattern: solution.exponent)
+            count += Int(bitPattern: solution.exponent) * remainders.count
             count += suffix.count
             //=----------------------------------=
-            return String(unsafeUninitializedCapacity: count) { utf8 in
-                var position = utf8.baseAddress!.advanced(by: count)
+            return String(unsafeUninitializedCapacity: count) {
+                let ascii = NBK.unwrapping($0)!
+                var pointer = ascii.baseAddress.advanced(by: count)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
                 func pull(_ element: UInt8) {
-                    position = position.predecessor()
-                    position.initialize(to:  element)
+                    pointer = pointer.predecessor()
+                    pointer.initialize(to: element)
                 }
                 //=------------------------------=
-                for index in suffix.indices.reversed() {
-                    pull(suffix[index]) // loop: index > element
+                for i in suffix.indices.reversed() {
+                    pull(suffix[i])
                 }
                 //=------------------------------=
                 // dynamic: loop unswitching perf.
@@ -235,15 +244,15 @@ extension NBK.IntegerDescription {
                     }
                 }
                 //=------------------------------=
-                for index in first .indices.reversed() {
-                    pull(first [index]) // loop: index > element
+                for i in first .indices.reversed() {
+                    pull(first [i])
                 }
                 
-                for index in prefix.indices.reversed() {
-                    pull(prefix[index]) // loop: index > element
+                for i in prefix.indices.reversed() {
+                    pull(prefix[i])
                 }
                 //=------------------------------=
-                assert(position == utf8.baseAddress!)
+                Swift.assert(pointer == ascii.baseAddress)
                 return count as Int
             }
         }
@@ -258,17 +267,22 @@ extension NBK.IntegerDescription {
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func withUnsafeTemporaryDescription(
-    chunk: UInt, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, perform: (NBK.UnsafeUTF8) -> String) -> String {
-        assert(solution.power.isZero || chunk < solution.power, "chunks must be less than solution's power")
-        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: Int(bitPattern: solution.exponent)) { utf8 in
-            let end = utf8.baseAddress!.advanced(by: utf8.count)
-            var position = end as UnsafeMutablePointer<UInt8>
+    chunk: UInt, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, 
+    perform: (NBK.UnsafeUTF8) -> String) -> String {
+        //=--------------------------------------=
+        Swift.assert(solution.power.isZero || chunk < solution.power,
+        "each chunk must be less than the radix solution's power")
+        //=--------------------------------------=
+        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: Int(bitPattern: solution.exponent)) {
+            let ascii = NBK.unwrapping($0)!
+            let limit = ascii.baseAddress.advanced(by: ascii.count)
+            var pointer = limit as UnsafeMutablePointer<UInt8>
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
             func pull(_ element: UInt8) {
-                position = position.predecessor()
-                position.initialize(to:  element)
+                pointer = pointer.predecessor()
+                pointer.initialize(to: element)
             }
             //=----------------------------------=
             // dynamic: loop unswitching perf.
@@ -291,9 +305,9 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
-            let count: Int = position.distance(to: end)
-            defer{ position.deinitialize (count: count) }
-            return perform(NBK.UnsafeUTF8(start: position, count: count))
+            let count = pointer.distance(to:   limit)
+            defer{ pointer.deinitialize(count: count) }
+            return perform(UnsafeBufferPointer(start: pointer, count: count))
         }
     }
 }
