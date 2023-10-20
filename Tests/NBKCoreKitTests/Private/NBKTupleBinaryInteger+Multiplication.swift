@@ -19,24 +19,24 @@ import XCTest
 final class NBKTupleBinaryIntegerTestsOnMultiplication: XCTestCase {
     
     typealias TS = NBK.TupleBinaryInteger< Int64>
-    typealias TM = NBK.TupleBinaryInteger<UInt64>
+    typealias TU = NBK.TupleBinaryInteger<UInt64>
     
     typealias S1 = TS.Wide1
     typealias S2 = TS.Wide2
     typealias S3 = TS.Wide3
     
-    typealias M1 = TM.Wide1
-    typealias M2 = TM.Wide2
-    typealias M3 = TM.Wide3
+    typealias U1 = TU.Wide1
+    typealias U2 = TU.Wide2
+    typealias U3 = TU.Wide3
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testMultiplying213() {
-        NBKAssertMultiplication213(M2( 1,  2),  3, M3( 0,  3,  6))
-        NBKAssertMultiplication213(M2(~1, ~2), ~3, M3(~4,  1, 12))
-        NBKAssertMultiplication213(M2(~0, ~0), ~0, M3(~1, ~0,  1))
+        NBKAssertMultiplication213(U2( 1,  2),  3, U3( 0,  3,  6))
+        NBKAssertMultiplication213(U2(~1, ~2), ~3, U3(~4,  1, 12))
+        NBKAssertMultiplication213(U2(~0, ~0), ~0, U3(~1, ~0,  1))
     }
 }
 

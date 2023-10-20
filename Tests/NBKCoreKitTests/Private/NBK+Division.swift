@@ -211,8 +211,8 @@ file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     let dividend = NBK.ZeroOrMore(dividend), divisor = NBK.PowerOf2(divisor)
     //=------------------------------------------=
-    XCTAssertEqual(NBK .quotient(of: dividend, dividingBy: divisor), quotient,  file: file, line: line)
-    XCTAssertEqual(NBK.remainder(of: dividend, dividingBy: divisor), remainder, file: file, line: line)
+    XCTAssertEqual(NBK .quotient(dividing: dividend, by: divisor), quotient,  file: file, line: line)
+    XCTAssertEqual(NBK.remainder(dividing: dividend, by: divisor), remainder, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -224,17 +224,17 @@ _ dividend: some BinaryInteger, _ divisor: T, _ partialValue: T, _ overflow: Boo
 file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     if  let divisor = NBK.PowerOf2(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
 
     if  let divisor = NBK.NonZero(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
     
     brr: do {
-        let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue.partialValue, partialValue, file: file, line: line)
         XCTAssertEqual(leastPositiveResidue.overflow,     overflow,     file: file, line: line)
     }

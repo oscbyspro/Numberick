@@ -76,8 +76,8 @@ extension NBKStaticBigInt {
     
     @inlinable public var count: Int {
         let width = NBK.ZeroOrMore(unchecked: self.bitWidth)
-        let major = NBK  .quotient(of: width, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK .remainder(of: width, dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK .quotient(dividing: width, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.remainder(dividing: width, by: NBK.PowerOf2(bitWidth: UInt.self))
         return major &+ Int(bit: minor.isMoreThanZero) as Int
     }
     

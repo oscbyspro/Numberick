@@ -27,7 +27,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     /// if undefined, the `base` and `base.first`.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflow<Digit>(
-    _ base: inout Base, dividingBy other: Base.Element, signedness: Digit.Type) -> PVO<Base.Element> where Digit: NBKCoreInteger<Base.Element> {
+    dividing base: inout Base, by other: Base.Element, signedness: Digit.Type) -> PVO<Base.Element> where Digit: NBKCoreInteger<Base.Element> {
         //=--------------------------------------=
         var other = other as Base.Element
         let lhsIsLessThanZero: Bool = Digit.isSigned && base.last!.mostSignificantBit
@@ -41,7 +41,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
             other.formTwosComplement()
         }
         //=--------------------------------------=
-        var remainder = Unsigned.SubSequence.formQuotientWithRemainderReportingOverflow(&base, dividingBy: other)
+        var remainder = Unsigned.SubSequence.formQuotientWithRemainderReportingOverflow(dividing: &base, by: other)
         //=--------------------------------------=
         if  lhsIsLessThanZero != rhsIsLessThanZero {
             SubSequence.formTwosComplement(&base)

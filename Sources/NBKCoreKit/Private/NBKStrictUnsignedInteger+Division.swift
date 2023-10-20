@@ -107,13 +107,13 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func remainderReportingOverflow(
-    _   base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    dividing base: Base, by divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
         guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(base.first ?? 000 as Base.Element, true)
         }
         //=--------------------------------------=
-        return PVO(self.remainder(base, dividingBy: divisor), false)
+        return PVO(self.remainder(dividing: base, by: divisor), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -122,7 +122,7 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     
     /// Returns the `remainder` of dividing the `base` by the `divisor`.
     @inlinable public static func remainder(
-    _   base: Base, dividingBy divisor: NBK.NonZero<Base.Element>) -> Base.Element {
+    dividing base: Base, by divisor: NBK.NonZero<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         var index = base.endIndex as Base.Index
@@ -153,13 +153,13 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
-    _   base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    dividing base: inout Base, by divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
         guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(base.first ?? 000 as Base.Element, true)
         }
         //=--------------------------------------=
-        return PVO(self.formQuotientWithRemainder(&base, dividingBy: divisor), false)
+        return PVO(self.formQuotientWithRemainder(dividing: &base, by: divisor), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -168,7 +168,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Forms the `quotient` of dividing the `base` by the `divisor`, and returns the `remainder`.
     @inlinable public static func formQuotientWithRemainder(
-    _   base: inout Base, dividingBy divisor: NBK.NonZero<Base.Element>) -> Base.Element {
+    dividing base: inout Base, by divisor: NBK.NonZero<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         var index = base.endIndex as Base.Index

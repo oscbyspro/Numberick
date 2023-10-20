@@ -148,30 +148,29 @@ extension NBK.IntegerDescription {
     @usableFromInline static func encode(
     magnitude: inout NBK.UnsafeMutableWords, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        let capacity = solution.divisibilityByPowerUpperBound(magnitude: magnitude)
+        let capacity: Int = solution.divisibilityByPowerUpperBound(magnitude: magnitude)
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) { chunks in
-            var chunksIndex = chunks.startIndex
-            var magnitudeEndIndex = magnitude.endIndex
+            var index = chunks.startIndex
+            var magnitude = magnitude[...]
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
             rebasing: repeat {
-                let chunk = NBK.SUISS.formQuotientWithRemainder(
-                &magnitude[PartialRangeUpTo(magnitudeEndIndex)],  dividingBy: solution.power)
-                magnitudeEndIndex = NBK.dropLast(from: magnitude, while:{ $0.isZero }).endIndex
-                chunks.baseAddress!.advanced(by: chunksIndex).initialize(to: chunk)
-                chunks.formIndex(after: &chunksIndex)
-            }   while magnitudeEndIndex > magnitude.startIndex
+                let chunk = NBK.SUISS.formQuotientWithRemainder(dividing: &magnitude, by: solution.power)
+                magnitude = NBK.dropLast(from: magnitude, while:{ $0.isZero })
+                chunks.baseAddress!.advanced(by: index).initialize(to: chunk)
+                chunks.formIndex(after: &index)
+            }   while !magnitude.isEmpty
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                assert(chunksIndex <= chunks.endIndex)
-                chunks.baseAddress!.deinitialize(count: chunksIndex)
+                assert(index <= chunks.endIndex)
+                chunks.baseAddress!.deinitialize(count: index)
             }
             //=----------------------------------=
             let solution = AnyRadixSolution(solution)
-            let chunks = NBK.UnsafeWords(start: chunks.baseAddress!, count: chunksIndex)
+            let chunks = NBK.UnsafeWords(start: chunks.baseAddress!, count: index)
             return self.encode(chunks: chunks, solution: solution, alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
