@@ -73,6 +73,18 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
         }
     }
     
+    func testIncrementByElementsTimesElementPlusElement() {
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHoleInoutIdentity(&abc)
+            abc.withUnsafeMutableBufferPointer { abc in
+                NBK.blackHole(T.increment(&abc, by: xyz, times: UInt.max, plus: UInt.max))
+            }
+        }
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Sub Sequence
     //=------------------------------------------------------------------------=
@@ -118,6 +130,18 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
                 NBK.blackHole(T.increment(&abc[0...], by: xyz, plus: true))
+            }
+        }
+    }
+    
+    func testSubSequenceIncrementByElementsTimesElementPlusElement() {
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHoleInoutIdentity(&abc)
+            abc.withUnsafeMutableBufferPointer { abc in
+                NBK.blackHole(T.increment(&abc[0...], by: xyz, times: UInt.max, plus: UInt.max))
             }
         }
     }

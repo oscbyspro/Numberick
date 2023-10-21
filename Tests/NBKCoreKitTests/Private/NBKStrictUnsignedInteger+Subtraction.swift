@@ -102,13 +102,13 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
         NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
         NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 5,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
         //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W;  rhs = [ 1,  2,  3,  4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt( ),  [~2, ~4, ~6, ~8, ~0, ~0, ~0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~1, ~5, ~6, ~8, ~0, ~0, ~0,  0] as W)
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [ 1,  2,  3,  4] as W
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt( ),  [~2, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W)
         //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W;  rhs = [~1, ~2, ~3, ~4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 3,  4,  6,  8, ~1, ~0, ~0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 4,  3,  6,  8, ~1, ~0, ~0,  0] as W)
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [~1, ~2, ~3, ~4] as W
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 3,  4,  6,  8, ~1, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W)
     }
 }
 
@@ -207,7 +207,7 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
     //=------------------------------------------=
-    // decrement: limbs × digit + digit + bit
+    // decrement: elements × digit + digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs

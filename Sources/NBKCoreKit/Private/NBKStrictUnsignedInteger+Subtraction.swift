@@ -285,7 +285,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Elements × Digit + Digit + Bit
+// MARK: + Elements × Digit + Digit
 //=----------------------------------------------------------------------------=
 
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
@@ -315,7 +315,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Decrements `base` by `elements` times `multiplier` plus `digit` at `index`.
     ///
-    /// - Returns: An overflow indicator and its index in `base`.
+    /// - Returns: An overflow indicator.
     ///
     @discardableResult @inlinable public static func decrement(
     _ base: inout Base, by elements: some Collection<Base.Element>, times multiplier: Base.Element,
@@ -325,11 +325,11 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         //=--------------------------------------=
         for element in elements {
             //  maximum == (high: ~1, low: 1)
-            var subproduct = element.multipliedFullWidth(by: multiplier)
+            var wide = element.multipliedFullWidth(by: multiplier)
             //  maximum == (high: ~0, low: 0)
-            last   = Base.Element(bit: subproduct.low.addReportingOverflow(last)) &+ subproduct.high
+            last   = Base.Element(bit: wide.low.addReportingOverflow(last)) &+ wide.high
             //  this cannot overflow because low == 0 when high == ~0
-            last &+= Base.Element(bit: self.decrementInIntersection(&base, by: subproduct.low, at: &index))
+            last &+= Base.Element(bit: self.decrementInIntersection(&base, by: wide.low, at: &index))
         }
         
         return self.decrement(&base, by: last, at: &index)

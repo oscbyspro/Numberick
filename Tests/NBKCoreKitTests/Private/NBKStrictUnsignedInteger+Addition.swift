@@ -59,6 +59,57 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
         NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt(1), [ 0,  0,  0,  0] as W, true)
         NBKAssertSubSequenceAdditionByDigit([~3, ~2, ~1, ~0] as W, UInt(4), [ 0, ~1, ~1, ~0] as W)
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Product
+    //=------------------------------------------------------------------------=
+    
+    func testAddingProduct() {
+        NBKAssertSubSequenceAdditionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(0), [ 0    ] as W)
+        NBKAssertSubSequenceAdditionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(1), [ 1    ] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(0), [~0    ] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(1), [ 0    ] as W, true)
+        
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(1), [ 1,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(1), [ 0,  0] as W, true)
+        
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(1), [ 1,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(1), [ 0,  0] as W, true)
+        
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(1), [ 1,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(1), [ 0,  0] as W, true)
+        
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(0), [ 6,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(1), [ 7,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(0), [ 5,  0] as W, true)
+        NBKAssertSubSequenceAdditionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(1), [ 6,  0] as W, true)
+    }
+    
+    func testAddingProductReportingOverflow() {
+        var lhs: W, rhs: W
+        //=--------------------------------------=
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [ 1,  2,  3,  4] as W
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 2,  4,  6,  8,  0,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt.max, [ 1,  5,  6,  8,  0,  0,  0,  0] as W)
+        //=--------------------------------------=
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [~1, ~2, ~3, ~4] as W
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt(  ), [~3, ~4, ~6, ~8,  1,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt.max, [~4, ~3, ~6, ~8,  1,  0,  0,  0] as W)
+        //=--------------------------------------=
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [ 1,  2,  3,  4] as W
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 1,  4,  6,  8,  0,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt.max, [ 0,  5,  6,  8,  0,  0,  0,  0] as W, true)
+        //=--------------------------------------=
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [~1, ~2, ~3, ~4] as W
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt(  ), [~4, ~4, ~6, ~8,  1,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAdditionByProduct(lhs, rhs, UInt(2), UInt.max, [~5, ~3, ~6, ~8,  1,  0,  0,  0] as W, true)
+    }
 }
 
 //*============================================================================*
@@ -147,6 +198,22 @@ file: StaticString = #file, line: UInt = #line) {
         let max = T.increment(&lhs[min.index...], by: sfx,  plus: min.overflow)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
+    }
+}
+
+private func NBKAssertSubSequenceAdditionByProduct(
+_ lhs: [UInt], _ rhs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ product: [UInt], _ overflow: Bool = false,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    typealias T = NBK.SUISS
+    //=------------------------------------------=
+    // increment: elements × digit + digit
+    //=------------------------------------------=
+    brr: do {
+        var lhs = lhs
+        let max = T.increment(&lhs,  by: rhs, times: multiplicand, plus: digit)
+        XCTAssertEqual(lhs,          product,  file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
     }
 }
 
