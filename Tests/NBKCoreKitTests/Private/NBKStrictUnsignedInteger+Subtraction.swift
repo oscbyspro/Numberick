@@ -202,7 +202,7 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertSubSequenceSubtractionByProduct(
-_ lhs: [UInt], _ rhs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ multiplier: UInt, _ digit: UInt, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
@@ -211,9 +211,17 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.decrement(&lhs,  by: rhs, times: multiplicand, plus: digit)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs,  times: multiplier, plus: digit)
+        XCTAssertEqual(lhs,          product,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs
+        let min = T.decrementInIntersection(&lhs, by: rhs, times: multiplier, plus: digit)
+        let max = T.decrement(&lhs[min.index...], by: min.overflow)
+        XCTAssertEqual(lhs,          product,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
 }
 
