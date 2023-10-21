@@ -19,32 +19,32 @@ import XCTest
 final class NBKTupleBinaryIntegerTestsOnDivision: XCTestCase {
     
     typealias TS = NBK.TupleBinaryInteger< Int64>
-    typealias TM = NBK.TupleBinaryInteger<UInt64>
+    typealias TU = NBK.TupleBinaryInteger<UInt64>
     
     typealias S1 = TS.Wide1
     typealias S2 = TS.Wide2
     typealias S3 = TS.Wide3
     
-    typealias M1 = TM.Wide1
-    typealias M2 = TM.Wide2
-    typealias M3 = TM.Wide3
+    typealias U1 = TU.Wide1
+    typealias U2 = TU.Wide2
+    typealias U3 = TU.Wide3
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testDividing3212MSB() {
-        NBKAssertDivision3212MSB(M3(~0,  0,  0), M2(~0,  1), ~M1(0), M2(~1,  1))
-        NBKAssertDivision3212MSB(M3(~0,  0,  0), M2(~0, ~1), ~M1(0), M2( 1, ~1))
-        NBKAssertDivision3212MSB(M3(~1, ~0, ~0), M2(~0,  0), ~M1(0), M2(~1, ~0))
-        NBKAssertDivision3212MSB(M3(~1, ~0, ~0), M2(~0, ~0), ~M1(0), M2( 0, ~1))
+        NBKAssertDivision3212MSB(U3(~0,  0,  0), U2(~0,  1), ~U1(0), U2(~1,  1))
+        NBKAssertDivision3212MSB(U3(~0,  0,  0), U2(~0, ~1), ~U1(0), U2( 1, ~1))
+        NBKAssertDivision3212MSB(U3(~1, ~0, ~0), U2(~0,  0), ~U1(0), U2(~1, ~0))
+        NBKAssertDivision3212MSB(U3(~1, ~0, ~0), U2(~0, ~0), ~U1(0), U2( 0, ~1))
     }
     
     func testDividing3212MSBWithBadInitialEstimate() {
-        NBKAssertDivision3212MSB(M3(1 << 63 - 1,  0,  0), M2(1 << 63, ~0), ~M1(3), M2(4, ~3)) // 2
-        NBKAssertDivision3212MSB(M3(1 << 63 - 1,  0, ~0), M2(1 << 63, ~0), ~M1(3), M2(5, ~4)) // 2
-        NBKAssertDivision3212MSB(M3(1 << 63 - 1, ~0,  0), M2(1 << 63, ~0), ~M1(1), M2(1, ~1)) // 1
-        NBKAssertDivision3212MSB(M3(1 << 63 - 1, ~0, ~0), M2(1 << 63, ~0), ~M1(1), M2(2, ~2)) // 1
+        NBKAssertDivision3212MSB(U3(1 << 63 - 1,  0,  0), U2(1 << 63, ~0), ~U1(3), U2(4, ~3)) // 2
+        NBKAssertDivision3212MSB(U3(1 << 63 - 1,  0, ~0), U2(1 << 63, ~0), ~U1(3), U2(5, ~4)) // 2
+        NBKAssertDivision3212MSB(U3(1 << 63 - 1, ~0,  0), U2(1 << 63, ~0), ~U1(1), U2(1, ~1)) // 1
+        NBKAssertDivision3212MSB(U3(1 << 63 - 1, ~0, ~0), U2(1 << 63, ~0), ~U1(1), U2(2, ~2)) // 1
     }
 }
 

@@ -109,7 +109,7 @@ extension NBKFlexibleWidth.Magnitude {
             self.storage.withUnsafeMutableBufferPointer { remainder in
                 other.storage.withUnsafeBufferPointer   { (divisor) in
                     for index in quotient.indices.reversed() {
-                        let digit = NBK.SUI.quotientFromLongDivisionIteration2111MSBUnchecked(
+                        let digit = NBK.SUI.formRemainderWithQuotientAsLong211MSBUnchecked(
                         dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)
                         quotient.baseAddress!.advanced(by: index).initialize(to: digit)
                     }

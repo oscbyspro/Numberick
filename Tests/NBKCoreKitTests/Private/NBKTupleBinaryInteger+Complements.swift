@@ -19,32 +19,32 @@ import XCTest
 final class NBKTupleBinaryIntegerTestsOnComplements: XCTestCase {
     
     typealias TS = NBK.TupleBinaryInteger< Int64>
-    typealias TM = NBK.TupleBinaryInteger<UInt64>
+    typealias TU = NBK.TupleBinaryInteger<UInt64>
     
     typealias S1 = TS.Wide1
     typealias S2 = TS.Wide2
     typealias S3 = TS.Wide3
     
-    typealias M1 = TM.Wide1
-    typealias M2 = TM.Wide2
-    typealias M3 = TM.Wide3
+    typealias U1 = TU.Wide1
+    typealias U2 = TU.Wide2
+    typealias U3 = TU.Wide3
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        NBKAssertMagnitude(S2(~1, ~1), M2( 1,  2))
-        NBKAssertMagnitude(S2(~0,  0), M2( 1,  0))
-        NBKAssertMagnitude(S2( 0,  0), M2( 0,  0))
-        NBKAssertMagnitude(S2( 1,  0), M2( 1,  0))
-        NBKAssertMagnitude(S2( 1,  2), M2( 1,  2))
+        NBKAssertMagnitude(S2(~1, ~1), U2( 1,  2))
+        NBKAssertMagnitude(S2(~0,  0), U2( 1,  0))
+        NBKAssertMagnitude(S2( 0,  0), U2( 0,  0))
+        NBKAssertMagnitude(S2( 1,  0), U2( 1,  0))
+        NBKAssertMagnitude(S2( 1,  2), U2( 1,  2))
         
-        NBKAssertMagnitude(M2(~1, ~1), M2(~1, ~1))
-        NBKAssertMagnitude(M2(~0,  0), M2(~0,  0))
-        NBKAssertMagnitude(M2( 0,  0), M2( 0,  0))
-        NBKAssertMagnitude(M2( 1,  0), M2( 1,  0))
-        NBKAssertMagnitude(M2( 1,  2), M2( 1,  2))
+        NBKAssertMagnitude(U2(~1, ~1), U2(~1, ~1))
+        NBKAssertMagnitude(U2(~0,  0), U2(~0,  0))
+        NBKAssertMagnitude(U2( 0,  0), U2( 0,  0))
+        NBKAssertMagnitude(U2( 1,  0), U2( 1,  0))
+        NBKAssertMagnitude(U2( 1,  2), U2( 1,  2))
     }
 }
 

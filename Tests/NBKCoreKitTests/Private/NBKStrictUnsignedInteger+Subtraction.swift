@@ -65,33 +65,50 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
     //=------------------------------------------------------------------------=
     
     func testSubtractingProduct() {
-        NBKAssertSubSequenceSubtractionByProduct([ 0] as W, [ ] as W, UInt(0), UInt(0), false, [ 0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0] as W, [ ] as W, UInt(0), UInt(0), false, [~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0] as W, [ ] as W, UInt(0), UInt(0), true,  [~1] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(0), [ 0    ] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(1), [~0    ] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(0), [~0    ] as W)
+        NBKAssertSubSequenceSubtractionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(1), [~1    ] as W)
+        
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(1), [~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(1), [~1, ~0] as W)
+        
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(1), [~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(1), [~1, ~0] as W)
+        
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(0), [ 0,  0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(1), [~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(0), [~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(1), [~1, ~0] as W)
+        
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(0), [~5, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(1), [~6, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(0), [~6, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(1), [~7, ~0] as W)
     }
     
     func testSubtractingProductReportingOverflow() {
         var lhs: W, rhs: W
         //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W;  rhs = [ 1,  2,  3,  4] as W
-         
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(0), false, [~2, ~4, ~6, ~8, ~0, ~0, ~0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, true, [~2, ~5, ~6, ~8, ~0, ~0, ~0,  0] as W)
-        //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0,  0] as W;  rhs = [~1, ~2, ~3, ~4] as W
-         
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(0), false, [ 3,  4,  6,  8, ~1, ~0, ~0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, true, [ 3,  3,  6,  8, ~1, ~0, ~0,  0] as W)
-        //=--------------------------------------=
         lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [ 1,  2,  3,  4] as W
-        
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(0), false, [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, true, [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~0, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
         //=--------------------------------------=
         lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [~1, ~2, ~3, ~4] as W
-        
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(0), false, [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, true, [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 5,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        //=--------------------------------------=
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [ 1,  2,  3,  4] as W
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt( ),  [~2, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W)
+        //=--------------------------------------=
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [~1, ~2, ~3, ~4] as W
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 3,  4,  6,  8, ~1, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W)
     }
 }
 
@@ -185,18 +202,26 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertSubSequenceSubtractionByProduct(
-_ lhs: [UInt], _ rhs: [UInt], _ multiplicand: UInt, _ digit: UInt, _ bit: Bool, _ product: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ multiplier: UInt, _ digit: UInt, _ product: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
     //=------------------------------------------=
-    // decrement: limbs × digit + digit + bit
+    // decrement: elements × digit + digit
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.decrement(&lhs,  by: rhs, times: multiplicand, plus: digit, plus: bit)
-        XCTAssertEqual(lhs,          product,  file: file, line: line)
-        XCTAssertEqual(max.overflow, overflow, file: file, line: line)
+        let max = T.decrement(&lhs,  by: rhs,  times: multiplier, plus: digit)
+        XCTAssertEqual(lhs,          product,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
+    }
+    
+    brr: do {
+        var lhs = lhs
+        let min = T.decrementInIntersection(&lhs, by: rhs, times: multiplier, plus: digit)
+        let max = T.decrement(&lhs[min.index...], by: min.overflow)
+        XCTAssertEqual(lhs,          product,   file: file, line: line)
+        XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
 }
 

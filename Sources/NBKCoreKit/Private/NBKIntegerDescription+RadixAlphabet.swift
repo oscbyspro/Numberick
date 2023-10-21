@@ -32,7 +32,7 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(radix: Int) {
-            precondition(2 ... 36 ~= radix, "radix must be in 2 through 36")
+            precondition(2 ... 36 ~= radix)
             let count = UInt8(truncatingIfNeeded: radix)
             let carry = count.subtractingReportingOverflow(10)
             if  carry.overflow {

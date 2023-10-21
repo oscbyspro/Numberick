@@ -20,18 +20,17 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Returns the `quotient` element of one long division iteration, then subtracts
-    /// the product of `divisor` and `quotient` from the `remainder` at the `quotient`
-    /// element's index (which must match the `remainder`'s start index).
+    /// Forms the `remainder` of dividing the `dividend` by the `divisor`,
+    /// then returns the `quotient`. Its arguments must match the arguments
+    /// of one long division iteration.
     ///
     /// - Parameters:
-    ///   - remainder: The `remainder` suffix from the `quotient` element's index.
-    ///   It must be exactly one element wider than the `divisor`.
+    ///   - dividend: The current iteration's `remainder` slice from the `quotient`
+    ///   element's index. It must be exactly one element wider than the `divisor`.
+    ///
     ///   - divisor: The normalized `divisor`. Its last element's most significant
     ///   bit must be set to ensure that the initial `quotient` approximation does
     ///   not exceed the real `quotient` by more than 2.
-    ///
-    /// - Returns: The `quotient` element at the `remainder`'s start index.
     ///
     /// ## Example Usage in Long Division Algorithm
     ///
@@ -41,7 +40,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     /// var quotient = uninitialized(remainder.count - divisor.count) { quotient in
     ///     for index in quotient.indices.reversed() {
-    ///         let digit = quotientFromLongDivisionIteration2111MSBUnchecked(
+    ///         let digit = formRemainderWithQuotientAsLong211MSBUnchecked(
     ///         dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)
     ///         quotient.baseAddress!.advanced(by: index).initialize(to: digit)
     ///     }
@@ -51,23 +50,23 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// // return values
     /// ```
     ///
-    @inlinable public static func quotientFromLongDivisionIteration2111MSBUnchecked(
-    dividing remainder: inout Base, by divisor: some RandomAccessCollection<Base.Element>) -> Base.Element {
+    @inlinable public static func formRemainderWithQuotientAsLong211MSBUnchecked(
+    dividing dividend: inout Base, by divisor: some RandomAccessCollection<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         Swift.assert(divisor.last!.mostSignificantBit,
         "the divisor must be normalized")
         
-        Swift.assert(remainder.count == divisor.count + 1,
-        "the remainder must be exactly one element wider than the divisor")
+        Swift.assert(dividend.count == divisor.count + 1,
+        "the dividend must be exactly one element wider than the divisor")
         
-        Swift.assert(NBK.SUISS.compare(remainder, to: divisor,
-        at:  remainder.dropFirst().startIndex).isLessThanZero,
+        Swift.assert(NBK.SUISS.compare(dividend, to: divisor,
+        at:  dividend.dropFirst().startIndex).isLessThanZero,
         "the quotient of each iteration must fit in one element")
         //=--------------------------------------=
-        let numerator   = NBK.TBI<Base.Element>.suffix2(remainder)
-        let denominator = NBK.TBI<Base.Element>.suffix1((divisor))
+        let numerator   = NBK.TBI<Base.Element>.suffix2(dividend)
+        let denominator = NBK.TBI<Base.Element>.suffix1(divisor )
         //=--------------------------------------=
-        var quotient : Base.Element; if denominator == numerator.high { // await Swift 5.9
+        var quotient : Base.Element; if denominator == numerator.high {
             quotient = Base.Element.max
         }   else {
             quotient = denominator.dividingFullWidth(numerator).quotient
@@ -75,14 +74,14 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
         //=--------------------------------------=
         if  quotient.isZero { return quotient }
         //=--------------------------------------=
-        var overflow = (NBK).SUISS.decrement(&remainder, by: divisor, times: quotient).overflow
+        var overflow = (NBK).SUISS.decrement(&dividend, by: divisor, times: quotient).overflow
         
         decrementQuotientAtMostTwice: while overflow {
             quotient = quotient &- 1 as Base.Element
-            overflow = !NBK .SUISS.increment(&remainder, by: divisor).overflow
+            overflow = !NBK .SUISS.increment(&dividend, by: divisor).overflow
         }
         
-        Swift.assert(NBK.SUISS.compare(remainder, to: divisor).isLessThanZero)
+        Swift.assert(NBK.SUISS.compare(dividend, to: divisor).isLessThanZero)
         return quotient as Base.Element
     }
 }
@@ -107,13 +106,13 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func remainderReportingOverflow(
-    _   base: Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    dividing base: Base, by divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
         guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(base.first ?? 000 as Base.Element, true)
         }
         //=--------------------------------------=
-        return PVO(self.remainder(base, dividingBy: divisor), false)
+        return PVO(self.remainder(dividing: base, by: divisor), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -122,7 +121,7 @@ extension NBK.StrictUnsignedInteger.SubSequence {
     
     /// Returns the `remainder` of dividing the `base` by the `divisor`.
     @inlinable public static func remainder(
-    _   base: Base, dividingBy divisor: NBK.NonZero<Base.Element>) -> Base.Element {
+    dividing base: Base, by divisor: NBK.NonZero<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         var index = base.endIndex as Base.Index
@@ -153,13 +152,13 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     /// or zero if it the given `range` is empty.
     ///
     @inlinable public static func formQuotientWithRemainderReportingOverflow(
-    _   base: inout Base, dividingBy divisor: Base.Element) -> PVO<Base.Element> {
+    dividing base: inout Base, by divisor: Base.Element) -> PVO<Base.Element> {
         //=--------------------------------------=
         guard let divisor = NBK.NonZero(exactly: divisor) else {
             return PVO(base.first ?? 000 as Base.Element, true)
         }
         //=--------------------------------------=
-        return PVO(self.formQuotientWithRemainder(&base, dividingBy: divisor), false)
+        return PVO(self.formQuotientWithRemainder(dividing: &base, by: divisor), false)
     }
     
     //=------------------------------------------------------------------------=
@@ -168,7 +167,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Forms the `quotient` of dividing the `base` by the `divisor`, and returns the `remainder`.
     @inlinable public static func formQuotientWithRemainder(
-    _   base: inout Base, dividingBy divisor: NBK.NonZero<Base.Element>) -> Base.Element {
+    dividing base: inout Base, by divisor: NBK.NonZero<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         var remainder = 0 as Base.Element
         var index = base.endIndex as Base.Index

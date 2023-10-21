@@ -19,32 +19,32 @@ import XCTest
 final class NBKTupleBinaryIntegerTestsOnSubtraction: XCTestCase {
     
     typealias TS = NBK.TupleBinaryInteger< Int64>
-    typealias TM = NBK.TupleBinaryInteger<UInt64>
+    typealias TU = NBK.TupleBinaryInteger<UInt64>
     
     typealias S1 = TS.Wide1
     typealias S2 = TS.Wide2
     typealias S3 = TS.Wide3
     
-    typealias M1 = TM.Wide1
-    typealias M2 = TM.Wide2
-    typealias M3 = TM.Wide3
+    typealias U1 = TU.Wide1
+    typealias U2 = TU.Wide2
+    typealias U3 = TU.Wide3
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testSubtracting32B() {
-        NBKAssertSubtraction32B(M3( 0,  0,  0), M2(~4, ~5), M3(~0,  4,  6), true )
-        NBKAssertSubtraction32B(M3( 1,  2,  3), M2(~4, ~5), M3( 0,  6,  9), false)
-        NBKAssertSubtraction32B(M3(~1, ~2, ~3), M2( 4,  5), M3(~1, ~6, ~8), false)
-        NBKAssertSubtraction32B(M3(~0, ~0, ~0), M2( 4,  5), M3(~0, ~4, ~5), false)
+        NBKAssertSubtraction32B(U3( 0,  0,  0), U2(~4, ~5), U3(~0,  4,  6), true )
+        NBKAssertSubtraction32B(U3( 1,  2,  3), U2(~4, ~5), U3( 0,  6,  9), false)
+        NBKAssertSubtraction32B(U3(~1, ~2, ~3), U2( 4,  5), U3(~1, ~6, ~8), false)
+        NBKAssertSubtraction32B(U3(~0, ~0, ~0), U2( 4,  5), U3(~0, ~4, ~5), false)
     }
     
     func testSubtracting33B() {
-        NBKAssertSubtraction33B(M3( 0,  0,  0), M3(~4, ~5, ~6), M3( 4,  5,  7), true )
-        NBKAssertSubtraction33B(M3( 1,  2,  3), M3(~4, ~5, ~6), M3( 5,  7, 10), true )
-        NBKAssertSubtraction33B(M3(~1, ~2, ~3), M3( 4,  5,  6), M3(~5, ~7, ~9), false)
-        NBKAssertSubtraction33B(M3(~0, ~0, ~0), M3( 4,  5,  6), M3(~4, ~5, ~6), false)
+        NBKAssertSubtraction33B(U3( 0,  0,  0), U3(~4, ~5, ~6), U3( 4,  5,  7), true )
+        NBKAssertSubtraction33B(U3( 1,  2,  3), U3(~4, ~5, ~6), U3( 5,  7, 10), true )
+        NBKAssertSubtraction33B(U3(~1, ~2, ~3), U3( 4,  5,  6), U3(~5, ~7, ~9), false)
+        NBKAssertSubtraction33B(U3(~0, ~0, ~0), U3( 4,  5,  6), U3(~4, ~5, ~6), false)
     }
 }
 

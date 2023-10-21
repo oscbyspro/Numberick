@@ -26,32 +26,32 @@ final class NBKTestsOnDivision: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testDividingAtLeastZeroByPowerOf2() {
+    func testDividingZeroOrMoreByPowerOf2() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger<UInt> {
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(0), T(0))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(0), T(1))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(0), T(2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(0) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(0), T(3))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(0) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(0), T(0))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(0) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(0), T(1))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(0) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(0), T(2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(0) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(0), T(3))
             
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(1) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(0), T(0) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(1) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(0), T(1) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(1) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(0), T(2) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(1) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(0), T(3) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(1) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(0), T(0) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(1) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(0), T(1) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(1) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(0), T(2) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(1) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(0), T(3) + T(T.bitWidth/2))
             
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(2) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(1), T(0))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(2) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(1), T(1))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(2) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(1), T(2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(2) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(1), T(3))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(2) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(1), T(0))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(2) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(1), T(1))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(2) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(1), T(2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(2) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(1), T(3))
             
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(3) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(1), T(0) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(3) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(1), T(1) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(3) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(1), T(2) + T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T(3) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(1), T(3) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(3) * T(T.bitWidth/2) + T(0), T(T.bitWidth), T(1), T(0) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(3) * T(T.bitWidth/2) + T(1), T(T.bitWidth), T(1), T(1) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(3) * T(T.bitWidth/2) + T(2), T(T.bitWidth), T(1), T(2) + T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T(3) * T(T.bitWidth/2) + T(3), T(T.bitWidth), T(1), T(3) + T(T.bitWidth/2))
             
-            NBKAssertDividingAtLeastZeroByPowerOf2(T.max, T(T.bitWidth/1),  T.max / T(T.bitWidth/1), T.max % T(T.bitWidth/1))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T.max, T(T.bitWidth/2),  T.max / T(T.bitWidth/2), T.max % T(T.bitWidth/2))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T.max, T(T.bitWidth/4),  T.max / T(T.bitWidth/4), T.max % T(T.bitWidth/4))
-            NBKAssertDividingAtLeastZeroByPowerOf2(T.max, T(T.bitWidth/8),  T.max / T(T.bitWidth/8), T.max % T(T.bitWidth/8))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T.max, T(T.bitWidth/1),  T.max / T(T.bitWidth/1), T.max % T(T.bitWidth/1))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T.max, T(T.bitWidth/2),  T.max / T(T.bitWidth/2), T.max % T(T.bitWidth/2))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T.max, T(T.bitWidth/4),  T.max / T(T.bitWidth/4), T.max % T(T.bitWidth/4))
+            NBKAssertDividingZeroOrMoreByPowerOf2(T.max, T(T.bitWidth/8),  T.max / T(T.bitWidth/8), T.max % T(T.bitWidth/8))
         }
         
         whereIs( Int.self)
@@ -205,14 +205,16 @@ final class NBKTestsOnDivision: XCTestCase {
 // MARK: * NBK x Division x Assertions
 //*============================================================================*
 
-private func NBKAssertDividingAtLeastZeroByPowerOf2<T: NBKCoreInteger>(
+private func NBKAssertDividingZeroOrMoreByPowerOf2<T: NBKCoreInteger>(
 _ dividend: T, _ divisor: T, _ quotient: T, _ remainder: T,
 file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     let dividend = NBK.ZeroOrMore(dividend), divisor = NBK.PowerOf2(divisor)
     //=------------------------------------------=
-    XCTAssertEqual(NBK .quotient(of: dividend, dividingBy: divisor), quotient,  file: file, line: line)
-    XCTAssertEqual(NBK.remainder(of: dividend, dividingBy: divisor), remainder, file: file, line: line)
+    XCTAssertEqual(NBK .dividing(dividend, by: divisor).quotient,  quotient,  file: file, line: line)
+    XCTAssertEqual(NBK .dividing(dividend, by: divisor).remainder, remainder, file: file, line: line)
+    XCTAssertEqual(NBK .quotient(dividing: dividend, by: divisor), quotient,  file: file, line: line)
+    XCTAssertEqual(NBK.remainder(dividing: dividend, by: divisor), remainder, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -224,17 +226,17 @@ _ dividend: some BinaryInteger, _ divisor: T, _ partialValue: T, _ overflow: Boo
 file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     if  let divisor = NBK.PowerOf2(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
 
     if  let divisor = NBK.NonZero(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
     
     brr: do {
-        let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(of: dividend, dividingBy: divisor)
+        let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue.partialValue, partialValue, file: file, line: line)
         XCTAssertEqual(leastPositiveResidue.overflow,     overflow,     file: file, line: line)
     }

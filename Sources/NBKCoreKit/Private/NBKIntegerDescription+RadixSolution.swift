@@ -39,23 +39,23 @@ extension NBK.IntegerDescription {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable public init?(_ solution: AnyRadixSolution<Element>) {
-            guard  solution.power.isZero else { return nil }
-            Swift.assert(solution.exponent.isPowerOf2)
-            Swift.assert([2, 4, 16].contains(solution.base))
-            self.solution = solution
+        @inlinable public init?(_ other: AnyRadixSolution<Element>) {
+            guard  other.power.isZero else { return nil }
+            Swift.assert(other.exponent.isPowerOf2)
+            Swift.assert([2, 4, 16].contains(other.base))
+            self.solution = other
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
         //=--------------------------------------------------------------------=
         
-        @inlinable public var base: Element {
-            self.solution.base
+        @inlinable public func base<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            self.solution.base()
         }
         
-        @inlinable public var exponent: Element {
-            self.solution.exponent
+        @inlinable public func exponent<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            self.solution.exponent()
         }
         
         //=--------------------------------------------------------------------=
@@ -83,9 +83,9 @@ extension NBK.IntegerDescription {
             // MARK: Initializers
             //=----------------------------------------------------------------=
             
-            @inlinable init(_ solution: PerfectRadixSolution<Element>) {
-                self.quotientShift = NBK.initOrBitCast(truncating: solution.base.trailingZeroBitCount)
-                self.remainderMask = solution.base &- (1 as Element)
+            @inlinable init(_ radix: PerfectRadixSolution<Element>) {
+                self.quotientShift = NBK.initOrBitCast(truncating: radix.solution.base.trailingZeroBitCount)
+                self.remainderMask = radix.solution.base &- 1 as Element
             }
             
             //=----------------------------------------------------------------=
@@ -124,26 +124,26 @@ extension NBK.IntegerDescription {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable public init?(_ solution: AnyRadixSolution<Element>) {
-            guard !solution.power.isZero else { return nil }
-            Swift.assert(![2, 4, 16].contains(solution.base))
-            self.solution = solution
+        @inlinable public init?(_ other: AnyRadixSolution<Element>) {
+            guard !other.power.isZero else { return nil }
+            Swift.assert(![2, 4, 16].contains(other.base))
+            self.solution = other
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
         //=--------------------------------------------------------------------=
         
-        @inlinable public var base: Element {
-            self.solution.base
+        @inlinable public func base<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            self.solution.base()
         }
         
-        @inlinable public var exponent: Element {
-            self.solution.exponent
+        @inlinable public func exponent<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            self.solution.exponent()
         }
         
-        @inlinable public var power: NBK.NonZero<Element> {
-            NBK.NonZero(unchecked: self.solution.power)
+        @inlinable public var power: Element {
+            self.solution.power
         }
         
         //=--------------------------------------------------------------------=
@@ -154,8 +154,8 @@ extension NBK.IntegerDescription {
             Divisor(self)
         }
         
-        @inlinable public func divisibilityByPowerUpperBound(magnitude: some Collection<UInt>) -> Int {
-            magnitude.count * UInt.bitWidth / 36.leadingZeroBitCount &+ 1
+        @inlinable public func divisibilityByPowerUpperBound(magnitude: some Collection<Element>) -> Int {
+            magnitude.count * Element.bitWidth / 36.leadingZeroBitCount &+ 1
         }
         
         //*====================================================================*
@@ -174,8 +174,8 @@ extension NBK.IntegerDescription {
             // MARK: Initializers
             //=----------------------------------------------------------------=
             
-            @inlinable init(_ solution: ImperfectRadixSolution<Element>) {
-                self.base = solution.base
+            @inlinable init(_ radix: ImperfectRadixSolution<Element>) {
+                self.base = radix.solution.base as Element
             }
             
             //=----------------------------------------------------------------=
@@ -238,6 +238,20 @@ extension NBK.IntegerDescription {
             (self.exponent, self.power) = NBK.PowerOf2.switch(self.base,
             true: Self.exponentiate, false: Self.exponentiate)
         }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Accessors
+        //=--------------------------------------------------------------------=
+        
+        @inlinable public func base<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            Swift.assert(2 ... 36 ~= Int(self.base))
+            return T(bitPattern: self.base)
+        }
+        
+        @inlinable public func exponent<T>(as type: T.Type = T.self) -> T where T: NBKCoreInteger<Element> {
+            Swift.assert(1 ... Element.bitWidth ~= Int(self.exponent))
+            return T(bitPattern: self.exponent)
+        }
 
         //=--------------------------------------------------------------------=
         // MARK: Utilities
@@ -284,38 +298,40 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            let capacity = Element.bitWidth.trailingZeroBitCount - 1
-            return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) { squares in
-                let start = squares.baseAddress!
-                var position = start as UnsafeMutablePointer<Exponentiation>
-                var exponentiation = Exponentiation(1 as Element, base.value)
+            let capacity: Int = Element.bitWidth.trailingZeroBitCount - 1
+            return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) {
+                let squares = NBK.unwrapping($0)!
+                var pointer = squares.baseAddress
+                var current = Exponentiation(1, base.value)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
                 loop: while true {
-                    position.initialize(to: exponentiation)
-                    let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
+                    pointer.initialize(to: current)
+
+                    let product = current.power.multipliedReportingOverflow(by: current.power)
                     if  product.overflow { break loop }
                     
-                    exponentiation.exponent &<<= 1 as Element
-                    exponentiation.power = product.partialValue
-                    position = position.successor()
+                    current.exponent &<<= 1 as Element
+                    current.power = product.partialValue
+                    pointer = pointer.successor()
                 }
                 //=------------------------------=
-                // pointee: deinitialization by move
+                // pointee: move deinitialization
                 //=------------------------------=
-                Swift.assert(position <= start.advanced(by: squares.count))
-                loop: while  position >  start {
-                    position =  position.predecessor()
-                    let square  = position.move()
-                    let product = exponentiation.power.multipliedReportingOverflow(by: square.power)
+                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
+                loop: while   pointer > squares.baseAddress {
+                    pointer = pointer.predecessor()
+                    
+                    let square  = pointer.move()
+                    let product = current.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     
-                    exponentiation.exponent &+= square.exponent
-                    exponentiation.power = product.partialValue
+                    current.exponent &+= square.exponent
+                    current.power = product.partialValue
                 }
                 //=------------------------------=
-                return exponentiation as Exponentiation
+                return current as Exponentiation
             }
         }
     }

@@ -79,6 +79,6 @@ extension NBKDoubleWidth {
     /// if undefined, the `self` and `self.first`.
     ///
     @_disfavoredOverload @inlinable public mutating func formQuotientWithRemainderReportingOverflow(dividingBy other: Digit) -> PVO<Digit> {
-        NBK.bitCast(NBK.SBI.formQuotientWithRemainderReportingOverflow(&self, dividingBy: UInt(bitPattern: other), signedness: Digit.self))
+        NBK.bitCast(NBK.SBI.formQuotientWithRemainderReportingOverflow(dividing: &self, by: UInt(bitPattern: other), signedness: Digit.self))
     }
 }

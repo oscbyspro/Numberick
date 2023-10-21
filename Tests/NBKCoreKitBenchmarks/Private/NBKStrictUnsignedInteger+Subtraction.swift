@@ -73,14 +73,14 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         }
     }
     
-    func testDecrementByElementsTimesElementPlusElementPlusBit() {
+    func testDecrementByElementsTimesElementPlusElement() {
         var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc, by: xyz, times: UInt.max, plus: UInt.max, plus: true))
+                NBK.blackHole(T.decrement(&abc, by: xyz, times: UInt.max, plus: UInt.max))
             }
         }
     }
@@ -134,14 +134,14 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
         }
     }
     
-    func testSubSequenceDecrementByElementsTimesElementPlusElementPlusBit() {
+    func testSubSequenceDecrementByElementsTimesElementPlusElement() {
         var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
         let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
             abc.withUnsafeMutableBufferPointer { abc in
-                NBK.blackHole(T.decrement(&abc[0...], by: xyz, times: UInt.max, plus: UInt.max, plus: true))
+                NBK.blackHole(T.decrement(&abc[0...], by: xyz, times: UInt.max, plus: UInt.max))
             }
         }
     }

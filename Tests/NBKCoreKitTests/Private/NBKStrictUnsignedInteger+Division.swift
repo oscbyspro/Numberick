@@ -66,13 +66,13 @@ file: StaticString = #file, line: UInt = #line) {
     typealias T = NBK.SUISS
     //=------------------------------------------=
     brr: do {
-        let rem = T.remainder(lhs, dividingBy: rhs)
+        let rem = T.remainder(dividing: lhs, by: rhs)
         XCTAssertEqual(rem, remainder, file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let rem = T.formQuotientWithRemainder(&lhs, dividingBy: rhs)
+        let rem = T.formQuotientWithRemainder(dividing:  &lhs, by: rhs)
         XCTAssertEqual(lhs, quotient,  file: file, line: line)
         XCTAssertEqual(rem, remainder, file: file, line: line)
     }
@@ -89,14 +89,14 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     brr: do {
-        let pvo = T.remainderReportingOverflow(lhs, dividingBy: rhs)
+        let pvo = T.remainderReportingOverflow(dividing:  lhs,  by: rhs)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let pvo = T.formQuotientWithRemainderReportingOverflow(&lhs, dividingBy: rhs)
+        let pvo = T.formQuotientWithRemainderReportingOverflow(dividing: &lhs, by: rhs)
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
