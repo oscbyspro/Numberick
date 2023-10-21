@@ -10,7 +10,7 @@
 #if DEBUG
 
 import NBKCoreKit
-import NBKFlexibleWidthKit
+@testable import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -43,7 +43,7 @@ final class NBKFlexibleWidthTestsOnMultiplicationAsUIntXL: XCTestCase {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Digit
+    // MARK: Tests x Digit (and Self)
     //=------------------------------------------------------------------------=
     
     func testMultipliedByDigit() {
@@ -87,17 +87,29 @@ final class NBKFlexibleWidthTestsOnMultiplicationAsUIntXL: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertMultiplication<T: IntXLOrUIntXL>(
-_ lhs: T, _ rhs:  T, _ result: T,
+_ lhs: T, _ rhs:  T, _ pro: T,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual(                 lhs *  rhs,                 pro, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), pro, file: file, line: line)
+    //=------------------------------------------=
+    guard 
+    let lhs = lhs as? UIntXL,
+    let rhs = rhs as? UIntXL,
+    let pro = pro as? UIntXL
+    else { return }
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.multipliedFullWidthUsingLongAlgorithm(by: rhs, adding: 0), pro, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
-_ lhs: T, _ rhs:  T.Digit, _ result: T,
+_ lhs: T, _ rhs: T.Digit, _ pro: T,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(                 lhs *  rhs,                 result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), result, file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual(                 lhs *  rhs,                 pro, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), pro, file: file, line: line)
+    //=------------------------------------------=
+    NBKAssertMultiplication(lhs, T(digit: rhs), pro, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -105,10 +117,13 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMultiplicationByDigitWithAddition(
-_ lhs: UIntXL, _ rhs:  UInt, _ carry: UInt, _ product: UIntXL,
+_ lhs: UIntXL, _ rhs:  UInt, _ add: UInt, _ pro: UIntXL,
 file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual(lhs.multiplied(by: rhs, adding: carry),                             product, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: carry); return lhs }(), product, file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.multiplied(by: rhs, adding: add),                             pro, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: add); return lhs }(), pro, file: file, line: line)
+    //=------------------------------------------=
+    XCTAssertEqual(lhs.multipliedFullWidthUsingLongAlgorithm(by: UIntXL(digit: rhs), adding: add), pro, file: file, line: line)
 }
 
 #endif

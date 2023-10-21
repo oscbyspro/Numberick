@@ -225,7 +225,7 @@ file: StaticString = #file, line: UInt = #line) {
     else { return }
     //=------------------------------------------=
     brr: do {
-        let pvo = lhs.quotientAndRemainderReportingOverflowByLongDivision(dividingBy: rhs)
+        let pvo = lhs.quotientAndRemainderReportingOverflowUsingLongAlgorithm(dividingBy: rhs)
         XCTAssertEqual(pvo.partialValue.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue.remainder, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)

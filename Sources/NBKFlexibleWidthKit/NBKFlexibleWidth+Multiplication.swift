@@ -24,46 +24,53 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        Self(normalizing: lhs.storage.multipliedFullWidth(by: rhs.storage))
+        lhs.multipliedFullWidthUsingLongAlgorithm(by: rhs, adding: 0 as UInt)
     }
 }
 
-//*============================================================================*
-// MARK: * NBK x Flexible Width x Multiplication x Unsigned x Storage
-//*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + Long Multiplication
+//=----------------------------------------------------------------------------=
 
-extension NBKFlexibleWidth.Magnitude.Storage {
+extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable func multipliedFullWidth(by multiplicand: Self) -> Self {
-        self.multipliedFullWidthByNaiveMethod(by: multiplicand, adding: 0 as UInt)
-    }
-    
-    @inlinable func multipliedFullWidthByNaiveMethod(by multiplicand: Self, adding addend: UInt) -> Self {
-        Self.uninitialized(count: self.elements.count + multiplicand.elements.count) { product in
-            //=----------------------------------=
-            // pointee: initialization
-            //=----------------------------------=
-            product.initialize(repeating: 0 as UInt)
-            //=----------------------------------=
-            var overflow =  addend as UInt
-            for lhsIndex in self.elements.indices {
-                let outer = self.elements[lhsIndex]
-                
-                for rhsIndex in multiplicand.elements.indices {
-                    let inner = multiplicand.elements[rhsIndex]
-                    var subproduct = outer.multipliedFullWidth(by: inner)
+    /// Performs long multiplication.
+    @inlinable func multipliedFullWidthUsingLongAlgorithm(by multiplier: Self, adding addend: UInt) -> Self {
+        Self.uninitialized(count: self.count + multiplier.count) { pro in
+            self.storage.withUnsafeBufferPointer { lhs in
+                multiplier.storage.withUnsafeBufferPointer { rhs in
+                    var pointer = pro.baseAddress!
+                    //=--------------------------=
+                    // pointee: initialization 1
+                    //=--------------------------=
+                    var carry = addend as UInt
+                    let multiplier = rhs.first!
                     
-                    overflow   = UInt(bit: subproduct.low.addReportingOverflow(overflow))
-                    overflow &+= UInt(bit: product[lhsIndex + rhsIndex].addReportingOverflow(subproduct.low))
-                    overflow &+= subproduct.high
+                    for element in lhs {
+                        var wide = element.multipliedFullWidth(by: multiplier)
+                        carry = UInt(bit: wide.low.addReportingOverflow(carry)) &+ wide.high
+                        pointer.initialize(to: wide.low) // done, pointee has no prior value
+                        pointer = pointer.successor()
+                    }
+                    
+                    pointer.initialize(to: carry)
+                    pointer = pointer.successor()
+                    Swift.assert(pro.baseAddress!.distance(to: pointer) == lhs.count + 1)
+                    //=--------------------------=
+                    // pointee: initialization 2
+                    //=--------------------------=
+                    for var index in rhs.indices.dropFirst() {
+                        pointer.initialize(to: 00000)
+                        pointer = pointer.successor()
+                        NBK.SUISS.incrementInIntersection(&pro, by: lhs, times: rhs[index], plus: 00000, at: &index)
+                    }
+                    
+                    Swift.assert(pro.baseAddress!.distance(to: pointer) == pro.count)
                 }
-                
-                product[lhsIndex + multiplicand.elements.count] = overflow // update
-                overflow = 0 as UInt
             }
         }
     }

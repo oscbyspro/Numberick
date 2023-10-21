@@ -42,12 +42,12 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func quotientAndRemainderReportingOverflow(dividingBy  other: Self) -> PVO<QR<Self, Self>> {
-        self.quotientAndRemainderReportingOverflowByLongDivision(dividingBy: other)
+        self.quotientAndRemainderReportingOverflowUsingLongAlgorithm(dividingBy: other)
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Normal
+// MARK: + Long Division
 //=----------------------------------------------------------------------------=
 
 extension NBKFlexibleWidth.Magnitude {
@@ -57,14 +57,14 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     /// Performs long division after some fast-path checks.
-    @inlinable func quotientAndRemainderReportingOverflowByLongDivision(dividingBy other: Self) -> PVO<QR<Self, Self>> {
+    @inlinable func quotientAndRemainderReportingOverflowUsingLongAlgorithm(dividingBy other: Self) -> PVO<QR<Self, Self>> {
         var (remainder) = self
-        let (quotient, overflow) = remainder.formRemainderWithQuotientReportingOverflowByLongDivision(dividingBy: other)
+        let (quotient, overflow) = remainder.formRemainderWithQuotientReportingOverflowUsingLongAlgorithm(dividingBy: other)
         return PVO(QR(quotient, remainder), overflow)
     }
     
     /// Performs long division after some fast-path checks.
-    @inlinable mutating func formRemainderWithQuotientReportingOverflowByLongDivision(dividingBy other: Self) -> PVO<Self> {
+    @inlinable mutating func formRemainderWithQuotientReportingOverflowUsingLongAlgorithm(dividingBy other: Self) -> PVO<Self> {
         //=--------------------------------------=
         // divisor is zero
         //=--------------------------------------=
