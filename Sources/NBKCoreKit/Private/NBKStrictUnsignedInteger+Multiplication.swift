@@ -17,35 +17,41 @@
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Overflow
+    // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Forms the `low` product, and returns an `overflow` indicator, of multiplying `base`
-    /// and `multiplicand` then adding `addend`.
-    @inlinable public static func multiplyReportingOverflow(
-    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Bool {
-        !self.multiplyFullWidth(&base, by: multiplicand, add: addend).isZero
+    /// Multiplies `base` by `multiplier` then adds `digit`.
+    ///
+    /// - Returns: The `low` and `high` product: (high: `return`, low: `base`).
+    ///
+    @inlinable public static func multiply(
+    _   base: inout Base, by multiplier: Base.Element, add digit: Base.Element) -> Base.Element {
+        //=--------------------------------------=
+        var carry: Base.Element = digit
+        //=--------------------------------------=
+        self.multiply(&base, by: multiplier, add: &carry)
+        //=--------------------------------------=
+        return carry as Base.Element as Base.Element
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Full Width
+    // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Forms the `low` product, and returns the `high` product, of multiplying `base`
-    /// and `multiplicand` then adding `addend.
-    @inlinable public static func multiplyFullWidth(
-    _   base: inout Base, by multiplicand: Base.Element, add addend: Base.Element) -> Base.Element {
+    /// Multiplies `base` by `multiplier` then adds `digit`.
+    ///
+    /// - Returns: The `low` and `high` product: (high: `digit`, low: `base`).
+    ///
+    @inlinable public static func multiply(
+    _   base: inout Base, by multiplier: Base.Element, add digit: inout Base.Element) {
         //=--------------------------------------=
-        var carry: Base.Element = addend
         var index: Base.Index = base.startIndex
         //=--------------------------------------=
         forwards: while index < base.endIndex {
-            var subproduct = base[index].multipliedFullWidth(by: multiplicand)
-            subproduct.high &+= Base.Element(bit: subproduct.low.addReportingOverflow(carry))
-            (carry, base[index]) = subproduct as HL<Base.Element, Base.Element>
+            var wide = base[index].multipliedFullWidth(by: multiplier)
+            wide.high &+= Base.Element(bit: wide.low.addReportingOverflow(digit))
+            (digit, base[index]) = (wide)
             base.formIndex(after: &index)
         }
-        //=--------------------------------------=
-        return carry as Base.Element as Base.Element
     }
 }

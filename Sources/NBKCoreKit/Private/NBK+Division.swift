@@ -17,18 +17,31 @@ extension NBK {
     // MARK: Transformation x where Divisor is Power of 2
     //=------------------------------------------------------------------------=
     
-    /// Returns the `quotient` of dividing this the `dividend` by the `divisor`.
+    /// Returns the `quotient` and `remainder` of dividing the `dividend` by the `divisor`.
     ///
     /// ### Development
     ///
-    /// Must use `init(bitPattern)` for performance reasons (see Int256 division).
+    /// Must use `init(bitPattern:)` for performance reasons (see Int256 division).
+    ///
+    @inlinable public static func dividing<T: NBKCoreInteger>(
+    _   dividend: ZeroOrMore<T>, by divisor: PowerOf2<T>) -> QR<T, T> where T.Magnitude == UInt {
+        return QR(
+        quotient:  self.quotient (dividing: dividend, by: divisor),
+        remainder: self.remainder(dividing: dividend, by: divisor))
+    }
+    
+    /// Returns the `quotient` of dividing the `dividend` by the `divisor`.
+    ///
+    /// ### Development
+    ///
+    /// Must use `init(bitPattern:)` for performance reasons (see Int256 division).
     ///
     @inlinable public static func quotient<T: NBKCoreInteger>(
     dividing dividend: ZeroOrMore<T>, by divisor: PowerOf2<T>) -> T where T.Magnitude == UInt {
         dividend.value &>> T(bitPattern: divisor.value.trailingZeroBitCount)
     }
     
-    /// Returns the `remainder` of dividing this the `dividend` by the `divisor`.
+    /// Returns the `remainder` of dividing the `dividend` by the `divisor`.
     @inlinable public static func remainder<T: NBKCoreInteger>(
     dividing dividend: ZeroOrMore<T>, by divisor: PowerOf2<T>) -> T {
         dividend.value & (divisor.value &- 1 as T)

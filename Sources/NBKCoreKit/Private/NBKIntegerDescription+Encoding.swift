@@ -38,7 +38,7 @@ extension NBK.IntegerDescription {
         // MARK: State
         //=--------------------------------------------------------------------=
         
-        @usableFromInline let solution: AnyRadixSolution<UInt>
+        @usableFromInline let radix: AnyRadixSolution<UInt>
         @usableFromInline let alphabet: MaxRadixAlphabetEncoder
         
         //=--------------------------------------------------------------------=
@@ -46,7 +46,7 @@ extension NBK.IntegerDescription {
         //=--------------------------------------------------------------------=
         
         @inlinable public init(radix: Int, uppercase: Bool) {
-            self.solution = AnyRadixSolution<UInt>.init(radix)
+            self.radix    = AnyRadixSolution(radix)
             self.alphabet = MaxRadixAlphabetEncoder(uppercase: uppercase)
         }
         
@@ -59,9 +59,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: self.solution as AnyRadixSolution<UInt>,
+                radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
-                minus:   isLessThanZero as Bool)
+                minus: isLessThanZero as Bool)
             }
         }
         
@@ -70,9 +70,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude.words) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: self.solution as AnyRadixSolution<UInt>,
+                radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
-                minus:   isLessThanZero as Bool)
+                minus: isLessThanZero as Bool)
             }
         }
         
@@ -81,9 +81,9 @@ extension NBK.IntegerDescription {
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude) {
                 NBK.IntegerDescription.encode(
                 magnitude: &$0,
-                solution: self.solution as AnyRadixSolution<UInt>,
+                radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
-                minus:   isLessThanZero as Bool)
+                minus: isLessThanZero as Bool)
             }
         }
     }
@@ -106,12 +106,11 @@ extension NBK.IntegerDescription {
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func encode(
-    magnitude: inout NBK.UnsafeMutableWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
-    minus: Bool) -> String {
+    magnitude: inout NBK.UnsafeMutableWords, radix: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, minus: Bool) -> String {
         NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus) { prefix in
             NBK.IntegerDescription.encode(
             magnitude: &magnitude,
-            solution: solution as AnyRadixSolution<UInt>,
+            radix:  radix  as  AnyRadixSolution<UInt>,
             alphabet: alphabet as MaxRadixAlphabetEncoder,
             prefix: prefix as  UnsafeBufferPointer<UInt8>,
             suffix: UnsafeBufferPointer<UInt8>(start: nil, count: 0 as Int))
@@ -123,26 +122,26 @@ extension NBK.IntegerDescription {
     //=------------------------------------------------------------------------=
     
     @inlinable static func encode(
-    magnitude: inout NBK.UnsafeMutableWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
+    magnitude: inout NBK.UnsafeMutableWords, radix: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        if  solution.power.isZero {
-            return self.encode(magnitude: &magnitude, solution: PerfectRadixSolution(solution)!,
+        if  radix.power.isZero {
+            return self.encode(magnitude: &magnitude, radix: PerfectRadixSolution(radix)!,
             alphabet: alphabet, prefix: prefix, suffix: suffix)
         }   else {
-            return self.encode(magnitude: &magnitude, solution: ImperfectRadixSolution(solution)!,
+            return self.encode(magnitude: &magnitude, radix: ImperfectRadixSolution(radix)!,
             alphabet: alphabet, prefix: prefix, suffix: suffix)
         }
     }
     
     @inlinable static func encode(
-    magnitude: inout NBK.UnsafeMutableWords, solution: PerfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
+    magnitude: inout NBK.UnsafeMutableWords, radix: PerfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         return self.encode(
-        chunks:   UnsafeBufferPointer(rebasing: NBK.dropLast(from: magnitude, while:{ $0.isZero })),
-        solution: AnyRadixSolution(solution),
-        alphabet: alphabet  as MaxRadixAlphabetEncoder,
-        prefix:   prefix as UnsafeBufferPointer<UInt8>,
-        suffix:   suffix as UnsafeBufferPointer<UInt8>)
+        chunks: UnsafeBufferPointer(rebasing: NBK.dropLast(from: magnitude, while:{ $0.isZero })),
+        radix:  AnyRadixSolution(radix),
+        alphabet: alphabet as MaxRadixAlphabetEncoder,
+        prefix: prefix as  UnsafeBufferPointer<UInt8>,
+        suffix: suffix as  UnsafeBufferPointer<UInt8>)
     }
     
     /// ### Development
@@ -150,9 +149,9 @@ extension NBK.IntegerDescription {
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func encode(
-    magnitude: inout NBK.UnsafeMutableWords, solution: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
+    magnitude: inout NBK.UnsafeMutableWords, radix: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
-        let capacity: Int = solution.divisibilityByPowerUpperBound(magnitude: magnitude)
+        let capacity: Int = radix.divisibilityByPowerUpperBound(magnitude: magnitude)
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) {
             let chunked = NBK.unwrapping($0)!
             var pointer = chunked.baseAddress
@@ -161,7 +160,8 @@ extension NBK.IntegerDescription {
             // pointee: initialization
             //=----------------------------------=
             rebasing: while !magnitude.isEmpty {
-                let chunk = NBK.SUISS.formQuotientWithRemainder(dividing: &magnitude, by: solution.power)
+                let chunk = NBK.SUISS.formQuotientWithRemainder(
+                dividing: &magnitude, by: NBK.NonZero(unchecked: radix.power))
                 magnitude = NBK.dropLast(from: magnitude, while:{ $0.isZero })
                 pointer.initialize(to: chunk)
                 pointer = pointer.successor()
@@ -172,40 +172,40 @@ extension NBK.IntegerDescription {
             let count = chunked.baseAddress.distance(to: pointer)
             defer{ chunked.baseAddress.deinitialize(count: count) }
             return self.encode(
-            chunks:   UnsafeBufferPointer(start: chunked.baseAddress, count: count),
-            solution: AnyRadixSolution(solution),
-            alphabet: alphabet  as MaxRadixAlphabetEncoder,
-            prefix:   prefix as UnsafeBufferPointer<UInt8>,
-            suffix:   suffix as UnsafeBufferPointer<UInt8>)
+            chunks: UnsafeBufferPointer(start: chunked.baseAddress, count: count),
+            radix:  AnyRadixSolution(radix),
+            alphabet: alphabet as MaxRadixAlphabetEncoder,
+            prefix: prefix as  UnsafeBufferPointer<UInt8>,
+            suffix: suffix as  UnsafeBufferPointer<UInt8>)
         }
     }
     
     /// Encodes unchecked chunks, using the given UTF-8 format.
     ///
-    /// Each chunk must be a digit in the base of the given solution's power.
+    /// Each chunk must be a digit in the base of the given radix's power.
     ///
     /// ### Development
     ///
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func encode(
-    chunks: NBK.UnsafeWords, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
-    prefix: NBK.UnsafeUTF8,  suffix: NBK.UnsafeUTF8) -> String {
+    chunks: NBK.UnsafeWords, radix: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
+    prefix: NBK.UnsafeUTF8, suffix: NBK.UnsafeUTF8) -> String {
         //=--------------------------------------=
-        Swift.assert(chunks.count <= 1 || chunks.last != 0,
-        "chunk sequence must not contain redundant zeros")
+        Swift.assert(chunks.count <= 1  || chunks.last != 0,
+        "chunk sequence must not have redundant zeros")
         
-        Swift.assert(solution.power.isZero || chunks.allSatisfy({ $0 < solution.power }), 
-        "each chunk must be less than the radix solution's power")
+        Swift.assert(radix.power.isZero || chunks.allSatisfy({ $0 < radix.power }), 
+        "each chunk must be less than the radix's power")
         //=--------------------------------------=
         var remainders = chunks[...] as NBK.UnsafeWords.SubSequence
         let high = remainders.popLast() ?? 0 as UInt
-        return self.withUnsafeTemporaryDescription(chunk: high, solution: solution, alphabet: alphabet) { first in
+        return self.withUnsafeTemporaryDescription(chunk: high, radix: radix, alphabet: alphabet) { first in
             //=----------------------------------=
             var count: Int
             count  = prefix.count
             count += first .count
-            count += Int(bitPattern: solution.exponent) * remainders.count
+            count += radix.exponent() * remainders.count
             count += suffix.count
             //=----------------------------------=
             return String(unsafeUninitializedCapacity: count) {
@@ -225,19 +225,19 @@ extension NBK.IntegerDescription {
                 //=------------------------------=
                 // dynamic: loop unswitching perf.
                 //=------------------------------=
-                if  solution.power.isZero {
-                    let divisor = PerfectRadixSolution(solution)!.divisor()
+                if  radix.power.isZero {
+                    let divisor = PerfectRadixSolution(radix)!.divisor()
                     for var chunk in remainders {
-                        for _  in 0 as UInt ..< solution.exponent {
+                        for _  in 0 as UInt ..< radix.exponent {
                             let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                             pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                         }
                     }
                     
                 }   else {
-                    let divisor = ImperfectRadixSolution(solution)!.divisor()
+                    let divisor = ImperfectRadixSolution(radix)!.divisor()
                     for var chunk in remainders {
-                        for _  in 0 as UInt ..< solution.exponent {
+                        for _  in 0 as UInt ..< radix.exponent {
                             let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                             pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                         }
@@ -260,20 +260,20 @@ extension NBK.IntegerDescription {
     
     /// Encodes an unchecked chunk, using the given UTF-8 format.
     ///
-    /// Each chunk must be a digit in the base of the given solution's power.
+    /// Each chunk must be a digit in the base of the given radix's power.
     ///
     /// ### Development
     ///
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
     @usableFromInline static func withUnsafeTemporaryDescription(
-    chunk: UInt, solution: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, 
+    chunk: UInt, radix: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, 
     perform: (NBK.UnsafeUTF8) -> String) -> String {
         //=--------------------------------------=
-        Swift.assert(solution.power.isZero || chunk < solution.power,
-        "each chunk must be less than the radix solution's power")
+        Swift.assert(radix.power.isZero || chunk < radix.power,
+        "each chunk must be less than the radix's power")
         //=--------------------------------------=
-        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: Int(bitPattern: solution.exponent)) {
+        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent()) {
             let ascii = NBK.unwrapping($0)!
             let limit = ascii.baseAddress.advanced(by: ascii.count)
             var pointer = limit as UnsafeMutablePointer<UInt8>
@@ -288,15 +288,15 @@ extension NBK.IntegerDescription {
             // dynamic: loop unswitching perf.
             //=----------------------------------=
             var chunk = chunk as UInt
-            if  solution.power.isZero {
-                let divisor = PerfectRadixSolution(solution)!.divisor()
+            if  radix.power.isZero {
+                let divisor = PerfectRadixSolution(radix)!.divisor()
                 backwards: repeat {
                     let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                     pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)
                 }   while !chunk.isZero
                 
             }   else {
-                let divisor = ImperfectRadixSolution(solution)!.divisor()
+                let divisor = ImperfectRadixSolution(radix)!.divisor()
                 backwards: repeat {
                     let digit: UInt; (chunk,digit) = divisor.dividing(chunk)
                     pull(alphabet.encode(UInt8(truncatingIfNeeded: digit))!)

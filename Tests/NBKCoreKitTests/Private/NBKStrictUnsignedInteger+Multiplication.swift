@@ -23,14 +23,14 @@ private typealias Y = [UInt32]
 final class NBKStrictUnsignedIntegerTestsOnMultiplicationAsSubSequence: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Small
+    // MARK: Tests x Digit + Digit
     //=------------------------------------------------------------------------=
     
     func testMultiplicationByDigitWithAddition() {
         NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0,  0, [ 0,  0,  0,  0] as W,  0)
         NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0, ~0, [~0,  0,  0,  0] as W,  0)
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0,  0, [ 1, ~0, ~0, ~0] as W, ~1, true)
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0, ~0, [ 0,  0,  0,  0] as W, ~0, true)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0,  0, [ 1, ~0, ~0, ~0] as W, ~1)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0, ~0, [ 0,  0,  0,  0] as W, ~0)
     }
 }
 
@@ -39,7 +39,7 @@ final class NBKStrictUnsignedIntegerTestsOnMultiplicationAsSubSequence: XCTestCa
 //*============================================================================*
 
 private func NBKAssertMultiplicationByDigitWithAddition(
-    _ lhs: [UInt], _ rhs: UInt, _ addend: UInt, _ product: [UInt], _ high: UInt, _ overflow: Bool = false,
+    _ lhs: [UInt], _ rhs: UInt, _ addend: UInt, _ product: [UInt], _ high: UInt,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
@@ -48,16 +48,9 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let top = T.multiplyFullWidth(&lhs, by: rhs, add: addend)
-        XCTAssertEqual(top > 0, overflow, file: file, line: line)
-        XCTAssertEqual(lhs,     product,  file: file, line: line)
-    }
-    
-    brr: do {
-        var lhs = lhs
-        let ovf = T.multiplyReportingOverflow(&lhs, by: rhs, add: addend)
-        XCTAssertEqual(ovf, overflow, file: file, line: line)
-        XCTAssertEqual(lhs, product,  file: file, line: line)
+        let top = T.multiply(&lhs, by: rhs, add: addend)
+        XCTAssertEqual(lhs, product, file: file, line: line)
+        XCTAssertEqual(top, high,    file: file, line: line)
     }
 }
 
