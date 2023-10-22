@@ -14,5 +14,8 @@
 extension NBK {
     
     /// A namespace for decoding and encoding integer descriptions.
+    ///
+    /// - Note: Its algorithms commonly interpret byte sequences as ASCII text.
+    ///
     @frozen public enum IntegerDescription { }
 }

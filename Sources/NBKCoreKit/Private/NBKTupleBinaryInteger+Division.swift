@@ -17,9 +17,11 @@ extension NBK.TupleBinaryInteger where High: NBKUnsignedInteger {
     // MARK: Transformation
     //=------------------------------------------------------------------------=
     
-    /// Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.
+    /// Forms the `remainder` of dividing the `dividend` by the `divisor`,
+    /// then returns the `quotient`. The `divisor` must be normalized and
+    /// the `quotient` must fit in one element.
     ///
-    /// - Returns: The `quotient` is returned and the `remainder` replaces the dividend.
+    /// - Returns: The `quotient` is returned and the `remainder` replaces the `dividend`.
     ///
     /// ### Development 1
     ///
@@ -29,21 +31,29 @@ extension NBK.TupleBinaryInteger where High: NBKUnsignedInteger {
     ///
     /// The approximation needs at most two corrections, but looping is faster.
     ///
-    @_transparent public static func divide3212MSBUnchecked(_ lhs: inout Wide3, by rhs: Wide2) -> High {
-        assert(rhs.high.mostSignificantBit, "divisor must be normalized")
-        assert(self.compare22S(rhs, to: HL(lhs.high, lhs.mid)) == 1, "quotient must fit in one half")
+    @_transparent public static func formRemainderWithQuotient3212MSBUnchecked(
+    dividing dividend: inout Wide3, by divisor: Wide2) -> High {
         //=--------------------------------------=
-        var quotient = lhs.high == rhs.high ? High.max : rhs.high.dividingFullWidth(HL(lhs.high, lhs.mid)).quotient
-        var approximation = self.multiplying213(rhs, by: quotient)
+        Swift.assert(divisor.high.mostSignificantBit,
+        "the divisor must be normalized")
+        
+        Swift.assert(self.compare22S(Wide2(dividend.high, dividend.mid), to: divisor).isLessThanZero,
+        "the quotient must fit in one element")
+        //=--------------------------------------=
+        var quotient: High = divisor.high == dividend.high
+        ? High.max // the quotient must fit in one element
+        : divisor.high.dividingFullWidth(Wide2(dividend.high, dividend.mid)).quotient
         //=--------------------------------------=
         // decrement when overestimated (max 2)
         //=--------------------------------------=
-        while self.compare33S(lhs, to: approximation) == -1 {
-            _ = quotient.subtractReportingOverflow(1  as High.Digit)
-            _ = self.decrement32B(&approximation, by: rhs)
-        }
-        //=--------------------------------------=
-        let _ = self.decrement33B(&lhs, by: approximation)
-        return  quotient as High
+        var product = self.multiplying213(divisor, by: quotient)
+        
+        while self.compare33S(dividend, to: product) == -1 {
+            _ = quotient.subtractReportingOverflow(1 as High.Digit)
+            _ = self.decrement32B(&product,  by: divisor)
+        };  _ = self.decrement33B(&dividend, by: product)
+        
+        Swift.assert(self.compare33S(dividend, to: Wide3(0, divisor.high, divisor.low)).isLessThanZero)
+        return quotient as High
     }
 }

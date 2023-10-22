@@ -60,7 +60,7 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     var result: QR<T.Wide1, T.Wide3>
     result.remainder = lhs
-    result.quotient  = T.divide3212MSBUnchecked(&result.remainder,  by: rhs)
+    result.quotient  = T.formRemainderWithQuotient3212MSBUnchecked(dividing: &result.remainder, by: rhs)
     //=------------------------------------------=
     XCTAssertEqual(result.quotient,       quotient,       file: file, line: line)
     XCTAssertEqual(result.remainder.high, High.zero,      file: file, line: line)
