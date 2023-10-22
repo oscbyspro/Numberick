@@ -98,9 +98,6 @@ extension NBKFlexibleWidth.Magnitude {
     ///   - minor: `1 <= minor < UInt.bitWidth`
     ///
     @inlinable mutating func bitshiftLeft(major: Int, minorAtLeastOne minor: Int) {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         if  self.isZero { return }
         //=--------------------------------------=
@@ -110,6 +107,8 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.SUI.bitshiftLeft(&$0, major: major, minorAtLeastOne: minor)
         }
+        
+        Swift.assert(self.storage.isNormal)
     }
     
     /// Performs a left shift.
@@ -118,9 +117,6 @@ extension NBKFlexibleWidth.Magnitude {
     ///   - major: `1 <= major`
     ///
     @inlinable mutating func bitshiftLeft(majorAtLeastOne major: Int) {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         if  self.isZero { return }
         //=--------------------------------------=
@@ -129,6 +125,8 @@ extension NBKFlexibleWidth.Magnitude {
         self.storage.withUnsafeMutableBufferPointer {
             NBK.SUI.bitshiftLeft(&$0, majorAtLeastOne: major)
         }
+        
+        Swift.assert(self.storage.isNormal)
     }
 }
 
@@ -218,15 +216,12 @@ extension NBKFlexibleWidth.Magnitude {
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
     @inlinable mutating func bitshiftRight(major: Int, minorAtLeastOne minor: Int) {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         let rollover = Int(bit: 0 <= minor + self.leadingZeroBitCount - UInt.bitWidth)
         let maxCount = self.storage.elements.count - major - rollover
         //=--------------------------------------=
         if  maxCount <= 0 {
-            return self.updateZeroValue()
+            return self.update(0 as UInt)
         }
         //=--------------------------------------=
         self.storage.withUnsafeMutableBufferPointer {
@@ -234,6 +229,7 @@ extension NBKFlexibleWidth.Magnitude {
         }
         
         self.storage.resize(maxCount: maxCount)
+        Swift.assert(self.storage.isNormal)
     }
     
     /// Performs an unsigned right shift.
@@ -242,12 +238,9 @@ extension NBKFlexibleWidth.Magnitude {
     ///   - major: `1 <= major`
     ///
     @inlinable mutating func bitshiftRight(majorAtLeastOne major: Int) {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         if  self.storage.elements.count <= major {
-            return self.updateZeroValue()
+            return self.update(0 as UInt)
         }
         //=--------------------------------------=
         self.storage.withUnsafeMutableBufferPointer {
@@ -255,5 +248,6 @@ extension NBKFlexibleWidth.Magnitude {
         }
         
         self.storage.resize(maxCount: self.storage.elements.count - major)
+        Swift.assert(self.storage.isNormal)
     }
 }

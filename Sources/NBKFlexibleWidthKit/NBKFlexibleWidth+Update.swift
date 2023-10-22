@@ -19,10 +19,6 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func updateZeroValue() {
-        self.update(0 as UInt)
-    }
-    
     @inlinable public mutating func update(_ value: Digit) {
         self.storage.normalize(update: value)
     }

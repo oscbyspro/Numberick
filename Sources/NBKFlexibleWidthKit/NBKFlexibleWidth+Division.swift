@@ -85,7 +85,7 @@ extension NBKFlexibleWidth.Magnitude {
         let comparison = other.compared(to: self)
         if  comparison.isLessThanZero {
         }   else if comparison.isZero {
-            self.updateZeroValue()
+            self.update(0 as UInt)
             return PVO(Self.one,  false)
         }   else {
             return PVO(Self.zero, false)

@@ -62,9 +62,9 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     /// requested amount, the buffer passed to `init` will cover exactly the requested
     /// number of words.
     ///
-    /// ### No initialized prefix semantics
+    /// ### Semantics when there is no initialized prefix
     ///
-    /// It returns zero when the initialized prefix count is zero because the following
+    /// It returns zero when there is no initialized prefix because the following
     /// expressions must return the same values:
     ///
     /// ```swift

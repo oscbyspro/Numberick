@@ -40,6 +40,6 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public var words: ContiguousArray<UInt> {
-        _read { yield self.storage.elements }
+        self.storage.elements
     }
 }

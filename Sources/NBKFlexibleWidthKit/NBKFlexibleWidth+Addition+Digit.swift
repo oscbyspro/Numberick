@@ -37,20 +37,20 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minCount: index + 1)
         
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
-        
-        let overflow: Bool = self.storage.withUnsafeMutableBufferPointer(in: index...) {
+        let overflow = self.storage.withUnsafeMutableBufferPointer(in: index...) {
             NBK.SUISS.increment(&$0, by: other).overflow
         }
         
         if  overflow {
             self.storage.append(1 as UInt)
         }
+        
+        Swift.assert(self.storage.isNormal)
     }
     
     @_disfavoredOverload @inlinable public func adding(_ other: UInt, at index: Int) -> Self {
-        var result = self; result.add(other, at: index); return result
+        var result = self
+        result.add(other, at: index)
+        return result as Self
     }
 }

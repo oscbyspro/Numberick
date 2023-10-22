@@ -32,9 +32,6 @@ extension NBKFlexibleWidth.Magnitude {
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: UInt, add addend: UInt) {
-        defer {
-            Swift.assert(self.storage.isNormal)
-        }
         //=--------------------------------------=
         if  multiplicand.isZero {
             return self.update(addend)
@@ -49,9 +46,13 @@ extension NBKFlexibleWidth.Magnitude {
         if !carry.isZero {
             self.storage.append(carry)
         }
+        
+        Swift.assert(self.storage.isNormal)
     }
     
     @_disfavoredOverload @inlinable public func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
-        var result = self; result.multiply(by: multiplicand, add: addend); return result
+        var result = self
+        result.multiply(by: multiplicand, add: addend)
+        return result as Self
     }
 }

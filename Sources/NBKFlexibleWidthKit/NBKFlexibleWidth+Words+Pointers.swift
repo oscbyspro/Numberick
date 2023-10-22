@@ -44,13 +44,13 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     /// Grants unsafe access to the collection's contiguous storage.
-    @inlinable func withUnsafeBufferPointer<T>(
+    @inlinable public func withUnsafeBufferPointer<T>(
     _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeBufferPointer(body)
     }
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
-    @inlinable mutating func withUnsafeMutableBufferPointer<T>(
+    @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
     _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeMutableBufferPointer(body)
     }
@@ -65,8 +65,8 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     ///
     /// This method is required for performance reasons (see slice arithmetic).
     ///
-    @inlinable func withUnsafeBufferPointer<T>(in range: some RangeExpression<Int>,
-    perform body: (inout UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
+    @inlinable public func withUnsafeBufferPointer<T>(
+    in  range: some RangeExpression<Int>, perform body: (inout UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeBufferPointer {
             let range = range.relative(to: $0)
             var slice = UnsafeBufferPointer(start: $0.baseAddress! + range.lowerBound, count: range.count)
@@ -80,8 +80,8 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     ///
     /// This method is required for performance reasons (see slice arithmetic).
     ///
-    @inlinable mutating func withUnsafeMutableBufferPointer<T>(in range: some RangeExpression<Int>,
-    perform body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
+    @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
+    in  range: some RangeExpression<Int>, perform body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeMutableBufferPointer {
             let range = range.relative(to: $0)
             var slice = UnsafeMutableBufferPointer(start: $0.baseAddress! + range.lowerBound, count: range.count)

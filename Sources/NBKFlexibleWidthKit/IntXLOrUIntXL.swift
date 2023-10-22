@@ -29,8 +29,20 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  
+    /// A three-way comparison between `self` and `other` at `index`.
+    ///
+    /// - Parameters:
+    ///   - other: Another integer instance.
+    ///   - index: The non-negative offset of `other` measured in `Digit` positions.
+    ///
     @inlinable func compared(to other: Self, at index: Int) -> Int
-        
+    
+    /// A three-way comparison between `self` and `other` at `index`.
+    ///
+    /// - Parameters:
+    ///   - other: Another integer instance.
+    ///   - index: The non-negative offset of `other` measured in `Digit` positions.
+    ///
     @_disfavoredOverload @inlinable func compared(to other: Digit, at index: Int) -> Int
     
     //=------------------------------------------------------------------------=
@@ -97,8 +109,10 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     // MARK: Details x Update
     //=------------------------------------------------------------------------=
     
-    @inlinable mutating func updateZeroValue()
-    
+    /// Updates this instance in-place so it equals `value`.
+    ///
+    /// - Note: This operation is much more efficent than allocating new storage.
+    ///
     @inlinable mutating func update(_ value: Digit)
     
     //=------------------------------------------------------------------------=
@@ -167,9 +181,9 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     ///
     /// - Note: This is a non-throwing convenience for `uninitialized(capacity:init:)`.
     ///
-    /// ### No initialized prefix semantics
+    /// ### Semantics when there is no initialized prefix
     ///
-    /// It returns zero when the initialized prefix count is zero because the following
+    /// It returns zero when there is no initialized prefix because the following
     /// expressions must return the same values:
     ///
     /// ```swift
@@ -192,9 +206,9 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     /// requested amount, the buffer passed to `init` will cover exactly the requested
     /// number of words.
     ///
-    /// ### No initialized prefix semantics
+    /// ### Semantics when there is no initialized prefix
     ///
-    /// It returns zero when the initialized prefix count is zero because the following
+    /// It returns zero when there is no initialized prefix because the following
     /// expressions must return the same values:
     ///
     /// ```swift
@@ -205,30 +219,4 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     ///
     @inlinable static func uninitialized(
     capacity: Int, init: (inout UnsafeMutableBufferPointer<UInt>, inout Int) throws -> Void) rethrows -> Self
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Details
-//=----------------------------------------------------------------------------=
-
-extension IntXLOrUIntXL {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-    
-    /// A `description` of this type.
-    ///
-    /// ```
-    /// ┌─────────────────────────── → ────────────┐
-    /// │ type                       │ description │
-    /// ├─────────────────────────── → ────────────┤
-    /// │ NBKFlexibleWidth           │  "IntXL"    │
-    /// │ NBKFlexibleWidth.Magnitude │ "UIntXL"    │
-    /// └─────────────────────────── → ────────────┘
-    /// ```
-    ///
-    @inlinable public static var description: String {
-        Self.isSigned ? "IntXL" : "UIntXL"
-    }
 }
