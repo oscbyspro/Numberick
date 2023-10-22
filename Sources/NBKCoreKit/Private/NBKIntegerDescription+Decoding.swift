@@ -64,9 +64,9 @@ extension NBK.IntegerDescription {
             var description = String(description); return description.withUTF8(self.decode)
         }
         
-        @inlinable public func decode(_ description: NBK.UnsafeUTF8) -> SM<Magnitude>? {
+        @inlinable public func decode(_ description: UnsafeBufferPointer<UInt8>) -> SM<Magnitude>? {
             let inputs = NBK.IntegerDescription.makeSignBody(from: description)
-            let digits = NBK.UnsafeUTF8(rebasing: inputs.body)
+            let digits = UnsafeBufferPointer(rebasing: inputs.body)
             guard  let magnitude: Magnitude = NBK.IntegerDescription.decode(digits: digits, radix: self.radix) else { return nil }
             return SM(sign: inputs.sign, magnitude: magnitude)
         }
@@ -116,10 +116,10 @@ extension NBK.IntegerDescription {
             var description = String(description); return description.withUTF8(self.decode)
         }
         
-        @inlinable public func decode(_ description: NBK.UnsafeUTF8) -> SM<Magnitude>? {
+        @inlinable public func decode(_ description: UnsafeBufferPointer<UInt8>) -> SM<Magnitude>? {
             let inputs = NBK.IntegerDescription.makeSignRadixBody(from: description)
             let radix  = NBK.IntegerDescription.AnyRadixSolution<UInt>(inputs.radix)
-            let digits = NBK.UnsafeUTF8(rebasing: inputs.body)
+            let digits = UnsafeBufferPointer(rebasing: inputs.body)
             guard  let magnitude: Magnitude = NBK.IntegerDescription.decode(digits: digits, radix: radix) else { return nil }
             return SM(sign: inputs.sign, magnitude: magnitude)
         }
@@ -153,7 +153,7 @@ extension NBK.IntegerDescription {
     /// Creating a new decoder is faster than passing one by argument.
     ///
     @inlinable public static func truncating<Digit: NBKCoreInteger>(
-    digits: NBK.UnsafeUTF8, radix: Int, as type: Digit.Type = Digit.self) -> Digit? {
+    digits: UnsafeBufferPointer<UInt8>, radix: Int, as type: Digit.Type = Digit.self) -> Digit? {
         //=--------------------------------------=
         guard !digits.isEmpty else { return nil }
         //=--------------------------------------=
@@ -185,7 +185,7 @@ extension NBK.IntegerDescription {
     //=------------------------------------------------------------------------=
     
     @inlinable static func decode<Magnitude: NBKUnsignedInteger>(
-    digits: NBK.UnsafeUTF8, radix: AnyRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
+    digits: UnsafeBufferPointer<UInt8>, radix: AnyRadixSolution<UInt>, as type: Magnitude.Type = Magnitude.self) -> Magnitude? {
         var magnitude: Magnitude?
         
         if  radix.power.isZero {
@@ -198,7 +198,7 @@ extension NBK.IntegerDescription {
     }
     
     @usableFromInline static func decode(
-    digits: NBK.UnsafeUTF8, radix: PerfectRadixSolution<UInt>, success: (NBK.UnsafeWords) -> Void) {
+    digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixSolution<UInt>, success: (UnsafeBufferPointer<UInt>) -> Void) {
         //=--------------------------------------=
         guard !digits.isEmpty else { return }
         //=--------------------------------------=
@@ -207,7 +207,7 @@ extension NBK.IntegerDescription {
         let count  = split.quotient &+ Int(bit: split.remainder.isMoreThanZero)
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
-            let words: NBK.UnsafeMutableWords = $0
+            let words: UnsafeMutableBufferPointer<UInt> = $0
             var index: Int = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
@@ -220,14 +220,14 @@ extension NBK.IntegerDescription {
             // pointee: initialization
             //=----------------------------------=
             backwards: while index < split.quotient {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: radix.exponent()))
+                let chunk = UnsafeBufferPointer(rebasing: NBK.removeSuffix(from: &digits, count: radix.exponent()))
                 guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
             }
             
             backwards: if split.remainder.isMoreThanZero {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removeSuffix(from: &digits, count: split.remainder))
+                let chunk = UnsafeBufferPointer(rebasing: NBK.removeSuffix(from: &digits, count: split.remainder))
                 guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
@@ -240,7 +240,7 @@ extension NBK.IntegerDescription {
     }
     
     @usableFromInline static func decode(
-    digits: NBK.UnsafeUTF8, radix: ImperfectRadixSolution<UInt>, success: (NBK.UnsafeWords) -> Void) {
+    digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixSolution<UInt>, success: (UnsafeBufferPointer<UInt>) -> Void) {
         //=--------------------------------------=
         guard !digits.isEmpty else { return }
         //=--------------------------------------=
@@ -249,7 +249,7 @@ extension NBK.IntegerDescription {
         let count  = split.quotient &+ Int(bit: split.remainder.isMoreThanZero)
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
-            var words: NBK.UnsafeMutableWords = $0
+            var words: UnsafeMutableBufferPointer<UInt> = $0
             var index: Int = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
@@ -262,14 +262,14 @@ extension NBK.IntegerDescription {
             // pointee: initialization
             //=----------------------------------=
             forwards: if split.remainder.isMoreThanZero {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: split.remainder))
+                let chunk = UnsafeBufferPointer(rebasing: NBK.removePrefix(from: &digits, count: split.remainder))
                 guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
             }
             
             forwards: while index < count {
-                let chunk = NBK.UnsafeUTF8(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent()))
+                let chunk = UnsafeBufferPointer(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent()))
                 guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: NBK.SUISS.multiply(&words[..<index], by: radix.power, add: element))
                 words.formIndex(after: &index)

@@ -129,7 +129,7 @@ extension NBK.IntegerDescription {
     
     /// Performs an action with a temporary allocation that contains a minus sign or is empty.
     @inlinable public static func withUnsafeTemporarySignPrefix<T>(
-    minus: Bool, perform: (NBK.UnsafeUTF8) -> T) -> T {
+    minus: Bool, perform: (UnsafeBufferPointer<UInt8>) -> T) -> T {
         Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) { buffer in
             //=----------------------------------=
             // pointee: initialization

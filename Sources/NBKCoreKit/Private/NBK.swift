@@ -24,21 +24,6 @@
     /// The sign of a numeric value.
     public typealias Sign = FloatingPointSign
     
-    /// An unsafe pointer to a collection of `UTF-8` code points.
-    public typealias UnsafeUTF8 = UnsafeBufferPointer<UInt8>
-    
-    /// An unsafe pointer to a mutable collection of `UTF-8` code points.
-    public typealias UnsafeMutableUTF8 = UnsafeMutableBufferPointer<UInt8>
-    
-    /// An unsafe pointer to a collection of `UInt` machine words.
-    public typealias UnsafeWords = UnsafeBufferPointer<UInt>
-    
-    /// An unsafe pointer to a mutable collection of `UInt` machine words.
-    public typealias UnsafeMutableWords = UnsafeMutableBufferPointer<UInt>
-    
-    /// An unsafe pointer to a collection of succinct `UInt` machine words.
-    public typealias UnsafeSuccinctWords = (body: NBK.UnsafeWords, sign: Bool)
-    
     /// An index and an overflow indicator.
     public typealias IO<I> = (index: I, overflow: Bool)
     

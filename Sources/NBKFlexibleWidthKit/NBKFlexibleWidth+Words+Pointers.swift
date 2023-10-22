@@ -69,7 +69,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     perform body: (inout UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeBufferPointer {
             let range = range.relative(to: $0)
-            var slice = NBK.UnsafeWords(start: $0.baseAddress! + range.lowerBound, count: range.count)
+            var slice = UnsafeBufferPointer(start: $0.baseAddress! + range.lowerBound, count: range.count)
             return  try body(&slice) as T
         }
     }
@@ -84,7 +84,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     perform body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeMutableBufferPointer {
             let range = range.relative(to: $0)
-            var slice = NBK.UnsafeMutableWords(start: $0.baseAddress! + range.lowerBound, count: range.count)
+            var slice = UnsafeMutableBufferPointer(start: $0.baseAddress! + range.lowerBound, count: range.count)
             return  try body(&slice) as T
         }
     }

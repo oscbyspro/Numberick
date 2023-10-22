@@ -265,7 +265,7 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// Divides 3 halves by 2 normalized halves, assuming the quotient fits in 1 half.
     @inlinable static func divide3212MSBUnchecked(_ lhs: NBK.Wide3<High>, by rhs: Self) -> QR<High, Self> {
         var remainder = lhs as NBK.Wide3<High>
-        let quotient  = NBK.TUI.divide3212MSBUnchecked(&remainder, by: rhs.descending)
+        let quotient  = NBK.TUI.formRemainderWithQuotient3212MSBUnchecked(dividing: &remainder, by: rhs.descending)
         return QR(quotient, Self(high: remainder.mid, low: remainder.low))
     }
     

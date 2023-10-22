@@ -40,7 +40,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     ///
     /// var quotient = uninitialized(remainder.count - divisor.count) { quotient in
     ///     for index in quotient.indices.reversed() {
-    ///         let digit = formRemainderWithQuotientAsLong211MSBUnchecked(
+    ///         let digit = formRemainderWithQuotientLong2111MSBUnchecked(
     ///         dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)
     ///         quotient.baseAddress!.advanced(by: index).initialize(to: digit)
     ///     }
@@ -50,7 +50,7 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
     /// // return values
     /// ```
     ///
-    @inlinable public static func formRemainderWithQuotientAsLong211MSBUnchecked(
+    @inlinable public static func formRemainderWithQuotientLong2111MSBUnchecked(
     dividing dividend: inout Base, by divisor: some RandomAccessCollection<Base.Element>) -> Base.Element {
         //=--------------------------------------=
         Swift.assert(divisor.last!.mostSignificantBit,
@@ -59,22 +59,19 @@ extension NBK.StrictUnsignedInteger where Base: MutableCollection {
         Swift.assert(dividend.count == divisor.count + 1,
         "the dividend must be exactly one element wider than the divisor")
         
-        Swift.assert(NBK.SUISS.compare(dividend, to: divisor,
-        at:  dividend.dropFirst().startIndex).isLessThanZero,
+        Swift.assert(NBK.SUISS.compare(dividend.dropFirst(), to: divisor).isLessThanZero,
         "the quotient of each iteration must fit in one element")
         //=--------------------------------------=
         let numerator   = NBK.TBI<Base.Element>.suffix2(dividend)
         let denominator = NBK.TBI<Base.Element>.suffix1(divisor )
         //=--------------------------------------=
-        var quotient : Base.Element; if denominator == numerator.high {
-            quotient = Base.Element.max
-        }   else {
-            quotient = denominator.dividingFullWidth(numerator).quotient
-        }
+        var quotient: Base.Element = denominator == numerator.high
+        ? Base.Element.max // the quotient must fit in one element
+        : denominator.dividingFullWidth(numerator).quotient/*---*/
         //=--------------------------------------=
         if  quotient.isZero { return quotient }
         //=--------------------------------------=
-        var overflow = (NBK).SUISS.decrement(&dividend, by: divisor, times: quotient).overflow
+        var overflow = (NBK).SUISS.decrementInIntersection(&dividend, by: divisor, times: quotient).overflow
         
         decrementQuotientAtMostTwice: while overflow {
             quotient = quotient &- 1 as Base.Element
