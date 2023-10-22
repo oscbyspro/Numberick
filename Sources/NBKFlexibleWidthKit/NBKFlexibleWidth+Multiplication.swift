@@ -47,11 +47,11 @@ extension NBKFlexibleWidth.Magnitude {
                     //=--------------------------=
                     // pointee: initialization 1
                     //=--------------------------=
-                    var carry = addend as UInt
-                    let multiplier = rhs.first!
+                    var carry: UInt = addend
+                    let first: UInt = rhs.first!
                     
                     for element in lhs {
-                        var wide = element.multipliedFullWidth(by: multiplier)
+                        var wide = element.multipliedFullWidth(by: first) as NBK.Wide2<UInt>
                         carry = UInt(bit: wide.low.addReportingOverflow(carry)) &+ wide.high
                         pointer.initialize(to: wide.low) // done, pointee has no prior value
                         pointer = pointer.successor()
@@ -63,7 +63,7 @@ extension NBKFlexibleWidth.Magnitude {
                     //=--------------------------=
                     // pointee: initialization 2
                     //=--------------------------=
-                    for var index in rhs.indices.dropFirst() {
+                    for var index in 1 ..< rhs.count {
                         pointer.initialize(to: 00000)
                         pointer = pointer.successor()
                         NBK.SUISS.incrementInIntersection(&pro, by: lhs, times: rhs[index], plus: 00000, at: &index)

@@ -16,12 +16,16 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers x Private
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance with unsafe access to its uninitialized memory.
-    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
-        Self(normalizing: Storage.uninitialized(count: count, body: body))
+    ///
+    /// The `init` is responsible for initializing the words given to it.
+    ///
+    @inlinable public static func uninitialized(
+    count: Int, init: (inout UnsafeMutableBufferPointer<UInt>) -> Void) -> Self {
+        Self(normalizing: Storage.uninitialized(count: count, init: `init`))
     }
 }
 
@@ -36,7 +40,11 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance with unsafe access to its uninitialized memory.
-    @inlinable static func uninitialized(count: Int, body: (inout NBK.UnsafeMutableWords) -> Void) -> Self {
-        Self(Elements(unsafeUninitializedCapacity: count) { body(&$0); $1 = $0.count })
+    ///
+    /// The `init` is responsible for initializing the words given to it.
+    ///
+    @inlinable static func uninitialized(
+    count: Int, init: (inout UnsafeMutableBufferPointer<UInt>) -> Void) -> Self {
+        Self(Elements(unsafeUninitializedCapacity: count) { `init`(&$0); $1 = $0.count })
     }
 }
