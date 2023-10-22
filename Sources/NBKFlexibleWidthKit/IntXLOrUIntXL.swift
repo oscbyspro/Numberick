@@ -100,6 +100,111 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     @inlinable mutating func updateZeroValue()
     
     @inlinable mutating func update(_ value: Digit)
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Words
+    //=------------------------------------------------------------------------=
+    
+    /// Grants unsafe access to the words of this instance.
+    ///
+    /// ```
+    /// ┌──────────────────────── = ───────────────────────────┐
+    /// │ self                    │ words on a 64-bit machine  │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │  IntXL(           )     │ [ 0                      ] │
+    /// │  IntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │  IntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1,  0] │
+    /// │  IntXL( Int256.min)     │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │  IntXL( Int256.min) + 1 │ [~0, ~0, ~0, ~0/2 + 0, ~0] │
+    /// │  IntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0,  0] │
+    /// │  IntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │ UIntXL(           )     │ [ 0                      ] │
+    /// │ UIntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │ UIntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │ UIntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0    ] │
+    /// │ UIntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// └──────────────────────── = ───────────────────────────┘
+    /// ```
+    ///
+    @inlinable func withUnsafeBufferPointer<T>(
+    _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T
+    
+    /// Grants unsafe access to the mutable words of this instance.
+    ///
+    /// ```
+    /// ┌──────────────────────── = ───────────────────────────┐
+    /// │ self                    │ words on a 64-bit machine  │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │  IntXL(           )     │ [ 0                      ] │
+    /// │  IntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │  IntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1,  0] │
+    /// │  IntXL( Int256.min)     │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │  IntXL( Int256.min) + 1 │ [~0, ~0, ~0, ~0/2 + 0, ~0] │
+    /// │  IntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0,  0] │
+    /// │  IntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │ UIntXL(           )     │ [ 0                      ] │
+    /// │ UIntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │ UIntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │ UIntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0    ] │
+    /// │ UIntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// └──────────────────────── = ───────────────────────────┘
+    /// ```
+    ///
+    /// - Note: The words of this instance will be normalized after this operation.
+    ///
+    @inlinable mutating func withUnsafeMutableBufferPointer<T>(
+    _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T
+    
+    /// Creates a new instance with unsafe access to its uninitialized words.
+    ///
+    /// The `init` is responsible for initializing all `count` words given to it.
+    ///
+    /// - Note: While the resulting instance may have a capacity larger than the
+    /// requested amount, the buffer passed to `init` will cover exactly the requested
+    /// number of words.
+    ///
+    /// - Note: This is a non-throwing convenience for `uninitialized(capacity:init:)`.
+    ///
+    /// ### No initialized prefix semantics
+    ///
+    /// It returns zero when the initialized prefix count is zero because the following
+    /// expressions must return the same values:
+    ///
+    /// ```swift
+    /// 1. Self.init(words:   words) // this is zero when words == []
+    /// 2. Self.uninitialized(count:    words.count) {  _ = $0.initialize(from: words).index }
+    /// 3. Self.uninitialized(capacity: words.count) { $1 = $0.initialize(from: words).index }
+    /// ```
+    ///
+    @inlinable static func uninitialized(
+    count: Int, init: (inout UnsafeMutableBufferPointer<UInt>) -> Void) -> Self
+    
+    /// Creates a new instance with unsafe access to its uninitialized words.
+    ///
+    /// The `init` is responsible for initializing up to `capacity` prefixing words.
+    /// The `init` is given a buffer and an initialized prefix count. All words in
+    /// the prefix must be initialized and all words after it must be uninitialized.
+    /// This postcondition must hold even when the `init` throws an error.
+    ///
+    /// - Note: While the resulting instance may have a capacity larger than the
+    /// requested amount, the buffer passed to `init` will cover exactly the requested
+    /// number of words.
+    ///
+    /// ### No initialized prefix semantics
+    ///
+    /// It returns zero when the initialized prefix count is zero because the following
+    /// expressions must return the same values:
+    ///
+    /// ```swift
+    /// 1. Self.init(words:   words) // this is zero when words == []
+    /// 2. Self.uninitialized(count:    words.count) {  _ = $0.initialize(from: words).index }
+    /// 3. Self.uninitialized(capacity: words.count) { $1 = $0.initialize(from: words).index }
+    /// ```
+    ///
+    @inlinable static func uninitialized(
+    capacity: Int, init: (inout UnsafeMutableBufferPointer<UInt>, inout Int) throws -> Void) rethrows -> Self
 }
 
 //=----------------------------------------------------------------------------=

@@ -62,6 +62,26 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertToWords(T(words:[1, 2, 3, 4]), [1, 2, 3, 4])
     }
     
+    
+    /// ```
+    /// ┌──────────────────────── = ───────────────────────────┐
+    /// │ self                    │ words on a 64-bit machine  │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │  IntXL(           )     │ [ 0                      ] │
+    /// │  IntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │  IntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1,  0] │
+    /// │  IntXL( Int256.min)     │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │  IntXL( Int256.min) + 1 │ [~0, ~0, ~0, ~0/2 + 0, ~0] │
+    /// │  IntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0,  0] │
+    /// │  IntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// ├──────────────────────── = ───────────────────────────┤
+    /// │ UIntXL(           )     │ [ 0                      ] │
+    /// │ UIntXL( Int256.max)     │ [~0, ~0, ~0, ~0/2 + 0    ] │
+    /// │ UIntXL( Int256.max) + 1 │ [ 0,  0,  0, ~0/2 + 1    ] │
+    /// │ UIntXL(UInt256.max)     │ [~0, ~0, ~0, ~0/1 + 0    ] │
+    /// │ UIntXL(UInt256.max) + 1 │ [ 0,  0,  0,  0/1 + 0,  1] │
+    /// └──────────────────────── = ───────────────────────────┘
+    /// ```
     func testToWordsX64() throws {
         guard MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size else { throw XCTSkip() }
         
@@ -76,6 +96,11 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
         NBKAssertToWords(T(x64:[1, 2, 0, 0] as X), [1, 2      ])
         NBKAssertToWords(T(x64:[1, 2, 3, 0] as X), [1, 2, 3   ])
         NBKAssertToWords(T(x64:[1, 2, 3, 4] as X), [1, 2, 3, 4])
+        
+        NBKAssertToWords(T(x64:[~0, ~0, ~0, ~0/2] as X),     [~0, ~0, ~0, ~0/2 + 0    ] as W) //  Int256.max
+        NBKAssertToWords(T(x64:[~0, ~0, ~0, ~0/2] as X) + 1, [ 0,  0,  0, ~0/2 + 1    ] as W) //  Int256.max + 1
+        NBKAssertToWords(T(x64:[~0, ~0, ~0, ~0/1] as X),     [~0, ~0, ~0, ~0/1 + 0    ] as W) // UInt256.max
+        NBKAssertToWords(T(x64:[~0, ~0, ~0, ~0/1] as X) + 1, [ 0,  0,  0,  0/1 + 0,  1] as W) // UInt256.max + 1
     }
     
     func testToWordsX32() throws {
@@ -123,29 +148,64 @@ final class NBKFlexibleWidthTestsOnWordsAsUIntXL: XCTestCase {
 private func NBKAssertFromWords<T: IntXLOrUIntXL>(
 _ words: [UInt], _ integer: T?,
 file: StaticString = #file, line: UInt = #line) {
-    
+    //=------------------------------------------=
     XCTAssertEqual(                  T(words:    words),    integer, file: file, line: line)
     XCTAssertEqual(integer.flatMap({ T(words: $0.words) }), integer, file: file, line: line)
+    //=------------------------------------------=
+    if  let integer {
+        NBKAssertFromWordsByTruncating(words, words.count, integer)
+    }
 }
 
 private func NBKAssertFromWordsIsSigned<T: IntXLOrUIntXL>(
 _ words: [UInt], _ isSigned: Bool, _ integer: T?,
 file: StaticString = #file, line: UInt = #line) {
-    
+    //=------------------------------------------=
     if  isSigned == T.isSigned {
         NBKAssertFromWords(words, integer, file: file, line: line)
     }
-    
+    //=------------------------------------------=
     XCTAssertEqual(                  T(words:    words, isSigned: isSigned),    integer, file: file, line: line)
     XCTAssertEqual(integer.flatMap({ T(words: $0.words, isSigned: isSigned) }), integer, file: file, line: line)
+    //=------------------------------------------=
+    if  let integer {
+        NBKAssertFromWordsByTruncating(words, words.count, integer)
+    }
+}
+
+private func NBKAssertFromWordsByTruncating<T: IntXLOrUIntXL>(
+_ words: [UInt], _ count: Int, _ integer: T,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    if  count == words.count {
+        let initialized = T.uninitialized(count: count, init:{ let _ = $0.initialize(from: words) })
+        XCTAssertEqual(initialized, integer, file: file, line: line)
+    }
+    
+    brr: do {
+        let capacity: Int = count
+        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).index })
+        XCTAssertEqual(initialized, integer, file: file, line: line)
+    }
+    
+    brr: do {
+        let capacity: Int = count + 1
+        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).index })
+        XCTAssertEqual(initialized, integer, file: file, line: line)
+    }
 }
 
 private func NBKAssertToWords<T: IntXLOrUIntXL>(
 _ integer: T, _ words: [UInt],
 file: StaticString = #file, line: UInt = #line) {
-    
-    NBKAssertElementsEqual(integer.words, words,   file: file, line: line)
-    NBKAssertFromWords(/*--------*/words, integer, file: file, line: line)
+    //=------------------------------------------=
+    var integer = integer
+    //=------------------------------------------=
+    NBKAssertFromWords(words, integer, file: file, line: line)
+    //=------------------------------------------=
+    NBKAssertElementsEqual(integer.words, words, file: file, line: line)
+    integer.withUnsafeBufferPointer({        NBKAssertElementsEqual($0, words, file: file, line: line) })
+    integer.withUnsafeMutableBufferPointer({ NBKAssertElementsEqual($0, words, file: file, line: line) })
 }
 
 //=----------------------------------------------------------------------------=

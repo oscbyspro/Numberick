@@ -21,42 +21,15 @@ extension NBKFlexibleWidth.Magnitude {
     
     /// Grants unsafe access to the collection's contiguous storage.
     @inlinable public func withUnsafeBufferPointer<T>(
-    _   body:(NBK.UnsafeWords) throws -> T) rethrows -> T {
+    _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.storage.withUnsafeBufferPointer(body)
     }
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
     @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
-    _   body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+    _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         defer{     self.storage.normalize() }
         return try self.storage.withUnsafeMutableBufferPointer(body)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Contiguous UInt Collection x Sub Sequence
-    //=------------------------------------------------------------------------=
-    
-    /// Grants unsafe access to the collection's contiguous storage in the given `range`.
-    ///
-    /// ### Development
-    ///
-    /// This method is required for performance reasons.
-    ///
-    @inlinable public func withUnsafeBufferPointer<T>(
-    in  range: some RangeExpression<Int>, perform body:(inout NBK.UnsafeWords) throws -> T) rethrows -> T {
-        try self.storage.withUnsafeBufferPointer(in: range, perform: body)
-    }
-    
-    /// Grants unsafe access to the collection's contiguous mutable storage in the given `range`.
-    ///
-    /// ### Development
-    ///
-    /// This method is required for performance reasons.
-    ///
-    @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
-    in  range: some RangeExpression<Int>, perform body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
-        defer{     self.storage.normalize() }
-        return try self.storage.withUnsafeMutableBufferPointer(in: range, perform: body)
     }
 }
 
@@ -72,43 +45,43 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     
     /// Grants unsafe access to the collection's contiguous storage.
     @inlinable func withUnsafeBufferPointer<T>(
-    _   body:(NBK.UnsafeWords) throws -> T) rethrows -> T {
+    _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeBufferPointer(body)
     }
     
     /// Grants unsafe access to the collection's contiguous mutable storage.
     @inlinable mutating func withUnsafeMutableBufferPointer<T>(
-    _   body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+    _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeMutableBufferPointer(body)
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Contiguous UInt Collection x Sub Sequence
     //=------------------------------------------------------------------------=
-
+    
     /// Grants unsafe access to the collection's contiguous storage in the given `range`.
     ///
     /// ### Development
     ///
-    /// This method is required for performance reasons.
+    /// This method is required for performance reasons (see slice arithmetic).
     ///
-    @inlinable func withUnsafeBufferPointer<T>(
-    in  range: some RangeExpression<Int>, perform body:(inout NBK.UnsafeWords) throws -> T) rethrows -> T {
+    @inlinable func withUnsafeBufferPointer<T>(in range: some RangeExpression<Int>,
+    perform body: (inout UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeBufferPointer {
             let range = range.relative(to: $0)
             var slice = NBK.UnsafeWords(start: $0.baseAddress! + range.lowerBound, count: range.count)
             return  try body(&slice) as T
         }
     }
-
+    
     /// Grants unsafe access to the collection's contiguous mutable storage in the given `range`.
     ///
     /// ### Development
     ///
-    /// This method is required for performance reasons.
+    /// This method is required for performance reasons (see slice arithmetic).
     ///
-    @inlinable mutating func withUnsafeMutableBufferPointer<T>(
-    in  range: some RangeExpression<Int>, perform body:(inout NBK.UnsafeMutableWords) throws -> T) rethrows -> T {
+    @inlinable mutating func withUnsafeMutableBufferPointer<T>(in range: some RangeExpression<Int>,
+    perform body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.withUnsafeMutableBufferPointer {
             let range = range.relative(to: $0)
             var slice = NBK.UnsafeMutableWords(start: $0.baseAddress! + range.lowerBound, count: range.count)
