@@ -438,7 +438,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable mutating func bitshiftLeft(by distance: Int)
+    @inlinable mutating func bitShiftLeft(by distance: Int)
     
     /// Performs a left shift.
     ///
@@ -454,7 +454,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable func bitshiftedLeft(by distance: Int) -> Self
+    @inlinable func bitShiftedLeft(by distance: Int) -> Self
     
     /// Performs an un/signed right shift.
     ///
@@ -473,7 +473,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable mutating func bitshiftRight(by distance: Int)
+    @inlinable mutating func bitShiftRight(by distance: Int)
     
     /// Performs an un/signed right shift.
     ///
@@ -492,75 +492,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable func bitshiftedRight(by distance: Int) -> Self
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Rotations
-    //=------------------------------------------------------------------------=
-    
-    /// Performs a left rotation.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ distance │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256( 1) │ Int(255) │ Int256.min │
-    /// │ Int256.min │ Int(  1) │ Int256( 1) │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable mutating func bitrotateLeft(by distance: Int)
-    
-    /// Performs a left rotation.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ distance │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256( 1) │ Int(255) │ Int256.min │
-    /// │ Int256.min │ Int(  1) │ Int256( 1) │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable func bitrotatedLeft(by distance: Int) -> Self
-    
-    /// Performs a right rotation.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ distance │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256.min │ Int(255) │ Int256( 1) │
-    /// │ Int256( 1) │ Int(  1) │ Int256.min │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable mutating func bitrotateRight(by distance: Int)
-    
-    /// Performs a right rotation.
-    ///
-    /// ```
-    /// ┌────────────┬───────── → ───────────┐
-    /// │ self       │ distance │ self       │
-    /// ├────────────┼───────── → ───────────┤
-    /// │ Int256.min │ Int(255) │ Int256( 1) │
-    /// │ Int256( 1) │ Int(  1) │ Int256.min │
-    /// └────────────┴───────── → ───────────┘
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - distance: `0 <= distance < Self.bitWidth`
-    ///
-    @inlinable func bitrotatedRight(by distance: Int) -> Self
+    @inlinable func bitShiftedRight(by distance: Int) -> Self
 }
 
 //=----------------------------------------------------------------------------=
@@ -739,56 +671,24 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Shifts
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+    @inlinable public mutating func bitShiftLeft(by distance: Int) {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &<<= distance
     }
     
-    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
+    @inlinable public func bitShiftedLeft(by distance: Int) -> Self {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &<< distance
     }
     
-    @inlinable public mutating func bitshiftRight(by distance: Int) {
+    @inlinable public mutating func bitShiftRight(by distance: Int) {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &>>= distance
     }
     
-    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
+    @inlinable public func bitShiftedRight(by distance: Int) -> Self {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &>> distance
-    }
-
-    //=------------------------------------------------------------------------=
-    // MARK: Details x Rotations
-    //=------------------------------------------------------------------------=
-    
-    @inlinable public mutating func bitrotateLeft(by distance: Int) {
-        self = self.bitrotatedLeft(by: distance)
-    }
-    
-    @inlinable public func bitrotatedLeft(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
-        //=--------------------------------------=
-        if  distance.isZero { return self }
-        //=--------------------------------------=
-        let pushed = self &<< (distance)
-        let pulled = Magnitude(bitPattern: self) &>> (Self.bitWidth &- distance)
-        return pushed | Self(bitPattern: pulled)
-    }
-    
-    @inlinable public mutating func bitrotateRight(by distance: Int) {
-        self = self.bitrotatedRight(by: distance)
-    }
-    
-    @inlinable public func bitrotatedRight(by distance: Int) -> Self {
-        precondition(0 ..< Self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
-        //=--------------------------------------=
-        if  distance.isZero { return self }
-        //=--------------------------------------=
-        let pulled = self &<< (Self.bitWidth &- distance)
-        let pushed = Magnitude(bitPattern: self) &>> (distance)
-        return Self(bitPattern: pushed) | pulled
     }
     
     //=------------------------------------------------------------------------=

@@ -28,28 +28,28 @@ final class NBKStrictUnsignedIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeftByBits() {
+    func testBitShiftingLeftByBits() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  1 as Int, [ 2,  4,  6,  8] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  2 as Int, [ 4,  8, 12, 16] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  3 as Int, [ 8, 16, 24, 32] as T8)
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  8 as Int, [ 0,  1,  2,  3] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, 16 as Int, [ 0,  0,  1,  2] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, 24 as Int, [ 0,  0,  0,  1] as T8)
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  3 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, 11 as Int, [ 0,  8, 16, 24] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, 19 as Int, [ 0,  0,  8, 16] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, 27 as Int, [ 0,  0,  0,  8] as T8)
     }
     
-    func testBitshiftingLeftSuchThatWordsSplit() {
+    func testBitShiftingLeftSuchThatWordsSplit() {
         NBKAssertShiftLeft([~0,  0,  0,  0] as T8,  1 as Int, [~1,  1,  0,  0] as T8)
         NBKAssertShiftLeft([ 0, ~0,  0,  0] as T8,  1 as Int, [ 0, ~1,  1,  0] as T8)
         NBKAssertShiftLeft([ 0,  0, ~0,  0] as T8,  1 as Int, [ 0,  0, ~1,  1] as T8)
@@ -60,35 +60,35 @@ final class NBKStrictUnsignedIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRightByBits() {
+    func testBitShiftingRightByBits() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  1 as Int, [ 4,  8, 12, 16] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  2 as Int, [ 2,  4,  6,  8] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  3 as Int, [ 1,  2,  3,  4] as T8)
     }
     
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  8 as Int, [16, 24, 32,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8, 16 as Int, [24, 32,  0,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8, 24 as Int, [32,  0,  0,  0] as T8)
     }
     
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  3 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8, 11 as Int, [ 2,  3,  4,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8, 19 as Int, [ 3,  4,  0,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8, 27 as Int, [ 4,  0,  0,  0] as T8)
     }
     
-    func testBitshiftingRightSuchThatWordsSplit() {
+    func testBitShiftingRightSuchThatWordsSplit() {
         NBKAssertShiftRight([0,  0,  0,  7] as T8,  1 as Int, [ 0, 0, 1 << 7, 3] as T8)
         NBKAssertShiftRight([0,  0,  7,  0] as T8,  1 as Int, [ 0, 1 << 7, 3, 0] as T8)
         NBKAssertShiftRight([0,  7,  0,  0] as T8,  1 as Int, [ 1 << 7, 3, 0, 0] as T8)
         NBKAssertShiftRight([7,  0,  0,  0] as T8,  1 as Int, [ 3,      0, 0, 0] as T8)
     }
     
-    func testBitshiftingRightIsUnsigned() {
+    func testBitShiftingRightIsUnsigned() {
         NBKAssertShiftRight([0, 0, 0, 1 << 7] as T8,  0 as Int, [0, 0, 0, 1 << 7] as T8)
         NBKAssertShiftRight([0, 0, 0, 1 << 7] as T8,  8 as Int, [0, 0, 1 << 7, 0] as T8)
         NBKAssertShiftRight([0, 0, 0, 1 << 7] as T8, 16 as Int, [0, 1 << 7, 0, 0] as T8)
@@ -110,19 +110,19 @@ file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
     brr: do {
         var base = base
-        SBI.bitshiftLeft(&base, by: distance)
+        SBI.bitShiftLeft(&base, by: distance)
         XCTAssertEqual(base, result, file: file, line: line)
     }
     
     brr: do {
         var base = base
-        SBI.bitshiftLeft(&base, major: major, minor: minor)
+        SBI.bitShiftLeft(&base, major: major, minor: minor)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 
     if  minor.isZero {
         var base = base
-        SBI.bitshiftLeft(&base, major: major)
+        SBI.bitShiftLeft(&base, major: major)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 }
@@ -137,19 +137,19 @@ file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
     brr: do {
         var base = base
-        SBI.bitshiftRight(&base, by: distance)
+        SBI.bitShiftRight(&base, by: distance)
         XCTAssertEqual(base, result, file: file, line: line)
     }
     
     brr: do {
         var base = base
-        SBI.bitshiftRight(&base, major: major, minor: minor)
+        SBI.bitShiftRight(&base, major: major, minor: minor)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 
     if  minor.isZero {
         var base = base
-        SBI.bitshiftRight(&base, major: major)
+        SBI.bitShiftRight(&base, major: major)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 }

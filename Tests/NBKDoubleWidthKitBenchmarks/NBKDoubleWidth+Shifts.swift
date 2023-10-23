@@ -28,7 +28,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeft() {
+    func testBitShiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
@@ -39,7 +39,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingLeftByMasking() {
+    func testBitShiftingLeftByMasking() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
@@ -50,23 +50,23 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(major: rhs.major))
+            NBK.blackHole(lhs.bitShiftedLeft(major: rhs.major))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(major: rhs.major, minor: rhs.minor))
+            NBK.blackHole(lhs.bitShiftedLeft(major: rhs.major, minor: rhs.minor))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -76,7 +76,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRight() {
+    func testBitShiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
@@ -87,7 +87,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingRightByMasking() {
+    func testBitShiftingRightByMasking() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
                 
@@ -98,23 +98,23 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(major: rhs.major))
+            NBK.blackHole(lhs.bitShiftedRight(major: rhs.major))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(major: rhs.major, minor: rhs.minor))
+            NBK.blackHole(lhs.bitShiftedRight(major: rhs.major, minor: rhs.minor))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -133,7 +133,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeft() {
+    func testBitShiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
@@ -144,7 +144,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingLeftByMasking() {
+    func testBitShiftingLeftByMasking() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
         
@@ -155,23 +155,23 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(major: rhs.major))
+            NBK.blackHole(lhs.bitShiftedLeft(major: rhs.major))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(major: rhs.major, minor: rhs.minor))
+            NBK.blackHole(lhs.bitShiftedLeft(major: rhs.major, minor: rhs.minor))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -181,7 +181,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRight() {
+    func testBitShiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
 
@@ -192,7 +192,7 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingRightByMasking() {
+    func testBitShiftingRightByMasking() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.bitWidth * 3/2)
                 
@@ -203,23 +203,23 @@ final class NBKDoubleWidthBenchmarksOnShiftsAsUInt256: XCTestCase {
         }
     }
     
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(major: rhs.major))
+            NBK.blackHole(lhs.bitShiftedRight(major: rhs.major))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
     }
     
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity((major: 1, minor: UInt.bitWidth/2))
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(major: rhs.major, minor: rhs.minor))
+            NBK.blackHole(lhs.bitShiftedRight(major: rhs.major, minor: rhs.minor))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

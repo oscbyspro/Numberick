@@ -28,7 +28,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeftByBits() {
+    func testBitShiftingLeftByBits() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  0 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  1 as Int, [ 2,  4,  6,  8] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  2 as Int, [ 4,  8, 12, 16] as T8)
@@ -40,7 +40,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, ~0 as UInt8,  3 as Int, [15, 16, 24, 32] as T8)
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  0 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  8 as Int, [ 0,  1,  2,  3] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8, 16 as Int, [ 0,  0,  1,  2] as T8)
@@ -52,7 +52,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, ~0 as UInt8, 24 as Int, [~0, ~0, ~0,  1] as T8)
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8,  3 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8, 11 as Int, [ 0,  8, 16, 24] as T8)
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8,  0 as UInt8, 19 as Int, [ 0,  0,  8, 16] as T8)
@@ -64,7 +64,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftLeft([ 1,  2,  3,  4] as T8, ~0 as UInt8, 27 as Int, [~0, ~0, ~0, 15] as T8)
     }
     
-    func testBitshiftingLeftSuchThatWordsSplit() {
+    func testBitShiftingLeftSuchThatWordsSplit() {
         NBKAssertShiftLeft([~0,  0,  0,  0] as T8,  0 as UInt8,  1 as Int, [~1,  1,  0,  0] as T8)
         NBKAssertShiftLeft([ 0, ~0,  0,  0] as T8,  0 as UInt8,  1 as Int, [ 0, ~1,  1,  0] as T8)
         NBKAssertShiftLeft([ 0,  0, ~0,  0] as T8,  0 as UInt8,  1 as Int, [ 0,  0, ~1,  1] as T8)
@@ -80,7 +80,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRightByBits() {
+    func testBitShiftingRightByBits() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  0 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  1 as Int, [ 4,  8, 12, 16] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  2 as Int, [ 2,  4,  6,  8] as T8)
@@ -92,7 +92,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftRight([8, 16, 24, 32] as T8, ~0 as UInt8,  3 as Int, [ 1,  2,  3,  4 + ~0 << 5] as T8)
     }
 
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  0 as Int, [ 8, 16, 24, 32] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  8 as Int, [16, 24, 32,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8, 16 as Int, [24, 32,  0,  0] as T8)
@@ -104,7 +104,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftRight([8, 16, 24, 32] as T8, ~0 as UInt8, 24 as Int, [32, ~0, ~0, ~0] as T8)
     }
 
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8,  3 as Int, [ 1,  2,  3,  4] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8, 11 as Int, [ 2,  3,  4,  0] as T8)
         NBKAssertShiftRight([8, 16, 24, 32] as T8,  0 as UInt8, 19 as Int, [ 3,  4,  0,  0] as T8)
@@ -116,7 +116,7 @@ final class NBKStrictBinaryIntegerTestsOnShifts: XCTestCase {
         NBKAssertShiftRight([8, 16, 24, 32] as T8, ~0 as UInt8, 27 as Int, [ 4 + ~0 << 5,  ~0,  ~0,  ~0] as T8)
     }
     
-    func testBitshiftingRightSuchThatWordsSplit() {
+    func testBitShiftingRightSuchThatWordsSplit() {
         NBKAssertShiftRight([0,  0,  0,  7] as T8,  0 as UInt8,  1 as Int, [ 0,   0,   1 << 7, 3] as T8)
         NBKAssertShiftRight([0,  0,  7,  0] as T8,  0 as UInt8,  1 as Int, [ 0,   1 << 7,   3, 0] as T8)
         NBKAssertShiftRight([0,  7,  0,  0] as T8,  0 as UInt8,  1 as Int, [ 1 << 7,   3,   0, 0] as T8)
@@ -143,13 +143,13 @@ file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
     if  major >= 1, minor == 0 {
         var base = base
-        SBI.bitshiftLeft(&base, environment: environment, majorAtLeastOne: major)
+        SBI.bitShiftLeft(&base, environment: environment, majorAtLeastOne: major)
         XCTAssertEqual(base, result, file: file, line: line)
     }
     
     if  major >= 0, minor >= 1 {
         var base = base
-        SBI.bitshiftLeft(&base, environment: environment, major: major, minorAtLeastOne: minor)
+        SBI.bitShiftLeft(&base, environment: environment, major: major, minorAtLeastOne: minor)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 }
@@ -164,13 +164,13 @@ file: StaticString = #file, line: UInt  = #line) {
     //=------------------------------------------=
     if  major >= 1, minor == 0 {
         var base = base
-        SBI.bitshiftRight(&base, environment: environment, majorAtLeastOne: major)
+        SBI.bitShiftRight(&base, environment: environment, majorAtLeastOne: major)
         XCTAssertEqual(base, result, file: file, line: line)
     }
     
     if  major >= 0, minor >= 1 {
         var base = base
-        SBI.bitshiftRight(&base, environment: environment, major: major, minorAtLeastOne: minor)
+        SBI.bitShiftRight(&base, environment: environment, major: major, minorAtLeastOne: minor)
         XCTAssertEqual(base, result, file: file, line: line)
     }
 }

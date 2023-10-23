@@ -99,8 +99,8 @@ extension NBKFlexibleWidth.Magnitude {
         let shift: Int  = other.last.leadingZeroBitCount
         
         if !shift.isZero {
-            self .storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
-            other.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            self .storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitShiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            other.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitShiftLeft(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         //=--------------------------------------=
         // division
@@ -120,7 +120,7 @@ extension NBKFlexibleWidth.Magnitude {
         // normalization
         //=--------------------------------------=
         if !shift.isZero {
-            self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitshiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
+            self.storage.withUnsafeMutableBufferPointer({ NBK.SUI.bitShiftRight(&$0, major: 0 as Int, minorAtLeastOne: shift) })
         }
         
         self.storage.normalize()

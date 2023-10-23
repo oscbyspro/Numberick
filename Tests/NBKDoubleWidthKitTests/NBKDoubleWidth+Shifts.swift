@@ -29,14 +29,14 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeftByBits() {
+    func testBitShiftingLeftByBits() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   0, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   1, T(x64: X( 2,  4,  6,  8)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   2, T(x64: X( 4,  8, 12, 16)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   3, T(x64: X( 8, 16, 24, 32)))
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   0, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),  64, T(x64: X( 0,  1,  2,  3)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 128, T(x64: X( 0,  0,  1,  2)))
@@ -44,7 +44,7 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 256, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   3, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),  67, T(x64: X( 0,  8, 16, 24)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 131, T(x64: X( 0,  0,  8, 16)))
@@ -52,7 +52,7 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 259, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingLeftSuchThatWordsSplit() {
+    func testBitShiftingLeftSuchThatWordsSplit() {
         NBKAssertShiftLeft(T(x64: X(~0,  0,  0,  0)),   1, T(x64: X(~1,  1,  0,  0)))
         NBKAssertShiftLeft(T(x64: X( 0, ~0,  0,  0)),   1, T(x64: X( 0, ~1,  1,  0)))
         NBKAssertShiftLeft(T(x64: X( 0,  0, ~0,  0)),   1, T(x64: X( 0,  0, ~1,  1)))
@@ -63,14 +63,14 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRightByBits() {
+    func testBitShiftingRightByBits() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   0, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   1, T(x64: X( 4,  8, 12, 16)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   2, T(x64: X( 2,  4,  6,  8)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   3, T(x64: X( 1,  2,  3,  4)))
     }
     
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   0, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),  64, T(x64: X(16, 24, 32,  0)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 128, T(x64: X(24, 32,  0,  0)))
@@ -78,7 +78,7 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 256, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   3, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),  67, T(x64: X( 2,  3,  4,  0)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 131, T(x64: X( 3,  4,  0,  0)))
@@ -86,14 +86,14 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 259, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingRightSuchThatWordsSplit() {
+    func testBitShiftingRightSuchThatWordsSplit() {
         NBKAssertShiftRight(T(x64: X(0,  0,  0,  7)),   1, T(x64: X( 0,  0,  1 << 63,  3)))
         NBKAssertShiftRight(T(x64: X(0,  0,  7,  0)),   1, T(x64: X( 0,  1 << 63,  3,  0)))
         NBKAssertShiftRight(T(x64: X(0,  7,  0,  0)),   1, T(x64: X( 1 << 63,  3,  0,  0)))
         NBKAssertShiftRight(T(x64: X(7,  0,  0,  0)),   1, T(x64: X( 3,        0,  0,  0)))
     }
     
-    func testBitshiftingRightIsSigned() {
+    func testBitShiftingRightIsSigned() {
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)),   0, T(x64: X( 0,  0,  0,  1 << 63)))
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)),  64, T(x64: X( 0,  0,  1 << 63, ~0)))
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)), 128, T(x64: X( 0,  1 << 63, ~0, ~0)))
@@ -105,7 +105,7 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingIsSmart() {
+    func testBitShiftingIsSmart() {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<   1, T(x64: X(2, 4, 6, 8)))
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >>  -1, T(x64: X(2, 4, 6, 8)))
         
@@ -113,12 +113,12 @@ final class NBKDoubleWidthTestsOnShiftsAsInt256: XCTestCase {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
-    func testBitshiftingByMinDistanceDoesNotTrap() {
+    func testBitShiftingByMinDistanceDoesNotTrap() {
         XCTAssertEqual(T(repeating: true) << Int.min, T(repeating: true ))
         XCTAssertEqual(T(repeating: true) >> Int.min, T(repeating: false))
     }
     
-    func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
+    func testBitShiftingByMaskingIsEquivalentToBitShiftingModuloBitWidth() {
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
@@ -152,14 +152,14 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeftByBits() {
+    func testBitShiftingLeftByBits() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   0, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   1, T(x64: X( 2,  4,  6,  8)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   2, T(x64: X( 4,  8, 12, 16)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   3, T(x64: X( 8, 16, 24, 32)))
     }
     
-    func testBitshiftingLeftByWords() {
+    func testBitShiftingLeftByWords() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   0, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),  64, T(x64: X( 0,  1,  2,  3)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 128, T(x64: X( 0,  0,  1,  2)))
@@ -167,7 +167,7 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 256, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingLeftByWordsAndBits() {
+    func testBitShiftingLeftByWordsAndBits() {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),   3, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)),  67, T(x64: X( 0,  8, 16, 24)))
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 131, T(x64: X( 0,  0,  8, 16)))
@@ -175,7 +175,7 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
         NBKAssertShiftLeft(T(x64: X( 1,  2,  3,  4)), 259, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingLeftSuchThatWordsSplit() {
+    func testBitShiftingLeftSuchThatWordsSplit() {
         NBKAssertShiftLeft(T(x64: X(~0,  0,  0,  0)),   1, T(x64: X(~1,  1,  0,  0)))
         NBKAssertShiftLeft(T(x64: X( 0, ~0,  0,  0)),   1, T(x64: X( 0, ~1,  1,  0)))
         NBKAssertShiftLeft(T(x64: X( 0,  0, ~0,  0)),   1, T(x64: X( 0,  0, ~1,  1)))
@@ -186,14 +186,14 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRightByBits() {
+    func testBitShiftingRightByBits() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   0, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   1, T(x64: X( 4,  8, 12, 16)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   2, T(x64: X( 2,  4,  6,  8)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   3, T(x64: X( 1,  2,  3,  4)))
     }
     
-    func testBitshiftingRightByWords() {
+    func testBitShiftingRightByWords() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   0, T(x64: X( 8, 16, 24, 32)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),  64, T(x64: X(16, 24, 32,  0)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 128, T(x64: X(24, 32,  0,  0)))
@@ -201,7 +201,7 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 256, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingRightByWordsAndBits() {
+    func testBitShiftingRightByWordsAndBits() {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),   3, T(x64: X( 1,  2,  3,  4)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)),  67, T(x64: X( 2,  3,  4,  0)))
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 131, T(x64: X( 3,  4,  0,  0)))
@@ -209,14 +209,14 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
         NBKAssertShiftRight(T(x64: X(8, 16, 24, 32)), 259, T(x64: X( 0,  0,  0,  0)))
     }
     
-    func testBitshiftingRightSuchThatWordsSplit() {
+    func testBitShiftingRightSuchThatWordsSplit() {
         NBKAssertShiftRight(T(x64: X(0,  0,  0,  7)),   1, T(x64: X( 0,  0,  1 << 63,  3)))
         NBKAssertShiftRight(T(x64: X(0,  0,  7,  0)),   1, T(x64: X( 0,  1 << 63,  3,  0)))
         NBKAssertShiftRight(T(x64: X(0,  7,  0,  0)),   1, T(x64: X( 1 << 63,  3,  0,  0)))
         NBKAssertShiftRight(T(x64: X(7,  0,  0,  0)),   1, T(x64: X( 3,        0,  0,  0)))
     }
     
-    func testBitshiftingRightIsUnsigned() {
+    func testBitShiftingRightIsUnsigned() {
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)),   0, T(x64: X(0, 0, 0, 1 << 63)))
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)),  64, T(x64: X(0, 0, 1 << 63, 0)))
         NBKAssertShiftRight(T(x64: X(0, 0, 0, 1 << 63)), 128, T(x64: X(0, 1 << 63, 0, 0)))
@@ -228,7 +228,7 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingIsSmart() {
+    func testBitShiftingIsSmart() {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) <<   1, T(x64: X(2, 4, 6, 8)))
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >>  -1, T(x64: X(2, 4, 6, 8)))
         
@@ -236,12 +236,12 @@ final class NBKDoubleWidthTestsOnShiftsAsUInt256: XCTestCase {
         XCTAssertEqual(T(x64: X(1, 2, 3, 4)) >> -64, T(x64: X(0, 1, 2, 3)))
     }
     
-    func testBitshiftingByMinDistanceDoesNotTrap() {
+    func testBitShiftingByMinDistanceDoesNotTrap() {
         XCTAssertEqual(T(repeating: true) << Int.min, T(repeating: false))
         XCTAssertEqual(T(repeating: true) >> Int.min, T(repeating: false))
     }
     
-    func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
+    func testBitShiftingByMaskingIsEquivalentToBitShiftingModuloBitWidth() {
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)),  256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         NBKAssertShiftLeftByMasking (T(x64: X(1, 2, 3, 4)), -256, T(x64: X(1, 2, 3, 4)), signitude: S.self)
         
@@ -278,11 +278,11 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs <<=  rhs; return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs >>= -rhs; return lhs }(), result, file: file, line: line)
         
-    XCTAssertEqual(lhs.bitshiftedLeftSmart(by:   rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs.bitshiftedRightSmart(by: -rhs), result, file: file, line: line)
+    XCTAssertEqual(lhs.bitShiftedLeftSmart(by:   rhs), result, file: file, line: line)
+    XCTAssertEqual(lhs.bitShiftedRightSmart(by: -rhs), result, file: file, line: line)
     
-    XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by:   rhs); return lhs }(), result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: -rhs); return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeftSmart(by:   rhs); return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRightSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(                 lhs &<<  rhs,                 result, file: file, line: line)
@@ -290,16 +290,16 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
-        XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedLeft(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitshiftedLeft(major: major, minor: minor), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major, minor: minor); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedLeft(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeft(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
-        XCTAssertEqual(lhs.bitshiftedLeft(major: major), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(major: major); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedLeft(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeft(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 
@@ -315,11 +315,11 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var lhs = lhs; lhs >>=  rhs; return lhs }(), result, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs <<= -rhs; return lhs }(), result, file: file, line: line)
         
-    XCTAssertEqual(lhs.bitshiftedRightSmart(by: rhs), result, file: file, line: line)
-    XCTAssertEqual(lhs.bitshiftedLeftSmart(by: -rhs), result, file: file, line: line)
+    XCTAssertEqual(lhs.bitShiftedRightSmart(by: rhs), result, file: file, line: line)
+    XCTAssertEqual(lhs.bitShiftedLeftSmart(by: -rhs), result, file: file, line: line)
     
-    XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRightSmart(by: rhs); return lhs }(), result, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeftSmart(by: -rhs); return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRightSmart(by: rhs); return lhs }(), result, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeftSmart(by: -rhs); return lhs }(), result, file: file, line: line)
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
         XCTAssertEqual(                 lhs &>>  rhs,                 result, file: file, line: line)
@@ -327,16 +327,16 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
-        XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedRight(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRight(by: rhs); return lhs }(), result, file: file, line: line)
         
-        XCTAssertEqual(lhs.bitshiftedRight(major: major, minor: minor), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major, minor: minor); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedRight(major: major, minor: minor), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRight(major: major, minor: minor); return lhs }(), result, file: file, line: line)
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs, minor.isZero {
-        XCTAssertEqual(lhs.bitshiftedRight(major: major), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(major: major); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedRight(major: major), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRight(major: major); return lhs }(), result, file: file, line: line)
     }
 }
 
