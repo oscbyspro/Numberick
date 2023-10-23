@@ -28,7 +28,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Index
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func add(_ other: Self, at index: Int) {

@@ -28,19 +28,19 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Addition
     //=------------------------------------------------------------------------=
     
-    @_disfavoredOverload @inlinable public mutating func multiply(by multiplicand: UInt, add addend: UInt) {
+    @_disfavoredOverload @inlinable public mutating func multiply(by multiplier: UInt, add addend: UInt) {
         //=--------------------------------------=
-        if  multiplicand.isZero {
+        if  multiplier.isZero {
             return self.update(addend)
         }
         //=--------------------------------------=
         self.storage.reserveCapacity(self.storage.elements.count + 1)
         
         let carry = self.storage.withUnsafeMutableBufferPointer {
-            NBK.SUISS.multiply(&$0, by: multiplicand, add: addend)
+            NBK.SUISS.multiply(&$0, by: multiplier, add: addend)
         }
         
         if !carry.isZero {
@@ -50,9 +50,9 @@ extension NBKFlexibleWidth.Magnitude {
         Swift.assert(self.storage.isNormal)
     }
     
-    @_disfavoredOverload @inlinable public func multiplied(by multiplicand: UInt, adding addend: UInt) -> Self {
+    @_disfavoredOverload @inlinable public func multiplied(by multiplier: UInt, adding addend: UInt) -> Self {
         var result = self
-        result.multiply(by: multiplicand, add: addend)
+        result.multiply(by: multiplier, add: addend)
         return result as Self
     }
 }

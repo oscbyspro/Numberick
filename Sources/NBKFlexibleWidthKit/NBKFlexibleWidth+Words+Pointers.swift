@@ -19,13 +19,13 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Details x Contiguous UInt Collection
     //=------------------------------------------------------------------------=
     
-    /// Grants unsafe access to the collection's contiguous storage.
+    /// Grants unsafe access to the words of this instance.
     @inlinable public func withUnsafeBufferPointer<T>(
     _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.storage.withUnsafeBufferPointer(body)
     }
     
-    /// Grants unsafe access to the collection's contiguous mutable storage.
+    /// Grants unsafe access to the mutable words of this instance.
     @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
     _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         defer{     self.storage.normalize() }
@@ -43,13 +43,13 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Details x Contiguous UInt Collection
     //=------------------------------------------------------------------------=
     
-    /// Grants unsafe access to the collection's contiguous storage.
+    /// Grants unsafe access to the words of this instance.
     @inlinable public func withUnsafeBufferPointer<T>(
     _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeBufferPointer(body)
     }
     
-    /// Grants unsafe access to the collection's contiguous mutable storage.
+    /// Grants unsafe access to the mutable words of this instance.
     @inlinable public mutating func withUnsafeMutableBufferPointer<T>(
     _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T {
         try self.elements.withUnsafeMutableBufferPointer(body)
@@ -59,7 +59,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
     // MARK: Details x Contiguous UInt Collection x Sub Sequence
     //=------------------------------------------------------------------------=
     
-    /// Grants unsafe access to the collection's contiguous storage in the given `range`.
+    /// Grants unsafe access to the words of this instance in the given `range`.
     ///
     /// ### Development
     ///
@@ -74,7 +74,7 @@ extension NBKFlexibleWidth.Magnitude.Storage {
         }
     }
     
-    /// Grants unsafe access to the collection's contiguous mutable storage in the given `range`.
+    /// Grants unsafe access to the mutable words of this instance in the given `range`.
     ///
     /// ### Development
     ///

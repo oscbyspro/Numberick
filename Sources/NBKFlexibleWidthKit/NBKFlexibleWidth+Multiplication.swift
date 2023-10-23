@@ -24,22 +24,22 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multipliedFullWidthUsingLongAlgorithm(by: rhs, adding: 0 as UInt)
+        lhs.multipliedUsingLongAlgorithm(by: rhs, adding: 0 as UInt)
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Long Multiplication
+// MARK: + Long Multiplication Algorithms
 //=----------------------------------------------------------------------------=
 
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Private
     //=------------------------------------------------------------------------=
     
     /// Performs long multiplication.
-    @inlinable func multipliedFullWidthUsingLongAlgorithm(by multiplier: Self, adding addend: UInt) -> Self {
+    @inlinable func multipliedUsingLongAlgorithm(by multiplier: Self, adding addend: UInt) -> Self {
         Self.uninitialized(count: self.count + multiplier.count) { pro in
             self.storage.withUnsafeBufferPointer { lhs in
                 multiplier.storage.withUnsafeBufferPointer { rhs in

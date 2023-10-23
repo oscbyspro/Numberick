@@ -27,6 +27,10 @@ extension NBKFlexibleWidth.Magnitude {
         lhs.subtracting(rhs, at: 0 as Int)
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Overflow
+    //=------------------------------------------------------------------------=
+    
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt) -> Bool {
         self.subtractReportingOverflow(other, at: 0 as Int)
     }
@@ -36,7 +40,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Index
     //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtract(_ other: UInt, at index: Int) {
@@ -49,6 +53,10 @@ extension NBKFlexibleWidth.Magnitude {
         precondition(!pvo.overflow, NBK.callsiteOverflowInfo())
         return pvo.partialValue as  Self
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations x Index x Overflow
+    //=------------------------------------------------------------------------=
     
     @_disfavoredOverload @inlinable public mutating func subtractReportingOverflow(_ other: UInt, at index: Int) -> Bool {
         //=--------------------------------------=

@@ -205,7 +205,7 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     NBKAssertElementsEqual(integer.words, words, file: file, line: line)
     integer.withUnsafeBufferPointer({        NBKAssertElementsEqual($0, words, file: file, line: line) })
-    integer.withUnsafeMutableBufferPointer({ NBKAssertElementsEqual($0, words, file: file, line: line) })
+    integer.withUnsafeMutableBufferPointer({ NBKAssertElementsEqual($0, words, file: file, line: line) })    
 }
 
 //=----------------------------------------------------------------------------=

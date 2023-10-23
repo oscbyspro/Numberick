@@ -16,7 +16,7 @@ import NBKCoreKit
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations
+    // MARK: Transformations x Overflow
     //=------------------------------------------------------------------------=
     
     @inlinable public mutating func divideReportingOverflow(by other: Self) -> Bool {
@@ -47,13 +47,13 @@ extension NBKFlexibleWidth.Magnitude {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Long Division
+// MARK: + Long Division Algorithms
 //=----------------------------------------------------------------------------=
 
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
+    // MARK: Transformations x Overflow x Private
     //=------------------------------------------------------------------------=
     
     /// Performs long division after some fast-path checks.

@@ -99,7 +99,7 @@ file: StaticString = #file, line: UInt = #line) {
     let pro = pro as? UIntXL
     else { return }
     //=------------------------------------------=
-    XCTAssertEqual(lhs.multipliedFullWidthUsingLongAlgorithm(by: rhs, adding: 0), pro, file: file, line: line)
+    XCTAssertEqual(lhs.multipliedUsingLongAlgorithm(by: rhs, adding: 0), pro, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
@@ -123,7 +123,7 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.multiplied(by: rhs, adding: add),                             pro, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: add); return lhs }(), pro, file: file, line: line)
     //=------------------------------------------=
-    XCTAssertEqual(lhs.multipliedFullWidthUsingLongAlgorithm(by: UIntXL(digit: rhs), adding: add), pro, file: file, line: line)
+    XCTAssertEqual(lhs.multipliedUsingLongAlgorithm(by: UIntXL(digit: rhs), adding: add), pro, file: file, line: line)
 }
 
 #endif
