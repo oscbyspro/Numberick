@@ -11,7 +11,6 @@
 * [NBKCoreKit](#nbkcorekit)
 * [NBKDoubleWidthKit](#nbkdoublewidthkit)
 * [NBKFlexibleWidthKit](#nbkflexiblewidthkit)
-* [NBKSignedKit](#nbksignedkit)
 * [Installation](#installation)
 * [Acknowledgements](#acknowledgements)
 
@@ -120,12 +119,6 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
 
-<a name="nbksignedkit"/>
-
-## [NBKSignedKit][FLX/D] ([Sources][SIG/S], [Tests][SIG/T], [Benchmarks][SIG/B])
-
-👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
-
 <a name="installation"/>
 
 ## Installation
@@ -182,17 +175,14 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
 [FLX/S]: Sources/NBKFlexibleWidthKit
-[SIG/S]: Sources/NBKSignedKit
 
 [COR/T]: Tests/NBKCoreKitTests
 [DBL/T]: Tests/NBKDoubleWidthKitTests
 [FLX/T]: Tests/NBKFlexibleWidthKitTests
-[SIG/T]: Tests/NBKSignedKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
 [FLX/B]: Tests/NBKFlexibleWidthKitBenchmarks
-[SIG/B]: Tests/NBKSignedKitBenchmarks
 
 <!-- Links x Miscellaneous -->
 

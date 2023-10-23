@@ -142,7 +142,7 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     /// ```
     ///
     @inlinable func withUnsafeBufferPointer<T>(
-    _   body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T
+    _ body: (UnsafeBufferPointer<UInt>) throws -> T) rethrows -> T
     
     /// Grants unsafe access to the mutable words of this instance.
     ///
@@ -169,7 +169,7 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     /// - Note: The words of this instance will be normalized after this operation.
     ///
     @inlinable mutating func withUnsafeMutableBufferPointer<T>(
-    _   body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T
+    _ body: (inout UnsafeMutableBufferPointer<UInt>) throws -> T) rethrows -> T
     
     /// Creates a new instance with unsafe access to its uninitialized words.
     ///

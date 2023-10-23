@@ -68,20 +68,6 @@
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKSignedKit"
-               BuildableName = "NBKSignedKit"
-               BlueprintName = "NBKSignedKit"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
             <TestPlanReference
                reference = "container:.swiftpm/Numberick.xctestplan">
             </TestPlanReference>
@@ -106,9 +92,6 @@
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKFlexibleWidthKit.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKSignedKit.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

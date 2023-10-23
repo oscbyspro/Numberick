@@ -14,11 +14,3 @@
 @_exported import NBKCoreKit
 @_exported import NBKDoubleWidthKit
 @_exported import NBKFlexibleWidthKit
-@_exported import NBKSignedKit
-
-//*============================================================================*
-// MARK: * NBK x Aliases
-//*============================================================================*
-
-/// A signed integer with a flexible-width magnitude.
-public typealias SIntXL = NBKSigned<UIntXL>
