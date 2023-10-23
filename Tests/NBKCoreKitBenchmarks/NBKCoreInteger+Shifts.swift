@@ -24,12 +24,12 @@ final class NBKCoreIntegerBenchmarksOnShiftsAsInt: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeft() {
+    func testBitShiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(by: rhs))
+            NBK.blackHole(lhs.bitShiftedLeft(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -39,12 +39,12 @@ final class NBKCoreIntegerBenchmarksOnShiftsAsInt: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRight() {
+    func testBitShiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(by: rhs))
+            NBK.blackHole(lhs.bitShiftedRight(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -63,12 +63,12 @@ final class NBKCoreIntegerBenchmarksOnShiftsAsUInt: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeft() {
+    func testBitShiftingLeft() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedLeft(by: rhs))
+            NBK.blackHole(lhs.bitShiftedLeft(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -78,12 +78,12 @@ final class NBKCoreIntegerBenchmarksOnShiftsAsUInt: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRight() {
+    func testBitShiftingRight() {
         var lhs = NBK.blackHoleIdentity(T(123))
         var rhs = NBK.blackHoleIdentity(T.bitWidth / 3)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs.bitshiftedRight(by: rhs))
+            NBK.blackHole(lhs.bitShiftedRight(by: rhs))
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }

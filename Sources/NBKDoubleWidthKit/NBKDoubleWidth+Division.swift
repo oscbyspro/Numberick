@@ -166,13 +166,13 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let minor = NBK.remainder(dividing: shift, by: NBK.PowerOf2(bitWidth: UInt.self))
         
         let top = shift.value.isZero ? High.zero : lhs.high &>> (High.bitWidth &- shift.value)
-        let lhs = lhs.bitshiftedLeft(major: major, minor: minor) as Self
-        let rhs = rhs.bitshiftedLeft(major: major, minor: minor) as Self
+        let lhs = lhs.bitShiftedLeft(major: major, minor: minor) as Self
+        let rhs = rhs.bitShiftedLeft(major: major, minor: minor) as Self
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide3212MSBUnchecked(NBK.Wide3(top, lhs.high, lhs.low), by: rhs)
-        return QR(Self(low: quotient), remainder.bitshiftedRight(major: major, minor: minor))
+        return QR(Self(low: quotient), remainder.bitShiftedRight(major: major, minor: minor))
     }
     
     //=------------------------------------------------------------------------=
@@ -225,20 +225,20 @@ extension NBKDoubleWidth where High == High.Magnitude {
         let major = NBK .quotient(dividing: shift, by: NBK.PowerOf2(bitWidth: UInt.self))
         let minor = NBK.remainder(dividing: shift, by: NBK.PowerOf2(bitWidth: UInt.self))
         
-        let lhs = lhs.bitshiftedLeft(major: major, minor: minor) as NBKDoubleWidth<Self>
-        let rhs = rhs.bitshiftedLeft(major: major, minor: minor) as Self
+        let lhs = lhs.bitShiftedLeft(major: major, minor: minor) as NBKDoubleWidth<Self>
+        let rhs = rhs.bitShiftedLeft(major: major, minor: minor) as Self
         //=--------------------------------------=
         // division: 3212 (normalized)
         //=--------------------------------------=
         if  lhs.high.high.isZero, rhs > Self(high: lhs.high.low, low: lhs.low.high) {
             let (quotient, remainder) = Self.divide3212MSBUnchecked(NBK.Wide3(lhs.high.low, lhs.low.high, lhs.low.low), by: rhs)
-            return QR(Self(low: quotient), remainder.bitshiftedRight(major: major, minor: minor))
+            return QR(Self(low: quotient), remainder.bitShiftedRight(major: major, minor: minor))
         }
         //=--------------------------------------=
         // division: 4222 (normalized)
         //=--------------------------------------=
         let (quotient, remainder) = Self.divide4222MSBUnchecked(lhs, by: rhs)
-        return QR(quotient, remainder.bitshiftedRight(major: major, minor: minor))
+        return QR(quotient, remainder.bitShiftedRight(major: major, minor: minor))
     }
     
     //=------------------------------------------------------------------------=

@@ -438,7 +438,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable mutating func bitshiftLeft(by distance: Int)
+    @inlinable mutating func bitShiftLeft(by distance: Int)
     
     /// Performs a left shift.
     ///
@@ -454,7 +454,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable func bitshiftedLeft(by distance: Int) -> Self
+    @inlinable func bitShiftedLeft(by distance: Int) -> Self
     
     /// Performs an un/signed right shift.
     ///
@@ -473,7 +473,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable mutating func bitshiftRight(by distance: Int)
+    @inlinable mutating func bitShiftRight(by distance: Int)
     
     /// Performs an un/signed right shift.
     ///
@@ -492,7 +492,7 @@ Digit: NBKFixedWidthInteger, Magnitude: NBKFixedWidthInteger, Magnitude.BitPatte
     /// - Parameters:
     ///   - distance: `0 <= distance < Self.bitWidth`
     ///
-    @inlinable func bitshiftedRight(by distance: Int) -> Self
+    @inlinable func bitShiftedRight(by distance: Int) -> Self
 }
 
 //=----------------------------------------------------------------------------=
@@ -671,22 +671,22 @@ extension NBKFixedWidthInteger {
     // MARK: Details x Shifts
     //=------------------------------------------------------------------------=
     
-    @inlinable public mutating func bitshiftLeft(by distance: Int) {
+    @inlinable public mutating func bitShiftLeft(by distance: Int) {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &<<= distance
     }
     
-    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
+    @inlinable public func bitShiftedLeft(by distance: Int) -> Self {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &<< distance
     }
     
-    @inlinable public mutating func bitshiftRight(by distance: Int) {
+    @inlinable public mutating func bitShiftRight(by distance: Int) {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         self &>>= distance
     }
     
-    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
+    @inlinable public func bitShiftedRight(by distance: Int) -> Self {
         precondition(0 ..< self.bitWidth ~= distance, NBK.callsiteOutOfBoundsInfo())
         return self &>> distance
     }

@@ -20,7 +20,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func <<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeftSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
+        lhs.bitShiftLeftSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
     
     @inlinable public static func <<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -28,7 +28,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftLeft(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
+        lhs.bitShiftLeft(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
     }
     
     @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -44,12 +44,12 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public mutating func bitshiftLeftSmart(by distance: Int) {
+    @inlinable public mutating func bitShiftLeftSmart(by distance: Int) {
         let size = distance.magnitude as UInt
         switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
-        case (true,  true ): self.bitshiftLeft (by: Int(bitPattern: size))
+        case (true,  true ): self.bitShiftLeft (by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: false)
-        case (false, true ): self.bitshiftRight(by: Int(bitPattern: size))
+        case (false, true ): self.bitShiftRight(by: Int(bitPattern: size))
         case (false, false): self = Self(repeating: self.isLessThanZero) }
     }
     
@@ -58,8 +58,8 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public func bitshiftedLeftSmart(by distance: Int) -> Self {
-        var result = self; result.bitshiftLeftSmart(by: distance); return result
+    @inlinable public func bitShiftedLeftSmart(by distance: Int) -> Self {
+        var result = self; result.bitShiftLeftSmart(by: distance); return result
     }
     
     /// Performs a left shift.
@@ -67,10 +67,10 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(@NBK.ZeroOrMore by distance: Int) {
+    @inlinable public mutating func bitShiftLeft(@NBK.ZeroOrMore by distance: Int) {
         let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        return self.bitshiftLeft(major: major, minor: minor)
+        return self.bitShiftLeft(major: major, minor: minor)
     }
     
     /// Performs a left shift.
@@ -78,8 +78,8 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public func bitshiftedLeft(by distance: Int) -> Self {
-        var result = self; result.bitshiftLeft(by: distance); return result
+    @inlinable public func bitShiftedLeft(by distance: Int) -> Self {
+        var result = self; result.bitShiftLeft(by: distance); return result
     }
     
     /// Performs a left shift.
@@ -88,13 +88,13 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int, minor: Int) {
+    @inlinable public mutating func bitShiftLeft(major: Int, minor: Int) {
         //=--------------------------------------=
         if  minor.isZero {
-            return self.bitshiftLeft(major: major)
+            return self.bitShiftLeft(major: major)
         }
         //=--------------------------------------=
-        NBK.SBI.bitshiftLeftCodeBlock(&self, environment: 0 as UInt, major: major, minorAtLeastOne: minor)
+        NBK.SBI.bitShiftLeftCodeBlock(&self, environment: 0 as UInt, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift.
@@ -103,8 +103,8 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitshiftedLeft(major: Int, minor: Int) -> Self {
-        var result = self; result.bitshiftLeft(major: major, minor: minor); return result
+    @inlinable public func bitShiftedLeft(major: Int, minor: Int) -> Self {
+        var result = self; result.bitShiftLeft(major: major, minor: minor); return result
     }
         
     /// Performs a left shift.
@@ -112,11 +112,11 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitshiftLeft(major: Int) {
+    @inlinable public mutating func bitShiftLeft(major: Int) {
         //=--------------------------------------=
         if  major.isZero { return }
         //=--------------------------------------=
-        NBK.SBI.bitshiftLeft(&self, environment: 0 as UInt, majorAtLeastOne: major)
+        NBK.SBI.bitShiftLeft(&self, environment: 0 as UInt, majorAtLeastOne: major)
     }
     
     /// Performs a left shift.
@@ -124,8 +124,8 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitshiftedLeft(major: Int) -> Self {
-        var result = self; result.bitshiftLeft(major: major); return result
+    @inlinable public func bitShiftedLeft(major: Int) -> Self {
+        var result = self; result.bitShiftLeft(major: major); return result
     }
 }
 
@@ -140,7 +140,7 @@ extension NBKDoubleWidth {
     //=------------------------------------------------------------------------=
     
     @inlinable public static func >>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRightSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
+        lhs.bitShiftRightSmart(by: NBK.initOrBitCast(clamping: rhs, as: Int.self))
     }
     
     @inlinable public static func >>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -148,7 +148,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitshiftRight(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
+        lhs.bitShiftRight(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
     }
     
     @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -164,12 +164,12 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public mutating func bitshiftRightSmart(by distance: Int) {
+    @inlinable public mutating func bitShiftRightSmart(by distance: Int) {
         let size = distance.magnitude as UInt
         switch (distance >= 0, size < UInt(bitPattern: self.bitWidth)) {
-        case (true,  true ): self.bitshiftRight(by: Int(bitPattern: size))
+        case (true,  true ): self.bitShiftRight(by: Int(bitPattern: size))
         case (true,  false): self = Self(repeating: self.isLessThanZero)
-        case (false, true ): self.bitshiftLeft (by: Int(bitPattern: size))
+        case (false, true ): self.bitShiftLeft (by: Int(bitPattern: size))
         case (false, false): self = Self(repeating: false) }
     }
     
@@ -178,8 +178,8 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `Int.min <= distance <= Int.max`
     ///
-    @inlinable public func bitshiftedRightSmart(by distance: Int) -> Self {
-        var result = self; result.bitshiftRightSmart(by: distance); return result
+    @inlinable public func bitShiftedRightSmart(by distance: Int) -> Self {
+        var result = self; result.bitShiftRightSmart(by: distance); return result
     }
     
     /// Performs an un/signed right shift.
@@ -187,10 +187,10 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(@NBK.ZeroOrMore by distance: Int) {
+    @inlinable public mutating func bitShiftRight(@NBK.ZeroOrMore by distance: Int) {
         let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        return self.bitshiftRight(major: major, minor: minor)
+        return self.bitShiftRight(major: major, minor: minor)
     }
     
     /// Performs an un/signed right shift.
@@ -198,8 +198,8 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
-    @inlinable public func bitshiftedRight(by distance: Int) -> Self {
-        var result = self; result.bitshiftRight(by: distance); return result
+    @inlinable public func bitShiftedRight(by distance: Int) -> Self {
+        var result = self; result.bitShiftRight(by: distance); return result
     }
     
     /// Performs an un/signed right shift.
@@ -208,14 +208,14 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int, minor: Int) {
+    @inlinable public mutating func bitShiftRight(major: Int, minor: Int) {
         //=--------------------------------------=
         if  minor.isZero {
-            return self.bitshiftRight(major: major)
+            return self.bitShiftRight(major: major)
         }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.SBI.bitshiftRightCodeBlock(&self, environment: environment, major: major, minorAtLeastOne: minor)
+        NBK.SBI.bitShiftRightCodeBlock(&self, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs an un/signed right shift.
@@ -224,8 +224,8 @@ extension NBKDoubleWidth {
     ///   - major: `0 <= major < self.endIndex`
     ///   - minor: `0 <= minor < UInt.bitWidth`
     ///
-    @inlinable public func bitshiftedRight(major: Int, minor: Int) -> Self {
-        var result = self; result.bitshiftRight(major: major, minor: minor); return result
+    @inlinable public func bitShiftedRight(major: Int, minor: Int) -> Self {
+        var result = self; result.bitShiftRight(major: major, minor: minor); return result
     }
         
     /// Performs an un/signed right shift.
@@ -233,12 +233,12 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public mutating func bitshiftRight(major: Int) {
+    @inlinable public mutating func bitShiftRight(major: Int) {
         //=--------------------------------------=
         if  major.isZero { return }
         //=--------------------------------------=
         let environment = UInt(repeating: self.isLessThanZero)
-        NBK.SBI.bitshiftRight(&self, environment: environment, majorAtLeastOne: major)
+        NBK.SBI.bitShiftRight(&self, environment: environment, majorAtLeastOne: major)
     }
     
     /// Performs an un/signed right shift.
@@ -246,7 +246,7 @@ extension NBKDoubleWidth {
     /// - Parameters:
     ///   - major: `0 <= major < self.endIndex`
     ///
-    @inlinable public func bitshiftedRight(major: Int) -> Self {
-        var result = self; result.bitshiftRight(major: major); return result
+    @inlinable public func bitShiftedRight(major: Int) -> Self {
+        var result = self; result.bitShiftRight(major: major); return result
     }
 }

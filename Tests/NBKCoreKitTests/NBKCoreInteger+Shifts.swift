@@ -30,7 +30,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Left
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingLeftByBits() {
+    func testBitShiftingLeftByBits() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertShiftLeft(~T(0), 0, ~T(0))
             NBKAssertShiftLeft(~T(0), 1, ~T(1))
@@ -47,7 +47,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Right
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingRightByBits() {
+    func testBitShiftingRightByBits() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertShiftRight(T(7), 0, T(7))
             NBKAssertShiftRight(T(7), 1, T(3))
@@ -60,7 +60,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
         }
     }
     
-    func testBitshiftingRightIsSignedOrUnsigned() {
+    func testBitShiftingRightIsSignedOrUnsigned() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertShiftRight(T(repeating: true), T.bitWidth, T(repeating: T.isSigned))
         }
@@ -74,7 +74,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
     // MARK: Tests x Miscellaneous
     //=------------------------------------------------------------------------=
     
-    func testBitshiftingIsSmart() {
+    func testBitShiftingIsSmart() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(4) <<  1, T(8))
             XCTAssertEqual(T(4) >> -1, T(8))
@@ -88,7 +88,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
         }
     }
     
-    func testBitshiftingByMinDistanceDoesNotTrap() {
+    func testBitShiftingByMinDistanceDoesNotTrap() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             XCTAssertEqual(T(repeating: true) << Int.min, T(repeating: T.isSigned))
             XCTAssertEqual(T(repeating: true) >> Int.min, T(repeating: false))
@@ -99,7 +99,7 @@ final class NBKCoreIntegerTestsOnShifts: XCTestCase {
         }
     }
     
-    func testBitshiftingByMaskingIsEquivalentToBitshiftingModuloBitWidth() {
+    func testBitShiftingByMaskingIsEquivalentToBitShiftingModuloBitWidth() {
         func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
             NBKAssertShiftLeftByMasking(~T(0), 0 + T.bitWidth, ~T(0))
             NBKAssertShiftLeftByMasking(~T(0), 0 - T.bitWidth, ~T(0))
@@ -146,8 +146,8 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
-        XCTAssertEqual(lhs.bitshiftedLeft(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedLeft(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftLeft(by: rhs); return lhs }(), result, file: file, line: line)
     }
 }
 
@@ -167,8 +167,8 @@ file: StaticString = #file, line: UInt = #line) {
     }
     //=------------------------------------------=
     if  0 ..< lhs.bitWidth ~= rhs {
-        XCTAssertEqual(lhs.bitshiftedRight(by: rhs), result, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs.bitshiftRight(by: rhs); return lhs }(), result, file: file, line: line)
+        XCTAssertEqual(lhs.bitShiftedRight(by: rhs), result, file: file, line: line)
+        XCTAssertEqual({ var lhs = lhs; lhs.bitShiftRight(by: rhs); return lhs }(), result, file: file, line: line)
     }
 }
 

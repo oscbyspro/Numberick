@@ -27,7 +27,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inlinable public static func bitshiftLeft(
+    @inlinable public static func bitShiftLeft(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
         var destination = base.endIndex as Base.Index
@@ -70,9 +70,9 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.count`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public static func bitshiftLeft(
+    @inlinable public static func bitShiftLeft(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        self.bitshiftLeftCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
+        self.bitShiftLeftCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a left shift, assuming the `base` is ordered from least to most significant.
@@ -87,7 +87,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///
     /// `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public static func bitshiftLeftCodeBlock(
+    @inline(__always) @inlinable public static func bitShiftLeftCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
         precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
@@ -139,7 +139,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///   - environment: The element used to fill the void.
     ///   - major: `1 <= major < base.count`
     ///
-    @inlinable public static func bitshiftRight(
+    @inlinable public static func bitShiftRight(
     _ base: inout Base, environment: Base.Element, majorAtLeastOne major: Int) {
         //=--------------------------------------=
         var destination = base.startIndex as Base.Index
@@ -181,9 +181,9 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///   - major: `0 <= major < base.count`
     ///   - minor: `1 <= minor < Base.Element.bitWidth`
     ///
-    @inlinable public static func bitshiftRight(
+    @inlinable public static func bitShiftRight(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
-        Self.bitshiftRightCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
+        Self.bitShiftRightCodeBlock(&base, environment: environment, major: major, minorAtLeastOne: minor)
     }
     
     /// Performs a right shift, assuming the `base` is ordered from least to most significant.
@@ -198,7 +198,7 @@ extension NBK.StrictBinaryInteger where Base: MutableCollection {
     ///
     /// `@inline(always)` is required for `NBKDoubleWidth` performance reasons.
     ///
-    @inline(__always) @inlinable public static func bitshiftRightCodeBlock(
+    @inline(__always) @inlinable public static func bitShiftRightCodeBlock(
     _ base: inout Base, environment: Base.Element, major: Int, minorAtLeastOne minor: Int) {
         //=--------------------------------------=
         precondition(1 <= minor && minor < Base.Element.bitWidth, NBK.callsiteOutOfBoundsInfo())
