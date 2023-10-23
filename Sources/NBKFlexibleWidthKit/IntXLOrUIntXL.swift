@@ -26,6 +26,18 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     @inlinable static var one:  Self { get }
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Words
+    //=------------------------------------------------------------------------=
+    
+    /// Creates a new instance from the given collection of `words`.
+    ///
+    /// The `words` are interpreted as a binary integer with the same signedness.
+    ///
+    /// - Note: This method returns zero when `words` is empty.
+    ///
+    @inlinable init(words: some RandomAccessCollection<UInt>)
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Comparisons
     //=------------------------------------------------------------------------=
  
@@ -111,7 +123,13 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     
     /// Updates this instance in-place so it equals `value`.
     ///
-    /// - Note: This operation is much more efficent than allocating new storage.
+    /// - Note: This operation may be more efficient than allocating new storage.
+    ///
+    @inlinable mutating func update(_ value: Self)
+    
+    /// Updates this instance in-place so it equals `value`.
+    ///
+    /// - Note: This operation may be more efficient than allocating new storage.
     ///
     @inlinable mutating func update(_ value: Digit)
     

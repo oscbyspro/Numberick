@@ -19,7 +19,11 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
+    @inlinable public mutating func update(_ value: Self) {
+        self.storage.elements.replaceSubrange(self.storage.elements.indices, with: value.storage.elements)
+    }
+    
     @inlinable public mutating func update(_ value: Digit) {
-        self.storage.normalize(update: value)
+        self.storage.elements.replaceSubrange(self.storage.elements.indices, with: CollectionOfOne(value))
     }
 }

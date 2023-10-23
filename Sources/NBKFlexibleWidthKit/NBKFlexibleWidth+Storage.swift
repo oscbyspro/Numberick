@@ -65,8 +65,4 @@ extension NBKFlexibleWidth.Magnitude.Storage {
             self.elements.removeLast()
         }
     }
-    
-    @inlinable mutating func normalize(update value: UInt) {
-        self.elements.replaceSubrange(self.elements.indices, with: CollectionOfOne(value))
-    }
 }
