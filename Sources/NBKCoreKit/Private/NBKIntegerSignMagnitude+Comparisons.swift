@@ -53,15 +53,15 @@ extension NBK.IntegerSignMagnitude {
     ///
     @inlinable public static func compare<Other: NBKUnsignedInteger>(
     _   lhs: Components, to rhs: NBK.IntegerSignMagnitude<Other>.Components, using compare: (Magnitude, Other) -> Int) -> Int {
-        let absoluteValue:  Int
+        let positive: Int
         
         if  lhs.sign == rhs.sign {
-            absoluteValue = compare(lhs.magnitude, rhs.magnitude)
+            positive = compare(lhs.magnitude,  rhs.magnitude)
         }   else {
-            absoluteValue = lhs.magnitude.isZero && rhs.magnitude.isZero ? 0 : 1 as Int
+            positive = lhs.magnitude.isZero && rhs.magnitude.isZero ? 0 : 1
         }
         
-        Swift.assert(-1 <= absoluteValue && absoluteValue <= 1)
-        return lhs.sign == Sign.plus ? absoluteValue : absoluteValue.twosComplement()
+        Swift.assert(-1 <= positive && positive <= 1)
+        return lhs.sign == Sign.plus ? positive : positive.twosComplement()
     }
 }
