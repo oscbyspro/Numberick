@@ -37,6 +37,9 @@
       }
     },
     {
+      "skippedTests" : [
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/test7RaisedToPrime777()"
+      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "NBKFlexibleWidthKitBenchmarks",

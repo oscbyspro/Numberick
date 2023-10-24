@@ -33,7 +33,7 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     ///
     /// The `words` are interpreted as a binary integer with the same signedness.
     ///
-    /// - Note: This method returns zero when `words` is empty.
+    /// - Note: This method returns zero when the given collection of `words` is empty.
     ///
     @inlinable init(words: some RandomAccessCollection<UInt>)
     
@@ -80,6 +80,16 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     @inlinable func subtracting(_ other: Self, at index: Int) -> Self
     
     @_disfavoredOverload @inlinable func subtracting(_ other: Digit, at index: Int) -> Self
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Details x Exponentiation
+    //=------------------------------------------------------------------------=
+    
+    /// Returns the `power` of `self` raised to `exponent`.
+    ///
+    /// - Parameter exponent: A value greater than or equal to zero.
+    ///
+    @inlinable func power(_ exponent: Int) -> Self
     
     //=------------------------------------------------------------------------=
     // MARK: Details x Shifts
