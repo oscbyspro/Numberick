@@ -122,7 +122,7 @@ final class NBKFlexibleWidthTestsOnExponentiationByPrimesAsUIntXL: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    ///  https://www.wolframalpha.com/input?i2d=true&i=Power%5B2%2C1339%5D
+    ///  https://www.wolframalpha.com/input?i2d=true&i=Power%5B2%2C1399%5D
     func test2RaisedToPrime222() {
         NBKAssertExponentiation(T(2), Int(1399), T("""
         0000000000000000000000000013834514851379060073245971093437442064\
