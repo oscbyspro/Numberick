@@ -64,7 +64,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         self.storage.resize(minCount: index + other.storage.elements.count)
         
-        let overflow: Bool = self.storage.withUnsafeMutableBufferPointer(in: index...) { slice in
+        let overflow = self.storage.withUnsafeMutableBufferPointer(in: index...) { slice in
             other.storage.withUnsafeBufferPointer { other in
                 NBK.SUISS.decrement(&slice, by: other).overflow
             }

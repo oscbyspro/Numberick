@@ -23,17 +23,15 @@ extension NBKFlexibleWidth.Magnitude {
     ///
     /// - Parameter exponent: A value greater than or equal to zero.
     ///
-    /// [algorithm]: https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-    ///
     @inlinable public func power(_ exponent: Int) -> Self {
         //=--------------------------------------=
         if      exponent == 0 { return Self.one }
         else if exponent == 1 { return self     }
         //=--------------------------------------=
-        precondition(exponent > 1)
-        var power = Self(digit: 1)
+        Swift.assert(exponent > 001)
+        var power = Self(digit: 001)
         var multiplier: Self = self
-        var pattern = UInt(bitPattern: exponent)
+        var pattern = UInt(exponent)
         //=--------------------------------------=
         repeat {
             
