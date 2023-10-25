@@ -62,9 +62,9 @@ The two's complement representation of -1 is an infinite sequence of 1s.
 
 ### 🏰 Fixed-Width Integer
 
-Each specialization of ``NBKDoubleWidth`` has a fixed bit width, and so do 
-its halves. This design comes with a suite of overflow and bit-casting 
-operations. The even split also lends itself to divide-and-conquer strategies.
+Each ``NBKDoubleWidth`` has a fixed bit width, and so do its halves. 
+This design comes with a suite of overflow and bit-casting operations. 
+The even split also lends itself to divide-and-conquer strategies.
 
 ### 📖 Trivial UInt Collection
 
