@@ -29,7 +29,7 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMultiplied() {
+    func testMultiplying() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
         var rhs = NBK.blackHoleIdentity(T(x64:[ 1,  2,  3,  4] as X))
         
@@ -44,7 +44,7 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
     
-    func testMultipliedByDigit() {
+    func testMultiplyingByDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
@@ -52,6 +52,20 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
             NBK.blackHole(lhs * rhs)
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Square
+    //=------------------------------------------------------------------------=
+    
+    func testMultiplyingBySquaring() {
+        var base = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
+        
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(base.squared())
+            NBK.blackHoleInoutIdentity(&base)
+            NBK.blackHoleInoutIdentity(&base)
         }
     }
 }

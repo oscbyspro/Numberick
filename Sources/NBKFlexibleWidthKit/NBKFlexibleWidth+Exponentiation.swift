@@ -36,14 +36,14 @@ extension NBKFlexibleWidth.Magnitude {
         repeat {
             
             if  pattern.isOdd {
-                power  *= multiplier
+                power *= multiplier
             }
             
-            pattern  &>>= 0000000001
-            multiplier *= multiplier
+            pattern &>>= 000001
+            multiplier.square()
             
         }   while !pattern.isZero
         //=--------------------------------------=
-        return power as Self as Self as Self
+        return power as Self as Self as Self as Self
     }
 }

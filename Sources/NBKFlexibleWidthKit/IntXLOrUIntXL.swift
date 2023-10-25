@@ -82,6 +82,16 @@ public protocol IntXLOrUIntXL: NBKBinaryInteger, ExpressibleByStringLiteral wher
     @_disfavoredOverload @inlinable func subtracting(_ other: Digit, at index: Int) -> Self
     
     //=------------------------------------------------------------------------=
+    // MARK: Details x Multiplication
+    //=------------------------------------------------------------------------=
+    
+    /// Forms the square product of this value.
+    @inlinable mutating func square()
+    
+    /// Returns the square product of this value.
+    @inlinable func squared() -> Self
+    
+    //=------------------------------------------------------------------------=
     // MARK: Details x Exponentiation
     //=------------------------------------------------------------------------=
     

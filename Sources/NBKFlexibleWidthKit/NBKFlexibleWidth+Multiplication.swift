@@ -24,24 +24,24 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        lhs.multipliedUsingLongAlgorithm(by: rhs, adding: 0 as UInt)
+        Self.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: 0 as UInt)        
     }
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Long Multiplication Algorithms
+// MARK: + Algorithms
 //=----------------------------------------------------------------------------=
 
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Private
+    // MARK: Transformations x Long Multiplication
     //=------------------------------------------------------------------------=
     
-    /// Performs long multiplication.
-    @inlinable func multipliedUsingLongAlgorithm(by multiplier: Self, adding addend: UInt) -> Self {
-        Self.uninitialized(count: self.count + multiplier.count) { pro in
-            self.storage.withUnsafeBufferPointer { lhs in
+    /// Returns the product of `multiplicand` and `multiplier` plus `addend` by performing long multiplication.
+    @inlinable static func productByLongAlgorithm(multiplying multiplicand: Self, by multiplier: Self, adding addend: UInt) -> Self {
+        Self.uninitialized(count: multiplicand.count + multiplier.count) { pro in
+            multiplicand.storage.withUnsafeBufferPointer   { lhs in
                 multiplier.storage.withUnsafeBufferPointer { rhs in
                     var pointer = pro.baseAddress!
                     //=--------------------------=
