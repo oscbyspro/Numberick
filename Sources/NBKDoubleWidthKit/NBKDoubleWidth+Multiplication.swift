@@ -78,7 +78,10 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
+    /// ### Order of operations
+    ///
+    /// The order of operations matters a lot, so don't reorder it without a profiler.
+    ///
     @inlinable func multipliedReportingOverflow(by other: Self) -> PVO<Self> {
         var ax = self.low .multipliedFullWidth(by: other.low)
         let ay = self.low .multipliedReportingOverflow(by: other.high)
@@ -97,8 +100,6 @@ extension NBKDoubleWidth where High == High.Magnitude {
     // MARK: Transformations x Full Width
     //=------------------------------------------------------------------------=
     
-    /// An adaptation of Anatoly Karatsuba's multiplication algorithm.
-    ///
     /// ### Order of operations
     ///
     /// The order of operations matters a lot, so don't reorder it without a profiler.
