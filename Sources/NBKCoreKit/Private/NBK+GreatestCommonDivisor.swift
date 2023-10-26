@@ -26,12 +26,11 @@ extension NBK {
     @inlinable public static func greatestCommonDivisorByBinaryAlgorithm<T>(
     of  lhs: T, and rhs: T) -> T.Magnitude where T: NBKBinaryInteger {
         //=--------------------------------------=
-        if  lhs.isZero { return rhs.magnitude }
-        if  rhs.isZero { return lhs.magnitude }
-        //=--------------------------------------=
-        var lhs: T.Magnitude =  lhs.magnitude
-        var rhs: T.Magnitude =  rhs.magnitude
-        //=--------------------------------------=
+        var lhs = lhs.magnitude as  T.Magnitude
+        if  rhs.isZero { return lhs }
+        var rhs = rhs.magnitude as  T.Magnitude
+        if  lhs.isZero { return rhs }
+        
         let lhsShift: Int = lhs.trailingZeroBitCount
         let rhsShift: Int = rhs.trailingZeroBitCount
         //=--------------------------------------=
@@ -48,7 +47,7 @@ extension NBK {
             }
         }
         
-        lhs >>= Swift.min(lhsShift, rhsShift)
+        lhs <<= Swift.min(lhsShift, rhsShift)
         return  lhs as T.Magnitude
     }
 }
