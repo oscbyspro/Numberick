@@ -50,7 +50,8 @@ extension NBK {
                 buffer.baseAddress!.deinitialize(count: count)
             }
             //=----------------------------------=
-            var copy = buffer; return perform(&copy)
+            var swappable: UnsafeMutableBufferPointer = buffer
+            return perform(&swappable) // replacing it is fine
         }
     }
 }

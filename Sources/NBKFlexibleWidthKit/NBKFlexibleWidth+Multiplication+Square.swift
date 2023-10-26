@@ -54,7 +54,7 @@ extension NBKFlexibleWidth.Magnitude {
                 var carry: UInt = addend
                 //=--------------------------=
                 var baseIndex = base.startIndex; while baseIndex < base.endIndex {
-                    let multiplier = base[baseIndex]
+                    let multiplier = base[ baseIndex]
                     let productIndex = 2 * baseIndex
                     base.formIndex(after: &baseIndex)
                     
@@ -66,9 +66,9 @@ extension NBKFlexibleWidth.Magnitude {
                     
                     index = productIndex // partially double non-diagonal products
                     
-                    NBK.SUISS.multiply(&product, 
-                    by:  000002,
-                    add: &carry, at: &index, upTo: productIndex + 2)
+                    NBK.SUISS.multiply(
+                    &product, by: 00002,
+                    add: &carry, from: &index, to: productIndex + 2)
                     
                     index = productIndex // add this iteration's diagonal product
                     

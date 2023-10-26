@@ -22,32 +22,35 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Multiplies `base` by `multiplier` then adds `digit`.
     ///
-    /// - Returns: The `low` and `high` product: (high: `return`, low: `base`).
+    /// - Returns: The `low` product is formed in `base[index..<limit]` and the `high` product is returned in one element.
     ///
     @inlinable public static func multiply(
     _   base: inout Base, by multiplier: Base.Element, add digit: Base.Element) -> Base.Element {
         //=--------------------------------------=
         var carry: Base.Element = digit
+        var index: Base.Index = base.startIndex
         //=--------------------------------------=
-        self.multiply(&base, by: multiplier, add: &carry)
+        self.multiply(&base, by: multiplier, add: &carry, from: &index, to: base.endIndex)
         //=--------------------------------------=
-        return carry as Base.Element as Base.Element
+        return carry as Base.Element
     }
     
     //=------------------------------------------------------------------------=
     // MARK: Transformations x Inout
     //=------------------------------------------------------------------------=
     
-    /// Multiplies `base` by `multiplier` then adds `digit`.
+    /// Multiplies `base` by `multiplier` then adds `digit` from `index` to `limit`.
     ///
-    /// - Returns: The `low` and `high` product: (high: `digit`, low: `base`).
+    /// - Returns: The `low` product is formed in `base[index..<limit]` and the `high` product is returned in one element.
     ///
     @inlinable public static func multiply(
-    _   base: inout Base, by multiplier: Base.Element, add digit: inout Base.Element) {
+    _   base: inout Base, by multiplier: Base.Element, add digit: inout Base.Element, from index: inout Base.Index, to limit: Base.Index) {
         //=--------------------------------------=
-        var index: Base.Index = base.startIndex
+        Swift.assert(index >= base.startIndex)
+        Swift.assert(index <= limit)
+        Swift.assert(limit <= base.endIndex  )
         //=--------------------------------------=
-        forwards: while index < base.endIndex {
+        forwards: while index < limit {
             var wide = base[index].multipliedFullWidth(by: multiplier)
             wide.high &+= Base.Element(bit: wide.low.addReportingOverflow(digit))
             (digit, base[index]) = (wide)

@@ -208,7 +208,7 @@ extension NBK.PowerOf2 {
     ///
     /// - Note: All core integer bit widths are powers of 2.
     ///
-    @inlinable public init<T>(bitWidth: T.Type) where T: NBKCoreInteger, Value: NBKCoreInteger<UInt>  {
+    @inlinable public init<T>(bitWidth: T.Type) where T: NBKCoreInteger, Value: NBKCoreInteger<UInt> {
         self.init(unchecked: Value(bitPattern: T.bitWidth))
     }
 }

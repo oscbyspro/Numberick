@@ -14,6 +14,9 @@
 /// A high and a low value.
 public typealias HL<H,L> = (high: H, low: L)
 
+/// An index and an overflow indicator.
+public typealias IO<I> = (index: I, overflow: Bool)
+
 /// A low and a high value.
 public typealias LH<L,H> = (low: L, high: H)
 

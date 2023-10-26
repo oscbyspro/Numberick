@@ -24,9 +24,6 @@
     /// The sign of a numeric value.
     public typealias Sign = FloatingPointSign
     
-    /// An index and an overflow indicator.
-    public typealias IO<I> = (index: I, overflow: Bool)
-    
     //=------------------------------------------------------------------------=
     // MARK: Aliases x Tuples
     //=------------------------------------------------------------------------=
