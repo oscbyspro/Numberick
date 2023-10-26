@@ -8,10 +8,10 @@
 //=----------------------------------------------------------------------------=
 
 //*============================================================================*
-// MARK: * NBK x Greatest Common Divisor
+// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor
 //*============================================================================*
 
-extension NBK {
+extension NBK.ProperBinaryInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities
@@ -21,28 +21,39 @@ extension NBK {
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/binary_GCD_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByBinaryAlgorithm<T>(
-    of  lhs: T, and rhs: T) -> T.Magnitude where T: NBKBinaryInteger {
-        self.greatestCommonDivisorByBinaryAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
+    @inlinable public static func greatestCommonDivisorByBinaryAlgorithm(
+    of lhs: Integer, and rhs: Integer) -> Integer.Magnitude {
+        NBK.PUI.greatestCommonDivisorByBinaryAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x Unsigned
+//*============================================================================*
+
+extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+
     /// Finds the GCD of `lhs` and `rhs` by using [this binary algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/binary_GCD_algorithm
     ///
     /// - TODO: Use `bitShift(...)` methods if/when NBKBinaryInteger...
     ///
-    @inlinable public static func greatestCommonDivisorByBinaryAlgorithm<T>(
-    of  lhs: T, and rhs: T) -> T where T: NBKUnsignedInteger {
+    @inlinable public static func greatestCommonDivisorByBinaryAlgorithm(
+    of  lhs: Integer, and rhs: Integer) -> Integer {
         //=--------------------------------------=
         if  rhs.isZero { return lhs }
         if  lhs.isZero { return rhs }
         //=--------------------------------------=
-        let lhsShift: Int = lhs.trailingZeroBitCount
-        let rhsShift: Int = rhs.trailingZeroBitCount
+        let lhsShift = lhs.trailingZeroBitCount as Int
+        let rhsShift = rhs.trailingZeroBitCount as Int
         //=--------------------------------------=
-        var lhs: T = lhs >> lhsShift
-        var rhs: T = rhs >> rhsShift
+        var lhs: Integer = lhs >> lhsShift
+        var rhs: Integer = rhs >> rhsShift
         
         while   lhs  != rhs {
             if  lhs   < rhs {
@@ -55,6 +66,6 @@ extension NBK {
         }
         
         lhs <<= Swift.min(lhsShift, rhsShift)
-        return  lhs as T.Magnitude
+        return  lhs as Integer.Magnitude
     }
 }

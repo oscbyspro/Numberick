@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Greatest Common Divisor
+// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor
 //*============================================================================*
 
-final class NBKTestsOnGreatestCommonDivisor: XCTestCase {
+final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -84,20 +84,22 @@ final class NBKTestsOnGreatestCommonDivisor: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Greatest Common Divisor x Assertions
+// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x Assertions
 //*============================================================================*
 
 private func NBKAssertGreatestCommonDivisor<T: NBKBinaryInteger>(
 _ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    let binary = NBK.ProperBinaryInteger<T>.greatestCommonDivisorByBinaryAlgorithm(of:and:)
+    //=------------------------------------------=
     func with(_ lhs: T, _ rhs: T, _ gcd: T.Magnitude) {
         brr: do {
-            XCTAssertEqual(NBK.greatestCommonDivisorByBinaryAlgorithm(of: 0 + lhs, and: 0 + rhs), gcd, file: file, line: line)
+            XCTAssertEqual(binary(0 + lhs, 0 + rhs), gcd, file: file, line: line)
         };  if T.isSigned {
-            XCTAssertEqual(NBK.greatestCommonDivisorByBinaryAlgorithm(of: 0 + lhs, and: 0 - rhs), gcd, file: file, line: line)
-            XCTAssertEqual(NBK.greatestCommonDivisorByBinaryAlgorithm(of: 0 - lhs, and: 0 + rhs), gcd, file: file, line: line)
-            XCTAssertEqual(NBK.greatestCommonDivisorByBinaryAlgorithm(of: 0 - lhs, and: 0 - rhs), gcd, file: file, line: line)
+            XCTAssertEqual(binary(0 + lhs, 0 - rhs), gcd, file: file, line: line)
+            XCTAssertEqual(binary(0 - lhs, 0 + rhs), gcd, file: file, line: line)
+            XCTAssertEqual(binary(0 - lhs, 0 - rhs), gcd, file: file, line: line)
         }
     }
     //=------------------------------------------=

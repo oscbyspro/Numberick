@@ -54,6 +54,27 @@
     ///
     /// - Warning: Do not use this namespace outside of `Numberick` development.
     ///
+    public typealias PBI<Integer> = NBK.ProperBinaryInteger<Integer>
+    where Integer: NBKBinaryInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias PSI<Integer> = NBK.ProperBinaryInteger<Integer>
+    where Integer: NBKBinaryInteger & NBKSignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
+    public typealias PUI<Integer> = NBK.ProperBinaryInteger<Integer>
+    where Integer: NBKBinaryInteger & NBKUnsignedInteger
+    
+    /// A namespace for `Numberick` development.
+    ///
+    /// - Warning: Do not use this namespace outside of `Numberick` development.
+    ///
     public typealias SBI<Base> = NBK.StrictBinaryInteger<Base>
     where Base: RandomAccessCollection, Base.Element: NBKCoreInteger & NBKUnsignedInteger
 
