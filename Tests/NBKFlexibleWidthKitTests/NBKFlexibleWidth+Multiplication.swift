@@ -106,7 +106,8 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let product = product as? UIntXL else { return }
     //=------------------------------------------=
-    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: 0), product, file: file, line: line)
+    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: 00000000), product,            file: file, line: line)
+    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: UInt.max), product + UInt.max, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
@@ -130,7 +131,8 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     guard let base = base as? UIntXL, let product = product as? UIntXL else { return }
     //=------------------------------------------=
-    XCTAssertEqual(UIntXL.productBySquareLongAlgorithm(multiplying: base), product, file: file, line: line)
+    XCTAssertEqual(UIntXL.productBySquareLongAlgorithm(multiplying: base, adding: 00000000), product,            file: file, line: line)
+    XCTAssertEqual(UIntXL.productBySquareLongAlgorithm(multiplying: base, adding: UInt.max), product + UInt.max, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
@@ -138,13 +140,14 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertMultiplicationByDigitWithAddition(
-_ lhs: UIntXL, _ rhs:  UInt, _ add: UInt, _ pro: UIntXL,
+_ lhs: UIntXL, _ rhs:  UInt, _ addend: UInt, _ product: UIntXL,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(lhs.multiplied(by: rhs, adding: add),                             pro, file: file, line: line)
-    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: add); return lhs }(), pro, file: file, line: line)
+    XCTAssertEqual(lhs.multiplied(by: rhs, adding: addend),                             product, file: file, line: line)
+    XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: addend); return lhs }(), product, file: file, line: line)
     //=------------------------------------------=
-    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: UIntXL(digit: rhs), adding: add), pro, file: file, line: line)
+    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: UIntXL(digit: rhs), adding: addend), product,          file: file, line: line)
+    XCTAssertEqual(UIntXL.productByLongAlgorithm(multiplying: lhs, by: UIntXL(digit: rhs), adding: 000000), product - addend, file: file, line: line)
 }
 
 #endif

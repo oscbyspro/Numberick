@@ -24,7 +24,7 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func squared() -> Self {
-        Self.productBySquareLongAlgorithm(multiplying: self)
+        Self.productBySquareLongAlgorithm(multiplying: self, adding: 0 as UInt)
     }
 }
 
@@ -42,7 +42,7 @@ extension NBKFlexibleWidth.Magnitude {
     ///
     /// - Note: It is up to `2x` faster than long multiplication with arbitrary inputs.
     ///
-    @inlinable static func productBySquareLongAlgorithm(multiplying base: Self) -> Self {
+    @inlinable static func productBySquareLongAlgorithm(multiplying base: Self, adding addend: UInt) -> Self {
         Self.uninitialized(count: 2 * base.count) { product in
             base.storage.withUnsafeBufferPointer  { base in
                 //=--------------------------=
@@ -50,24 +50,31 @@ extension NBKFlexibleWidth.Magnitude {
                 //=--------------------------=
                 product.initialize(repeating: 0 as UInt)
                 //=--------------------------=
-                var carry0: Bool = false // for multiplication by 02
-                var carry1: Bool = false // for addition of diagonal
-                
-                for baseIndex in base.indices {
+                var index:  Int = 000000
+                var carry: UInt = addend
+                //=--------------------------=
+                var baseIndex = base.startIndex; while baseIndex < base.endIndex {
                     let multiplier = base[baseIndex]
                     let productIndex = 2 * baseIndex
+                    base.formIndex(after: &baseIndex)
                     
-                    NBK.SUISS.incrementInIntersection(
-                    &product[(productIndex + 1)...],  // add non-diagonal elements
-                    by: UnsafeBufferPointer(rebasing: base[(baseIndex + 1)...]), times: multiplier)
+                    index = productIndex + 1 // add non-diagonal products
                     
-                    carry0 = NBK.SUISS.incrementInIntersection(
-                    &product[(productIndex)...], //   partially double non-diagonal elements
-                    by: UnsafeBufferPointer(rebasing: product[(productIndex) ..< (productIndex + 2)]), plus: carry0).overflow
+                    NBK.SUISS.incrementInIntersection(&product,
+                    by: UnsafeBufferPointer(rebasing: base[baseIndex...]),
+                    times: multiplier, plus: 00000, at: &index)
                     
-                    carry1 = NBK.SUISS.incrementInIntersection(
-                    &product[(productIndex)...], //  add the diagonal element
-                    by: CollectionOfOne(multiplier), times: multiplier, plus: UInt(bit: carry1)).overflow
+                    index = productIndex // partially double non-diagonal products
+                    
+                    NBK.SUISS.multiply(&product, 
+                    by:  000002,
+                    add: &carry, at: &index, upTo: productIndex + 2)
+                    
+                    index = productIndex // add this iteration's diagonal product
+                    
+                    carry &+= UInt(bit: NBK.SUISS.incrementInIntersection(
+                    &product, by: CollectionOfOne((multiplier)),
+                    times: multiplier, plus: 00000, at: &index))
                 }
             }
         }
