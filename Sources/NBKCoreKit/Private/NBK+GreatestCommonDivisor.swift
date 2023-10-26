@@ -17,25 +17,32 @@ extension NBK {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Finds the greatest common divisor of `lhs` and `rhs` by using [this binary algorithm][algorithm].
-    ///
-    /// - TODO: Use `bitShift(...)` methods if/when NBKBinaryInteger...
+    /// Finds the GCD of `lhs` and `rhs` by using [this binary algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/binary_GCD_algorithm
     ///
     @inlinable public static func greatestCommonDivisorByBinaryAlgorithm<T>(
     of  lhs: T, and rhs: T) -> T.Magnitude where T: NBKBinaryInteger {
+        self.greatestCommonDivisorByBinaryAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
+    }
+    
+    /// Finds the GCD of `lhs` and `rhs` by using [this binary algorithm][algorithm].
+    ///
+    /// [algorithm]: https://en.wikipedia.org/wiki/binary_GCD_algorithm
+    ///
+    /// - TODO: Use `bitShift(...)` methods if/when NBKBinaryInteger...
+    ///
+    @inlinable public static func greatestCommonDivisorByBinaryAlgorithm<T>(
+    of  lhs: T, and rhs: T) -> T where T: NBKUnsignedInteger {
         //=--------------------------------------=
-        var lhs = lhs.magnitude as  T.Magnitude
         if  rhs.isZero { return lhs }
-        var rhs = rhs.magnitude as  T.Magnitude
         if  lhs.isZero { return rhs }
-        
+        //=--------------------------------------=
         let lhsShift: Int = lhs.trailingZeroBitCount
         let rhsShift: Int = rhs.trailingZeroBitCount
         //=--------------------------------------=
-        lhs >>= lhsShift
-        rhs >>= rhsShift
+        var lhs: T = lhs >> lhsShift
+        var rhs: T = rhs >> rhsShift
         
         while   lhs  != rhs {
             if  lhs   < rhs {

@@ -22,21 +22,15 @@ final class NBKTestsOnGreatestCommonDivisor: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testPowersOf2() {
-        NBKAssertGreatestCommonDivisor( 2, 16,  2)
-        NBKAssertGreatestCommonDivisor( 4, 16,  4)
-        NBKAssertGreatestCommonDivisor( 8, 16,  8)
-        NBKAssertGreatestCommonDivisor(16, 16, 16)
+    func testSmallPowersOf2() {
+        NBKAssertGreatestCommonDivisor( 2 as Int, 16 as Int,  2 as UInt)
+        NBKAssertGreatestCommonDivisor( 4 as Int, 16 as Int,  4 as UInt)
+        NBKAssertGreatestCommonDivisor( 8 as Int, 16 as Int,  8 as UInt)
+        NBKAssertGreatestCommonDivisor(16 as Int, 16 as Int, 16 as UInt)
     }
     
-    func testSmallPrimeProductsRepeated() {
-        NBKAssertGreatestCommonDivisor( 2 *  3 *   5 as Int, 16 * 81 as Int,  2 *  3 as UInt)
-        NBKAssertGreatestCommonDivisor( 4 *  9 *  25 as Int, 16 * 81 as Int,  4 *  9 as UInt)
-        NBKAssertGreatestCommonDivisor( 8 * 27 * 125 as Int, 16 * 81 as Int,  8 * 27 as UInt)
-        NBKAssertGreatestCommonDivisor(16 * 81 * 625 as Int, 16 * 81 as Int, 16 * 81 as UInt)
-    }
-    
-    func testSmallPrimeProductsEvenEven() {
+    func testSmallPrimeProducts() {
+        // even x even
         NBKAssertGreatestCommonDivisor(2                  as Int, 2 * 5 * 11 as Int, 2          as UInt)
         NBKAssertGreatestCommonDivisor(2 * 3              as Int, 2 * 5 * 11 as Int, 2          as UInt)
         NBKAssertGreatestCommonDivisor(2 * 3 * 5          as Int, 2 * 5 * 11 as Int, 2 * 5      as UInt)
@@ -46,33 +40,39 @@ final class NBKTestsOnGreatestCommonDivisor: XCTestCase {
         NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 2 * 5 * 11 as Int,     5 * 11 as UInt)
         NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 2 * 5 * 11 as Int,         11 as UInt)
         NBKAssertGreatestCommonDivisor(                11 as Int, 2 * 5 * 11 as Int,         11 as UInt)
+        // even x odd
+        NBKAssertGreatestCommonDivisor(2                  as Int, 3 * 5 * 07 as Int, 1          as UInt)
+        NBKAssertGreatestCommonDivisor(2 * 3              as Int, 3 * 5 * 07 as Int, 3          as UInt)
+        NBKAssertGreatestCommonDivisor(2 * 3 * 5          as Int, 3 * 5 * 07 as Int, 3 * 5      as UInt)
+        NBKAssertGreatestCommonDivisor(2 * 3 * 5 * 7      as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(2 * 3 * 5 * 7 * 11 as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(    3 * 5 * 7 * 11 as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 3 * 5 * 07 as Int,     5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 3 * 5 * 07 as Int,         07 as UInt)
+        NBKAssertGreatestCommonDivisor(                11 as Int, 3 * 5 * 07 as Int,         01 as UInt)
+        // odd  x even
+        NBKAssertGreatestCommonDivisor(1                  as Int, 2 * 5 * 11 as Int, 1          as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3              as Int, 2 * 5 * 11 as Int, 1          as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5          as Int, 2 * 5 * 11 as Int, 1 * 5      as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7      as Int, 2 * 5 * 11 as Int, 1 * 5      as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7 * 11 as Int, 2 * 5 * 11 as Int, 1 * 5 * 11 as UInt)
+        NBKAssertGreatestCommonDivisor(    3 * 5 * 7 * 11 as Int, 2 * 5 * 11 as Int,     5 * 11 as UInt)
+        NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 2 * 5 * 11 as Int,     5 * 11 as UInt)
+        NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 2 * 5 * 11 as Int,         11 as UInt)
+        NBKAssertGreatestCommonDivisor(                11 as Int, 2 * 5 * 11 as Int,         11 as UInt)
+        // odd  x odd
+        NBKAssertGreatestCommonDivisor(1                  as Int, 3 * 5 * 07 as Int, 1          as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3              as Int, 3 * 5 * 07 as Int, 3          as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5          as Int, 3 * 5 * 07 as Int, 3 * 5      as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7      as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7 * 11 as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(    3 * 5 * 7 * 11 as Int, 3 * 5 * 07 as Int, 3 * 5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 3 * 5 * 07 as Int,     5 * 07 as UInt)
+        NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 3 * 5 * 07 as Int,         07 as UInt)
+        NBKAssertGreatestCommonDivisor(                11 as Int, 3 * 5 * 07 as Int,         01 as UInt)
     }
     
-    func testSmallPrimeProductsEvenOdd() {
-        NBKAssertGreatestCommonDivisor(2                  as Int, 3 * 5 *  7 as Int, 1          as UInt)
-        NBKAssertGreatestCommonDivisor(2 * 3              as Int, 3 * 5 *  7 as Int, 3          as UInt)
-        NBKAssertGreatestCommonDivisor(2 * 3 * 5          as Int, 3 * 5 *  7 as Int, 3 * 5      as UInt)
-        NBKAssertGreatestCommonDivisor(2 * 3 * 5 * 7      as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(2 * 3 * 5 * 7 * 11 as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(    3 * 5 * 7 * 11 as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 3 * 5 *  7 as Int,     5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 3 * 5 *  7 as Int,          7 as UInt)
-        NBKAssertGreatestCommonDivisor(                11 as Int, 3 * 5 *  7 as Int,          1 as UInt)
-    }
-    
-    func testSmallPrimeProductsOddOdd() {
-        NBKAssertGreatestCommonDivisor(1                  as Int, 3 * 5 *  7 as Int, 1          as UInt)
-        NBKAssertGreatestCommonDivisor(1 * 3              as Int, 3 * 5 *  7 as Int, 3          as UInt)
-        NBKAssertGreatestCommonDivisor(1 * 3 * 5          as Int, 3 * 5 *  7 as Int, 3 * 5      as UInt)
-        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7      as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(1 * 3 * 5 * 7 * 11 as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(    3 * 5 * 7 * 11 as Int, 3 * 5 *  7 as Int, 3 * 5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(        5 * 7 * 11 as Int, 3 * 5 *  7 as Int,     5 *  7 as UInt)
-        NBKAssertGreatestCommonDivisor(            7 * 11 as Int, 3 * 5 *  7 as Int,          7 as UInt)
-        NBKAssertGreatestCommonDivisor(                11 as Int, 3 * 5 *  7 as Int,          1 as UInt)
-    }
-    
-    func testEverythingDividesZero() {
+    func testEveryIntegerDividesZero() {
         for other in -10 ... 10 {
             NBKAssertGreatestCommonDivisor(0 as Int, other, other.magnitude as UInt)
         }
@@ -103,6 +103,10 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     with(lhs, rhs, gcd)
     with(rhs, lhs, gcd)
+    //=------------------------------------------=
+    if  T.isSigned {
+        NBKAssertGreatestCommonDivisor(lhs.magnitude, rhs.magnitude, gcd, file: file, line: line)
+    }
 }
 
 #endif
