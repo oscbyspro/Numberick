@@ -28,7 +28,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMultiplied() {
+    func testMultiplying() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
 
@@ -39,7 +39,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedWrappingAround() {
+    func testMultiplyingWrappingAround() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
@@ -50,7 +50,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedReportingOverflow() {
+    func testMultiplyingReportingOverflow() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
@@ -61,7 +61,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedFullWidth() {
+    func testMultiplyingFullWidth() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-T(x64: X(3, 0, 0, 0)))
         
@@ -76,7 +76,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
     
-    func testMultipliedByDigit() {
+    func testMultiplyingByDigit() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-Int.max)
         
@@ -87,7 +87,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitWrappingAround() {
+    func testMultiplyingByDigitWrappingAround() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-Int.max)
 
@@ -98,7 +98,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitReportingOverflow() {
+    func testMultiplyingByDigitReportingOverflow() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-Int.max)
         
@@ -109,7 +109,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitFullWidth() {
+    func testMultiplyingByDigitFullWidth() {
         var lhs = NBK.blackHoleIdentity( T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(-Int.max)
         
@@ -133,7 +133,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testMultiplied() {
+    func testMultiplying() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
         
@@ -144,7 +144,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedWrappingAround() {
+    func testMultiplyingWrappingAround() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
         
@@ -155,7 +155,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedReportingOverflow() {
+    func testMultiplyingReportingOverflow() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
         
@@ -166,7 +166,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedFullWidth() {
+    func testMultiplyingFullWidth() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(T(x64: X(3, 0, 0, 0)))
         
@@ -181,7 +181,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
     // MARK: Tests x Digit
     //=------------------------------------------------------------------------=
     
-    func testMultipliedByDigit() {
+    func testMultiplyingByDigit() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
@@ -192,7 +192,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitWrappingAround() {
+    func testMultiplyingByDigitWrappingAround() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
 
@@ -203,7 +203,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitReportingOverflow() {
+    func testMultiplyingByDigitReportingOverflow() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
@@ -214,7 +214,7 @@ final class NBKDoubleWidthBenchmarksOnMultiplicationAsUInt256: XCTestCase {
         }
     }
     
-    func testMultipliedByDigitFullWidth() {
+    func testMultiplyingByDigitFullWidth() {
         var lhs = NBK.blackHoleIdentity(T(x64: X(3, 3, 3, 0)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
