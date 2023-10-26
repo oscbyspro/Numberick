@@ -22,7 +22,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Multiplies `base` by `multiplier` then adds `digit`.
     ///
-    /// - Returns: The `low` product is formed in `base[index..<limit]` and the `high` product is returned in one element.
+    /// - Returns: The `low` product is formed in `base` and the `high` product is returned in one element.
     ///
     @inlinable public static func multiply(
     _   base: inout Base, by multiplier: Base.Element, add digit: Base.Element) -> Base.Element {
@@ -41,7 +41,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Multiplies `base` by `multiplier` then adds `digit` from `index` to `limit`.
     ///
-    /// - Returns: The `low` product is formed in `base[index..<limit]` and the `high` product is returned in one element.
+    /// - Returns: The `low` product is formed in `base[index..<limit]` and the `high` product is formed in `digit`.
     ///
     @inlinable public static func multiply(
     _   base: inout Base, by multiplier: Base.Element, add digit: inout Base.Element, from index: inout Base.Index, to limit: Base.Index) {
