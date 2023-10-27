@@ -18,8 +18,8 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Drops elements that satisfy the predicate from the end of the given `collection`.
-    @_transparent public static func dropLast<T>(from collection: T, while predicate: (T.Element) -> Bool)
-    -> T.SubSequence where T: BidirectionalCollection {
+    @_transparent public static func dropLast<T: BidirectionalCollection>(
+    from collection: T, while predicate: (T.Element) -> Bool) -> T.SubSequence {
         var newEndIndex = collection.endIndex
         
         backwards: while newEndIndex > collection.startIndex {
@@ -36,7 +36,8 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Removes `count` prefixing elements from the given `collection`.
-    @inlinable public static func removePrefix<T>(from collection: inout T, count: Int) -> T where T: RandomAccessCollection, T == T.SubSequence {
+    @inlinable public static func removePrefix<T: RandomAccessCollection>(
+    from collection: inout T, count: Int) -> T where T == T.SubSequence {
         let index  = collection.index(collection.startIndex, offsetBy: count)
         let prefix = collection.prefix(upTo: index)
         collection = collection.suffix(from: index)
@@ -44,7 +45,8 @@ extension NBK {
     }
     
     /// Removes `count` suffixing elements from the given `collection`.
-    @inlinable public static func removeSuffix<T>(from collection: inout T, count: Int) -> T where T: RandomAccessCollection, T == T.SubSequence {
+    @inlinable public static func removeSuffix<T: RandomAccessCollection>(
+    from collection: inout T, count: Int) -> T where T == T.SubSequence {
         let index  = collection.index(collection.endIndex, offsetBy: count.negated())
         let suffix = collection.suffix(from: index)
         collection = collection.prefix(upTo: index)
@@ -56,14 +58,16 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Removes up to `maxLength` prefixing elements from the given `collection`.
-    @inlinable public static func removePrefix<T>(from collection: inout T, maxLength: Int) -> T where T: RandomAccessCollection, T == T.SubSequence {
+    @inlinable public static func removePrefix<T: RandomAccessCollection>(
+    from collection: inout T, maxLength: Int) -> T where T == T.SubSequence {
         let prefix = collection.prefix(maxLength)
         collection = collection.suffix(from: prefix.endIndex)
         return prefix as T
     }
     
     /// Removes up to `maxLength` suffixing elements from the given `collection`.
-    @inlinable public static func removeSuffix<T>(from collection: inout T, maxLength: Int) -> T where T: RandomAccessCollection, T == T.SubSequence {
+    @inlinable public static func removeSuffix<T: RandomAccessCollection>(
+    from collection: inout T, maxLength: Int) -> T where T == T.SubSequence {
         let suffix = collection.suffix(maxLength)
         collection = collection.prefix(upTo: suffix.startIndex)
         return suffix as T
@@ -74,7 +78,8 @@ extension NBK {
     //=------------------------------------------------------------------------=
     
     /// Returns the array-like result of `index(_:offsetBy:limitedBy:)`.
-    @inlinable public static func arrayIndex(_ index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
+    @inlinable public static func arrayIndex(
+    _   index: Int, offsetBy distance: Int, limitedBy limit: Int) -> Int? {
         let distanceLimit = limit - index
         
         guard distance >= 0 as Int

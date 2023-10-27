@@ -203,7 +203,7 @@ extension NBK.IntegerDescription {
         guard !digits.isEmpty else { return }
         //=--------------------------------------=
         var digits = digits.drop(while:{ $0 == 48 })
-        let split  = NBK.dividing(NBK.ZeroOrMore(unchecked: digits.count), by: NBK.PowerOf2(unchecked: radix.exponent()))
+        let split  = NBK.PBI.dividing(NBK.ZeroOrMore(unchecked: digits.count), by: NBK.PowerOf2(unchecked: radix.exponent()))
         let count  = split.quotient &+ Int(bit: split.remainder.isMoreThanZero)
         //=--------------------------------------=
         return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {

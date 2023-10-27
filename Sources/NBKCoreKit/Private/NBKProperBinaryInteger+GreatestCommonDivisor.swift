@@ -49,11 +49,11 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
         if  rhs.isZero { return lhs }
         if  lhs.isZero { return rhs }
         //=--------------------------------------=
-        let lhsShift = lhs.trailingZeroBitCount as Int
-        let rhsShift = rhs.trailingZeroBitCount as Int
+        let lhs2sCount = lhs.trailingZeroBitCount // lhs == 2 ^ a * b
+        let rhs2sCount = rhs.trailingZeroBitCount // rhs == 2 ^ x * y
         //=--------------------------------------=
-        var lhs: Integer = lhs >> lhsShift
-        var rhs: Integer = rhs >> rhsShift
+        var lhs: Integer = lhs >> lhs2sCount
+        var rhs: Integer = rhs >> rhs2sCount
         
         while   lhs  != rhs {
             if  lhs   < rhs {
@@ -65,7 +65,7 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
             }
         }
         
-        lhs <<= Swift.min(lhsShift, rhsShift)
+        lhs <<= Swift.min(lhs2sCount, rhs2sCount) // the 2s in common
         return  lhs as Integer.Magnitude
     }
 }
