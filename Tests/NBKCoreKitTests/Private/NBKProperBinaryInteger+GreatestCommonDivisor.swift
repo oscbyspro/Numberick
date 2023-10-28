@@ -77,9 +77,8 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
             NBKAssertGreatestCommonDivisorAsSigned(0 as Int, other, other.magnitude as UInt)
         }
         
-        NBKAssertGreatestCommonDivisorAsSigned(  0 as  Int, Int.max,           Int.max.magnitude as UInt)
-        NBKAssertGreatestCommonDivisorAsUnsigned(0 as UInt, Int.max.magnitude, Int.max.magnitude as UInt)
-        NBKAssertGreatestCommonDivisorAsUnsigned(0 as UInt, Int.min.magnitude, Int.min.magnitude as UInt)
+        NBKAssertGreatestCommonDivisorAsSigned(0 as Int, Int.max, Int.max.magnitude as UInt)
+        NBKAssertGreatestCommonDivisorAsSigned(0 as Int, Int.min, Int.min.magnitude as UInt, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -87,35 +86,57 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMinSignedIsSpecialBecauseTheGreatestCommonDivisorMayOverflow() {
-        func check(lhs: Int, rhs: Int, result: UInt, overflow: Bool = false) {
-            let binary = NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs)
-            XCTAssertEqual(binary, result)
-            
-            let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
-            XCTAssertEqual(extended.result, result)
-            XCTAssertEqual(lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient, Int(bitPattern: result))
-            
-            if  let result = Int(exactly: result) {
-                XCTAssertFalse(overflow)
-                XCTAssertEqual(extended.lhsQuotient, lhs /  Int(result))
-                XCTAssertEqual(extended.rhsQuotient, rhs /  Int(result))
-            }   else {
-                XCTAssertTrue (overflow)
-                XCTAssertEqual(extended.lhsQuotient, lhs >> Int.max)
-                XCTAssertEqual(extended.rhsQuotient, rhs >> Int.max)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  Int.min, Int.min.magnitude, true)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -Int.max, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000006, 00000000000000002)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000005, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000004, 00000000000000004)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000003, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000002, 00000000000000002)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min, -0000001, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000000, Int.min.magnitude, true)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000001, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000002, 00000000000000002)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000003, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000004, 00000000000000004)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000005, 00000000000000001)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000006, 00000000000000002)
+        NBKAssertGreatestCommonDivisorAsSigned(Int.min,  Int.max, 00000000000000001)
+    }
+}
+
+//*============================================================================*
+// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x E.E.A.
+//*============================================================================*
+
+final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisorByExtendedEuclideanAlgorithm: XCTestCase {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testWrappingBézoutIdentityWorksForAllPairsOfInt8() {
+        self.continueAfterFailure = false
+        for lhs in  Int8.min ... Int8.max {
+            for rhs in Int8.min ... Int8.max {
+                let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
+                let identity = lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient
+                XCTAssertEqual(identity, Int8(bitPattern: extended.result))
             }
         }
-        
-        check(lhs: Int.min, rhs:  Int.min, result: Int.min.magnitude, overflow: true)
-        check(lhs: Int.min, rhs: -Int.max, result: 00000000000000001)
-        check(lhs: Int.min, rhs: -0000003, result: 00000000000000001)
-        check(lhs: Int.min, rhs: -0000002, result: 00000000000000002)
-        check(lhs: Int.min, rhs: -0000001, result: 00000000000000001)
-        check(lhs: Int.min, rhs:  0000000, result: Int.min.magnitude, overflow: true)
-        check(lhs: Int.min, rhs:  0000001, result: 00000000000000001)
-        check(lhs: Int.min, rhs:  0000002, result: 00000000000000002)
-        check(lhs: Int.min, rhs:  0000003, result: 00000000000000001)
-        check(lhs: Int.min, rhs:  Int.max, result: 00000000000000001)
+    }
+    
+    func testWrappingBézoutIdentityWorksForAllPairsOfUInt8() {
+        self.continueAfterFailure = false
+        for lhs in  UInt8.min ... UInt8.max {
+            for rhs in UInt8.min ... UInt8.max {
+                let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
+                let x = lhs &* extended.lhsCoefficient
+                let y = rhs &* extended.rhsCoefficient
+                let identity = extended.isOddLoopCount ? y &- x : x &- y
+                XCTAssertEqual(identity, extended.result)
+            }
+        }
     }
 }
 
@@ -123,34 +144,44 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
 // MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x Assertions
 //*============================================================================*
 
-private func NBKAssertGreatestCommonDivisorAsSigned<T: NBKSignedInteger>(
-_ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
+private func NBKAssertGreatestCommonDivisorAsSigned<T: NBKSignedInteger & NBKFixedWidthInteger>(
+_ lhs: T, _ rhs: T, _ result: T.Magnitude, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     
     func with(_ lhs: T, _ rhs: T) {
-        NBKAssertGreatestCommonDivisorByBinaryAlgorithm(/*---------------*/lhs, rhs, gcd, file: file, line: line)
-        NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsSigned(lhs, rhs, gcd, file: file, line: line)
-        NBKAssertGreatestCommonDivisorAsUnsigned(lhs.magnitude, rhs.magnitude,  /**/ gcd, file: file, line: line)
+        NBKAssertGreatestCommonDivisorByBinaryAlgorithm(/*---------------*/lhs, rhs, result, overflow, file: file, line: line)
+        NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsSigned(lhs, rhs, result, overflow, file: file, line: line)
+        NBKAssertGreatestCommonDivisorAsUnsigned(lhs.magnitude, rhs.magnitude,  /**/ result, /*-----*/ file: file, line: line)
     }
     
-    with(0 + lhs, 0 + rhs)
-    with(0 + lhs, 0 - rhs)
-    with(0 - lhs, 0 + rhs)
-    with(0 - lhs, 0 - rhs)
+    brr: do {
+        with(0 + lhs, 0 + rhs)
+        with(0 + rhs, 0 + lhs)
+    }
+
+    if  rhs != T.min {
+        with(0 + lhs, 0 - rhs)
+        with(0 - rhs, 0 + lhs)
+    }
     
-    with(0 + rhs, 0 + lhs)
-    with(0 + rhs, 0 - lhs)
-    with(0 - rhs, 0 + lhs)
-    with(0 - rhs, 0 - lhs)
+    if  lhs != T.min {
+        with(0 - lhs, 0 + rhs)
+        with(0 + rhs, 0 - lhs)
+    }
+    
+    if  lhs != T.min, rhs != T.min {
+        with(0 - lhs, 0 - rhs)
+        with(0 - rhs, 0 - lhs)
+    }
 }
 
-private func NBKAssertGreatestCommonDivisorAsUnsigned<T: NBKUnsignedInteger>(
-_ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
+private func NBKAssertGreatestCommonDivisorAsUnsigned<T: NBKUnsignedInteger & NBKFixedWidthInteger>(
+_ lhs: T, _ rhs: T, _ result: T.Magnitude,
 file: StaticString = #file, line: UInt = #line) {
     
     func with(_ lhs: T, _ rhs: T) {
-        NBKAssertGreatestCommonDivisorByBinaryAlgorithm(lhs, rhs, gcd, file: file, line: line)
-        NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsUnsigned(lhs, rhs, gcd, file: file, line: line)
+        NBKAssertGreatestCommonDivisorByBinaryAlgorithm(lhs, rhs, result, false, file: file, line: line)
+        NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsUnsigned(lhs, rhs, result, file: file, line: line)
     }
     
     with(0 + lhs, 0 + rhs)
@@ -162,46 +193,56 @@ file: StaticString = #file, line: UInt = #line) {
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertGreatestCommonDivisorByBinaryAlgorithm<T: NBKBinaryInteger>(
-_ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
+_ lhs: T, _ rhs: T, _ result: T.Magnitude, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs), gcd, file: file, line: line)
+    XCTAssertEqual(NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs), result, file: file, line: line)
 }
 
-private func NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsSigned<T: NBKSignedInteger>(
-_ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
+private func NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsSigned<T: NBKSignedInteger & NBKFixedWidthInteger>(
+_ lhs: T, _ rhs: T, _ result: T.Magnitude,  _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
     //=------------------------------------------=
-    XCTAssertEqual( (gcd), extended.result, file: file,  line: line)
-    XCTAssertEqual(T(gcd), lhs * extended.lhsCoefficient + rhs * extended.rhsCoefficient, file: file, line: line)
+    XCTAssertEqual(extended.result, result, file: file, line: line)
+    XCTAssertEqual(lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient, T(bitPattern: result), file: file, line: line)
         
-    if !gcd.isZero {
-        XCTAssertEqual(extended.lhsQuotient, lhs / T(gcd), file: file, line: line)
-        XCTAssertEqual(extended.rhsQuotient, rhs / T(gcd), file: file, line: line)
-    }   else {
+    if  overflow {
+        let values   = [lhs, rhs]
+        XCTAssert(1 <= values.filter({ $0 == T.min }).count,  file: file, line: line)
+        XCTAssert(2 == values.filter({ $0 == T.min }).count + values.filter(\.isZero).count, file: file, line: line)
+        
+        XCTAssertEqual(T.min.magnitude, /*-----------------*/ extended.result,         file: file, line: line)
+        XCTAssertEqual(lhs == T.min && rhs != T.min ? -1 : 0, extended.lhsCoefficient, file: file, line: line)
+        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, extended.rhsCoefficient, file: file, line: line)
+        XCTAssertEqual(lhs == T.min /*-----------*/ ? -1 : 0, extended.lhsQuotient,    file: file, line: line)
+        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, extended.rhsQuotient,    file: file, line: line)
+    }   else if result.isZero {
         XCTAssertEqual(0, lhs, file: file, line: line)
         XCTAssertEqual(0, rhs, file: file, line: line)
         
-        XCTAssertEqual(1, extended.lhsQuotient,    file: file, line: line)
-        XCTAssertEqual(0, extended.rhsQuotient,    file: file, line: line)
         XCTAssertEqual(1, extended.lhsCoefficient, file: file, line: line)
         XCTAssertEqual(0, extended.rhsCoefficient, file: file, line: line)
+        XCTAssertEqual(1, extended.lhsQuotient,    file: file, line: line)
+        XCTAssertEqual(0, extended.rhsQuotient,    file: file, line: line)
+    }   else {
+        XCTAssertEqual(extended.lhsQuotient, lhs / T(result), file: file, line: line)
+        XCTAssertEqual(extended.rhsQuotient, rhs / T(result), file: file, line: line)
     }
 }
 
-private func NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsUnsigned<T: NBKUnsignedInteger>(
-_ lhs: T, _ rhs: T, _ gcd: T.Magnitude,
+private func NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsUnsigned<T: NBKUnsignedInteger & NBKFixedWidthInteger>(
+_ lhs: T, _ rhs: T, _ result: T.Magnitude,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let extended = NBK.PBI<T>.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
     //=------------------------------------------=
-    XCTAssertEqual(extended.result, T(gcd), file: file, line: line)
+    XCTAssertEqual(extended.result, T(result), file: file, line: line)
     
-    if !gcd.isZero {
-        XCTAssertEqual(extended.lhsQuotient, lhs / T(gcd), file: file, line: line)
-        XCTAssertEqual(extended.rhsQuotient, rhs / T(gcd), file: file, line: line)
+    if !result.isZero {
+        XCTAssertEqual(extended.lhsQuotient, lhs / T(result), file: file, line: line)
+        XCTAssertEqual(extended.rhsQuotient, rhs / T(result), file: file, line: line)
     }   else {
         XCTAssertEqual(0, lhs, file: file, line: line)
         XCTAssertEqual(0, rhs, file: file, line: line)
@@ -212,10 +253,11 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(0, extended.rhsCoefficient, file: file, line: line)
     }
     
-    let x = lhs * extended.lhsCoefficient
-    let y = rhs * extended.rhsCoefficient
-    let z = extended.even ? x - y : y - x
-    XCTAssertEqual(z, gcd, file: file, line: line)
+    if !extended.isOddLoopCount {
+        XCTAssertEqual(result, lhs &* extended.lhsCoefficient &- rhs &* extended.rhsCoefficient, file: file, line: line)
+    }   else {
+        XCTAssertEqual(result, rhs &* extended.rhsCoefficient &- lhs &* extended.lhsCoefficient, file: file, line: line)
+    }
 }
 
 #endif

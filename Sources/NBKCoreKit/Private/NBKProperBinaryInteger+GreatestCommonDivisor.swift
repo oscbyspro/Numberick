@@ -43,12 +43,30 @@ extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
     ///
     /// It extends the Euclidean algorithm and returns some additional values.
     ///
-    /// ### Extension: Bézout's Identity
+    /// ### Result
     ///
     /// ```swift
-    /// let x = lhs * lhsCoefficient
-    /// let y = rhs * rhsCoefficient
-    /// precondition(result == x + y)
+    /// precondition(0 <= result && result <= T.min.magnitude)
+    /// ```
+    ///
+    /// - Note: The GCD of `0` and `0` is `0`.
+    ///
+    /// - Note: The GCD of `Int.min` and `Int.min` is `Int.min.magnitude`.
+    ///
+    /// ### Bézout's identity
+    ///
+    /// ```swift
+    /// precondition(T(bitPattern: result) == lhs &* lhsCoefficient &+ rhs &* rhsCoefficient)
+    /// ```
+    ///
+    /// ### Quotients of dividing by GCD
+    ///
+    /// ```swift
+    /// guard result != 00000 else { return }
+    /// guard result <= T.max else { return }
+    ///
+    /// precondition(lhsQuotient == lhs / T(result))
+    /// precondition(rhsQuotient == rhs / T(result))
     /// ```
     ///
     @inlinable public static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of lhs: Integer, and rhs: Integer)
@@ -60,10 +78,10 @@ extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
         let unsigned = Magnitude.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
         //=--------------------------------------=
         return (result: unsigned.result,
-        lhsCoefficient: Integer(sign: lhsIsLessThanZero == unsigned.even ? .minus : .plus, magnitude: unsigned.lhsCoefficient)!,
-        rhsCoefficient: Integer(sign: rhsIsLessThanZero != unsigned.even ? .minus : .plus, magnitude: unsigned.rhsCoefficient)!,
-        lhsQuotient:    Integer(sign: lhsIsLessThanZero /*------------*/ ? .minus : .plus, magnitude: unsigned.lhsQuotient   )!,
-        rhsQuotient:    Integer(sign: rhsIsLessThanZero /*------------*/ ? .minus : .plus, magnitude: unsigned.rhsQuotient   )!)
+        lhsCoefficient: Integer(sign: lhsIsLessThanZero != unsigned.isOddLoopCount ? .minus : .plus, magnitude: unsigned.lhsCoefficient)!,
+        rhsCoefficient: Integer(sign: rhsIsLessThanZero == unsigned.isOddLoopCount ? .minus : .plus, magnitude: unsigned.rhsCoefficient)!,
+        lhsQuotient:    Integer(sign: lhsIsLessThanZero /*----------------------*/ ? .minus : .plus, magnitude: unsigned.lhsQuotient   )!,
+        rhsQuotient:    Integer(sign: rhsIsLessThanZero /*----------------------*/ ? .minus : .plus, magnitude: unsigned.rhsQuotient   )!)
     }
 }
 
@@ -115,25 +133,53 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     ///
     /// It extends the Euclidean algorithm and returns some additional values.
     ///
-    /// ### Extension: Bézout's Identity (unsigned)
+    /// ### Result
     ///
     /// ```swift
-    /// let x = lhs * lhsCoefficient
-    /// let y = rhs * rhsCoefficient
-    /// precondition(result == even ? x - y : y - x)
+    /// precondition(0 <= result && result <= T.max)
     /// ```
     ///
-    @inlinable public static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of lhs: Integer, and rhs: Integer) 
-    -> (result: Integer, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, even: Bool) {
+    /// - Note: The GCD of `0` and `0` is `0`.
+    ///
+    /// ### Bézout's identity (unsigned)
+    ///
+    /// ```swift
+    /// var x = lhs &* lhsCoefficient
+    /// var y = rhs &* rhsCoefficient
+    ///
+    /// if isOddLoopCount {
+    ///    swap(&x, &y)
+    /// }
+    ///
+    /// precondition(result == x &- y)
+    /// ```
+    ///
+    /// ### Quotients of dividing by GCD
+    ///
+    /// ```swift
+    /// guard result != 0000000000 else { return }
+    /// precondition(lhsQuotient == lhs / result)
+    /// precondition(rhsQuotient == rhs / result)
+    /// ```
+    ///
+    /// ### Loop count result
+    ///
+    /// ```swift
+    /// let lhsCoefficientSign = lhs.isLessThanZero != isOddLoopCount
+    /// let rhsCoefficientSign = rhs.isLessThanZero == isOddLoopCount
+    /// ```
+    ///
+    @inlinable public static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of lhs: Integer, and rhs: Integer)
+    -> (result: Integer, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, isOddLoopCount: Bool) {
         //=--------------------------------------=
-        var (r0, r1) = (lhs, rhs) as (Integer, Integer)
-        var (s0, s1) = (001, 000) as (Integer, Integer)
-        var (t0, t1) = (000, 001) as (Integer, Integer)
-        var even = ((((((((((((((((true))))))))))))))))
+        var (r0, r1) = (lhs, rhs) as (Integer,Integer)
+        var (s0, s1) = (001, 000) as (Integer,Integer)
+        var (t0, t1) = (000, 001) as (Integer,Integer)
+        var isOddLoopCount = ((((((((((false))))))))))
         //=--------------------------------------=
         while !r1.isZero {
-
-            even.toggle()
+            
+            isOddLoopCount.toggle()
             let division = r0.quotientAndRemainder(dividingBy: r1)
             
             (r0, r1) = (r1, division.remainder)
@@ -141,6 +187,6 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
             (t0, t1) = (t1, division.quotient * t1 + t0)
         }
         //=--------------------------------------=
-        return (result: r0, lhsCoefficient: s0, rhsCoefficient: t0, lhsQuotient: t1, rhsQuotient: s1, even: even)
+        return (result: r0, lhsCoefficient: s0, rhsCoefficient: t0, lhsQuotient: t1, rhsQuotient: s1, isOddLoopCount: isOddLoopCount)
     }
 }
