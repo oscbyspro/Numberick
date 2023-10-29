@@ -46,10 +46,12 @@ extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
     /// ### Result
     ///
     /// ```swift
-    /// precondition(0 <= result && result <= T.min.magnitude)
+    /// precondition(0 ... T.min.magnitude ~= result)
     /// ```
     ///
     /// - Note: The GCD of `0` and `0` is `0`.
+    ///
+    /// - Note: The GCD of `0` and `X` is `X`.
     ///
     /// - Note: The GCD of `Int.min` and `Int.min` is `Int.min.magnitude`.
     ///
@@ -62,26 +64,34 @@ extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
     /// ### Quotients of dividing by GCD
     ///
     /// ```swift
-    /// guard result != 00000 else { return }
-    /// guard result <= T.max else { return }
-    ///
+    /// guard !result.isZero, result <= T.max else { return }
     /// precondition(lhsQuotient == lhs / T(result))
     /// precondition(rhsQuotient == rhs / T(result))
     /// ```
     ///
+    /// ### Iteration
+    ///
+    /// ```swift
+    /// let lhsCoefficientSign = lhs.isLessThanZero != iteration.isOdd
+    /// let rhsCoefficientSign = rhs.isLessThanZero == iteration.isOdd
+    /// ```
+    ///
     @inlinable public static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of lhs: Integer, and rhs: Integer)
-    -> (result: Integer.Magnitude, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer) {
+    -> (result: Integer.Magnitude, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, iteration: Integer.Magnitude) {
         //=--------------------------------------=
         let lhsIsLessThanZero: Bool = lhs.isLessThanZero
         let rhsIsLessThanZero: Bool = rhs.isLessThanZero
         //=--------------------------------------=
         let unsigned = Magnitude.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
+        let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
-        return (result: unsigned.result,
-        lhsCoefficient: Integer(sign: lhsIsLessThanZero != unsigned.iterationIsOdd ? .minus : .plus, magnitude: unsigned.lhsCoefficient)!,
-        rhsCoefficient: Integer(sign: rhsIsLessThanZero == unsigned.iterationIsOdd ? .minus : .plus, magnitude: unsigned.rhsCoefficient)!,
-        lhsQuotient:    Integer(sign: lhsIsLessThanZero /*----------------------*/ ? .minus : .plus, magnitude: unsigned.lhsQuotient   )!,
-        rhsQuotient:    Integer(sign: rhsIsLessThanZero /*----------------------*/ ? .minus : .plus, magnitude: unsigned.rhsQuotient   )!)
+        return (
+        result:         unsigned.result    as Integer.Magnitude,
+        lhsCoefficient: Integer(sign: lhsIsLessThanZero != odd ? .minus : .plus, magnitude: unsigned.lhsCoefficient)!,
+        rhsCoefficient: Integer(sign: rhsIsLessThanZero == odd ? .minus : .plus, magnitude: unsigned.rhsCoefficient)!,
+        lhsQuotient:    Integer(sign: lhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.lhsQuotient   )!,
+        rhsQuotient:    Integer(sign: rhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.rhsQuotient   )!,
+        iteration:      unsigned.iteration as Integer.Magnitude)
     }
 }
 
@@ -136,15 +146,17 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     /// ### Result
     ///
     /// ```swift
-    /// precondition(0 <= result && result <= T.max)
+    /// precondition(0 ... T.max ~= result)
     /// ```
     ///
     /// - Note: The GCD of `0` and `0` is `0`.
     ///
+    /// - Note: The GCD of `0` and `X` is `X`.
+    ///
     /// ### Bézout's identity (unsigned)
     ///
     /// ```swift
-    /// if !iterationIsOdd {
+    /// if !iteration.isOdd {
     ///     precondition(result == (lhs &* lhsCoefficient &- rhs &* rhsCoefficient))
     /// }   else {
     ///     precondition(result == (rhs &* rhsCoefficient &- lhs &* lhsCoefficient))
@@ -154,36 +166,34 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     /// ### Quotients of dividing by GCD
     ///
     /// ```swift
-    /// guard result != 0000000000 else { return }
+    /// guard !result.isZero else { return }
     /// precondition(lhsQuotient == lhs / result)
     /// precondition(rhsQuotient == rhs / result)
     /// ```
     ///
-    /// ### Loop count result
+    /// ### Iteration
     ///
     /// ```swift
-    /// let lhsCoefficientSign = lhs.isLessThanZero != iterationIsOdd
-    /// let rhsCoefficientSign = rhs.isLessThanZero == iterationIsOdd
+    /// let lhsCoefficientSign = lhs.isLessThanZero != iteration.isOdd
+    /// let rhsCoefficientSign = rhs.isLessThanZero == iteration.isOdd
     /// ```
     ///
     @inlinable public static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of lhs: Integer, and rhs: Integer)
-    -> (result: Integer, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, iterationIsOdd: Bool) {
+    -> (result: Integer, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, iteration: Integer) {
         //=--------------------------------------=
         var (a, b) = (lhs, rhs) as (Integer,Integer)
         var (c, d) = (001, 000) as (Integer,Integer)
         var (e, f) = (000, 001) as (Integer,Integer)
-        var iterationIsOdd = (((((((((false)))))))))
+        var iteration = 0000000 as (((((Integer)))))
         //=--------------------------------------=
         while !b.isZero {
-            
-            iterationIsOdd.toggle()
             let division = a.quotientAndRemainder(dividingBy: b)
-            
             (a, b) = (b, division.remainder)
             (c, d) = (d, division.quotient * d + c)
             (e, f) = (f, division.quotient * f + e)
+            iteration += 000000001 as Integer.Digit
         }
         //=--------------------------------------=
-        return (result: a, lhsCoefficient: c, rhsCoefficient: e, lhsQuotient: f, rhsQuotient: d, iterationIsOdd: iterationIsOdd)
+        return (result: a, lhsCoefficient: c, rhsCoefficient: e, lhsQuotient: f, rhsQuotient: d, iteration: iteration)
     }
 }

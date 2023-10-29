@@ -221,14 +221,14 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             backwards: while index < split.quotient {
                 let chunk = UnsafeBufferPointer(rebasing: NBK.removeSuffix(from: &digits, count: radix.exponent()))
-                guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
+                guard let element: UInt = self.truncating(digits: chunk,  radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
             }
             
             backwards: if split.remainder.isMoreThanZero {
                 let chunk = UnsafeBufferPointer(rebasing: NBK.removeSuffix(from: &digits, count: split.remainder))
-                guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
+                guard let element: UInt = self.truncating(digits: chunk,  radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
             }
@@ -263,14 +263,14 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             forwards: if split.remainder.isMoreThanZero {
                 let chunk = UnsafeBufferPointer(rebasing: NBK.removePrefix(from: &digits, count: split.remainder))
-                guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
+                guard let element: UInt = self.truncating(digits: chunk,  radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: element)
                 words.formIndex(after: &index)
             }
             
             forwards: while index < count {
                 let chunk = UnsafeBufferPointer(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent()))
-                guard let element: UInt = self.truncating(digits: chunk, radix: radix.base()) else { return }
+                guard let element: UInt = self.truncating(digits: chunk,  radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: NBK.SUISS.multiply(&words[..<index], by: radix.power, add: element))
                 words.formIndex(after: &index)
             }

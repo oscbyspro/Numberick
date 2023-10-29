@@ -117,26 +117,39 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisorByExtendedEuclidea
     
     func testWrappingBézoutIdentityWorksForAllPairsOfInt8() {
         self.continueAfterFailure = false
+        var maxIteration: UInt8 = 0000000
+        
         for lhs in  Int8.min ... Int8.max {
             for rhs in Int8.min ... Int8.max {
                 let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
+                maxIteration = Swift.max(maxIteration, extended.iteration)
                 XCTAssertEqual(Int8(bitPattern: extended.result), lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient)
+                XCTAssertEqual(extended.lhsCoefficient < 0, (extended.lhsCoefficient != 0) && (lhs < 0) != extended.iteration.isOdd)
+                XCTAssertEqual(extended.rhsCoefficient < 0, (extended.rhsCoefficient != 0) && (rhs < 0) == extended.iteration.isOdd)
             }
         }
+        
+        XCTAssertEqual(maxIteration, 10)
     }
     
     func testWrappingBézoutIdentityWorksForAllPairsOfUInt8() {
         self.continueAfterFailure = false
+        var maxIteration: UInt8 = 0000000
+        
         for lhs in  UInt8.min ... UInt8.max {
             for rhs in UInt8.min ... UInt8.max {
                 let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
-                if !extended.iterationIsOdd {
+                maxIteration = Swift.max(maxIteration, extended.iteration)
+                
+                if !extended.iteration.isOdd {
                     XCTAssertEqual(extended.result, lhs &* extended.lhsCoefficient &- rhs &* extended.rhsCoefficient)
                 }   else {
                     XCTAssertEqual(extended.result, rhs &* extended.rhsCoefficient &- lhs &* extended.lhsCoefficient)
                 }
             }
         }
+        
+        XCTAssertEqual(maxIteration, 12)
     }
 }
 
@@ -192,11 +205,14 @@ file: StaticString = #file, line: UInt = #line) {
 // MARK: + Algorithms
 //=----------------------------------------------------------------------------=
 
-private func NBKAssertGreatestCommonDivisorByBinaryAlgorithm<T: NBKBinaryInteger>(
+private func NBKAssertGreatestCommonDivisorByBinaryAlgorithm<T: NBKBinaryInteger & NBKFixedWidthInteger>(
 _ lhs: T, _ rhs: T, _ result: T.Magnitude, _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    XCTAssertEqual(NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs), result, file: file, line: line)
+    let binary = NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs)
+    //=------------------------------------------=
+    XCTAssertEqual(binary, result, file: file, line: line)
+    XCTAssertEqual(T.isSigned && binary == T.min.magnitude, overflow, file: file, line: line)
 }
 
 private func NBKAssertGreatestCommonDivisorByExtendedEuclideanAlgorithmAsSigned<T: NBKSignedInteger & NBKFixedWidthInteger>(
@@ -206,14 +222,14 @@ file: StaticString = #file, line: UInt = #line) {
     let extended = NBK.PBI.greatestCommonDivisorByExtendedEuclideanAlgorithm(of: lhs, and: rhs)
     //=------------------------------------------=
     XCTAssertEqual(extended.result, result, file: file, line: line)
+    XCTAssertEqual(extended.result == T.min.magnitude, overflow, file: file, line: line)
     XCTAssertEqual(lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient, T(bitPattern: result), file: file, line: line)
-        
-    if  overflow {
+    
+    if  result == T.min.magnitude {
         let values   = [lhs, rhs]
         XCTAssert(1 <= values.filter({ $0 == T.min }).count,  file: file, line: line)
         XCTAssert(2 == values.filter({ $0 == T.min }).count + values.filter(\.isZero).count, file: file, line: line)
         
-        XCTAssertEqual(T.min.magnitude, /*-----------------*/ extended.result,         file: file, line: line)
         XCTAssertEqual(lhs == T.min && rhs != T.min ? -1 : 0, extended.lhsCoefficient, file: file, line: line)
         XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, extended.rhsCoefficient, file: file, line: line)
         XCTAssertEqual(lhs == T.min /*-----------*/ ? -1 : 0, extended.lhsQuotient,    file: file, line: line)
@@ -253,7 +269,7 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(0, extended.rhsCoefficient, file: file, line: line)
     }
     
-    if !extended.iterationIsOdd {
+    if !extended.iteration.isOdd {
         XCTAssertEqual(result, lhs &* extended.lhsCoefficient &- rhs &* extended.rhsCoefficient, file: file, line: line)
     }   else {
         XCTAssertEqual(result, rhs &* extended.rhsCoefficient &- lhs &* extended.lhsCoefficient, file: file, line: line)
