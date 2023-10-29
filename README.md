@@ -4,7 +4,7 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.14.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+| 0.15.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
 ## Table of Contents
 
@@ -102,13 +102,15 @@ Int256(4) / Int(4), UInt256(4) / UInt(4)
 Int256(5) % Int(5), UInt256(5) % UInt(5)
 ```
 
-> **Note**: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
+> [!NOTE]
+> The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
 
 ### ⭐️ Feature: Swift.StaticBigInt
 
 `StaticBigInt` is disabled by default. You enable it in `Package.swift`.
 
-> **Note**: You can use `StaticString` until `StaticBigInt` becomes available.
+> [!NOTE]
+> You can use `StaticString` until `StaticBigInt` becomes available.
 
 <a name="installation"/>
 
@@ -129,7 +131,7 @@ Numberick contains several modules. Import some or all of them.
 Add this package to your list of package dependencies.
 
 ```swift
-.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.14.0")),
+.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.15.0")),
 ```
 
 Choose target dependencies from the products in [Package.swift](Package.swift).
@@ -145,9 +147,9 @@ Choose target dependencies from the products in [Package.swift](Package.swift).
 Choose target dependencies from the pods listed in the root directory.
 
 ```rb
-pod "Numberick",                   "~> 0.14.0"
-pod "Numberick-NBKCoreKit",        "~> 0.14.0"
-pod "Numberick-NBKDoubleWidthKit", "~> 0.14.0"
+pod "Numberick",                   "~> 0.15.0"
+pod "Numberick-NBKCoreKit",        "~> 0.15.0"
+pod "Numberick-NBKDoubleWidthKit", "~> 0.15.0"
 ```
 
 <a name="acknowledgements"/>
