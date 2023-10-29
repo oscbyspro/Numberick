@@ -17,12 +17,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8\/bitshiftLeft(by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8\/bitShiftLeft(by:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE12bitshiftLeft2byySi_tF::SYNTHESIZED::s:s4Int8V",
+    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE12bitShiftLeft2byySi_tF::SYNTHESIZED::s:s4Int8V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftLeft"
+        "text" : "bitShiftLeft"
       },
       {
         "kind" : "text",
@@ -69,7 +69,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "bitshiftLeft(by:)"
+    "title" : "bitShiftLeft(by:)"
   },
   "primaryContentSections" : [
     {
@@ -100,7 +100,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftLeft"
+              "text" : "bitShiftLeft"
             },
             {
               "kind" : "text",
@@ -273,7 +273,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/int8\/nbkfixedwidthinteger-implementations"
 },
-"doc://Numberick/documentation/Numberick/Swift/Int8/bitshiftLeft(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/Int8/bitShiftLeft(by:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -291,7 +291,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -315,10 +315,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8\/bitshiftLeft(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int8\/bitShiftLeft(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(by:)",
+  "title" : "bitShiftLeft(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/int8\/bitshiftleft(by:)"
 }

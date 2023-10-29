@@ -81,6 +81,33 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Its algorithms commonly interpret byte sequences as ASCII text.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -1109,21 +1136,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-      "text" : "UnsafeUTF8"
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ">, "
     },
     {
       "kind" : "externalParam",
@@ -1241,21 +1268,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-      "text" : "UnsafeUTF8"
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ">) -> "
     },
     {
       "kind" : "typeIdentifier",

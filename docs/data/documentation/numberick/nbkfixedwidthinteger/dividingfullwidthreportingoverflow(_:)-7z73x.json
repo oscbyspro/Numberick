@@ -48,8 +48,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidthReportingOverflow(_:)-2geg8",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidthReportingOverflow(_:)-6na1u"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidthReportingOverflow(_:)-6na1u",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidthReportingOverflow(_:)-2geg8"
       ],
       "title" : "NBKFixedWidthInteger Implementations"
     }

@@ -1,0 +1,945 @@
+{
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "remainder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". The ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must be normalized and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must fit in one element.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "High",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "NBKFixedWidthInteger",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "High",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "High.Magnitude",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerOAA9MagnitudeSjQzRszrlE41formRemainderWithQuotient3212MSBUnchecked8dividing2byxx4high_x3midx3lowtz_xAK_xAMttFZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "formRemainderWithQuotient3212MSBUnchecked"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "dividing"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "inout"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+        "text" : "NBK"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+        "text" : "TupleBinaryInteger"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "High"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+        "text" : "Wide3"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "by"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+        "text" : "NBK"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+        "text" : "TupleBinaryInteger"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "High"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+        "text" : "Wide2"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "High"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Method",
+    "symbolKind" : "method",
+    "title" : "formRemainderWithQuotient3212MSBUnchecked(dividing:by:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "formRemainderWithQuotient3212MSBUnchecked"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "dividing"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "dividend"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "inout"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+              "text" : "TupleBinaryInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide3",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+              "text" : "Wide3"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "by"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "divisor"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+              "text" : "TupleBinaryInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide2",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+              "text" : "Wide2"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "code" : "quotient",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is returned and the ",
+              "type" : "text"
+            },
+            {
+              "code" : "remainder",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " replaces the ",
+              "type" : "text"
+            },
+            {
+              "code" : "dividend",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "Development-1",
+          "level" : 3,
+          "text" : "Development 1",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Comparing is faster than overflow checking, according to time profiler.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Development-2",
+          "level" : 3,
+          "text" : "Development 2",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The approximation needs at most two corrections, but looping is faster.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/formremainderwithquotient3212msbunchecked(dividing:by:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger": {
+  "abstract" : [
+    {
+      "text" : "A namespace for tuple binary integer algorithms.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Wide2": {
+  "abstract" : [
+    {
+      "text" : "An integer split into 2 parts.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wide2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Wide2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/wide2"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Wide3": {
+  "abstract" : [
+    {
+      "text" : "An integer split into 3 parts.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide3",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wide3"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Wide3",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/wide3"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "remainder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". The ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must be normalized and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must fit in one element.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formRemainderWithQuotient3212MSBUnchecked"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formRemainderWithQuotient3212MSBUnchecked(dividing:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/formremainderwithquotient3212msbunchecked(dividing:by:)"
+}
+}
+}

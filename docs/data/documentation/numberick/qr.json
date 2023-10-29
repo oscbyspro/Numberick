@@ -135,10 +135,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+        "doc:\/\/Numberick\/documentation\/Numberick\/IO",
         "doc:\/\/Numberick\/documentation\/Numberick\/LH",
         "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
-        "doc:\/\/Numberick\/documentation\/Numberick\/SM",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+        "doc:\/\/Numberick\/documentation\/Numberick\/SM"
       ],
       "title" : "Abbreviations"
     }
@@ -205,6 +205,40 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/hl"
 },
+"doc://Numberick/documentation/Numberick/IO": {
+  "abstract" : [
+    {
+      "text" : "An index and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/IO",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IO",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/io"
+},
 "doc://Numberick/documentation/Numberick/LH": {
   "abstract" : [
     {
@@ -238,48 +272,6 @@
   "title" : "LH",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/lh"
-},
-"doc://Numberick/documentation/Numberick/NBK": {
-  "abstract" : [
-    {
-      "text" : "A namespace for ",
-      "type" : "text"
-    },
-    {
-      "code" : "Numberick",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " development.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBK"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBK"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBK",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk"
 },
 "doc://Numberick/documentation/Numberick/PVO": {
   "abstract" : [

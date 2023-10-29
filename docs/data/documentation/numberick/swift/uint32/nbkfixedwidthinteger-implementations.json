@@ -72,14 +72,10 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotateLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotateRight(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotatedLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotatedRight(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftRight(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedRight(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftLeft(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftRight(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedLeft(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedRight(by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/compared(to:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/dividingFullWidthReportingOverflow(_:)"
       ],
@@ -1765,211 +1761,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/-=(_:_:)-6eh46"
 },
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitrotateLeft(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotateLeft(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/swift\/uint32\/bitrotateleft(by:)"
-},
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitrotateRight(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotateRight(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/swift\/uint32\/bitrotateright(by:)"
-},
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitrotatedLeft(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotatedLeft(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotatedLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/swift\/uint32\/bitrotatedleft(by:)"
-},
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitrotatedRight(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitrotatedRight(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotatedRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/swift\/uint32\/bitrotatedright(by:)"
-},
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitshiftLeft(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/UInt32/bitShiftLeft(by:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -1987,7 +1779,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -2011,14 +1803,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftLeft(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftLeft(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(by:)",
+  "title" : "bitShiftLeft(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/bitshiftleft(by:)"
 },
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitshiftRight(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/UInt32/bitShiftRight(by:)": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -2036,7 +1828,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -2060,14 +1852,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftRight(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftRight(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(by:)",
+  "title" : "bitShiftRight(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/bitshiftright(by:)"
 },
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitshiftedLeft(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/UInt32/bitShiftedLeft(by:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -2085,7 +1877,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedLeft"
+      "text" : "bitShiftedLeft"
     },
     {
       "kind" : "text",
@@ -2113,14 +1905,14 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedLeft(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedLeft(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedLeft(by:)",
+  "title" : "bitShiftedLeft(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/bitshiftedleft(by:)"
 },
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitshiftedRight(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/UInt32/bitShiftedRight(by:)": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -2138,7 +1930,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedRight"
+      "text" : "bitShiftedRight"
     },
     {
       "kind" : "text",
@@ -2166,10 +1958,10 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedRight(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedRight(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedRight(by:)",
+  "title" : "bitShiftedRight(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/bitshiftedright(by:)"
 },

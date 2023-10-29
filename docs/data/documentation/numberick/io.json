@@ -1,0 +1,372 @@
+{
+  "abstract" : [
+    {
+      "text" : "An index and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/IO"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:10NBKCoreKit2IOa",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "typealias"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "IO"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "IO"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "IO"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "typealias"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "IO"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "I"
+            },
+            {
+              "kind" : "text",
+              "text" : "> = (index"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "I"
+            },
+            {
+              "kind" : "text",
+              "text" : ", overflow"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+        "doc:\/\/Numberick\/documentation\/Numberick\/LH",
+        "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
+        "doc:\/\/Numberick\/documentation\/Numberick\/QR",
+        "doc:\/\/Numberick\/documentation\/Numberick\/SM"
+      ],
+      "title" : "Abbreviations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/io"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/HL": {
+  "abstract" : [
+    {
+      "text" : "A high and a low value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HL"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HL"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HL",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/hl"
+},
+"doc://Numberick/documentation/Numberick/IO": {
+  "abstract" : [
+    {
+      "text" : "An index and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/IO",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IO",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/io"
+},
+"doc://Numberick/documentation/Numberick/LH": {
+  "abstract" : [
+    {
+      "text" : "A low and a high value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LH"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/LH",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LH"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LH",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/lh"
+},
+"doc://Numberick/documentation/Numberick/PVO": {
+  "abstract" : [
+    {
+      "text" : "A partial value and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PVO"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PVO"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PVO",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/pvo"
+},
+"doc://Numberick/documentation/Numberick/QR": {
+  "abstract" : [
+    {
+      "text" : "A quotient and a remainder, relating to division.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QR"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/QR",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QR"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "QR",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/qr"
+},
+"doc://Numberick/documentation/Numberick/SM": {
+  "abstract" : [
+    {
+      "text" : "A sign and a magnitude.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/SM",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SM"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SM",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/sm"
+}
+}
+}

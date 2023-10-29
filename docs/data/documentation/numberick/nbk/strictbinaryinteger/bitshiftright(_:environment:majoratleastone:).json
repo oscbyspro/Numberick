@@ -24,7 +24,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:majorAtLeastOne:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:majorAtLeastOne:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -109,7 +109,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerOAASMRzrlE13bitshiftRight_11environment15majorAtLeastOneyxz_7ElementSTQzSitFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerOAASMRzrlE13bitShiftRight_11environment15majorAtLeastOneyxz_7ElementSTQzSitFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -129,7 +129,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftRight"
+        "text" : "bitShiftRight"
       },
       {
         "kind" : "text",
@@ -204,7 +204,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "bitshiftRight(_:environment:majorAtLeastOne:)"
+    "title" : "bitShiftRight(_:environment:majorAtLeastOne:)"
   },
   "primaryContentSections" : [
     {
@@ -235,7 +235,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftRight"
+              "text" : "bitShiftRight"
             },
             {
               "kind" : "text",
@@ -491,7 +491,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftRight(_:environment:majorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftRight(_:environment:majorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a right shift, assuming the ",
@@ -605,7 +605,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -669,10 +669,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:majorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:majorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(_:environment:majorAtLeastOne:)",
+  "title" : "bitShiftRight(_:environment:majorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftright(_:environment:majoratleastone:)"
 }

@@ -1,0 +1,400 @@
+{
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TUI"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:10NBKCoreKit3NBKO3TUIa",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "typealias"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TUI"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TUI"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "NBK.TUI"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "typealias"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TUI"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : "> = "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+              "text" : "TupleBinaryInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit20NBKFixedWidthIntegerP",
+              "text" : "NBKFixedWidthInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Magnitude"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Do not use this namespace outside of ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Numberick",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " development.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Warning",
+          "style" : "warning",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbk\/tui"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/TUI": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TUI"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TUI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TUI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TUI",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tui"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger": {
+  "abstract" : [
+    {
+      "text" : "A namespace for tuple binary integer algorithms.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+}
+}
+}

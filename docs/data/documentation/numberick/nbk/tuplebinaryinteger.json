@@ -1,0 +1,3993 @@
+{
+  "abstract" : [
+    {
+      "text" : "A namespace for tuple binary integer algorithms.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TupleBinaryInteger"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TupleBinaryInteger"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "NBK.TupleBinaryInteger"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TupleBinaryInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "High"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit20NBKFixedWidthIntegerP",
+              "text" : "NBKFixedWidthInteger"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A tuple binary integer’s signedness is determined by its ",
+              "type" : "text"
+            },
+            {
+              "code" : "High",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Magnitude",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide1",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide2",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide3"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/compare22S(_:to:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/compare33S(_:to:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/decrement32B(_:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/decrement33B(_:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/increment32B(_:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/increment33B(_:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/magnitude(of:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/multiplying213(_:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix1(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix1(_:pushing:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix2(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix2(_:pushing:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix3(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix3(_:pushing:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix1(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix1(_:pulling:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix2(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix2(_:pulling:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix3(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix3(_:pulling:)"
+      ],
+      "title" : "Type Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbk\/tuplebinaryinteger"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBK": {
+  "abstract" : [
+    {
+      "text" : "A namespace for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Numberick",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " development.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBK"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger": {
+  "abstract" : [
+    {
+      "text" : "A namespace for tuple binary integer algorithms.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TupleBinaryInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Magnitude": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Magnitude"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Magnitude",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Magnitude"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Magnitude",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/magnitude"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Wide1": {
+  "abstract" : [
+    {
+      "text" : "An integer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wide1"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide1",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wide1"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Wide1",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/wide1"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Wide2": {
+  "abstract" : [
+    {
+      "text" : "An integer split into 2 parts.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wide2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Wide2",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/wide2"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/Wide3": {
+  "abstract" : [
+    {
+      "text" : "An integer split into 3 parts.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/Wide3",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wide3"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.TupleBinaryInteger.Wide3",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/wide3"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/compare22S(_:to:)": {
+  "abstract" : [
+    {
+      "text" : "A three-way comparison that returns: ",
+      "type" : "text"
+    },
+    {
+      "code" : "-1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (less), ",
+      "type" : "text"
+    },
+    {
+      "code" : "0",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (same), or ",
+      "type" : "text"
+    },
+    {
+      "code" : "1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (more).",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "compare22S"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/compare22S(_:to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "compare22S(_:to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/compare22s(_:to:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/compare33S(_:to:)": {
+  "abstract" : [
+    {
+      "text" : "A three-way comparison that returns: ",
+      "type" : "text"
+    },
+    {
+      "code" : "-1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (less), ",
+      "type" : "text"
+    },
+    {
+      "code" : "0",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (same), or ",
+      "type" : "text"
+    },
+    {
+      "code" : "1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (more).",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "compare33S"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/compare33S(_:to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "compare33S(_:to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/compare33s(_:to:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/decrement32B(_:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "difference",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "In the case of overflow, the result is truncated.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "decrement32B"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/decrement32B(_:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "decrement32B(_:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/decrement32b(_:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/decrement33B(_:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "difference",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "In the case of overflow, the result is truncated.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "decrement33B"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/decrement33B(_:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "decrement33B(_:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/decrement33b(_:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "remainder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". The ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must be normalized and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " must fit in one element.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formRemainderWithQuotient3212MSBUnchecked"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/formRemainderWithQuotient3212MSBUnchecked(dividing:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formRemainderWithQuotient3212MSBUnchecked(dividing:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/formremainderwithquotient3212msbunchecked(dividing:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/increment32B(_:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "sum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "In the case of overflow, the result is truncated.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "increment32B"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/increment32B(_:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "increment32B(_:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/increment32b(_:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/increment33B(_:by:)": {
+  "abstract" : [
+    {
+      "text" : "Forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "sum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "overflow",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " indicator.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "In the case of overflow, the result is truncated.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "increment33B"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/increment33B(_:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "increment33B(_:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/increment33b(_:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/magnitude(of:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "magnitude",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "value",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO9Magnitudea",
+      "text" : "Magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/magnitude(of:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "magnitude(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/magnitude(of:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/multiplying213(_:by:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "product",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of multiplying ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "High.Magnitude",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "multiplying213"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/multiplying213(_:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "multiplying213(_:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/multiplying213(_:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix1(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first element.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix1"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Wide1"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix1(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix1(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix1(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix1(_:pushing:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first element by pushing the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix1"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pushing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Wide1"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix1(_:pushing:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix1(_:pushing:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix1(_:pushing:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix2(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first two elements.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix2"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix2(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix2(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix2(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix2(_:pushing:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first two elements by pushing the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix2"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pushing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix2(_:pushing:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix2(_:pushing:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix2(_:pushing:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix3(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first three elements.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix3"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix3(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix3(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix3(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/prefix3(_:pushing:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the first three elements by pushing the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prefix3"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pushing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/prefix3(_:pushing:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prefix3(_:pushing:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/prefix3(_:pushing:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix1(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last element.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix1"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Wide1"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix1(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix1(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix1(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix1(_:pulling:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last element by pulling the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix1"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pulling"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Wide1"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix1(_:pulling:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix1(_:pulling:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix1(_:pulling:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix2(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last two elements.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix2"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix2(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix2(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix2(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix2(_:pulling:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last two elements by pulling the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix2"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pulling"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide2a",
+      "text" : "Wide2"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix2(_:pulling:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix2(_:pulling:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix2(_:pulling:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix3(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last three elements.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix3"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix3(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix3(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix3(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/TupleBinaryInteger/suffix3(_:pulling:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the last three elements by pulling the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "index",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "High",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKFixedWidthInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "suffix3"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pulling"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO",
+      "text" : "TupleBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "High"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO18TupleBinaryIntegerO5Wide3a",
+      "text" : "Wide3"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TupleBinaryInteger\/suffix3(_:pulling:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "suffix3(_:pulling:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/tuplebinaryinteger\/suffix3(_:pulling:)"
+},
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger": {
+  "abstract" : [
+    {
+      "text" : "An integer type with a fixed bit width for every instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKFixedWidthInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKFixedWidthInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

@@ -16,7 +16,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitshiftLeft(_:major:minor:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftLeft(_:major:minor:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -101,7 +101,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerOAASMRzrlE12bitshiftLeft_5major5minoryxz_S2itFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerOAASMRzrlE12bitShiftLeft_5major5minoryxz_S2itFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -121,7 +121,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftLeft"
+        "text" : "bitShiftLeft"
       },
       {
         "kind" : "text",
@@ -189,7 +189,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "bitshiftLeft(_:major:minor:)"
+    "title" : "bitShiftLeft(_:major:minor:)"
   },
   "primaryContentSections" : [
     {
@@ -220,7 +220,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftLeft"
+              "text" : "bitShiftLeft"
             },
             {
               "kind" : "text",
@@ -451,7 +451,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/bitshiftLeft(_:major:minor:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/bitShiftLeft(_:major:minor:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -557,7 +557,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -614,10 +614,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitshiftLeft(_:major:minor:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftLeft(_:major:minor:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(_:major:minor:)",
+  "title" : "bitShiftLeft(_:major:minor:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftleft(_:major:minor:)"
 }

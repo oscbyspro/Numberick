@@ -331,8 +331,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/base",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/exponent",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/power",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/solution"
       ],
@@ -340,8 +338,10 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/base(as:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/divisibilityByPowerUpperBound(magnitude:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/divisor()"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/divisor()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/exponent(as:)"
       ],
       "title" : "Instance Methods"
     }
@@ -523,14 +523,14 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisor"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/base": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/base(as:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -542,19 +542,43 @@
     },
     {
       "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
       "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/base",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/base(as:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "base",
+  "title" : "base(as:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/base"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/base(as:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/divisibilityByPowerUpperBound(magnitude:)": {
   "abstract" : [
@@ -596,8 +620,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
+      "text" : "Element"
     },
     {
       "kind" : "text",
@@ -685,14 +708,14 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/divisor()"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/exponent": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/exponent(as:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -704,19 +727,43 @@
     },
     {
       "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
       "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/exponent",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/exponent(as:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "exponent",
+  "title" : "exponent(as:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/exponent"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/imperfectradixsolution\/exponent(as:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/ImperfectRadixSolution/init(_:)": {
   "abstract" : [
@@ -797,28 +844,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "NonZero"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/ImperfectRadixSolution\/power",

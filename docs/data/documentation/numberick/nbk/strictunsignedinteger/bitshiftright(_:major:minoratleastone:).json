@@ -16,7 +16,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitshiftRight(_:major:minorAtLeastOne:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftRight(_:major:minorAtLeastOne:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -101,7 +101,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerOAASMRzrlE13bitshiftRight_5major15minorAtLeastOneyxz_S2itFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerOAASMRzrlE13bitShiftRight_5major15minorAtLeastOneyxz_S2itFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -121,7 +121,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftRight"
+        "text" : "bitShiftRight"
       },
       {
         "kind" : "text",
@@ -189,7 +189,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "bitshiftRight(_:major:minorAtLeastOne:)"
+    "title" : "bitShiftRight(_:major:minorAtLeastOne:)"
   },
   "primaryContentSections" : [
     {
@@ -220,7 +220,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftRight"
+              "text" : "bitShiftRight"
             },
             {
               "kind" : "text",
@@ -459,7 +459,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/bitshiftRight(_:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/bitShiftRight(_:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs an unsigned right shift.",
@@ -565,7 +565,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -622,10 +622,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitshiftRight(_:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftRight(_:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(_:major:minorAtLeastOne:)",
+  "title" : "bitShiftRight(_:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:major:minoratleastone:)"
 }

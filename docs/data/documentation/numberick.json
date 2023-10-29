@@ -302,7 +302,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Each type of ",
+              "text" : "Each ",
               "type" : "text"
             },
             {
@@ -319,7 +319,7 @@
               "type" : "text"
             },
             {
-              "text" : "This design comes with a suite of overflow and bit-casting operations. The",
+              "text" : "This design comes with a suite of overflow and bit-casting operations.",
               "type" : "text"
             },
             {
@@ -327,23 +327,7 @@
               "type" : "text"
             },
             {
-              "text" : "even split also lends itself to divide-and-conquer strategies. As such, it",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "leverages A. Karatsuba’s multiplication algorithm, as well as C. Burnikel’s",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "and J. Ziegler’s fast recursive division.",
+              "text" : "The even split also lends itself to divide-and-conquer strategies.",
               "type" : "text"
             }
           ],
@@ -722,13 +706,19 @@
     {
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/HL",
+        "doc:\/\/Numberick\/documentation\/Numberick\/IO",
         "doc:\/\/Numberick\/documentation\/Numberick\/LH",
         "doc:\/\/Numberick\/documentation\/Numberick\/PVO",
         "doc:\/\/Numberick\/documentation\/Numberick\/QR",
-        "doc:\/\/Numberick\/documentation\/Numberick\/SM",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+        "doc:\/\/Numberick\/documentation\/Numberick\/SM"
       ],
       "title" : "Abbreviations"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK"
+      ],
+      "title" : "Namespaces"
     },
     {
       "identifiers" : [
@@ -798,6 +788,40 @@
   "title" : "HL",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/hl"
+},
+"doc://Numberick/documentation/Numberick/IO": {
+  "abstract" : [
+    {
+      "text" : "An index and an overflow indicator.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/IO",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IO"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IO",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/io"
 },
 "doc://Numberick/documentation/Numberick/Int1024": {
   "abstract" : [

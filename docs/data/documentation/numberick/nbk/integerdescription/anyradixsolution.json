@@ -332,6 +332,13 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution\/power"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution\/base(as:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution\/exponent(as:)"
+      ],
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -513,6 +520,63 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/base"
 },
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixSolution/base(as:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "base"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution\/base(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "base(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/base(as:)"
+},
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixSolution/exponent": {
   "abstract" : [
 
@@ -545,6 +609,63 @@
   "title" : "exponent",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/exponent"
+},
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixSolution/exponent(as:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "exponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/AnyRadixSolution\/exponent(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "exponent(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/anyradixsolution\/exponent(as:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/AnyRadixSolution/init(_:)-2jban": {
   "abstract" : [

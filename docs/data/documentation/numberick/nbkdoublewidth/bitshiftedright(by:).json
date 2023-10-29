@@ -16,7 +16,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedRight(by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedRight(by:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -85,7 +85,7 @@
       ]
     },
     "extendedModule" : "NBKDoubleWidthKit",
-    "externalID" : "s:17NBKDoubleWidthKit0aB0V15bitshiftedRight2byACyxGSi_tF",
+    "externalID" : "s:17NBKDoubleWidthKit0aB0V15bitShiftedRight2byACyxGSi_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -97,7 +97,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftedRight"
+        "text" : "bitShiftedRight"
       },
       {
         "kind" : "text",
@@ -149,7 +149,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "bitshiftedRight(by:)"
+    "title" : "bitShiftedRight(by:)"
   },
   "primaryContentSections" : [
     {
@@ -172,7 +172,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftedRight"
+              "text" : "bitShiftedRight"
             },
             {
               "kind" : "text",
@@ -331,7 +331,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/nbkfixedwidthinteger-implementations"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftedRight(by:)": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftedRight(by:)": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -413,7 +413,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedRight"
+      "text" : "bitShiftedRight"
     },
     {
       "kind" : "text",
@@ -454,10 +454,10 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedRight(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedRight(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedRight(by:)",
+  "title" : "bitShiftedRight(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(by:)"
 }

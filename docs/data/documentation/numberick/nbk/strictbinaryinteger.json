@@ -268,13 +268,13 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeft(_:environment:major:minorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeft(_:environment:majorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:major:minorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:majorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/formQuotientWithRemainderReportingOverflow(_:dividingBy:signedness:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeft(_:environment:major:minorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeft(_:environment:majorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:major:minorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:majorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/formQuotientWithRemainderReportingOverflow(dividing:by:signedness:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/withUnsafeBufferPointer(to:perform:)"
       ],
       "title" : "Type Methods"
@@ -492,7 +492,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/unsigned"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftLeft(_:environment:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftLeft(_:environment:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift, assuming the ",
@@ -606,7 +606,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -687,14 +687,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeft(_:environment:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeft(_:environment:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(_:environment:major:minorAtLeastOne:)",
+  "title" : "bitShiftLeft(_:environment:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleft(_:environment:major:minoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftLeft(_:environment:majorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftLeft(_:environment:majorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift, assuming the ",
@@ -808,7 +808,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -872,14 +872,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeft(_:environment:majorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeft(_:environment:majorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(_:environment:majorAtLeastOne:)",
+  "title" : "bitShiftLeft(_:environment:majorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleft(_:environment:majoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift, assuming the ",
@@ -993,7 +993,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeftCodeBlock"
+      "text" : "bitShiftLeftCodeBlock"
     },
     {
       "kind" : "text",
@@ -1074,14 +1074,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "title" : "bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleftcodeblock(_:environment:major:minoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftRight(_:environment:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftRight(_:environment:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a right shift, assuming the ",
@@ -1195,7 +1195,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -1276,14 +1276,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(_:environment:major:minorAtLeastOne:)",
+  "title" : "bitShiftRight(_:environment:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftright(_:environment:major:minoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftRight(_:environment:majorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftRight(_:environment:majorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a right shift, assuming the ",
@@ -1397,7 +1397,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -1461,14 +1461,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRight(_:environment:majorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRight(_:environment:majorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(_:environment:majorAtLeastOne:)",
+  "title" : "bitShiftRight(_:environment:majorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftright(_:environment:majoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftRightCodeBlock(_:environment:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftRightCodeBlock(_:environment:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a right shift, assuming the ",
@@ -1582,7 +1582,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRightCodeBlock"
+      "text" : "bitShiftRightCodeBlock"
     },
     {
       "kind" : "text",
@@ -1663,14 +1663,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "title" : "bitShiftRightCodeBlock(_:environment:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftrightcodeblock(_:environment:major:minoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/formQuotientWithRemainderReportingOverflow(_:dividingBy:signedness:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/formQuotientWithRemainderReportingOverflow(dividing:by:signedness:)": {
   "abstract" : [
     {
       "text" : "Forms the ",
@@ -1839,6 +1839,14 @@
       "text" : ">("
     },
     {
+      "kind" : "externalParam",
+      "text" : "dividing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
       "kind" : "keyword",
       "text" : "inout"
     },
@@ -1856,7 +1864,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "dividingBy"
+      "text" : "by"
     },
     {
       "kind" : "text",
@@ -1920,12 +1928,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/formQuotientWithRemainderReportingOverflow(_:dividingBy:signedness:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/formQuotientWithRemainderReportingOverflow(dividing:by:signedness:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "formQuotientWithRemainderReportingOverflow(_:dividingBy:signedness:)",
+  "title" : "formQuotientWithRemainderReportingOverflow(dividing:by:signedness:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/formquotientwithremainderreportingoverflow(_:dividingby:signedness:)"
+  "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/formquotientwithremainderreportingoverflow(dividing:by:signedness:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/withUnsafeBufferPointer(to:perform:)": {
   "abstract" : [

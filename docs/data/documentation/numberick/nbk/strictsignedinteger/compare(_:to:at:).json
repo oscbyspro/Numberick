@@ -109,7 +109,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictSignedIntegerO7compare_2to2atSiSRyqd__G_AISitAIRszAA0aF0Rd__10BitPatternAA06NBKBitK11ConvertiblePQyd__Rsd__lFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictSignedIntegerO7compare_2to2atSix_qd__5IndexQztSkRd__7ElementQyd__AKRtzAK_10BitPatternAA06NBKBitM11ConvertiblePQZALRSlFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -133,15 +133,7 @@
       },
       {
         "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "genericParameter",
-        "text" : "T"
-      },
-      {
-        "kind" : "text",
-        "text" : ">("
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
@@ -157,7 +149,16 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": some "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sk",
+        "text" : "RandomAccessCollection"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -165,7 +166,15 @@
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : ">, "
       },
       {
         "kind" : "externalParam",
@@ -177,8 +186,15 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "text" : "Base"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Index"
       },
       {
         "kind" : "text",
@@ -236,15 +252,7 @@
             },
             {
               "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "genericParameter",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : ">("
+              "text" : "("
             },
             {
               "kind" : "externalParam",
@@ -284,7 +292,16 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": some "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sk",
+              "text" : "RandomAccessCollection"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
             },
             {
               "kind" : "typeIdentifier",
@@ -292,7 +309,15 @@
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
             },
             {
               "kind" : "externalParam",
@@ -312,8 +337,15 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "text" : "Base"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Index"
             },
             {
               "kind" : "text",
@@ -323,81 +355,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Si",
               "text" : "Int"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "where"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Base"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SR",
-              "text" : "UnsafeBufferPointer"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : ">, "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10NBKCoreKit0A7IntegerP",
-              "text" : "NBKCoreInteger"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "BitPattern"
             }
           ]
         }
@@ -415,7 +372,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Specializing this it where ",
+              "text" : "Specializing it where ",
               "type" : "text"
             },
             {
@@ -663,15 +620,7 @@
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
@@ -687,7 +636,16 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sk",
+      "text" : "RandomAccessCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -695,7 +653,15 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
     },
     {
       "kind" : "externalParam",
@@ -707,8 +673,15 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Index"
     },
     {
       "kind" : "text",
@@ -726,40 +699,6 @@
   "title" : "compare(_:to:at:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictsignedinteger\/compare(_:to:at:)"
-},
-"doc://Numberick/documentation/Numberick/NBKCoreInteger": {
-  "abstract" : [
-    {
-      "text" : "A fixed-width, binary, integer that is up to 64 bits wide.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NBKCoreInteger"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NBKCoreInteger"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBKCoreInteger",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkcoreinteger"
 }
 }
 }

@@ -331,15 +331,15 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/base",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/exponent",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/solution"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/divisor()"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/base(as:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/divisor()",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/exponent(as:)"
       ],
       "title" : "Instance Methods"
     }
@@ -521,14 +521,14 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/divisor"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/base": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/base(as:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -540,19 +540,43 @@
     },
     {
       "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
       "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/base",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/base(as:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "base",
+  "title" : "base(as:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/base"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/base(as:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/divisor()": {
   "abstract" : [
@@ -623,14 +647,14 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/divisor()"
 },
-"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/exponent": {
+"doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/exponent(as:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -642,19 +666,43 @@
     },
     {
       "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
       "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/exponent",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/IntegerDescription\/PerfectRadixSolution\/exponent(as:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "exponent",
+  "title" : "exponent(as:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/exponent"
+  "url" : "\/documentation\/numberick\/nbk\/integerdescription\/perfectradixsolution\/exponent(as:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/IntegerDescription/PerfectRadixSolution/init(_:)": {
   "abstract" : [

@@ -17,12 +17,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64\/bitshiftRight(by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64\/bitShiftRight(by:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE13bitshiftRight2byySi_tF::SYNTHESIZED::s:s5Int64V",
+    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE13bitShiftRight2byySi_tF::SYNTHESIZED::s:s5Int64V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftRight"
+        "text" : "bitShiftRight"
       },
       {
         "kind" : "text",
@@ -69,7 +69,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "bitshiftRight(by:)"
+    "title" : "bitShiftRight(by:)"
   },
   "primaryContentSections" : [
     {
@@ -100,7 +100,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftRight"
+              "text" : "bitShiftRight"
             },
             {
               "kind" : "text",
@@ -276,7 +276,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/int64\/nbkfixedwidthinteger-implementations"
 },
-"doc://Numberick/documentation/Numberick/Swift/Int64/bitshiftRight(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/Int64/bitShiftRight(by:)": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -294,7 +294,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -318,10 +318,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64\/bitshiftRight(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/Int64\/bitShiftRight(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(by:)",
+  "title" : "bitShiftRight(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/int64\/bitshiftright(by:)"
 }

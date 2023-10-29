@@ -15,7 +15,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeftSmart(by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeftSmart(by:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -84,7 +84,7 @@
       ]
     },
     "extendedModule" : "NBKDoubleWidthKit",
-    "externalID" : "s:17NBKDoubleWidthKit0aB0V17bitshiftLeftSmart2byySi_tF",
+    "externalID" : "s:17NBKDoubleWidthKit0aB0V17bitShiftLeftSmart2byySi_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -96,7 +96,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftLeftSmart"
+        "text" : "bitShiftLeftSmart"
       },
       {
         "kind" : "text",
@@ -131,7 +131,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "bitshiftLeftSmart(by:)"
+    "title" : "bitShiftLeftSmart(by:)"
   },
   "primaryContentSections" : [
     {
@@ -162,7 +162,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftLeftSmart"
+              "text" : "bitShiftLeftSmart"
             },
             {
               "kind" : "text",
@@ -292,7 +292,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftLeftSmart(by:)": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftLeftSmart(by:)": {
   "abstract" : [
     {
       "text" : "Performs a smart left shift.",
@@ -374,7 +374,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeftSmart"
+      "text" : "bitShiftLeftSmart"
     },
     {
       "kind" : "text",
@@ -398,10 +398,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeftSmart(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeftSmart(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeftSmart(by:)",
+  "title" : "bitShiftLeftSmart(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleftsmart(by:)"
 }

@@ -32,8 +32,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-pept",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-100ot"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-100ot",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-=(_:_:)-pept"
       ],
       "title" : "NBKBinaryInteger Implementations"
     }

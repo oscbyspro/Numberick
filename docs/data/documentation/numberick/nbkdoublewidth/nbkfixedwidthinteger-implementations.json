@@ -76,18 +76,12 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/addReportingOverflow(_:)-8n6ql",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/addingReportingOverflow(_:)-1bdur",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/addingReportingOverflow(_:)-avka",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateLeft(by:)-49jhn",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateLeft(by:)-s0vz",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateRight(by:)-1n2le",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateRight(by:)-6r6c5",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotatedLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotatedRight(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeft(by:)-18j6n",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeft(by:)-4y49a",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftRight(by:)-2me77",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftRight(by:)-2vsai",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedLeft(by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedRight(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeft(by:)-64la4",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeft(by:)-8gc4j",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftRight(by:)-4lgk7",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftRight(by:)-6adrm",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedLeft(by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedRight(by:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/dividingFullWidth(_:)-fshi",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/dividingFullWidthReportingOverflow(_:)-6imc",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/multipliedFullWidth(by:)-6jba7",
@@ -2436,591 +2430,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/addingreportingoverflow(_:)-avka"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotateLeft(by:)-49jhn": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateLeft(by:)-49jhn",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(by:)-49jhn"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotateLeft(by:)-s0vz": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateLeft(by:)-s0vz",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateleft(by:)-s0vz"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotateRight(by:)-1n2le": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateRight(by:)-1n2le",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(by:)-1n2le"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotateRight(by:)-6r6c5": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotateRight(by:)-6r6c5",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotateRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotateright(by:)-6r6c5"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotatedLeft(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:17NBKDoubleWidthKit0aB0V",
-      "text" : "NBKDoubleWidth"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "High"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotatedLeft(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotatedLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedleft(by:)"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitrotatedRight(by:)": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKCoreInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:17NBKDoubleWidthKit0aB0V",
-      "text" : "NBKDoubleWidth"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "High"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitrotatedRight(by:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bitrotatedRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitrotatedright(by:)"
-},
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftLeft(by:)-18j6n": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftLeft(by:)-64la4": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -3038,7 +2448,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -3062,14 +2472,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeft(by:)-18j6n",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeft(by:)-64la4",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(by:)",
+  "title" : "bitShiftLeft(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(by:)-18j6n"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(by:)-64la4"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftLeft(by:)-4y49a": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftLeft(by:)-8gc4j": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -3151,7 +2561,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -3175,14 +2585,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftLeft(by:)-4y49a",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftLeft(by:)-8gc4j",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeft(by:)",
+  "title" : "bitShiftLeft(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(by:)-4y49a"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftleft(by:)-8gc4j"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftRight(by:)-2me77": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftRight(by:)-4lgk7": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -3200,7 +2610,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -3224,14 +2634,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftRight(by:)-2me77",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftRight(by:)-4lgk7",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(by:)",
+  "title" : "bitShiftRight(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(by:)-2me77"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(by:)-4lgk7"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftRight(by:)-2vsai": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftRight(by:)-6adrm": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -3313,7 +2723,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -3337,14 +2747,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftRight(by:)-2vsai",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftRight(by:)-6adrm",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftRight(by:)",
+  "title" : "bitShiftRight(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(by:)-2vsai"
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftright(by:)-6adrm"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftedLeft(by:)": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftedLeft(by:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -3426,7 +2836,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedLeft"
+      "text" : "bitShiftedLeft"
     },
     {
       "kind" : "text",
@@ -3467,14 +2877,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedLeft(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedLeft(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedLeft(by:)",
+  "title" : "bitShiftedLeft(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedleft(by:)"
 },
-"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitshiftedRight(by:)": {
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/bitShiftedRight(by:)": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -3556,7 +2966,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedRight"
+      "text" : "bitShiftedRight"
     },
     {
       "kind" : "text",
@@ -3597,10 +3007,10 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitshiftedRight(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/bitShiftedRight(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedRight(by:)",
+  "title" : "bitShiftedRight(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/bitshiftedright(by:)"
 },

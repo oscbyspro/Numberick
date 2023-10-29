@@ -17,12 +17,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedLeft(by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedLeft(by:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE14bitshiftedLeft2byxSi_tF::SYNTHESIZED::s:s6UInt32V",
+    "externalID" : "s:10NBKCoreKit20NBKFixedWidthIntegerPAAE14bitShiftedLeft2byxSi_tF::SYNTHESIZED::s:s6UInt32V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftedLeft"
+        "text" : "bitShiftedLeft"
       },
       {
         "kind" : "text",
@@ -73,7 +73,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "bitshiftedLeft(by:)"
+    "title" : "bitShiftedLeft(by:)"
   },
   "primaryContentSections" : [
     {
@@ -96,7 +96,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftedLeft"
+              "text" : "bitShiftedLeft"
             },
             {
               "kind" : "text",
@@ -273,7 +273,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/nbkfixedwidthinteger-implementations"
 },
-"doc://Numberick/documentation/Numberick/Swift/UInt32/bitshiftedLeft(by:)": {
+"doc://Numberick/documentation/Numberick/Swift/UInt32/bitShiftedLeft(by:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -291,7 +291,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedLeft"
+      "text" : "bitShiftedLeft"
     },
     {
       "kind" : "text",
@@ -319,10 +319,10 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitshiftedLeft(by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt32\/bitShiftedLeft(by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftedLeft(by:)",
+  "title" : "bitShiftedLeft(by:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint32\/bitshiftedleft(by:)"
 }

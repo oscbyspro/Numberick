@@ -40,9 +40,9 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/quotientAndRemainder(dividingBy:)-2rocc",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/quotientAndRemainder(dividingBy:)-4qhwl",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/quotientAndRemainder(dividingBy:)-3ep4z"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/quotientAndRemainder(dividingBy:)-3ep4z",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/quotientAndRemainder(dividingBy:)-2rocc"
       ],
       "title" : "NBKBinaryInteger Implementations"
     }

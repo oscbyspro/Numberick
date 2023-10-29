@@ -24,7 +24,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -109,7 +109,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerOAASMRzrlE21bitshiftLeftCodeBlock_11environment5major15minorAtLeastOneyxz_7ElementSTQzS2itFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO19StrictBinaryIntegerOAASMRzrlE21bitShiftLeftCodeBlock_11environment5major15minorAtLeastOneyxz_7ElementSTQzS2itFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -129,7 +129,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bitshiftLeftCodeBlock"
+        "text" : "bitShiftLeftCodeBlock"
       },
       {
         "kind" : "text",
@@ -221,7 +221,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)"
+    "title" : "bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)"
   },
   "primaryContentSections" : [
     {
@@ -252,7 +252,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bitshiftLeftCodeBlock"
+              "text" : "bitShiftLeftCodeBlock"
             },
             {
               "kind" : "text",
@@ -575,7 +575,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictBinaryInteger/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)": {
   "abstract" : [
     {
       "text" : "Performs a left shift, assuming the ",
@@ -689,7 +689,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeftCodeBlock"
+      "text" : "bitShiftLeftCodeBlock"
     },
     {
       "kind" : "text",
@@ -770,10 +770,10 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictBinaryInteger\/bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bitshiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
+  "title" : "bitShiftLeftCodeBlock(_:environment:major:minorAtLeastOne:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictbinaryinteger\/bitshiftleftcodeblock(_:environment:major:minoratleastone:)"
 }

@@ -35,21 +35,21 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-        "text" : "NBK"
+        "preciseIdentifier" : "s:SR",
+        "text" : "UnsafeBufferPointer"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-        "text" : "UnsafeUTF8"
+        "preciseIdentifier" : "s:s5UInt8V",
+        "text" : "UInt8"
       },
       {
         "kind" : "text",
-        "text" : ") -> "
+        "text" : ">) -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -123,24 +123,22 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-              "text" : "NBK"
+              "preciseIdentifier" : "s:SR",
+              "text" : "UnsafeBufferPointer"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeUTF8",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-              "text" : "UnsafeUTF8"
+              "preciseIdentifier" : "s:s5UInt8V",
+              "text" : "UInt8"
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : ">) -> "
             },
             {
               "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/SM",
@@ -335,21 +333,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
-      "text" : "NBK"
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10NBKCoreKit3NBKO10UnsafeUTF8a",
-      "text" : "UnsafeUTF8"
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ">) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -375,48 +373,6 @@
   "title" : "decode(_:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/decoderdecodingradix\/decode(_:)-4rxbm"
-},
-"doc://Numberick/documentation/Numberick/NBK/UnsafeUTF8": {
-  "abstract" : [
-    {
-      "text" : "An unsafe pointer to a collection of ",
-      "type" : "text"
-    },
-    {
-      "code" : "UTF-8",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " code points.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnsafeUTF8"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/UnsafeUTF8",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnsafeUTF8"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NBK.UnsafeUTF8",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/unsafeutf8"
 },
 "doc://Numberick/documentation/Numberick/SM": {
   "abstract" : [

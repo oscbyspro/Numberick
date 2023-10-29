@@ -15,7 +15,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:10NBKCoreKit3NBKO18IntegerDescriptionO22ImperfectRadixSolutionV29divisibilityByPowerUpperBound9magnitudeSiqd___tSlRd__Su7ElementRtd__lF",
+    "externalID" : "s:10NBKCoreKit3NBKO18IntegerDescriptionO22ImperfectRadixSolutionV29divisibilityByPowerUpperBound9magnitudeSiqd___tSlRd__7ElementQyd__10BitPatternAA06NBKBitQ11ConvertiblePRtzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -52,8 +52,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Su",
-        "text" : "UInt"
+        "text" : "Element"
       },
       {
         "kind" : "text",
@@ -121,8 +120,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Su",
-              "text" : "UInt"
+              "text" : "Element"
             },
             {
               "kind" : "text",
@@ -333,8 +331,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Su",
-      "text" : "UInt"
+      "text" : "Element"
     },
     {
       "kind" : "text",

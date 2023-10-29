@@ -352,14 +352,10 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addReportingOverflow(_:)-7k5cn",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addingReportingOverflow(_:)-6li79",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/addingReportingOverflow(_:)-9h7a0",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotateLeft(by:)-17ha6",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotateRight(by:)-7fez4",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotatedLeft(by:)-5rnqr",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotatedRight(by:)-7ln1o",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftLeft(by:)-5feqy",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftRight(by:)-6uz0n",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftedLeft(by:)-5fv7o",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftedRight(by:)-1rl8t",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftLeft(by:)-4ou5",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftRight(by:)-32oqx",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftedLeft(by:)-8lzzt",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftedRight(by:)-9ykh8",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidth(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/dividingFullWidthReportingOverflow(_:)-7z73x",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/multipliedFullWidth(by:)-60fsq",
@@ -1766,219 +1762,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/addingreportingoverflow(_:)-9h7a0"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitrotateLeft(by:)-17ha6": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotateLeft(by:)-17ha6",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "bitrotateLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitrotateleft(by:)-17ha6"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitrotateRight(by:)-7fez4": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotateRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotateRight(by:)-7fez4",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "bitrotateRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitrotateright(by:)-7fez4"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitrotatedLeft(by:)-5rnqr": {
-  "abstract" : [
-    {
-      "text" : "Performs a left rotation.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedLeft"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotatedLeft(by:)-5rnqr",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "bitrotatedLeft(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitrotatedleft(by:)-5rnqr"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitrotatedRight(by:)-7ln1o": {
-  "abstract" : [
-    {
-      "text" : "Performs a right rotation.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bitrotatedRight"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "by"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    }
-  ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitrotatedRight(by:)-7ln1o",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "bitrotatedRight(by:)",
-  "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitrotatedright(by:)-7ln1o"
-},
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitshiftLeft(by:)-5feqy": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitShiftLeft(by:)-4ou5": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -1997,7 +1781,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftLeft"
+      "text" : "bitShiftLeft"
     },
     {
       "kind" : "text",
@@ -2021,15 +1805,15 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftLeft(by:)-5feqy",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftLeft(by:)-4ou5",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "bitshiftLeft(by:)",
+  "title" : "bitShiftLeft(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftleft(by:)-5feqy"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftleft(by:)-4ou5"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitshiftRight(by:)-6uz0n": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitShiftRight(by:)-32oqx": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -2048,7 +1832,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftRight"
+      "text" : "bitShiftRight"
     },
     {
       "kind" : "text",
@@ -2072,15 +1856,15 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftRight(by:)-6uz0n",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftRight(by:)-32oqx",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "bitshiftRight(by:)",
+  "title" : "bitShiftRight(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftright(by:)-6uz0n"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftright(by:)-32oqx"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitshiftedLeft(by:)-5fv7o": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitShiftedLeft(by:)-8lzzt": {
   "abstract" : [
     {
       "text" : "Performs a left shift.",
@@ -2099,7 +1883,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedLeft"
+      "text" : "bitShiftedLeft"
     },
     {
       "kind" : "text",
@@ -2127,15 +1911,15 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftedLeft(by:)-5fv7o",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftedLeft(by:)-8lzzt",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "bitshiftedLeft(by:)",
+  "title" : "bitShiftedLeft(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftedleft(by:)-5fv7o"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftedleft(by:)-8lzzt"
 },
-"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitshiftedRight(by:)-1rl8t": {
+"doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/bitShiftedRight(by:)-9ykh8": {
   "abstract" : [
     {
       "text" : "Performs an un\/signed right shift.",
@@ -2154,7 +1938,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bitshiftedRight"
+      "text" : "bitShiftedRight"
     },
     {
       "kind" : "text",
@@ -2182,13 +1966,13 @@
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitshiftedRight(by:)-1rl8t",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKFixedWidthInteger\/bitShiftedRight(by:)-9ykh8",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "bitshiftedRight(by:)",
+  "title" : "bitShiftedRight(by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftedright(by:)-1rl8t"
+  "url" : "\/documentation\/numberick\/nbkfixedwidthinteger\/bitshiftedright(by:)-9ykh8"
 },
 "doc://Numberick/documentation/Numberick/NBKFixedWidthInteger/dividingFullWidth(_:)": {
   "abstract" : [
