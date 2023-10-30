@@ -14,7 +14,7 @@
 extension NBK.ProperBinaryInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Utilities x Binary Algorithm
     //=------------------------------------------------------------------------=
     
     /// Finds the GCD of `lhs` and `rhs` by using [this binary algorithm][algorithm].
@@ -25,13 +25,6 @@ extension NBK.ProperBinaryInteger {
     of lhs: Integer, and rhs: Integer) -> Integer.Magnitude {
         NBK.PUI.greatestCommonDivisorByBinaryAlgorithm(of: lhs.magnitude, and: rhs.magnitude)
     }
-}
-
-//*============================================================================*
-// MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x Signed
-//*============================================================================*
-
-extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
     
     //=------------------------------------------------------------------------=
     // MARK: Utilities x Euclidean Algorithm
@@ -200,7 +193,7 @@ extension NBK.ProperBinaryInteger {
     /// ### Quotients of dividing by GCD
     ///
     /// ```swift
-    /// if  result.isZero, result <= Integer.max else {
+    /// if !result.isZero, result <= Integer.max {
     ///     precondition(lhsQuotient == lhs / result)
     ///     precondition(rhsQuotient == rhs / result)
     /// }
@@ -257,7 +250,7 @@ extension NBK.ProperBinaryInteger {
     }
 }
 //=----------------------------------------------------------------------------=
-// MARK: + Integer, Void, Void
+// MARK: + Void, Void
 //=----------------------------------------------------------------------------=
 
 extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Void, Y == Void {
@@ -268,7 +261,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) {
         //=--------------------------------------=
         let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
         //=--------------------------------------=
@@ -289,7 +282,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Integer, Integer, Void
+// MARK: + Integer, Void
 //=----------------------------------------------------------------------------=
 
 extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Integer, Y == Void {
@@ -300,19 +293,19 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) {
         //=--------------------------------------=
-        let lhsIsLessThanZero: Bool = lhs.isLessThanZero
-        let rhsIsLessThanZero: Bool = rhs.isLessThanZero
+        let lhsIsLessThanZero = lhs.isLessThanZero
+        let rhsIsLessThanZero = rhs.isLessThanZero
         //=--------------------------------------=
         let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
-        let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
         self.r = unsigned.r
         //=--------------------------------------=
-        self.x.0 = X(sign: NBK.sign(lhsIsLessThanZero != odd), magnitude: unsigned.x.0)!
-        self.x.1 = X(sign: NBK.sign(rhsIsLessThanZero /*--*/), magnitude: unsigned.x.1)!
+        let even = unsigned.iteration.isEven as Bool
+        self.x.0 = X(sign: NBK.sign(Integer.isSigned && lhsIsLessThanZero == even), magnitude: unsigned.x.0)!
+        self.x.1 = X(sign: NBK.sign(Integer.isSigned && rhsIsLessThanZero    /**/), magnitude: unsigned.x.1)!
     }
     
     @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
@@ -330,7 +323,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Integer, Void, Integer
+// MARK: + Void, Integer
 //=----------------------------------------------------------------------------=
 
 extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Void, Y == Integer {
@@ -341,19 +334,19 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) {
         //=--------------------------------------=
-        let lhsIsLessThanZero: Bool = lhs.isLessThanZero
-        let rhsIsLessThanZero: Bool = rhs.isLessThanZero
+        let lhsIsLessThanZero = lhs.isLessThanZero
+        let rhsIsLessThanZero = rhs.isLessThanZero
         //=--------------------------------------=
         let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
-        let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
         self.r = unsigned.r
         //=--------------------------------------=
-        self.y.0 = Y(sign: NBK.sign(rhsIsLessThanZero == odd), magnitude: unsigned.y.0)!
-        self.y.1 = Y(sign: NBK.sign(lhsIsLessThanZero /*--*/), magnitude: unsigned.y.1)!
+        let even = unsigned.iteration.isEven as Bool
+        self.y.0 = Y(sign: NBK.sign(Integer.isSigned && rhsIsLessThanZero != even), magnitude: unsigned.y.0)!
+        self.y.1 = Y(sign: NBK.sign(Integer.isSigned && lhsIsLessThanZero    /**/), magnitude: unsigned.y.1)!
     }
     
     @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
@@ -371,7 +364,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Integer, Integer, Integer
+// MARK: + Integer, Integer
 //=----------------------------------------------------------------------------=
 
 extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Integer, Y == Integer {
@@ -382,21 +375,21 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) {
         //=--------------------------------------=
-        let lhsIsLessThanZero: Bool = lhs.isLessThanZero
-        let rhsIsLessThanZero: Bool = rhs.isLessThanZero
+        let lhsIsLessThanZero = lhs.isLessThanZero
+        let rhsIsLessThanZero = rhs.isLessThanZero
         //=--------------------------------------=
         let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
-        let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
         self.r = unsigned.r
         //=--------------------------------------=
-        self.x.0 = X(sign: NBK.sign(lhsIsLessThanZero != odd), magnitude: unsigned.x.0)!
-        self.x.1 = X(sign: NBK.sign(rhsIsLessThanZero /*--*/), magnitude: unsigned.x.1)!
-        self.y.0 = Y(sign: NBK.sign(rhsIsLessThanZero == odd), magnitude: unsigned.y.0)!
-        self.y.1 = Y(sign: NBK.sign(lhsIsLessThanZero /*--*/), magnitude: unsigned.y.1)!
+        let even = unsigned.iteration.isEven as Bool
+        self.x.0 = X(sign: NBK.sign(Integer.isSigned && lhsIsLessThanZero == even), magnitude: unsigned.x.0)!
+        self.x.1 = X(sign: NBK.sign(Integer.isSigned && rhsIsLessThanZero    /**/), magnitude: unsigned.x.1)!
+        self.y.0 = Y(sign: NBK.sign(Integer.isSigned && rhsIsLessThanZero != even), magnitude: unsigned.y.0)!
+        self.y.1 = Y(sign: NBK.sign(Integer.isSigned && lhsIsLessThanZero    /**/), magnitude: unsigned.y.1)!
     }
     
     @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
