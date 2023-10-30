@@ -172,29 +172,38 @@ extension NBK {
     /// ### Result
     ///
     /// ```swift
-    /// precondition(0 ... T.max ~= result)
+    /// if  Integer.isSigned {
+    ///     precondition(0 ... T.min.magnitude ~= result)
+    /// }   else {
+    ///     precondition(0 ... T.max.magnitude ~= result)
+    /// }
     /// ```
     ///
     /// - Note: The GCD of `0` and `0` is `0`.
     ///
     /// - Note: The GCD of `0` and `X` is `X`.
     ///
-    /// ### Bézout's identity (unsigned)
+    /// - Note: The GCD of `Int.min` and `Int.min` is `Int.min.magnitude`.
+    ///
+    /// ### Bézout's identity
     ///
     /// ```swift
-    /// if !iteration.isOdd {
-    ///     precondition(result == (lhs &* lhsCoefficient &- rhs &* rhsCoefficient))
+    /// if  Integer.isSigned {
+    ///     precondition((lhs &* lhsCoefficient &+ rhs &* rhsCoefficient) == Integer(bitPattern: result))
+    ///     else if !iteration.isOdd {
+    ///     precondition((lhs &* lhsCoefficient &- rhs &* rhsCoefficient) == result)
     /// }   else {
-    ///     precondition(result == (rhs &* rhsCoefficient &- lhs &* lhsCoefficient))
+    ///     precondition((rhs &* rhsCoefficient &- lhs &* lhsCoefficient) == result)
     /// }
     /// ```
     ///
     /// ### Quotients of dividing by GCD
     ///
     /// ```swift
-    /// guard !result.isZero else { return }
-    /// precondition(lhsQuotient == lhs / result)
-    /// precondition(rhsQuotient == rhs / result)
+    /// if  result.isZero, result <= Integer.max else {
+    ///     precondition(lhsQuotient == lhs / result)
+    ///     precondition(rhsQuotient == rhs / result)
+    /// }
     /// ```
     ///
     /// ### Iteration
