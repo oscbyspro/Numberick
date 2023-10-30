@@ -121,7 +121,7 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisorByExtendedEuclidea
         
         for lhs in  Int8.min ... Int8.max {
             for rhs in Int8.min ... Int8.max {
-                let extended = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs)
+                let extended = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs)
                 maxIteration = Swift.max(maxIteration, extended.iteration)
                 XCTAssertEqual(Int8(bitPattern: extended.result), lhs &* extended.lhsCoefficient &+ rhs &* extended.rhsCoefficient)
                 XCTAssertEqual(extended.lhsCoefficient < 0, (extended.lhsCoefficient != 0) && (lhs < 0) != extended.iteration.isOdd)
@@ -138,7 +138,7 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisorByExtendedEuclidea
         
         for lhs in  UInt8.min ... UInt8.max {
             for rhs in UInt8.min ... UInt8.max {
-                let extended = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs)
+                let extended = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs)
                 maxIteration = Swift.max(maxIteration, extended.iteration)
                 
                 if !extended.iteration.isOdd {
@@ -219,89 +219,89 @@ private func NBKAssertGreatestCommonDivisorByEuclideanAlgorithmAsSigned<T: NBKSi
 _ lhs: T, _ rhs: T, _ result: T.Magnitude,  _ overflow: Bool,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let e100 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm100(of: lhs, and: rhs)
-    let e110 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm110(of: lhs, and: rhs)
-    let e101 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm101(of: lhs, and: rhs)
-    let e111 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs)
+    let e00 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm00(of: lhs, and: rhs)
+    let e10 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm10(of: lhs, and: rhs)
+    let e01 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm01(of: lhs, and: rhs)
+    let e11 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs)
     //=------------------------------------------=
-    XCTAssertEqual(e111.result, result, file: file, line: line)
-    XCTAssertEqual(e111.result == T.min.magnitude, overflow, file: file, line: line)
-    XCTAssertEqual(lhs &* e111.lhsCoefficient &+ rhs &* e111.rhsCoefficient, T(bitPattern: result), file: file, line: line)
+    XCTAssertEqual(e11.result, result, file: file, line: line)
+    XCTAssertEqual(e11.result == T.min.magnitude, overflow, file: file, line: line)
+    XCTAssertEqual(lhs &* e11.lhsCoefficient &+ rhs &* e11.rhsCoefficient, T(bitPattern: result), file: file, line: line)
     
     if  result == T.min.magnitude {
         let values   = [lhs, rhs]
         XCTAssert(1 <= values.filter({ $0 == T.min }).count,  file: file, line: line)
-        XCTAssert(2 == values.filter({ $0 == T.min }).count + values.filter(\.isZero).count,   file: file, line: line)
+        XCTAssert(2 == values.filter({ $0 == T.min }).count + values.filter(\.isZero).count,  file: file, line: line)
         
-        XCTAssertEqual(lhs == T.min && rhs != T.min ? -1 : 0, e111.lhsCoefficient, file: file, line: line)
-        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, e111.rhsCoefficient, file: file, line: line)
-        XCTAssertEqual(lhs == T.min /*-----------*/ ? -1 : 0, e111.lhsQuotient,    file: file, line: line)
-        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, e111.rhsQuotient,    file: file, line: line)
+        XCTAssertEqual(lhs == T.min && rhs != T.min ? -1 : 0, e11.lhsCoefficient, file: file, line: line)
+        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, e11.rhsCoefficient, file: file, line: line)
+        XCTAssertEqual(lhs == T.min /*-----------*/ ? -1 : 0, e11.lhsQuotient,    file: file, line: line)
+        XCTAssertEqual(rhs == T.min /*-----------*/ ? -1 : 0, e11.rhsQuotient,    file: file, line: line)
     }   else if result.isZero {
         XCTAssertEqual(0, lhs, file: file, line: line)
         XCTAssertEqual(0, rhs, file: file, line: line)
         
-        XCTAssertEqual(1, e111.lhsCoefficient, file: file, line: line)
-        XCTAssertEqual(0, e111.rhsCoefficient, file: file, line: line)
-        XCTAssertEqual(1, e111.lhsQuotient,    file: file, line: line)
-        XCTAssertEqual(0, e111.rhsQuotient,    file: file, line: line)
+        XCTAssertEqual(1, e11.lhsCoefficient, file: file, line: line)
+        XCTAssertEqual(0, e11.rhsCoefficient, file: file, line: line)
+        XCTAssertEqual(1, e11.lhsQuotient,    file: file, line: line)
+        XCTAssertEqual(0, e11.rhsQuotient,    file: file, line: line)
     }   else {
-        XCTAssertEqual(e111.lhsQuotient, lhs / T(result),  file: file, line: line)
-        XCTAssertEqual(e111.rhsQuotient, rhs / T(result),  file: file, line: line)
+        XCTAssertEqual(e11.lhsQuotient, lhs / T(result),  file: file, line: line)
+        XCTAssertEqual(e11.rhsQuotient, rhs / T(result),  file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(e111.iteration,      e100.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e100.result,         file: file, line: line)
-    XCTAssertEqual(e111.iteration,      e110.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e110.result,         file: file, line: line)
-    XCTAssertEqual(e111.lhsCoefficient, e110.lhsCoefficient, file: file, line: line)
-    XCTAssertEqual(e111.rhsQuotient,    e110.rhsQuotient,    file: file, line: line)
-    XCTAssertEqual(e111.iteration,      e101.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e101.result,         file: file, line: line)
-    XCTAssertEqual(e111.rhsCoefficient, e101.rhsCoefficient, file: file, line: line)
-    XCTAssertEqual(e111.lhsQuotient,    e101.lhsQuotient,    file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e00.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e00.result,         file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e10.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e10.result,         file: file, line: line)
+    XCTAssertEqual(e11.lhsCoefficient, e10.lhsCoefficient, file: file, line: line)
+    XCTAssertEqual(e11.rhsQuotient,    e10.rhsQuotient,    file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e01.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e01.result,         file: file, line: line)
+    XCTAssertEqual(e11.rhsCoefficient, e01.rhsCoefficient, file: file, line: line)
+    XCTAssertEqual(e11.lhsQuotient,    e01.lhsQuotient,    file: file, line: line)
 }
 
 private func NBKAssertGreatestCommonDivisorByEuclideanAlgorithmAsUnsigned<T: NBKUnsignedInteger & NBKFixedWidthInteger>(
 _ lhs: T, _ rhs: T, _ result: T.Magnitude,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let e100 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm100(of: lhs, and: rhs)
-    let e110 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm110(of: lhs, and: rhs)
-    let e101 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm101(of: lhs, and: rhs)
-    let e111 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs)
+    let e00 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm00(of: lhs, and: rhs)
+    let e10 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm10(of: lhs, and: rhs)
+    let e01 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm01(of: lhs, and: rhs)
+    let e11 = NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs)
     //=------------------------------------------=
-    XCTAssertEqual(e111.result, T(result), file: file, line: line)
+    XCTAssertEqual(e11.result, T(result), file: file, line: line)
     
     if !result.isZero {
-        XCTAssertEqual(e111.lhsQuotient, lhs / T(result),  file: file, line: line)
-        XCTAssertEqual(e111.rhsQuotient, rhs / T(result),  file: file, line: line)
+        XCTAssertEqual(e11.lhsQuotient, lhs / T(result),  file: file, line: line)
+        XCTAssertEqual(e11.rhsQuotient, rhs / T(result),  file: file, line: line)
     }   else {
         XCTAssertEqual(0, lhs, file: file, line: line)
         XCTAssertEqual(0, rhs, file: file, line: line)
         
-        XCTAssertEqual(1, e111.lhsQuotient,    file: file, line: line)
-        XCTAssertEqual(0, e111.rhsQuotient,    file: file, line: line)
-        XCTAssertEqual(1, e111.lhsCoefficient, file: file, line: line)
-        XCTAssertEqual(0, e111.rhsCoefficient, file: file, line: line)
+        XCTAssertEqual(1, e11.lhsQuotient,    file: file, line: line)
+        XCTAssertEqual(0, e11.rhsQuotient,    file: file, line: line)
+        XCTAssertEqual(1, e11.lhsCoefficient, file: file, line: line)
+        XCTAssertEqual(0, e11.rhsCoefficient, file: file, line: line)
     }
     
-    if !e111.iteration.isOdd {
-        XCTAssertEqual(result, lhs &* e111.lhsCoefficient &- rhs &* e111.rhsCoefficient, file: file, line: line)
+    if !e11.iteration.isOdd {
+        XCTAssertEqual(lhs &* e11.lhsCoefficient &- rhs &* e11.rhsCoefficient, result, file: file, line: line)
     }   else {
-        XCTAssertEqual(result, rhs &* e111.rhsCoefficient &- lhs &* e111.lhsCoefficient, file: file, line: line)
+        XCTAssertEqual(rhs &* e11.rhsCoefficient &- lhs &* e11.lhsCoefficient, result, file: file, line: line)
     }
     //=------------------------------------------=
-    XCTAssertEqual(e111.iteration,      e100.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e100.result,         file: file, line: line)
-    XCTAssertEqual(e111.iteration,      e110.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e110.result,         file: file, line: line)
-    XCTAssertEqual(e111.lhsCoefficient, e110.lhsCoefficient, file: file, line: line)
-    XCTAssertEqual(e111.rhsQuotient,    e110.rhsQuotient,    file: file, line: line)
-    XCTAssertEqual(e111.iteration,      e101.iteration,      file: file, line: line)
-    XCTAssertEqual(e111.result,         e101.result,         file: file, line: line)
-    XCTAssertEqual(e111.rhsCoefficient, e101.rhsCoefficient, file: file, line: line)
-    XCTAssertEqual(e111.lhsQuotient,    e101.lhsQuotient,    file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e00.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e00.result,         file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e10.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e10.result,         file: file, line: line)
+    XCTAssertEqual(e11.lhsCoefficient, e10.lhsCoefficient, file: file, line: line)
+    XCTAssertEqual(e11.rhsQuotient,    e10.rhsQuotient,    file: file, line: line)
+    XCTAssertEqual(e11.iteration,      e01.iteration,      file: file, line: line)
+    XCTAssertEqual(e11.result,         e01.result,         file: file, line: line)
+    XCTAssertEqual(e11.rhsCoefficient, e01.rhsCoefficient, file: file, line: line)
+    XCTAssertEqual(e11.lhsQuotient,    e01.lhsQuotient,    file: file, line: line)
 }
 
 #endif

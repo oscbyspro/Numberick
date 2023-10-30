@@ -28,21 +28,21 @@ final class NBKProperBinaryIntegerBenchmarksOnGreatestCommonDivisor: XCTestCase 
     // MARK: Tests x Binary Algorithm
     //=------------------------------------------------------------------------=
     
-    func testBinaryAlgorithmForAllInt8s() {
+    func testBinaryAlgorithmForEachPairOfInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testBinaryAlgorithmForAllUInt8s() {
+    func testBinaryAlgorithmForEachPairOfUInt8s() {
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByBinaryAlgorithm(of: lhs, and: rhs))
                 }
             }
         }
@@ -52,81 +52,81 @@ final class NBKProperBinaryIntegerBenchmarksOnGreatestCommonDivisor: XCTestCase 
     // MARK: Tests x Euclidean Algorithm
     //=------------------------------------------------------------------------=
     
-    func testEuclideanAlgorithm100ForAllInt8s() {
+    func testEuclideanAlgorithm00ForEachPairOfInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm100(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm00(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm110ForAllInt8s() {
+    func testEuclideanAlgorithm10ForEachPairOfInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm110(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm10(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm101ForAllInt8s() {
+    func testEuclideanAlgorithm01ForEachPairOfInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm101(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm01(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm111ForAllInt8s() {
+    func testEuclideanAlgorithm11ForEachPairOfInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm100ForAllUInt8s() {
+    func testEuclideanAlgorithm00ForEachPairOfUInt8s() {
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm100(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm00(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm110ForAllUInt8s() {
+    func testEuclideanAlgorithm10ForEachPairOfUInt8s() {
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm110(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm10(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm101ForAllUInt8s() {
+    func testEuclideanAlgorithm01ForEachPairOfUInt8s() {
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm101(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm01(of: lhs, and: rhs))
                 }
             }
         }
     }
     
-    func testEuclideanAlgorithm111ForAllUInt8s() {
+    func testEuclideanAlgorithm11ForEachPairOfUInt8s() {
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(NBK.PBI.greatestCommonDivisorByEuclideanAlgorithm111(of: lhs, and: rhs))
+                    NBK.blackHole(T.greatestCommonDivisorByEuclideanAlgorithm11(of: lhs, and: rhs))
                 }
             }
         }

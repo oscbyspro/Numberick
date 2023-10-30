@@ -41,36 +41,36 @@ extension NBK.ProperBinaryInteger where Integer: NBKSignedInteger {
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm100(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void, Void> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm00(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Void, Void> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm110(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer, Void> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm10(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm101(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void, Integer> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm01(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Void, Integer> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm111(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer, Integer> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm11(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
 }
 
@@ -124,36 +124,36 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm100(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void, Void> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm00(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Void, Void> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm110(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer, Void> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm10(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm101(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void, Integer> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm01(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Void, Integer> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/extended_euclidean_algorithm
     ///
-    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm111(
-    of  lhs: Integer, and rhs: Integer) -> NBK.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer, Integer> {
-        NBK.GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
+    @inlinable public static func greatestCommonDivisorByEuclideanAlgorithm11(
+    of  lhs: Integer, and rhs: Integer) -> GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer> {
+        GreatestCommonDivisorByEuclideanAlgorithm(of: lhs, and: rhs)
     }
 }
 
@@ -161,7 +161,7 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
 // MARK: * NBK x Proper Binary Integer x Greatest Common Divisor x E.E.A
 //*============================================================================*
 
-extension NBK {
+extension NBK.ProperBinaryInteger {
     
     /// Finds the GCD of `lhs` and `rhs` by using this [algorithm][algorithm].
     ///
@@ -213,19 +213,19 @@ extension NBK {
     /// let rhsCoefficientSign = rhs.isLessThanZero == iteration.isOdd
     /// ```
     ///
-    @frozen public struct GreatestCommonDivisorByEuclideanAlgorithm<X, Y, Z> where X: NBKBinaryInteger {
+    @frozen public struct GreatestCommonDivisorByEuclideanAlgorithm<X, Y> {
         
         /// The main integer's magnitude type.
-        public typealias I = X.Magnitude
+        public typealias I = Integer.Magnitude
         
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
         
         @usableFromInline var i: ((I))
-        @usableFromInline var x: (I,I)
+        @usableFromInline var r: (I,I)
+        @usableFromInline var x: (X,X)
         @usableFromInline var y: (Y,Y)
-        @usableFromInline var z: (Z,Z)
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
@@ -236,23 +236,23 @@ extension NBK {
         }
         
         @inlinable public var result: I {
+            self.r.0
+        }
+        
+        @inlinable public var lhsCoefficient: X {
             self.x.0
         }
         
-        @inlinable public var lhsCoefficient: Y {
+        @inlinable public var rhsQuotient: X {
+            self.x.1
+        }
+        
+        @inlinable public var rhsCoefficient: Y {
             self.y.0
         }
         
-        @inlinable public var rhsQuotient: Y {
+        @inlinable public var lhsQuotient: Y {
             self.y.1
-        }
-        
-        @inlinable public var rhsCoefficient: Z {
-            self.z.0
-        }
-        
-        @inlinable public var lhsQuotient: Z {
-            self.z.1
         }
     }
 }
@@ -260,28 +260,30 @@ extension NBK {
 // MARK: + Integer, Void, Void
 //=----------------------------------------------------------------------------=
 
-extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == Void, Z == Void {
+extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Void, Y == Void {
+    
+    public typealias Magnitude = NBK.ProperBinaryInteger<I>.GreatestCommonDivisorByEuclideanAlgorithm<Void, Void>
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
         //=--------------------------------------=
-        let unsigned = NBK.GreatestCommonDivisorByEuclideanAlgorithm<I, Void, Void>(of: lhs.magnitude, and: rhs.magnitude)
+        let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
         //=--------------------------------------=
         self.i = unsigned.i
-        self.x = unsigned.x
+        self.r = unsigned.r
     }
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKUnsignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
         self.i = (00000000)
-        self.x = (lhs, rhs)
+        self.r = (lhs, rhs)
         
-        reduce: while !(self.x.1.isZero) {
-            self.i   += 0001 as X.Digit
-            self.x.0 %= self.x.1
-            Swift.swap(&self.x.0, &self.x.1)
+        reduce: while !(self.r.1.isZero) {
+            self.i   += 1 as Integer.Digit
+            self.r.0 %= self.r.1
+            Swift.swap(&self.r.0, &self.r.1)
         }
     }
 }
@@ -290,37 +292,39 @@ extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == Void, Z == Vo
 // MARK: + Integer, Integer, Void
 //=----------------------------------------------------------------------------=
 
-extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == X, Z == Void {
+extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Integer, Y == Void {
     
+    public typealias Magnitude = NBK.ProperBinaryInteger<I>.GreatestCommonDivisorByEuclideanAlgorithm<I, Void>
+
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
         //=--------------------------------------=
         let lhsIsLessThanZero: Bool = lhs.isLessThanZero
         let rhsIsLessThanZero: Bool = rhs.isLessThanZero
         //=--------------------------------------=
-        let unsigned = NBK.GreatestCommonDivisorByEuclideanAlgorithm<I, I, Void>(of: lhs.magnitude, and: rhs.magnitude)
+        let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
         let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
-        self.x = unsigned.x
+        self.r = unsigned.r
         //=--------------------------------------=
-        self.y.0 = Y(sign: lhsIsLessThanZero != odd ? .minus : .plus, magnitude: unsigned.y.0)!
-        self.y.1 = Y(sign: rhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.y.1)!
+        self.x.0 = X(sign: NBK.sign(lhsIsLessThanZero != odd), magnitude: unsigned.x.0)!
+        self.x.1 = X(sign: NBK.sign(rhsIsLessThanZero /*--*/), magnitude: unsigned.x.1)!
     }
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKUnsignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
         self.i = (00000000)
-        self.x = (lhs, rhs)
-        self.y = (001, 000)
+        self.r = (lhs, rhs)
+        self.x = (001, 000)
         
-        reduce: while !self.x.1.isZero {
-            let division = self.x.0.quotientAndRemainder(dividingBy: self.x.1)
-            self.i += (000000000000001) as X.Digit
-            self.x  = (self.x.1, division.remainder)
-            self.y  = (self.y.1, division.quotient * self.y.1 + self.y.0)
+        reduce: while !self.r.1.isZero {
+            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            self.i += (00000001) as Integer.Digit
+            self.r  = (self.r.1, division.remainder)
+            self.x  = (self.x.1, division.quotient * self.x.1 + self.x.0)
         }
     }
 }
@@ -329,37 +333,39 @@ extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == X, Z == Void 
 // MARK: + Integer, Void, Integer
 //=----------------------------------------------------------------------------=
 
-extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == Void, Z == X {
+extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Void, Y == Integer {
+    
+    public typealias Magnitude = NBK.ProperBinaryInteger<I>.GreatestCommonDivisorByEuclideanAlgorithm<Void, I>
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
         //=--------------------------------------=
         let lhsIsLessThanZero: Bool = lhs.isLessThanZero
         let rhsIsLessThanZero: Bool = rhs.isLessThanZero
         //=--------------------------------------=
-        let unsigned = NBK.GreatestCommonDivisorByEuclideanAlgorithm<I, Void, I>(of: lhs.magnitude, and: rhs.magnitude)
+        let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
         let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
-        self.x = unsigned.x
+        self.r = unsigned.r
         //=--------------------------------------=
-        self.z.0 = Z(sign: rhsIsLessThanZero == odd ? .minus : .plus, magnitude: unsigned.z.0)!
-        self.z.1 = Z(sign: lhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.z.1)!
+        self.y.0 = Y(sign: NBK.sign(rhsIsLessThanZero == odd), magnitude: unsigned.y.0)!
+        self.y.1 = Y(sign: NBK.sign(lhsIsLessThanZero /*--*/), magnitude: unsigned.y.1)!
     }
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKUnsignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
         self.i = (00000000)
-        self.x = (lhs, rhs)
-        self.z = (000, 001)
+        self.r = (lhs, rhs)
+        self.y = (000, 001)
         
-        reduce: while !self.x.1.isZero {
-            let division = self.x.0.quotientAndRemainder(dividingBy: self.x.1)
-            self.i += (000000000000001) as X.Digit
-            self.x  = (self.x.1, division.remainder)
-            self.z  = (self.z.1, division.quotient * self.z.1 + self.z.0)
+        reduce: while !self.r.1.isZero {
+            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            self.i += (00000001) as Integer.Digit
+            self.r  = (self.r.1, division.remainder)
+            self.y  = (self.y.1, division.quotient * self.y.1 + self.y.0)
         }
     }
 }
@@ -368,41 +374,43 @@ extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == Void, Z == X 
 // MARK: + Integer, Integer, Integer
 //=----------------------------------------------------------------------------=
 
-extension NBK.GreatestCommonDivisorByEuclideanAlgorithm where Y == X, Z == X {
+extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm where X == Integer, Y == Integer {
     
+    public typealias Magnitude = NBK.ProperBinaryInteger<I>.GreatestCommonDivisorByEuclideanAlgorithm<I, I>
+
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKSignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKSignedInteger {
         //=--------------------------------------=
         let lhsIsLessThanZero: Bool = lhs.isLessThanZero
         let rhsIsLessThanZero: Bool = rhs.isLessThanZero
         //=--------------------------------------=
-        let unsigned = NBK.GreatestCommonDivisorByEuclideanAlgorithm<I, I, I>(of: lhs.magnitude, and: rhs.magnitude)
+        let unsigned = Magnitude(of: lhs.magnitude, and: rhs.magnitude)
         let odd = unsigned.iteration.isOdd as Bool
         //=--------------------------------------=
         self.i = unsigned.i
-        self.x = unsigned.x
+        self.r = unsigned.r
         //=--------------------------------------=
-        self.y.0 = Y(sign: lhsIsLessThanZero != odd ? .minus : .plus, magnitude: unsigned.y.0)!
-        self.y.1 = Y(sign: rhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.y.1)!
-        self.z.0 = Z(sign: rhsIsLessThanZero == odd ? .minus : .plus, magnitude: unsigned.z.0)!
-        self.z.1 = Z(sign: lhsIsLessThanZero /*--*/ ? .minus : .plus, magnitude: unsigned.z.1)!
+        self.x.0 = X(sign: NBK.sign(lhsIsLessThanZero != odd), magnitude: unsigned.x.0)!
+        self.x.1 = X(sign: NBK.sign(rhsIsLessThanZero /*--*/), magnitude: unsigned.x.1)!
+        self.y.0 = Y(sign: NBK.sign(rhsIsLessThanZero == odd), magnitude: unsigned.y.0)!
+        self.y.1 = Y(sign: NBK.sign(lhsIsLessThanZero /*--*/), magnitude: unsigned.y.1)!
     }
     
-    @inlinable init(of lhs: X, and rhs: X) where X: NBKUnsignedInteger {
+    @inlinable init(of lhs: Integer, and rhs: Integer) where Integer: NBKUnsignedInteger {
         self.i = (00000000)
-        self.x = (lhs, rhs)
-        self.y = (001, 000)
-        self.z = (000, 001)
+        self.r = (lhs, rhs)
+        self.x = (001, 000)
+        self.y = (000, 001)
         
-        reduce: while !self.x.1.isZero {
-            let division = self.x.0.quotientAndRemainder(dividingBy: self.x.1)
-            self.i += (000000000000001) as X.Digit
-            self.x  = (self.x.1, division.remainder)
+        reduce: while !self.r.1.isZero {
+            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            self.i += (00000001) as Integer.Digit
+            self.r  = (self.r.1, division.remainder)
+            self.x  = (self.x.1, division.quotient * self.x.1 + self.x.0)
             self.y  = (self.y.1, division.quotient * self.y.1 + self.y.0)
-            self.z  = (self.z.1, division.quotient * self.z.1 + self.z.0)
         }
     }
 }
