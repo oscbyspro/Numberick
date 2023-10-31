@@ -21,18 +21,16 @@ extension NBK.ProperBinaryInteger {
     ///
     /// - Returns: A value from `0` to `modulus` or `nil`.
     ///
-    @inlinable public static func modularMultiplicativeInverse(of integer: Integer, mod modulus: Integer) -> Integer? {
+    @inlinable public static func modularMultiplicativeInverse(of lhs: Integer, mod rhs: Integer) -> Integer? {
         //=--------------------------------------=
-        let lhsIsLessThanZero = integer.isLessThanZero
-        let rhsIsLessThanZero = modulus.isLessThanZero
+        let lhsIsLessThanZero = lhs.isLessThanZero
+        let rhsIsLessThanZero = rhs.isLessThanZero
         //=--------------------------------------=
         if  rhsIsLessThanZero { return nil }
         //=--------------------------------------=
-        guard let unsigned = Magnitude.modularMultiplicativeInverse(of: integer.magnitude, mod: modulus.magnitude) else { return nil }
-        //=--------------------------------------=
-        var inverse = Integer(sign: NBK.sign(lhsIsLessThanZero), magnitude: unsigned)!
-        if  inverse.isLessThanZero { inverse += modulus }
-        return inverse as Integer as Integer as Integer
+        guard  let magnitude  = Magnitude.modularMultiplicativeInverse(
+        sign:  NBK.sign(lhsIsLessThanZero), magnitude: lhs.magnitude, mod: rhs.magnitude) else { return nil }
+        return Integer(sign: NBK.Sign.plus, magnitude: magnitude)!
     }
 }
 
@@ -46,23 +44,24 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Returns the modular multiplicative inverse of `integer` modulo `modulus`, if it exists.
+    /// Returns the modular multiplicative inverse of `sign` and `magnitude` modulo `modulus`, if it exists.
     ///
     /// - Returns: A value from `0` to `modulus` or `nil`.
     ///
-    @inlinable public static func modularMultiplicativeInverse(of integer: Integer, mod modulus: Integer) -> Integer? {
+    @inlinable public static func modularMultiplicativeInverse(sign: NBK.Sign, magnitude: Integer, mod modulus: Integer) -> Integer? {
         //=--------------------------------------=
         switch modulus.compared(to: 1 as Integer.Digit) {
         case  1: break;
         case  0: return Integer.zero
         default: return nil }
         //=--------------------------------------=
-        let extended = self.greatestCommonDivisorByEuclideanAlgorithm10(of: integer, and: modulus)
+        let extended = self.greatestCommonDivisorByEuclideanAlgorithm10(of: magnitude, and: modulus)
         //=--------------------------------------=
         guard extended.result.compared(to: 1 as Integer.Digit).isZero else {
             return nil // the arguments must be coprime
         }
         //=--------------------------------------=
-        return extended.iteration.isOdd ? modulus - extended.lhsCoefficient : extended.lhsCoefficient
+        Swift.assert(extended.lhsCoefficient.isMoreThanZero)
+        return (sign == .minus) == extended.iteration.isEven ? modulus - extended.lhsCoefficient : extended.lhsCoefficient
     }
 }
