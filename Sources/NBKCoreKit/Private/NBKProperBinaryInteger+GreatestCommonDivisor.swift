@@ -193,7 +193,7 @@ extension NBK.ProperBinaryInteger {
     /// ### Quotients of dividing by GCD
     ///
     /// ```swift
-    /// if !result.isZero, result <= Integer.max {
+    /// if !result.isZero, let result = Integer(exactly: result) {
     ///     precondition(lhsQuotient == lhs / result)
     ///     precondition(rhsQuotient == rhs / result)
     /// }
@@ -314,7 +314,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
         self.x = (001, 000)
         
         reduce: while !self.r.1.isZero {
-            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            let division = self.r.0.quotientAndRemainder(dividingBy: r.1)
             self.i += (00000001) as Integer.Digit
             self.r  = (self.r.1, division.remainder)
             self.x  = (self.x.1, division.quotient * self.x.1 + self.x.0)
@@ -355,7 +355,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
         self.y = (000, 001)
         
         reduce: while !self.r.1.isZero {
-            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            let division = self.r.0.quotientAndRemainder(dividingBy: r.1)
             self.i += (00000001) as Integer.Digit
             self.r  = (self.r.1, division.remainder)
             self.y  = (self.y.1, division.quotient * self.y.1 + self.y.0)
@@ -399,7 +399,7 @@ extension NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm wher
         self.y = (000, 001)
         
         reduce: while !self.r.1.isZero {
-            let division = self.r.0.quotientAndRemainder(dividingBy: self.r.1)
+            let division = self.r.0.quotientAndRemainder(dividingBy: r.1)
             self.i += (00000001) as Integer.Digit
             self.r  = (self.r.1, division.remainder)
             self.x  = (self.x.1, division.quotient * self.x.1 + self.x.0)
