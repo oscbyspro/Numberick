@@ -128,7 +128,7 @@ private func NBKAssertModularMultiplicativeInverseInvariants<T: NBKFixedWidthInt
 _ lhs: T, _ rhs: T, _ expectation: T?,
 file: StaticString = #file, line: UInt = #line) {
     //=--------------------------------------=
-    let inverse = NBK.PBI.modularMultiplicativeInverse(of: lhs, mod: rhs)
+    let inverse = NBK.PBI.modularMultiplicativeInverse(of: lhs, modulo: rhs)
     //=--------------------------------------=
     XCTAssertEqual(inverse, expectation, file: file, line: line)
     //=--------------------------------------=

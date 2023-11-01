@@ -153,6 +153,13 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
         NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
         NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.max, truncating: T(-1))
+        
+        XCTAssertEqual(T(magnitude: T(  ).magnitude + 0), T(  ))
+        XCTAssertEqual(T(magnitude: T(  ).magnitude + 1), T( 1))
+        XCTAssertEqual(T(magnitude: T.max.magnitude + 0), T.max)
+        XCTAssertEqual(T(magnitude: T.max.magnitude + 1),   nil)
+        XCTAssertEqual(T(magnitude: T.min.magnitude - 1), T.max)
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 0),   nil)
     }
     
     //=------------------------------------------------------------------------=
@@ -408,6 +415,11 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
         NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
         NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
         NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), default: T(x64: X(~0, ~0, ~0, ~0)))
+        
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 0), T.min + 0)
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 1), T.min + 1)
+        XCTAssertEqual(T(magnitude: T.max.magnitude - 1), T.max - 1)
+        XCTAssertEqual(T(magnitude: T.max.magnitude - 0), T.max - 0)
     }
     
     //=------------------------------------------------------------------------=

@@ -17,20 +17,20 @@ extension NBK.ProperBinaryInteger {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// Returns the modular multiplicative inverse of `integer` modulo `modulus`, if it exists.
+    /// Returns the modular multiplicative inverse of `lhs` modulo `rhs`, if it exists.
     ///
     /// - Returns: A value from `0` to `modulus` or `nil`.
     ///
-    @inlinable public static func modularMultiplicativeInverse(of lhs: Integer, mod rhs: Integer) -> Integer? {
+    @inlinable public static func modularMultiplicativeInverse(of lhs: Integer, modulo rhs: Integer) -> Integer? {
         //=--------------------------------------=
         let lhsIsLessThanZero = lhs.isLessThanZero
         let rhsIsLessThanZero = rhs.isLessThanZero
         //=--------------------------------------=
         if  rhsIsLessThanZero { return nil }
         //=--------------------------------------=
-        guard  let magnitude  = Magnitude.modularMultiplicativeInverse(
-        sign:  NBK.sign(lhsIsLessThanZero), magnitude: lhs.magnitude, mod: rhs.magnitude) else { return nil }
-        return Integer(sign: NBK.Sign.plus, magnitude: magnitude)!
+        guard  let magnitude = Magnitude.modularMultiplicativeInverse(
+        sign:  NBK.sign(lhsIsLessThanZero), magnitude: lhs.magnitude, modulo: rhs.magnitude) else { return nil }
+        return Integer(magnitude: magnitude)
     }
 }
 
@@ -48,7 +48,7 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     ///
     /// - Returns: A value from `0` to `modulus` or `nil`.
     ///
-    @inlinable public static func modularMultiplicativeInverse(sign: NBK.Sign, magnitude: Integer, mod modulus: Integer) -> Integer? {
+    @inlinable public static func modularMultiplicativeInverse(sign: NBK.Sign, magnitude: Integer, modulo modulus: Integer) -> Integer? {
         //=--------------------------------------=
         switch modulus.compared(to: 1 as Integer.Digit) {
         case  1: break;

@@ -72,6 +72,10 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
         NBKAssertGreatestCommonDivisorAsSigned(                11 as Int, 3 * 5 * 07 as Int,         01 as UInt)
     }
     
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Miscellaneous
+    //=------------------------------------------------------------------------=
+    
     func testEveryIntegerDividesZero() {
         for other in -10 ... 10 {
             NBKAssertGreatestCommonDivisorAsSigned(0 as Int, other, other.magnitude as UInt)
@@ -80,10 +84,6 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
         NBKAssertGreatestCommonDivisorAsSigned(0 as Int, Int.max, Int.max.magnitude as UInt)
         NBKAssertGreatestCommonDivisorAsSigned(0 as Int, Int.min, Int.min.magnitude as UInt, true)
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Miscellaneous
-    //=------------------------------------------------------------------------=
     
     func testMinSignedIsSpecialBecauseTheGreatestCommonDivisorMayOverflow() {
         NBKAssertGreatestCommonDivisorAsSigned(Int.min,  Int.min, Int.min.magnitude, true)
@@ -102,6 +102,14 @@ final class NBKProperBinaryIntegerTestsOnGreatestCommonDivisor: XCTestCase {
         NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000005, 00000000000000001)
         NBKAssertGreatestCommonDivisorAsSigned(Int.min,  0000006, 00000000000000002)
         NBKAssertGreatestCommonDivisorAsSigned(Int.min,  Int.max, 00000000000000001)
+    }
+    
+    func testEachPairInFibonacciSequenceIsCoprime() {
+        var fibonacci = HL(high: 1 as UInt, low: 0 as UInt)
+        next: while fibonacci.high >= fibonacci.low {
+            NBKAssertGreatestCommonDivisorAsUnsigned(fibonacci.high, fibonacci.low, 0001)
+            fibonacci = HL(high: fibonacci.high  &+ (fibonacci.low), low: fibonacci.high)
+        }
     }
 }
 

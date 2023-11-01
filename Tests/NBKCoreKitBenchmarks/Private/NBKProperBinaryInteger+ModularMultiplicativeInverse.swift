@@ -25,14 +25,14 @@ final class NBKProperBinaryIntegerBenchmarksOnModularMultiplicativeInverse: XCTe
     typealias T = NBK.PBI
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Binary Algorithm
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testInt8s() {
         for _ in 0 ..< 50 {
             for lhs in Int8.min ... Int8.max {
                 for rhs in Int8.min ... Int8.max {
-                    NBK.blackHole(T.modularMultiplicativeInverse(of: lhs, mod: rhs))
+                    NBK.blackHole(T.modularMultiplicativeInverse(of: lhs, modulo: rhs))
                 }
             }
         }
@@ -42,7 +42,7 @@ final class NBKProperBinaryIntegerBenchmarksOnModularMultiplicativeInverse: XCTe
         for _ in 0 ..< 50 {
             for lhs in UInt8.min ... UInt8.max {
                 for rhs in UInt8.min ... UInt8.max {
-                    NBK.blackHole(T.modularMultiplicativeInverse(of: lhs, mod: rhs))
+                    NBK.blackHole(T.modularMultiplicativeInverse(of: lhs, modulo: rhs))
                 }
             }
         }

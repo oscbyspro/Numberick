@@ -48,6 +48,26 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     ///
     @inlinable init(digit: Digit)
     
+    /// Tries to create a value equal to the given `magnitude`.
+    ///
+    /// If the `magnitude` is not representable, the result is nil.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ───────────┐
+    /// │ magnitude                │ self       │
+    /// │───────────────────────── → ───────────┤
+    /// │ UInt256( 1)              │ Int256( 1) │
+    /// │ UInt256.max              │ nil        │
+    /// │───────────────────────── → ───────────┤
+    /// │ Int256.max.magnitude     │ Int256.max │
+    /// │ Int256.max.magnitude + 1 │ nil        │
+    /// │ Int256.min.magnitude - 1 │ Int256.max │
+    /// │ Int256.min.magnitude     │ nil        │
+    /// └───────────────────────── → ───────────┘
+    /// ```
+    ///
+    @inlinable init?(magnitude: Magnitude)
+    
     /// Tries to create a value equal to the given `sign` and `magnitude` pair.
     ///
     /// If the `sign` and `magnitude` pair is not representable, the result is nil.
