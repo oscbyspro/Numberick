@@ -23,12 +23,22 @@ final class NBKIntegerDescriptionTestsOnEncoding: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testEncodingEmptyCollectionsReturnsZero() {
-        let empty =  [UInt]()
+        let words = [] as [UInt]
         for radix in 2 ... 36 {
-            NBKAssertSignMagnitude(.plus,  empty, radix, false, "0")
-            NBKAssertSignMagnitude(.plus,  empty, radix, true,  "0")
-            NBKAssertSignMagnitude(.minus, empty, radix, false, "0")
-            NBKAssertSignMagnitude(.minus, empty, radix, true,  "0")
+            NBKAssertSignMagnitude(.plus,  words, radix, false,  "0")
+            NBKAssertSignMagnitude(.plus,  words, radix, true,   "0")
+            NBKAssertSignMagnitude(.minus, words, radix, false,  "0")
+            NBKAssertSignMagnitude(.minus, words, radix, true,   "0")
+        }
+    }
+    
+    func testSignExtendingDoesNotChangeTheResult() {
+        let words = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0] as [UInt]
+        for radix in 2 ... 36 {
+            NBKAssertSignMagnitude(.plus,  words, radix, false,  "1")
+            NBKAssertSignMagnitude(.plus,  words, radix, true,   "1")
+            NBKAssertSignMagnitude(.minus, words, radix, false, "-1")
+            NBKAssertSignMagnitude(.minus, words, radix, true,  "-1")
         }
     }
 }
