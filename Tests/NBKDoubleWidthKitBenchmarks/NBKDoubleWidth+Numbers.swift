@@ -27,19 +27,29 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsInt256: XCTestCase {
     typealias M = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T())
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.zero)
         }
     }
     
-    func testEdges() {
-        for _ in 0 ..< 1_000_000 {
+    func testOne() {
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(T.one)
+        }
+    }
+    
+    func testMin() {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.min)
+        }
+    }
+    
+    func testMax() {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.max)
         }
     }
@@ -436,23 +446,33 @@ final class NBKDoubleWidthBenchmarksOnNumbersAsUInt256: XCTestCase {
     typealias M = UInt256
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        for _ in 0 ..< 1_000_000 {
-            NBK.blackHole(T())
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.zero)
         }
     }
     
-    func testEdges() {
-        for _ in 0 ..< 1_000_000 {
+    func testOne() {
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(T.one)
+        }
+    }
+    
+    func testMin() {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.min)
+        }
+    }
+    
+    func testMax() {
+        for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T.max)
         }
     }
-        
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Integers
     //=------------------------------------------------------------------------=

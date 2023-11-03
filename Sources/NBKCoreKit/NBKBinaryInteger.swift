@@ -35,6 +35,28 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
+    /// An instance equal to zero.
+    ///
+    /// Zero is the identity element for addition.
+    ///
+    /// ```swift
+    /// precondition(x + .one == x) // for each x
+    /// precondition(.one + x == x) // for each x
+    /// ```
+    ///
+    @inlinable static var zero: Self { get }
+    
+    /// An instance equal to one.
+    ///
+    /// One is the identity element for multiplication.
+    ///
+    /// ```swift
+    /// precondition(x * .one == x) // for each x
+    /// precondition(.one * x == x) // for each x
+    /// ```
+    ///
+    @inlinable static var one: Self { get }
+    
     /// Creates a new instance from the given digit.
     ///
     /// ```
@@ -1354,8 +1376,14 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
 extension NBKBinaryInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
+    // NOTE: Zero is already provided by Swift.AdditiveArithmetic.
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static var one: Self {
+        1
+    }
     
     @inlinable public init(digit: Digit) where Digit == Self {
         self = digit

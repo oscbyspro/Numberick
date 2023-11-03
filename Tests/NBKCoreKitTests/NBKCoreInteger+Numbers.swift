@@ -27,7 +27,88 @@ final class NBKCoreIntegerTestsOnNumbers: XCTestCase {
     let types: [T] = NBKCoreIntegerTests.types
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
+    //=------------------------------------------------------------------------=
+    
+    func testZero() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(T.zero, 000)
+            
+            for x in Int8.min ... Int8.max {
+                let x = T(truncatingIfNeeded: x)
+                
+                XCTAssertEqual(x + T.zero, x)
+                XCTAssertEqual(T.zero + x, x)
+                
+                XCTAssertEqual(x - x, T.zero)
+                XCTAssertEqual(x - T.zero, x)
+            }
+        }
+        
+        for type: T in types {
+            whereIs(type)
+        }
+    }
+    
+    func testOne() {
+        func whereIs<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual(T.one, 0001)
+            
+            for x in Int8.min ... Int8.max {
+                let x = T(truncatingIfNeeded: x)
+                
+                XCTAssertEqual(x * T.one, x)
+                XCTAssertEqual(T.one * x, x)
+                
+                XCTAssertEqual(x / T.one, x)
+                XCTAssertEqual(x % T.one, T.zero)
+                
+                if !x.isZero {
+                    XCTAssertEqual(x / x, T.one )
+                    XCTAssertEqual(x % x, T.zero)
+                }
+            }
+        }
+        
+        for type: T in types {
+            whereIs(type)
+        }
+    }
+    
+    func testMin() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual( T.min, T.one << (T.bitWidth - 1))
+            XCTAssertEqual(~T.max, T.one << (T.bitWidth - 1))
+        }
+        
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual( T.min, T(repeating: false))
+            XCTAssertEqual(~T.max, T(repeating: false))
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    func testMax() {
+        func whereIsSigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual( T.max, ~(T.one << (T.bitWidth - 1)))
+            XCTAssertEqual(~T.min, ~(T.one << (T.bitWidth - 1)))
+        }
+        
+        func whereIsUnsigned<T>(_ type: T.Type) where T: NBKCoreInteger {
+            XCTAssertEqual( T.max, T(repeating: true))
+            XCTAssertEqual(~T.min, T(repeating: true))
+        }
+        
+        for type: T in types {
+            type.isSigned ? whereIsSigned(type) : whereIsUnsigned(type)
+        }
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Integers
     //=------------------------------------------------------------------------=
     
     func testFromDigit() {

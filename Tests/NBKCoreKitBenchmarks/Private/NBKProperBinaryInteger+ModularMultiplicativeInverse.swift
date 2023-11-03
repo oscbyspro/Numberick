@@ -21,7 +21,7 @@ private typealias Y = [UInt32]
 //*============================================================================*
 
 final class NBKProperBinaryIntegerBenchmarksOnModularMultiplicativeInverse: XCTestCase {
- 
+    
     typealias T = NBK.PBI
     
     //=------------------------------------------------------------------------=

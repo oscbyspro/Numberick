@@ -728,7 +728,7 @@ extension NBKFixedWidthInteger where Self: NBKSignedInteger {
 extension NBKFixedWidthInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
     @inlinable public init?(magnitude: Magnitude) {

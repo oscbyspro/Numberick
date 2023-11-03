@@ -50,16 +50,13 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
     ///
     @inlinable public static func modularMultiplicativeInverse(sign: NBK.Sign, magnitude: Integer, modulo modulus: Integer) -> Integer? {
         //=--------------------------------------=
-        switch modulus.compared(to: 1 as Integer.Digit) {
-        case  1: break;
-        case  0: return Integer.zero
+        switch modulus.compared(to: Integer.Digit.one) {
+        case 01: break;
+        case 00: return Integer.zero
         default: return nil }
         //=--------------------------------------=
         let extended = self.greatestCommonDivisorByEuclideanAlgorithm10(of: magnitude, and: modulus)
-        //=--------------------------------------=
-        guard extended.result.compared(to: 1 as Integer.Digit).isZero else {
-            return nil // the arguments must be coprime
-        }
+        if !extended.result.compared(to: Integer.Digit.one).isZero { return nil } // must be coprime
         //=--------------------------------------=
         Swift.assert(extended.lhsCoefficient.isMoreThanZero)
         return (sign == .minus) == extended.iteration.isEven ? modulus - extended.lhsCoefficient : extended.lhsCoefficient
