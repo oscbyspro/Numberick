@@ -28,7 +28,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &<<=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitShiftLeft(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
+        lhs.bitShiftLeft(by: NBK.PBI.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
     }
     
     @inlinable public static func &<<(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -68,8 +68,8 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitShiftLeft(@NBK.ZeroOrMore by distance: Int) {
-        let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK.PBI .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.PBI.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitShiftLeft(major: major, minor: minor)
     }
     
@@ -148,7 +148,7 @@ extension NBKDoubleWidth {
     }
     
     @inlinable public static func &>>=(lhs: inout Self, rhs: some BinaryInteger) {
-        lhs.bitShiftRight(by: NBK.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
+        lhs.bitShiftRight(by: NBK.PBI.leastPositiveResidue(dividing: rhs, by: NBK.NonZero(unchecked: Self.bitWidth)))
     }
     
     @inlinable public static func &>>(lhs: Self, rhs: some BinaryInteger) -> Self {
@@ -188,8 +188,8 @@ extension NBKDoubleWidth {
     ///   - distance: `0 <= distance < self.bitWidth`
     ///
     @inlinable public mutating func bitShiftRight(@NBK.ZeroOrMore by distance: Int) {
-        let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK.PBI .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.PBI.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitShiftRight(major: major, minor: minor)
     }
     

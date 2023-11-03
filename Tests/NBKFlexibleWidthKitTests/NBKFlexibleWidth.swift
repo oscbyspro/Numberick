@@ -22,11 +22,19 @@ private typealias Y = [UInt32]
 extension NBKFlexibleWidth.Magnitude {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Constants
     //=------------------------------------------------------------------------=
     
     static let min256 = Self(x64:[ 0,  0,  0,  0] as X)
+    
     static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X)
+    
+    static let basket: [Self] = (-5 ... 5).lazy.map(UInt.init(bitPattern:)).flatMap({[
+        Self(words:[$0                           ] as W),
+        Self(words:[$0, $0 &+ 1                  ] as W),
+        Self(words:[$0, $0 &+ 1, $0 &+ 2         ] as W),
+        Self(words:[$0, $0 &+ 1, $0 &+ 2, $0 &+ 3] as W),
+    ]})
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers

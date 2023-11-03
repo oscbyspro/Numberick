@@ -728,8 +728,13 @@ extension NBKFixedWidthInteger where Self: NBKSignedInteger {
 extension NBKFixedWidthInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
+    
+    @inlinable public init?(magnitude: Magnitude) {
+        self.init(bitPattern: magnitude)
+        guard !self.isLessThanZero else { return nil }
+    }
     
     @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
         var bitPattern = magnitude as Magnitude

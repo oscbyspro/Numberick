@@ -17,10 +17,10 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Division
+// MARK: * NBK x Proper Binary Integer x Division x Core Integer
 //*============================================================================*
 
-final class NBKTestsOnDivision: XCTestCase {
+final class NBKProperBinaryIntegerTestsOnDivisionOfCoreInteger: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -57,9 +57,16 @@ final class NBKTestsOnDivision: XCTestCase {
         whereIs( Int.self)
         whereIs(UInt.self)
     }
+}
+
+//*============================================================================*
+// MARK: * NBK x Proper Binary Integer x Division x Binary Integer By Word
+//*============================================================================*
+
+final class NBKProperBinaryIntegerTestsOnDivisionOfDividingBinaryIntegerByWord: XCTestCase {
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x Least Positive Residue x Int Or UInt
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testLeastPositiveResidueDividingByPowerOf2() {
@@ -202,7 +209,7 @@ final class NBKTestsOnDivision: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Division x Assertions
+// MARK: * NBK x Proper Binary Integer x Division x Assertions
 //*============================================================================*
 
 private func NBKAssertDividingZeroOrMoreByPowerOf2<T: NBKCoreInteger>(
@@ -211,14 +218,14 @@ file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     let dividend = NBK.ZeroOrMore(dividend), divisor = NBK.PowerOf2(divisor)
     //=------------------------------------------=
-    XCTAssertEqual(NBK .dividing(dividend, by: divisor).quotient,  quotient,  file: file, line: line)
-    XCTAssertEqual(NBK .dividing(dividend, by: divisor).remainder, remainder, file: file, line: line)
-    XCTAssertEqual(NBK .quotient(dividing: dividend, by: divisor), quotient,  file: file, line: line)
-    XCTAssertEqual(NBK.remainder(dividing: dividend, by: divisor), remainder, file: file, line: line)
+    XCTAssertEqual(NBK.PBI .dividing(dividend, by: divisor).quotient,  quotient,  file: file, line: line)
+    XCTAssertEqual(NBK.PBI .dividing(dividend, by: divisor).remainder, remainder, file: file, line: line)
+    XCTAssertEqual(NBK.PBI .quotient(dividing: dividend, by: divisor), quotient,  file: file, line: line)
+    XCTAssertEqual(NBK.PBI.remainder(dividing: dividend, by: divisor), remainder, file: file, line: line)
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Int Or UInt
+// MARK: + Least Positive Residue x Binary Integer By Word
 //=----------------------------------------------------------------------------=
 
 private func NBKAssertLeastPositiveResidueDividingByIntOrUInt<T: NBKCoreInteger>(
@@ -226,17 +233,17 @@ _ dividend: some BinaryInteger, _ divisor: T, _ partialValue: T, _ overflow: Boo
 file: StaticString = #file, line: UInt = #line) where T.Magnitude == UInt {
     //=------------------------------------------=
     if  let divisor = NBK.PowerOf2(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
+        let leastPositiveResidue = NBK.PBI.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
 
     if  let divisor = NBK.NonZero(exactly: divisor) {
-        let leastPositiveResidue = NBK.leastPositiveResidue(dividing: dividend, by: divisor)
+        let leastPositiveResidue = NBK.PBI.leastPositiveResidue(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue, partialValue, file: file, line: line)
     }
     
     brr: do {
-        let leastPositiveResidue = NBK.leastPositiveResidueReportingOverflow(dividing: dividend, by: divisor)
+        let leastPositiveResidue = NBK.PBI.leastPositiveResidueReportingOverflow(dividing: dividend, by: divisor)
         XCTAssertEqual(leastPositiveResidue.partialValue, partialValue, file: file, line: line)
         XCTAssertEqual(leastPositiveResidue.overflow,     overflow,     file: file, line: line)
     }

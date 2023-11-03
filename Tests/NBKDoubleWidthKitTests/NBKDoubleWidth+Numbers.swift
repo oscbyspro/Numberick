@@ -31,17 +31,52 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     typealias M2 = NBKDoubleWidth<M>
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
     //=------------------------------------------------------------------------=
     
     func testZero() {
         NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
         NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
+        
+        for x in Int8.min ... Int8.max {
+            let x = T(truncatingIfNeeded: x)
+            
+            XCTAssertEqual(x + T.zero, x)
+            XCTAssertEqual(T.zero + x, x)
+            
+            XCTAssertEqual(x - x, T.zero)
+            XCTAssertEqual(x - T.zero, x)
+        }
+    }
+    
+    func testOne() {
+        NBKAssertNumbers(from: T( 1),  default:  T(x64: X(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T.one,  default:  T(x64: X(1, 0, 0, 0)))
+        
+        for x in Int8.min ... Int8.max {
+            let x = T(truncatingIfNeeded: x)
+            
+            XCTAssertEqual(x * T.one, x)
+            XCTAssertEqual(T.one * x, x)
+            
+            XCTAssertEqual(x / T.one, x)
+            XCTAssertEqual(x % T.one, T.zero)
+            
+            if !x.isZero {
+                XCTAssertEqual(x / x, T.one )
+                XCTAssertEqual(x % x, T.zero)
+            }
+        }
     }
 
-    func testEdges() {
-        NBKAssertNumbers(from: T.min,  default:  T(x64: X(0, 0, 0, 1 << 63)))
-        NBKAssertNumbers(from: T.max,  default: ~T(x64: X(0, 0, 0, 1 << 63)))
+    func testMin() {
+        NBKAssertNumbers(from:  T.min, default:  T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: ~T.max, default:  T(x64: X(0, 0, 0, 1 << 63)))
+    }
+    
+    func testMax() {
+        NBKAssertNumbers(from:  T.max, default: ~T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X(0, 0, 0, 1 << 63)))
     }
     
     //=------------------------------------------------------------------------=
@@ -153,6 +188,13 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
         NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
         NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.max, truncating: T(-1))
+        
+        XCTAssertEqual(T(magnitude: T(  ).magnitude + 0), T(  ))
+        XCTAssertEqual(T(magnitude: T(  ).magnitude + 1), T( 1))
+        XCTAssertEqual(T(magnitude: T.max.magnitude + 0), T.max)
+        XCTAssertEqual(T(magnitude: T.max.magnitude + 1),   nil)
+        XCTAssertEqual(T(magnitude: T.min.magnitude - 1), T.max)
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 0),   nil)
     }
     
     //=------------------------------------------------------------------------=
@@ -289,17 +331,52 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     typealias M2 = NBKDoubleWidth<M>
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
     //=------------------------------------------------------------------------=
     
     func testZero() {
         NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
         NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
+        
+        for x in Int8.min ... Int8.max {
+            let x = T(truncatingIfNeeded: x)
+            
+            XCTAssertEqual(x + T.zero, x)
+            XCTAssertEqual(T.zero + x, x)
+            
+            XCTAssertEqual(x - x, T.zero)
+            XCTAssertEqual(x - T.zero, x)
+        }
     }
     
-    func testEdges() {
-        NBKAssertNumbers(from: T.min,  default:  T(x64: X(0, 0, 0, 0)))
-        NBKAssertNumbers(from: T.max,  default: ~T(x64: X(0, 0, 0, 0)))
+    func testOne() {
+        NBKAssertNumbers(from: T( 1), default:  T(x64: X(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T.one, default:  T(x64: X(1, 0, 0, 0)))
+        
+        for x in Int8.min ... Int8.max {
+            let x = T(truncatingIfNeeded: x)
+            
+            XCTAssertEqual(x * T.one, x)
+            XCTAssertEqual(T.one * x, x)
+            
+            XCTAssertEqual(x / T.one, x)
+            XCTAssertEqual(x % T.one, T.zero)
+            
+            if !x.isZero {
+                XCTAssertEqual(x / x, T.one )
+                XCTAssertEqual(x % x, T.zero)
+            }
+        }
+    }
+    
+    func testMin() {
+        NBKAssertNumbers(from:  T.min, default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: ~T.max, default:  T(x64: X(0, 0, 0, 0)))
+    }
+    
+    func testMax() {
+        NBKAssertNumbers(from:  T.max, default: ~T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X(0, 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -408,6 +485,11 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
         NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
         NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
         NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), default: T(x64: X(~0, ~0, ~0, ~0)))
+        
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 0), T.min + 0)
+        XCTAssertEqual(T(magnitude: T.min.magnitude + 1), T.min + 1)
+        XCTAssertEqual(T(magnitude: T.max.magnitude - 1), T.max - 1)
+        XCTAssertEqual(T(magnitude: T.max.magnitude - 0), T.max - 0)
     }
     
     //=------------------------------------------------------------------------=

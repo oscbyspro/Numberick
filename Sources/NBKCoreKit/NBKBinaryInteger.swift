@@ -35,6 +35,28 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
     
+    /// An instance equal to zero.
+    ///
+    /// Zero is the identity element for addition.
+    ///
+    /// ```swift
+    /// precondition(x + .one == x) // for each x
+    /// precondition(.one + x == x) // for each x
+    /// ```
+    ///
+    @inlinable static var zero: Self { get }
+    
+    /// An instance equal to one.
+    ///
+    /// One is the identity element for multiplication.
+    ///
+    /// ```swift
+    /// precondition(x * .one == x) // for each x
+    /// precondition(.one * x == x) // for each x
+    /// ```
+    ///
+    @inlinable static var one: Self { get }
+    
     /// Creates a new instance from the given digit.
     ///
     /// ```
@@ -47,6 +69,26 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
     /// ```
     ///
     @inlinable init(digit: Digit)
+    
+    /// Tries to create a value equal to the given `magnitude`.
+    ///
+    /// If the `magnitude` is not representable, the result is nil.
+    ///
+    /// ```
+    /// ┌───────────────────────── → ───────────┐
+    /// │ magnitude                │ self       │
+    /// │───────────────────────── → ───────────┤
+    /// │ UInt256( 1)              │ Int256( 1) │
+    /// │ UInt256.max              │ nil        │
+    /// │───────────────────────── → ───────────┤
+    /// │ Int256.max.magnitude     │ Int256.max │
+    /// │ Int256.max.magnitude + 1 │ nil        │
+    /// │ Int256.min.magnitude - 1 │ Int256.max │
+    /// │ Int256.min.magnitude     │ nil        │
+    /// └───────────────────────── → ───────────┘
+    /// ```
+    ///
+    @inlinable init?(magnitude: Magnitude)
     
     /// Tries to create a value equal to the given `sign` and `magnitude` pair.
     ///
@@ -1334,8 +1376,14 @@ where Magnitude: NBKUnsignedInteger, Words: Sendable {
 extension NBKBinaryInteger {
     
     //=------------------------------------------------------------------------=
-    // MARK: Initializers
+    // MARK: Details x Numbers
     //=------------------------------------------------------------------------=
+    // NOTE: Zero is already provided by Swift.AdditiveArithmetic.
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public static var one: Self {
+        1
+    }
     
     @inlinable public init(digit: Digit) where Digit == Self {
         self = digit

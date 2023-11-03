@@ -84,6 +84,10 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers x Sign & Magnitude
     //=------------------------------------------------------------------------=
     
+    @inlinable public init?(magnitude: Magnitude) {
+        self = magnitude
+    }
+    
     @inlinable public init?(sign: FloatingPointSign, magnitude: Magnitude) {
         if sign == FloatingPointSign.plus || magnitude.isZero { self = magnitude } else { return nil }
     }

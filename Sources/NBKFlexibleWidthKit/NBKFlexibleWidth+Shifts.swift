@@ -47,8 +47,8 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public mutating func bitShiftLeft(@NBK.ZeroOrMore by distance: Int) {
-        let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK.PBI .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.PBI.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitShiftLeft(major: major, minor: minor)
     }
     
@@ -165,8 +165,8 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public mutating func bitShiftRight(@NBK.ZeroOrMore by distance: Int) {
-        let major = NBK .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK.PBI .quotient(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.PBI.remainder(dividing: $distance, by: NBK.PowerOf2(bitWidth: UInt.self))
         return self.bitShiftRight(major: major, minor: minor)
     }
     

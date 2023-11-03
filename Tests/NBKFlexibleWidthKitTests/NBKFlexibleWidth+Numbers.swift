@@ -32,8 +32,34 @@ final class NBKFlexibleWidthTestsOnNumbersAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        XCTAssertEqual(T(  0), T(words:[0]))
+        XCTAssertEqual(T( 0),  T(words:[0]))
         XCTAssertEqual(T.zero, T(words:[0]))
+        
+        for x in T.basket {
+            XCTAssertEqual(x + T.zero, x)
+            XCTAssertEqual(T.zero + x, x)
+            
+            XCTAssertEqual(x - x, T.zero)
+            XCTAssertEqual(x - T.zero, x)
+        }
+    }
+    
+    func testOne() {
+        XCTAssertEqual(T( 1), T(words:[1]))
+        XCTAssertEqual(T.one, T(words:[1]))
+        
+        for x in T.basket {
+            XCTAssertEqual(x * T.one, x)
+            XCTAssertEqual(T.one * x, x)
+            
+            XCTAssertEqual(x / T.one, x)
+            XCTAssertEqual(x % T.one, T.zero)
+            
+            if !x.isZero {
+                XCTAssertEqual(x / x, T.one )
+                XCTAssertEqual(x % x, T.zero)
+            }
+        }
     }
     
     //=------------------------------------------------------------------------=

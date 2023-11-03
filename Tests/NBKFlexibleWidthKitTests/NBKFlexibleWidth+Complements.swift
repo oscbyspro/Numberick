@@ -35,6 +35,11 @@ final class NBKFlexibleWidthTestsOnComplementsAsUIntXL: XCTestCase {
         XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).magnitude, M(words:[~0,  0,  0,  0] as W))
         XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).magnitude, M(words:[ 1,  1,  1,  1] as W))
         XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).magnitude, M(words:[~0, ~0, ~0, ~0] as W))
+        
+        XCTAssertEqual(T(magnitude: M(words:[ 1,  0,  0,  0] as W)), M(words:[ 1,  0,  0,  0] as W))
+        XCTAssertEqual(T(magnitude: M(words:[~0,  0,  0,  0] as W)), M(words:[~0,  0,  0,  0] as W))
+        XCTAssertEqual(T(magnitude: M(words:[ 1,  1,  1,  1] as W)), M(words:[ 1,  1,  1,  1] as W))
+        XCTAssertEqual(T(magnitude: M(words:[~0, ~0, ~0, ~0] as W)), M(words:[~0, ~0, ~0, ~0] as W))
     }
     
     //=------------------------------------------------------------------------=

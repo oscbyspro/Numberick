@@ -30,8 +30,8 @@ extension NBKFlexibleWidth.Magnitude {
         guard  Self.isSigned || source.signum() >= 0 as Int else { return nil }
         //=--------------------------------------=
         let width = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
-        let major = NBK .quotient(of: NBK.ZeroOrMore(unchecked: width), dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
-        let minor = NBK.remainder(of: NBK.ZeroOrMore(unchecked: width), dividingBy: NBK.PowerOf2(bitWidth: UInt.self))
+        let major = NBK.PBI .quotient(dividing: NBK.ZeroOrMore(unchecked: width), by: NBK.PowerOf2(bitWidth: UInt.self))
+        let minor = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(unchecked: width), by: NBK.PowerOf2(bitWidth: UInt.self))
         let count = major &+ Int(bit: minor.isMoreThanZero)
         //=--------------------------------------=
         self = Self.uninitialized(count: count) { words in

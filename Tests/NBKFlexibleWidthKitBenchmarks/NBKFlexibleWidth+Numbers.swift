@@ -27,16 +27,33 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     typealias M = UIntXL
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x Constants
     //=------------------------------------------------------------------------=
     
-    func testZero() {
-        for _ in 0 ..< 100_000 {
-            NBK.blackHole(T())
-            NBK.blackHole(T.zero)
+    @_optimize(none)
+    func makeInit() -> T { T(  ) }
+    func testInit() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(makeInit())
         }
     }
-        
+    
+    @_optimize(none) 
+    func makeZero() -> T { T.zero }
+    func testZero() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(makeZero())
+        }
+    }
+    
+    @_optimize(none) 
+    func makeOne() -> T { T.one }
+    func testOne() {
+        for _ in 0 ..< 1_000_000 {
+            NBK.blackHole(makeOne())
+        }
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Tests x Integers
     //=------------------------------------------------------------------------=
