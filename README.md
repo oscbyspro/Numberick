@@ -119,6 +119,10 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
 
+### Models
+
+- [NBKFibonacciXL](Sources/NBKFlexibleWidthKit/Models/NBKFibonacciXL.swift)
+
 <a name="installation"/>
 
 ## Installation

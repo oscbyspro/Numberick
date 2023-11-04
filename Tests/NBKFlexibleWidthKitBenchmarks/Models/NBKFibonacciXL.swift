@@ -18,49 +18,49 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Fibonacci x UIntXL
+// MARK: * NBK x FibonacciXL
 //*============================================================================*
 
-final class NBKFlexibleWidthBenchmarksOnFibonacciAsUIntXL: XCTestCase {
+final class NBKFibonacciXLBenchmarks: XCTestCase {
     
-    typealias T = UIntXL
+    typealias T = NBKFibonacciXL
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testPrime222() {
-        var index = NBK.blackHoleIdentity(Int(1399))
+        var index = NBK.blackHoleIdentity(UInt(1399))
         
         for _ in 0 ..< 10_000 {
-            NBK.blackHole(T.fibonacci(index))
+            NBK.blackHole(T(index))
             NBK.blackHoleInoutIdentity(&index)
         }
     }
     
     func testPrime333() {
-        var index = NBK.blackHoleIdentity(Int(2239))
+        var index = NBK.blackHoleIdentity(UInt(2239))
         
         for _ in 0 ..< 10_000 {
-            NBK.blackHole(T.fibonacci(index))
+            NBK.blackHole(T(index))
             NBK.blackHoleInoutIdentity(&index)
         }
     }
     
     func testPrime555() {
-        var index = NBK.blackHoleIdentity(Int(4019))
+        var index = NBK.blackHoleIdentity(UInt(4019))
         
         for _ in 0 ..< 10_000 {
-            NBK.blackHole(T.fibonacci(index))
+            NBK.blackHole(T(index))
             NBK.blackHoleInoutIdentity(&index)
         }
     }
     
     func testPrime777() {
-        var index = NBK.blackHoleIdentity(Int(5903))
+        var index = NBK.blackHoleIdentity(UInt(5903))
         
         for _ in 0 ..< 10_000 {
-            NBK.blackHole(T.fibonacci(index))
+            NBK.blackHole(T(index))
             NBK.blackHoleInoutIdentity(&index)
         }
     }

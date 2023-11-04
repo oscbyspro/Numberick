@@ -18,57 +18,53 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Fibonacci x UIntXL
+// MARK: * NBK x FibonacciXL
 //*============================================================================*
 
-final class NBKFlexibleWidthTestsOnFibonacciAsUIntXL: XCTestCase {
+final class NBKFibonacciXLTests: XCTestCase {
     
-    typealias T = UIntXL
-    typealias M = UIntXL
+    typealias T = NBKFibonacciXL
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testInit() {
+        XCTAssertEqual(T().index,   0 as UInt)
+        XCTAssertEqual(T().element, 0 as UIntXL)
+        XCTAssertEqual(T().next,    1 as UIntXL)
+    }
+    
     func testStartSequence() {
-        NBKAssertFibonacciSequenceElement(0 as Int, 0 as T)
-        NBKAssertFibonacciSequenceElement(1 as Int, 1 as T)
-        NBKAssertFibonacciSequenceElement(2 as Int, 1 as T)
-        NBKAssertFibonacciSequenceElement(3 as Int, 2 as T)
-        NBKAssertFibonacciSequenceElement(4 as Int, 3 as T)
-        NBKAssertFibonacciSequenceElement(5 as Int, 5 as T)
+        NBKAssertFibonacciSequenceElement(0 as UInt, 0 as UIntXL)
+        NBKAssertFibonacciSequenceElement(1 as UInt, 1 as UIntXL)
+        NBKAssertFibonacciSequenceElement(2 as UInt, 1 as UIntXL)
+        NBKAssertFibonacciSequenceElement(3 as UInt, 2 as UIntXL)
+        NBKAssertFibonacciSequenceElement(4 as UInt, 3 as UIntXL)
+        NBKAssertFibonacciSequenceElement(5 as UInt, 5 as UIntXL)
     }
     
     func testEachElementInUInt256() {
         self.continueAfterFailure = false
-        var fibonacci = (index: 0 as Int, element: 0 as T, next: 1 as T)
-        while fibonacci.element.bitWidth <= 256 {
+        
+        var fibonacci = T(); while fibonacci.next.bitWidth <= 256 {
             NBKAssertFibonacciSequenceElement(fibonacci.index, fibonacci.element)
-            fibonacci.index   += 1
-            fibonacci.element += fibonacci.next
-            Swift.swap(&fibonacci.element, &fibonacci.next)
+            fibonacci.increment()
         }
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x Miscellaneous
-    //=------------------------------------------------------------------------=
-    
-    func testOverloadsAreUnambiguousWhenUsingIntegerLiterals() {
-        func becauseThisCompilesSuccessfully(_ x: inout T) {
-            XCTAssertNotNil(T.fibonacci(0))
-        }
+        
+        XCTAssertEqual(fibonacci.index,   370 as UInt)
+        XCTAssertEqual(fibonacci.element, UIntXL("094611056096305838013295371573764256526437182762229865607320618320601813254535"))
+        XCTAssertEqual(fibonacci.next,    UIntXL("153083904475345790698149223310665389766178449653686710164582374234640876900329"))
     }
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Fibonacci x UIntXL x Primes
+// MARK: * NBK x FibonacciXL x Primes
 //*============================================================================*
 
-final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
+final class NBKFibonacciXLTestsOnPrimes: XCTestCase {
     
-    typealias T = UIntXL
-    typealias M = UIntXL
+    typealias T = NBKFibonacciXL
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -76,7 +72,7 @@ final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
     
     ///  https://www.wolframalpha.com/input?i2d=true&i=fibonnaci+1399
     func testPrime222() {
-        NBKAssertFibonacciSequenceElement(Int(1399), T("""
+        NBKAssertFibonacciSequenceElement(UInt(1399), UIntXL("""
         0000000000000000000000000001057362022138877586442790693627392471\
         4349424343122542609372806319825783387389898145491654340696207977\
         9703100859330541842708747836587076026853149515123668038994257349\
@@ -87,7 +83,7 @@ final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
     
     ///  https://www.wolframalpha.com/input?i2d=true&i=fibonnaci+2239
     func testPrime333() {
-        NBKAssertFibonacciSequenceElement(Int(2239), T("""
+        NBKAssertFibonacciSequenceElement(UInt(2239), UIntXL("""
         0000000000000000000000000000000000000000000037483619230023616383\
         1556956012890801755635223834456440078068598512042225565858378705\
         2775478508439311765008270803174379457823903626436917896144175108\
@@ -101,7 +97,7 @@ final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
     
     ///  https://www.wolframalpha.com/input?i2d=true&i=fibonnaci+4019
     func testPrime555() {
-        NBKAssertFibonacciSequenceElement(Int(4019), T("""
+        NBKAssertFibonacciSequenceElement(UInt(4019), UIntXL("""
         0000000000000000000000000000000000000000000000000000000037311367\
         1412705742029424968910639277549742521996080310155045098365714482\
         4104908347036042361244599159615512769990330987960639730865498130\
@@ -121,7 +117,7 @@ final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
     
     ///  https://www.wolframalpha.com/input?i2d=true&i=fibonnaci+5903
     func testPrime777() {
-        NBKAssertFibonacciSequenceElement(Int(5903), T("""
+        NBKAssertFibonacciSequenceElement(UInt(5903), UIntXL("""
         0000000000000000000000000000000000000000000000201630112973699547\
         8467033798246231765802235127399927076436839763410065672009048903\
         1282893541236712535277172854664465524821928062556461511462472243\
@@ -147,19 +143,33 @@ final class NBKFlexibleWidthTestsOnFibonacciByPrimesAsUIntXL: XCTestCase {
 }
 
 //*============================================================================*
-// MARK: * NBK x Flexible Width x Fibonacci x Assertions
+// MARK: * NBK x FibonacciXL x Assertions
 //*============================================================================*
 
 private func NBKAssertFibonacciSequenceElement(
-_ index: Int, _ element: UIntXL,
+_ index: UInt, _ element: UIntXL,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    let result0 = UIntXL.fibonacci(index + 0)
-    let result1 = UIntXL.fibonacci(index + 1)
+    let x0 = NBKFibonacciXL(index + 0)
+    let x1 = NBKFibonacciXL(index + 1)
     //=------------------------------------------=
-    XCTAssertEqual(result0.element, element,                        file: file, line: line)
-    XCTAssertEqual(result0.next,    result1.element,                file: file, line: line)
-    XCTAssertEqual(result1.next,    result0.element + result0.next, file: file, line: line)
+    XCTAssertEqual(x0.element, element,  file: file, line: line)
+    XCTAssertEqual(x0.next, x1.element,  file: file, line: line)
+    XCTAssertEqual(x1.next, x0.element + x1.element, file: file, line: line)
+    //=------------------------------------------=
+    increment1: do  {
+        var x = x0; x.increment()
+        XCTAssertEqual(x.index,   x1.index,   file: file, line: line)
+        XCTAssertEqual(x.element, x1.element, file: file, line: line)
+        XCTAssertEqual(x.next,    x1.next,    file: file, line: line)
+    }
+    
+    decrement1: do  {
+        var x = x1; x.decrement()
+        XCTAssertEqual(x.index,   x0.index,   file: file, line: line)
+        XCTAssertEqual(x.element, x0.element, file: file, line: line)
+        XCTAssertEqual(x.next,    x0.next,    file: file, line: line)
+    }
 }
 
 #endif

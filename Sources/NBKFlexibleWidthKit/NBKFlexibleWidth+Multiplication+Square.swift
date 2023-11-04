@@ -50,7 +50,7 @@ extension NBKFlexibleWidth.Magnitude {
                 //=--------------------------=
                 product.initialize(repeating: 0 as UInt)
                 //=--------------------------=
-                var index:  Int = 000000
+                var index:  Int
                 var carry: UInt = addend
                 //=--------------------------=
                 var baseIndex = base.startIndex; while baseIndex < base.endIndex {
@@ -60,15 +60,15 @@ extension NBKFlexibleWidth.Magnitude {
                     
                     index = productIndex + 1 // add non-diagonal products
                     
-                    NBK.SUISS.incrementInIntersection(&product,
-                    by: UnsafeBufferPointer(rebasing: base[baseIndex...]),
+                    NBK.SUISS.incrementInIntersection(
+                    &product, by: UnsafeBufferPointer(rebasing: base[baseIndex...]),
                     times: multiplier, plus: 00000, at: &index)
                     
                     index = productIndex // partially double non-diagonal products
                     
                     NBK.SUISS.multiply(
-                    &product, by: 00002,
-                    add: &carry, from: &index, to: productIndex + 2)
+                    &product, by: 0002, 
+                    add: &carry,  from: &index, to: productIndex + 2)
                     
                     index = productIndex // add this iteration's diagonal product
                     
