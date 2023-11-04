@@ -26,10 +26,6 @@ import NBKCoreKit
 /// NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 /// ```
 ///
-/// ### Development
-///
-/// Sequences like these are useful for testing large integer values.
-///
 @frozen public struct NBKFibonacciXL {
     
     //=------------------------------------------------------------------------=
@@ -44,29 +40,14 @@ import NBKCoreKit
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Returns the start sequence.
-    ///
-    /// ```
-    /// (index: 0, element: 0, next: 1)
-    /// ```
-    ///
+    /// Creates the first sequence pair.
     @inlinable public init() {
         self.i = UInt()
         self.a = UIntXL(digit: 0)
         self.b = UIntXL(digit: 1)
     }
     
-    /// Returns the sequence at the given `index`.
-    ///
-    /// ```swift
-    /// UIntXL.Fibonacci(0) // (index: 0, element: 0, next: 1)
-    /// UIntXL.Fibonacci(1) // (index: 1, element: 1, next: 1)
-    /// UIntXL.Fibonacci(2) // (index: 2, element: 1, next: 2)
-    /// UIntXL.Fibonacci(3) // (index: 3, element: 2, next: 3)
-    /// UIntXL.Fibonacci(4) // (index: 4, element: 3, next: 5)
-    /// UIntXL.Fibonacci(5) // (index: 5, element: 5, next: 8)
-    /// ```
-    ///
+    /// Creates the sequence pair at the given `index`.
     @inlinable public init(_ index: UInt) {
         self.i = index as UInt
         self.a = UIntXL(digit: 0)
@@ -84,7 +65,7 @@ import NBKCoreKit
             y  = a.squared()
             y += b.squared()
             
-            if  (index & mask).isZero {
+            if (mask & index).isZero {
                 a  = x
                 b  = y
             }   else {
@@ -121,14 +102,14 @@ import NBKCoreKit
     //=------------------------------------------------------------------------=
     
     /// Forms the sequence pair before this instance.
-    public mutating func decrement() {
+    @inlinable public mutating func decrement() {
         self.i -= 1
         self.b -= a
         Swift.swap(&a, &b)
     }
     
     /// Forms the sequence pair after this instance.
-    public mutating func increment() {
+    @inlinable public mutating func increment() {
         self.i += 1
         self.a += b
         Swift.swap(&a, &b)
