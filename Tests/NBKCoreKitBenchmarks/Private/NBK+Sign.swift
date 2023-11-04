@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Swift x Floating Point Sign
+// MARK: * NBK x Sign
 //*============================================================================*
 
-final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
+final class NBKBenchmarksOnSign: XCTestCase {
     
     typealias T = FloatingPointSign
     
@@ -24,26 +24,39 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testToBit() {
+    func testASCII() {
         var abc = NBK.blackHoleIdentity(T.plus )
         var xyz = NBK.blackHoleIdentity(T.minus)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(abc.bit)
-            NBK.blackHole(xyz.bit)
+            NBK.blackHole(NBK.ascii(abc))
+            NBK.blackHole(NBK.ascii(xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
         }
     }
     
-    func testFromBit() {
+    func testBit() {
+        var abc = NBK.blackHoleIdentity(T.plus )
+        var xyz = NBK.blackHoleIdentity(T.minus)
+        
+        for _ in 0 ..< 5_000_000 {
+            NBK.blackHole(NBK.bit(abc))
+            NBK.blackHole(NBK.bit(xyz))
+            
+            NBK.blackHoleInoutIdentity(&abc)
+            NBK.blackHoleInoutIdentity(&xyz)
+        }
+    }
+    
+    func testSign() {
         var abc = NBK.blackHoleIdentity(true )
         var xyz = NBK.blackHoleIdentity(false)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(T(bit: abc))
-            NBK.blackHole(T(bit: xyz))
+            NBK.blackHole(NBK.sign(abc))
+            NBK.blackHole(NBK.sign(xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -59,8 +72,8 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
         var xyz = NBK.blackHoleIdentity(T.minus)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(~abc)
-            NBK.blackHole(~xyz)
+            NBK.blackHole(NBK.not(abc))
+            NBK.blackHole(NBK.not(xyz))
             
             NBK.blackHoleInoutIdentity(&abc)
             NBK.blackHoleInoutIdentity(&xyz)
@@ -72,7 +85,9 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
         var rhs = NBK.blackHoleIdentity(T.minus)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs & rhs)
+            NBK.blackHole(NBK.and(lhs, rhs))
+            NBK.blackHole(NBK.and(rhs, lhs))
+            
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -83,7 +98,9 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
         var rhs = NBK.blackHoleIdentity(T.minus)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs | rhs)
+            NBK.blackHole(NBK.or(lhs, rhs))
+            NBK.blackHole(NBK.or(rhs, lhs))
+            
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
@@ -94,7 +111,9 @@ final class SwiftBenchmarksOnFloatingPointSign: XCTestCase {
         var rhs = NBK.blackHoleIdentity(T.minus)
         
         for _ in 0 ..< 5_000_000 {
-            NBK.blackHole(lhs ^ rhs)
+            NBK.blackHole(NBK.xor(lhs, rhs))
+            NBK.blackHole(NBK.xor(rhs, lhs))
+            
             NBK.blackHoleInoutIdentity(&lhs)
             NBK.blackHoleInoutIdentity(&rhs)
         }
