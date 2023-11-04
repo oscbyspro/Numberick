@@ -38,6 +38,7 @@
     },
     {
       "skippedTests" : [
+        "NBKFibonacciXLBenchmarks\/testNoLoop1000000()",
         "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/test7RaisedToPrime777()"
       ],
       "target" : {

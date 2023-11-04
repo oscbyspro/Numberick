@@ -13,7 +13,7 @@ import NBKCoreKit
 // MARK: * NBK x FibonacciXL
 //*============================================================================*
 
-/// The [Fibonacci sequence](https://en.wikipedia.org/wiki/fibonacci_sequence).
+/// The [Fibonacci sequence](https://en.wikipedia.org/wiki/fibonacci_sequence)\.
 ///
 /// It is represented by an index and two consecutive elements.
 ///
@@ -53,7 +53,7 @@ import NBKCoreKit
         self.a = UIntXL(digit: 0)
         self.b = UIntXL(digit: 1)
         
-        var mask = UInt.one &<< (index.bitWidth &+ index.leadingZeroBitCount.onesComplement())
+        var mask = UInt.one &<< UInt(bitPattern: index.bitWidth &+ index.leadingZeroBitCount.onesComplement())
         doubleAndAdd: while !mask.isZero {
             
             var (x): UIntXL // f(2x + 0)
@@ -101,14 +101,14 @@ import NBKCoreKit
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Forms the sequence pair before this instance.
+    /// Forms the sequence pair at `index - 1`.
     @inlinable public mutating func decrement() {
         self.i -= 1
         self.b -= a
         Swift.swap(&a, &b)
     }
     
-    /// Forms the sequence pair after this instance.
+    /// Forms the sequence pair at `index + 1`.
     @inlinable public mutating func increment() {
         self.i += 1
         self.a += b
