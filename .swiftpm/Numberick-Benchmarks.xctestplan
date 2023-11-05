@@ -38,8 +38,12 @@
     },
     {
       "skippedTests" : [
-        "NBKFibonacciXLBenchmarks\/testNoLoop1000000()",
-        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/test7RaisedToPrime777()"
+        "NBKFibonacciXLBenchmarks\/testNoLoop10000000()",
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/test7RaisedToPrime777()",
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/testNoLoop5RaisedToPrime22222()",
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/testNoLoop5RaisedToPrime33333()",
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/testNoLoop5RaisedToPrime55555()",
+        "NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL\/testNoLoop7RaisedToPrime77777()"
       ],
       "target" : {
         "containerPath" : "container:",

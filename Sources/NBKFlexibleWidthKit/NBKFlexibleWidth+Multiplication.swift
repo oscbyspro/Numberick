@@ -15,6 +15,10 @@ import NBKCoreKit
 
 extension NBKFlexibleWidth.Magnitude {
     
+    @usableFromInline static let productByKaratsubaAlgorithmThreshold: Int = 40
+    
+    @usableFromInline static let productBySquareKaratsubaAlgorithmThreshold: Int = 40
+    
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
@@ -24,54 +28,27 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        Self.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: 0 as UInt)        
+        if  lhs.count < Self.productByKaratsubaAlgorithmThreshold ||
+            rhs.count < Self.productByKaratsubaAlgorithmThreshold {
+            return self.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: UInt.zero)
+        }   else {
+            return self.productByKaratsubaAlgorithm(multiplying: lhs, by: rhs)
+        }
     }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + Algorithms
-//=----------------------------------------------------------------------------=
-
-extension NBKFlexibleWidth.Magnitude {
-    
+        
     //=------------------------------------------------------------------------=
-    // MARK: Transformations x Long Multiplication
+    // MARK: Transformations x Square
     //=------------------------------------------------------------------------=
     
-    /// Returns the product of `multiplicand` and `multiplier` plus `addend` by performing long multiplication.
-    @inlinable static func productByLongAlgorithm(multiplying multiplicand: Self, by multiplier: Self, adding addend: UInt) -> Self {
-        Self.uninitialized(count: multiplicand.count + multiplier.count) { pro in
-            multiplicand.storage.withUnsafeBufferPointer   { lhs in
-                multiplier.storage.withUnsafeBufferPointer { rhs in
-                    var pointer = pro.baseAddress!
-                    //=--------------------------=
-                    // pointee: initialization 1
-                    //=--------------------------=
-                    var carry: UInt = addend
-                    let first: UInt = rhs.first!
-                    
-                    for element in lhs {
-                        var wide = element.multipliedFullWidth(by: first) as NBK.Wide2<UInt>
-                        carry = UInt(bit: wide.low.addReportingOverflow(carry)) &+ wide.high
-                        pointer.initialize(to: wide.low) // done, pointee has no prior value
-                        pointer = pointer.successor()
-                    }
-                    
-                    pointer.initialize(to: carry)
-                    pointer = pointer.successor()
-                    Swift.assert(pro.baseAddress!.distance(to: pointer) == lhs.count + 1)
-                    //=--------------------------=
-                    // pointee: initialization 2
-                    //=--------------------------=
-                    for var index in 1 ..< rhs.count {
-                        pointer.initialize(to: 00000)
-                        pointer = pointer.successor()
-                        NBK.SUISS.incrementInIntersection(&pro, by: lhs, times: rhs[index], plus: 00000, at: &index)
-                    }
-                    
-                    Swift.assert(pro.baseAddress!.distance(to: pointer) == pro.count)
-                }
-            }
+    @inlinable public mutating func square() {
+        self = self.squared()
+    }
+    
+    @inlinable public func squared() -> Self {
+        if  self.count < Self.productBySquareKaratsubaAlgorithmThreshold {
+            return Self.productBySquareLongAlgorithm(multiplying: self, adding: UInt.zero)
+        }   else {
+            return Self.productBySquareKaratsubaAlgorithm(multiplying: self)
         }
     }
 }

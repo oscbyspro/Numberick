@@ -72,6 +72,34 @@ final class NBKFlexibleWidthBenchmarksOnExponentiationAsUIntXL: XCTestCase {
             NBK.blackHoleInoutIdentity(&exponent)
         }
     }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x No Loop
+    //=------------------------------------------------------------------------=
+    
+    func testNoLoop5RaisedToPrime22222() {
+        let base: T  = NBK.blackHoleIdentity(T(000002))
+        let exponent = NBK.blackHoleIdentity(Int(252233))
+        NBK.blackHole(base.power(exponent))
+    }
+    
+    func testNoLoop5RaisedToPrime33333() {
+        let base: T  = NBK.blackHoleIdentity(T(000003))
+        let exponent = NBK.blackHoleIdentity(Int(393191))
+        NBK.blackHole(base.power(exponent))
+    }
+    
+    func testNoLoop5RaisedToPrime55555() {
+        let base: T  = NBK.blackHoleIdentity(T(000005))
+        let exponent = NBK.blackHoleIdentity(Int(686671))
+        NBK.blackHole(base.power(exponent))
+    }
+    
+    func testNoLoop7RaisedToPrime77777() {
+        let base: T  = NBK.blackHoleIdentity(T(000007))
+        let exponent = NBK.blackHoleIdentity(Int(989999))
+        NBK.blackHole(base.power(exponent))
+    }
 }
 
 #endif
