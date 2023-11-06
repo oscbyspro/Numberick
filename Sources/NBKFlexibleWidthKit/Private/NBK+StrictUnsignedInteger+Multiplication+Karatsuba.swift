@@ -48,7 +48,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         Swift.assert(base.count == lhs.count + rhs.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         let k0c = Swift.max(lhs.count, rhs.count)
-        let k1c = k0c &>> 1 &+ k0c & 1
+        let k1c = k0c &>> 1
         let k2c = k1c &<< 1
         
         let (x1s, x0s) = NBK.SUISS.partitionTrimmingRedundantZeros(lhs, at: k1c)
@@ -100,7 +100,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             // product must fit in combined width
             //=----------------------------------=
             Swift.assert(z1.dropFirst(base[k2c...].count).allSatisfy({ $0.isZero }))
-            z1 = UnsafeMutableBufferPointer(start: z1.baseAddress!, count: base.count - k2c)
+            z1 = UnsafeMutableBufferPointer(rebasing: z1.prefix(base[k2c...].count))
             //=----------------------------------=
             // pointee: initialization 3
             //=----------------------------------=
@@ -108,17 +108,22 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             
             for element in z0 {
                 pointer.initialize(to: element)
-                pointer =  pointer.successor()
+                pointer = pointer.successor()
             }
             
             for _ in z0.count ..< k2c {
-                pointer.initialize(to: 000000)
-                pointer =  pointer.successor()
+                pointer.initialize(to: .zero)
+                pointer = pointer.successor()
             }
             
             for element in z1 {
                 pointer.initialize(to: element)
-                pointer =  pointer.successor()
+                pointer = pointer.successor()
+            }
+            
+            for _ in k2c + z1.count ..< base.count {
+                pointer.initialize(to: .zero)
+                pointer = pointer.successor()
             }
             
             Swift.assert(base.baseAddress!.distance(to: pointer) == base.count)
@@ -158,7 +163,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///                 ├───────────────────────┤
     ///             add │        x1 * x1        │
     ///                 ├───────────────────────┤
-    ///             sub │ |x1 - x0| * |x1 - x0| │ : z2
+    ///             sub │ (x1 - x0) * (x1 - x0) │ : z2
     ///                 └───────────────────────┘
     ///
     ///
@@ -177,7 +182,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         Swift.assert(base.count == 2 * elements.count)
         //=--------------------------------------=
         let k0c = elements.count
-        let k1c = k0c &>> 1 &+ k0c & 1
+        let k1c = k0c &>> 1
         let k2c = k1c &<< 1
         
         let (x1s, x0s) = NBK.SUISS.partitionTrimmingRedundantZeros(elements, at: k1c)
@@ -216,7 +221,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             // product must fit in combined width
             //=----------------------------------=
             Swift.assert(z1.dropFirst(base[k2c...].count).allSatisfy({ $0.isZero }))
-            z1 = UnsafeMutableBufferPointer(start: z1.baseAddress!, count: base.count - k2c)
+            z1 = UnsafeMutableBufferPointer(rebasing: z1.prefix(base[k2c...].count))
             //=----------------------------------=
             // pointee: initialization 3
             //=----------------------------------=
@@ -224,17 +229,22 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             
             for element in z0 {
                 pointer.initialize(to: element)
-                pointer =  pointer.successor()
+                pointer = pointer.successor()
             }
             
             for _ in z0.count ..< k2c {
-                pointer.initialize(to: 000000)
-                pointer =  pointer.successor()
+                pointer.initialize(to: .zero)
+                pointer = pointer.successor()
             }
                         
             for element in z1 {
                 pointer.initialize(to: element)
-                pointer =  pointer.successor()
+                pointer = pointer.successor()
+            }
+            
+            for _ in k2c + z1.count ..< base.count {
+                pointer.initialize(to: .zero)
+                pointer = pointer.successor()
             }
             
             Swift.assert(base.baseAddress!.distance(to: pointer) == base.count)
