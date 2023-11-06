@@ -47,7 +47,7 @@ final class NBKFibonacciXLTests: XCTestCase {
     func testEachElementInUInt256() {
         self.continueAfterFailure = false
         
-        var fibonacci = T(); while fibonacci.next.bitWidth <=  256 {
+        var fibonacci = T(); while fibonacci.next <= UIntXL.max256 {
             NBKAssertFibonacciSequenceElement(fibonacci.index, fibonacci.element)
             fibonacci.increment()
         }

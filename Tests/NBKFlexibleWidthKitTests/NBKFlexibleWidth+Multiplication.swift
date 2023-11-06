@@ -103,31 +103,16 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(                 lhs *  rhs,                 product, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), product, file: file, line: line)
-    //=------------------------------------------=
-    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let product = product as? UIntXL else {
-        return precondition(T.isSigned)
-    }
-    //=------------------------------------------=
-    long: do {
-        let algorithm = UIntXL.productByLongAlgorithm(multiplying:by:adding:)
-        XCTAssertEqual(algorithm(lhs, rhs, 00000000), product,            file: file, line: line)
-        XCTAssertEqual(algorithm(lhs, rhs, UInt.max), product + UInt.max, file: file, line: line)
-    }
-    
-    karatsuab: do {
-        let algorithm = UIntXL.productByKaratsubaAlgorithm(multiplying:by:)
-        XCTAssertEqual(algorithm(lhs, rhs), product, file: file, line: line)
-    }
 }
 
 private func NBKAssertMultiplicationByDigit<T: IntXLOrUIntXL>(
 _ lhs: T, _ rhs: T.Digit, _ product: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
+    NBKAssertMultiplication(lhs, T(digit: rhs), product, file: file, line: line)
+    //=------------------------------------------=
     XCTAssertEqual(                 lhs *  rhs,                 product, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs *= rhs; return lhs }(), product, file: file, line: line)
-    //=------------------------------------------=
-    NBKAssertMultiplication(lhs, T(digit: rhs), product, file: file, line: line)
 }
 
 private func NBKAssertMultiplicationBySquaring<T: IntXLOrUIntXL>(
@@ -138,21 +123,6 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(                   base.squared(),                  product, file: file, line: line)
     XCTAssertEqual({ var base = base; base.square (); return base }(), product, file: file, line: line)
-    //=------------------------------------------=
-    guard let base = base as? UIntXL, let product = product as? UIntXL else {
-        return precondition(T.isSigned)
-    }
-    //=------------------------------------------=
-    long: do {
-        let algorithm = UIntXL.productBySquareLongAlgorithm(multiplying:adding:)
-        XCTAssertEqual(algorithm(base, 00000000), product,            file: file, line: line)
-        XCTAssertEqual(algorithm(base, UInt.max), product + UInt.max, file: file, line: line)
-    }
-    
-    karatsuba: do {
-        let algorithm = UIntXL.productBySquareKaratsubaAlgorithm(multiplying:)
-        XCTAssertEqual(algorithm(base), product, file: file, line: line)
-    }
 }
 
 //=----------------------------------------------------------------------------=
@@ -165,17 +135,6 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(lhs.multiplied(by: rhs, adding: addend),                             product, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: addend); return lhs }(), product, file: file, line: line)
-    //=------------------------------------------=
-    long: do {
-        let algorithm = UIntXL.productByLongAlgorithm(multiplying:by:adding:)
-        XCTAssertEqual(algorithm(lhs, UIntXL(digit: rhs), addend), product,          file: file, line: line)
-        XCTAssertEqual(algorithm(lhs, UIntXL(digit: rhs), 000000), product - addend, file: file, line: line)
-    }
-    
-    karatsuba: do {
-        let algorithm = UIntXL.productByKaratsubaAlgorithm(multiplying:by:)
-        XCTAssertEqual(algorithm(lhs, UIntXL(digit: rhs)), product - addend, file: file, line: line)
-    }
 }
 
 #endif

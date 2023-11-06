@@ -15,10 +15,6 @@ import NBKCoreKit
 
 extension NBKFlexibleWidth.Magnitude {
     
-    @usableFromInline static let productByKaratsubaAlgorithmThreshold: Int = 40
-    
-    @usableFromInline static let productBySquareKaratsubaAlgorithmThreshold: Int = 40
-    
     //=------------------------------------------------------------------------=
     // MARK: Transformations
     //=------------------------------------------------------------------------=
@@ -28,11 +24,12 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public static func *(lhs: Self, rhs: Self) -> Self {
-        if  lhs.count < Self.productByKaratsubaAlgorithmThreshold ||
-            rhs.count < Self.productByKaratsubaAlgorithmThreshold {
-            return self.productByLongAlgorithm(multiplying: lhs, by: rhs, adding: UInt.zero)
-        }   else {
-            return self.productByKaratsubaAlgorithm(multiplying: lhs, by: rhs)
+        lhs.withUnsafeBufferPointer { lhs in
+            rhs.withUnsafeBufferPointer { rhs in
+                Self.uninitialized(count: lhs.count + rhs.count) {
+                    NBK.SUISS.initialize(&$0, to: lhs, times: rhs)
+                }
+            }
         }
     }
         
@@ -45,10 +42,11 @@ extension NBKFlexibleWidth.Magnitude {
     }
     
     @inlinable public func squared() -> Self {
-        if  self.count < Self.productBySquareKaratsubaAlgorithmThreshold {
-            return Self.productBySquareLongAlgorithm(multiplying: self, adding: UInt.zero)
-        }   else {
-            return Self.productBySquareKaratsubaAlgorithm(multiplying: self)
+        self.withUnsafeBufferPointer{ words in
+            Self.uninitialized(count: words.count * 2) {
+                NBK.SUISS.initialize(&$0, toSquareProductOf: words)
+            }
         }
     }
 }
+
