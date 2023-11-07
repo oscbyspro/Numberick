@@ -12,6 +12,9 @@ import NBKCoreKit
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Mul. x Karatsuba x Sub Sequence
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
 
 extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
