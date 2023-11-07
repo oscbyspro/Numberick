@@ -21,8 +21,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Initializes `base` to the [long multiplication][algorithm] product of `lhs` and `rhs`.
     ///
-    /// - Parameters:
-    ///   - base: A buffer of size `lhs.count` + `rhs.count`.
+    /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
     ///
     /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
     ///
@@ -72,8 +71,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     
     /// Initializes `base` to the [square long multiplication][algorithm] product of `elements` plus `addend`.
     ///
-    /// - Parameters:
-    ///   - base: A buffer of size `lhs.count` + `rhs.count`.
+    /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
     ///
     /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
     ///
@@ -83,7 +81,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     _ base: inout Base, toSquareProductOf elements: UnsafeBufferPointer<Base.Element>, plus addend: Base.Element = .zero)
     where Base == UnsafeMutableBufferPointer<T> {
         //=--------------------------------------=
-        Swift.assert(base.count == 2 * elements.count)
+        Swift.assert(base.count == 2 * elements.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
         // pointee: initialization
         //=--------------------------------------=

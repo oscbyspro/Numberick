@@ -16,31 +16,20 @@ import NBKCoreKit
 extension NBK {
     
     //=------------------------------------------------------------------------=
-    // MARK: Utilities
+    // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Initializes `base` by pushing `source` then returns the `data`.
-    @inlinable public static func initialize<T: NBKCoreInteger>(
-    _   base: inout UnsafeMutablePointer<T>, to source: UnsafeBufferPointer<T>) -> UnsafeMutableBufferPointer<T> {
+    /// Initializes `base` to `source` then returns the initialized `count`.
+    @inlinable public static func initializeGetCount<T: NBKCoreInteger>(
+    _   base: UnsafeMutablePointer<T>, to source: UnsafeBufferPointer<T>) -> Int {
         base.initialize(from: source.baseAddress!, count: source.count)
-        
-        defer {
-            base = base.advanced(by: source.count)
-        }
-        
-        return UnsafeMutableBufferPointer(start: base, count: source.count)
+        return source.count as Int
     }
     
-    
-    /// Initializes `base` by pushing `source` then returns the `data`.
-    @inlinable public static func initialize<T: NBKCoreInteger>(
-    _   base: inout UnsafeMutablePointer<T>, repeating element: T, count: Int) -> UnsafeMutableBufferPointer<T> {
+    /// Initializes `base` to `source` then returns the initialized `count`.
+    @inlinable public static func initializeGetCount<T: NBKCoreInteger>(
+    _   base: UnsafeMutablePointer<T>, repeating element: T, count: Int) -> Int {
         base.initialize(repeating: element, count: count)
-        
-        defer {
-            base = base.advanced(by: count)
-        }
-        
-        return UnsafeMutableBufferPointer(start: base, count: count)
+        return count as Int
     }
 }
