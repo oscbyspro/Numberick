@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Mul. x Karatsuba x Sub Sequence
 //*============================================================================*
@@ -129,10 +127,6 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             }
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Square
-    //=------------------------------------------------------------------------=
     
     /// Initializes `base` to the square [Karatsuba][algorithm] product of `elements`.
     ///

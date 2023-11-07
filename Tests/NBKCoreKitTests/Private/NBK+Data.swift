@@ -13,10 +13,10 @@ import NBKCoreKit
 import XCTest
 
 //*============================================================================*
-// MARK: * NBK x Allocation
+// MARK: * NBK x Data
 //*============================================================================*
 
-final class NBKTestsOnAllocation: XCTestCase {
+final class NBKTestsOnData: XCTestCase {
     
     //=------------------------------------------------------------------------=
     // MARK: Tests

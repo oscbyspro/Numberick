@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-import NBKCoreKit
-
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Mul. x Long x Sub Sequence
 //*============================================================================*
@@ -67,10 +65,6 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         
         Swift.assert(base.baseAddress!.distance(to: pointer) == base.count)
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Initializers x Square
-    //=------------------------------------------------------------------------=
     
     /// Initializes `base` to the square [long][algorithm] product of `elements` plus `addend`.
     ///
