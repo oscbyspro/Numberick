@@ -10,8 +10,11 @@
 import NBKCoreKit
 
 //*============================================================================*
-// MARK: * NBK x Strict Unsigned Integer x Sub Sequence x Split
+// MARK: * NBK x Strict Unsigned Integer x Partition x Sub Sequence
 //*============================================================================*
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Unsafe Buffer Pointer
+//=----------------------------------------------------------------------------=
 
 extension NBK.StrictUnsignedInteger.SubSequence  {
     
@@ -19,7 +22,7 @@ extension NBK.StrictUnsignedInteger.SubSequence  {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Splits `base` at `index` then trims all trailing zeros from each sequence.
+    /// Splits `base` at `index` then trims redundant zeros from each sequence.
     @inlinable public static func partitionTrimmingRedundantZeros<T>(
     _   base: Base, at index: Base.Index) -> HL<Base, Base> where Base == UnsafeBufferPointer<T> {
         let partition = Swift.min(base.count, index)

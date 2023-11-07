@@ -19,7 +19,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Initializes `base` to the [Karatsuba algorithm][algorithm] product of `lhs` and `rhs`.
+    /// Initializes `base` to the [Karatsuba][algorithm] product of `lhs` and `rhs`.
     ///
     ///
     ///            high : z1                low : z0
@@ -46,9 +46,9 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         //=--------------------------------------=
         Swift.assert(base.count == lhs.count + rhs.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let k0c = Swift.max(lhs.count, rhs.count)
-        let k1c = k0c &>> 1
-        let k2c = k1c &<< 1
+        let (k0c): Int = Swift.max(lhs.count,  rhs.count)
+        let (k1c): Int = k0c &>> 1
+        let (k2c): Int = k1c &<< 1
         
         let (x1s, x0s) = NBK.SUISS.partitionTrimmingRedundantZeros(lhs, at: k1c)
         let (y1s, y0s) = NBK.SUISS.partitionTrimmingRedundantZeros(rhs, at: k1c)
@@ -91,7 +91,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             }
             
             let ys = NBK.SUISS.compare(y1, to: y0).isLessThanZero
-            if  ys { 
+            if  ys {
                 Swift.swap(&y0,  &y1)
             }
             
@@ -113,11 +113,10 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             Swift.assert(base.baseAddress!.distance(to: pointer) == base.count)
             //=----------------------------------=
             var slice = UnsafeMutableBufferPointer(rebasing: base.suffix(from: k1c))
-            
             NBK.SUISS.increment(&slice, by: UnsafeBufferPointer(z0))
             NBK.SUISS.increment(&slice, by: UnsafeBufferPointer(z1))
             
-            z2: do { // reuse z0 and z1 memory to form z2
+            z2: do { // reuse z0 and z1 to form z2. pointee is trivial
                 z0 = UnsafeMutableBufferPointer(start: z0.baseAddress!,  count: x1.count + y1.count)
                 NBK.SUISS.initialize(&(z0), to: UnsafeBufferPointer(x1), times: UnsafeBufferPointer(y1))
             };  if xs == ys {
@@ -132,7 +131,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Initializers x Square
     //=------------------------------------------------------------------------=
     
-    /// Initializes `base` to the [square Karatsuba algorithm][algorithm] product of `lhs` and `rhs`.
+    /// Initializes `base` to the square [Karatsuba][algorithm] product of `elements`.
     ///
     ///
     ///            high : z1                low : z0
@@ -147,7 +146,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///                 └───────────────────────┘
     ///
     ///
-    /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
+    /// - Parameter base: A buffer of size `2 * elements.count`.
     ///
     /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
     ///
@@ -155,14 +154,16 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// ### Development
     ///
+    /// - TODO: Add a test case where `elements` has redundant zeros.
+    ///
     @inline(never) @inlinable public static func initializeByKaratsubaAlgorithm<T>(
     _ base: inout Base, toSquareProductOf elements: UnsafeBufferPointer<Base.Element>) where Base == UnsafeMutableBufferPointer<T> {
         //=--------------------------------------=
         Swift.assert(base.count == 2 * elements.count, NBK.callsiteOutOfBoundsInfo())
         //=--------------------------------------=
-        let k0c = elements.count
-        let k1c = k0c &>> 1
-        let k2c = k1c &<< 1
+        let (k0c): Int = elements.count
+        let (k1c): Int = k0c &>> 1
+        let (k2c): Int = k1c &<< 1
         
         let (x1s, x0s) = NBK.SUISS.partitionTrimmingRedundantZeros(elements, at: k1c)
         let (z1c, z0c) = (2 * x1s.count, 2 * x0s.count)
@@ -218,7 +219,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             NBK.SUISS.increment(&slice, by: UnsafeBufferPointer(z0))
             NBK.SUISS.increment(&slice, by: UnsafeBufferPointer(z1))
             
-            z2: do { // reuse z0 and z1 memory to form z2
+            z2: do { // reuse z0 and z1 to form z2. pointee is trivial
                 z0 = UnsafeMutableBufferPointer(start: z0.baseAddress!, count: x1.count &<< 1)
                 NBK.SUISS.initialize(&(z0), toSquareProductOf: UnsafeBufferPointer(x1))
                 NBK.SUISS.decrement(&slice, by:/*-----------*/ UnsafeBufferPointer(z0))

@@ -19,7 +19,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Initializes `base` to the [long multiplication][algorithm] product of `lhs` and `rhs`.
+    /// Initializes `base` to the [long][algorithm] product of `lhs` and `rhs` plus `addend`.
     ///
     /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
     ///
@@ -69,9 +69,9 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     // MARK: Initializers x Square
     //=------------------------------------------------------------------------=
     
-    /// Initializes `base` to the [square long multiplication][algorithm] product of `elements` plus `addend`.
+    /// Initializes `base` to the square [long][algorithm] product of `elements` plus `addend`.
     ///
-    /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
+    /// - Parameter base: A buffer of size `2 * elements`.
     ///
     /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
     ///
