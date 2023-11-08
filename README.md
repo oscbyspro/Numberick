@@ -123,6 +123,12 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 - [NBKFibonacciXL](Sources/NBKFlexibleWidthKit/Models/NBKFibonacciXL.swift)
 
+### Fibonacci
+
+```swift
+NBK.blackHole(NBKFibonacciXL(10_000_000)) // 2.3s on M1 MacBook Pro
+```
+
 <a name="installation"/>
 
 ## Installation

@@ -32,34 +32,21 @@ import NBKCoreKit
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    @usableFromInline var i: UInt
-    @usableFromInline var a: UIntXL
-    @usableFromInline var b: UIntXL
+    @usableFromInline var i = UInt()
+    @usableFromInline var a = UIntXL(digit: 0)
+    @usableFromInline var b = UIntXL(digit: 1)
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
     /// Creates the first sequence pair.
-    @inlinable public init() {
-        self.i = UInt()
-        self.a = UIntXL(digit: 0)
-        self.b = UIntXL(digit: 1)
-    }
+    @inlinable public init() { }
     
     /// Creates the sequence pair at the given `index`.
     @inlinable public init(_ index: UInt) {
-        self.init()
-        var mask = UInt.one &<< UInt(bitPattern: index.bitWidth &+ index.leadingZeroBitCount.onesComplement())
-        doubleAndAdd: while !mask.isZero {
-            self.double()
-            
-            if !(index & mask).isZero {
-                self.increment()
-            }
-            
-            mask &>>= UInt.one
-        }
+        var mask = 1 as UInt &<< UInt(bitPattern: index.bitWidth &+ index.leadingZeroBitCount.onesComplement())
+        while !mask.isZero { self.double(); if !(index & mask).isZero { self.increment() }; mask &>>= 1 as UInt }
     }
     
     //=------------------------------------------------------------------------=
@@ -101,12 +88,12 @@ import NBKCoreKit
     
     /// Forms the sequence pair at `index * 2`.
     @inlinable public mutating func double() {
-        var (x): UIntXL // f(2x + 0)
+        var (x): UIntXL // f(2 * index + 0)
         x  = b.bitShiftedLeft(major: Int.zero, minor: Int.one)
         x -= a
         x *= a
         
-        var (y): UIntXL // f(2x + 1)
+        var (y): UIntXL // f(2 * index + 1)
         y  = a.squared()
         y += b.squared()
         
