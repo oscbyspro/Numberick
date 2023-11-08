@@ -24,7 +24,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
     ///
-    /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
+    /// - Important: The `base` must be uninitialized, or its elements must be trivial.
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/multiplication_algorithm
     ///
@@ -70,7 +70,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Parameter base: A buffer of size `2 * elements`.
     ///
-    /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
+    /// - Important: The `base` must be uninitialized, or its elements must be trivial.
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/multiplication_algorithm
     ///
@@ -95,18 +95,18 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             index = productIndex + 1 // add non-diagonal products
             
             NBK.SUISS.incrementInIntersection(
-            &base, by: UnsafeBufferPointer(rebasing: elements[baseIndex...]),
-            times: multiplier, plus: 00000, at: &index)
+            &base, by: UnsafeBufferPointer(rebasing: elements[baseIndex...]), 
+            times: multiplier, plus: Base.Element.zero, at: &index)
             
             index = productIndex // partially double non-diagonal products
             
-            NBK.SUISS.multiply(&base, by: 0002, add: &carry, from: &index, to: productIndex + 2)
+            NBK.SUISS.multiply(&base, by: 2, add: &carry, from: &index, to: productIndex + 2)
             
             index = productIndex // add this iteration's diagonal product
             
             carry  &+= Base.Element(bit: NBK.SUISS.incrementInIntersection(
-            &base, by: CollectionOfOne((multiplier)),
-            times: multiplier, plus: 00000, at: &index))
+            &base, by: CollectionOfOne(multiplier),
+            times: multiplier, plus: Base.Element.zero, at: &index))
         }
     }
 }

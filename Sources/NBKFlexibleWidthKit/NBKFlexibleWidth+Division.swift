@@ -74,7 +74,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // divisor is one word
         //=--------------------------------------=
-        if  other.count == 1 {
+        if  other.count == Int.one {
             let (q, r)  = self.quotientAndRemainder(dividingBy: other.first)
             self.update(r)
             return PVO((q), false)
@@ -85,7 +85,7 @@ extension NBKFlexibleWidth.Magnitude {
         let comparison = other.compared(to: self)
         if  comparison.isLessThanZero {
         }   else if comparison.isZero {
-            self.update(0 as UInt)
+            self.update(UInt.zero)
             return PVO(Self.one,  false)
         }   else {
             return PVO(Self.zero, false)
@@ -93,7 +93,7 @@ extension NBKFlexibleWidth.Magnitude {
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=
-        self.storage.append(0 as UInt)
+        self.storage.append(UInt.zero)
         
         var other: Self = other
         let shift: Int  = other.last.leadingZeroBitCount
@@ -106,16 +106,10 @@ extension NBKFlexibleWidth.Magnitude {
         // division
         //=--------------------------------------=
         let quotient = Self.uninitialized(count: self.count - other.count) { quotient in
-            self.storage.withUnsafeMutableBufferPointer { remainder in
-                other.storage.withUnsafeBufferPointer   { (divisor) in
-                    for index in quotient.indices.reversed() {
-                        let digit = NBK.SUI.formRemainderWithQuotientLong2111MSBUnchecked(
-                        dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)
-                        quotient.baseAddress!.advanced(by: index).initialize(to: digit)
-                    }
-                }
-            }
-        }
+        self .storage.withUnsafeMutableBufferPointer { dividend in
+        other.storage.withUnsafeBufferPointer/*---*/ { divisor  in
+            NBK.SUI.initializeToQuotientFormRemainderByLongAlgorithm2111MSB(&quotient, dividing: &dividend, by: divisor)
+        }}}
         //=--------------------------------------=
         // normalization
         //=--------------------------------------=

@@ -264,6 +264,7 @@ extension NBK.IntegerDescription {
         /// - Returns: The `exponent` and `power` where `0` represents `Element.max + 1`.
         ///
         @inlinable static func exponentiate(_ base: NBK.PowerOf2<Element>) -> Exponentiation {
+            //=----------------------------------=
             precondition(base.value > 1)
             //=----------------------------------=
             let exponentiation:  Exponentiation
@@ -294,26 +295,27 @@ extension NBK.IntegerDescription {
         /// - Note: The power returned by this method is non-zero.
         ///
         @inlinable static func exponentiate(_ base: NBK.NonPowerOf2<Element>) -> Exponentiation {
+            //=----------------------------------=
             precondition(base.value > 1)
+            //=----------------------------------=
+            var exponentiation = Exponentiation(1, base.value)
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            let capacity: Int = Element.bitWidth.trailingZeroBitCount - 1
-            return Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) {
+            Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: Element.bitWidth.trailingZeroBitCount - 1) {
                 let squares = NBK.unwrapping($0)!
                 var pointer = squares.baseAddress
-                var current = Exponentiation(1, base.value)
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
                 loop: while true {
-                    pointer.initialize(to: current)
+                    pointer.initialize(to: exponentiation)
 
-                    let product = current.power.multipliedReportingOverflow(by: current.power)
+                    let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
                     if  product.overflow { break loop }
                     
-                    current.exponent &<<= 1 as Element
-                    current.power = product.partialValue
+                    exponentiation.exponent &<<= 1 as Element
+                    exponentiation.power = product.partialValue
                     pointer = pointer.successor()
                 }
                 //=------------------------------=
@@ -324,15 +326,15 @@ extension NBK.IntegerDescription {
                     pointer = pointer.predecessor()
                     
                     let square  = pointer.move()
-                    let product = current.power.multipliedReportingOverflow(by: square.power)
+                    let product = exponentiation.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     
-                    current.exponent &+= square.exponent
-                    current.power = product.partialValue
+                    exponentiation.exponent &+= square.exponent
+                    exponentiation.power = product.partialValue
                 }
-                //=------------------------------=
-                return current as Exponentiation
             }
+            //=----------------------------------=
+            return exponentiation as Exponentiation
         }
     }
 }
