@@ -298,11 +298,11 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             precondition(base.value > 1)
             //=----------------------------------=
+            var exponentiation = Exponentiation(1, base.value)
+            //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            var exponentiation = Exponentiation(1, base.value)
-            let capacity: Int  = Element.bitWidth.trailingZeroBitCount - 1
-            Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: capacity) {
+            Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: Element.bitWidth.trailingZeroBitCount - 1) {
                 let squares = NBK.unwrapping($0)!
                 var pointer = squares.baseAddress
                 //=------------------------------=
