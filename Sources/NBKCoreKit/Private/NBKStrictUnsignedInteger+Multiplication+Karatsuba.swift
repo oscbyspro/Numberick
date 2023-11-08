@@ -37,7 +37,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Parameter base: A buffer of size `lhs.count` + `rhs.count`.
     ///
-    /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
+    /// - Important: The `base` must be uninitialized, or its elements must be trivial.
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/karatsuba_algorithm
     ///
@@ -145,7 +145,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - Parameter base: A buffer of size `2 * elements.count`.
     ///
-    /// - Note: The `base` must be uninitialized or `pointee` must be trivial.
+    /// - Important: The `base` must be uninitialized, or its elements must be trivial.
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/karatsuba_algorithm
     ///
