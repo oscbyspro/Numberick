@@ -622,15 +622,22 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(x0.next, x1.element,  file: file, line: line)
     XCTAssertEqual(x1.next, x0.element + x1.element, file: file, line: line)
     //=------------------------------------------=
-    increment1: do  {
+    increment: do {
         var x = x0; x.increment()
         XCTAssertEqual(x.index,   x1.index,   file: file, line: line)
         XCTAssertEqual(x.element, x1.element, file: file, line: line)
         XCTAssertEqual(x.next,    x1.next,    file: file, line: line)
     }
     
-    decrement1: do  {
+    decrement: do {
         var x = x1; x.decrement()
+        XCTAssertEqual(x.index,   x0.index,   file: file, line: line)
+        XCTAssertEqual(x.element, x0.element, file: file, line: line)
+        XCTAssertEqual(x.next,    x0.next,    file: file, line: line)
+    }
+    
+    double: do {
+        var x = NBKFibonacciXL(index / 2); x.double(); if index.isOdd { x.increment() }
         XCTAssertEqual(x.index,   x0.index,   file: file, line: line)
         XCTAssertEqual(x.element, x0.element, file: file, line: line)
         XCTAssertEqual(x.next,    x0.next,    file: file, line: line)

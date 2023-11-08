@@ -49,29 +49,13 @@ import NBKCoreKit
     
     /// Creates the sequence pair at the given `index`.
     @inlinable public init(_ index: UInt) {
-        self.i = index as UInt
-        self.a = UIntXL(digit: 0)
-        self.b = UIntXL(digit: 1)
-        
+        self.init()
         var mask = UInt.one &<< UInt(bitPattern: index.bitWidth &+ index.leadingZeroBitCount.onesComplement())
         doubleAndAdd: while !mask.isZero {
+            self.double()
             
-            var (x): UIntXL // f(2x + 0)
-            x  = b.bitShiftedLeft(major: Int.zero, minor: Int.one)
-            x -= a
-            x *= a
-            
-            var (y): UIntXL // f(2x + 1)
-            y  = a.squared()
-            y += b.squared()
-            
-            if (mask & index).isZero {
-                a  = x
-                b  = y
-            }   else {
-                x += y
-                a  = y
-                b  = x
+            if !(index & mask).isZero {
+                self.increment()
             }
             
             mask &>>= UInt.one
@@ -101,17 +85,33 @@ import NBKCoreKit
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Forms the sequence pair at `index - 1`.
-    @inlinable public mutating func decrement() {
-        self.i -= 1
-        self.b -= a
+    /// Forms the sequence pair at `index + 1`.
+    @inlinable public mutating func increment() {
+        i += 1
+        a += b
         Swift.swap(&a, &b)
     }
     
-    /// Forms the sequence pair at `index + 1`.
-    @inlinable public mutating func increment() {
-        self.i += 1
-        self.a += b
+    /// Forms the sequence pair at `index - 1`.
+    @inlinable public mutating func decrement() {
+        i -= 1
+        b -= a
         Swift.swap(&a, &b)
+    }
+    
+    /// Forms the sequence pair at `index * 2`.
+    @inlinable public mutating func double() {
+        var (x): UIntXL // f(2x + 0)
+        x  = b.bitShiftedLeft(major: Int.zero, minor: Int.one)
+        x -= a
+        x *= a
+        
+        var (y): UIntXL // f(2x + 1)
+        y  = a.squared()
+        y += b.squared()
+        
+        i *= 2
+        a  = x
+        b  = y
     }
 }
