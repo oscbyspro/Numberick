@@ -217,12 +217,9 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)
     }
     //=------------------------------------------=
-    guard
-    let lhs = lhs as? UIntXL,
-    let rhs = rhs as? UIntXL,
-    let quotient  = quotient  as? UIntXL,
-    let remainder = remainder as? UIntXL
-    else { return }
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let quotient = quotient  as? UIntXL, let remainder = remainder as? UIntXL else {
+        return precondition(T.isSigned)
+    }
     //=------------------------------------------=
     brr: do {
         let pvo = lhs.quotientAndRemainderReportingOverflowUsingLongAlgorithm(dividingBy: rhs)
@@ -292,12 +289,9 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)
     }
     //=------------------------------------------=
-    guard
-    let lhs = lhs as? UIntXL,
-    let rhs = rhs as? UInt,
-    let quotient  = quotient  as? UIntXL,
-    let remainder = remainder as? UInt
-    else { return }
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UInt, let quotient = quotient as? UIntXL, let remainder = remainder as? UInt else {
+        return precondition(T.isSigned)
+    }
     //=------------------------------------------=
     brr: do {
         var lhs = lhs

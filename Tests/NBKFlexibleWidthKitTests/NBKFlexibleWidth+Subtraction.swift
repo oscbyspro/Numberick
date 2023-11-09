@@ -131,7 +131,9 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
     //=------------------------------------------=
-    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let partialValue = partialValue as? UIntXL else { return }
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let partialValue = partialValue as? UIntXL else { 
+        return precondition(T.isSigned)
+    }
     //=------------------------------------------=
     if  index.isZero {
         XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).partialValue, partialValue, file: file, line: line)
@@ -160,7 +162,9 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual({ var lhs = lhs; lhs.subtract(rhs, at: Int.zero); return lhs }(), partialValue, file: file, line: line)
     }
     //=------------------------------------------=
-    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL.Digit, let partialValue = partialValue as? UIntXL else { return }
+    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL.Digit, let partialValue = partialValue as? UIntXL else {
+        return precondition(T.isSigned)
+    }
     //=------------------------------------------=
     if  index.isZero {
         XCTAssertEqual(lhs.subtractingReportingOverflow(rhs).partialValue, partialValue, file: file, line: line)

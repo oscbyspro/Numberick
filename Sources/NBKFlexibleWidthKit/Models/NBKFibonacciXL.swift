@@ -26,6 +26,23 @@ import NBKCoreKit
 /// NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 /// ```
 ///
+/// ### Fast index double-and-add algorithm
+///
+/// Large indices are computed using the double-and-add algorithm:
+///
+/// ```swift
+/// f(x + 1 + 0) == f(x) * 0000 + f(x + 1) * 00000001
+/// f(x + 1 + 1) == f(x) * 0001 + f(x + 1) * 00000001
+/// f(x + 1 + 2) == f(x) * 0001 + f(x + 1) * 00000002
+/// f(x + 1 + 3) == f(x) * 0002 + f(x + 1) * 00000003
+/// f(x + 1 + 4) == f(x) * 0003 + f(x + 1) * 00000005
+/// f(x + 1 + 5) == f(x) * 0005 + f(x + 1) * 00000008
+/// f(x + 1 + 6) == f(x) * 0008 + f(x + 1) * 00000013
+/// ─────────────────────────────────────────────────
+/// f(x + 1 + y) == f(x) * f(y) + f(x + 1) * f(y + 1)
+/// f(x + 1 + x) == f(x) ^ 0002 + f(x + 1) ^ 00000002
+/// ```
+///
 @frozen public struct NBKFibonacciXL {
     
     //=------------------------------------------------------------------------=
@@ -94,8 +111,8 @@ import NBKCoreKit
         x *= a
         
         var (y): UIntXL // f(2 * index + 1)
-        y  = a.squared()
-        y += b.squared()
+        y  = b.squared()
+        y += a.squared()
         
         i *= 2
         a  = x

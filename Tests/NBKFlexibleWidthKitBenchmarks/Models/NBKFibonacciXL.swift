@@ -74,7 +74,7 @@ final class NBKFibonacciXLBenchmarks: XCTestCase {
     /// - Note: The 10,000,000th element contains 2,089,877 decimal digits.
     ///
     func testNoLoop10000000() {
-        NBK.blackHole(T(NBK.blackHoleIdentity(UInt(10_000_000))))
+        NBK.blackHole(T(NBK.blackHoleIdentity(10_000_000)))
     }
 }
 
