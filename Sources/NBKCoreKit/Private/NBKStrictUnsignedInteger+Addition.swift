@@ -204,11 +204,11 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         if  bit {
             bit = digit.addReportingOverflow(1 as Base.Element.Digit)
         }
-
+        
         if !bit {
             bit = base[index].addReportingOverflow(digit)
         }
-        //=--------------------------------------=
+        
         base.formIndex(after: &index)
     }
 }

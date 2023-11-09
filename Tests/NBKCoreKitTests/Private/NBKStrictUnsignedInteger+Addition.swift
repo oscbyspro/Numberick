@@ -27,20 +27,55 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddingLargeToLarge() {
-        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [3, 0, 0, 0] as W, [ 2, ~0, ~2, ~3] as W)
-        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 3, 0, 0] as W, [~0,  1, ~1, ~3] as W)
-        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 0, 3, 0] as W, [~0, ~1,  0, ~2] as W)
-        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [0, 0, 0, 3] as W, [~0, ~1, ~2, ~0] as W)
-    }
-    
-    func testAddingLargeToLargeReportingOverflow() {
-        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [0, 0, 0, 0] as W, [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [1, 0, 0, 0] as W, [ 0,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, false, [ 0,  0,  0,  0] as W)
+        NBKAssertSubSequenceAddition([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, true,  [ 1,  0,  0,  0] as W)
+        NBKAssertSubSequenceAddition([ 0,  0,  0,  0] as W, [ 1,  0,  0,  0] as W, false, [ 1,  0,  0,  0] as W)
+        NBKAssertSubSequenceAddition([ 0,  0,  0,  0] as W, [ 1,  0,  0,  0] as W, true,  [ 2,  0,  0,  0] as W)
         
-        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [4, 0, 0, 0] as W, [ 0, ~1, ~1, ~0] as W)
-        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 4, 0, 0] as W, [~3,  1, ~0, ~0] as W)
-        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 0, 4, 0] as W, [~3, ~2,  2,  0] as W, true)
-        NBKAssertSubSequenceAddition([~3, ~2, ~1, ~0] as W, [0, 0, 0, 4] as W, [~3, ~2, ~1,  3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, false, [~0, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, true,  [ 0,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [ 1,  0,  0,  0] as W, false, [ 0,  0,  0,  0] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~0, ~0, ~0] as W, [ 1,  0,  0,  0] as W, true,  [ 1,  0,  0,  0] as W, true)
+        
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 4,  0,  0,  0] as W, false, [ 4,  1,  2,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  4,  0,  0] as W, false, [ 0,  5,  2,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  0,  4,  0] as W, false, [ 0,  1,  6,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  0,  0,  4] as W, false, [ 0,  1,  2,  7] as W)
+        
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 4,  0,  0,  0] as W, true,  [ 5,  1,  2,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  4,  0,  0] as W, true,  [ 1,  5,  2,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  0,  4,  0] as W, true,  [ 1,  1,  6,  3] as W)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [ 0,  0,  0,  4] as W, true,  [ 1,  1,  2,  7] as W)
+        
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~4, ~0, ~0, ~0] as W, false, [~4,  0,  2,  3] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~4, ~0, ~0] as W, false, [~0, ~3,  1,  3] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~0, ~4, ~0] as W, false, [~0,  0, ~1,  2] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~0, ~0, ~4] as W, false, [~0,  0,  2, ~0] as W)
+
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~4, ~0, ~0, ~0] as W, true,  [~3,  0,  2,  3] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~4, ~0, ~0] as W, true,  [ 0, ~2,  1,  3] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~0, ~4, ~0] as W, true,  [ 0,  1, ~1,  2] as W, true)
+        NBKAssertSubSequenceAddition([ 0,  1,  2,  3] as W, [~0, ~0, ~0, ~4] as W, true,  [ 0,  1,  2, ~0] as W)
+        
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 4,  0,  0,  0] as W, false, [ 3, ~0, ~2, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  4,  0,  0] as W, false, [~0,  2, ~1, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  0,  4,  0] as W, false, [~0, ~1,  1, ~2] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  0,  0,  4] as W, false, [~0, ~1, ~2,  0] as W, true)
+
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 4,  0,  0,  0] as W, true,  [ 4, ~0, ~2, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  4,  0,  0] as W, true,  [ 0,  3, ~1, ~3] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  0,  4,  0] as W, true,  [ 0, ~0,  1, ~2] as W)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [ 0,  0,  0,  4] as W, true,  [ 0, ~0, ~2,  0] as W, true)
+        
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~4, ~0, ~0, ~0] as W, false, [~5, ~1, ~2, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~4, ~0, ~0] as W, false, [~1, ~5, ~2, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~0, ~4, ~0] as W, false, [~1, ~1, ~6, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~0, ~0, ~4] as W, false, [~1, ~1, ~2, ~7] as W, true)
+
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~4, ~0, ~0, ~0] as W, true,  [~4, ~1, ~2, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~4, ~0, ~0] as W, true,  [~0, ~5, ~2, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~0, ~4, ~0] as W, true,  [~0, ~1, ~6, ~3] as W, true)
+        NBKAssertSubSequenceAddition([~0, ~1, ~2, ~3] as W, [~0, ~0, ~0, ~4] as W, true,  [~0, ~1, ~2, ~7] as W, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -48,16 +83,29 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddingSmallToLarge() {
-        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt(3), [ 3,  0,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt(3), [ 2,  1,  0,  0] as W)
-        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt(3), [ 2,  0,  1,  0] as W)
-        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt(3), [ 2,  0,  0,  1] as W)
-    }
-    
-    func testAddingSmallToLargeReportingOverflow() {
-        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt(0), [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt(1), [ 0,  0,  0,  0] as W, true)
-        NBKAssertSubSequenceAdditionByDigit([~3, ~2, ~1, ~0] as W, UInt(4), [ 0, ~1, ~1, ~0] as W)
+        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt.min, false, [ 0,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt.min, false, [~0,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt.min, false, [~0, ~0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt.min, false, [~0, ~0, ~0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt.min, false, [~0, ~0, ~0, ~0] as W)
+        
+        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt.min, true,  [ 1,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt.min, true,  [ 0,  1,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt.min, true,  [ 0,  0,  1,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt.min, true,  [ 0,  0,  0,  1] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt.min, true,  [ 0,  0,  0,  0] as W, true)
+        
+        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt.max, false, [~0,  0,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt.max, false, [~1,  1,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt.max, false, [~1,  0,  1,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt.max, false, [~1,  0,  0,  1] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt.max, false, [~1,  0,  0,  0] as W, true)
+        
+        NBKAssertSubSequenceAdditionByDigit([ 0,  0,  0,  0] as W, UInt.max, true,  [ 0,  1,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0,  0,  0,  0] as W, UInt.max, true,  [~0,  1,  0,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0,  0,  0] as W, UInt.max, true,  [~0,  0,  1,  0] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0,  0] as W, UInt.max, true,  [~0,  0,  0,  1] as W)
+        NBKAssertSubSequenceAdditionByDigit([~0, ~0, ~0, ~0] as W, UInt.max, true,  [~0,  0,  0,  0] as W, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -117,7 +165,7 @@ final class NBKStrictUnsignedIntegerTestsOnAdditionAsSubSequence: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertSubSequenceAddition(
-_ lhs: [UInt], _ rhs: [UInt], _ result: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: [UInt], _ bit: Bool, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
@@ -126,14 +174,14 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.increment(&lhs,  by: rhs,   plus: false)
+        let max = T.increment(&lhs,  by: rhs,   plus: bit)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: bit)
         let max = T.increment(&lhs[min.index...], by: min.overflow)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
@@ -141,7 +189,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: bit)
         let sfx = Array(repeating: UInt.zero,  count: lhs[min.index... ].count)
         let max = T.increment(&lhs[min.index...], by: sfx,  plus: min.overflow)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
@@ -150,23 +198,23 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertSubSequenceAdditionByDigit(
-_ lhs: [UInt], _ rhs: UInt, _ result: [UInt], _ overflow: Bool = false,
+_ lhs: [UInt], _ rhs: UInt, _ bit: Bool, _ result: [UInt], _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     typealias T = NBK.SUISS
     //=------------------------------------------=
-    NBKAssertSubSequenceAddition(lhs, [rhs], result, overflow, file: file, line: line)
+    NBKAssertSubSequenceAddition(lhs, [rhs], bit, result, overflow, file: file, line: line)
     //=------------------------------------------=
     // increment: digit
     //=------------------------------------------=
-    brr: do {
+    if !bit {
         var lhs = lhs
         let max = T.increment(&lhs,  by: rhs)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
-    brr: do {
+    if !bit {
         var lhs = lhs
         let min = T.incrementInIntersection(&lhs, by: rhs)
         let max = T.increment(&lhs[min.index...], by: min.overflow)
@@ -178,14 +226,14 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     brr: do {
         var lhs = lhs
-        let max = T.increment(&lhs,  by: rhs,   plus: false)
+        let max = T.increment(&lhs,  by: rhs,   plus: bit)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
     }
     
     brr: do {
         var lhs = lhs
-        let min = T.incrementInIntersection(&lhs, by: rhs, plus: false)
+        let min = T.incrementInIntersection(&lhs, by: rhs, plus: bit)
         let max = T.increment(&lhs[min.index...], by: min.overflow)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
         XCTAssertEqual(max.overflow, overflow,  file: file, line: line)
@@ -193,7 +241,7 @@ file: StaticString = #file, line: UInt = #line) {
     
     brr: do {
         var lhs = lhs, rhs = rhs
-        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: false)
+        let min = T.incrementInIntersection(&lhs, by: rhs,  plus: bit)
         let sfx = Array(repeating: UInt.zero,  count: lhs[min.index... ].count)
         let max = T.increment(&lhs[min.index...], by: sfx,  plus: min.overflow)
         XCTAssertEqual(lhs,          result,    file: file, line: line)
