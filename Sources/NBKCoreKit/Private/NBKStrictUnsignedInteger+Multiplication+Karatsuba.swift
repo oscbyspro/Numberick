@@ -41,6 +41,10 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// [algorithm]: https://en.wikipedia.org/wiki/karatsuba_algorithm
     ///
+    /// ### Development
+    ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @inline(never) @inlinable public static func initializeByKaratsubaAlgorithm<T>(
     _ base: inout Base, to lhs: UnsafeBufferPointer<Base.Element>, times rhs: UnsafeBufferPointer<Base.Element>)
     where Base == UnsafeMutableBufferPointer<T> {
@@ -55,17 +59,16 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         let (y1s, y0s) = NBK.SUISS.partitionTrimmingRedundantZeros(rhs, at: k1c)
         let (z1c, z0c) = (x1s.count + y1s.count, x0s.count + y0s.count)
         
-        let count = 2  * (z0c + z1c) as Int
-        Swift.withUnsafeTemporaryAllocation(of: Base.Element.self, capacity: count) { buffer in
+        NBK.withUnsafeTemporaryAllocation(of: Base.Element.self, count: 2  * (z0c + z1c)) { buffer in
             var pointer: UnsafeMutablePointer<Base.Element>
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                buffer.baseAddress!.deinitialize(count: count)
+                buffer.baseAddress!.deinitialize(count: buffer.count)
             }
             //=----------------------------------=
-            // temporary memory regions
+            // regions
             //=----------------------------------=
             pointer  = buffer.baseAddress! as UnsafeMutablePointer<Base.Element>
             var x0 = UnsafeMutableBufferPointer(start: pointer, count: x0s.count); pointer += x0.count
@@ -74,7 +77,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
             var y1 = UnsafeMutableBufferPointer(start: pointer, count: y1s.count); pointer += y1.count
             var z0 = UnsafeMutableBufferPointer(start: pointer, count: z0c);       pointer += z0.count
             var z1 = UnsafeMutableBufferPointer(start: pointer, count: z1c);       pointer += z1.count
-            Swift.assert(buffer.baseAddress!.distance(to: pointer) == count)
+            Swift.assert(buffer.baseAddress!.distance(to: pointer) == buffer.count)
             //=----------------------------------=
             // pointee: initialization 1
             //=----------------------------------=
@@ -153,6 +156,8 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
     ///
     /// - TODO: Add a test case where `elements` has redundant zeros.
     ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @inline(never) @inlinable public static func initializeByKaratsubaAlgorithm<T>(
     _ base: inout Base, toSquareProductOf elements: UnsafeBufferPointer<Base.Element>) where Base == UnsafeMutableBufferPointer<T> {
         //=--------------------------------------=
@@ -165,24 +170,23 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         let (x1s, x0s) = NBK.SUISS.partitionTrimmingRedundantZeros(elements, at: k1c)
         let (z1c, z0c) = (2 * x1s.count, 2 * x0s.count)
         
-        let count = 3  * (x1s.count + x0s.count) as Int
-        Swift.withUnsafeTemporaryAllocation(of: Base.Element.self, capacity: count) { buffer in
+        NBK.withUnsafeTemporaryAllocation(of: Base.Element.self, count: 3 * (x1s.count + x0s.count)) { buffer in
             var pointer: UnsafeMutablePointer<Base.Element>
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                buffer.baseAddress!.deinitialize(count: count)
+                buffer.baseAddress!.deinitialize(count: buffer.count)
             }
             //=----------------------------------=
-            // temporary memory regions
+            // regions
             //=----------------------------------=
             pointer  = buffer.baseAddress! as UnsafeMutablePointer<Base.Element>
             var x0 = UnsafeMutableBufferPointer(start: pointer, count: x0s.count); pointer += x0.count
             var x1 = UnsafeMutableBufferPointer(start: pointer, count: x1s.count); pointer += x1.count
-            var z0 = UnsafeMutableBufferPointer(start: pointer, count: z0c);       pointer += z0.count
-            var z1 = UnsafeMutableBufferPointer(start: pointer, count: z1c);       pointer += z1.count
-            Swift.assert(buffer.baseAddress!.distance(to: pointer) == count)
+            var z0 = UnsafeMutableBufferPointer(start: pointer, count: z0c/*--*/); pointer += z0.count
+            var z1 = UnsafeMutableBufferPointer(start: pointer, count: z1c/*--*/); pointer += z1.count
+            Swift.assert(buffer.baseAddress!.distance(to: pointer) == buffer.count)
             //=----------------------------------=
             // pointee: initialization 1
             //=----------------------------------=

@@ -197,6 +197,10 @@ extension NBK.IntegerDescription {
         return magnitude as Magnitude?
     }
     
+    /// ### Development
+    ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @usableFromInline static func decode(
     digits: UnsafeBufferPointer<UInt8>, radix: PerfectRadixSolution<UInt>, success: (UnsafeBufferPointer<UInt>) -> Void) {
         //=--------------------------------------=
@@ -206,14 +210,13 @@ extension NBK.IntegerDescription {
         let split  = NBK.PBI.dividing(NBK.ZeroOrMore(unchecked: digits.count), by: NBK.PowerOf2(unchecked: radix.exponent()))
         let count  = split.quotient &+ Int(bit: split.remainder.isMoreThanZero)
         //=--------------------------------------=
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
-            let words: UnsafeMutableBufferPointer<UInt> = $0
-            var index: Int = words.startIndex
+        return NBK.withUnsafeTemporaryAllocation(of: UInt.self, count: count) { words in
+            var index = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                Swift.assert(index <= count)
+                Swift.assert(index <= words.endIndex)
                 words.baseAddress!.deinitialize(count: index)
             }
             //=----------------------------------=
@@ -234,11 +237,15 @@ extension NBK.IntegerDescription {
             }
             
             Swift.assert(digits.isEmpty)
-            Swift.assert(index == count)
+            Swift.assert(index == words.endIndex)
             success(UnsafeBufferPointer(words))
         }
     }
     
+    /// ### Development
+    ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    /// 
     @usableFromInline static func decode(
     digits: UnsafeBufferPointer<UInt8>, radix: ImperfectRadixSolution<UInt>, success: (UnsafeBufferPointer<UInt>) -> Void) {
         //=--------------------------------------=
@@ -248,14 +255,14 @@ extension NBK.IntegerDescription {
         let split  = digits.count.quotientAndRemainder(dividingBy: radix.exponent())
         let count  = split.quotient &+ Int(bit: split.remainder.isMoreThanZero)
         //=--------------------------------------=
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: count) {
-            var words: UnsafeMutableBufferPointer<UInt> = $0
-            var index: Int = words.startIndex
+        return NBK.withUnsafeTemporaryAllocation(of: UInt.self, count: count) { 
+            var words = $0 as UnsafeMutableBufferPointer<UInt>
+            var index = words.startIndex
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                Swift.assert(index <= count)
+                Swift.assert(index <= words.endIndex)
                 words.baseAddress!.deinitialize(count: index)
             }
             //=----------------------------------=
@@ -268,7 +275,7 @@ extension NBK.IntegerDescription {
                 words.formIndex(after: &index)
             }
             
-            forwards: while index < count {
+            forwards: while index < words.endIndex {
                 let chunk = UnsafeBufferPointer(rebasing: NBK.removePrefix(from: &digits, count: radix.exponent()))
                 guard let element: UInt = self.truncating(digits: chunk,  radix: radix.base()) else { return }
                 words.baseAddress!.advanced(by: index).initialize(to: NBK.SUISS.multiply(&words[..<index], by: radix.power, add: element))
@@ -276,7 +283,7 @@ extension NBK.IntegerDescription {
             }
             
             Swift.assert(digits.isEmpty)
-            Swift.assert(index == count)
+            Swift.assert(index == words.endIndex)
             success(UnsafeBufferPointer(words))
         }
     }

@@ -57,8 +57,9 @@ extension NBK.IntegerDescription {
         @inlinable public func encode(_ integer: some NBKBinaryInteger) -> String {
             let isLessThanZero = integer.isLessThanZero
             return NBK.withUnsafeTemporaryAllocation(copying: integer.magnitude.words) {
-                NBK.IntegerDescription.encode(
-                magnitude: &$0,
+                var magnitude: UnsafeMutableBufferPointer<UInt> = $0
+                return NBK.IntegerDescription.encode(
+                magnitude: &magnitude,
                 radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
                 minus: isLessThanZero as Bool)
@@ -68,8 +69,9 @@ extension NBK.IntegerDescription {
         @inlinable public func encode(_ components: SM<some NBKUnsignedInteger>) -> String {
             let isLessThanZero = NBK.ISM.isLessThanZero(components)
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude.words) {
-                NBK.IntegerDescription.encode(
-                magnitude: &$0,
+                var magnitude: UnsafeMutableBufferPointer<UInt> = $0
+                return NBK.IntegerDescription.encode(
+                magnitude: &magnitude,
                 radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
                 minus: isLessThanZero as Bool)
@@ -79,8 +81,9 @@ extension NBK.IntegerDescription {
         @_disfavoredOverload @inlinable public func encode(_ components: SM<some RandomAccessCollection<UInt>>) -> String {
             let isLessThanZero = NBK.SSMSS.isLessThanZero(components)
             return NBK.withUnsafeTemporaryAllocation(copying: components.magnitude) {
-                NBK.IntegerDescription.encode(
-                magnitude: &$0,
+                var magnitude: UnsafeMutableBufferPointer<UInt> = $0
+                return NBK.IntegerDescription.encode(
+                magnitude: &magnitude,
                 radix: self.radix as AnyRadixSolution<UInt>,
                 alphabet: self.alphabet as MaxRadixAlphabetEncoder,
                 minus: isLessThanZero as Bool)
@@ -149,11 +152,13 @@ extension NBK.IntegerDescription {
     ///
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @usableFromInline static func encode(
     magnitude: inout UnsafeMutableBufferPointer<UInt>, radix: ImperfectRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeBufferPointer<UInt8>, suffix: UnsafeBufferPointer<UInt8>) -> String {
         let capacity: Int = radix.divisibilityByPowerUpperBound(magnitude: magnitude)
-        return Swift.withUnsafeTemporaryAllocation(of: UInt.self, capacity: capacity) {
+        return NBK.withUnsafeTemporaryAllocation(of: UInt.self, count: capacity) {
             let chunked = NBK.unwrapping($0)!
             var pointer = chunked.baseAddress
             var magnitude = magnitude[...]
@@ -189,6 +194,8 @@ extension NBK.IntegerDescription {
     ///
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @usableFromInline static func encode(
     chunks: UnsafeBufferPointer<UInt>,  radix:  AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder,
     prefix: UnsafeBufferPointer<UInt8>, suffix: UnsafeBufferPointer<UInt8>) -> String {
@@ -210,6 +217,9 @@ extension NBK.IntegerDescription {
             count += suffix.count
             //=----------------------------------=
             return String(unsafeUninitializedCapacity: count) {
+                //=------------------------------=
+                // allocation: count <= $0.count
+                //=------------------------------=
                 let ascii = NBK.unwrapping($0)!
                 var pointer = ascii.baseAddress.advanced(by: count)
                 //=------------------------------=
@@ -267,6 +277,8 @@ extension NBK.IntegerDescription {
     ///
     /// - `@inlinable` is not required (nongeneric algorithm).
     ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @usableFromInline static func withUnsafeTemporaryDescription(
     chunk: UInt, radix: AnyRadixSolution<UInt>, alphabet: MaxRadixAlphabetEncoder, 
     perform: (UnsafeBufferPointer<UInt8>) -> String) -> String {
@@ -274,10 +286,9 @@ extension NBK.IntegerDescription {
         Swift.assert(radix.power.isZero || chunk < radix.power,
         "each chunk must be less than the radix's power")
         //=--------------------------------------=
-        return Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: radix.exponent()) {
+        return NBK.withUnsafeTemporaryAllocation(of: UInt8.self, count: radix.exponent()) {
             let ascii = NBK.unwrapping($0)!
-            let limit = ascii.baseAddress.advanced(by: ascii.count)
-            var pointer = limit as UnsafeMutablePointer<UInt8>
+            var pointer = ascii.baseAddress.advanced(by: ascii.count)
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
@@ -306,8 +317,12 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
-            let count = pointer.distance(to:   limit)
-            defer{ pointer.deinitialize(count: count) }
+            let count = ascii.count - ascii.baseAddress.distance(to: pointer)
+            
+            defer {
+                pointer.deinitialize(count: count)
+            }
+            
             return perform(UnsafeBufferPointer(start: pointer, count: count))
         }
     }

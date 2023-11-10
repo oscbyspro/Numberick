@@ -294,6 +294,10 @@ extension NBK.IntegerDescription {
         ///
         /// - Note: The power returned by this method is non-zero.
         ///
+        /// ### Development
+        ///
+        /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+        ///
         @inlinable static func exponentiate(_ base: NBK.NonPowerOf2<Element>) -> Exponentiation {
             //=----------------------------------=
             precondition(base.value > 1)
@@ -302,7 +306,7 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: Element.bitWidth.trailingZeroBitCount - 1) {
+            NBK.withUnsafeTemporaryAllocation(of: Exponentiation.self, count: Element.bitWidth.trailingZeroBitCount - 1) {
                 let squares = NBK.unwrapping($0)!
                 var pointer = squares.baseAddress
                 //=------------------------------=
@@ -310,7 +314,7 @@ extension NBK.IntegerDescription {
                 //=------------------------------=
                 loop: while true {
                     pointer.initialize(to: exponentiation)
-
+                    
                     let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
                     if  product.overflow { break loop }
                     
