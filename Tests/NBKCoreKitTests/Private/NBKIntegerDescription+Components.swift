@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -140,5 +138,3 @@ file: StaticString = #file, line: UInt = #line) {
     let prefix = NBK.IntegerDescription.withUnsafeTemporarySignPrefix(minus: minus, perform: Array.init)
     XCTAssertEqual(prefix, Array(expectation.utf8), file: file, line: line)
 }
-
-#endif

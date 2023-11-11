@@ -7,7 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
 #if SBI && swift(>=5.8)
 
 import NBKCoreKit
@@ -160,5 +159,4 @@ file: StaticString = #file, line: UInt = #line) where Base.Element: Equatable {
     }
 }
 
-#endif
 #endif

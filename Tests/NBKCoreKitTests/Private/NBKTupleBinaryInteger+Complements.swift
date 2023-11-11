@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -69,5 +67,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssert(result == magnitude, file: file, line: line)
     XCTAssert(T.Magnitude.magnitude(of: result) == magnitude, file: file, line: line)
 }
-
-#endif

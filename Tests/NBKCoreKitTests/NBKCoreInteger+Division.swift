@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -327,5 +325,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(qro.partialValue.remainder, remainder, file: file, line: line)
     XCTAssertEqual(qro.overflow,               overflow,  file: file, line: line)
 }
-
-#endif

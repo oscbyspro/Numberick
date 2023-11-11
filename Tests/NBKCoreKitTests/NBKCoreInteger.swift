@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -67,5 +65,3 @@ final class NBKCoreIntegerTests: XCTestCase {
         XCTAssertEqual(05, types.compactMap({ $0 as? any NBKUnsignedInteger.Type }).count)
     }
 }
-
-#endif

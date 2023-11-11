@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -71,5 +69,3 @@ file: StaticString = #file, line: UInt = #line) {
     let _    = T.increment33B(&back, by: result.remainder)
     XCTAssert(lhs == back, "lhs != rhs * quotient + remainder", file: file, line: line)
 }
-
-#endif

@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -78,5 +76,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssert(NBK.ISM.isLessThanZero(components) == signum.isLessThanZero, file: file, line: line)
     XCTAssert(NBK.ISM.isMoreThanZero(components) == signum.isMoreThanZero, file: file, line: line)
 }
-
-#endif
