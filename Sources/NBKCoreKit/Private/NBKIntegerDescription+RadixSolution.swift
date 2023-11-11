@@ -313,23 +313,24 @@ extension NBK.IntegerDescription {
                 // pointee: initialization
                 //=------------------------------=
                 loop: while true {
-                    pointer.initialize(to: exponentiation)
-                    
                     let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
                     if  product.overflow { break loop }
                     
+                    pointer.initialize(to: exponentiation)
+                    pointer = pointer.successor()
+                    
                     exponentiation.exponent &<<= 1 as Element
                     exponentiation.power = product.partialValue
-                    pointer = pointer.successor()
                 }
+                //=------------------------------=
+                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
                 //=------------------------------=
                 // pointee: move deinitialization
                 //=------------------------------=
-                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
                 loop: while   pointer > squares.baseAddress {
                     pointer = pointer.predecessor()
-                    
                     let square  = pointer.move()
+                    
                     let product = exponentiation.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     
