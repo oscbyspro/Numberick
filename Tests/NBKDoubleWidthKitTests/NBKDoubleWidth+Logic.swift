@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -161,5 +159,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                 rhs ^  lhs,                 result, file: file, line: line)
     XCTAssertEqual({ var rhs = rhs; rhs ^= lhs; return rhs }(), result, file: file, line: line)
 }
-
-#endif

@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -217,5 +215,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual({ var x = lhs; let _ = x.addReportingOverflow(rhs); return x }(), partialValue, file: file, line: line)
     XCTAssertEqual({ var x = lhs; let o = x.addReportingOverflow(rhs); return o }(), overflow,     file: file, line: line)
 }
-
-#endif

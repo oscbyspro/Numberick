@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -295,5 +293,3 @@ file: StaticString = #file, line: UInt = #line) where H == H.Magnitude {
     XCTAssertEqual({ var x = lhs; let _ = x.multiplyFullWidth(by: rhs, add: carry); return x }(), low,  file: file, line: line)
     XCTAssertEqual({ var x = lhs; let o = x.multiplyFullWidth(by: rhs, add: carry); return o }(), high, file: file, line: line)
 }
-
-#endif

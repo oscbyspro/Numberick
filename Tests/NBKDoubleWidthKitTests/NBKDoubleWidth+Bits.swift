@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -163,5 +161,3 @@ final class NBKDoubleWidthTestsOnBitsAsUInt256: XCTestCase {
         XCTAssertEqual(T(x64: X( 0,  0,  0, ~0)).leastSignificantBit, false)
     }
 }
-
-#endif

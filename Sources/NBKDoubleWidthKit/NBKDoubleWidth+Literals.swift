@@ -26,7 +26,8 @@ extension NBKDoubleWidth {
         }
     }
     
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+    /// - Warning: This method is only public for RELEASE mode testing.
+    @inlinable public init?(exactlyIntegerLiteral source: StaticBigInt) {
         //=--------------------------------------=
         guard Self.isSigned
         ? source.bitWidth <= Self.bitWidth
@@ -73,7 +74,8 @@ extension NBKDoubleWidth {
         }
     }
     
-    @inlinable init?(exactlyStringLiteral description: StaticString) {
+    /// - Warning: This method is only public for RELEASE mode testing.
+    @inlinable public init?(exactlyStringLiteral description: StaticString) {
         let decoder = NBK.IntegerDescription.DecoderDecodingRadix<Magnitude>()
         guard let components = decoder.decode(description) else { return nil }
         self.init(sign: components.sign, magnitude: components.magnitude)        

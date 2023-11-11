@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -107,5 +105,3 @@ final class NBKDoubleWidthTestsOnEndiannessAsUInt256: XCTestCase {
         XCTAssertEqual(T(x64: X(l4, l3, l2, l1)).byteSwapped, T(x64: X(b1, b2, b3, b4)))
     }
 }
-
-#endif
