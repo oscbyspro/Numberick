@@ -7,10 +7,8 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
-@testable import NBKFlexibleWidthKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -136,5 +134,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(lhs.multiplied(by: rhs, adding: addend),                             product, file: file, line: line)
     XCTAssertEqual({ var lhs = lhs; lhs.multiply(by: rhs, add: addend); return lhs }(), product, file: file, line: line)
 }
-
-#endif

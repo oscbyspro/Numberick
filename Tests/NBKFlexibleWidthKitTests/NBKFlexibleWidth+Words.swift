@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
@@ -244,5 +242,3 @@ file: StaticString = #file, line: UInt = #line) where Base.Element: Equatable {
         XCTAssert(base.suffix(distance).elementsEqual(expectation.suffix(distance)), file: file, line: line)
     }
 }
-
-#endif

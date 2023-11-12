@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
@@ -57,6 +55,5 @@ private func NBKAssertUpdate<T: IntXLOrUIntXL>(_ value: T, file: StaticString = 
 private func NBKAssertUpdateAsDigit<T: IntXLOrUIntXL>(_ type: T.Type, _ value: T.Digit, file: StaticString = #file, line: UInt = #line) {
     NBKAssertUpdate(T(digit: value), file: file, line: line)
     XCTAssertEqual({ var x = T(words:[0, 0, 0, 0] as W); x.update(value); return x }(), T(digit: value), file: file, line: line)
-    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as W); x.update(value); return x }(), T(digit: value), file: file, line: line)}
-
-#endif
+    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as W); x.update(value); return x }(), T(digit: value), file: file, line: line)
+}

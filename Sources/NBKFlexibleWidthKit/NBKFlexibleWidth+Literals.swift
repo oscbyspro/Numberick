@@ -26,7 +26,8 @@ extension NBKFlexibleWidth.Magnitude {
         }
     }
     
-    @inlinable init?(exactlyIntegerLiteral source: StaticBigInt) {
+    /// - Warning: This method is only public for RELEASE mode testing.
+    @inlinable public init?(exactlyIntegerLiteral source: StaticBigInt) {
         guard  Self.isSigned || source.signum() >= 0 as Int else { return nil }
         //=--------------------------------------=
         let width = Swift.max(1, source.bitWidth - Int(bit: !Self.isSigned))
@@ -78,7 +79,8 @@ extension NBKFlexibleWidth.Magnitude {
         }
     }
     
-    @inlinable init?(exactlyStringLiteral description: StaticString) {
+    /// - Warning: This method is only public for RELEASE mode testing.
+    @inlinable public init?(exactlyStringLiteral description: StaticString) {
         let decoder = NBK.IntegerDescription.DecoderDecodingRadix<Magnitude>()
         guard let components: SM<Magnitude> = decoder.decode(description) else { return nil }
         self.init(sign: components.sign, magnitude: components.magnitude)

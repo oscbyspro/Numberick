@@ -7,10 +7,8 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
-@testable import NBKFlexibleWidthKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -161,68 +159,57 @@ final class NBKFlexibleWidthTestsOnDivisionCodeCoverageAsUIntXL: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertDivision<T: IntXLOrUIntXL>(
-_ lhs: T, _ rhs: T, _ quotient: T, _ remainder: T, _ overflow: Bool = false,
+_ dividend: T, _ divisor: T, _ quotient: T, _ remainder: T, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+        XCTAssertEqual(dividend, quotient * divisor + remainder, "dividend != divisor * quotient + remainder", file: file, line: line)
     }
     
     if !overflow {
-        XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
-        XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
+        XCTAssertEqual(dividend / divisor, quotient,  file: file, line: line)
+        XCTAssertEqual(dividend % divisor, remainder, file: file, line: line)
     }
     
     if !overflow {
-        XCTAssertEqual({ var lhs = lhs; lhs /= rhs; return lhs }(), quotient,  file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs %= rhs; return lhs }(), remainder, file: file, line: line)
+        XCTAssertEqual({ var lhs = dividend; lhs /= divisor; return lhs }(), quotient,  file: file, line: line)
+        XCTAssertEqual({ var lhs = dividend; lhs %= divisor; return lhs }(), remainder, file: file, line: line)
     }
     
     if !overflow {
-        let out = lhs.quotientAndRemainder(dividingBy: rhs)
+        let out = dividend.quotientAndRemainder(dividingBy: divisor)
         XCTAssertEqual(out.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(out.remainder, remainder, file: file, line: line)
     }
-    //=------------------------------------------=
+    
     brr: do {
-        let out = lhs.dividedReportingOverflow(by: rhs)
+        let out = dividend.dividedReportingOverflow(by: divisor)
         XCTAssertEqual(out.partialValue, quotient, file: file, line: line)
         XCTAssertEqual(out.overflow,     overflow, file: file, line: line)
     }
     
     brr: do {
-        var lhs = lhs
-        let out = lhs.divideReportingOverflow(by: rhs)
+        var lhs = dividend
+        let out = lhs.divideReportingOverflow(by: divisor)
         XCTAssertEqual(lhs, quotient, file: file, line: line)
         XCTAssertEqual(out, overflow, file: file, line: line)
     }
     
     brr: do {
-        let out = lhs.remainderReportingOverflow(dividingBy: rhs)
+        let out = dividend.remainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(out.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(out.overflow,     overflow,  file: file, line: line)
     }
     
     brr: do {
-        var lhs = lhs
-        let out = lhs.formRemainderReportingOverflow(dividingBy: rhs)
+        var lhs = dividend
+        let out = lhs.formRemainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(lhs, remainder, file: file, line: line)
         XCTAssertEqual(out, overflow,  file: file, line: line)
     }
     
     brr: do {
-        let pvo = lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs)
-        XCTAssertEqual(pvo.partialValue.quotient,  quotient,  file: file, line: line)
-        XCTAssertEqual(pvo.partialValue.remainder, remainder, file: file, line: line)
-        XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)
-    }
-    //=------------------------------------------=
-    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UIntXL, let quotient = quotient  as? UIntXL, let remainder = remainder as? UIntXL else {
-        return precondition(T.isSigned)
-    }
-    //=------------------------------------------=
-    brr: do {
-        let pvo = lhs.quotientAndRemainderReportingOverflowUsingLongAlgorithm(dividingBy: rhs)
+        let pvo = dividend.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(pvo.partialValue.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue.remainder, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)
@@ -230,76 +217,78 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertDivisionByDigit<T: IntXLOrUIntXL>(
-_ lhs: T, _ rhs: T.Digit, _ quotient: T, _ remainder: T.Digit, _ overflow: Bool = false,
+_ dividend: T, _ divisor: T.Digit, _ quotient: T, _ remainder: T.Digit, _ overflow: Bool = false,
 file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
     let extended = T(digit: remainder)
     //=------------------------------------------=
-    NBKAssertDivision(lhs, T(digit: rhs), quotient, T(digit: remainder), overflow, file: file, line: line)
+    NBKAssertDivision(dividend, T(digit: divisor), quotient, T(digit: remainder), overflow, file: file, line: line)
     //=------------------------------------------=
     if !overflow {
-        XCTAssertEqual(lhs, quotient * rhs + remainder, "lhs != rhs * quotient + remainder", file: file, line: line)
+        XCTAssertEqual(dividend, quotient * divisor + remainder, "dividend != divisor * quotient + remainder", file: file, line: line)
     }
     
     if !overflow {
-        XCTAssertEqual(lhs / rhs, quotient,  file: file, line: line)
-        XCTAssertEqual(lhs % rhs, remainder, file: file, line: line)
+        XCTAssertEqual(dividend / divisor, quotient,  file: file, line: line)
+        XCTAssertEqual(dividend % divisor, remainder, file: file, line: line)
     }
     
     if !overflow {
-        XCTAssertEqual({ var lhs = lhs; lhs /= rhs; return lhs }(), quotient, file: file, line: line)
-        XCTAssertEqual({ var lhs = lhs; lhs %= rhs; return lhs }(), extended, file: file, line: line)
+        XCTAssertEqual({ var lhs = dividend; lhs /= divisor; return lhs }(), quotient, file: file, line: line)
+        XCTAssertEqual({ var lhs = dividend; lhs %= divisor; return lhs }(), extended, file: file, line: line)
     }
     
     if !overflow {
-        let out = lhs.quotientAndRemainder(dividingBy: rhs)
+        let out = dividend.quotientAndRemainder(dividingBy: divisor)
         XCTAssertEqual(out.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(out.remainder, remainder, file: file, line: line)
     }
-    //=------------------------------------------=
+    
     brr: do {
-        let out = lhs.dividedReportingOverflow(by: rhs)
+        let out = dividend.dividedReportingOverflow(by: divisor)
         XCTAssertEqual(out.partialValue, quotient, file: file, line: line)
         XCTAssertEqual(out.overflow,     overflow, file: file, line: line)
     }
     
     brr: do {
-        var lhs = lhs
-        let out = lhs.divideReportingOverflow(by: rhs)
+        var lhs = dividend
+        let out = lhs.divideReportingOverflow(by: divisor)
         XCTAssertEqual(lhs, quotient, file: file, line: line)
         XCTAssertEqual(out, overflow, file: file, line: line)
     }
     
     brr: do {
-        let out = lhs.remainderReportingOverflow(dividingBy: rhs)
+        let out = dividend.remainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(out.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(out.overflow,     overflow,  file: file, line: line)
     }
     
     brr: do {
-        var lhs = lhs
-        let out = lhs.formRemainderReportingOverflow(dividingBy: rhs)
+        var lhs = dividend
+        let out = lhs.formRemainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(lhs, extended, file: file, line: line)
         XCTAssertEqual(out, overflow, file: file, line: line)
     }
     
     brr: do {
-        let pvo = lhs.quotientAndRemainderReportingOverflow(dividingBy: rhs)
+        let pvo = dividend.quotientAndRemainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(pvo.partialValue.quotient,  quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue.remainder, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,               overflow,  file: file, line: line)
     }
-    //=------------------------------------------=
-    guard let lhs = lhs as? UIntXL, let rhs = rhs as? UInt, let quotient = quotient as? UIntXL, let remainder = remainder as? UInt else {
-        return precondition(T.isSigned)
-    }
-    //=------------------------------------------=
+    
+    guard 
+    let dividend  = dividend  as? UIntXL,
+    let divisor   = divisor   as? UInt,
+    let quotient  = quotient  as? UIntXL,
+    let remainder = remainder as? UInt 
+    else { return precondition(T.isSigned) }
+    
     brr: do {
-        var lhs = lhs
-        let pvo = lhs.formQuotientWithRemainderReportingOverflow(dividingBy: rhs)
+        var lhs = dividend
+        let pvo = lhs.formQuotientWithRemainderReportingOverflow(dividingBy: divisor)
         XCTAssertEqual(lhs,              quotient,  file: file, line: line)
         XCTAssertEqual(pvo.partialValue, remainder, file: file, line: line)
         XCTAssertEqual(pvo.overflow,     overflow,  file: file, line: line)
     }
 }
-
-#endif

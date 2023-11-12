@@ -7,10 +7,8 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
-@testable import NBKFlexibleWidthKit
+import NBKFlexibleWidthKit
 import XCTest
 
 private typealias W = [UInt]
@@ -103,5 +101,3 @@ final class NBKFlexibleWidthTestsOnLiteralsAsUIntXL: XCTestCase {
         XCTAssertEqual(T(exactlyStringLiteral:        "-00000000000000000000000000000000000000000000000000000000000000000000000000000001"), nil)
     }
 }
-
-#endif

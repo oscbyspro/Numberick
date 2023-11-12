@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
@@ -971,5 +969,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(String.init(integer,radix: radix, uppercase: uppercase), text, file: file, line: line)
     XCTAssertEqual(integer.description(radix: radix, uppercase: uppercase), text, file: file, line: line)
 }
-
-#endif

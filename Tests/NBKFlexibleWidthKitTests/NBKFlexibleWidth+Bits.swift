@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
@@ -95,5 +93,3 @@ final class NBKFlexibleWidthTestsOnBitsAsUIntXL: XCTestCase {
         XCTAssertEqual(T(words:[ 1,  0,  0, ~0] as W).leastSignificantBit, true )
     }
 }
-
-#endif
