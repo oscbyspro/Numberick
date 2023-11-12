@@ -43,7 +43,7 @@ import NBKCoreKit
 /// f(x + x + 1) == f(x) ^ 0002 + f(x + 1) ^ 00000002
 /// ```
 ///
-@frozen public struct NBKFibonacciXL {
+@frozen public struct NBKFibonacciXL: CustomStringConvertible {
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -83,6 +83,10 @@ import NBKCoreKit
     /// The sequence `element` at `index + 1`.
     @inlinable public var next: UIntXL {
         self.b
+    }
+    
+    @inlinable public var description: String {
+        self.element.description
     }
     
     //=------------------------------------------------------------------------=

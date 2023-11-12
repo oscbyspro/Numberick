@@ -650,27 +650,22 @@ file: StaticString = #file, line: UInt = #line) {
 }
 
 private func NBKAssertFibonacciSequenceDivisionInvariants(
-_ dividend: NBKFibonacciXL, _ divisor: NBKFibonacciXL,
+_ a: NBKFibonacciXL, _ b: NBKFibonacciXL,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
-    precondition(dividend.index >= divisor.index)
+    let c = NBKFibonacciXL(a.index - b.index)
+    let d = a.next.quotientAndRemainder(dividingBy: b.next)
     //=------------------------------------------=
-    let difference = NBKFibonacciXL(dividend.index - divisor.index)
-    let division = dividend.next.quotientAndRemainder(dividingBy: divisor.next)
-    //=------------------------------------------=
-    brr: do {
-        var x: UIntXL
+    brr: do { var lhs: UIntXL, rhs: UIntXL
         
-        x  = division.quotient   // f(x + y + 1) / f(x + 1)
-        x -= difference.next     // f(y + 1)
-        x *= divisor.next        // f(x + 1)
-        x += division.remainder  // f(x + y + 1) % f(x + 1)
+        lhs  = b.element   // f(b)
+        lhs *= c.element   // f(c)
         
-        var y: UIntXL
+        rhs  = d.quotient  // f(a + 1) / f(b + 1)
+        rhs -= c.next      // f(c + 1)
+        rhs *= b.next      // f(b + 1)
+        rhs += d.remainder // f(a + 1) % f(b + 1)
         
-        y  = divisor.element    // f(x)
-        y *= difference.element // f(y)
-        
-        XCTAssertEqual(x, y, file: file, line: line)
+        XCTAssertEqual(lhs, rhs, file: file, line: line)
     }
 }
