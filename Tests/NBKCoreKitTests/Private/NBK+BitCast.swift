@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -190,5 +188,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(NBK.initOrBitCast(clamping:   source), clamping,   file: file, line: line)
     XCTAssertEqual(NBK.initOrBitCast(truncating: source), truncating, file: file, line: line)
 }
-
-#endif

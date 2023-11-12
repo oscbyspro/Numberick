@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -79,5 +77,3 @@ file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     XCTAssertEqual(T.compare33S(lhs, to: rhs), signum, file: file, line: line)
 }
-
-#endif

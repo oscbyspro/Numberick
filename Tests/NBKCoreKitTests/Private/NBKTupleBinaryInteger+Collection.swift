@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -79,5 +77,3 @@ final class NBKTupleBinaryIntegerTestsOnCollection: XCTestCase {
         XCTAssert(TU.suffix3([~0, ~1, ~2, ~3]) == (~3, ~2, ~1) as U3)
     }
 }
-
-#endif

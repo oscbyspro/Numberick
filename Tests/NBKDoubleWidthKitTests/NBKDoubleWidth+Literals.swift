@@ -7,10 +7,8 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
-@testable import NBKDoubleWidthKit
+import NBKDoubleWidthKit
 import XCTest
 
 private typealias X = NBK.U256X64
@@ -185,5 +183,3 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactlyStringLiteral:  "-00000000000000000000000000000000000000000000000000000000000000000000000000000001"),   nil)
     }
 }
-
-#endif

@@ -209,7 +209,7 @@ extension NBK.StrictUnsignedInteger.SubSequence where Base: MutableCollection {
         if !bit {
             bit = base[index].subtractReportingOverflow(digit)
         }
-        //=--------------------------------------=
+        
         base.formIndex(after: &index)
     }
 }

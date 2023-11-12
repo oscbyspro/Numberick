@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -639,5 +637,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(O(clamping:           value), clamping,   file: file, line: line)
     XCTAssertEqual(O(truncatingIfNeeded: value), truncating, file: file, line: line)
 }
-
-#endif

@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
@@ -83,5 +81,3 @@ final class NBKDoubleWidthTestsOnStridesAsUInt256: XCTestCase {
         //XCTAssertNil(T.max.distance(to:  T.max.advanced(by:  Int.min).advanced(by: -1)))
     }
 }
-
-#endif

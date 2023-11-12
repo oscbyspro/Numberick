@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -181,5 +179,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(NBK.arrayIndex(index, offsetBy: distance, limitedBy: limit), expectation, file: file, line: line)
     XCTAssertEqual([Int]( ).index(index, offsetBy: distance, limitedBy: limit), expectation, file: file, line: line)
 }
-
-#endif

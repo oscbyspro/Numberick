@@ -128,21 +128,26 @@ extension NBK.IntegerDescription {
     //=------------------------------------------------------------------------=
     
     /// Performs an action with a temporary allocation that contains a minus sign or is empty.
+    ///
+    /// ### Development
+    ///
+    /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+    ///
     @inlinable public static func withUnsafeTemporarySignPrefix<T>(
     minus: Bool, perform: (UnsafeBufferPointer<UInt8>) -> T) -> T {
-        Swift.withUnsafeTemporaryAllocation(of: UInt8.self, capacity: 1 as Int) { buffer in
+        NBK.withUnsafeTemporaryAllocation(of: UInt8.self) { pointer in
             //=----------------------------------=
             // pointee: initialization
             //=----------------------------------=
-            buffer.baseAddress!.initialize(to: UInt8(ascii: "-"))
+            pointer.initialize(to: UInt8(ascii: "-"))
             //=----------------------------------=
             // pointee: deferred deinitialization
             //=----------------------------------=
             defer {
-                buffer.baseAddress!.deinitialize(count: 1 as Int)
+                pointer.deinitialize(count: 1 as Int)
             }
-            //=----------------------------------=
-            return perform(UnsafeBufferPointer(start: buffer.baseAddress!, count: Int(bit: minus)))
+            
+            return perform(UnsafeBufferPointer(start: pointer, count: Int(bit: minus)))
         }
     }
 }

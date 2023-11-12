@@ -294,6 +294,10 @@ extension NBK.IntegerDescription {
         ///
         /// - Note: The power returned by this method is non-zero.
         ///
+        /// ### Development
+        ///
+        /// - TODO: [Swift 5.8](https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md)
+        ///
         @inlinable static func exponentiate(_ base: NBK.NonPowerOf2<Element>) -> Exponentiation {
             //=----------------------------------=
             precondition(base.value > 1)
@@ -302,30 +306,31 @@ extension NBK.IntegerDescription {
             //=----------------------------------=
             // radix: 003, 005, 006, 007, ...
             //=----------------------------------=
-            Swift.withUnsafeTemporaryAllocation(of: Exponentiation.self, capacity: Element.bitWidth.trailingZeroBitCount - 1) {
+            NBK.withUnsafeTemporaryAllocation(of: Exponentiation.self, count: Element.bitWidth.trailingZeroBitCount - 1) {
                 let squares = NBK.unwrapping($0)!
                 var pointer = squares.baseAddress
                 //=------------------------------=
                 // pointee: initialization
                 //=------------------------------=
                 loop: while true {
-                    pointer.initialize(to: exponentiation)
-
                     let product = exponentiation.power.multipliedReportingOverflow(by: exponentiation.power)
                     if  product.overflow { break loop }
                     
+                    pointer.initialize(to: exponentiation)
+                    pointer = pointer.successor()
+                    
                     exponentiation.exponent &<<= 1 as Element
                     exponentiation.power = product.partialValue
-                    pointer = pointer.successor()
                 }
+                //=------------------------------=
+                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
                 //=------------------------------=
                 // pointee: move deinitialization
                 //=------------------------------=
-                Swift.assert(squares.baseAddress.distance(to: pointer) <= squares.count)
                 loop: while   pointer > squares.baseAddress {
                     pointer = pointer.predecessor()
-                    
                     let square  = pointer.move()
+                    
                     let product = exponentiation.power.multipliedReportingOverflow(by: square.power)
                     if  product.overflow { continue loop }
                     

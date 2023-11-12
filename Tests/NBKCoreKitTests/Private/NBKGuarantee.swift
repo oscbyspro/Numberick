@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -181,5 +179,3 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
     XCTAssertEqual(Int(1), counter, file: file, line: line)
     XCTAssertEqual(result, success ? "success" : "failure", file: file, line: line)
 }
-
-#endif

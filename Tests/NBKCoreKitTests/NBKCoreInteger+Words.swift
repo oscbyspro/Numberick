@@ -7,8 +7,6 @@
 // See http://www.apache.org/licenses/LICENSE-2.0 for license information.
 //=----------------------------------------------------------------------------=
 
-#if DEBUG
-
 import NBKCoreKit
 import XCTest
 
@@ -113,5 +111,3 @@ file: StaticString = #file, line: UInt = #line) {
     XCTAssertEqual(                  T(words:    words, isSigned: isSigned),    integer, file: file, line: line)
     XCTAssertEqual(integer.flatMap({ T(words: $0.words, isSigned: isSigned) }), integer, file: file, line: line)
 }
-
-#endif

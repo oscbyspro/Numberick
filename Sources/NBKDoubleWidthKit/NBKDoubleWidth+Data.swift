@@ -78,9 +78,8 @@ extension NBKDoubleWidth where High == High.Magnitude {
     /// - Note: The bytes of this integer are ordered by system endianness.
     ///
     @inlinable static func uninitialized<T: NBKCoreInteger>(
-    as type: T.Type, init body: (UnsafeMutableBufferPointer<T>) -> Void) -> Self {
-        Swift.withUnsafeTemporaryAllocation(of: Self.self, capacity: 1) { buffer in
-            let pointer = buffer.baseAddress.unsafelyUnwrapped
+    as  type: T.Type, init body: (UnsafeMutableBufferPointer<T>) -> Void) -> Self {
+        NBK.withUnsafeTemporaryAllocation(of: Self.self) { pointer in
             //=----------------------------------=
             // pointee: initialization by callee
             //=----------------------------------=
