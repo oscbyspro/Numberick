@@ -9,7 +9,15 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " to a temporary allocation.",
+      "text" : " to a temporary allocation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "collection.count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements.",
       "type" : "text"
     }
   ],
@@ -28,7 +36,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO29withUnsafeTemporaryAllocation7copying7performq_q0__q_SryxGzXEtAA0A7IntegerRz7ElementQy0_RszSlR0_r1_lFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO29withUnsafeTemporaryAllocation7copying7performq_q0__q_SryxGXEtAA0A7IntegerRz7ElementQy0_RszSlR0_r1_lFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -94,14 +102,6 @@
       {
         "kind" : "text",
         "text" : ": ("
-      },
-      {
-        "kind" : "keyword",
-        "text" : "inout"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
       },
       {
         "kind" : "typeIdentifier",
@@ -231,14 +231,6 @@
               "text" : ": ("
             },
             {
-              "kind" : "keyword",
-              "text" : "inout"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Sr",
               "text" : "UnsafeMutableBufferPointer"
@@ -297,6 +289,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "Development",
+          "level" : 3,
+          "text" : "Development",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "To Do",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -388,7 +412,15 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " to a temporary allocation.",
+      "text" : " to a temporary allocation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "collection.count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements.",
       "type" : "text"
     }
   ],
@@ -457,14 +489,6 @@
     {
       "kind" : "text",
       "text" : ": ("
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
     },
     {
       "kind" : "typeIdentifier",
@@ -536,6 +560,18 @@
   "title" : "NBKCoreInteger",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkcoreinteger"
+},
+"https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md": {
+  "identifier" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md",
+  "title" : "Swift 5.8",
+  "titleInlineContent" : [
+    {
+      "text" : "Swift 5.8",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md"
 }
 }
 }

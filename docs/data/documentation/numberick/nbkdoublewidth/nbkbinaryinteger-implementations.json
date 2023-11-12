@@ -53,6 +53,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(bit:)-55evi",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(digit:)-1k0ze",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(digit:)-7enbr",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(magnitude:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(sign:magnitude:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(words:isSigned:)"
@@ -101,6 +102,13 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/twosComplementSubsequence(_:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/one"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -2851,6 +2859,62 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(digit:)-7enbr"
 },
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/init(magnitude:)": {
+  "abstract" : [
+    {
+      "text" : "Tries to create a value equal to the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "magnitude",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/init(magnitude:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(magnitude:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/init(magnitude:)"
+},
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/init(sign:magnitude:)": {
   "abstract" : [
     {
@@ -3808,6 +3872,50 @@
   "title" : "mostSignificantBit",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkdoublewidth\/mostsignificantbit"
+},
+"doc://Numberick/documentation/Numberick/NBKDoubleWidth/one": {
+  "abstract" : [
+    {
+      "text" : "An instance equal to one.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "one"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth\/one",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "one",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkdoublewidth\/one"
 },
 "doc://Numberick/documentation/Numberick/NBKDoubleWidth/onesComplement()": {
   "abstract" : [

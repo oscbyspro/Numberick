@@ -317,6 +317,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(_:radix:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(bit:)-91tb7",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(digit:)-2f5it",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(magnitude:)-12adm",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(sign:magnitude:)-4otu9",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(words:isSigned:)"
@@ -369,6 +370,13 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/twosComplementSubsequence(_:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/one-2i8u1",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/zero"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -3695,6 +3703,64 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(digit:)-2f5it"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(magnitude:)-12adm": {
+  "abstract" : [
+    {
+      "text" : "Tries to create a value equal to the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "magnitude",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/init(magnitude:)-12adm",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "init(magnitude:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/init(magnitude:)-12adm"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/init(sign:magnitude:)-4otu9": {
   "abstract" : [
     {
@@ -4296,6 +4362,52 @@
   "title" : "nonzeroBitCount",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/nonzerobitcount"
+},
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/one-2i8u1": {
+  "abstract" : [
+    {
+      "text" : "An instance equal to one.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "one"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/one-2i8u1",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "one",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/one-2i8u1"
 },
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger/onesComplement()": {
   "abstract" : [
@@ -5317,6 +5429,51 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkbinaryinteger\/twoscomplementsubsequence(_:)"
 },
+"doc://Numberick/documentation/Numberick/NBKBinaryInteger/zero": {
+  "abstract" : [
+    {
+      "text" : "An instance equal to zero.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "zero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/zero",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "zero",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkbinaryinteger\/zero"
+},
 "doc://Numberick/documentation/Numberick/NBKBitPatternConvertible": {
   "abstract" : [
     {
@@ -5392,86 +5549,6 @@
       "type" : "text"
     }
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "NBKFixedWidthInteger",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Magnitude",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "High.Digit.BitPattern",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "UInt",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",

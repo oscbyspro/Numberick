@@ -18,13 +18,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf",
-                        "title" : "static func * (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc",
+                        "title" : "static func * (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc",
-                        "title" : "static func * (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf",
+                        "title" : "static func * (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -110,13 +110,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-9ygmi",
-                        "title" : "static func + (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-4wjjr",
+                        "title" : "static func + (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-4wjjr",
-                        "title" : "static func + (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-9ygmi",
+                        "title" : "static func + (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -156,13 +156,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1cwri",
-                        "title" : "static func += (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1hnfr",
+                        "title" : "static func += (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1hnfr",
-                        "title" : "static func += (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1cwri",
+                        "title" : "static func += (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -179,13 +179,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1hnfr",
-                        "title" : "static func += (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1cwri",
+                        "title" : "static func += (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1cwri",
-                        "title" : "static func += (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+=(_:_:)-1hnfr",
+                        "title" : "static func += (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -202,13 +202,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-6a96v",
-                        "title" : "static func - (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-7p5xj",
+                        "title" : "static func - (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-7p5xj",
-                        "title" : "static func - (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-6a96v",
+                        "title" : "static func - (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -248,13 +248,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
-                        "title" : "static func -= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
+                        "title" : "static func -= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
-                        "title" : "static func -= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
+                        "title" : "static func -= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -317,13 +317,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -363,13 +363,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
-                        "title" : "static func \/= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
+                        "title" : "static func \/= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6vqkl",
-                        "title" : "static func \/= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/=(_:_:)-6h1fg",
+                        "title" : "static func \/= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -409,13 +409,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
-                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
+                        "title" : "static func % (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
-                        "title" : "static func % (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
+                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
                         "type" : "op"
                       }
                     ],
@@ -432,13 +432,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
-                        "title" : "static func %= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
+                        "title" : "static func %= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
-                        "title" : "static func %= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
+                        "title" : "static func %= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -455,13 +455,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
-                        "title" : "static func %= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
+                        "title" : "static func %= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
-                        "title" : "static func %= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
+                        "title" : "static func %= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -548,6 +548,24 @@
                 ],
                 "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(digit:)-2f5it",
                 "title" : "init(digit: Self.Digit)",
+                "type" : "init"
+              },
+              {
+                "children" : [
+                  {
+                    "children" : [
+                      {
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(magnitude:)-ssg",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      }
+                    ],
+                    "title" : "NBKBinaryInteger Implementations",
+                    "type" : "groupMarker"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbkbinaryinteger\/init(magnitude:)-12adm",
+                "title" : "init?(magnitude: Self.Magnitude)",
                 "type" : "init"
               },
               {
@@ -856,13 +874,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
-                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
+                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
-                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
+                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
                       },
                       {
@@ -884,6 +902,11 @@
                   {
                     "children" : [
                       {
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
+                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
+                        "type" : "method"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-4qhwl",
                         "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
@@ -891,11 +914,6 @@
                       {
                         "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-3ep4z",
                         "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
-                        "type" : "method"
-                      },
-                      {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
-                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
                         "type" : "method"
                       }
                     ],
@@ -959,6 +977,33 @@
                 "path" : "\/documentation\/numberick\/nbkbinaryinteger\/twoscomplementsubsequence(_:)",
                 "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                 "type" : "method"
+              },
+              {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "children" : [
+                      {
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/one-89lpl",
+                        "title" : "static var one: Self",
+                        "type" : "property"
+                      }
+                    ],
+                    "title" : "NBKBinaryInteger Implementations",
+                    "type" : "groupMarker"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbkbinaryinteger\/one-2i8u1",
+                "title" : "static var one: Self",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkbinaryinteger\/zero",
+                "title" : "static var zero: Self",
+                "type" : "property"
               }
             ],
             "path" : "\/documentation\/numberick\/nbkbinaryinteger",
@@ -2172,6 +2217,11 @@
               {
                 "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(descending:)",
                 "title" : "init(descending: HL<High, NBKDoubleWidth<High>.Low>)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(exactlystringliteral:)",
+                "title" : "init?(exactlyStringLiteral: StaticString)",
                 "type" : "init"
               },
               {
@@ -3396,6 +3446,11 @@
                     "type" : "init"
                   },
                   {
+                    "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(magnitude:)",
+                    "title" : "init?(magnitude: Self.Magnitude)",
+                    "type" : "init"
+                  },
+                  {
                     "path" : "\/documentation\/numberick\/nbkdoublewidth\/init(sign:magnitude:)",
                     "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                     "type" : "init"
@@ -3572,6 +3627,15 @@
                     "path" : "\/documentation\/numberick\/nbkdoublewidth\/twoscomplementsubsequence(_:)",
                     "title" : "func twosComplementSubsequence(Bool) -> PVO<NBKDoubleWidth<High>>",
                     "type" : "method"
+                  },
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkdoublewidth\/one",
+                    "title" : "static var one: Self",
+                    "type" : "property"
                   }
                 ],
                 "path" : "\/documentation\/numberick\/nbkdoublewidth\/nbkbinaryinteger-implementations",
@@ -5817,8 +5881,23 @@
                 "type" : "groupMarker"
               },
               {
+                "path" : "\/documentation\/numberick\/nbk\/and(_:_:)",
+                "title" : "static func and(NBK.Sign, NBK.Sign) -> NBK.Sign",
+                "type" : "method"
+              },
+              {
                 "path" : "\/documentation\/numberick\/nbk\/arrayindex(_:offsetby:limitedby:)",
                 "title" : "static func arrayIndex(Int, offsetBy: Int, limitedBy: Int) -> Int?",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/ascii(_:)",
+                "title" : "static func ascii(NBK.Sign) -> UInt8",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/bit(_:)",
+                "title" : "static func bit(NBK.Sign) -> Bool",
                 "type" : "method"
               },
               {
@@ -5912,6 +5991,26 @@
                 "type" : "method"
               },
               {
+                "path" : "\/documentation\/numberick\/nbk\/initializegetcount(_:repeating:count:)",
+                "title" : "static func initializeGetCount<T>(UnsafeMutablePointer<T>, repeating: T, count: Int) -> Int",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/initializegetcount(_:to:)",
+                "title" : "static func initializeGetCount<T>(UnsafeMutablePointer<T>, to: UnsafeBufferPointer<T>) -> Int",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/not(_:)",
+                "title" : "static func not(NBK.Sign) -> NBK.Sign",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/or(_:_:)",
+                "title" : "static func or(NBK.Sign, NBK.Sign) -> NBK.Sign",
+                "type" : "method"
+              },
+              {
                 "path" : "\/documentation\/numberick\/nbk\/removeprefix(from:count:)",
                 "title" : "static func removePrefix<T>(from: inout T, count: Int) -> T",
                 "type" : "method"
@@ -5929,6 +6028,11 @@
               {
                 "path" : "\/documentation\/numberick\/nbk\/removesuffix(from:maxlength:)",
                 "title" : "static func removeSuffix<T>(from: inout T, maxLength: Int) -> T",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/sign(_:)",
+                "title" : "static func sign(Bool) -> NBK.Sign",
                 "type" : "method"
               },
               {
@@ -5953,7 +6057,22 @@
               },
               {
                 "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(copying:perform:)",
-                "title" : "static func withUnsafeTemporaryAllocation<Element, Result>(copying: some Collection, perform: (inout UnsafeMutableBufferPointer<Element>) -> Result) -> Result",
+                "title" : "static func withUnsafeTemporaryAllocation<Element, Result>(copying: some Collection, perform: (UnsafeMutableBufferPointer<Element>) -> Result) -> Result",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(of:count:perform:)",
+                "title" : "static func withUnsafeTemporaryAllocation<Element, Result>(of: Element.Type, count: Int, perform: (UnsafeMutableBufferPointer<Element>) -> Result) -> Result",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(of:perform:)",
+                "title" : "static func withUnsafeTemporaryAllocation<Element, Result>(of: Element.Type, perform: (UnsafeMutablePointer<Element>) -> Result) -> Result",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbk\/xor(_:_:)",
+                "title" : "static func xor(NBK.Sign, NBK.Sign) -> NBK.Sign",
                 "type" : "method"
               },
               {
@@ -6494,6 +6613,80 @@
               {
                 "children" : [
                   {
+                    "title" : "Structures",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/iteration",
+                        "title" : "var iteration: NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<X, Y>.I",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/lhscoefficient",
+                        "title" : "var lhsCoefficient: X",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/lhsquotient",
+                        "title" : "var lhsQuotient: Y",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/result",
+                        "title" : "var result: NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<X, Y>.I",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/rhscoefficient",
+                        "title" : "var rhsCoefficient: Y",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/rhsquotient",
+                        "title" : "var rhsQuotient: X",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/i",
+                        "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm.I",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/magnitude-2ako6",
+                        "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm.Magnitude",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/magnitude-2mge5",
+                        "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm.Magnitude",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/magnitude-4z3tm",
+                        "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm.Magnitude",
+                        "type" : "typealias"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm\/magnitude-8g3m3",
+                        "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm.Magnitude",
+                        "type" : "typealias"
+                      }
+                    ],
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm",
+                    "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm",
+                    "type" : "struct"
+                  },
+                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -6522,13 +6715,43 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyextendedeuclideanalgorithm(of:and:)-5qozj",
-                    "title" : "static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of: Integer, and: Integer) -> (result: Integer, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, iteration: Integer)",
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm00(of:and:)-1r8gn",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm00(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Void, Void>",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyextendedeuclideanalgorithm(of:and:)-9ugn7",
-                    "title" : "static func greatestCommonDivisorByExtendedEuclideanAlgorithm(of: Integer, and: Integer) -> (result: Integer.Magnitude, lhsCoefficient: Integer, rhsCoefficient: Integer, lhsQuotient: Integer, rhsQuotient: Integer, iteration: Integer.Magnitude)",
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm00(of:and:)-9vruz",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm00(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Void, Void>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm01(of:and:)-4akek",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm01(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Void, Integer>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm01(of:and:)-70jrs",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm01(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Void, Integer>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm10(of:and:)-57yko",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm10(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm10(of:and:)-nh1j",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm10(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Void>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm11(of:and:)-13w2j",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm11(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm11(of:and:)-8q68o",
+                    "title" : "static func greatestCommonDivisorByEuclideanAlgorithm11(of: Integer, and: Integer) -> NBK.ProperBinaryInteger<Integer>.GreatestCommonDivisorByEuclideanAlgorithm<Integer, Integer>",
                     "type" : "method"
                   },
                   {
@@ -6554,6 +6777,16 @@
                   {
                     "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/leastpositiveresiduereportingoverflow(dividing:by:)-rhai",
                     "title" : "static func leastPositiveResidueReportingOverflow(dividing: some BinaryInteger, by: Integer) -> PVO<Integer>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/modularmultiplicativeinverse(of:modulo:)",
+                    "title" : "static func modularMultiplicativeInverse(of: Integer, modulo: Integer) -> Integer?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/modularmultiplicativeinverse(sign:magnitude:modulo:)",
+                    "title" : "static func modularMultiplicativeInverse(sign: NBK.Sign, magnitude: Integer, modulo: Integer) -> Integer?",
                     "type" : "method"
                   },
                   {
@@ -6901,8 +7134,13 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientlong2111msbunchecked(dividing:by:)",
-                    "title" : "static func formRemainderWithQuotientLong2111MSBUnchecked(dividing: inout Base, by: some RandomAccessCollection<Base.Element>) -> Base.Element",
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientbyonelongiteration2111msb(dividing:by:)",
+                    "title" : "static func formRemainderWithQuotientByOneLongIteration2111MSB(dividing: inout Base, by: some RandomAccessCollection<Base.Element>) -> Base.Element",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/initializetoquotientformremainderbylongalgorithm2111msb(_:dividing:by:)",
+                    "title" : "static func initializeToQuotientFormRemainderByLongAlgorithm2111MSB<T>(inout Base, dividing: inout Base, by: UnsafeBufferPointer<T>)",
                     "type" : "method"
                   },
                   {
@@ -7140,6 +7378,36 @@
                         "type" : "method"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initialize(_:to:times:)",
+                        "title" : "static func initialize<T>(inout Base, to: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>, times: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initialize(_:tosquareproductof:)",
+                        "title" : "static func initialize<T>(inout Base, toSquareProductOf: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initializebykaratsubaalgorithm(_:to:times:)",
+                        "title" : "static func initializeByKaratsubaAlgorithm<T>(inout Base, to: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>, times: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initializebykaratsubaalgorithm(_:tosquareproductof:)",
+                        "title" : "static func initializeByKaratsubaAlgorithm<T>(inout Base, toSquareProductOf: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initializebylongalgorithm(_:to:times:plus:)",
+                        "title" : "static func initializeByLongAlgorithm<T>(inout Base, to: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>, times: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>, plus: UnsafeMutableBufferPointer<T>.Element)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initializebylongalgorithm(_:tosquareproductof:plus:)",
+                        "title" : "static func initializeByLongAlgorithm<T>(inout Base, toSquareProductOf: UnsafeBufferPointer<UnsafeMutableBufferPointer<T>.Element>, plus: UnsafeMutableBufferPointer<T>.Element)",
+                        "type" : "method"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiply(_:by:add:)",
                         "title" : "static func multiply(inout Base, by: Base.Element, add: Base.Element) -> Base.Element",
                         "type" : "method"
@@ -7147,6 +7415,11 @@
                       {
                         "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/multiply(_:by:add:from:to:)",
                         "title" : "static func multiply(inout Base, by: Base.Element, add: inout Base.Element, from: inout Base.Index, to: Base.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/partitiontrimmingredundantzeros(_:at:)",
+                        "title" : "static func partitionTrimmingRedundantZeros<T>(Base, at: UnsafeBufferPointer<T>.Index) -> HL<Base, Base>",
                         "type" : "method"
                       },
                       {
@@ -7396,6 +7669,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/int\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/int\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -7512,6 +7790,15 @@
                         "path" : "\/documentation\/numberick\/swift\/int\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/int\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/int\/nbkbinaryinteger-implementations",
@@ -7899,6 +8186,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/int16\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/int16\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -8015,6 +8307,15 @@
                         "path" : "\/documentation\/numberick\/swift\/int16\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/int16\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/int16\/nbkbinaryinteger-implementations",
@@ -8402,6 +8703,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/int32\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/int32\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -8518,6 +8824,15 @@
                         "path" : "\/documentation\/numberick\/swift\/int32\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/int32\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/int32\/nbkbinaryinteger-implementations",
@@ -8905,6 +9220,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/int64\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/int64\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -9021,6 +9341,15 @@
                         "path" : "\/documentation\/numberick\/swift\/int64\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/int64\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/int64\/nbkbinaryinteger-implementations",
@@ -9408,6 +9737,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/int8\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/int8\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -9524,6 +9858,15 @@
                         "path" : "\/documentation\/numberick\/swift\/int8\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/int8\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/int8\/nbkbinaryinteger-implementations",
@@ -9927,6 +10270,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/uint\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/uint\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -10043,6 +10391,15 @@
                         "path" : "\/documentation\/numberick\/swift\/uint\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/uint\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/uint\/nbkbinaryinteger-implementations",
@@ -10390,6 +10747,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/uint16\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/uint16\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -10506,6 +10868,15 @@
                         "path" : "\/documentation\/numberick\/swift\/uint16\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/uint16\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/uint16\/nbkbinaryinteger-implementations",
@@ -10853,6 +11224,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/uint32\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/uint32\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -10969,6 +11345,15 @@
                         "path" : "\/documentation\/numberick\/swift\/uint32\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/uint32\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/uint32\/nbkbinaryinteger-implementations",
@@ -11316,6 +11701,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/uint64\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/uint64\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -11432,6 +11822,15 @@
                         "path" : "\/documentation\/numberick\/swift\/uint64\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/uint64\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/uint64\/nbkbinaryinteger-implementations",
@@ -11779,6 +12178,11 @@
                         "type" : "init"
                       },
                       {
+                        "path" : "\/documentation\/numberick\/swift\/uint8\/init(magnitude:)",
+                        "title" : "init?(magnitude: Self.Magnitude)",
+                        "type" : "init"
+                      },
+                      {
                         "path" : "\/documentation\/numberick\/swift\/uint8\/init(sign:magnitude:)",
                         "title" : "init?(sign: FloatingPointSign, magnitude: Self.Magnitude)",
                         "type" : "init"
@@ -11895,6 +12299,15 @@
                         "path" : "\/documentation\/numberick\/swift\/uint8\/twoscomplementsubsequence(_:)",
                         "title" : "func twosComplementSubsequence(Bool) -> PVO<Self>",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Type Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/numberick\/swift\/uint8\/one",
+                        "title" : "static var one: Self",
+                        "type" : "property"
                       }
                     ],
                     "path" : "\/documentation\/numberick\/swift\/uint8\/nbkbinaryinteger-implementations",

@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A message describing the source code location of an overflow error.",
+      "text" : "A message describing the location of an overflow error.",
       "type" : "text"
     }
   ],
@@ -318,7 +318,7 @@
 "doc://Numberick/documentation/Numberick/NBK/callsiteOverflowInfo(function:file:line:)": {
   "abstract" : [
     {
-      "text" : "A message describing the source code location of an overflow error.",
+      "text" : "A message describing the location of an overflow error.",
       "type" : "text"
     }
   ],

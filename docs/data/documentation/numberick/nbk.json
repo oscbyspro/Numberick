@@ -192,7 +192,10 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/and(_:_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/arrayIndex(_:offsetBy:limitedBy:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ascii(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/bit(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/bitCast(_:)-1kuiz",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/bitCast(_:)-5jtl5",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/bitCast(_:)-7qegl",
@@ -211,15 +214,23 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(exactly:as:)-8dwkj",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(truncating:as:)-6rhdy",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initOrBitCast(truncating:as:)-7lcao",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initializeGetCount(_:repeating:count:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initializeGetCount(_:to:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/not(_:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/or(_:_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removePrefix(from:count:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removePrefix(from:maxLength:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removeSuffix(from:count:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/removeSuffix(from:maxLength:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/sign(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftBinaryInteger(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/someSwiftFixedWidthInteger(_:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/unwrapping(_:)-1wfyk",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/unwrapping(_:)-24stg",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(copying:perform:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(copying:perform:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(of:count:perform:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(of:perform:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/xor(_:_:)"
       ],
       "title" : "Type Methods"
     },
@@ -2028,6 +2039,120 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/zeroormore"
 },
+"doc://Numberick/documentation/Numberick/NBK/and(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the logical ",
+      "type" : "text"
+    },
+    {
+      "code" : "AND",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "and"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/and(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "and(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/and(_:_:)"
+},
 "doc://Numberick/documentation/Numberick/NBK/arrayIndex(_:offsetBy:limitedBy:)": {
   "abstract" : [
     {
@@ -2127,6 +2252,148 @@
   "title" : "arrayIndex(_:offsetBy:limitedBy:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/arrayindex(_:offsetby:limitedby:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/ascii(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "’s ascii representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ascii"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ascii(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ascii(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/ascii(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/bit(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "’s bit representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "bit"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/bit(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "bit(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/bit(_:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/bitCast(_:)-1kuiz": {
   "abstract" : [
@@ -2785,7 +3052,7 @@
 "doc://Numberick/documentation/Numberick/NBK/callsiteOutOfBoundsInfo(function:file:line:)": {
   "abstract" : [
     {
-      "text" : "A message describing the source code location of an out-of-bounds error.",
+      "text" : "A message describing the location of an out-of-bounds error.",
       "type" : "text"
     }
   ],
@@ -2881,7 +3148,7 @@
 "doc://Numberick/documentation/Numberick/NBK/callsiteOverflowInfo(function:file:line:)": {
   "abstract" : [
     {
-      "text" : "A message describing the source code location of an overflow error.",
+      "text" : "A message describing the location of an overflow error.",
       "type" : "text"
     }
   ],
@@ -3819,6 +4086,252 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/initorbitcast(truncating:as:)-7lcao"
 },
+"doc://Numberick/documentation/Numberick/NBK/initializeGetCount(_:repeating:count:)": {
+  "abstract" : [
+    {
+      "text" : "Initializes ",
+      "type" : "text"
+    },
+    {
+      "code" : "base",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ",
+      "type" : "text"
+    },
+    {
+      "code" : "source",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " then returns the initialized ",
+      "type" : "text"
+    },
+    {
+      "code" : "count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initializeGetCount"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sp",
+      "text" : "UnsafeMutablePointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "repeating"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initializeGetCount(_:repeating:count:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initializeGetCount(_:repeating:count:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/initializegetcount(_:repeating:count:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/initializeGetCount(_:to:)": {
+  "abstract" : [
+    {
+      "text" : "Initializes ",
+      "type" : "text"
+    },
+    {
+      "code" : "base",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ",
+      "type" : "text"
+    },
+    {
+      "code" : "source",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " then returns the initialized ",
+      "type" : "text"
+    },
+    {
+      "code" : "count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initializeGetCount"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sp",
+      "text" : "UnsafeMutablePointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/initializeGetCount(_:to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initializeGetCount(_:to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/initializegetcount(_:to:)"
+},
 "doc://Numberick/documentation/Numberick/NBK/isBigEndian": {
   "abstract" : [
 
@@ -3902,6 +4415,200 @@
   "title" : "isLittleEndian",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/islittleendian"
+},
+"doc://Numberick/documentation/Numberick/NBK/not(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the opposite ",
+      "type" : "text"
+    },
+    {
+      "code" : "sign",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "not"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/not(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "not(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/not(_:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/or(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the logical ",
+      "type" : "text"
+    },
+    {
+      "code" : "OR",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "or"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/or(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "or(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/or(_:_:)"
 },
 "doc://Numberick/documentation/Numberick/NBK/removePrefix(from:count:)": {
   "abstract" : [
@@ -4339,6 +5046,77 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/removesuffix(from:maxlength:)"
 },
+"doc://Numberick/documentation/Numberick/NBK/sign(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "bit",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "’s sign representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sign"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/sign(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sign(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/sign(_:)"
+},
 "doc://Numberick/documentation/Numberick/NBK/someSwiftBinaryInteger(_:)": {
   "abstract" : [
     {
@@ -4718,7 +5496,15 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " to a temporary allocation.",
+      "text" : " to a temporary allocation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "collection.count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements.",
       "type" : "text"
     }
   ],
@@ -4789,14 +5575,6 @@
       "text" : ": ("
     },
     {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:Sr",
       "text" : "UnsafeMutableBufferPointer"
@@ -4832,6 +5610,371 @@
   "title" : "withUnsafeTemporaryAllocation(copying:perform:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(copying:perform:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/withUnsafeTemporaryAllocation(of:count:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Grants unsafe access to a temporary allocation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "count",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withUnsafeTemporaryAllocation"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sr",
+      "text" : "UnsafeMutableBufferPointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(of:count:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withUnsafeTemporaryAllocation(of:count:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(of:count:perform:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/withUnsafeTemporaryAllocation(of:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Grants unsafe access to a temporary allocation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withUnsafeTemporaryAllocation"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sp",
+      "text" : "UnsafeMutablePointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/withUnsafeTemporaryAllocation(of:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withUnsafeTemporaryAllocation(of:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/withunsafetemporaryallocation(of:perform:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/xor(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the logical ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOR",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "xor"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO4Signa",
+      "text" : "Sign"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/xor(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "xor(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/xor(_:_:)"
 },
 "doc://Numberick/s8SendableP": {
   "identifier" : "doc:\/\/Numberick\/s8SendableP",

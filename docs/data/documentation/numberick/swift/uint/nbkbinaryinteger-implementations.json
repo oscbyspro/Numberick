@@ -51,6 +51,7 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(_:)-3z76p",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(bit:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(digit:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(magnitude:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(sign:magnitude:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(words:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(words:isSigned:)"
@@ -87,6 +88,13 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/twosComplementSubsequence(_:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/one"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -1139,6 +1147,62 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint\/init(digit:)"
 },
+"doc://Numberick/documentation/Numberick/Swift/UInt/init(magnitude:)": {
+  "abstract" : [
+    {
+      "text" : "Tries to create a value equal to the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "magnitude",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Magnitude"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/init(magnitude:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(magnitude:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint\/init(magnitude:)"
+},
 "doc://Numberick/documentation/Numberick/Swift/UInt/init(sign:magnitude:)": {
   "abstract" : [
     {
@@ -1648,6 +1712,50 @@
   "title" : "mostSignificantBit",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/swift\/uint\/mostsignificantbit"
+},
+"doc://Numberick/documentation/Numberick/Swift/UInt/one": {
+  "abstract" : [
+    {
+      "text" : "An instance equal to one.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "one"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/Swift\/UInt\/one",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "one",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/swift\/uint\/one"
 },
 "doc://Numberick/documentation/Numberick/Swift/UInt/onesComplement()": {
   "abstract" : [

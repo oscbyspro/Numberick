@@ -41,7 +41,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/greatestCommonDivisorByExtendedEuclideanAlgorithm(of:and:)-5qozj"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/greatestCommonDivisorByEuclideanAlgorithm01(of:and:)-70jrs"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -68,7 +68,7 @@
           "type" : "text"
         },
         {
-          "code" : "NBKUnsignedInteger",
+          "code" : "NBKBinaryInteger",
           "type" : "codeVoice"
         },
         {
@@ -78,7 +78,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerOA2A011NBKUnsignedF0RzrlE49greatestCommonDivisorByExtendedEuclideanAlgorithm2of3andx6result_x14lhsCoefficientx03rhsS0x0R8Quotientx0tU0x9iterationtx_xtFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO43greatestCommonDivisorByEuclideanAlgorithm012of3andAE08GreatesthijK9AlgorithmVy_x_ytxGx_xtFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -98,7 +98,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "greatestCommonDivisorByExtendedEuclideanAlgorithm"
+        "text" : "greatestCommonDivisorByEuclideanAlgorithm01"
       },
       {
         "kind" : "text",
@@ -134,11 +134,25 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> (result"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+        "text" : "NBK"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO",
+        "text" : "ProperBinaryInteger"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -146,11 +160,25 @@
       },
       {
         "kind" : "text",
-        "text" : ", lhsCoefficient"
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO41GreatestCommonDivisorByEuclideanAlgorithmV",
+        "text" : "GreatestCommonDivisorByEuclideanAlgorithm"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s4Voida",
+        "text" : "Void"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
       },
       {
         "kind" : "typeIdentifier",
@@ -158,55 +186,7 @@
       },
       {
         "kind" : "text",
-        "text" : ", rhsCoefficient"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Integer"
-      },
-      {
-        "kind" : "text",
-        "text" : ", lhsQuotient"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Integer"
-      },
-      {
-        "kind" : "text",
-        "text" : ", rhsQuotient"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Integer"
-      },
-      {
-        "kind" : "text",
-        "text" : ", iteration"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Integer"
-      },
-      {
-        "kind" : "text",
-        "text" : ")"
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -220,7 +200,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "greatestCommonDivisorByExtendedEuclideanAlgorithm(of:and:)"
+    "title" : "greatestCommonDivisorByEuclideanAlgorithm01(of:and:)"
   },
   "primaryContentSections" : [
     {
@@ -251,7 +231,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "greatestCommonDivisorByExtendedEuclideanAlgorithm"
+              "text" : "greatestCommonDivisorByEuclideanAlgorithm01"
             },
             {
               "kind" : "text",
@@ -303,11 +283,27 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> (result"
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+              "text" : "NBK"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO",
+              "text" : "ProperBinaryInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
             },
             {
               "kind" : "typeIdentifier",
@@ -315,11 +311,26 @@
             },
             {
               "kind" : "text",
-              "text" : ", lhsCoefficient"
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/GreatestCommonDivisorByEuclideanAlgorithm",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO41GreatestCommonDivisorByEuclideanAlgorithmV",
+              "text" : "GreatestCommonDivisorByEuclideanAlgorithm"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s4Voida",
+              "text" : "Void"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "typeIdentifier",
@@ -327,219 +338,12 @@
             },
             {
               "kind" : "text",
-              "text" : ", rhsCoefficient"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Integer"
-            },
-            {
-              "kind" : "text",
-              "text" : ", lhsQuotient"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Integer"
-            },
-            {
-              "kind" : "text",
-              "text" : ", rhsQuotient"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Integer"
-            },
-            {
-              "kind" : "text",
-              "text" : ", iteration"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Integer"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
+              "text" : ">"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "It extends the Euclidean algorithm and returns some additional values.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "anchor" : "Result",
-          "level" : 3,
-          "text" : "Result",
-          "type" : "heading"
-        },
-        {
-          "code" : [
-            "precondition(0 ... T.max ~= result)"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The GCD of ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "0",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " and ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "0",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " is ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "0",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The GCD of ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "0",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " and ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "X",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " is ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "X",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "anchor" : "Bézouts-identity-unsigned",
-          "level" : 3,
-          "text" : "Bézout’s identity (unsigned)",
-          "type" : "heading"
-        },
-        {
-          "code" : [
-            "if !iteration.isOdd {",
-            "    precondition(result == (lhs &* lhsCoefficient &- rhs &* rhsCoefficient))",
-            "}   else {",
-            "    precondition(result == (rhs &* rhsCoefficient &- lhs &* lhsCoefficient))",
-            "}"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "anchor" : "Quotients-of-dividing-by-GCD",
-          "level" : 3,
-          "text" : "Quotients of dividing by GCD",
-          "type" : "heading"
-        },
-        {
-          "code" : [
-            "guard !result.isZero else { return }",
-            "precondition(lhsQuotient == lhs \/ result)",
-            "precondition(rhsQuotient == rhs \/ result)"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "anchor" : "Iteration",
-          "level" : 3,
-          "text" : "Iteration",
-          "type" : "heading"
-        },
-        {
-          "code" : [
-            "let lhsCoefficientSign = lhs.isLessThanZero != iteration.isOdd",
-            "let rhsCoefficientSign = rhs.isLessThanZero == iteration.isOdd"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -553,7 +357,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyextendedeuclideanalgorithm(of:and:)-5qozj"
+        "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm01(of:and:)-70jrs"
       ],
       "traits" : [
         {
@@ -654,7 +458,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/ProperBinaryInteger/greatestCommonDivisorByExtendedEuclideanAlgorithm(of:and:)-5qozj": {
+"doc://Numberick/documentation/Numberick/NBK/ProperBinaryInteger/GreatestCommonDivisorByEuclideanAlgorithm": {
   "abstract" : [
     {
       "text" : "Finds the GCD of ",
@@ -709,7 +513,98 @@
         "type" : "text"
       },
       {
-        "code" : "NBKUnsignedInteger",
+        "code" : "NBKBinaryInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GreatestCommonDivisorByEuclideanAlgorithm"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/GreatestCommonDivisorByEuclideanAlgorithm",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GreatestCommonDivisorByEuclideanAlgorithm"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.ProperBinaryInteger.GreatestCommonDivisorByEuclideanAlgorithm",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm"
+},
+"doc://Numberick/documentation/Numberick/NBK/ProperBinaryInteger/greatestCommonDivisorByEuclideanAlgorithm01(of:and:)-70jrs": {
+  "abstract" : [
+    {
+      "text" : "Finds the GCD of ",
+      "type" : "text"
+    },
+    {
+      "code" : "lhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "rhs",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by using this ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/en.wikipedia.org\/wiki\/extended_euclidean_algorithm",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Integer",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKBinaryInteger",
         "type" : "codeVoice"
       },
       {
@@ -737,7 +632,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "greatestCommonDivisorByExtendedEuclideanAlgorithm"
+      "text" : "greatestCommonDivisorByEuclideanAlgorithm01"
     },
     {
       "kind" : "text",
@@ -773,11 +668,25 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> (result"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO",
+      "text" : "NBK"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO",
+      "text" : "ProperBinaryInteger"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -785,11 +694,25 @@
     },
     {
       "kind" : "text",
-      "text" : ", lhsCoefficient"
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit3NBKO19ProperBinaryIntegerO41GreatestCommonDivisorByEuclideanAlgorithmV",
+      "text" : "GreatestCommonDivisorByEuclideanAlgorithm"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
@@ -797,63 +720,15 @@
     },
     {
       "kind" : "text",
-      "text" : ", rhsCoefficient"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Integer"
-    },
-    {
-      "kind" : "text",
-      "text" : ", lhsQuotient"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Integer"
-    },
-    {
-      "kind" : "text",
-      "text" : ", rhsQuotient"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Integer"
-    },
-    {
-      "kind" : "text",
-      "text" : ", iteration"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Integer"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/greatestCommonDivisorByExtendedEuclideanAlgorithm(of:and:)-5qozj",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/greatestCommonDivisorByEuclideanAlgorithm01(of:and:)-70jrs",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "greatestCommonDivisorByExtendedEuclideanAlgorithm(of:and:)",
+  "title" : "greatestCommonDivisorByEuclideanAlgorithm01(of:and:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyextendedeuclideanalgorithm(of:and:)-5qozj"
+  "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/greatestcommondivisorbyeuclideanalgorithm01(of:and:)-70jrs"
 },
 "https://en.wikipedia.org/wiki/extended_euclidean_algorithm": {
   "identifier" : "https:\/\/en.wikipedia.org\/wiki\/extended_euclidean_algorithm",

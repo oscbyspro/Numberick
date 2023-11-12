@@ -226,6 +226,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "Development",
+          "level" : 3,
+          "text" : "Development",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "To Do",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -442,6 +474,18 @@
   "title" : "withUnsafeTemporarySignPrefix(minus:perform:)",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/integerdescription\/withunsafetemporarysignprefix(minus:perform:)"
+},
+"https://github.com/apple/swift-evolution/blob/main/proposals/0370-pointer-family-initialization-improvements.md": {
+  "identifier" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md",
+  "title" : "Swift 5.8",
+  "titleInlineContent" : [
+    {
+      "text" : "Swift 5.8",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0370-pointer-family-initialization-improvements.md"
 }
 }
 }

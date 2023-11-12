@@ -278,7 +278,8 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftRight(_:major:minor:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftRight(_:major:minorAtLeastOne:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/bitShiftRight(_:majorAtLeastOne:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientByOneLongIteration2111MSB(dividing:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/initializeToQuotientFormRemainderByLongAlgorithm2111MSB(_:dividing:by:)"
       ],
       "title" : "Type Methods"
     },
@@ -2093,7 +2094,7 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/bitshiftright(_:majoratleastone:)"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/formRemainderWithQuotientByOneLongIteration2111MSB(dividing:by:)": {
   "abstract" : [
     {
       "text" : "Forms the ",
@@ -2247,7 +2248,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "formRemainderWithQuotientLong2111MSBUnchecked"
+      "text" : "formRemainderWithQuotientByOneLongIteration2111MSB"
     },
     {
       "kind" : "text",
@@ -2323,12 +2324,266 @@
       "text" : "Element"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientByOneLongIteration2111MSB(dividing:by:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)",
+  "title" : "formRemainderWithQuotientByOneLongIteration2111MSB(dividing:by:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientlong2111msbunchecked(dividing:by:)"
+  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientbyonelongiteration2111msb(dividing:by:)"
+},
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/initializeToQuotientFormRemainderByLongAlgorithm2111MSB(_:dividing:by:)": {
+  "abstract" : [
+    {
+      "text" : "Initializes ",
+      "type" : "text"
+    },
+    {
+      "code" : "base",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/en.wikipedia.org\/wiki\/long_division",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "quotient",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of dividing the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by the ",
+      "type" : "text"
+    },
+    {
+      "code" : "divisor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and forms the ",
+      "type" : "text"
+    },
+    {
+      "code" : "remainder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dividend",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Base",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "MutableCollection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Base",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "RandomAccessCollection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Base.Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKCoreInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Base.Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Base.Element.BitPattern",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initializeToQuotientFormRemainderByLongAlgorithm2111MSB"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dividing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Base"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/initializeToQuotientFormRemainderByLongAlgorithm2111MSB(_:dividing:by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initializeToQuotientFormRemainderByLongAlgorithm2111MSB(_:dividing:by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/initializetoquotientformremainderbylongalgorithm2111msb(_:dividing:by:)"
 },
 "doc://Numberick/documentation/Numberick/NBKCoreInteger": {
   "abstract" : [
@@ -2368,6 +2623,18 @@
   "identifier" : "doc:\/\/Numberick\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
+},
+"https://en.wikipedia.org/wiki/long_division": {
+  "identifier" : "https:\/\/en.wikipedia.org\/wiki\/long_division",
+  "title" : "long",
+  "titleInlineContent" : [
+    {
+      "text" : "long",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/en.wikipedia.org\/wiki\/long_division"
 }
 }
 }

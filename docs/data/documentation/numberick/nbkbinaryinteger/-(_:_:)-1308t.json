@@ -32,8 +32,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-(_:_:)-6a96v",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-(_:_:)-7p5xj"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-(_:_:)-7p5xj",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKBinaryInteger\/-(_:_:)-6a96v"
       ],
       "title" : "NBKBinaryInteger Implementations"
     }

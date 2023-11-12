@@ -1,55 +1,23 @@
 {
   "abstract" : [
     {
-      "text" : "Forms the ",
+      "text" : "Initializes ",
       "type" : "text"
     },
     {
-      "code" : "remainder",
+      "code" : "base",
       "type" : "codeVoice"
     },
     {
-      "text" : " of dividing the ",
+      "text" : " to the square product of ",
       "type" : "text"
     },
     {
-      "code" : "dividend",
+      "code" : "elements",
       "type" : "codeVoice"
     },
     {
-      "text" : " by the ",
-      "type" : "text"
-    },
-    {
-      "code" : "divisor",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ",",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "then returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "quotient",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ". Its arguments must match the arguments",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of one long division iteration.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -58,13 +26,14 @@
       [
         "doc:\/\/Numberick\/documentation\/Numberick",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/SubSequence"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)"
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/SubSequence\/initialize(_:toSquareProductOf:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -149,7 +118,7 @@
       ]
     },
     "extendedModule" : "NBKCoreKit",
-    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerOAASMRzrlE45formRemainderWithQuotientLong2111MSBUnchecked8dividing2by7ElementSTQzxz_qd__tSkRd__AIQyd__AJRSAIST_10BitPatternAA06NBKBitQ11ConvertiblePQZAKRSlFZ",
+    "externalID" : "s:10NBKCoreKit3NBKO21StrictUnsignedIntegerO11SubSequenceOAASMRzrlE10initialize_17toSquareProductOfySryqd__Gz_SRyqd__GtAJRszAA0aF0Rd__10BitPatternAA06NBKBitO11ConvertiblePQyd__Rsd__lFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -169,19 +138,19 @@
       },
       {
         "kind" : "identifier",
-        "text" : "formRemainderWithQuotientLong2111MSBUnchecked"
+        "text" : "initialize"
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
       },
       {
-        "kind" : "externalParam",
-        "text" : "dividing"
+        "kind" : "genericParameter",
+        "text" : "T"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ">("
       },
       {
         "kind" : "keyword",
@@ -201,16 +170,16 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "by"
+        "text" : "toSquareProductOf"
       },
       {
         "kind" : "text",
-        "text" : ": some "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sk",
-        "text" : "RandomAccessCollection"
+        "preciseIdentifier" : "s:SR",
+        "text" : "UnsafeBufferPointer"
       },
       {
         "kind" : "text",
@@ -218,11 +187,20 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Base"
+        "preciseIdentifier" : "s:Sr",
+        "text" : "UnsafeMutableBufferPointer"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
       },
       {
         "kind" : "typeIdentifier",
@@ -230,19 +208,7 @@
       },
       {
         "kind" : "text",
-        "text" : ">) -> "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Base"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Element"
+        "text" : ">)"
       }
     ],
     "modules" : [
@@ -256,7 +222,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)"
+    "title" : "initialize(_:toSquareProductOf:)"
   },
   "primaryContentSections" : [
     {
@@ -287,15 +253,23 @@
             },
             {
               "kind" : "identifier",
-              "text" : "formRemainderWithQuotientLong2111MSBUnchecked"
+              "text" : "initialize"
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
-              "text" : "dividing"
+              "text" : "_"
             },
             {
               "kind" : "text",
@@ -303,7 +277,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "dividend"
+              "text" : "base"
             },
             {
               "kind" : "text",
@@ -327,7 +301,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "by"
+              "text" : "toSquareProductOf"
             },
             {
               "kind" : "text",
@@ -335,16 +309,16 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "divisor"
+              "text" : "elements"
             },
             {
               "kind" : "text",
-              "text" : ": some "
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sk",
-              "text" : "RandomAccessCollection"
+              "preciseIdentifier" : "s:SR",
+              "text" : "UnsafeBufferPointer"
             },
             {
               "kind" : "text",
@@ -352,11 +326,20 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Base"
+              "preciseIdentifier" : "s:Sr",
+              "text" : "UnsafeMutableBufferPointer"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
             },
             {
               "kind" : "typeIdentifier",
@@ -364,7 +347,15 @@
             },
             {
               "kind" : "text",
-              "text" : ">) -> "
+              "text" : ">) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "typeIdentifier",
@@ -372,11 +363,62 @@
             },
             {
               "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sr",
+              "text" : "UnsafeMutableBufferPointer"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">, "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10NBKCoreKit0A7IntegerP",
+              "text" : "NBKCoreInteger"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
               "text" : "."
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Element"
+              "text" : "BitPattern"
             }
           ]
         }
@@ -391,31 +433,11 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The current iteration’s ",
+                  "text" : "A buffer of size ",
                   "type" : "text"
                 },
                 {
-                  "code" : "remainder",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " slice from the ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "quotient",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "element’s index. It must be exactly one element wider than the ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "divisor",
+                  "code" : "2 * elements.count",
                   "type" : "codeVoice"
                 },
                 {
@@ -426,90 +448,41 @@
               "type" : "paragraph"
             }
           ],
-          "name" : "dividend"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The normalized ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "divisor",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ". Its last element’s most significant",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "bit must be set to ensure that the initial ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "quotient",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " approximation does",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "not exceed the real ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "quotient",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " by more than 2.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "divisor"
+          "name" : "base"
         }
       ]
     },
     {
       "content" : [
         {
-          "anchor" : "Example-Usage-in-Long-Division-Algorithm",
+          "anchor" : "discussion",
           "level" : 2,
-          "text" : "Example Usage in Long Division Algorithm",
+          "text" : "Discussion",
           "type" : "heading"
         },
         {
-          "code" : [
-            "\/\/  try fast path",
-            "\/\/  normalization",
-            "",
-            "var quotient = uninitialized(remainder.count - divisor.count) { quotient in",
-            "    for index in quotient.indices.reversed() {",
-            "        let digit = formRemainderWithQuotientLong2111MSBUnchecked(",
-            "        dividing: &remainder[index ..< index + divisor.count + 1], by: divisor)",
-            "        quotient.baseAddress!.advanced(by: index).initialize(to: digit)",
-            "    }",
-            "}",
-            "",
-            "\/\/ normalization",
-            "\/\/ return values"
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "base",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " must be uninitialized, or its elements must be trivial.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
           ],
-          "syntax" : "swift",
-          "type" : "codeListing"
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -526,7 +499,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientlong2111msbunchecked(dividing:by:)"
+        "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initialize(_:tosquareproductof:)"
       ],
       "traits" : [
         {
@@ -627,58 +600,60 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger"
 },
-"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)": {
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/SubSequence": {
   "abstract" : [
     {
-      "text" : "Forms the ",
+      "text" : "The sub sequence namespace of this type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SubSequence"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/SubSequence",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SubSequence"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.StrictUnsignedInteger.SubSequence",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence"
+},
+"doc://Numberick/documentation/Numberick/NBK/StrictUnsignedInteger/SubSequence/initialize(_:toSquareProductOf:)": {
+  "abstract" : [
+    {
+      "text" : "Initializes ",
       "type" : "text"
     },
     {
-      "code" : "remainder",
+      "code" : "base",
       "type" : "codeVoice"
     },
     {
-      "text" : " of dividing the ",
+      "text" : " to the square product of ",
       "type" : "text"
     },
     {
-      "code" : "dividend",
+      "code" : "elements",
       "type" : "codeVoice"
     },
     {
-      "text" : " by the ",
-      "type" : "text"
-    },
-    {
-      "code" : "divisor",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ",",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "then returns the ",
-      "type" : "text"
-    },
-    {
-      "code" : "quotient",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ". Its arguments must match the arguments",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of one long division iteration.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -781,19 +756,19 @@
     },
     {
       "kind" : "identifier",
-      "text" : "formRemainderWithQuotientLong2111MSBUnchecked"
+      "text" : "initialize"
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
     },
     {
-      "kind" : "externalParam",
-      "text" : "dividing"
+      "kind" : "genericParameter",
+      "text" : "T"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ">("
     },
     {
       "kind" : "keyword",
@@ -813,16 +788,16 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "by"
+      "text" : "toSquareProductOf"
     },
     {
       "kind" : "text",
-      "text" : ": some "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sk",
-      "text" : "RandomAccessCollection"
+      "preciseIdentifier" : "s:SR",
+      "text" : "UnsafeBufferPointer"
     },
     {
       "kind" : "text",
@@ -830,11 +805,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Base"
+      "preciseIdentifier" : "s:Sr",
+      "text" : "UnsafeMutableBufferPointer"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
     },
     {
       "kind" : "typeIdentifier",
@@ -842,27 +826,49 @@
     },
     {
       "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Base"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)",
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/StrictUnsignedInteger\/SubSequence\/initialize(_:toSquareProductOf:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "formRemainderWithQuotientLong2111MSBUnchecked(dividing:by:)",
+  "title" : "initialize(_:toSquareProductOf:)",
   "type" : "topic",
-  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/formremainderwithquotientlong2111msbunchecked(dividing:by:)"
+  "url" : "\/documentation\/numberick\/nbk\/strictunsignedinteger\/subsequence\/initialize(_:tosquareproductof:)"
+},
+"doc://Numberick/documentation/Numberick/NBKCoreInteger": {
+  "abstract" : [
+    {
+      "text" : "A fixed-width, binary, integer that is up to 64 bits wide.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKCoreInteger",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKCoreInteger"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKCoreInteger",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkcoreinteger"
 }
 }
 }
