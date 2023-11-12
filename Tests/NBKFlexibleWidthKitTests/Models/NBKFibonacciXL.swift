@@ -610,7 +610,7 @@ final class NBKFibonacciXLTestsOnPrimes: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertFibonacciSequenceElement(
-_ index: UInt, _ element: UIntXL,
+_ index: UInt, _ element: UIntXL, division: Bool = true,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     let x0 = NBKFibonacciXL(index + 0)
@@ -639,5 +639,38 @@ file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(x.index,   x0.index,   file: file, line: line)
         XCTAssertEqual(x.element, x0.element, file: file, line: line)
         XCTAssertEqual(x.next,    x0.next,    file: file, line: line)
+    }
+    
+    if  division {
+        NBKAssertFibonacciSequenceDivisionInvariants(x0, NBKFibonacciXL(index / 2), file: file, line: line)
+        NBKAssertFibonacciSequenceDivisionInvariants(x0, NBKFibonacciXL(index / 3), file: file, line: line)
+        NBKAssertFibonacciSequenceDivisionInvariants(x0, NBKFibonacciXL(index / 5), file: file, line: line)
+        NBKAssertFibonacciSequenceDivisionInvariants(x0, NBKFibonacciXL(index / 7), file: file, line: line)
+    }
+}
+
+private func NBKAssertFibonacciSequenceDivisionInvariants(
+_ dividend: NBKFibonacciXL, _ divisor: NBKFibonacciXL,
+file: StaticString = #file, line: UInt = #line) {
+    //=------------------------------------------=
+    precondition(dividend.index >= divisor.index)
+    //=------------------------------------------=
+    let difference = NBKFibonacciXL(dividend.index - divisor.index)
+    let division = dividend.next.quotientAndRemainder(dividingBy: divisor.next)
+    //=------------------------------------------=
+    brr: do {
+        var x: UIntXL
+        
+        x  = division.quotient   // f(x + y + 1) / f(x + 1)
+        x -= difference.next     // f(y + 1)
+        x *= divisor.next        // f(x + 1)
+        x += division.remainder  // f(x + y + 1) % f(x + 1)
+        
+        var y: UIntXL
+        
+        y  = divisor.element    // f(x)
+        y *= difference.element // f(y)
+        
+        XCTAssertEqual(x, y, file: file, line: line)
     }
 }
