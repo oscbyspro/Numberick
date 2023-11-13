@@ -29,6 +29,9 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
+            reference = "container:.swiftpm/NBKDoubleWidthKit.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan"
             default = "YES">
          </TestPlanReference>

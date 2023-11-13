@@ -28,9 +28,9 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKCoreKitBenchmarks"
-               BuildableName = "NBKCoreKitBenchmarks"
-               BlueprintName = "NBKCoreKitBenchmarks"
+               BlueprintIdentifier = "NBKCoreKit"
+               BuildableName = "NBKCoreKit"
+               BlueprintName = "NBKCoreKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKDoubleWidthKitBenchmarks"
-               BuildableName = "NBKDoubleWidthKitBenchmarks"
-               BlueprintName = "NBKDoubleWidthKitBenchmarks"
+               BlueprintIdentifier = "NBKDoubleWidthKit"
+               BuildableName = "NBKDoubleWidthKit"
+               BlueprintName = "NBKDoubleWidthKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,11 +57,20 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
+            reference = "container:.swiftpm/Numberick.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:.swiftpm/Numberick-Benchmarks.xctestplan"
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
+            reference = "container:.swiftpm/NBKCoreKit.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:.swiftpm/NBKCoreKit-Benchmarks.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:.swiftpm/NBKDoubleWidthKit.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan">
