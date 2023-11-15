@@ -52,6 +52,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger( Int32(bitPattern: 0x03020100 as UInt32), 10,    "50462976")
         NBKAssertBinaryInteger( Int32(bitPattern: 0x7fffffff as UInt32), 10,  "2147483647")
         NBKAssertBinaryInteger( Int32(bitPattern: 0x80000000 as UInt32), 10, "-2147483648")
+        NBKAssertBinaryInteger( Int32(bitPattern: 0x81807f7e as UInt32), 10, "-2122285186")
         NBKAssertBinaryInteger( Int32(bitPattern: 0xfffefdfc as UInt32), 10,      "-66052")
         NBKAssertBinaryInteger( Int32(bitPattern: 0xffffffff as UInt32), 10,          "-1")
     }
@@ -61,6 +62,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger( Int32(bitPattern: 0x03020100 as UInt32), 16,     "3020100")
         NBKAssertBinaryInteger( Int32(bitPattern: 0x7fffffff as UInt32), 16,    "7fffffff")
         NBKAssertBinaryInteger( Int32(bitPattern: 0x80000000 as UInt32), 16,   "-80000000")
+        NBKAssertBinaryInteger( Int32(bitPattern: 0x81807f7e as UInt32), 16,   "-7e7f8082")
         NBKAssertBinaryInteger( Int32(bitPattern: 0xfffefdfc as UInt32), 16,      "-10204")
         NBKAssertBinaryInteger( Int32(bitPattern: 0xffffffff as UInt32), 16,          "-1")
     }
@@ -74,6 +76,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x03020100 as UInt32), 10,    "50462976")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x7fffffff as UInt32), 10,  "2147483647")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x80000000 as UInt32), 10,  "2147483648")
+        NBKAssertBinaryInteger(UInt32(bitPattern: 0x81807f7e as UInt32), 10,  "2172682110")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0xfffefdfc as UInt32), 10,  "4294901244")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0xffffffff as UInt32), 10,  "4294967295")
     }
@@ -83,6 +86,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x03020100 as UInt32), 16,     "3020100")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x7fffffff as UInt32), 16,    "7fffffff")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0x80000000 as UInt32), 16,    "80000000")
+        NBKAssertBinaryInteger(UInt32(bitPattern: 0x81807f7e as UInt32), 16,    "81807f7e")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0xfffefdfc as UInt32), 16,    "fffefdfc")
         NBKAssertBinaryInteger(UInt32(bitPattern: 0xffffffff as UInt32), 16,    "ffffffff")
     }
@@ -96,6 +100,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger( Int64(bitPattern: 0x0706050403020100 as UInt64), 10,   "506097522914230528")
         NBKAssertBinaryInteger( Int64(bitPattern: 0x7fffffffffffffff as UInt64), 10,  "9223372036854775807")
         NBKAssertBinaryInteger( Int64(bitPattern: 0x8000000000000000 as UInt64), 10, "-9223372036854775808")
+        NBKAssertBinaryInteger( Int64(bitPattern: 0x838281807f7e7d7c as UInt64), 10, "-8970465118873813636")
         NBKAssertBinaryInteger( Int64(bitPattern: 0xfffefdfcfbfaf9f8 as UInt64), 10,     "-283686952306184")
         NBKAssertBinaryInteger( Int64(bitPattern: 0xffffffffffffffff as UInt64), 10,                   "-1")
     }
@@ -105,6 +110,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger( Int64(bitPattern: 0x0706050403020100 as UInt64), 16,      "706050403020100")
         NBKAssertBinaryInteger( Int64(bitPattern: 0x7fffffffffffffff as UInt64), 16,     "7fffffffffffffff")
         NBKAssertBinaryInteger( Int64(bitPattern: 0x8000000000000000 as UInt64), 16,    "-8000000000000000")
+        NBKAssertBinaryInteger( Int64(bitPattern: 0x838281807f7e7d7c as UInt64), 16,    "-7c7d7e7f80818284")
         NBKAssertBinaryInteger( Int64(bitPattern: 0xfffefdfcfbfaf9f8 as UInt64), 16,       "-1020304050608")
         NBKAssertBinaryInteger( Int64(bitPattern: 0xffffffffffffffff as UInt64), 16,                   "-1")
     }
@@ -118,6 +124,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x0706050403020100 as UInt64), 10,   "506097522914230528")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x7fffffffffffffff as UInt64), 10,  "9223372036854775807")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x8000000000000000 as UInt64), 10,  "9223372036854775808")
+        NBKAssertBinaryInteger(UInt64(bitPattern: 0x838281807f7e7d7c as UInt64), 10,  "9476278954835737980")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0xfffefdfcfbfaf9f8 as UInt64), 10, "18446460386757245432")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0xffffffffffffffff as UInt64), 10, "18446744073709551615")
     }
@@ -127,6 +134,7 @@ final class NBKIntegerDescriptionTestsOnEncodingCoreIntegers: XCTestCase {
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x0706050403020100 as UInt64), 16,      "706050403020100")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x7fffffffffffffff as UInt64), 16,     "7fffffffffffffff")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0x8000000000000000 as UInt64), 16,     "8000000000000000")
+        NBKAssertBinaryInteger(UInt64(bitPattern: 0x838281807f7e7d7c as UInt64), 16,     "838281807f7e7d7c")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0xfffefdfcfbfaf9f8 as UInt64), 16,     "fffefdfcfbfaf9f8")
         NBKAssertBinaryInteger(UInt64(bitPattern: 0xffffffffffffffff as UInt64), 16,     "ffffffffffffffff")
     }
