@@ -128,12 +128,12 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 This sequence is instrumental for testing big integers, and it's fun.
 
 ```swift
-/// NBKFibonacciXL(0) // (index: 0, element: 0, next: 1)
-/// NBKFibonacciXL(1) // (index: 1, element: 1, next: 1)
-/// NBKFibonacciXL(2) // (index: 2, element: 1, next: 2)
-/// NBKFibonacciXL(3) // (index: 3, element: 2, next: 3)
-/// NBKFibonacciXL(4) // (index: 4, element: 3, next: 5)
-/// NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
+NBKFibonacciXL(0) // (index: 0, element: 0, next: 1)
+NBKFibonacciXL(1) // (index: 1, element: 1, next: 1)
+NBKFibonacciXL(2) // (index: 2, element: 1, next: 2)
+NBKFibonacciXL(3) // (index: 3, element: 2, next: 3)
+NBKFibonacciXL(4) // (index: 4, element: 3, next: 5)
+NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 ```
 
 It uses a fast double-and-add algorithm to calculate silly numbers quickly.
@@ -146,7 +146,7 @@ Or you can step through it manually if that's your preferred cup of tea.
 ```swift
 public mutating func increment() { ... } // index + 1
 public mutating func decrement() { ... } // index - 1
-public mutating func double()    { ... } // index * 2
+public mutating func    double() { ... } // index * 2
 ```
 
 <a name="installation"/>

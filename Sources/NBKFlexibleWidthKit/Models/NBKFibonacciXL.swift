@@ -26,9 +26,9 @@ import NBKCoreKit
 /// NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 /// ```
 ///
-/// ### Fast index double-and-add algorithm
+/// ### Fast double-and-add algorithm
 ///
-/// Large indices are computed using the double-and-add algorithm:
+/// The fast double-and-add algorithm is powered by this observation:
 ///
 /// ```swift
 /// f(x + 0 + 1) == f(x) * 0000 + f(x + 1) * 00000001
