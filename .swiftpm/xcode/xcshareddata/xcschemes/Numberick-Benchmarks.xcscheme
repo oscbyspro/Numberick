@@ -20,6 +20,34 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NBKCoreKit"
+               BuildableName = "NBKCoreKit"
+               BlueprintName = "NBKCoreKit"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NBKDoubleWidthKit"
+               BuildableName = "NBKDoubleWidthKit"
+               BlueprintName = "NBKDoubleWidthKit"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,14 +57,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
+            reference = "container:.swiftpm/Numberick.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:.swiftpm/Numberick-Benchmarks.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:.swiftpm/NBKCoreKit.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKCoreKit-Benchmarks.xctestplan">
          </TestPlanReference>
          <TestPlanReference
+            reference = "container:.swiftpm/NBKDoubleWidthKit.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:.swiftpm/NBKDoubleWidthKit-Benchmarks.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:.swiftpm/NBKFlexibleWidthKit.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKFlexibleWidthKit-Benchmarks.xctestplan">
