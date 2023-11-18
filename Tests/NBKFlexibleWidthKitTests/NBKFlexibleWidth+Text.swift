@@ -16,6 +16,123 @@ private typealias X = [UInt64]
 private typealias Y = [UInt32]
 
 //*============================================================================*
+// MARK: * NBK x Flexible Width x Text x UIntXL
+//*============================================================================*
+//=----------------------------------------------------------------------------=
+// NOTE: See the for-each-radix section for more encoding tests.
+//=----------------------------------------------------------------------------=
+
+final class NBKFlexibleWidthTestsOnTextAsUIntXL: XCTestCase {
+    
+    typealias T = UIntXL
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    /// - Note: Its description is not as lenient as its string literal.
+    func testFromDescription() {
+        NBKAssertFromDescription(T?( 10),    "10")
+        NBKAssertFromDescription(T?( 10),   "+10")
+        NBKAssertFromDescription(T?(nil),   "-10")
+        NBKAssertFromDescription(T?(nil),   " 10")
+        NBKAssertFromDescription(T?(nil),  "0x10")
+        NBKAssertFromDescription(T?(nil), "+0x10")
+        NBKAssertFromDescription(T?(nil), "-0x10")
+        NBKAssertFromDescription(T?(nil), " 0x10")
+    }
+    
+    func testInstanceDescriptionUsesRadix10() {
+        XCTAssertEqual("10", T(10).description)
+        XCTAssertEqual("10", String(describing: T(10)))
+    }
+    
+    func testMetaTypeDescriptionIsSimple() {
+        XCTAssertEqual("UIntXL", T.description)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests x Decoding
+    //=------------------------------------------------------------------------=
+    
+    func testDecodingUnalignedStringsIsOK() {
+        NBKAssertDecodingText(T(1), 10, "1")
+        NBKAssertDecodingText(T(1), 16, "1")
+    }
+    
+    func testDecodingRadixLiteralAsNumber() {
+        NBKAssertDecodingText(T(33), 36,  "0x")
+        NBKAssertDecodingText(T(24), 36,  "0o")
+        NBKAssertDecodingText(T(11), 36,  "0b")
+        
+        NBKAssertDecodingText(T(33), 36, "+0x")
+        NBKAssertDecodingText(T(24), 36, "+0o")
+        NBKAssertDecodingText(T(11), 36, "+0b")
+    }
+    
+    func testDecodingRadixLiteralAsRadixReturnsNil() {
+        NBKAssertDecodingText(T?.none, 10,  "0x10")
+        NBKAssertDecodingText(T?.none, 10,  "0o10")
+        NBKAssertDecodingText(T?.none, 10,  "0b10")
+        
+        NBKAssertDecodingText(T?.none, 10, "+0x10")
+        NBKAssertDecodingText(T?.none, 10, "+0o10")
+        NBKAssertDecodingText(T?.none, 10, "+0b10")
+    }
+    
+    func testDecodingStringsWithAndWithoutSign() {
+        NBKAssertDecodingText(T(1234567890), 10,  "1234567890")
+        NBKAssertDecodingText(T(1234567890), 10, "+1234567890")
+    }
+    
+    func testDecodingStrategyIsCaseInsensitive() {
+        NBKAssertDecodingText(T(0xabcdef), 16, "abcdef")
+        NBKAssertDecodingText(T(0xABCDEF), 16, "ABCDEF")
+        NBKAssertDecodingText(T(0xaBcDeF), 16, "aBcDeF")
+        NBKAssertDecodingText(T(0xAbCdEf), 16, "AbCdEf")
+    }
+    
+    func testDecodingPrefixingZerosHasNoEffect() {
+        let zero = String(repeating: "0", count: 256) + "0"
+        let one  = String(repeating: "0", count: 256) + "1"
+        
+        for radix in 02 ... 36 {
+            NBKAssertDecodingText(T(0), radix, zero)
+            NBKAssertDecodingText(T(1), radix, one )
+        }
+    }
+    
+    func testDecodingInvalidCharactersReturnsNil() {
+        NBKAssertDecodingText(T?.none, 16, "/")
+        NBKAssertDecodingText(T?.none, 16, "G")
+
+        NBKAssertDecodingText(T?.none, 10, "/")
+        NBKAssertDecodingText(T?.none, 10, ":")
+
+        NBKAssertDecodingText(T?.none, 10, String(repeating: "1", count: 19) + "/")
+        NBKAssertDecodingText(T?.none, 10, String(repeating: "1", count: 19) + ":")
+    }
+    
+    func testDecodingStringsWithoutDigitsReturnsNil() {
+        NBKAssertDecodingText(T?.none, 10,  "")
+        NBKAssertDecodingText(T?.none, 10, "+")
+        NBKAssertDecodingText(T?.none, 10, "-")
+        NBKAssertDecodingText(T?.none, 10, "~")
+        
+        NBKAssertDecodingText(T?.none, 16,  "")
+        NBKAssertDecodingText(T?.none, 16, "+")
+        NBKAssertDecodingText(T?.none, 16, "-")
+        NBKAssertDecodingText(T?.none, 16, "~")
+    }
+    
+    func testDecodingValuesOutsideOfRepresentableRangeReturnsNil() {
+        for radix in 02 ... 36 {
+            NBKAssertDecodingText(T?.none, radix, "-1")
+        }
+    }
+}
+
+//*============================================================================*
 // MARK: * NBK x Flexible Width x Text x For Each Radix x UIntXL
 //*============================================================================*
 
@@ -63,6 +180,26 @@ final class NBKFlexibleWidthTestsOnTextForEachRadixAsUIntXL: XCTestCase {
         NBKAssertDecodingText(integer, radix,        encoded, file: file,  line: line)
         NBKAssertEncodingText(integer, radix, true,  encoded.uppercased(), file: file, line: line)
         NBKAssertEncodingText(integer, radix, false, encoded.lowercased(), file: file, line: line)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Tests
+    //=------------------------------------------------------------------------=
+    
+    func testImportantValues() {
+        for radix in 2 ... 36 {
+            self.check(T(0), radix: radix, ascii:  "0")
+            self.check(T(1), radix: radix, ascii:  "1")
+        }
+        
+        for radix in 02 ... 36 {
+            NBKAssertDecodingText(T?(  0), radix,  "0")
+            NBKAssertDecodingText(T?(  0), radix, "+0")
+            NBKAssertDecodingText(T?(  0), radix, "-0")
+            NBKAssertDecodingText(T?(  1), radix,  "1")
+            NBKAssertDecodingText(T?(  1), radix, "+1")
+            NBKAssertDecodingText(T?(nil), radix, "-1")
+        }
     }
     
     //=------------------------------------------------------------------------=
