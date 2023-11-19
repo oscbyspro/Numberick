@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Subtraction x Sub Sequence
@@ -25,55 +25,55 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
     //=------------------------------------------------------------------------=
     
     func testSubtractingLargeFromLarge() {
-        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, false, [ 0,  0,  0,  0] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, true,  [~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as W, [ 1,  0,  0,  0] as W, false, [~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as W, [ 1,  0,  0,  0] as W, true,  [~1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, false, [ 0,  0,  0,  0] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, true,  [~0, ~0, ~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as X, [ 1,  0,  0,  0] as X, false, [~0, ~0, ~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  0,  0,  0] as X, [ 1,  0,  0,  0] as X, true,  [~1, ~0, ~0, ~0] as X, true)
         
-        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, false, [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, true,  [~1, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as W, [ 1,  0,  0,  0] as W, false, [~1, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as W, [ 1,  0,  0,  0] as W, true,  [~2, ~0, ~0, ~0] as W)
+        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as X, [ 0,  0,  0,  0] as X, false, [~0, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as X, [ 0,  0,  0,  0] as X, true,  [~1, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as X, [ 1,  0,  0,  0] as X, false, [~1, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~0, ~0, ~0] as X, [ 1,  0,  0,  0] as X, true,  [~2, ~0, ~0, ~0] as X)
         
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 4,  0,  0,  0] as W, false, [~3,  0,  2,  3] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  4,  0,  0] as W, false, [ 0, ~2,  1,  3] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  0,  4,  0] as W, false, [ 0,  1, ~1,  2] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  0,  0,  4] as W, false, [ 0,  1,  2, ~0] as W, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 4,  0,  0,  0] as X, false, [~3,  0,  2,  3] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  4,  0,  0] as X, false, [ 0, ~2,  1,  3] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  0,  4,  0] as X, false, [ 0,  1, ~1,  2] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  0,  0,  4] as X, false, [ 0,  1,  2, ~0] as X, true)
         
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 4,  0,  0,  0] as W, true,  [~4,  0,  2,  3] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  4,  0,  0] as W, true,  [~0, ~3,  1,  3] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  0,  4,  0] as W, true,  [~0,  0, ~1,  2] as W)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [ 0,  0,  0,  4] as W, true,  [~0,  0,  2, ~0] as W, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 4,  0,  0,  0] as X, true,  [~4,  0,  2,  3] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  4,  0,  0] as X, true,  [~0, ~3,  1,  3] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  0,  4,  0] as X, true,  [~0,  0, ~1,  2] as X)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [ 0,  0,  0,  4] as X, true,  [~0,  0,  2, ~0] as X, true)
         
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~4, ~0, ~0, ~0] as W, false, [ 5,  1,  2,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~4, ~0, ~0] as W, false, [ 1,  5,  2,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~0, ~4, ~0] as W, false, [ 1,  1,  6,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~0, ~0, ~4] as W, false, [ 1,  1,  2,  7] as W, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~4, ~0, ~0, ~0] as X, false, [ 5,  1,  2,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~4, ~0, ~0] as X, false, [ 1,  5,  2,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~0, ~4, ~0] as X, false, [ 1,  1,  6,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~0, ~0, ~4] as X, false, [ 1,  1,  2,  7] as X, true)
         
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~4, ~0, ~0, ~0] as W, true,  [ 4,  1,  2,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~4, ~0, ~0] as W, true,  [ 0,  5,  2,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~0, ~4, ~0] as W, true,  [ 0,  1,  6,  3] as W, true)
-        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as W, [~0, ~0, ~0, ~4] as W, true,  [ 0,  1,  2,  7] as W, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~4, ~0, ~0, ~0] as X, true,  [ 4,  1,  2,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~4, ~0, ~0] as X, true,  [ 0,  5,  2,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~0, ~4, ~0] as X, true,  [ 0,  1,  6,  3] as X, true)
+        NBKAssertSubSequenceSubtraction([ 0,  1,  2,  3] as X, [~0, ~0, ~0, ~4] as X, true,  [ 0,  1,  2,  7] as X, true)
         
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 4,  0,  0,  0] as W, false, [~4, ~1, ~2, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  4,  0,  0] as W, false, [~0, ~5, ~2, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  0,  4,  0] as W, false, [~0, ~1, ~6, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  0,  0,  4] as W, false, [~0, ~1, ~2, ~7] as W)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 4,  0,  0,  0] as X, false, [~4, ~1, ~2, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  4,  0,  0] as X, false, [~0, ~5, ~2, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  0,  4,  0] as X, false, [~0, ~1, ~6, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  0,  0,  4] as X, false, [~0, ~1, ~2, ~7] as X)
         
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 4,  0,  0,  0] as W, true,  [~5, ~1, ~2, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  4,  0,  0] as W, true,  [~1, ~5, ~2, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  0,  4,  0] as W, true,  [~1, ~1, ~6, ~3] as W)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [ 0,  0,  0,  4] as W, true,  [~1, ~1, ~2, ~7] as W)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 4,  0,  0,  0] as X, true,  [~5, ~1, ~2, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  4,  0,  0] as X, true,  [~1, ~5, ~2, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  0,  4,  0] as X, true,  [~1, ~1, ~6, ~3] as X)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [ 0,  0,  0,  4] as X, true,  [~1, ~1, ~2, ~7] as X)
         
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~4, ~0, ~0, ~0] as W, false, [ 4, ~0, ~2, ~3] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~4, ~0, ~0] as W, false, [ 0,  3, ~1, ~3] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~0, ~4, ~0] as W, false, [ 0, ~0,  1, ~2] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~0, ~0, ~4] as W, false, [ 0, ~0, ~2,  0] as W)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~4, ~0, ~0, ~0] as X, false, [ 4, ~0, ~2, ~3] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~4, ~0, ~0] as X, false, [ 0,  3, ~1, ~3] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~0, ~4, ~0] as X, false, [ 0, ~0,  1, ~2] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~0, ~0, ~4] as X, false, [ 0, ~0, ~2,  0] as X)
         
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~4, ~0, ~0, ~0] as W, true,  [ 3, ~0, ~2, ~3] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~4, ~0, ~0] as W, true,  [~0,  2, ~1, ~3] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~0, ~4, ~0] as W, true,  [~0, ~1,  1, ~2] as W, true)
-        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as W, [~0, ~0, ~0, ~4] as W, true,  [~0, ~1, ~2,  0] as W)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~4, ~0, ~0, ~0] as X, true,  [ 3, ~0, ~2, ~3] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~4, ~0, ~0] as X, true,  [~0,  2, ~1, ~3] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~0, ~4, ~0] as X, true,  [~0, ~1,  1, ~2] as X, true)
+        NBKAssertSubSequenceSubtraction([~0, ~1, ~2, ~3] as X, [~0, ~0, ~0, ~4] as X, true,  [~0, ~1, ~2,  0] as X)
     }
     
     //=------------------------------------------------------------------------=
@@ -81,29 +81,29 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
     //=------------------------------------------------------------------------=
     
     func testSubtractingSmallFromLarge() {
-        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as W, UInt.min, false, [~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as W, UInt.min, false, [ 0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as W, UInt.min, false, [ 0,  0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as W, UInt.min, false, [ 0,  0,  0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as W, UInt.min, false, [ 0,  0,  0,  0] as W)
+        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as X, UInt.min, false, [~0, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as X, UInt.min, false, [ 0, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as X, UInt.min, false, [ 0,  0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as X, UInt.min, false, [ 0,  0,  0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as X, UInt.min, false, [ 0,  0,  0,  0] as X)
         
-        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as W, UInt.min, true,  [~1, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as W, UInt.min, true,  [~0, ~1, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as W, UInt.min, true,  [~0, ~0, ~1, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as W, UInt.min, true,  [~0, ~0, ~0, ~1] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as W, UInt.min, true,  [~0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as X, UInt.min, true,  [~1, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as X, UInt.min, true,  [~0, ~1, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as X, UInt.min, true,  [~0, ~0, ~1, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as X, UInt.min, true,  [~0, ~0, ~0, ~1] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as X, UInt.min, true,  [~0, ~0, ~0, ~0] as X, true)
         
-        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as W, UInt.max, false, [ 0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as W, UInt.max, false, [ 1, ~1, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as W, UInt.max, false, [ 1, ~0, ~1, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as W, UInt.max, false, [ 1, ~0, ~0, ~1] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as W, UInt.max, false, [ 1, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as X, UInt.max, false, [ 0, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as X, UInt.max, false, [ 1, ~1, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as X, UInt.max, false, [ 1, ~0, ~1, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as X, UInt.max, false, [ 1, ~0, ~0, ~1] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as X, UInt.max, false, [ 1, ~0, ~0, ~0] as X, true)
         
-        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as W, UInt.max, true,  [~0, ~1, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as W, UInt.max, true,  [ 0, ~1, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as W, UInt.max, true,  [ 0, ~0, ~1, ~0] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as W, UInt.max, true,  [ 0, ~0, ~0, ~1] as W)
-        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as W, UInt.max, true,  [ 0, ~0, ~0, ~0] as W, true)
+        NBKAssertSubSequenceSubtractionByDigit([~0, ~0, ~0, ~0] as X, UInt.max, true,  [~0, ~1, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0, ~0, ~0, ~0] as X, UInt.max, true,  [ 0, ~1, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0, ~0, ~0] as X, UInt.max, true,  [ 0, ~0, ~1, ~0] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0, ~0] as X, UInt.max, true,  [ 0, ~0, ~0, ~1] as X)
+        NBKAssertSubSequenceSubtractionByDigit([ 0,  0,  0,  0] as X, UInt.max, true,  [ 0, ~0, ~0, ~0] as X, true)
     }
     
     //=------------------------------------------------------------------------=
@@ -111,50 +111,50 @@ final class NBKStrictUnsignedIntegerTestsOnSubtractionAsSubSequence: XCTestCase 
     //=------------------------------------------------------------------------=
     
     func testSubtractingProduct() {
-        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(0), [ 0    ] as W)
-        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as W, [ ] as W, UInt( ), UInt(1), [~0    ] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(0), [~0    ] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0    ] as W, [ ] as W, UInt( ), UInt(1), [~1    ] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as X, [ ] as X, UInt( ), UInt(0), [ 0    ] as X)
+        NBKAssertSubSequenceSubtractionByProduct([ 0    ] as X, [ ] as X, UInt( ), UInt(1), [~0    ] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0    ] as X, [ ] as X, UInt( ), UInt(0), [~0    ] as X)
+        NBKAssertSubSequenceSubtractionByProduct([~0    ] as X, [ ] as X, UInt( ), UInt(1), [~1    ] as X)
         
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(0), [ 0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt( ), UInt(1), [~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(0), [~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt( ), UInt(1), [~1, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [0] as X, UInt( ), UInt(0), [ 0,  0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [0] as X, UInt( ), UInt(1), [~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [0] as X, UInt( ), UInt(0), [~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [0] as X, UInt( ), UInt(1), [~1, ~0] as X)
         
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(0), [ 0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(0), UInt(1), [~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(0), [~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(0), UInt(1), [~1, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [2] as X, UInt(0), UInt(0), [ 0,  0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [2] as X, UInt(0), UInt(1), [~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [2] as X, UInt(0), UInt(0), [~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [2] as X, UInt(0), UInt(1), [~1, ~0] as X)
         
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(0), [ 0,  0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [0] as W, UInt(3), UInt(1), [~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(0), [~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [0] as W, UInt(3), UInt(1), [~1, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [0] as X, UInt(3), UInt(0), [ 0,  0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [0] as X, UInt(3), UInt(1), [~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [0] as X, UInt(3), UInt(0), [~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [0] as X, UInt(3), UInt(1), [~1, ~0] as X)
         
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(0), [~5, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as W, [2] as W, UInt(3), UInt(1), [~6, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(0), [~6, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as W, [2] as W, UInt(3), UInt(1), [~7, ~0] as W)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [2] as X, UInt(3), UInt(0), [~5, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([ 0,  0] as X, [2] as X, UInt(3), UInt(1), [~6, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [2] as X, UInt(3), UInt(0), [~6, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct([~0, ~0] as X, [2] as X, UInt(3), UInt(1), [~7, ~0] as X)
     }
     
     func testSubtractingProductReportingOverflow() {
-        var lhs: W, rhs: W
+        var lhs: X, rhs: X
         //=--------------------------------------=
-        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [ 1,  2,  3,  4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~0, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W, true)
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as X;  rhs = [ 1,  2,  3,  4] as X
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [~1, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~0, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as X, true)
         //=--------------------------------------=
-        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as W;  rhs = [~1, ~2, ~3, ~4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as W, true)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 5,  3,  6,  8, ~1, ~0, ~0, ~0] as W, true)
+        lhs = [ 0,  0,  0,  0,  0,  0,  0,  0] as X;  rhs = [~1, ~2, ~3, ~4] as X
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 4,  4,  6,  8, ~1, ~0, ~0, ~0] as X, true)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 5,  3,  6,  8, ~1, ~0, ~0, ~0] as X, true)
         //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [ 1,  2,  3,  4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt( ),  [~2, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as W)
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as X;  rhs = [ 1,  2,  3,  4] as X
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt( ),  [~2, ~4, ~6, ~8, ~0, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [~1, ~5, ~6, ~8, ~0, ~0, ~0, ~0] as X)
         //=--------------------------------------=
-        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as W;  rhs = [~1, ~2, ~3, ~4] as W
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 3,  4,  6,  8, ~1, ~0, ~0, ~0] as W)
-        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as W)
+        lhs = [~0, ~0, ~0, ~0, ~0, ~0, ~0, ~0] as X;  rhs = [~1, ~2, ~3, ~4] as X
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt(  ), [ 3,  4,  6,  8, ~1, ~0, ~0, ~0] as X)
+        NBKAssertSubSequenceSubtractionByProduct(lhs, rhs, UInt(2), UInt.max, [ 4,  3,  6,  8, ~1, ~0, ~0, ~0] as X)
     }
 }
 

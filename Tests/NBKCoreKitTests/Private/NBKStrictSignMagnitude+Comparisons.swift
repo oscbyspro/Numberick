@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Sign Magnitude x Comparisons x Sub Sequence
@@ -25,19 +25,19 @@ final class NBKStrictSignMagnitudeTestsOnComparisonsAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testCompareToZero() {
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [          ] as W),  Int(0))
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 0, 0] as W),  Int(0))
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [1, 0, 0, 0] as W),  Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 1, 0, 0] as W),  Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 1, 0] as W),  Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 0, 1] as W),  Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [          ] as X),  Int(0))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 0, 0] as X),  Int(0))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [1, 0, 0, 0] as X),  Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 1, 0, 0] as X),  Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 1, 0] as X),  Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.plus,  [0, 0, 0, 1] as X),  Int(1))
         
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [          ] as W),  Int(0))
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 0, 0] as W),  Int(0))
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [1, 0, 0, 0] as W), -Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 1, 0, 0] as W), -Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 1, 0] as W), -Int(1))
-        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 0, 1] as W), -Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [          ] as X),  Int(0))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 0, 0] as X),  Int(0))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [1, 0, 0, 0] as X), -Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 1, 0, 0] as X), -Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 1, 0] as X), -Int(1))
+        NBKAssertSubSequenceCompareToZero(SM(.minus, [0, 0, 0, 1] as X), -Int(1))
     }
 }
 

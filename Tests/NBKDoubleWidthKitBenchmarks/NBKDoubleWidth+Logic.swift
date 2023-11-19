@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Logic x Int256
@@ -29,8 +29,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAnd() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs & rhs)
@@ -40,8 +40,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsInt256: XCTestCase {
     }
     
     func testOr() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs | rhs)
@@ -51,8 +51,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsInt256: XCTestCase {
     }
     
     func testXor() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs ^ rhs)
@@ -62,7 +62,7 @@ final class NBKDoubleWidthBenchmarksOnLogicAsInt256: XCTestCase {
     }
     
     func testNot() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(~abc)
@@ -84,8 +84,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAnd() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs & rhs)
@@ -95,8 +95,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsUInt256: XCTestCase {
     }
     
     func testOr() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs | rhs)
@@ -106,8 +106,8 @@ final class NBKDoubleWidthBenchmarksOnLogicAsUInt256: XCTestCase {
     }
     
     func testXor() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs ^ rhs)
@@ -117,7 +117,7 @@ final class NBKDoubleWidthBenchmarksOnLogicAsUInt256: XCTestCase {
     }
     
     func testNot() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(~abc)

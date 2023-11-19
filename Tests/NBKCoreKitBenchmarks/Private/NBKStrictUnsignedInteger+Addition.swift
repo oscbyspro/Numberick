@@ -12,9 +12,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Addition x Sub Sequence
@@ -29,7 +29,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     //=------------------------------------------------------------------------=
     
     func testIncrementByBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -40,7 +40,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testIncrementByDigit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -51,7 +51,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testIncrementByDigitPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -62,8 +62,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testIncrementByElementsPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -74,8 +74,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testIncrementByElementsTimesElementPlusElement() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -90,7 +90,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     //=------------------------------------------------------------------------=
     
     func testSubSequenceIncrementByBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -101,7 +101,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testSubSequenceIncrementByDigit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -112,7 +112,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testSubSequenceIncrementByDigitPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -123,8 +123,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testSubSequenceIncrementByElementsPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -135,8 +135,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnAdditionAsSubSequence: XCTestCas
     }
     
     func testSubSequenceIncrementByElementsTimesElementPlusElement() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)

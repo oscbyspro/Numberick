@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Bits x Int256
@@ -55,8 +55,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testBitWidth() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitWidth)
@@ -68,8 +68,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testNonzeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.nonzeroBitCount)
@@ -81,8 +81,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testLeadingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leadingZeroBitCount)
@@ -94,8 +94,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testTrailingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.trailingZeroBitCount)
@@ -107,8 +107,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testMostSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.mostSignificantBit)
@@ -120,8 +120,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsInt256: XCTestCase {
     }
     
     func testLeastSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leastSignificantBit)
@@ -172,8 +172,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testBitWidth() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitWidth)
@@ -185,8 +185,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testNonzeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.nonzeroBitCount)
@@ -198,8 +198,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testLeadingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leadingZeroBitCount)
@@ -211,8 +211,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testTrailingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.trailingZeroBitCount)
@@ -224,8 +224,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testMostSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.mostSignificantBit)
@@ -237,8 +237,8 @@ final class NBKDoubleWidthBenchmarksOnBitsAsUInt256: XCTestCase {
     }
     
     func testLeastSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leastSignificantBit)

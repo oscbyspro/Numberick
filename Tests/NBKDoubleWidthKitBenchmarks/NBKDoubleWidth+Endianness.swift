@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Endianness x Int256
@@ -29,7 +29,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBigEndian() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bigEndian)
@@ -38,7 +38,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsInt256: XCTestCase {
     }
     
     func testLittleEndian() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.littleEndian)
@@ -47,7 +47,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsInt256: XCTestCase {
     }
     
     func testByteSwapped() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.byteSwapped)
@@ -69,7 +69,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBigEndian() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bigEndian)
@@ -78,7 +78,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsUInt256: XCTestCase {
     }
     
     func testLittleEndian() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.littleEndian)
@@ -87,7 +87,7 @@ final class NBKDoubleWidthBenchmarksOnEndiannessAsUInt256: XCTestCase {
     }
     
     func testByteSwapped() {
-        var abc = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var abc = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.byteSwapped)

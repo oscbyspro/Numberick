@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Guarantee
@@ -137,7 +137,7 @@ file: StaticString = #file, line: UInt = #line) where Predicate.Value: Equatable
     NBKAssertSwitch(value, !success, I.self, file: file, line: line)
     NBKAssertSwitch(value, !success, N.self, file: file, line: line)
     //=------------------------------------------=
-    func wrapping<X>(@_NBKGuarantee<X> _ wrapped: X.Value, precondition: _NBKGuarantee<X>.Type) where X.Value == Predicate.Value {
+    func wrapping<P>(@_NBKGuarantee<P> _ wrapped: P.Value, precondition: _NBKGuarantee<P>.Type) where P.Value == Predicate.Value {
         XCTAssertEqual(wrapped, value, file:  file,  line: line)
         XCTAssertEqual($wrapped.value, value, file:  file, line: line)
         XCTAssertEqual($wrapped.wrappedValue, value, file: file, line: line)

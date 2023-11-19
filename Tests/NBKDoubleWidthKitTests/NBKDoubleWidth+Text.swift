@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Text x Int256
@@ -292,12 +292,12 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsInt256: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static let min = T(x64: X(0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x8000000000000000))
-    static let max = T(x64: X(0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff, 0x7fffffffffffffff))
+    static let min = T(x64: X64(0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x8000000000000000))
+    static let max = T(x64: X64(0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff, 0x7fffffffffffffff))
     
-    static let bot = T(x64: X(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
-    static let mid = T(x64: X(0x7776757473727170, 0x7f7e7d7c7b7a7978, 0x8786858483828180, 0x8f8e8d8c8b8a8988))
-    static let top = T(x64: X(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
+    static let bot = T(x64: X64(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
+    static let mid = T(x64: X64(0x7776757473727170, 0x7f7e7d7c7b7a7978, 0x8786858483828180, 0x8f8e8d8c8b8a8988))
+    static let top = T(x64: X64(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
     
     //=------------------------------------------------------------------------=
     // MARK: Assertions
@@ -1261,12 +1261,12 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    static let min = T(x64: X(0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000))
-    static let max = T(x64: X(0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff))
+    static let min = T(x64: X64(0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000))
+    static let max = T(x64: X64(0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff, 0xffffffffffffffff))
     
-    static let bot = T(x64: X(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
-    static let mid = T(x64: X(0x7776757473727170, 0x7f7e7d7c7b7a7978, 0x8786858483828180, 0x8f8e8d8c8b8a8988))
-    static let top = T(x64: X(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
+    static let bot = T(x64: X64(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
+    static let mid = T(x64: X64(0x7776757473727170, 0x7f7e7d7c7b7a7978, 0x8786858483828180, 0x8f8e8d8c8b8a8988))
+    static let top = T(x64: X64(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
     
     //=------------------------------------------------------------------------=
     // MARK: Assertions

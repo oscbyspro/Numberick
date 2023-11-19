@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Subtraction x Int256
@@ -29,8 +29,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtracting() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs - rhs)
@@ -40,8 +40,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     }
     
     func testSubtractingWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs &- rhs)
@@ -51,8 +51,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     }
     
     func testSubtractingReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
@@ -66,7 +66,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 5_000_000 {
@@ -77,7 +77,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     }
     
     func testSubtractingDigitWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 5_000_000 {
@@ -88,7 +88,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsInt256: XCTestCase {
     }
     
     func testSubtractingDigitReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(Int.max)
 
         for _ in 0 ..< 5_000_000 {
@@ -112,8 +112,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtracting() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs - rhs)
@@ -123,8 +123,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     }
     
     func testSubtractingWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs &- rhs)
@@ -134,8 +134,8 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     }
     
     func testSubtractingReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X( 0,  1,  2,  3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64( 0,  1,  2,  3)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.subtractingReportingOverflow(rhs))
@@ -149,7 +149,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 5_000_000 {
@@ -160,7 +160,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     }
     
     func testSubtractingDigitWrappingAround() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 5_000_000 {
@@ -171,7 +171,7 @@ final class NBKDoubleWidthBenchmarksOnSubtractionAsUInt256: XCTestCase {
     }
     
     func testSubtractingDigitReportingOverflow() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~0, ~1, ~2, ~3)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~0, ~1, ~2, ~3)))
         var rhs = NBK.blackHoleIdentity(UInt.max)
 
         for _ in 0 ..< 5_000_000 {

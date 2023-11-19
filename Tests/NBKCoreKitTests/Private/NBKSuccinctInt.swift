@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Succinct Int
@@ -27,18 +27,18 @@ final class NBKSuccinctIntTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testIsValid() {
-        NBKAssertIsValid([      ] as W, true,  true )
-        NBKAssertIsValid([      ] as W, false, true )
+        NBKAssertIsValid([      ] as X, true,  true )
+        NBKAssertIsValid([      ] as X, false, true )
         
-        NBKAssertIsValid([ 0,  1] as W, true,  true )
-        NBKAssertIsValid([ 0,  1] as W, false, true )
-        NBKAssertIsValid([~0, ~1] as W, true,  true )
-        NBKAssertIsValid([~0, ~1] as W, false, true )
+        NBKAssertIsValid([ 0,  1] as X, true,  true )
+        NBKAssertIsValid([ 0,  1] as X, false, true )
+        NBKAssertIsValid([~0, ~1] as X, true,  true )
+        NBKAssertIsValid([~0, ~1] as X, false, true )
         
-        NBKAssertIsValid([ 1,  0] as W, true,  true )
-        NBKAssertIsValid([ 1,  0] as W, false, false)
-        NBKAssertIsValid([~1, ~0] as W, true,  false)
-        NBKAssertIsValid([~1, ~0] as W, false, true )
+        NBKAssertIsValid([ 1,  0] as X, true,  true )
+        NBKAssertIsValid([ 1,  0] as X, false, false)
+        NBKAssertIsValid([~1, ~0] as X, true,  false)
+        NBKAssertIsValid([~1, ~0] as X, false, true )
     }
     
     //=------------------------------------------------------------------------=
@@ -46,39 +46,39 @@ final class NBKSuccinctIntTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromStrictSignedInteger() {
-        NBKAssertFromStrictSignedIntegerSubSequence([   0,  0,  0,  0] as W, [              ] as W, false)
-        NBKAssertFromStrictSignedIntegerSubSequence([   1,  0,  0,  0] as W, [ 1            ] as W, false)
-        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
-        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
-        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   0,  0,  0,  0] as X, [              ] as X, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  0,  0,  0] as X, [ 1            ] as X, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  0,  0] as X, [ 1,  2        ] as X, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  0] as X, [ 1,  2,  3    ] as X, false)
+        NBKAssertFromStrictSignedIntegerSubSequence([   1,  2,  3,  4] as X, [ 1,  2,  3,  4] as X, false)
         
-        NBKAssertFromStrictSignedIntegerSubSequence([  ~0, ~0, ~0, ~0] as W, [              ] as W, true )
-        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~0, ~0, ~0] as W, [~1            ] as W, true )
-        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~0, ~0] as W, [~1, ~2        ] as W, true )
-        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~0] as W, [~1, ~2, ~3    ] as W, true )
-        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~0, ~0, ~0, ~0] as X, [              ] as X, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~0, ~0, ~0] as X, [~1            ] as X, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~0, ~0] as X, [~1, ~2        ] as X, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~0] as X, [~1, ~2, ~3    ] as X, true )
+        NBKAssertFromStrictSignedIntegerSubSequence([  ~1, ~2, ~3, ~4] as X, [~1, ~2, ~3, ~4] as X, true )
     }
     
     func testFromStrictSignedIntegerThatIsEmptyReturnsNil() {
-        NBKAssertFromStrictSignedIntegerSubSequence(W(), nil, nil)
+        NBKAssertFromStrictSignedIntegerSubSequence(X(), nil, nil)
     }
     
     func testFromStrictUnsignedIntegerSubSequence() {
-        NBKAssertFromStrictUnsignedIntegerSubSequence([ 0,  0,  0,  0] as W, [              ] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  0,  0,  0] as W, [ 1            ] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  0,  0] as W, [ 1,  2        ] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  3,  0] as W, [ 1,  2,  3    ] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([ 0,  0,  0,  0] as X, [              ] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  0,  0,  0] as X, [ 1            ] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  0,  0] as X, [ 1,  2        ] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  3,  0] as X, [ 1,  2,  3    ] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([ 1,  2,  3,  4] as X, [ 1,  2,  3,  4] as X, false)
         
-        NBKAssertFromStrictUnsignedIntegerSubSequence([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~0, ~0, ~0] as W, [~1, ~0, ~0, ~0] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~0, ~0] as W, [~1, ~2, ~0, ~0] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~3, ~0] as W, [~1, ~2, ~3, ~0] as W, false)
-        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~3, ~4] as W, [~1, ~2, ~3, ~4] as W, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([~0, ~0, ~0, ~0] as X, [~0, ~0, ~0, ~0] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~0, ~0, ~0] as X, [~1, ~0, ~0, ~0] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~0, ~0] as X, [~1, ~2, ~0, ~0] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~3, ~0] as X, [~1, ~2, ~3, ~0] as X, false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence([~1, ~2, ~3, ~4] as X, [~1, ~2, ~3, ~4] as X, false)
     }
     
     func testFromStrictUnsignedIntegerSubSequenceThatIsEmptyReturnsZero() {
-        NBKAssertFromStrictUnsignedIntegerSubSequence(W(), W(), false)
+        NBKAssertFromStrictUnsignedIntegerSubSequence(X(), X(), false)
     }
 }
 

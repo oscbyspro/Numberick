@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = [UInt64]
-private typealias Y = [UInt64]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt64]
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Strides x Int256

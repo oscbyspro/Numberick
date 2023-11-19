@@ -12,9 +12,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Signed Integer x Comparisons
@@ -29,8 +29,8 @@ final class NBKStrictSignedIntegerBenchmarksOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testCompare() {
-        var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        var rhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        var rhs = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         var xyz = NBK.blackHoleIdentity((1) as Int)
         
         for _ in 0 ..< 2_500_000 {
@@ -46,8 +46,8 @@ final class NBKStrictSignedIntegerBenchmarksOnComparisons: XCTestCase {
     }
     
     func testCompareAtIndex() {
-        var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        var rhs = NBK.blackHoleIdentity([2, 3, 4, 0] as W)
+        var lhs = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        var rhs = NBK.blackHoleIdentity([2, 3, 4, 0] as X)
         var xyz = NBK.blackHoleIdentity((1) as Int)
         
         for _ in 0 ..< 2_500_000 {

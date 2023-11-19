@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Complements x Int256
@@ -30,8 +30,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToBitPattern() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitPattern)
@@ -43,8 +43,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     }
     
     func testFromBitPattern() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bitPattern: abc))
@@ -60,8 +60,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.magnitude)
@@ -77,8 +77,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testOnesComplement() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.onesComplement())
@@ -94,8 +94,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
@@ -107,8 +107,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     }
     
     func testTwosComplementReportingOverflow() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementReportingOverflow())
@@ -120,8 +120,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     }
     
     func testTwosComplementSubsequence() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementSubsequence(true))
@@ -137,8 +137,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdditiveInverse() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.negated())
@@ -150,8 +150,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsInt256: XCTestCase {
     }
     
     func testAdditiveInverseReportingOverflow() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.negatedReportingOverflow())
@@ -177,8 +177,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToBitPattern() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitPattern)
@@ -190,8 +190,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     }
     
     func testFromBitPattern() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(T(bitPattern: abc))
@@ -207,8 +207,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.magnitude)
@@ -224,8 +224,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testOnesComplement() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.onesComplement())
@@ -241,8 +241,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplement())
@@ -254,8 +254,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     }
     
     func testTwosComplementReportingOverflow() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementReportingOverflow())
@@ -267,8 +267,8 @@ final class NBKDoubleWidthBenchmarksOnComplementsAsUInt256: XCTestCase {
     }
     
     func testTwosComplementSubsequence() {
-        var abc = NBK.blackHoleIdentity( T(x64: X(0, 0, 0, 0)))
-        var xyz = NBK.blackHoleIdentity(~T(x64: X(0, 0, 0, 0)))
+        var abc = NBK.blackHoleIdentity( T(x64: X64(0, 0, 0, 0)))
+        var xyz = NBK.blackHoleIdentity(~T(x64: X64(0, 0, 0, 0)))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.twosComplementSubsequence(true))

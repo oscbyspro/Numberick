@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Endianness x Int256
@@ -36,27 +36,27 @@ final class NBKDoubleWidthTestsOnEndiannessAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBigEndian() {
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)), T(x64: X(01 ,02, 03, 04)).bigEndian)
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(x64: X(b4, b3, b2, b1)).bigEndian)
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)), T(x64: X64(01 ,02, 03, 04)).bigEndian)
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(x64: X64(b4, b3, b2, b1)).bigEndian)
         
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)), T(bigEndian: T(x64: X(01, 02, 03, 04))))
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(bigEndian: T(x64: X(b4, b3, b2, b1))))
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)), T(bigEndian: T(x64: X64(01, 02, 03, 04))))
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(bigEndian: T(x64: X64(b4, b3, b2, b1))))
     }
     
     func testLittleEndian() {
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(x64: X(01 ,02, 03, 04)).littleEndian)
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(x64: X(l1, l2, l3, l4)).littleEndian)
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)), T(x64: X64(01 ,02, 03, 04)).littleEndian)
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(x64: X64(l1, l2, l3, l4)).littleEndian)
         
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(littleEndian: T(x64: X(01, 02, 03, 04))))
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(littleEndian: T(x64: X(l1, l2, l3, l4))))
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)), T(littleEndian: T(x64: X64(01, 02, 03, 04))))
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(littleEndian: T(x64: X64(l1, l2, l3, l4))))
     }
     
     func testByteSwapped() {
-        XCTAssertEqual(T(x64: X(b1, b2, b3, b4)).byteSwapped, T(x64: X(l4, l3, l2, l1)))
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)).byteSwapped, T(x64: X(b4, b3, b2, b1)))
+        XCTAssertEqual(T(x64: X64(b1, b2, b3, b4)).byteSwapped, T(x64: X64(l4, l3, l2, l1)))
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)).byteSwapped, T(x64: X64(b4, b3, b2, b1)))
         
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)).byteSwapped, T(x64: X(l1, l2, l3, l4)))
-        XCTAssertEqual(T(x64: X(l4, l3, l2, l1)).byteSwapped, T(x64: X(b1, b2, b3, b4)))
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)).byteSwapped, T(x64: X64(l1, l2, l3, l4)))
+        XCTAssertEqual(T(x64: X64(l4, l3, l2, l1)).byteSwapped, T(x64: X64(b1, b2, b3, b4)))
     }
 }
 
@@ -82,26 +82,26 @@ final class NBKDoubleWidthTestsOnEndiannessAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBigEndian() {
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)), T(x64: X(01 ,02, 03, 04)).bigEndian)
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(x64: X(b4, b3, b2, b1)).bigEndian)
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)), T(x64: X64(01 ,02, 03, 04)).bigEndian)
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(x64: X64(b4, b3, b2, b1)).bigEndian)
         
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)), T(bigEndian: T(x64: X(01, 02, 03, 04))))
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(bigEndian: T(x64: X(b4, b3, b2, b1))))
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)), T(bigEndian: T(x64: X64(01, 02, 03, 04))))
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(bigEndian: T(x64: X64(b4, b3, b2, b1))))
     }
     
     func testLittleEndian() {
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(x64: X(01 ,02, 03, 04)).littleEndian)
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(x64: X(l1, l2, l3, l4)).littleEndian)
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)), T(x64: X64(01 ,02, 03, 04)).littleEndian)
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(x64: X64(l1, l2, l3, l4)).littleEndian)
         
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)), T(littleEndian: T(x64: X(01, 02, 03, 04))))
-        XCTAssertEqual(T(x64: X(01, 02, 03, 04)), T(littleEndian: T(x64: X(l1, l2, l3, l4))))
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)), T(littleEndian: T(x64: X64(01, 02, 03, 04))))
+        XCTAssertEqual(T(x64: X64(01, 02, 03, 04)), T(littleEndian: T(x64: X64(l1, l2, l3, l4))))
     }
     
     func testByteSwapped() {
-        XCTAssertEqual(T(x64: X(b1, b2, b3, b4)).byteSwapped, T(x64: X(l4, l3, l2, l1)))
-        XCTAssertEqual(T(x64: X(l1, l2, l3, l4)).byteSwapped, T(x64: X(b4, b3, b2, b1)))
+        XCTAssertEqual(T(x64: X64(b1, b2, b3, b4)).byteSwapped, T(x64: X64(l4, l3, l2, l1)))
+        XCTAssertEqual(T(x64: X64(l1, l2, l3, l4)).byteSwapped, T(x64: X64(b4, b3, b2, b1)))
         
-        XCTAssertEqual(T(x64: X(b4, b3, b2, b1)).byteSwapped, T(x64: X(l1, l2, l3, l4)))
-        XCTAssertEqual(T(x64: X(l4, l3, l2, l1)).byteSwapped, T(x64: X(b1, b2, b3, b4)))
+        XCTAssertEqual(T(x64: X64(b4, b3, b2, b1)).byteSwapped, T(x64: X64(l1, l2, l3, l4)))
+        XCTAssertEqual(T(x64: X64(l4, l3, l2, l1)).byteSwapped, T(x64: X64(b1, b2, b3, b4)))
     }
 }

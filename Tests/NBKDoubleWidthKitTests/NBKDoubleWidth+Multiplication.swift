@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Multiplication x Int256
@@ -28,32 +28,32 @@ final class NBKDoubleWidthTestsOnMultiplicationAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingLargeByLarge() {
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(2, 0, 0, 0)), T(x64: X( 2,  4,  6,  8)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 2, 0, 0)), T(x64: X( 0,  2,  4,  6)), T(x64: X( 8,  0,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0,  2,  4)), T(x64: X( 6,  8,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0,  2)), T(x64: X( 4,  6,  8,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(2, 0, 0, 0)), T(x64: X64( 2,  4,  6,  8)), T(x64: X64( 0,  0,  0,  0)))
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0,  2,  4,  6)), T(x64: X64( 8,  0,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0,  2,  4)), T(x64: X64( 6,  8,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0,  2)), T(x64: X64( 4,  6,  8,  0)), true)
         
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)), -T(x64: X(2, 0, 0, 0)), T(x64: X(~1, ~4, ~6, ~8)), T(x64: X(~0, ~0, ~0, ~0)))
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)), -T(x64: X(0, 2, 0, 0)), T(x64: X( 0, ~1, ~4, ~6)), T(x64: X(~8, ~0, ~0, ~0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)), -T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0, ~1, ~4)), T(x64: X(~6, ~8, ~0, ~0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)), -T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0, ~1)), T(x64: X(~4, ~6, ~8, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)), -T(x64: X64(2, 0, 0, 0)), T(x64: X64(~1, ~4, ~6, ~8)), T(x64: X64(~0, ~0, ~0, ~0)))
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)), -T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0, ~1, ~4, ~6)), T(x64: X64(~8, ~0, ~0, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)), -T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0, ~1, ~4)), T(x64: X64(~6, ~8, ~0, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)), -T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0, ~1)), T(x64: X64(~4, ~6, ~8, ~0)), true)
         
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(2, 0, 0, 0)), T(x64: X(~3, ~4, ~6, ~8)), T(x64: X(~0, ~0, ~0, ~0)))
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 2, 0, 0)), T(x64: X( 0, ~3, ~4, ~6)), T(x64: X(~8, ~0, ~0, ~0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0, ~3, ~4)), T(x64: X(~6, ~8, ~0, ~0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0, ~3)), T(x64: X(~4, ~6, ~8, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(2, 0, 0, 0)), T(x64: X64(~3, ~4, ~6, ~8)), T(x64: X64(~0, ~0, ~0, ~0)))
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0, ~3, ~4, ~6)), T(x64: X64(~8, ~0, ~0, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0, ~3, ~4)), T(x64: X64(~6, ~8, ~0, ~0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0, ~3)), T(x64: X64(~4, ~6, ~8, ~0)), true)
         
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)), -T(x64: X(2, 0, 0, 0)), T(x64: X( 4,  4,  6,  8)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)), -T(x64: X(0, 2, 0, 0)), T(x64: X( 0,  4,  4,  6)), T(x64: X( 8,  0,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)), -T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0,  4,  4)), T(x64: X( 6,  8,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)), -T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0,  4)), T(x64: X( 4,  6,  8,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)), -T(x64: X64(2, 0, 0, 0)), T(x64: X64( 4,  4,  6,  8)), T(x64: X64( 0,  0,  0,  0)))
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)), -T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0,  4,  4,  6)), T(x64: X64( 8,  0,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)), -T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0,  4,  4)), T(x64: X64( 6,  8,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)), -T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0,  4)), T(x64: X64( 4,  6,  8,  0)), true)
     }
     
     func testMultiplyingEdgesByEdgesReportingOverflow() {
-        NBKAssertMultiplication(T.max, T.max,  T( 1), T(x64: X(~0, ~0, ~0, ~0 >>  2)), true)
-        NBKAssertMultiplication(T.max, T.min,  T.min, T(x64: X( 0,  0,  0, ~0 << 62)), true)
-        NBKAssertMultiplication(T.min, T.max,  T.min, T(x64: X( 0,  0,  0, ~0 << 62)), true)
-        NBKAssertMultiplication(T.min, T.min,  T(  ), T(x64: X( 0,  0,  0,  1 << 62)), true)
+        NBKAssertMultiplication(T.max, T.max,  T( 1), T(x64: X64(~0, ~0, ~0, ~0 >>  2)), true)
+        NBKAssertMultiplication(T.max, T.min,  T.min, T(x64: X64( 0,  0,  0, ~0 << 62)), true)
+        NBKAssertMultiplication(T.min, T.max,  T.min, T(x64: X64( 0,  0,  0, ~0 << 62)), true)
+        NBKAssertMultiplication(T.min, T.min,  T(  ), T(x64: X64( 0,  0,  0,  1 << 62)), true)
     }
     
     //=------------------------------------------------------------------------=
@@ -61,25 +61,25 @@ final class NBKDoubleWidthTestsOnMultiplicationAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingLargeBySmall() {
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)),  Int(0),  T(x64: X(0, 0, 0, 0)))
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)), -Int(0), -T(x64: X(0, 0, 0, 0)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)),  Int(0), -T(x64: X(0, 0, 0, 0)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)), -Int(0),  T(x64: X(0, 0, 0, 0)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)),  Int(0),  T(x64: X64(0, 0, 0, 0)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)), -Int(0), -T(x64: X64(0, 0, 0, 0)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)),  Int(0), -T(x64: X64(0, 0, 0, 0)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)), -Int(0),  T(x64: X64(0, 0, 0, 0)))
         
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)),  Int(1),  T(x64: X(1, 2, 3, 4)))
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)), -Int(1), -T(x64: X(1, 2, 3, 4)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)),  Int(1), -T(x64: X(1, 2, 3, 4)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)), -Int(1),  T(x64: X(1, 2, 3, 4)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)),  Int(1),  T(x64: X64(1, 2, 3, 4)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)), -Int(1), -T(x64: X64(1, 2, 3, 4)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)),  Int(1), -T(x64: X64(1, 2, 3, 4)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)), -Int(1),  T(x64: X64(1, 2, 3, 4)))
         
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)),  Int(2),  T(x64: X(2, 4, 6, 8)))
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)), -Int(2), -T(x64: X(2, 4, 6, 8)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)),  Int(2), -T(x64: X(2, 4, 6, 8)))
-        NBKAssertMultiplicationByDigit(-T(x64: X( 1,  2,  3,  4)), -Int(2),  T(x64: X(2, 4, 6, 8)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)),  Int(2),  T(x64: X64(2, 4, 6, 8)))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)), -Int(2), -T(x64: X64(2, 4, 6, 8)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)),  Int(2), -T(x64: X64(2, 4, 6, 8)))
+        NBKAssertMultiplicationByDigit(-T(x64: X64( 1,  2,  3,  4)), -Int(2),  T(x64: X64(2, 4, 6, 8)))
         
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)),  Int(2),  T(x64: X( 2,  4,  6,  8)),  Int(0))
-        NBKAssertMultiplicationByDigit( T(x64: X( 1,  2,  3,  4)), -Int(2),  T(x64: X(~1, ~4, ~6, ~8)), -Int(1))
-        NBKAssertMultiplicationByDigit( T(x64: X(~1, ~2, ~3, ~4)),  Int(2),  T(x64: X(~3, ~4, ~6, ~8)), -Int(1))
-        NBKAssertMultiplicationByDigit( T(x64: X(~1, ~2, ~3, ~4)), -Int(2),  T(x64: X( 4,  4,  6,  8)),  Int(0))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)),  Int(2),  T(x64: X64( 2,  4,  6,  8)),  Int(0))
+        NBKAssertMultiplicationByDigit( T(x64: X64( 1,  2,  3,  4)), -Int(2),  T(x64: X64(~1, ~4, ~6, ~8)), -Int(1))
+        NBKAssertMultiplicationByDigit( T(x64: X64(~1, ~2, ~3, ~4)),  Int(2),  T(x64: X64(~3, ~4, ~6, ~8)), -Int(1))
+        NBKAssertMultiplicationByDigit( T(x64: X64(~1, ~2, ~3, ~4)), -Int(2),  T(x64: X64( 4,  4,  6,  8)),  Int(0))
     }
     
     func testMultiplyingEdgesBySmallReportingOverflow() {
@@ -130,15 +130,15 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingLargeByLarge() {
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(2, 0, 0, 0)), T(x64: X( 2,  4,  6,  8)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 2, 0, 0)), T(x64: X( 0,  2,  4,  6)), T(x64: X( 8,  0,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0,  2,  4)), T(x64: X( 6,  8,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X( 1,  2,  3,  4)),  T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0,  2)), T(x64: X( 4,  6,  8,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(2, 0, 0, 0)), T(x64: X64( 2,  4,  6,  8)), T(x64: X64( 0,  0,  0,  0)))
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0,  2,  4,  6)), T(x64: X64( 8,  0,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0,  2,  4)), T(x64: X64( 6,  8,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64( 1,  2,  3,  4)),  T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0,  2)), T(x64: X64( 4,  6,  8,  0)), true)
         
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(2, 0, 0, 0)), T(x64: X(~3, ~4, ~6, ~8)), T(x64: X( 1,  0,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 2, 0, 0)), T(x64: X( 0, ~3, ~4, ~6)), T(x64: X(~8,  1,  0,  0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 0, 2, 0)), T(x64: X( 0,  0, ~3, ~4)), T(x64: X(~6, ~8,  1,  0)), true)
-        NBKAssertMultiplication(T(x64: X(~1, ~2, ~3, ~4)),  T(x64: X(0, 0, 0, 2)), T(x64: X( 0,  0,  0, ~3)), T(x64: X(~4, ~6, ~8,  1)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(2, 0, 0, 0)), T(x64: X64(~3, ~4, ~6, ~8)), T(x64: X64( 1,  0,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 2, 0, 0)), T(x64: X64( 0, ~3, ~4, ~6)), T(x64: X64(~8,  1,  0,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 0, 2, 0)), T(x64: X64( 0,  0, ~3, ~4)), T(x64: X64(~6, ~8,  1,  0)), true)
+        NBKAssertMultiplication(T(x64: X64(~1, ~2, ~3, ~4)),  T(x64: X64(0, 0, 0, 2)), T(x64: X64( 0,  0,  0, ~3)), T(x64: X64(~4, ~6, ~8,  1)), true)
     }
 
     func testMultiplyingLargeByLargeReportingOverflow() {
@@ -151,14 +151,14 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingLargeBySmall() {
-        NBKAssertMultiplicationByDigit(T(x64: X(1, 2, 3, 4)), UInt(0), T(x64: X(0, 0, 0, 0)))
-        NBKAssertMultiplicationByDigit(T(x64: X(1, 2, 3, 4)), UInt(1), T(x64: X(1, 2, 3, 4)))
-        NBKAssertMultiplicationByDigit(T(x64: X(1, 2, 3, 4)), UInt(2), T(x64: X(2, 4, 6, 8)))
+        NBKAssertMultiplicationByDigit(T(x64: X64(1, 2, 3, 4)), UInt(0), T(x64: X64(0, 0, 0, 0)))
+        NBKAssertMultiplicationByDigit(T(x64: X64(1, 2, 3, 4)), UInt(1), T(x64: X64(1, 2, 3, 4)))
+        NBKAssertMultiplicationByDigit(T(x64: X64(1, 2, 3, 4)), UInt(2), T(x64: X64(2, 4, 6, 8)))
     }
     
     func testMultiplyingLargeBySmallReportingOverflow() {
-        NBKAssertMultiplicationByDigit(T(x64: X(~1, ~2, ~3, ~4)), UInt(2), T(x64: X(~3, ~4, ~6, ~8)), UInt(1), true )
-        NBKAssertMultiplicationByDigit(T(x64: X( 1,  2,  3,  4)), UInt(2), T(x64: X( 2,  4,  6,  8)), UInt(0), false)
+        NBKAssertMultiplicationByDigit(T(x64: X64(~1, ~2, ~3, ~4)), UInt(2), T(x64: X64(~3, ~4, ~6, ~8)), UInt(1), true )
+        NBKAssertMultiplicationByDigit(T(x64: X64( 1,  2,  3,  4)), UInt(2), T(x64: X64( 2,  4,  6,  8)), UInt(0), false)
     }
     
     func testMultiplyingEdgesBySmallReportingOverflow() {
@@ -171,10 +171,10 @@ final class NBKDoubleWidthTestsOnMultiplicationAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingLargeBySmallWithAdditionReportingOverflow() {
-        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)),  0,  0, T(x64: X( 0,  0,  0,  0)),  0, false)
-        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)),  0, ~0, T(x64: X(~0,  0,  0,  0)),  0, false)
-        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)), ~0,  0, T(x64: X( 1, ~0, ~0, ~0)), ~1, true )
-        NBKAssertMultiplicationByDigitWithAddition(T(x64: X(~0, ~0, ~0, ~0)), ~0, ~0, T(x64: X( 0,  0,  0,  0)), ~0, true )
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X64(~0, ~0, ~0, ~0)),  0,  0, T(x64: X64( 0,  0,  0,  0)),  0, false)
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X64(~0, ~0, ~0, ~0)),  0, ~0, T(x64: X64(~0,  0,  0,  0)),  0, false)
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X64(~0, ~0, ~0, ~0)), ~0,  0, T(x64: X64( 1, ~0, ~0, ~0)), ~1, true )
+        NBKAssertMultiplicationByDigitWithAddition(T(x64: X64(~0, ~0, ~0, ~0)), ~0, ~0, T(x64: X64( 0,  0,  0,  0)), ~0, true )
     }
     
     //=------------------------------------------------------------------------=

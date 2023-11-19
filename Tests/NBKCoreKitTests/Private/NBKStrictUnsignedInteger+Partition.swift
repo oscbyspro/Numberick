@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Partition x Sub Sequence
@@ -25,38 +25,38 @@ final class NBKStrictUnsignedIntegerTestsOnPartitionAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubSequencePartitionTrimmingRedundantZeros() {
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as W, 0 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as W, 1 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as W, 2 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as W, 3 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as W, 0 as Int, [          ] as W, [1         ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as W, 1 as Int, [1         ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as W, 2 as Int, [1         ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as W, 3 as Int, [1         ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as W, 0 as Int, [          ] as W, [1, 2      ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as W, 1 as Int, [1         ] as W, [   2      ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as W, 2 as Int, [1, 2      ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as W, 3 as Int, [1, 2      ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as W, 0 as Int, [          ] as W, [1, 2, 3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as W, 1 as Int, [1         ] as W, [   2, 3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as W, 2 as Int, [1, 2      ] as W, [      3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as W, 3 as Int, [1, 2, 3   ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as W, 0 as Int, [          ] as W, [1, 2, 3, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as W, 1 as Int, [1         ] as W, [   2, 3, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as W, 2 as Int, [1, 2      ] as W, [      3, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as W, 3 as Int, [1, 2, 3   ] as W, [         4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as W, 0 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as W, 1 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as W, 2 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as W, 3 as Int, [          ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as W, 0 as Int, [          ] as W, [1, 0, 3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as W, 1 as Int, [1         ] as W, [   0, 3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as W, 2 as Int, [1         ] as W, [      3   ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as W, 3 as Int, [1, 0, 3   ] as W, [          ] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as W, 0 as Int, [          ] as W, [0, 2, 0, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as W, 1 as Int, [          ] as W, [   2, 0, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as W, 2 as Int, [0, 2      ] as W, [      0, 4] as W)
-        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as W, 3 as Int, [0, 2      ] as W, [         4] as W)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as X, 0 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as X, 1 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as X, 2 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([          ] as X, 3 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as X, 0 as Int, [          ] as X, [1         ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as X, 1 as Int, [1         ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as X, 2 as Int, [1         ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1         ] as X, 3 as Int, [1         ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as X, 0 as Int, [          ] as X, [1, 2      ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as X, 1 as Int, [1         ] as X, [   2      ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as X, 2 as Int, [1, 2      ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2      ] as X, 3 as Int, [1, 2      ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as X, 0 as Int, [          ] as X, [1, 2, 3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as X, 1 as Int, [1         ] as X, [   2, 3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as X, 2 as Int, [1, 2      ] as X, [      3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3   ] as X, 3 as Int, [1, 2, 3   ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as X, 0 as Int, [          ] as X, [1, 2, 3, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as X, 1 as Int, [1         ] as X, [   2, 3, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as X, 2 as Int, [1, 2      ] as X, [      3, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 2, 3, 4] as X, 3 as Int, [1, 2, 3   ] as X, [         4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as X, 0 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as X, 1 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as X, 2 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 0, 0, 0] as X, 3 as Int, [          ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as X, 0 as Int, [          ] as X, [1, 0, 3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as X, 1 as Int, [1         ] as X, [   0, 3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as X, 2 as Int, [1         ] as X, [      3   ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([1, 0, 3, 0] as X, 3 as Int, [1, 0, 3   ] as X, [          ] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as X, 0 as Int, [          ] as X, [0, 2, 0, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as X, 1 as Int, [          ] as X, [   2, 0, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as X, 2 as Int, [0, 2      ] as X, [      0, 4] as X)
+        NBKAssertSubSequencePartitionTrimmingRedundantZeros([0, 2, 0, 4] as X, 3 as Int, [0, 2      ] as X, [         4] as X)
     }
 }
 

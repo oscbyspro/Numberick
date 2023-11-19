@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Numbers x Int256
@@ -33,8 +33,8 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
-        NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T(   ), default:  T(x64: X64(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.zero, default:  T(x64: X64(0, 0, 0, 0)))
         
         for x in Int8.min ... Int8.max {
             let x = T(truncatingIfNeeded: x)
@@ -48,8 +48,8 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     }
     
     func testOne() {
-        NBKAssertNumbers(from: T( 1),  default:  T(x64: X(1, 0, 0, 0)))
-        NBKAssertNumbers(from: T.one,  default:  T(x64: X(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T( 1),  default:  T(x64: X64(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T.one,  default:  T(x64: X64(1, 0, 0, 0)))
         
         for x in Int8.min ... Int8.max {
             let x = T(truncatingIfNeeded: x)
@@ -68,13 +68,13 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     }
 
     func testMin() {
-        NBKAssertNumbers(from:  T.min, default:  T(x64: X(0, 0, 0, 1 << 63)))
-        NBKAssertNumbers(from: ~T.max, default:  T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from:  T.min, default:  T(x64: X64(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: ~T.max, default:  T(x64: X64(0, 0, 0, 1 << 63)))
     }
     
     func testMax() {
-        NBKAssertNumbers(from:  T.max, default: ~T(x64: X(0, 0, 0, 1 << 63)))
-        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from:  T.max, default: ~T(x64: X64(0, 0, 0, 1 << 63)))
+        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X64(0, 0, 0, 1 << 63)))
     }
     
     //=------------------------------------------------------------------------=
@@ -83,10 +83,10 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     
     func testToAtMost64BitSignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: I( 1))
-            NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), exactly:   nil, clamping: I.max, truncating: ~0)
-            NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating:  1)
-            NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), default: I(-1))
+            NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: I( 1))
+            NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), exactly:   nil, clamping: I.max, truncating: ~0)
+            NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating:  1)
+            NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), default: I(-1))
         }
         
         for type: any NBKFixedWidthInteger.Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
@@ -96,10 +96,10 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
 
     func testToAtMost64BitUnsignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: I( 1))
-            NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: I.max, exactly:  I(exactly:   UInt64.max))
-            NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating: I( 1))
-            NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly:   nil, clamping: I.min, truncating: I.max)
+            NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: I( 1))
+            NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: I.max, exactly:  I(exactly:   UInt64.max))
+            NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating: I( 1))
+            NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), exactly:   nil, clamping: I.min, truncating: I.max)
         }
         
         for type: any NBKFixedWidthInteger.Type in [UInt.self, UInt8.self, UInt16.self, UInt32.self, UInt64.self] {
@@ -109,8 +109,8 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     
     func testFromAtMost64BitSignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: I.min, default: ~T(x64: X(UInt64(I.max), 0, 0, 0)))
-            NBKAssertNumbers(from: I.max, default:  T(x64: X(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.min, default: ~T(x64: X64(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.max, default:  T(x64: X64(UInt64(I.max), 0, 0, 0)))
         }
         
         for type: any NBKFixedWidthInteger.Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
@@ -120,8 +120,8 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     
     func testFromAtMost64BitUnsignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: I.min, default:  T(x64: X(UInt64(I.min), 0, 0, 0)))
-            NBKAssertNumbers(from: I.max, default:  T(x64: X(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.min, default:  T(x64: X64(UInt64(I.min), 0, 0, 0)))
+            NBKAssertNumbers(from: I.max, default:  T(x64: X64(UInt64(I.max), 0, 0, 0)))
         }
         
         for type: any NBKFixedWidthInteger.Type in [UInt.self, UInt8.self, UInt16.self, UInt32.self, UInt64.self] {
@@ -134,13 +134,13 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromUIntAsBits() {
-        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X64(UInt64(UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X64(UInt64(UInt.max), 0, 0, 0)))
     }
     
     func testFromIntAsDigit() {
-        XCTAssertEqual(T(digit: Int.min), ~T(x64: X(UInt64(Int.max), 0, 0, 0)))
-        XCTAssertEqual(T(digit: Int.max),  T(x64: X(UInt64(Int.max), 0, 0, 0)))
+        XCTAssertEqual(T(digit: Int.min), ~T(x64: X64(UInt64(Int.max), 0, 0, 0)))
+        XCTAssertEqual(T(digit: Int.max),  T(x64: X64(UInt64(Int.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -148,20 +148,20 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToSignitude() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: S(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: S(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: S(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), default: S(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: S(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: S(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: S(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), default: S(x64: X64(~0, ~0, ~0, ~0)))
     }
     
     func testFromSignitude() {
         NBKAssertNumbers(from: S.min, default: T.min)
         NBKAssertNumbers(from: S.max, default: T.max)
         
-        NBKAssertNumbers(from: S(x64: X( 1,  0,  0,  0)), default: T(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: S(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: S(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: S(x64: X(~0, ~0, ~0, ~0)), default: T(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertNumbers(from: S(x64: X64( 1,  0,  0,  0)), default: T(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: S(x64: X64(~0,  0,  0,  0)), default: T(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: S(x64: X64( 1,  1,  1,  1)), default: T(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: S(x64: X64(~0, ~0, ~0, ~0)), default: T(x64: X64(~0, ~0, ~0, ~0)))
     }
 
     //=------------------------------------------------------------------------=
@@ -169,10 +169,10 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToMagnitude() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: M(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: M(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: M(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: M.zero, truncating: M.max)
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: M(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: M(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: M(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), exactly: nil, clamping: M.zero, truncating: M.max)
     }
     
     func testFromMagnitude() {
@@ -182,10 +182,10 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         NBKAssertNumbers(from: M(bitPattern: T.max) + 0,  default: T.max)
         NBKAssertNumbers(from: M(bitPattern: T.max) + 1,  exactly: nil, clamping: T.max, truncating: T.min)
         
-        NBKAssertNumbers(from: M(x64: X( 1,  0,  0,  0)), default: T(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.max, truncating: T(-1))
+        NBKAssertNumbers(from: M(x64: X64( 1,  0,  0,  0)), default: T(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: M(x64: X64(~0,  0,  0,  0)), default: T(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: M(x64: X64( 1,  1,  1,  1)), default: T(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: M(x64: X64(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.max, truncating: T(-1))
         
         XCTAssertEqual(T(magnitude: T(  ).magnitude + 0), T(  ))
         XCTAssertEqual(T(magnitude: T(  ).magnitude + 1), T( 1))
@@ -200,10 +200,10 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToDoubleWidth() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: T2(high:  0, low: M(x64: X( 1,  0,  0,  0))))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: T2(high:  0, low: M(x64: X(~0,  0,  0,  0))))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: T2(high:  0, low: M(x64: X( 1,  1,  1,  1))))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), default: T2(high: -1, low: M(x64: X(~0, ~0, ~0, ~0))))
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: T2(high:  0, low: M(x64: X64( 1,  0,  0,  0))))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: T2(high:  0, low: M(x64: X64(~0,  0,  0,  0))))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: T2(high:  0, low: M(x64: X64( 1,  1,  1,  1))))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), default: T2(high: -1, low: M(x64: X64(~0, ~0, ~0, ~0))))
     }
     
     func testFromDoubleWidth() {
@@ -253,9 +253,9 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float32(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X64(1,       0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X64(1 << 63, 0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X64(0, 1 << 63, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 0))), nil)
     }
     
@@ -271,11 +271,11 @@ final class NBKDoubleWidthTestsOnNumbersAsInt256: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float64(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 3 - 1))), T(x64: X(0, 0, 1 << 63, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 2))), T(x64: X(0, 0, 0, 1 << 62)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 0))), T(x64: X64(1,       0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 1 - 1))), T(x64: X64(1 << 63, 0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 2 - 1))), T(x64: X64(0, 1 << 63, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 3 - 1))), T(x64: X64(0, 0, 1 << 63, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 2))), T(x64: X64(0, 0, 0, 1 << 62)))
         XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 1))), nil)
     }
     
@@ -333,8 +333,8 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testZero() {
-        NBKAssertNumbers(from: T(   ), default:  T(x64: X(0, 0, 0, 0)))
-        NBKAssertNumbers(from: T.zero, default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T(   ), default:  T(x64: X64(0, 0, 0, 0)))
+        NBKAssertNumbers(from: T.zero, default:  T(x64: X64(0, 0, 0, 0)))
         
         for x in Int8.min ... Int8.max {
             let x = T(truncatingIfNeeded: x)
@@ -348,8 +348,8 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     }
     
     func testOne() {
-        NBKAssertNumbers(from: T( 1), default:  T(x64: X(1, 0, 0, 0)))
-        NBKAssertNumbers(from: T.one, default:  T(x64: X(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T( 1), default:  T(x64: X64(1, 0, 0, 0)))
+        NBKAssertNumbers(from: T.one, default:  T(x64: X64(1, 0, 0, 0)))
         
         for x in Int8.min ... Int8.max {
             let x = T(truncatingIfNeeded: x)
@@ -368,13 +368,13 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     }
     
     func testMin() {
-        NBKAssertNumbers(from:  T.min, default:  T(x64: X(0, 0, 0, 0)))
-        NBKAssertNumbers(from: ~T.max, default:  T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from:  T.min, default:  T(x64: X64(0, 0, 0, 0)))
+        NBKAssertNumbers(from: ~T.max, default:  T(x64: X64(0, 0, 0, 0)))
     }
     
     func testMax() {
-        NBKAssertNumbers(from:  T.max, default: ~T(x64: X(0, 0, 0, 0)))
-        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X(0, 0, 0, 0)))
+        NBKAssertNumbers(from:  T.max, default: ~T(x64: X64(0, 0, 0, 0)))
+        NBKAssertNumbers(from: ~T.min, default: ~T(x64: X64(0, 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -383,10 +383,10 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     
     func testToAtMost64BitSignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: 1 as I)
-            NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), exactly: nil, clamping: I.max, truncating: ~0)
-            NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), exactly: nil, clamping: I.max, truncating:  1)
-            NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: I.max, truncating: ~0)
+            NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: 1 as I)
+            NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), exactly: nil, clamping: I.max, truncating: ~0)
+            NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), exactly: nil, clamping: I.max, truncating:  1)
+            NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), exactly: nil, clamping: I.max, truncating: ~0)
         }
         
         for type: any NBKFixedWidthInteger.Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
@@ -396,10 +396,10 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
 
     func testToAtMost64BitUnsignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: I( 1))
-            NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: I.max, exactly:  I(exactly:   UInt64.max))
-            NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating: I( 1))
-            NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly:   nil, clamping: I.max, truncating: I.max)
+            NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: I( 1))
+            NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: I.max, exactly:  I(exactly:   UInt64.max))
+            NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), exactly:   nil, clamping: I.max, truncating: I( 1))
+            NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), exactly:   nil, clamping: I.max, truncating: I.max)
         }
         
         for type: any NBKFixedWidthInteger.Type in [UInt.self, UInt8.self, UInt16.self, UInt32.self, UInt64.self] {
@@ -409,8 +409,8 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     
     func testFromAtMost64BitSignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: I.min, exactly: nil, clamping: 0, truncating: ~T(x64: X(UInt64(I.max), 0, 0, 0)))
-            NBKAssertNumbers(from: I.max, default: /*-------------------------*/  T(x64: X(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.min, exactly: nil, clamping: 0, truncating: ~T(x64: X64(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.max, default: /*-------------------------*/  T(x64: X64(UInt64(I.max), 0, 0, 0)))
         }
         
         for type: any NBKFixedWidthInteger.Type in [Int.self, Int8.self, Int16.self, Int32.self, Int64.self] {
@@ -420,8 +420,8 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     
     func testFromAtMost64BitUnsignedInteger() {
         func whereIs<I: NBKFixedWidthInteger>(_ type: I.Type) {
-            NBKAssertNumbers(from: I.min, default: T(x64: X(UInt64(I.min), 0, 0, 0)))
-            NBKAssertNumbers(from: I.max, default: T(x64: X(UInt64(I.max), 0, 0, 0)))
+            NBKAssertNumbers(from: I.min, default: T(x64: X64(UInt64(I.min), 0, 0, 0)))
+            NBKAssertNumbers(from: I.max, default: T(x64: X64(UInt64(I.max), 0, 0, 0)))
         }
         
         for type: any NBKFixedWidthInteger.Type in [UInt.self, UInt8.self, UInt16.self, UInt32.self, UInt64.self] {
@@ -434,13 +434,13 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromUIntAsBits() {
-        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.min), T(x64: X64(UInt64(UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(_truncatingBits: UInt.max), T(x64: X64(UInt64(UInt.max), 0, 0, 0)))
     }
     
     func testFromUIntAsDigit() {
-        XCTAssertEqual(T(digit: UInt.min), T(x64: X(UInt64(UInt.min), 0, 0, 0)))
-        XCTAssertEqual(T(digit: UInt.max), T(x64: X(UInt64(UInt.max), 0, 0, 0)))
+        XCTAssertEqual(T(digit: UInt.min), T(x64: X64(UInt64(UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(digit: UInt.max), T(x64: X64(UInt64(UInt.max), 0, 0, 0)))
     }
     
     //=------------------------------------------------------------------------=
@@ -448,20 +448,20 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToSignitude() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: S(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: S(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: S(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: S.max, truncating: S(-1))
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: S(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: S(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: S(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), exactly: nil, clamping: S.max, truncating: S(-1))
     }
     
     func testFromSignitude() {
         NBKAssertNumbers(from: S.min, exactly: nil, clamping: T.min, truncating: T(bitPattern: S.min))
         NBKAssertNumbers(from: S.max, default: /*-----------------------------*/ T(bitPattern: S.max))
         
-        NBKAssertNumbers(from: S(x64: X( 1,  0,  0,  0)), default: T(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: S(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: S(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: S(x64: X(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.min, truncating: T(bitPattern: S(-1)))
+        NBKAssertNumbers(from: S(x64: X64( 1,  0,  0,  0)), default: T(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: S(x64: X64(~0,  0,  0,  0)), default: T(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: S(x64: X64( 1,  1,  1,  1)), default: T(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: S(x64: X64(~0, ~0, ~0, ~0)), exactly: nil, clamping: T.min, truncating: T(bitPattern: S(-1)))
     }
     
     //=------------------------------------------------------------------------=
@@ -469,20 +469,20 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToMagnitude() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: M(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: M(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: M(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), default: M(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: M(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: M(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: M(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), default: M(x64: X64(~0, ~0, ~0, ~0)))
     }
     
     func testFromMagnitude() {
         NBKAssertNumbers(from: M.min, default: T.min)
         NBKAssertNumbers(from: M.max, default: T.max)
         
-        NBKAssertNumbers(from: M(x64: X( 1,  0,  0,  0)), default: T(x64: X( 1,  0,  0,  0)))
-        NBKAssertNumbers(from: M(x64: X(~0,  0,  0,  0)), default: T(x64: X(~0,  0,  0,  0)))
-        NBKAssertNumbers(from: M(x64: X( 1,  1,  1,  1)), default: T(x64: X( 1,  1,  1,  1)))
-        NBKAssertNumbers(from: M(x64: X(~0, ~0, ~0, ~0)), default: T(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertNumbers(from: M(x64: X64( 1,  0,  0,  0)), default: T(x64: X64( 1,  0,  0,  0)))
+        NBKAssertNumbers(from: M(x64: X64(~0,  0,  0,  0)), default: T(x64: X64(~0,  0,  0,  0)))
+        NBKAssertNumbers(from: M(x64: X64( 1,  1,  1,  1)), default: T(x64: X64( 1,  1,  1,  1)))
+        NBKAssertNumbers(from: M(x64: X64(~0, ~0, ~0, ~0)), default: T(x64: X64(~0, ~0, ~0, ~0)))
         
         XCTAssertEqual(T(magnitude: T.min.magnitude + 0), T.min + 0)
         XCTAssertEqual(T(magnitude: T.min.magnitude + 1), T.min + 1)
@@ -495,10 +495,10 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testToDoubleWidth() {
-        NBKAssertNumbers(from: T(x64: X( 1,  0,  0,  0)), default: T2(low: M(x64: X( 1,  0,  0,  0))))
-        NBKAssertNumbers(from: T(x64: X(~0,  0,  0,  0)), default: T2(low: M(x64: X(~0,  0,  0,  0))))
-        NBKAssertNumbers(from: T(x64: X( 1,  1,  1,  1)), default: T2(low: M(x64: X( 1,  1,  1,  1))))
-        NBKAssertNumbers(from: T(x64: X(~0, ~0, ~0, ~0)), default: T2(low: M(x64: X(~0, ~0, ~0, ~0))))
+        NBKAssertNumbers(from: T(x64: X64( 1,  0,  0,  0)), default: T2(low: M(x64: X64( 1,  0,  0,  0))))
+        NBKAssertNumbers(from: T(x64: X64(~0,  0,  0,  0)), default: T2(low: M(x64: X64(~0,  0,  0,  0))))
+        NBKAssertNumbers(from: T(x64: X64( 1,  1,  1,  1)), default: T2(low: M(x64: X64( 1,  1,  1,  1))))
+        NBKAssertNumbers(from: T(x64: X64(~0, ~0, ~0, ~0)), default: T2(low: M(x64: X64(~0, ~0, ~0, ~0))))
     }
     
     func testFromDoubleWidth() {
@@ -538,9 +538,9 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float32(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 0 - 0))), T(x64: X64(1,       0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 1 - 1))), T(x64: X64(1 << 63, 0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 1))), T(x64: X64(0, 1 << 63, 0, 0)))
         XCTAssertEqual(T(exactly:  pow(2, Float32(64 * 2 - 0))), nil)
     }
     
@@ -554,11 +554,11 @@ final class NBKDoubleWidthTestsOnNumbersAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactly: -pow(2, Float64(T.bitWidth))), nil)
         
         XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 1))), nil)
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 0))), T(x64: X(1,       0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 1 - 1))), T(x64: X(1 << 63, 0, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 2 - 1))), T(x64: X(0, 1 << 63, 0, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 3 - 1))), T(x64: X(0, 0, 1 << 63, 0)))
-        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 1))), T(x64: X(0, 0, 0, 1 << 63)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 0 - 0))), T(x64: X64(1,       0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 1 - 1))), T(x64: X64(1 << 63, 0, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 2 - 1))), T(x64: X64(0, 1 << 63, 0, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 3 - 1))), T(x64: X64(0, 0, 1 << 63, 0)))
+        XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 1))), T(x64: X64(0, 0, 0, 1 << 63)))
         XCTAssertEqual(T(exactly:  pow(2, Float64(64 * 4 - 0))), nil)
     }
     

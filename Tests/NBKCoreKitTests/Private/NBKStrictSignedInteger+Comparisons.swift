@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Signed Integer x Comparisons
@@ -25,84 +25,84 @@ final class NBKStrictSignedIntegerTestsOnComparisons: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testCompareLargeToSmall() {
-        NBKAssertComparison([ 2,  2] as W, [ 1] as W,  Int(1))
-        NBKAssertComparison([ 2,  2] as W, [~1] as W,  Int(1))
-        NBKAssertComparison([~2, ~2] as W, [ 1] as W, -Int(1))
-        NBKAssertComparison([~2, ~2] as W, [~1] as W, -Int(1))
+        NBKAssertComparison([ 2,  2] as X, [ 1] as X,  Int(1))
+        NBKAssertComparison([ 2,  2] as X, [~1] as X,  Int(1))
+        NBKAssertComparison([~2, ~2] as X, [ 1] as X, -Int(1))
+        NBKAssertComparison([~2, ~2] as X, [~1] as X, -Int(1))
     }
     
     func testCompareLargeToLarge() {
-        NBKAssertComparison([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
-        NBKAssertComparison([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W, -Int(1))
-        NBKAssertComparison([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W,  Int(1))
-        NBKAssertComparison([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
+        NBKAssertComparison([~0, ~0, ~0, ~0] as X, [~0, ~0, ~0, ~0] as X,  Int(0))
+        NBKAssertComparison([~0, ~0, ~0, ~0] as X, [ 0,  0,  0,  0] as X, -Int(1))
+        NBKAssertComparison([ 0,  0,  0,  0] as X, [~0, ~0, ~0, ~0] as X,  Int(1))
+        NBKAssertComparison([ 0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X,  Int(0))
         
-        NBKAssertComparison([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertComparison([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertComparison([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertComparison([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertComparison([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
-        NBKAssertComparison([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
-        NBKAssertComparison([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
-        NBKAssertComparison([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
-        NBKAssertComparison([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
-        NBKAssertComparison([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
-        NBKAssertComparison([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
-        NBKAssertComparison([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
+        NBKAssertComparison([ 0,  2,  3,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertComparison([ 1,  0,  3,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertComparison([ 1,  2,  0,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertComparison([ 1,  2,  3,  0] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertComparison([ 0,  2,  3,  4] as X, [ 0,  2,  3,  4] as X,  Int(0))
+        NBKAssertComparison([ 1,  0,  3,  4] as X, [ 1,  0,  3,  4] as X,  Int(0))
+        NBKAssertComparison([ 1,  2,  0,  4] as X, [ 1,  2,  0,  4] as X,  Int(0))
+        NBKAssertComparison([ 1,  2,  3,  0] as X, [ 1,  2,  3,  0] as X,  Int(0))
+        NBKAssertComparison([ 1,  2,  3,  4] as X, [ 0,  2,  3,  4] as X,  Int(1))
+        NBKAssertComparison([ 1,  2,  3,  4] as X, [ 1,  0,  3,  4] as X,  Int(1))
+        NBKAssertComparison([ 1,  2,  3,  4] as X, [ 1,  2,  0,  4] as X,  Int(1))
+        NBKAssertComparison([ 1,  2,  3,  4] as X, [ 1,  2,  3,  0] as X,  Int(1))
     }
     
     func testCompareSmallToSmallAtIndex() {
-        NBKAssertComparisonAtIndex([ 0] as W, [ 0] as W, Int(1),  Int(0))
-        NBKAssertComparisonAtIndex([ 1] as W, [ 0] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([~1] as W, [ 0] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([~0] as W, [ 0] as W, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([ 0] as X, [ 0] as X, Int(1),  Int(0))
+        NBKAssertComparisonAtIndex([ 1] as X, [ 0] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([~1] as X, [ 0] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([~0] as X, [ 0] as X, Int(1), -Int(1))
         
-        NBKAssertComparisonAtIndex([ 0] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([ 1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([~1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([~0] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([ 0] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([ 1] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([~1] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([~0] as X, [ 1] as X, Int(1), -Int(1))
         
-        NBKAssertComparisonAtIndex([ 0] as W, [~1] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([ 1] as W, [~1] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([~1] as W, [~1] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([~0] as W, [~1] as W, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 0] as X, [~1] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 1] as X, [~1] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([~1] as X, [~1] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([~0] as X, [~1] as X, Int(1),  Int(1))
         
-        NBKAssertComparisonAtIndex([ 0] as W, [~0] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([ 1] as W, [~0] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([~1] as W, [~0] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([~0] as W, [~0] as W, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 0] as X, [~0] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 1] as X, [~0] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([~1] as X, [~0] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([~0] as X, [~0] as X, Int(1),  Int(1))
     }
     
     func testCompareLargeToLargeAtIndex() {
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(0),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(1),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(2),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(3),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(4),  Int(0))
         
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(0), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(2), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(3), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(4), -Int(1))
         
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(0),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(2),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(3),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(4),  Int(1))
         
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(0),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(1),  Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(2),  Int(0))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(3), -Int(1))
+        NBKAssertComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(4), -Int(1))
         
-        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0), -Int(1))
-        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1), -Int(1))
-        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
-        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
-        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
+        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(0), -Int(1))
+        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(1), -Int(1))
+        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(2),  Int(1))
+        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(3),  Int(1))
+        NBKAssertComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(4),  Int(1))
     }
 }
 
