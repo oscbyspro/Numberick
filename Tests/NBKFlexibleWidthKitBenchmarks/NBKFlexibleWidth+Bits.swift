@@ -13,9 +13,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Bits x UIntXL
@@ -43,8 +43,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testBitWidth() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.bitWidth)
@@ -56,8 +56,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testNonzeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.nonzeroBitCount)
@@ -69,8 +69,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testLeadingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leadingZeroBitCount)
@@ -82,8 +82,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testTrailingZeroBitCount() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.trailingZeroBitCount)
@@ -95,8 +95,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testMostSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.mostSignificantBit)
@@ -108,8 +108,8 @@ final class NBKFlexibleWidthBenchmarksOnBitsAsUIntXL: XCTestCase {
     }
     
     func testLeastSignificantBit() {
-        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X))
-        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X))
+        var abc = NBK.blackHoleIdentity( T(x64:[0, 0, 0, 0] as X64))
+        var xyz = NBK.blackHoleIdentity(~T(x64:[0, 0, 0, 0] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.leastSignificantBit)

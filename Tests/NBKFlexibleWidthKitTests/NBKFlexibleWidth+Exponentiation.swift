@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Exponentiation x UIntXL
@@ -50,10 +50,10 @@ final class NBKFlexibleWidthTestsOnExponentiationAsUIntXL: XCTestCase {
         }
         
         for word in (-5 ... 5).lazy.map(UInt.init(bitPattern:)){
-            with(T(words:[word                                 ] as W))
-            with(T(words:[word, word &- 1                      ] as W))
-            with(T(words:[word, word &- 1, word &+ 2           ] as W))
-            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as W))
+            with(T(words:[word                                 ] as X))
+            with(T(words:[word, word &- 1                      ] as X))
+            with(T(words:[word, word &- 1, word &+ 2           ] as X))
+            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as X))
         }
     }
     
@@ -63,10 +63,10 @@ final class NBKFlexibleWidthTestsOnExponentiationAsUIntXL: XCTestCase {
         }
         
         for word in (-5 ... 5).lazy.map(UInt.init(bitPattern:)){
-            with(T(words:[word                                 ] as W))
-            with(T(words:[word, word &- 1                      ] as W))
-            with(T(words:[word, word &- 1, word &+ 2           ] as W))
-            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as W))
+            with(T(words:[word                                 ] as X))
+            with(T(words:[word, word &- 1                      ] as X))
+            with(T(words:[word, word &- 1, word &+ 2           ] as X))
+            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as X))
         }
     }
     
@@ -76,10 +76,10 @@ final class NBKFlexibleWidthTestsOnExponentiationAsUIntXL: XCTestCase {
         }
         
         for word in (-5 ... 5).lazy.map(UInt.init(bitPattern:)){
-            with(T(words:[word                                 ] as W))
-            with(T(words:[word, word &- 1                      ] as W))
-            with(T(words:[word, word &- 1, word &+ 2           ] as W))
-            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as W))
+            with(T(words:[word                                 ] as X))
+            with(T(words:[word, word &- 1                      ] as X))
+            with(T(words:[word, word &- 1, word &+ 2           ] as X))
+            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as X))
         }
     }
     
@@ -89,10 +89,10 @@ final class NBKFlexibleWidthTestsOnExponentiationAsUIntXL: XCTestCase {
         }
         
         for word in (-5 ... 5).lazy.map(UInt.init(bitPattern:)){
-            with(T(words:[word                                 ] as W))
-            with(T(words:[word, word &- 1                      ] as W))
-            with(T(words:[word, word &- 1, word &+ 2           ] as W))
-            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as W))
+            with(T(words:[word                                 ] as X))
+            with(T(words:[word, word &- 1                      ] as X))
+            with(T(words:[word, word &- 1, word &+ 2           ] as X))
+            with(T(words:[word, word &- 1, word &+ 2, word &* 3] as X))
         }
     }
     

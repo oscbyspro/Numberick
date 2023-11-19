@@ -13,9 +13,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Logic x UIntXL
@@ -30,7 +30,7 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNotInout() {
-        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(abc.formOnesComplement())
@@ -39,7 +39,7 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testNot() {
-        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(~abc)
@@ -48,8 +48,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testAndInout() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs &= rhs)
@@ -59,8 +59,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testAnd() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs & rhs)
@@ -70,8 +70,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testOrInout() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs |= rhs)
@@ -81,8 +81,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testOr() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs | rhs)
@@ -92,8 +92,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testXorInout() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
 
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs ^= rhs)
@@ -103,8 +103,8 @@ final class NBKFlexibleWidthBenchmarksOnLogicAsUIntXL: XCTestCase {
     }
     
     func testXor() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
 
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs ^ rhs)

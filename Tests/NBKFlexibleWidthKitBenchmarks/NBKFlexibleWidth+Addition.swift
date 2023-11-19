@@ -13,9 +13,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Addition x UIntXL
@@ -30,8 +30,8 @@ final class NBKFlexibleWidthBenchmarksOnAdditionAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdd() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs += rhs)
@@ -41,8 +41,8 @@ final class NBKFlexibleWidthBenchmarksOnAdditionAsUIntXL: XCTestCase {
     }
     
     func testAdding() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 0,  1,  2,  3] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs + rhs)
@@ -56,7 +56,7 @@ final class NBKFlexibleWidthBenchmarksOnAdditionAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 5_000_000 {
@@ -67,7 +67,7 @@ final class NBKFlexibleWidthBenchmarksOnAdditionAsUIntXL: XCTestCase {
     }
     
     func testAddingDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~0, ~1, ~2, ~3] as X64))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {

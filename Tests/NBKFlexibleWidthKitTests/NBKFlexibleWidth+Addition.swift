@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Addition x UIntXL
@@ -38,15 +38,15 @@ final class NBKFlexibleWidthTestsOnAdditionAsUIntXL: XCTestCase {
     }
     
     func testAddingAtIndex() {
-        NBKAssertAddition(T(words:[ 0,  0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[ 1,  2,  3,  0] as W))
-        NBKAssertAddition(T(words:[~0,  0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[ 0,  3,  3,  0] as W))
-        NBKAssertAddition(T(words:[~0, ~0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[ 0,  2,  4,  0] as W))
-        NBKAssertAddition(T(words:[~0, ~0, ~0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(0), T(words:[ 0,  2,  3,  1] as W))
+        NBKAssertAddition(T(words:[ 0,  0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(0), T(words:[ 1,  2,  3,  0] as X))
+        NBKAssertAddition(T(words:[~0,  0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(0), T(words:[ 0,  3,  3,  0] as X))
+        NBKAssertAddition(T(words:[~0, ~0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(0), T(words:[ 0,  2,  4,  0] as X))
+        NBKAssertAddition(T(words:[~0, ~0, ~0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(0), T(words:[ 0,  2,  3,  1] as X))
         
-        NBKAssertAddition(T(words:[ 0,  0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[ 0,  1,  2,  3] as W))
-        NBKAssertAddition(T(words:[~0,  0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[~0,  1,  2,  3] as W))
-        NBKAssertAddition(T(words:[~0, ~0,  0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[~0,  0,  3,  3] as W))
-        NBKAssertAddition(T(words:[~0, ~0, ~0,  0] as W), T(words:[ 1,  2,  3,  0] as W), Int(1), T(words:[~0,  0,  2,  4] as W))
+        NBKAssertAddition(T(words:[ 0,  0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(1), T(words:[ 0,  1,  2,  3] as X))
+        NBKAssertAddition(T(words:[~0,  0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(1), T(words:[~0,  1,  2,  3] as X))
+        NBKAssertAddition(T(words:[~0, ~0,  0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(1), T(words:[~0,  0,  3,  3] as X))
+        NBKAssertAddition(T(words:[~0, ~0, ~0,  0] as X), T(words:[ 1,  2,  3,  0] as X), Int(1), T(words:[~0,  0,  2,  4] as X))
     }
     
     //=------------------------------------------------------------------------=
@@ -64,15 +64,15 @@ final class NBKFlexibleWidthTestsOnAdditionAsUIntXL: XCTestCase {
     }
     
     func testAddingDigitAtIndex() {
-        NBKAssertAdditionByDigit(T(words:[ 0,  0,  0,  0] as W), UInt(3), Int(0), T(words:[ 3,  0,  0,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0,  0,  0,  0] as W), UInt(3), Int(0), T(words:[ 2,  1,  0,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0, ~0,  0,  0] as W), UInt(3), Int(0), T(words:[ 2,  0,  1,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0, ~0, ~0,  0] as W), UInt(3), Int(0), T(words:[ 2,  0,  0,  1] as W))
+        NBKAssertAdditionByDigit(T(words:[ 0,  0,  0,  0] as X), UInt(3), Int(0), T(words:[ 3,  0,  0,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0,  0,  0,  0] as X), UInt(3), Int(0), T(words:[ 2,  1,  0,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0, ~0,  0,  0] as X), UInt(3), Int(0), T(words:[ 2,  0,  1,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0, ~0, ~0,  0] as X), UInt(3), Int(0), T(words:[ 2,  0,  0,  1] as X))
         
-        NBKAssertAdditionByDigit(T(words:[ 0,  0,  0,  0] as W), UInt(3), Int(1), T(words:[ 0,  3,  0,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0,  0,  0,  0] as W), UInt(3), Int(1), T(words:[~0,  3,  0,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0, ~0,  0,  0] as W), UInt(3), Int(1), T(words:[~0,  2,  1,  0] as W))
-        NBKAssertAdditionByDigit(T(words:[~0, ~0, ~0,  0] as W), UInt(3), Int(1), T(words:[~0,  2,  0,  1] as W))
+        NBKAssertAdditionByDigit(T(words:[ 0,  0,  0,  0] as X), UInt(3), Int(1), T(words:[ 0,  3,  0,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0,  0,  0,  0] as X), UInt(3), Int(1), T(words:[~0,  3,  0,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0, ~0,  0,  0] as X), UInt(3), Int(1), T(words:[~0,  2,  1,  0] as X))
+        NBKAssertAdditionByDigit(T(words:[~0, ~0, ~0,  0] as X), UInt(3), Int(1), T(words:[~0,  2,  0,  1] as X))
     }
     
     //=------------------------------------------------------------------------=

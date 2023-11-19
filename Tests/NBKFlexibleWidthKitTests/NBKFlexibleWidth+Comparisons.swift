@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Comparisons x UIntXL
@@ -29,83 +29,83 @@ final class NBKFlexibleWidthTestsOnComparisonsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testIsZero() {
-        XCTAssertTrue (T(words:[ 0] as W).isZero)
-        XCTAssertFalse(T(words:[ 1] as W).isZero)
-        XCTAssertFalse(T(words:[ 2] as W).isZero)
+        XCTAssertTrue (T(words:[ 0] as X).isZero)
+        XCTAssertFalse(T(words:[ 1] as X).isZero)
+        XCTAssertFalse(T(words:[ 2] as X).isZero)
 
-        XCTAssertFalse(T(words:[~0] as W).isZero)
-        XCTAssertFalse(T(words:[~1] as W).isZero)
-        XCTAssertFalse(T(words:[~2] as W).isZero)
+        XCTAssertFalse(T(words:[~0] as X).isZero)
+        XCTAssertFalse(T(words:[~1] as X).isZero)
+        XCTAssertFalse(T(words:[~2] as X).isZero)
     }
 
     func testIsLessThanZero() {
-        XCTAssertFalse(T(words:[ 0] as W).isLessThanZero)
-        XCTAssertFalse(T(words:[ 1] as W).isLessThanZero)
-        XCTAssertFalse(T(words:[ 2] as W).isLessThanZero)
+        XCTAssertFalse(T(words:[ 0] as X).isLessThanZero)
+        XCTAssertFalse(T(words:[ 1] as X).isLessThanZero)
+        XCTAssertFalse(T(words:[ 2] as X).isLessThanZero)
 
-        XCTAssertFalse(T(words:[~0] as W).isLessThanZero)
-        XCTAssertFalse(T(words:[~1] as W).isLessThanZero)
-        XCTAssertFalse(T(words:[~2] as W).isLessThanZero)
+        XCTAssertFalse(T(words:[~0] as X).isLessThanZero)
+        XCTAssertFalse(T(words:[~1] as X).isLessThanZero)
+        XCTAssertFalse(T(words:[~2] as X).isLessThanZero)
     }
 
     func testIsMoreThanZero() {
-        XCTAssertFalse(T(words:[ 0] as W).isMoreThanZero)
-        XCTAssertTrue (T(words:[ 1] as W).isMoreThanZero)
-        XCTAssertTrue (T(words:[ 2] as W).isMoreThanZero)
+        XCTAssertFalse(T(words:[ 0] as X).isMoreThanZero)
+        XCTAssertTrue (T(words:[ 1] as X).isMoreThanZero)
+        XCTAssertTrue (T(words:[ 2] as X).isMoreThanZero)
 
-        XCTAssertTrue (T(words:[~0] as W).isMoreThanZero)
-        XCTAssertTrue (T(words:[~1] as W).isMoreThanZero)
-        XCTAssertTrue (T(words:[~2] as W).isMoreThanZero)
+        XCTAssertTrue (T(words:[~0] as X).isMoreThanZero)
+        XCTAssertTrue (T(words:[~1] as X).isMoreThanZero)
+        XCTAssertTrue (T(words:[~2] as X).isMoreThanZero)
     }
 
     func testIsOdd() {
-        XCTAssertFalse(T(words:[ 0] as W).isOdd)
-        XCTAssertTrue (T(words:[ 1] as W).isOdd)
-        XCTAssertFalse(T(words:[ 2] as W).isOdd)
+        XCTAssertFalse(T(words:[ 0] as X).isOdd)
+        XCTAssertTrue (T(words:[ 1] as X).isOdd)
+        XCTAssertFalse(T(words:[ 2] as X).isOdd)
 
-        XCTAssertTrue (T(words:[~0] as W).isOdd)
-        XCTAssertFalse(T(words:[~1] as W).isOdd)
-        XCTAssertTrue (T(words:[~2] as W).isOdd)
+        XCTAssertTrue (T(words:[~0] as X).isOdd)
+        XCTAssertFalse(T(words:[~1] as X).isOdd)
+        XCTAssertTrue (T(words:[~2] as X).isOdd)
     }
 
     func testIsEven() {
-        XCTAssertTrue (T(words:[ 0] as W).isEven)
-        XCTAssertFalse(T(words:[ 1] as W).isEven)
-        XCTAssertTrue (T(words:[ 2] as W).isEven)
+        XCTAssertTrue (T(words:[ 0] as X).isEven)
+        XCTAssertFalse(T(words:[ 1] as X).isEven)
+        XCTAssertTrue (T(words:[ 2] as X).isEven)
         
-        XCTAssertFalse(T(words:[~0] as W).isEven)
-        XCTAssertTrue (T(words:[~1] as W).isEven)
-        XCTAssertFalse(T(words:[~2] as W).isEven)
+        XCTAssertFalse(T(words:[~0] as X).isEven)
+        XCTAssertTrue (T(words:[~1] as X).isEven)
+        XCTAssertFalse(T(words:[~2] as X).isEven)
     }
 
     func testIsPowerOf2() {
-        XCTAssertFalse(T(words:[ 0] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 1] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 2] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 3] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 4] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 5] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 6] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 7] as W).isPowerOf2)
+        XCTAssertFalse(T(words:[ 0] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 1] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 2] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 3] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 4] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 5] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 6] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 7] as X).isPowerOf2)
         
-        XCTAssertFalse(T(words:[ 0,  0,  0,  0] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 1,  0,  0,  0] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 1,  1,  0,  0] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 0,  1,  0,  0] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 0,  1,  1,  0] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 0,  0,  1,  0] as W).isPowerOf2)
-        XCTAssertFalse(T(words:[ 0,  0,  1,  1] as W).isPowerOf2)
-        XCTAssertTrue (T(words:[ 0,  0,  0,  1] as W).isPowerOf2)
+        XCTAssertFalse(T(words:[ 0,  0,  0,  0] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 1,  0,  0,  0] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 1,  1,  0,  0] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 0,  1,  0,  0] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 0,  1,  1,  0] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 0,  0,  1,  0] as X).isPowerOf2)
+        XCTAssertFalse(T(words:[ 0,  0,  1,  1] as X).isPowerOf2)
+        XCTAssertTrue (T(words:[ 0,  0,  0,  1] as X).isPowerOf2)
     }
     
     func testSignum() {
-        NBKAssertSignum(T(words:[ 0] as W), Int(0))
-        NBKAssertSignum(T(words:[ 1] as W), Int(1))
-        NBKAssertSignum(T(words:[ 2] as W), Int(1))
+        NBKAssertSignum(T(words:[ 0] as X), Int(0))
+        NBKAssertSignum(T(words:[ 1] as X), Int(1))
+        NBKAssertSignum(T(words:[ 2] as X), Int(1))
 
-        NBKAssertSignum(T(words:[~0] as W), Int(1))
-        NBKAssertSignum(T(words:[~1] as W), Int(1))
-        NBKAssertSignum(T(words:[~2] as W), Int(1))
+        NBKAssertSignum(T(words:[~0] as X), Int(1))
+        NBKAssertSignum(T(words:[~1] as X), Int(1))
+        NBKAssertSignum(T(words:[~2] as X), Int(1))
     }
     
     //=------------------------------------------------------------------------=
@@ -114,58 +114,58 @@ final class NBKFlexibleWidthTestsOnComparisonsAsUIntXL: XCTestCase {
 
     func testHashing() {
         var union = Set<T>()
-        union.insert(T(words:[0, 0, 0, 0] as W))
-        union.insert(T(words:[0, 0, 0, 0] as W))
-        union.insert(T(words:[1, 0, 0, 0] as W))
-        union.insert(T(words:[1, 0, 0, 0] as W))
-        union.insert(T(words:[0, 1, 0, 0] as W))
-        union.insert(T(words:[0, 1, 0, 0] as W))
-        union.insert(T(words:[0, 0, 1, 0] as W))
-        union.insert(T(words:[0, 0, 1, 0] as W))
-        union.insert(T(words:[0, 0, 0, 1] as W))
-        union.insert(T(words:[0, 0, 0, 1] as W))
+        union.insert(T(words:[0, 0, 0, 0] as X))
+        union.insert(T(words:[0, 0, 0, 0] as X))
+        union.insert(T(words:[1, 0, 0, 0] as X))
+        union.insert(T(words:[1, 0, 0, 0] as X))
+        union.insert(T(words:[0, 1, 0, 0] as X))
+        union.insert(T(words:[0, 1, 0, 0] as X))
+        union.insert(T(words:[0, 0, 1, 0] as X))
+        union.insert(T(words:[0, 0, 1, 0] as X))
+        union.insert(T(words:[0, 0, 0, 1] as X))
+        union.insert(T(words:[0, 0, 0, 1] as X))
         XCTAssertEqual(union.count, 5 as Int)
     }
 
     func testComparing() {
-        NBKAssertComparisons(T(words:[0, 2, 3, 4] as W), T(words:[1, 2, 3, 4] as W), -Int(1))
-        NBKAssertComparisons(T(words:[1, 0, 3, 4] as W), T(words:[1, 2, 3, 4] as W), -Int(1))
-        NBKAssertComparisons(T(words:[1, 2, 0, 4] as W), T(words:[1, 2, 3, 4] as W), -Int(1))
-        NBKAssertComparisons(T(words:[1, 2, 3, 0] as W), T(words:[1, 2, 3, 4] as W), -Int(1))
-        NBKAssertComparisons(T(words:[0, 2, 3, 4] as W), T(words:[0, 2, 3, 4] as W),  Int(0))
-        NBKAssertComparisons(T(words:[1, 0, 3, 4] as W), T(words:[1, 0, 3, 4] as W),  Int(0))
-        NBKAssertComparisons(T(words:[1, 2, 0, 4] as W), T(words:[1, 2, 0, 4] as W),  Int(0))
-        NBKAssertComparisons(T(words:[1, 2, 3, 0] as W), T(words:[1, 2, 3, 0] as W),  Int(0))
-        NBKAssertComparisons(T(words:[1, 2, 3, 4] as W), T(words:[0, 2, 3, 4] as W),  Int(1))
-        NBKAssertComparisons(T(words:[1, 2, 3, 4] as W), T(words:[1, 0, 3, 4] as W),  Int(1))
-        NBKAssertComparisons(T(words:[1, 2, 3, 4] as W), T(words:[1, 2, 0, 4] as W),  Int(1))
-        NBKAssertComparisons(T(words:[1, 2, 3, 4] as W), T(words:[1, 2, 3, 0] as W),  Int(1))
+        NBKAssertComparisons(T(words:[0, 2, 3, 4] as X), T(words:[1, 2, 3, 4] as X), -Int(1))
+        NBKAssertComparisons(T(words:[1, 0, 3, 4] as X), T(words:[1, 2, 3, 4] as X), -Int(1))
+        NBKAssertComparisons(T(words:[1, 2, 0, 4] as X), T(words:[1, 2, 3, 4] as X), -Int(1))
+        NBKAssertComparisons(T(words:[1, 2, 3, 0] as X), T(words:[1, 2, 3, 4] as X), -Int(1))
+        NBKAssertComparisons(T(words:[0, 2, 3, 4] as X), T(words:[0, 2, 3, 4] as X),  Int(0))
+        NBKAssertComparisons(T(words:[1, 0, 3, 4] as X), T(words:[1, 0, 3, 4] as X),  Int(0))
+        NBKAssertComparisons(T(words:[1, 2, 0, 4] as X), T(words:[1, 2, 0, 4] as X),  Int(0))
+        NBKAssertComparisons(T(words:[1, 2, 3, 0] as X), T(words:[1, 2, 3, 0] as X),  Int(0))
+        NBKAssertComparisons(T(words:[1, 2, 3, 4] as X), T(words:[0, 2, 3, 4] as X),  Int(1))
+        NBKAssertComparisons(T(words:[1, 2, 3, 4] as X), T(words:[1, 0, 3, 4] as X),  Int(1))
+        NBKAssertComparisons(T(words:[1, 2, 3, 4] as X), T(words:[1, 2, 0, 4] as X),  Int(1))
+        NBKAssertComparisons(T(words:[1, 2, 3, 4] as X), T(words:[1, 2, 3, 0] as X),  Int(1))
     }
     
     func testComparingAtIndex() {
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(0),  Int(0))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(1),  Int(0))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(2),  Int(0))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(3),  Int(0))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(4),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(0),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(1),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(2),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(3),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(4),  Int(0))
         
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(0), -Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(1), -Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(2), -Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(3), -Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(4), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(0), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(1), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(2), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(3), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 0, 0, 0, 0, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(4), -Int(1))
         
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(0),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(1),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(2),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(3),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[0, 0, 0, 0] as W), Int(4),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(0),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(1),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(2),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(3),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[0, 0, 0, 0] as X), Int(4),  Int(1))
         
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(0),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(1),  Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(2),  Int(0))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(3), -Int(1))
-        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as W), T(words:[1, 2, 3, 4] as W), Int(4), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(0),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(1),  Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(2),  Int(0))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(3), -Int(1))
+        NBKAssertComparisonsAtIndex(T(words:[0, 0, 1, 2, 3, 4, 0, 0] as X), T(words:[1, 2, 3, 4] as X), Int(4), -Int(1))
     }
     
     func testComparingByDigit() {

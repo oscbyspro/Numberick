@@ -13,9 +13,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Numbers x UIntXL
@@ -324,7 +324,7 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     }
     
     func testToMagnitude() {
-        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X64))
         
         for _ in 0 ..< 50_000 {
             NBK.blackHole(M(abc))
@@ -336,7 +336,7 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     }
     
     func testFromMagnitude() {
-        var abc = NBK.blackHoleIdentity(M(x64:[0, 1, 2, 3] as X))
+        var abc = NBK.blackHoleIdentity(M(x64:[0, 1, 2, 3] as X64))
         
         for _ in 0 ..< 100_000 {
             NBK.blackHole(T(abc))
@@ -353,7 +353,7 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     
     // TODO: brrr
     func testToFloat16() {
-        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X64))
         
         for _ in 0 ..< 1_000 {
             NBK.blackHole(Float16(abc))
@@ -374,7 +374,7 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     
     // TODO: brrr
     func testToFloat32() {
-        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X64))
 
         for _ in 0 ..< 1_000 {
             NBK.blackHole(Float32(abc))
@@ -395,7 +395,7 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     
     // TODO: brrr
     func testToFloat64() {
-        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X))
+        var abc = NBK.blackHoleIdentity(T(x64:[0, 1, 2, 3] as X64))
 
         for _ in 0 ..< 1_000 {
             NBK.blackHole(Float64(abc))
@@ -419,8 +419,8 @@ final class NBKFlexibleWidthBenchmarksOnNumbersAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSignAndMagnitude() {
-        var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64:[0, 1, 2, 3] as X)))
-        var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64:[0, 1, 2, 3] as X)))
+        var abc = NBK.blackHoleIdentity((sign: FloatingPointSign.plus,  magnitude: M(x64:[0, 1, 2, 3] as X64)))
+        var xyz = NBK.blackHoleIdentity((sign: FloatingPointSign.minus, magnitude: M(x64:[0, 1, 2, 3] as X64)))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(T(sign: abc.sign, magnitude: abc.magnitude))

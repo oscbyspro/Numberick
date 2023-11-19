@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Shifts x UIntXL
@@ -28,33 +28,33 @@ final class NBKFlexibleWidthTestsOnShiftsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitShiftingLeftByBits() {
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   0, T(x64:[ 1,  2,  3,  4] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   1, T(x64:[ 2,  4,  6,  8] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   2, T(x64:[ 4,  8, 12, 16] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   3, T(x64:[ 8, 16, 24, 32] as X))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   0, T(x64:[ 1,  2,  3,  4] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   1, T(x64:[ 2,  4,  6,  8] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   2, T(x64:[ 4,  8, 12, 16] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   3, T(x64:[ 8, 16, 24, 32] as X64))
     }
     
     func testBitShiftingLeftByWords() {
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   0, T(x64:[ 1,  2,  3,  4,  0,  0,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),  64, T(x64:[ 0,  1,  2,  3,  4,  0,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 128, T(x64:[ 0,  0,  1,  2,  3,  4,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 192, T(x64:[ 0,  0,  0,  1,  2,  3,  4,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 256, T(x64:[ 0,  0,  0,  0,  1,  2,  3,  4] as X))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   0, T(x64:[ 1,  2,  3,  4,  0,  0,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),  64, T(x64:[ 0,  1,  2,  3,  4,  0,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 128, T(x64:[ 0,  0,  1,  2,  3,  4,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 192, T(x64:[ 0,  0,  0,  1,  2,  3,  4,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 256, T(x64:[ 0,  0,  0,  0,  1,  2,  3,  4] as X64))
     }
     
     func testBitShiftingLeftByWordsAndBits() {
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),   3, T(x64:[ 8, 16, 24, 32,  0,  0,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X),  67, T(x64:[ 0,  8, 16, 24, 32,  0,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 131, T(x64:[ 0,  0,  8, 16, 24, 32,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 195, T(x64:[ 0,  0,  0,  8, 16, 24, 32,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X), 259, T(x64:[ 0,  0,  0,  0,  8, 16, 24, 32] as X))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),   3, T(x64:[ 8, 16, 24, 32,  0,  0,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64),  67, T(x64:[ 0,  8, 16, 24, 32,  0,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 131, T(x64:[ 0,  0,  8, 16, 24, 32,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 195, T(x64:[ 0,  0,  0,  8, 16, 24, 32,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 1,  2,  3,  4] as X64), 259, T(x64:[ 0,  0,  0,  0,  8, 16, 24, 32] as X64))
     }
     
     func testBitShiftingLeftSuchThatWordsSplit() {
-        NBKAssertShiftLeft(T(x64:[~0,  0,  0,  0] as X),   1, T(x64:[~1,  1,  0,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 0, ~0,  0,  0] as X),   1, T(x64:[ 0, ~1,  1,  0,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 0,  0, ~0,  0] as X),   1, T(x64:[ 0,  0, ~1,  1,  0] as X))
-        NBKAssertShiftLeft(T(x64:[ 0,  0,  0, ~0] as X),   1, T(x64:[ 0,  0,  0, ~1,  1] as X))
+        NBKAssertShiftLeft(T(x64:[~0,  0,  0,  0] as X64),   1, T(x64:[~1,  1,  0,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 0, ~0,  0,  0] as X64),   1, T(x64:[ 0, ~1,  1,  0,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 0,  0, ~0,  0] as X64),   1, T(x64:[ 0,  0, ~1,  1,  0] as X64))
+        NBKAssertShiftLeft(T(x64:[ 0,  0,  0, ~0] as X64),   1, T(x64:[ 0,  0,  0, ~1,  1] as X64))
     }
     
     //=------------------------------------------------------------------------=
@@ -62,41 +62,41 @@ final class NBKFlexibleWidthTestsOnShiftsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitShiftingRightByBits() {
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   0, T(x64:[ 8, 16, 24, 32] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   1, T(x64:[ 4,  8, 12, 16] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   2, T(x64:[ 2,  4,  6,  8] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   3, T(x64:[ 1,  2,  3,  4] as X))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   0, T(x64:[ 8, 16, 24, 32] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   1, T(x64:[ 4,  8, 12, 16] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   2, T(x64:[ 2,  4,  6,  8] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   3, T(x64:[ 1,  2,  3,  4] as X64))
     }
     
     func testBitShiftingRightByWords() {
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   0, T(x64:[ 8, 16, 24, 32] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),  64, T(x64:[16, 24, 32,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 128, T(x64:[24, 32,  0,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 192, T(x64:[32,  0,  0,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 256, T(x64:[ 0,  0,  0,  0] as X))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   0, T(x64:[ 8, 16, 24, 32] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),  64, T(x64:[16, 24, 32,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 128, T(x64:[24, 32,  0,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 192, T(x64:[32,  0,  0,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 256, T(x64:[ 0,  0,  0,  0] as X64))
     }
     
     func testBitShiftingRightByWordsAndBits() {
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),   3, T(x64:[ 1,  2,  3,  4] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X),  67, T(x64:[ 2,  3,  4,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 131, T(x64:[ 3,  4,  0,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 195, T(x64:[ 4,  0,  0,  0] as X))
-        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X), 259, T(x64:[ 0,  0,  0,  0] as X))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),   3, T(x64:[ 1,  2,  3,  4] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64),  67, T(x64:[ 2,  3,  4,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 131, T(x64:[ 3,  4,  0,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 195, T(x64:[ 4,  0,  0,  0] as X64))
+        NBKAssertShiftRight(T(x64:[8, 16, 24, 32] as X64), 259, T(x64:[ 0,  0,  0,  0] as X64))
     }
     
     func testBitShiftingRightSuchThatWordsSplit() {
-        NBKAssertShiftRight(T(x64:[0,  0,  0,  7] as X),   1, T(x64:[ 0,  0,  1 << 63,  3] as X))
-        NBKAssertShiftRight(T(x64:[0,  0,  7,  0] as X),   1, T(x64:[ 0,  1 << 63,  3,  0] as X))
-        NBKAssertShiftRight(T(x64:[0,  7,  0,  0] as X),   1, T(x64:[ 1 << 63,  3,  0,  0] as X))
-        NBKAssertShiftRight(T(x64:[7,  0,  0,  0] as X),   1, T(x64:[ 3,        0,  0,  0] as X))
+        NBKAssertShiftRight(T(x64:[0,  0,  0,  7] as X64),   1, T(x64:[ 0,  0,  1 << 63,  3] as X64))
+        NBKAssertShiftRight(T(x64:[0,  0,  7,  0] as X64),   1, T(x64:[ 0,  1 << 63,  3,  0] as X64))
+        NBKAssertShiftRight(T(x64:[0,  7,  0,  0] as X64),   1, T(x64:[ 1 << 63,  3,  0,  0] as X64))
+        NBKAssertShiftRight(T(x64:[7,  0,  0,  0] as X64),   1, T(x64:[ 3,        0,  0,  0] as X64))
     }
     
     func testBitShiftingRightIsUnsigned() {
-        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X),   0, T(x64:[0, 0, 0, 1 << 63] as X))
-        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X),  64, T(x64:[0, 0, 1 << 63, 0] as X))
-        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X), 128, T(x64:[0, 1 << 63, 0, 0] as X))
-        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X), 192, T(x64:[1 << 63, 0, 0, 0] as X))
-        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X), 256, T(x64:[0,       0, 0, 0] as X))
+        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X64),   0, T(x64:[0, 0, 0, 1 << 63] as X64))
+        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X64),  64, T(x64:[0, 0, 1 << 63, 0] as X64))
+        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X64), 128, T(x64:[0, 1 << 63, 0, 0] as X64))
+        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X64), 192, T(x64:[1 << 63, 0, 0, 0] as X64))
+        NBKAssertShiftRight(T(x64:[0, 0, 0, 1 << 63] as X64), 256, T(x64:[0,       0, 0, 0] as X64))
     }
     
     //=------------------------------------------------------------------------=
@@ -104,37 +104,37 @@ final class NBKFlexibleWidthTestsOnShiftsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testBitShiftingIsSmart() {
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) <<   1, T(x64:[2, 4, 6, 8, 0] as X))
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >>  -1, T(x64:[2, 4, 6, 8, 0] as X))
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) <<   1, T(x64:[2, 4, 6, 8, 0] as X64))
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) >>  -1, T(x64:[2, 4, 6, 8, 0] as X64))
         
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) <<  64, T(x64:[0, 1, 2, 3, 4] as X))
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> -64, T(x64:[0, 1, 2, 3, 4] as X))
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) <<  64, T(x64:[0, 1, 2, 3, 4] as X64))
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) >> -64, T(x64:[0, 1, 2, 3, 4] as X64))
     }
     
     func testBitShiftingLeftByMoreThanBitWidthDoesNotTrap() {
-        NBKAssertShiftLeft (T(x64:[1] as X),  (UInt.bitWidth + 1), T(x64:[0, 2] as X))
-        NBKAssertShiftRight(T(x64:[1] as X), -(UInt.bitWidth + 1), T(x64:[0, 2] as X))
+        NBKAssertShiftLeft (T(x64:[1] as X64),  (UInt.bitWidth + 1), T(x64:[0, 2] as X64))
+        NBKAssertShiftRight(T(x64:[1] as X64), -(UInt.bitWidth + 1), T(x64:[0, 2] as X64))
     }
     
     func testBitShiftingRightDoesNotTrap() {
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) >> Int.max, T.zero)
-        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X) << Int.min, T.zero)
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) >> Int.max, T.zero)
+        XCTAssertEqual(T(x64:[1, 2, 3, 4] as X64) << Int.min, T.zero)
     }
     
     func testBitShiftingZeroDoesNotTrap() {
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << Int.min, T.zero)
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << Int.max, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) << Int.min, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) << Int.max, T.zero)
         
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.min, T.zero)
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> Int.max, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) >> Int.min, T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) >> Int.max, T.zero)
     }
     
     func testBitShiftingZeroDoesNotDoAnything() {
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << (UInt.bitWidth + 0), T.zero)
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) << (UInt.bitWidth + 1), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) << (UInt.bitWidth + 0), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) << (UInt.bitWidth + 1), T.zero)
         
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> (UInt.bitWidth + 0), T.zero)
-        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X) >> (UInt.bitWidth + 1), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) >> (UInt.bitWidth + 0), T.zero)
+        XCTAssertEqual(T(x64:[0, 0, 0, 0] as X64) >> (UInt.bitWidth + 1), T.zero)
     }
 }
 

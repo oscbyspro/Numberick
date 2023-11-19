@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Complements x UIntXL
@@ -29,15 +29,15 @@ final class NBKFlexibleWidthTestsOnComplementsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMagnitude() {
-        XCTAssertEqual(T(words:[ 1,  0,  0,  0] as W).magnitude, M(words:[ 1,  0,  0,  0] as W))
-        XCTAssertEqual(T(words:[~0,  0,  0,  0] as W).magnitude, M(words:[~0,  0,  0,  0] as W))
-        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as W).magnitude, M(words:[ 1,  1,  1,  1] as W))
-        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as W).magnitude, M(words:[~0, ~0, ~0, ~0] as W))
+        XCTAssertEqual(T(words:[ 1,  0,  0,  0] as X).magnitude, M(words:[ 1,  0,  0,  0] as X))
+        XCTAssertEqual(T(words:[~0,  0,  0,  0] as X).magnitude, M(words:[~0,  0,  0,  0] as X))
+        XCTAssertEqual(T(words:[ 1,  1,  1,  1] as X).magnitude, M(words:[ 1,  1,  1,  1] as X))
+        XCTAssertEqual(T(words:[~0, ~0, ~0, ~0] as X).magnitude, M(words:[~0, ~0, ~0, ~0] as X))
         
-        XCTAssertEqual(T(magnitude: M(words:[ 1,  0,  0,  0] as W)), M(words:[ 1,  0,  0,  0] as W))
-        XCTAssertEqual(T(magnitude: M(words:[~0,  0,  0,  0] as W)), M(words:[~0,  0,  0,  0] as W))
-        XCTAssertEqual(T(magnitude: M(words:[ 1,  1,  1,  1] as W)), M(words:[ 1,  1,  1,  1] as W))
-        XCTAssertEqual(T(magnitude: M(words:[~0, ~0, ~0, ~0] as W)), M(words:[~0, ~0, ~0, ~0] as W))
+        XCTAssertEqual(T(magnitude: M(words:[ 1,  0,  0,  0] as X)), M(words:[ 1,  0,  0,  0] as X))
+        XCTAssertEqual(T(magnitude: M(words:[~0,  0,  0,  0] as X)), M(words:[~0,  0,  0,  0] as X))
+        XCTAssertEqual(T(magnitude: M(words:[ 1,  1,  1,  1] as X)), M(words:[ 1,  1,  1,  1] as X))
+        XCTAssertEqual(T(magnitude: M(words:[~0, ~0, ~0, ~0] as X)), M(words:[~0, ~0, ~0, ~0] as X))
     }
     
     //=------------------------------------------------------------------------=
@@ -45,19 +45,19 @@ final class NBKFlexibleWidthTestsOnComplementsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testOnesComplement() {
-        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as W), T(words:[~0,  0,  0,  0] as W))
-        NBKAssertOnesComplement(T(words:[ 1,  0,  0,  0] as W), T(words:[~1,  0,  0,  0] as W))
-        NBKAssertOnesComplement(T(words:[~0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W))
-        NBKAssertOnesComplement(T(words:[ 1,  1,  1,  1] as W), T(words:[~1, ~1, ~1, ~1] as W))
-        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 0,  0,  0,  0] as W))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0,  0] as X), T(words:[~0,  0,  0,  0] as X))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0,  0] as X), T(words:[~1,  0,  0,  0] as X))
+        NBKAssertOnesComplement(T(words:[~0,  0,  0,  0] as X), T(words:[ 0,  0,  0,  0] as X))
+        NBKAssertOnesComplement(T(words:[ 1,  1,  1,  1] as X), T(words:[~1, ~1, ~1, ~1] as X))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0] as X), T(words:[ 0,  0,  0,  0] as X))
         
-        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as W), T(words:[ 0,  0,  0, ~0/2 + 1] as W))
-        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as W), T(words:[~0, ~0, ~0, ~0/2 + 0] as W))
-        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as W), T(words:[~1, ~0, ~0, ~0/2 + 0] as W))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as X), T(words:[ 0,  0,  0, ~0/2 + 1] as X))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as X), T(words:[~0, ~0, ~0, ~0/2 + 0] as X))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as X), T(words:[~1, ~0, ~0, ~0/2 + 0] as X))
 
-        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as W), T(words:[~1, ~0, ~0, ~0/2 + 0] as W))
-        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as W), T(words:[~0, ~0, ~0, ~0/2 + 0] as W))
-        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as W), T(words:[ 0,  0,  0, ~0/2 + 1] as W))
+        NBKAssertOnesComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as X), T(words:[~1, ~0, ~0, ~0/2 + 0] as X))
+        NBKAssertOnesComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as X), T(words:[~0, ~0, ~0, ~0/2 + 0] as X))
+        NBKAssertOnesComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as X), T(words:[ 0,  0,  0, ~0/2 + 1] as X))
     }
     
     //=------------------------------------------------------------------------=
@@ -65,19 +65,19 @@ final class NBKFlexibleWidthTestsOnComplementsAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testTwosComplement() {
-        NBKAssertTwosComplement(T(words:[ 0,  0,  0,  0] as W), T(words:[ 0,  0,  0,  0] as W), true)
-        NBKAssertTwosComplement(T(words:[ 1,  0,  0,  0] as W), T(words:[~0,  0,  0,  0] as W))
-        NBKAssertTwosComplement(T(words:[~0,  0,  0,  0] as W), T(words:[ 1,  0,  0,  0] as W))
-        NBKAssertTwosComplement(T(words:[ 1,  1,  1,  1] as W), T(words:[~0, ~1, ~1, ~1] as W))
-        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0] as W), T(words:[ 1,  0,  0,  0] as W))
+        NBKAssertTwosComplement(T(words:[ 0,  0,  0,  0] as X), T(words:[ 0,  0,  0,  0] as X), true)
+        NBKAssertTwosComplement(T(words:[ 1,  0,  0,  0] as X), T(words:[~0,  0,  0,  0] as X))
+        NBKAssertTwosComplement(T(words:[~0,  0,  0,  0] as X), T(words:[ 1,  0,  0,  0] as X))
+        NBKAssertTwosComplement(T(words:[ 1,  1,  1,  1] as X), T(words:[~0, ~1, ~1, ~1] as X))
+        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0] as X), T(words:[ 1,  0,  0,  0] as X))
         
-        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as W), T(words:[ 1,  0,  0, ~0/2 + 1] as W))
-        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as W), T(words:[ 0,  0,  0, ~0/2 + 1] as W))
-        NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as W), T(words:[~0, ~0, ~0, ~0/2 + 0] as W))
+        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as X), T(words:[ 1,  0,  0, ~0/2 + 1] as X))
+        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as X), T(words:[ 0,  0,  0, ~0/2 + 1] as X))
+        NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as X), T(words:[~0, ~0, ~0, ~0/2 + 0] as X))
 
-        NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as W), T(words:[~0, ~0, ~0, ~0/2 + 0] as W))
-        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as W), T(words:[ 0,  0,  0, ~0/2 + 1] as W))
-        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as W), T(words:[ 1,  0,  0, ~0/2 + 1] as W))
+        NBKAssertTwosComplement(T(words:[ 1,  0,  0, ~0/2 + 1] as X), T(words:[~0, ~0, ~0, ~0/2 + 0] as X))
+        NBKAssertTwosComplement(T(words:[ 0,  0,  0, ~0/2 + 1] as X), T(words:[ 0,  0,  0, ~0/2 + 1] as X))
+        NBKAssertTwosComplement(T(words:[~0, ~0, ~0, ~0/2 + 0] as X), T(words:[ 1,  0,  0, ~0/2 + 1] as X))
     }
 }
 

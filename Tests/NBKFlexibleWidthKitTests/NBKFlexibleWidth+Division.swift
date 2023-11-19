@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Division x UIntXL
@@ -42,41 +42,41 @@ final class NBKFlexibleWidthTestsOnDivisionAsUIntXL: XCTestCase {
     }
     
     func testDividingWithLargeDividend() {
-        NBKAssertDivision(T(x64:[~2,  ~4,  ~6,  9] as X), T(2), T(x64:[~1, ~2, ~3, 4] as X), T(1))
-        NBKAssertDivision(T(x64:[~3,  ~6,  ~9, 14] as X), T(3), T(x64:[~1, ~2, ~3, 4] as X), T(2))
-        NBKAssertDivision(T(x64:[~4,  ~8, ~12, 19] as X), T(4), T(x64:[~1, ~2, ~3, 4] as X), T(3))
-        NBKAssertDivision(T(x64:[~5, ~10, ~15, 24] as X), T(5), T(x64:[~1, ~2, ~3, 4] as X), T(4))
+        NBKAssertDivision(T(x64:[~2,  ~4,  ~6,  9] as X64), T(2), T(x64:[~1, ~2, ~3, 4] as X64), T(1))
+        NBKAssertDivision(T(x64:[~3,  ~6,  ~9, 14] as X64), T(3), T(x64:[~1, ~2, ~3, 4] as X64), T(2))
+        NBKAssertDivision(T(x64:[~4,  ~8, ~12, 19] as X64), T(4), T(x64:[~1, ~2, ~3, 4] as X64), T(3))
+        NBKAssertDivision(T(x64:[~5, ~10, ~15, 24] as X64), T(5), T(x64:[~1, ~2, ~3, 4] as X64), T(4))
         
-        NBKAssertDivision(T(x64:[~2,  ~4,  ~6,  9] as X), T(x64:[~1, ~2, ~3, 4] as X), T(2), T(1))
-        NBKAssertDivision(T(x64:[~3,  ~6,  ~9, 14] as X), T(x64:[~1, ~2, ~3, 4] as X), T(3), T(2))
-        NBKAssertDivision(T(x64:[~4,  ~8, ~12, 19] as X), T(x64:[~1, ~2, ~3, 4] as X), T(4), T(3))
-        NBKAssertDivision(T(x64:[~5, ~10, ~15, 24] as X), T(x64:[~1, ~2, ~3, 4] as X), T(5), T(4))
+        NBKAssertDivision(T(x64:[~2,  ~4,  ~6,  9] as X64), T(x64:[~1, ~2, ~3, 4] as X64), T(2), T(1))
+        NBKAssertDivision(T(x64:[~3,  ~6,  ~9, 14] as X64), T(x64:[~1, ~2, ~3, 4] as X64), T(3), T(2))
+        NBKAssertDivision(T(x64:[~4,  ~8, ~12, 19] as X64), T(x64:[~1, ~2, ~3, 4] as X64), T(4), T(3))
+        NBKAssertDivision(T(x64:[~5, ~10, ~15, 24] as X64), T(x64:[~1, ~2, ~3, 4] as X64), T(5), T(4))
     }
     
     func testDividingWithLargeDivisor() {
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 3,  4,  5,  6 &+ 1 << 63] as X), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 2,  3,  4,  5 &+ 1 << 63] as X), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[ 3,  4,  5,  6 &+ 1 << 63] as X64), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[ 2,  3,  4,  5 &+ 1 << 63] as X64), T(0), T(x64:[1, 2, 3, 4 + 1 << 63] as X64))
 
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 1,  2,  3,  4 &+ 1 << 63] as X), T(1), T(x64:[0, 0, 0, 0] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[ 0,  1,  2,  3 &+ 1 << 63] as X), T(1), T(x64:[1, 1, 1, 1] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~0, ~0,  0,  2 &+ 1 << 63] as X), T(1), T(x64:[2, 2, 2, 2] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~1, ~1, ~0,  0 &+ 1 << 63] as X), T(1), T(x64:[3, 3, 3, 3] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~2, ~2, ~1, ~0 &+ 1 << 63] as X), T(1), T(x64:[4, 4, 4, 4] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~3, ~3, ~2, ~1 &+ 1 << 63] as X), T(1), T(x64:[5, 5, 5, 5] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~4, ~4, ~3, ~2 &+ 1 << 63] as X), T(1), T(x64:[6, 6, 6, 6] as X))
-        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X), T(x64:[~5, ~5, ~4, ~3 &+ 1 << 63] as X), T(1), T(x64:[7, 7, 7, 7] as X))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[ 1,  2,  3,  4 &+ 1 << 63] as X64), T(1), T(x64:[0, 0, 0, 0] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[ 0,  1,  2,  3 &+ 1 << 63] as X64), T(1), T(x64:[1, 1, 1, 1] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~0, ~0,  0,  2 &+ 1 << 63] as X64), T(1), T(x64:[2, 2, 2, 2] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~1, ~1, ~0,  0 &+ 1 << 63] as X64), T(1), T(x64:[3, 3, 3, 3] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~2, ~2, ~1, ~0 &+ 1 << 63] as X64), T(1), T(x64:[4, 4, 4, 4] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~3, ~3, ~2, ~1 &+ 1 << 63] as X64), T(1), T(x64:[5, 5, 5, 5] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~4, ~4, ~3, ~2 &+ 1 << 63] as X64), T(1), T(x64:[6, 6, 6, 6] as X64))
+        NBKAssertDivision(T(x64:[1, 2, 3, 4 + 1 << 63] as X64), T(x64:[~5, ~5, ~4, ~3 &+ 1 << 63] as X64), T(1), T(x64:[7, 7, 7, 7] as X64))
     }
     
     func testDividingLikeFullWidth() {
         var dividend: T
         //=--------------------------------------=
-        dividend = T(words:[ 06, 17, 35, 61, 61, 52, 32, 00] as W)
-        NBKAssertDivision(dividend, T(words:[ 1,  2,  3,  4] as W), T(words:[ 5,  6,  7,  8] as W), T(words:[ 1,  1,  1,  1] as W))
-        NBKAssertDivision(dividend, T(words:[ 5,  6,  7,  8] as W), T(words:[ 1,  2,  3,  4] as W), T(words:[ 1,  1,  1,  1] as W))
+        dividend = T(words:[ 06, 17, 35, 61, 61, 52, 32, 00] as X)
+        NBKAssertDivision(dividend, T(words:[ 1,  2,  3,  4] as X), T(words:[ 5,  6,  7,  8] as X), T(words:[ 1,  1,  1,  1] as X))
+        NBKAssertDivision(dividend, T(words:[ 5,  6,  7,  8] as X), T(words:[ 1,  2,  3,  4] as X), T(words:[ 1,  1,  1,  1] as X))
         //=--------------------------------------=
-        dividend = T(words:[ 34, 54, 63, 62, 34, 16, 05, 00] as W)
-        NBKAssertDivision(dividend, T(words:[ 4,  3,  2,  1] as W), T(words:[ 9,  7,  6,  5] as W), T(words:[~1, ~1, ~0,  0] as W))
-        NBKAssertDivision(dividend, T(words:[ 8,  7,  6,  5] as W), T(words:[ 4,  3,  2,  1] as W), T(words:[ 2,  2,  2,  2] as W))
+        dividend = T(words:[ 34, 54, 63, 62, 34, 16, 05, 00] as X)
+        NBKAssertDivision(dividend, T(words:[ 4,  3,  2,  1] as X), T(words:[ 9,  7,  6,  5] as X), T(words:[~1, ~1, ~0,  0] as X))
+        NBKAssertDivision(dividend, T(words:[ 8,  7,  6,  5] as X), T(words:[ 4,  3,  2,  1] as X), T(words:[ 2,  2,  2,  2] as X))
     }
     
     //=------------------------------------------------------------------------=
@@ -97,10 +97,10 @@ final class NBKFlexibleWidthTestsOnDivisionAsUIntXL: XCTestCase {
     }
     
     func testDividingByDigitWithLargeDividend() {
-        NBKAssertDivisionByDigit(T(words:[~2,  ~4,  ~6,  9] as W), UInt(2), T(words:[~1, ~2, ~3, 4] as W), UInt(1))
-        NBKAssertDivisionByDigit(T(words:[~3,  ~6,  ~9, 14] as W), UInt(3), T(words:[~1, ~2, ~3, 4] as W), UInt(2))
-        NBKAssertDivisionByDigit(T(words:[~4,  ~8, ~12, 19] as W), UInt(4), T(words:[~1, ~2, ~3, 4] as W), UInt(3))
-        NBKAssertDivisionByDigit(T(words:[~5, ~10, ~15, 24] as W), UInt(5), T(words:[~1, ~2, ~3, 4] as W), UInt(4))
+        NBKAssertDivisionByDigit(T(words:[~2,  ~4,  ~6,  9] as X), UInt(2), T(words:[~1, ~2, ~3, 4] as X), UInt(1))
+        NBKAssertDivisionByDigit(T(words:[~3,  ~6,  ~9, 14] as X), UInt(3), T(words:[~1, ~2, ~3, 4] as X), UInt(2))
+        NBKAssertDivisionByDigit(T(words:[~4,  ~8, ~12, 19] as X), UInt(4), T(words:[~1, ~2, ~3, 4] as X), UInt(3))
+        NBKAssertDivisionByDigit(T(words:[~5, ~10, ~15, 24] as X), UInt(5), T(words:[~1, ~2, ~3, 4] as X), UInt(4))
     }
     
     //=------------------------------------------------------------------------=
@@ -140,16 +140,16 @@ final class NBKFlexibleWidthTestsOnDivisionCodeCoverageAsUIntXL: XCTestCase {
     func testDividingFullWidth3212MSBAsUInt256() {
         var dividend: T, divisor: T, quotient: T, remainder: T
         //=--------------------------------------=
-        dividend  = T(x64:[ 0,  0,  0,  0,  0, ~0, ~0, ~0] as X)
-        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
-        quotient  = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
-        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        dividend  = T(x64:[ 0,  0,  0,  0,  0, ~0, ~0, ~0] as X64)
+        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
+        quotient  = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
+        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
         NBKAssertDivision(dividend, divisor, quotient, remainder)
         //=--------------------------------------=
-        dividend  = T(x64:[~0, ~0, ~0, ~0,  0, ~0, ~0, ~0] as X)
-        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
-        quotient  = T(x64:[ 1, ~0, ~0, ~0,  0,  0,  0,  0] as X)
-        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X)
+        dividend  = T(x64:[~0, ~0, ~0, ~0,  0, ~0, ~0, ~0] as X64)
+        divisor   = T(x64:[~0, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
+        quotient  = T(x64:[ 1, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
+        remainder = T(x64:[ 0, ~0, ~0, ~0,  0,  0,  0,  0] as X64)
         NBKAssertDivision(dividend, divisor, quotient, remainder)
     }
 }

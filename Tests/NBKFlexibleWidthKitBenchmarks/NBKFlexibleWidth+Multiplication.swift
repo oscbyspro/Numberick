@@ -13,9 +13,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Multiplication x UIntXL
@@ -30,8 +30,8 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplying() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
-        var rhs = NBK.blackHoleIdentity(T(x64:[ 1,  2,  3,  4] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X64))
+        var rhs = NBK.blackHoleIdentity(T(x64:[ 1,  2,  3,  4] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(lhs * rhs)
@@ -45,7 +45,7 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingByDigit() {
-        var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
+        var lhs = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X64))
         var rhs = NBK.blackHoleIdentity(UInt.max)
         
         for _ in 0 ..< 1_000_000 {
@@ -60,7 +60,7 @@ final class NBKFlexibleWidthBenchmarksOnMultiplicationAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMultiplyingBySquaring() {
-        var base = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X))
+        var base = NBK.blackHoleIdentity(T(x64:[~1, ~2, ~3, ~4] as X64))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(base.squared())

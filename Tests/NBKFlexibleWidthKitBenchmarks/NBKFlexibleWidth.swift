@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x UIntXL
@@ -25,8 +25,8 @@ extension NBKFlexibleWidth.Magnitude {
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    static let min256 = Self(x64:[ 0,  0,  0,  0] as X)
-    static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X)
+    static let min256 = Self(x64:[ 0,  0,  0,  0] as X64)
+    static let max256 = Self(x64:[~0, ~0, ~0, ~0] as X64)
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers

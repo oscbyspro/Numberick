@@ -11,9 +11,9 @@ import NBKCoreKit
 import NBKFlexibleWidthKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Flexible Width x Update x UIntXL
@@ -29,10 +29,10 @@ final class NBKFlexibleWidthTestsOnUpdateAsUIntXL: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testUpdate() {
-        NBKAssertUpdate(T(words:[ 0,  0,  0,  0      ] as W))
-        NBKAssertUpdate(T(words:[~0, ~0, ~0, ~0/2 + 0] as W))
-        NBKAssertUpdate(T(words:[ 0,  0,  0, ~0/2 + 1] as W))
-        NBKAssertUpdate(T(words:[~0, ~0, ~0, ~0      ] as W))
+        NBKAssertUpdate(T(words:[ 0,  0,  0,  0      ] as X))
+        NBKAssertUpdate(T(words:[~0, ~0, ~0, ~0/2 + 0] as X))
+        NBKAssertUpdate(T(words:[ 0,  0,  0, ~0/2 + 1] as X))
+        NBKAssertUpdate(T(words:[~0, ~0, ~0, ~0      ] as X))
     }
     
     func testUpdateAsDigit() {
@@ -48,12 +48,12 @@ final class NBKFlexibleWidthTestsOnUpdateAsUIntXL: XCTestCase {
 //*============================================================================*
 
 private func NBKAssertUpdate<T: IntXLOrUIntXL>(_ value: T, file: StaticString = #file, line: UInt = #line) {
-    XCTAssertEqual({ var x = T(words:[0, 0, 0, 0] as W); x.update(value); return x }(), value, file: file, line: line)
-    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as W); x.update(value); return x }(), value, file: file, line: line)
+    XCTAssertEqual({ var x = T(words:[0, 0, 0, 0] as X); x.update(value); return x }(), value, file: file, line: line)
+    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as X); x.update(value); return x }(), value, file: file, line: line)
 }
 
 private func NBKAssertUpdateAsDigit<T: IntXLOrUIntXL>(_ type: T.Type, _ value: T.Digit, file: StaticString = #file, line: UInt = #line) {
     NBKAssertUpdate(T(digit: value), file: file, line: line)
-    XCTAssertEqual({ var x = T(words:[0, 0, 0, 0] as W); x.update(value); return x }(), T(digit: value), file: file, line: line)
-    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as W); x.update(value); return x }(), T(digit: value), file: file, line: line)
+    XCTAssertEqual({ var x = T(words:[0, 0, 0, 0] as X); x.update(value); return x }(), T(digit: value), file: file, line: line)
+    XCTAssertEqual({ var x = T(words:[1, 2, 3, 4] as X); x.update(value); return x }(), T(digit: value), file: file, line: line)
 }
