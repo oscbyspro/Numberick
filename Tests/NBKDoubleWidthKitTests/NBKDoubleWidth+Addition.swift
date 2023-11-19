@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Addition x Int256
@@ -27,25 +27,25 @@ final class NBKDoubleWidthTestsOnAdditionAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAddingLargeToLarge() {
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0,  3)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(3, 0, 0, 0)), T(x64: X64( 2,  0,  0,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 3, 0, 0)), T(x64: X64(~0,  2,  0,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 0, 3, 0)), T(x64: X64(~0, ~0,  2,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 0, 0, 3)), T(x64: X64(~0, ~0, ~0,  3)))
         
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(3, 0, 0, 0)), T(x64: X(~3, ~0, ~0,  0)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 3, 0, 0)), T(x64: X(~0, ~3, ~0,  0)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0, ~3,  0)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0, ~2)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(3, 0, 0, 0)), T(x64: X64(~3, ~0, ~0,  0)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 3, 0, 0)), T(x64: X64(~0, ~3, ~0,  0)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 0, 3, 0)), T(x64: X64(~0, ~0, ~3,  0)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 0, 0, 3)), T(x64: X64(~0, ~0, ~0, ~2)))
         
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(3, 0, 0, 0)), T(x64: X( 3,  0,  0, ~0)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 3, 0, 0)), T(x64: X( 0,  3,  0, ~0)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 0, 3, 0)), T(x64: X( 0,  0,  3, ~0)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0,  2)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(3, 0, 0, 0)), T(x64: X64( 3,  0,  0, ~0)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 3, 0, 0)), T(x64: X64( 0,  3,  0, ~0)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 0, 3, 0)), T(x64: X64( 0,  0,  3, ~0)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 0, 0, 3)), T(x64: X64( 0,  0,  0,  2)))
         
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(3, 0, 0, 0)), T(x64: X(~2, ~0, ~0, ~1)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 3, 0, 0)), T(x64: X( 0, ~2, ~0, ~1)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 0, 3, 0)), T(x64: X( 0,  0, ~2, ~1)))
-        NBKAssertAddition(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0, ~3)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(3, 0, 0, 0)), T(x64: X64(~2, ~0, ~0, ~1)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 3, 0, 0)), T(x64: X64( 0, ~2, ~0, ~1)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 0, 3, 0)), T(x64: X64( 0,  0, ~2, ~1)))
+        NBKAssertAddition(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 0, 0, 3)), T(x64: X64( 0,  0,  0, ~3)))
     }
     
     func testAddingHalvesToHalvesReportingOverflow() {
@@ -78,10 +78,10 @@ final class NBKDoubleWidthTestsOnAdditionAsInt256: XCTestCase {
     }
     
     func testAddingSmallToLarge() {
-        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X( 2,  0,  0,  1)))
-        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X(~3, ~0, ~0,  0)))
-        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X( 3,  0,  0, ~0)))
-        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X(~2, ~0, ~0, ~1)))
+        NBKAssertAdditionByDigit(T(x64: X64(~0, ~0, ~0,  0)),  Int(3), T(x64: X64( 2,  0,  0,  1)))
+        NBKAssertAdditionByDigit(T(x64: X64(~0, ~0, ~0,  0)), -Int(3), T(x64: X64(~3, ~0, ~0,  0)))
+        NBKAssertAdditionByDigit(T(x64: X64( 0,  0,  0, ~0)),  Int(3), T(x64: X64( 3,  0,  0, ~0)))
+        NBKAssertAdditionByDigit(T(x64: X64( 0,  0,  0, ~0)), -Int(3), T(x64: X64(~2, ~0, ~0, ~1)))
     }
     
     func testAddingSmallToEdgesReportingOverflow() {
@@ -121,10 +121,10 @@ final class NBKDoubleWidthTestsOnAdditionAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
 
     func testAddingLargeToLarge() {
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
-        NBKAssertAddition(T(x64: X(~0, ~0, ~0,  0)), T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0,  3)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), T(x64: X64(3, 0, 0, 0)), T(x64: X64( 2,  0,  0,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), T(x64: X64(0, 3, 0, 0)), T(x64: X64(~0,  2,  0,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), T(x64: X64(0, 0, 3, 0)), T(x64: X64(~0, ~0,  2,  1)))
+        NBKAssertAddition(T(x64: X64(~0, ~0, ~0,  0)), T(x64: X64(0, 0, 0, 3)), T(x64: X64(~0, ~0, ~0,  3)))
     }
     
     //=------------------------------------------------------------------------=
@@ -142,10 +142,10 @@ final class NBKDoubleWidthTestsOnAdditionAsUInt256: XCTestCase {
     }
     
     func testAddingSmallToLarge() {
-        NBKAssertAdditionByDigit(T(x64: X( 0,  0,  0,  0)), UInt(3), T(x64: X(3, 0, 0, 0)))
-        NBKAssertAdditionByDigit(T(x64: X(~0,  0,  0,  0)), UInt(3), T(x64: X(2, 1, 0, 0)))
-        NBKAssertAdditionByDigit(T(x64: X(~0, ~0,  0,  0)), UInt(3), T(x64: X(2, 0, 1, 0)))
-        NBKAssertAdditionByDigit(T(x64: X(~0, ~0, ~0,  0)), UInt(3), T(x64: X(2, 0, 0, 1)))
+        NBKAssertAdditionByDigit(T(x64: X64( 0,  0,  0,  0)), UInt(3), T(x64: X64(3, 0, 0, 0)))
+        NBKAssertAdditionByDigit(T(x64: X64(~0,  0,  0,  0)), UInt(3), T(x64: X64(2, 1, 0, 0)))
+        NBKAssertAdditionByDigit(T(x64: X64(~0, ~0,  0,  0)), UInt(3), T(x64: X64(2, 0, 1, 0)))
+        NBKAssertAdditionByDigit(T(x64: X64(~0, ~0, ~0,  0)), UInt(3), T(x64: X64(2, 0, 0, 1)))
     }
     
     func testAddingSmallToEdgesReportingOverflow() {

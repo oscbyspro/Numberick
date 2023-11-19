@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Comparisons x Sub Sequence
@@ -25,96 +25,96 @@ final class NBKStrictUnsignedIntegerTestsOnComparisonsAsSubSequence: XCTestCase 
     //=------------------------------------------------------------------------=
     
     func testCompareLargeToSmall() {
-        NBKAssertSubSequenceComparison([ 2,  2] as W, [ 1] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ 2,  2] as W, [~1] as W,  Int(1))
-        NBKAssertSubSequenceComparison([~2, ~2] as W, [ 1] as W,  Int(1))
-        NBKAssertSubSequenceComparison([~2, ~2] as W, [~1] as W,  Int(1))
+        NBKAssertSubSequenceComparison([ 2,  2] as X, [ 1] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ 2,  2] as X, [~1] as X,  Int(1))
+        NBKAssertSubSequenceComparison([~2, ~2] as X, [ 1] as X,  Int(1))
+        NBKAssertSubSequenceComparison([~2, ~2] as X, [~1] as X,  Int(1))
     }
     
     func testCompareLargeToLarge() {
-        NBKAssertSubSequenceComparison([~0, ~0, ~0, ~0] as W, [~0, ~0, ~0, ~0] as W,  Int(0))
-        NBKAssertSubSequenceComparison([~0, ~0, ~0, ~0] as W, [ 0,  0,  0,  0] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ 0,  0,  0,  0] as W, [~0, ~0, ~0, ~0] as W, -Int(1))
-        NBKAssertSubSequenceComparison([ 0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W,  Int(0))
+        NBKAssertSubSequenceComparison([~0, ~0, ~0, ~0] as X, [~0, ~0, ~0, ~0] as X,  Int(0))
+        NBKAssertSubSequenceComparison([~0, ~0, ~0, ~0] as X, [ 0,  0,  0,  0] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ 0,  0,  0,  0] as X, [~0, ~0, ~0, ~0] as X, -Int(1))
+        NBKAssertSubSequenceComparison([ 0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X,  Int(0))
         
-        NBKAssertSubSequenceComparison([ 0,  2,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertSubSequenceComparison([ 1,  0,  3,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertSubSequenceComparison([ 1,  2,  0,  4] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  0] as W, [ 1,  2,  3,  4] as W, -Int(1))
-        NBKAssertSubSequenceComparison([ 0,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(0))
-        NBKAssertSubSequenceComparison([ 1,  0,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(0))
-        NBKAssertSubSequenceComparison([ 1,  2,  0,  4] as W, [ 1,  2,  0,  4] as W,  Int(0))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  0] as W, [ 1,  2,  3,  0] as W,  Int(0))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as W, [ 0,  2,  3,  4] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as W, [ 1,  0,  3,  4] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as W, [ 1,  2,  0,  4] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as W, [ 1,  2,  3,  0] as W,  Int(1))
+        NBKAssertSubSequenceComparison([ 0,  2,  3,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertSubSequenceComparison([ 1,  0,  3,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertSubSequenceComparison([ 1,  2,  0,  4] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  0] as X, [ 1,  2,  3,  4] as X, -Int(1))
+        NBKAssertSubSequenceComparison([ 0,  2,  3,  4] as X, [ 0,  2,  3,  4] as X,  Int(0))
+        NBKAssertSubSequenceComparison([ 1,  0,  3,  4] as X, [ 1,  0,  3,  4] as X,  Int(0))
+        NBKAssertSubSequenceComparison([ 1,  2,  0,  4] as X, [ 1,  2,  0,  4] as X,  Int(0))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  0] as X, [ 1,  2,  3,  0] as X,  Int(0))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as X, [ 0,  2,  3,  4] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as X, [ 1,  0,  3,  4] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as X, [ 1,  2,  0,  4] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ 1,  2,  3,  4] as X, [ 1,  2,  3,  0] as X,  Int(1))
     }
     
     func testCompareIsLenient() {
-        NBKAssertSubSequenceComparison([1] as W, [ ] as W,  Int(1))
-        NBKAssertSubSequenceComparison([ ] as W, [ ] as W,  Int(0))
-        NBKAssertSubSequenceComparison([ ] as W, [1] as W, -Int(1))
+        NBKAssertSubSequenceComparison([1] as X, [ ] as X,  Int(1))
+        NBKAssertSubSequenceComparison([ ] as X, [ ] as X,  Int(0))
+        NBKAssertSubSequenceComparison([ ] as X, [1] as X, -Int(1))
     }
     
     func testCompareSmallToSmallAtIndex() {
-        NBKAssertSubSequenceComparisonAtIndex([ 0] as W, [ 0] as W, Int(1),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 1] as W, [ 0] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~1] as W, [ 0] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0] as W, [ 0] as W, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0] as X, [ 0] as X, Int(1),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 1] as X, [ 0] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~1] as X, [ 0] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0] as X, [ 0] as X, Int(1),  Int(1))
         
-        NBKAssertSubSequenceComparisonAtIndex([ 0] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~1] as W, [ 1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0] as W, [ 1] as W, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 1] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~1] as X, [ 1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0] as X, [ 1] as X, Int(1), -Int(1))
         
-        NBKAssertSubSequenceComparisonAtIndex([ 0] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 1] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~1] as W, [~1] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0] as W, [~1] as W, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0] as X, [~1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 1] as X, [~1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~1] as X, [~1] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0] as X, [~1] as X, Int(1), -Int(1))
         
-        NBKAssertSubSequenceComparisonAtIndex([ 0] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 1] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~1] as W, [~0] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0] as W, [~0] as W, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0] as X, [~0] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 1] as X, [~0] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~1] as X, [~0] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0] as X, [~0] as X, Int(1), -Int(1))
     }
     
     func testComapreLargeToLargeAtIndex() {
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(0),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(1),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(2),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(3),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(4),  Int(0))
 
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(0), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(2), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(3), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  0,  0,  0,  0,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(4), -Int(1))
 
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(0),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(2),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(3),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 0,  0,  0,  0] as W, Int(4),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(0),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(2),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(3),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 0,  0,  0,  0] as X, Int(4),  Int(1))
 
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(0),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(2),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(3), -Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as W, [ 1,  2,  3,  4] as W, Int(4), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(0),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(2),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(3), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ 0,  0,  1,  2,  3,  4,  0,  0] as X, [ 1,  2,  3,  4] as X, Int(4), -Int(1))
         
-        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(0),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(2),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(3),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as W, [~1, ~2, ~3, ~4] as W, Int(4),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(0),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(2),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(3),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([~0, ~0, ~1, ~2, ~3, ~4, ~0, ~0] as X, [~1, ~2, ~3, ~4] as X, Int(4),  Int(1))
     }
     
     func testCompareAtIndexIsLenient() {
-        NBKAssertSubSequenceComparisonAtIndex([1] as W, [ ] as W, Int(1),  Int(1))
-        NBKAssertSubSequenceComparisonAtIndex([ ] as W, [ ] as W, Int(1),  Int(0))
-        NBKAssertSubSequenceComparisonAtIndex([ ] as W, [1] as W, Int(1), -Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([1] as X, [ ] as X, Int(1),  Int(1))
+        NBKAssertSubSequenceComparisonAtIndex([ ] as X, [ ] as X, Int(1),  Int(0))
+        NBKAssertSubSequenceComparisonAtIndex([ ] as X, [1] as X, Int(1), -Int(1))
     }
 }
 

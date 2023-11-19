@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Subtraction x Int256
@@ -27,25 +27,25 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingLargeFromLarge() {
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(3, 0, 0, 0)), T(x64: X( 2,  0,  0,  1)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 3, 0, 0)), T(x64: X(~0,  2,  0,  1)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0,  2,  1)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)), -T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0,  3)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(3, 0, 0, 0)), T(x64: X64( 2,  0,  0,  1)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 3, 0, 0)), T(x64: X64(~0,  2,  0,  1)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 0, 3, 0)), T(x64: X64(~0, ~0,  2,  1)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)), -T(x64: X64(0, 0, 0, 3)), T(x64: X64(~0, ~0, ~0,  3)))
         
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(3, 0, 0, 0)), T(x64: X(~3, ~0, ~0,  0)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 3, 0, 0)), T(x64: X(~0, ~3, ~0,  0)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 0, 3, 0)), T(x64: X(~0, ~0, ~3,  0)))
-        NBKAssertSubtraction(T(x64: X(~0, ~0, ~0,  0)),  T(x64: X(0, 0, 0, 3)), T(x64: X(~0, ~0, ~0, ~2)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(3, 0, 0, 0)), T(x64: X64(~3, ~0, ~0,  0)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 3, 0, 0)), T(x64: X64(~0, ~3, ~0,  0)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 0, 3, 0)), T(x64: X64(~0, ~0, ~3,  0)))
+        NBKAssertSubtraction(T(x64: X64(~0, ~0, ~0,  0)),  T(x64: X64(0, 0, 0, 3)), T(x64: X64(~0, ~0, ~0, ~2)))
         
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(3, 0, 0, 0)), T(x64: X( 3,  0,  0, ~0)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 3, 0, 0)), T(x64: X( 0,  3,  0, ~0)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 0, 3, 0)), T(x64: X( 0,  0,  3, ~0)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)), -T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0,  2)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(3, 0, 0, 0)), T(x64: X64( 3,  0,  0, ~0)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 3, 0, 0)), T(x64: X64( 0,  3,  0, ~0)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 0, 3, 0)), T(x64: X64( 0,  0,  3, ~0)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)), -T(x64: X64(0, 0, 0, 3)), T(x64: X64( 0,  0,  0,  2)))
         
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(3, 0, 0, 0)), T(x64: X(~2, ~0, ~0, ~1)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 3, 0, 0)), T(x64: X( 0, ~2, ~0, ~1)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 0, 3, 0)), T(x64: X( 0,  0, ~2, ~1)))
-        NBKAssertSubtraction(T(x64: X( 0,  0,  0, ~0)),  T(x64: X(0, 0, 0, 3)), T(x64: X( 0,  0,  0, ~3)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(3, 0, 0, 0)), T(x64: X64(~2, ~0, ~0, ~1)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 3, 0, 0)), T(x64: X64( 0, ~2, ~0, ~1)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 0, 3, 0)), T(x64: X64( 0,  0, ~2, ~1)))
+        NBKAssertSubtraction(T(x64: X64( 0,  0,  0, ~0)),  T(x64: X64(0, 0, 0, 3)), T(x64: X64( 0,  0,  0, ~3)))
     }
     
     func testSubtractingHalvesFromHalvesReportingOverflow() {
@@ -78,10 +78,10 @@ final class NBKDoubleWidthTestsOnSubtractionAsInt256: XCTestCase {
     }
     
     func testSubtractingSmallFromLarge() {
-        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)), -Int(3), T(x64: X( 2,  0,  0,  1)))
-        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0,  0)),  Int(3), T(x64: X(~3, ~0, ~0,  0)))
-        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), -Int(3), T(x64: X( 3,  0,  0, ~0)))
-        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)),  Int(3), T(x64: X(~2, ~0, ~0, ~1)))
+        NBKAssertSubtractionByDigit(T(x64: X64(~0, ~0, ~0,  0)), -Int(3), T(x64: X64( 2,  0,  0,  1)))
+        NBKAssertSubtractionByDigit(T(x64: X64(~0, ~0, ~0,  0)),  Int(3), T(x64: X64(~3, ~0, ~0,  0)))
+        NBKAssertSubtractionByDigit(T(x64: X64( 0,  0,  0, ~0)), -Int(3), T(x64: X64( 3,  0,  0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X64( 0,  0,  0, ~0)),  Int(3), T(x64: X64(~2, ~0, ~0, ~1)))
     }
     
     func testSubtractingSmallFromEdgesReportingOverflow() {
@@ -121,10 +121,10 @@ final class NBKDoubleWidthTestsOnSubtractionAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testSubtractingLargeFromLarge() {
-        NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(3, 0, 0, 0)), T(x64: X(~2, ~1, ~0, ~0)))
-        NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 3, 0, 0)), T(x64: X( 0, ~3, ~0, ~0)))
-        NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 0, 3, 0)), T(x64: X( 0, ~0, ~3, ~0)))
-        NBKAssertSubtraction(T(x64: X(0, ~0, ~0, ~0)), T(x64: X(0, 0, 0, 3)), T(x64: X( 0, ~0, ~0, ~3)))
+        NBKAssertSubtraction(T(x64: X64(0, ~0, ~0, ~0)), T(x64: X64(3, 0, 0, 0)), T(x64: X64(~2, ~1, ~0, ~0)))
+        NBKAssertSubtraction(T(x64: X64(0, ~0, ~0, ~0)), T(x64: X64(0, 3, 0, 0)), T(x64: X64( 0, ~3, ~0, ~0)))
+        NBKAssertSubtraction(T(x64: X64(0, ~0, ~0, ~0)), T(x64: X64(0, 0, 3, 0)), T(x64: X64( 0, ~0, ~3, ~0)))
+        NBKAssertSubtraction(T(x64: X64(0, ~0, ~0, ~0)), T(x64: X64(0, 0, 0, 3)), T(x64: X64( 0, ~0, ~0, ~3)))
     }
     
     //=------------------------------------------------------------------------=
@@ -139,10 +139,10 @@ final class NBKDoubleWidthTestsOnSubtractionAsUInt256: XCTestCase {
     }
     
     func testSubtractingSmallFromLarge() {
-        NBKAssertSubtractionByDigit(T(x64: X(~0, ~0, ~0, ~0)), UInt(3), T(x64: X(~3, ~0, ~0, ~0)))
-        NBKAssertSubtractionByDigit(T(x64: X( 0, ~0, ~0, ~0)), UInt(3), T(x64: X(~2, ~1, ~0, ~0)))
-        NBKAssertSubtractionByDigit(T(x64: X( 0,  0, ~0, ~0)), UInt(3), T(x64: X(~2, ~0, ~1, ~0)))
-        NBKAssertSubtractionByDigit(T(x64: X( 0,  0,  0, ~0)), UInt(3), T(x64: X(~2, ~0, ~0, ~1)))
+        NBKAssertSubtractionByDigit(T(x64: X64(~0, ~0, ~0, ~0)), UInt(3), T(x64: X64(~3, ~0, ~0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X64( 0, ~0, ~0, ~0)), UInt(3), T(x64: X64(~2, ~1, ~0, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X64( 0,  0, ~0, ~0)), UInt(3), T(x64: X64(~2, ~0, ~1, ~0)))
+        NBKAssertSubtractionByDigit(T(x64: X64( 0,  0,  0, ~0)), UInt(3), T(x64: X64(~2, ~0, ~0, ~1)))
     }
     
     func testSubtractingSmallFromEdgesReportingOverflow() {

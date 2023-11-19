@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Division x Sub Sequence
@@ -25,31 +25,31 @@ final class NBKStrictUnsignedIntegerTestsOnDivisionAsSubSequence: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testDividingSmallBySmall() {
-        NBKAssertDivisionByDigit([ ] as W, UInt(1), [ ] as W, UInt( ))
-        NBKAssertDivisionByDigit([ ] as W, UInt(2), [ ] as W, UInt( ))
-        NBKAssertDivisionByDigit([0] as W, UInt(1), [0] as W, UInt( ))
-        NBKAssertDivisionByDigit([0] as W, UInt(2), [0] as W, UInt( ))
-        NBKAssertDivisionByDigit([7] as W, UInt(1), [7] as W, UInt( ))
-        NBKAssertDivisionByDigit([7] as W, UInt(2), [3] as W, UInt(1))
+        NBKAssertDivisionByDigit([ ] as X, UInt(1), [ ] as X, UInt( ))
+        NBKAssertDivisionByDigit([ ] as X, UInt(2), [ ] as X, UInt( ))
+        NBKAssertDivisionByDigit([0] as X, UInt(1), [0] as X, UInt( ))
+        NBKAssertDivisionByDigit([0] as X, UInt(2), [0] as X, UInt( ))
+        NBKAssertDivisionByDigit([7] as X, UInt(1), [7] as X, UInt( ))
+        NBKAssertDivisionByDigit([7] as X, UInt(2), [3] as X, UInt(1))
     }
     
     func testDividingSmallBySmallReportingOverflow() {
-        NBKAssertDivisionByDigit([ ] as W, UInt( ), [ ] as W, UInt( ), true)
-        NBKAssertDivisionByDigit([0] as W, UInt( ), [0] as W, UInt( ), true)
-        NBKAssertDivisionByDigit([1] as W, UInt( ), [1] as W, UInt(1), true)
-        NBKAssertDivisionByDigit([2] as W, UInt( ), [2] as W, UInt(2), true)
+        NBKAssertDivisionByDigit([ ] as X, UInt( ), [ ] as X, UInt( ), true)
+        NBKAssertDivisionByDigit([0] as X, UInt( ), [0] as X, UInt( ), true)
+        NBKAssertDivisionByDigit([1] as X, UInt( ), [1] as X, UInt(1), true)
+        NBKAssertDivisionByDigit([2] as X, UInt( ), [2] as X, UInt(2), true)
     }
     
     func testDividingLargeBySmallWithLargeQuotient() {
-        NBKAssertDivisionByDigit([~2,  ~4,  ~6,  9] as W, UInt(2), [~1,  ~2/1,  ~3/1,  4] as W, UInt(1))
-        NBKAssertDivisionByDigit([~3,  ~6,  ~9, 14] as W, UInt(3), [~1,  ~2/1,  ~3/1,  4] as W, UInt(2))
-        NBKAssertDivisionByDigit([~4,  ~8, ~12, 19] as W, UInt(4), [~1,  ~2/1,  ~3/1,  4] as W, UInt(3))
-        NBKAssertDivisionByDigit([~5, ~10, ~15, 24] as W, UInt(5), [~1,  ~2/1,  ~3/1,  4] as W, UInt(4))
+        NBKAssertDivisionByDigit([~2,  ~4,  ~6,  9] as X, UInt(2), [~1,  ~2/1,  ~3/1,  4] as X, UInt(1))
+        NBKAssertDivisionByDigit([~3,  ~6,  ~9, 14] as X, UInt(3), [~1,  ~2/1,  ~3/1,  4] as X, UInt(2))
+        NBKAssertDivisionByDigit([~4,  ~8, ~12, 19] as X, UInt(4), [~1,  ~2/1,  ~3/1,  4] as X, UInt(3))
+        NBKAssertDivisionByDigit([~5, ~10, ~15, 24] as X, UInt(5), [~1,  ~2/1,  ~3/1,  4] as X, UInt(4))
     }
     
     func testDividingLargeBySmallReportingOverflow() {
-        NBKAssertDivisionByDigit([1, 2, 3, 4] as W, UInt( ), [1, 2, 3, 4] as W, UInt(1), true)
-        NBKAssertDivisionByDigit([1, 2, 3, 4] as W, UInt( ), [1, 2, 3, 4] as W, UInt(1), true)
+        NBKAssertDivisionByDigit([1, 2, 3, 4] as X, UInt( ), [1, 2, 3, 4] as X, UInt(1), true)
+        NBKAssertDivisionByDigit([1, 2, 3, 4] as X, UInt( ), [1, 2, 3, 4] as X, UInt(1), true)
     }
 }
 

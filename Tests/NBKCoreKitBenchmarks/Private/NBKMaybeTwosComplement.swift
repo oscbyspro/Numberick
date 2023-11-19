@@ -12,9 +12,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Maybe Two's Complement
@@ -29,8 +29,8 @@ final class NBKMaybeTwosComplementBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testArray() {
-        var abc = NBK.blackHoleIdentity(W(repeating: 144, count: 144))
-        var xyz = NBK.blackHoleIdentity(W(repeating: 144, count: 144))
+        var abc = NBK.blackHoleIdentity(X(repeating: 144, count: 144))
+        var xyz = NBK.blackHoleIdentity(X(repeating: 144, count: 144))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(abc.reduce(0, &+))
@@ -42,8 +42,8 @@ final class NBKMaybeTwosComplementBenchmarks: XCTestCase {
     }
     
     func testMaybeTwosComplement() {
-        var abc = NBK.blackHoleIdentity(T(W(repeating: 144, count: 144), formTwosComplement: true ))
-        var xyz = NBK.blackHoleIdentity(T(W(repeating: 144, count: 144), formTwosComplement: false))
+        var abc = NBK.blackHoleIdentity(T(X(repeating: 144, count: 144), formTwosComplement: true ))
+        var xyz = NBK.blackHoleIdentity(T(X(repeating: 144, count: 144), formTwosComplement: false))
         
         for _ in 0 ..< 1_000_000 {
             NBK.blackHole(abc.reduce(0, &+))

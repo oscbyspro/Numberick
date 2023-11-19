@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Maybe Two's Complement
@@ -26,10 +26,10 @@ final class NBKMaybeTwosComplementTests: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    private let top256/*--------------*/: W = [0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8]
-    private let bottom256/*-----------*/: W = [0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918]
-    private let twosComplementTop256/**/: W = [0x18191a1b1c1d1e20, 0x1011121314151617, 0x08090a0b0c0d0e0f, 0x0001020304050607]
-    private let twosComplementBottom256 : W = [0xf8f9fafbfcfdff00, 0xf0f1f2f3f4f5f6f7, 0xe8e9eaebecedeeef, 0xe0e1e2e3e4e5e6e7]
+    private let top256/*--------------*/: X = [0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8]
+    private let bottom256/*-----------*/: X = [0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918]
+    private let twosComplementTop256/**/: X = [0x18191a1b1c1d1e20, 0x1011121314151617, 0x08090a0b0c0d0e0f, 0x0001020304050607]
+    private let twosComplementBottom256 : X = [0xf8f9fafbfcfdff00, 0xf0f1f2f3f4f5f6f7, 0xe8e9eaebecedeeef, 0xe0e1e2e3e4e5e6e7]
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
@@ -54,7 +54,7 @@ final class NBKMaybeTwosComplementTests: XCTestCase {
     
     func testTwosComplementWhenZeroOrEmpty() {
         for count in 0 ... 4 {
-            let zero = W(repeating:  0000, count: count)
+            let zero = X(repeating:  0000, count: count)
             NBKAssertElementsEqual(T(zero, formTwosComplement: true ), zero)
             NBKAssertElementsEqual(T(zero, formTwosComplement: false), zero)
         }

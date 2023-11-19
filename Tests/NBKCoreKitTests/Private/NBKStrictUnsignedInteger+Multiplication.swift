@@ -10,9 +10,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Multiplication x Sub Sequence
@@ -25,10 +25,10 @@ final class NBKStrictUnsignedIntegerTestsOnMultiplicationAsSubSequence: XCTestCa
     //=------------------------------------------------------------------------=
     
     func testMultiplicationByDigitWithAddition() {
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0,  0, [ 0,  0,  0,  0] as W,  0)
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W,  0, ~0, [~0,  0,  0,  0] as W,  0)
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0,  0, [ 1, ~0, ~0, ~0] as W, ~1)
-        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as W, ~0, ~0, [ 0,  0,  0,  0] as W, ~0)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as X,  0,  0, [ 0,  0,  0,  0] as X,  0)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as X,  0, ~0, [~0,  0,  0,  0] as X,  0)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as X, ~0,  0, [ 1, ~0, ~0, ~0] as X, ~1)
+        NBKAssertMultiplicationByDigitWithAddition([~0, ~0, ~0, ~0] as X, ~0, ~0, [ 0,  0,  0,  0] as X, ~0)
     }
 }
 

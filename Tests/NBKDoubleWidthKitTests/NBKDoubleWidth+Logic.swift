@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Logic x Int256
@@ -27,41 +27,41 @@ final class NBKDoubleWidthTestsOnLogicAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNot() {
-        NBKAssertNot(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~1, ~2, ~3)))
-        NBKAssertNot(T(x64: X(~0, ~1, ~2, ~3)), T(x64: X( 0,  1,  2,  3)))
+        NBKAssertNot(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~1, ~2, ~3)))
+        NBKAssertNot(T(x64: X64(~0, ~1, ~2, ~3)), T(x64: X64( 0,  1,  2,  3)))
     }
     
     func testAnd() {
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  0,  0,  0)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  0,  0,  0)))
         
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 0,  1,  0,  1)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  0,  1,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 0,  1,  0,  1)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  0,  1,  0)))
     }
     
     func testOr() {
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~0, ~0, ~0)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~0, ~0, ~0)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~0, ~0, ~0)))
         
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  1,  3,  3)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 3,  3,  1,  1)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  1,  3,  3)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 3,  3,  1,  1)))
     }
     
     func testXor() {
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~1, ~2, ~3)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~3, ~2, ~1, ~0)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~1, ~2, ~3)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~3, ~2, ~1, ~0)))
         
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  0,  3,  2)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 2,  3,  0,  1)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  0,  3,  2)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 2,  3,  0,  1)))
     }
 }
 
@@ -78,41 +78,41 @@ final class NBKDoubleWidthTestsOnLogicAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNot() {
-        NBKAssertNot(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~1, ~2, ~3)))
-        NBKAssertNot(T(x64: X(~0, ~1, ~2, ~3)), T(x64: X( 0,  1,  2,  3)))
+        NBKAssertNot(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~1, ~2, ~3)))
+        NBKAssertNot(T(x64: X64(~0, ~1, ~2, ~3)), T(x64: X64( 0,  1,  2,  3)))
     }
     
     func testAnd() {
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  0,  0,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  0,  0,  0)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  0,  0,  0)))
         
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertAnd(T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 0,  1,  0,  1)))
-        NBKAssertAnd(T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  0,  1,  0)))
+        NBKAssertAnd(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 0,  1,  0,  1)))
+        NBKAssertAnd(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  0,  1,  0)))
     }
     
     func testOr() {
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~0, ~0, ~0)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~0, ~0, ~0)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~0, ~0, ~0)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~0, ~0, ~0)))
         
-        NBKAssertOr (T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  1,  3,  3)))
-        NBKAssertOr (T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 3,  3,  1,  1)))
+        NBKAssertOr (T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  1,  3,  3)))
+        NBKAssertOr (T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 3,  3,  1,  1)))
     }
     
     func testXor() {
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 0,  1,  2,  3)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X( 0,  0,  0,  0)), T(x64: X( 3,  2,  1,  0)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 0,  1,  2,  3)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 0,  0,  0,  0)), T(x64: X64( 3,  2,  1,  0)))
         
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~0, ~1, ~2, ~3)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X(~0, ~0, ~0, ~0)), T(x64: X(~3, ~2, ~1, ~0)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~0, ~1, ~2, ~3)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64(~0, ~0, ~0, ~0)), T(x64: X64(~3, ~2, ~1, ~0)))
         
-        NBKAssertXor(T(x64: X( 0,  1,  2,  3)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 1,  0,  3,  2)))
-        NBKAssertXor(T(x64: X( 3,  2,  1,  0)), T(x64: X( 1,  1,  1,  1)), T(x64: X( 2,  3,  0,  1)))
+        NBKAssertXor(T(x64: X64( 0,  1,  2,  3)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 1,  0,  3,  2)))
+        NBKAssertXor(T(x64: X64( 3,  2,  1,  0)), T(x64: X64( 1,  1,  1,  1)), T(x64: X64( 2,  3,  0,  1)))
     }
 }
 

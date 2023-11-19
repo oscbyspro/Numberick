@@ -12,9 +12,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Succinct Int
@@ -29,8 +29,8 @@ final class NBKSuccinctIntBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testFromStrictSignedInteger() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
+        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as X)
+        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as X)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in
@@ -45,8 +45,8 @@ final class NBKSuccinctIntBenchmarks: XCTestCase {
     }
     
     func testFromStrictUnsignedIntegerSubSequence() {
-        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as W)
-        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as W)
+        var abc = NBK.blackHoleIdentity([ 1,  0,  2,  0,  3,  0,  4,  0] as X)
+        var xyz = NBK.blackHoleIdentity([~1, ~0, ~2, ~0, ~3, ~0, ~4, ~0] as X)
         
         for _ in 0 ..< 5_000_000 {
             abc.withUnsafeBufferPointer { abc in

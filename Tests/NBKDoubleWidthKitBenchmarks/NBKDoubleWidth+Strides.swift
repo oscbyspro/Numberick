@@ -13,8 +13,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Strides x Int256
@@ -29,7 +29,7 @@ final class NBKDoubleWidthBenchmarksOnStridesAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdvancedBy() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 5_000_000 {
@@ -40,8 +40,8 @@ final class NBKDoubleWidthBenchmarksOnStridesAsInt256: XCTestCase {
     }
     
     func testDistanceTo() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)).advanced(by: Int.max))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)).advanced(by: Int.max))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.distance(to: rhs))
@@ -64,7 +64,7 @@ final class NBKDoubleWidthBenchmarksOnStridesAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testAdvancedBy() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)))
         var rhs = NBK.blackHoleIdentity(Int.max)
         
         for _ in 0 ..< 5_000_000 {
@@ -75,8 +75,8 @@ final class NBKDoubleWidthBenchmarksOnStridesAsUInt256: XCTestCase {
     }
     
     func testDistanceTo() {
-        var lhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)))
-        var rhs = NBK.blackHoleIdentity(T(x64: X(~1, ~2, ~3, ~4)).advanced(by: Int.max))
+        var lhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)))
+        var rhs = NBK.blackHoleIdentity(T(x64: X64(~1, ~2, ~3, ~4)).advanced(by: Int.max))
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHole(lhs.distance(to: rhs))

@@ -11,8 +11,8 @@ import NBKCoreKit
 import NBKDoubleWidthKit
 import XCTest
 
-private typealias X = NBK.U256X64
-private typealias Y = NBK.U256X32
+private typealias X64 = NBK.U256X64
+private typealias X32 = NBK.U256X32
 
 //*============================================================================*
 // MARK: * NBK x Double Width x Literals x Int256
@@ -26,31 +26,31 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    let top    = T(x64: X(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
-    let bottom = T(x64: X(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
+    let top    = T(x64: X64(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
+    let bottom = T(x64: X64(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testFromIntegerLiteral() {
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),     (0))
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),    (10))
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)),  (0b10))
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)),  (0o10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  (0x10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  (0x10))
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    (+0))
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),   (+10))
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)), (+0b10))
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)), (+0o10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), (+0x10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), (+0x10))
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    (-0))
-        XCTAssertEqual(T(x64: X( ~9, ~0, ~0, ~0)),   (-10))
-        XCTAssertEqual(T(x64: X( ~1, ~0, ~0, ~0)), (-0b10))
-        XCTAssertEqual(T(x64: X( ~7, ~0, ~0, ~0)), (-0o10))
-        XCTAssertEqual(T(x64: X(~15, ~0, ~0, ~0)), (-0x10))
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),     (0))
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),    (10))
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)),  (0b10))
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)),  (0o10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  (0x10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  (0x10))
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    (+0))
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),   (+10))
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)), (+0b10))
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)), (+0o10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), (+0x10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), (+0x10))
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    (-0))
+        XCTAssertEqual(T(x64: X64( ~9, ~0, ~0, ~0)),   (-10))
+        XCTAssertEqual(T(x64: X64( ~1, ~0, ~0, ~0)), (-0b10))
+        XCTAssertEqual(T(x64: X64( ~7, ~0, ~0, ~0)), (-0o10))
+        XCTAssertEqual(T(x64: X64(~15, ~0, ~0, ~0)), (-0x10))
         #if SBI && swift(>=5.8)
         XCTAssertEqual(self.top/*-----------*/, (-0x00000000000000000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e20))
         XCTAssertEqual(self.bottom/*--------*/,  (0x000000000000001f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100))
@@ -66,29 +66,29 @@ final class NBKDoubleWidthTestsOnLiteralsAsInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral: (-00057896044618658097711785492504343953926634992332820282019728792003956564819968)), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral: (-00057896044618658097711785492504343953926634992332820282019728792003956564819969)),   nil)
         #else
-        XCTAssertEqual(T(integerLiteral: Int.max),   T(x64: X(UInt64(Int.max), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral: Int.min),  ~T(x64: X(UInt64(Int.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: Int.max),   T(x64: X64(UInt64(Int.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: Int.min),  ~T(x64: X64(UInt64(Int.max), 0, 0, 0)))
         #endif
     }
     
     func testFromStringLiteral() {
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),     "0")
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),    "10")
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)),  "0b10")
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)),  "0o10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  "0x10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  "0x10")
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    "+0")
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),   "+10")
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)), "+0b10")
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)), "+0o10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), "+0x10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), "+0x10")
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    "-0")
-        XCTAssertEqual(T(x64: X( ~9, ~0, ~0, ~0)),   "-10")
-        XCTAssertEqual(T(x64: X( ~1, ~0, ~0, ~0)), "-0b10")
-        XCTAssertEqual(T(x64: X( ~7, ~0, ~0, ~0)), "-0o10")
-        XCTAssertEqual(T(x64: X(~15, ~0, ~0, ~0)), "-0x10")
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),     "0")
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),    "10")
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)),  "0b10")
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)),  "0o10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  "0x10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  "0x10")
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    "+0")
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),   "+10")
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)), "+0b10")
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)), "+0o10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), "+0x10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), "+0x10")
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    "-0")
+        XCTAssertEqual(T(x64: X64( ~9, ~0, ~0, ~0)),   "-10")
+        XCTAssertEqual(T(x64: X64( ~1, ~0, ~0, ~0)), "-0b10")
+        XCTAssertEqual(T(x64: X64( ~7, ~0, ~0, ~0)), "-0o10")
+        XCTAssertEqual(T(x64: X64(~15, ~0, ~0, ~0)), "-0x10")
         
         XCTAssertEqual(self.top/*----------*/,  "-0x00000000000000000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e20")
         XCTAssertEqual(self.bottom/*-------*/,   "0x000000000000001f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100")
@@ -118,24 +118,24 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    let top    = T(x64: X(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
-    let bottom = T(x64: X(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
+    let top    = T(x64: X64(0xe7e6e5e4e3e2e1e0, 0xefeeedecebeae9e8, 0xf7f6f5f4f3f2f1f0, 0xfffefdfcfbfaf9f8))
+    let bottom = T(x64: X64(0x0706050403020100, 0x0f0e0d0c0b0a0908, 0x1716151413121110, 0x1f1e1d1c1b1a1918))
     
     //=------------------------------------------------------------------------=
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
     func testFromIntegerLiteral() {
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),     (0))
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),    (10))
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)),  (0b10))
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)),  (0o10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  (0x10))
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    (+0))
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),   (+10))
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)), (+0b10))
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)), (+0o10))
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), (+0x10))
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),     (0))
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),    (10))
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)),  (0b10))
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)),  (0o10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  (0x10))
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    (+0))
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),   (+10))
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)), (+0b10))
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)), (+0o10))
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), (+0x10))
         #if SBI && swift(>=5.8)
         XCTAssertEqual(self.top/*-----------*/,  (0x00000000000000fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0))
         XCTAssertEqual(self.bottom/*--------*/,  (0x000000000000001f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100))
@@ -151,22 +151,22 @@ final class NBKDoubleWidthTestsOnLiteralsAsUInt256: XCTestCase {
         XCTAssertEqual(T(exactlyIntegerLiteral:  (00000000000000000000000000000000000000000000000000000000000000000000000000000000)), T.min)
         XCTAssertEqual(T(exactlyIntegerLiteral: (-00000000000000000000000000000000000000000000000000000000000000000000000000000001)),   nil)
         #else
-        XCTAssertEqual(T(integerLiteral: UInt.max),  T(x64: X(UInt64(UInt.max), 0, 0, 0)))
-        XCTAssertEqual(T(integerLiteral: UInt.min),  T(x64: X(UInt64(UInt.min), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: UInt.max),  T(x64: X64(UInt64(UInt.max), 0, 0, 0)))
+        XCTAssertEqual(T(integerLiteral: UInt.min),  T(x64: X64(UInt64(UInt.min), 0, 0, 0)))
         #endif
     }
     
     func testFromStringLiteral() {
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),     "0")
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),    "10")
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)),  "0b10")
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)),  "0o10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)),  "0x10")
-        XCTAssertEqual(T(x64: X(  0,  0,  0,  0)),    "+0")
-        XCTAssertEqual(T(x64: X( 10,  0,  0,  0)),   "+10")
-        XCTAssertEqual(T(x64: X(  2,  0,  0,  0)), "+0b10")
-        XCTAssertEqual(T(x64: X(  8,  0,  0,  0)), "+0o10")
-        XCTAssertEqual(T(x64: X( 16,  0,  0,  0)), "+0x10")
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),     "0")
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),    "10")
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)),  "0b10")
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)),  "0o10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)),  "0x10")
+        XCTAssertEqual(T(x64: X64(  0,  0,  0,  0)),    "+0")
+        XCTAssertEqual(T(x64: X64( 10,  0,  0,  0)),   "+10")
+        XCTAssertEqual(T(x64: X64(  2,  0,  0,  0)), "+0b10")
+        XCTAssertEqual(T(x64: X64(  8,  0,  0,  0)), "+0o10")
+        XCTAssertEqual(T(x64: X64( 16,  0,  0,  0)), "+0x10")
         
         XCTAssertEqual(self.top/*----------*/,   "0x00000000000000fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0")
         XCTAssertEqual(self.bottom/*-------*/,   "0x000000000000001f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100")

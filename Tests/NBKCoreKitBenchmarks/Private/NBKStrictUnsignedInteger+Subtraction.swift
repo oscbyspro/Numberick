@@ -12,9 +12,9 @@
 import NBKCoreKit
 import XCTest
 
-private typealias W = [UInt]
-private typealias X = [UInt64]
-private typealias Y = [UInt32]
+private typealias X   = [UInt]
+private typealias X64 = [UInt64]
+private typealias X32 = [UInt32]
 
 //*============================================================================*
 // MARK: * NBK x Strict Unsigned Integer x Subtraction x Sub Sequence
@@ -29,7 +29,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     //=------------------------------------------------------------------------=
     
     func testDecrementByBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -40,7 +40,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testDecrementByDigit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -51,7 +51,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testDecrementByDigitPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -62,8 +62,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testDecrementByElementsPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -74,8 +74,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testDecrementByElementsTimesElementPlusElement() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -90,7 +90,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     //=------------------------------------------------------------------------=
     
     func testSubSequenceDecrementByBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -101,7 +101,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testSubSequenceDecrementByDigit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -112,7 +112,7 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testSubSequenceDecrementByDigitPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -123,8 +123,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testSubSequenceDecrementByElementsPlusBit() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
@@ -135,8 +135,8 @@ final class NBKStrictUnsignedIntegerBenchmarksOnSubtractionAsSubSequence: XCTest
     }
     
     func testSubSequenceDecrementByElementsTimesElementPlusElement() {
-        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as W)
-        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as W)
+        var abc = NBK.blackHoleIdentity([1, 2, 3, 4] as X)
+        let xyz = NBK.blackHoleIdentity([1, 2, 3   ] as X)
         
         for _ in 0 ..< 5_000_000 {
             NBK.blackHoleInoutIdentity(&abc)
