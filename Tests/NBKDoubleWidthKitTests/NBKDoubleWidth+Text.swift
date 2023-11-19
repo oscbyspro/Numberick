@@ -30,6 +30,7 @@ final class NBKDoubleWidthTestsOnTextAsInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    /// - Note: Its description is not as lenient as its string literal.
     func testFromDescription() {
         NBKAssertFromDescription(T?( 10),    "10")
         NBKAssertFromDescription(T?( 10),   "+10")
@@ -169,6 +170,7 @@ final class NBKDoubleWidthTestsOnTextAsUInt256: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    /// - Note: Its description is not as lenient as its string literal.
     func testFromDescription() {
         NBKAssertFromDescription(T?( 10),    "10")
         NBKAssertFromDescription(T?( 10),   "+10")
@@ -319,10 +321,19 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testImportantValues() {
-        for radix in 2 ... 36 {
+        for radix in 02 ... 36 {
             self.check(T(-1), radix: radix, ascii: "-1")
             self.check(T( 0), radix: radix, ascii:  "0")
             self.check(T( 1), radix: radix, ascii:  "1")
+        }
+        
+        for radix in 02 ... 36 {
+            NBKAssertDecodingText(T( 0), radix,  "0")
+            NBKAssertDecodingText(T( 0), radix, "+0")
+            NBKAssertDecodingText(T( 0), radix, "-0")
+            NBKAssertDecodingText(T( 1), radix,  "1")
+            NBKAssertDecodingText(T( 1), radix, "+1")
+            NBKAssertDecodingText(T(-1), radix, "-1")
         }
     }
     
@@ -1278,9 +1289,18 @@ final class NBKDoubleWidthTestsOnTextForEachRadixAsUInt256: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testImportantValues() {
-        for radix in 2 ... 36 {
-            self.check(T(0), radix: radix, ascii: "0")
-            self.check(T(1), radix: radix, ascii: "1")
+        for radix in 02 ... 36 {
+            self.check(T(0), radix: radix, ascii:  "0")
+            self.check(T(1), radix: radix, ascii:  "1")
+        }
+        
+        for radix in 02 ... 36 {
+            NBKAssertDecodingText(T?(  0), radix,  "0")
+            NBKAssertDecodingText(T?(  0), radix, "+0")
+            NBKAssertDecodingText(T?(  0), radix, "-0")
+            NBKAssertDecodingText(T?(  1), radix,  "1")
+            NBKAssertDecodingText(T?(  1), radix, "+1")
+            NBKAssertDecodingText(T?(nil), radix, "-1")
         }
     }
     
