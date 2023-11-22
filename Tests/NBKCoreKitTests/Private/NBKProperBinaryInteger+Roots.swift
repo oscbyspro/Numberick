@@ -28,14 +28,14 @@ final class NBKProperBinaryIntegerTestsOnRoots: XCTestCase {
         NBKAssertSquareRoot( Int32.max, 0000046340)
         NBKAssertSquareRoot( Int64.max, 3037000499)
         
-        NBKAssertSquareRoot(UInt8 .max, UInt8 .max >>  4)
-        NBKAssertSquareRoot(UInt16.max, UInt16.max >>  8)
+        NBKAssertSquareRoot(UInt8 .max, UInt8 .max >> 04)
+        NBKAssertSquareRoot(UInt16.max, UInt16.max >> 08)
         NBKAssertSquareRoot(UInt32.max, UInt32.max >> 16)
         NBKAssertSquareRoot(UInt64.max, UInt64.max >> 32)
         
-        for base in (0 as Int64) ... (100 as Int64) {
+        for base in 0 as Int64 ..< 144 {
             for power in (base * base) ..< (base + 1) * (base + 1) {
-                NBKAssertSquareRoot(power, base)
+                NBKAssertSquareRoot(power,  base)
             }
         }
     }

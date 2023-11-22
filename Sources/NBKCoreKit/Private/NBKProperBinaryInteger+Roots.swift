@@ -57,17 +57,17 @@ extension NBK.ProperBinaryInteger where Integer: NBKUnsignedInteger {
         }
         //=--------------------------------------=
         var guess: (Integer,Integer)
-        guess.0 =  Integer(digit: 1) << ((power.bitWidth &- power.leadingZeroBitCount) &>> 1 &+ 1)
+        guess.1 =  Integer(digit: 1) << ((power.bitWidth &- power.leadingZeroBitCount) &>> 1 &+ 1)
         //=--------------------------------------=
         repeat {
             
-            guess.1   = guess.0
-            guess.0   = power
-            guess.0  /= guess.1
-            guess.0  += guess.1
-            guess.0 >>= Int.one
+            guess.0   = guess.1
+            guess.1   = power
+            guess.1  /= guess.0
+            guess.1  += guess.0
+            guess.1 >>= Int.one
             
-        } while guess.0 < guess.1
-        return (guess.1)
+        } while guess.1 < guess.0
+        return (guess.0)
     }
 }
