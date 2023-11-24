@@ -78,11 +78,18 @@ extension NBKPrimeSieve {
         let count = Int(bitPattern:  (limit &- 1) &>> 1)
         var marks = Array(repeating: true, count: count) // UInt.max at Int.max - 1
         
-        var value = 3 as UInt; loop: while true { defer { value &+= 2 }
-            let (square, overflow) = value.multipliedReportingOverflow(by: value)
-            done: if square > limit || overflow { break }
-            composite: if !marks[Int(bitPattern: value &>> 1 &- 1)] { continue }
-            var index = Int(bitPattern: square &>> 1 &- 1)
+        var value = 3 as UInt; var index: Int; loop: while true { defer { value &+= 2 }
+            
+            let (first, overflow) = value.multipliedReportingOverflow(by: value)
+            
+            done: if first >  limit || overflow { break }
+            
+            index = Int(bitPattern: value &>> 1 &- 1)
+            
+            composite: if !marks[index] { continue loop }
+            
+            index = Int(bitPattern: first &>> 1 &- 1)
+            
             composite: while marks.indices ~= index { marks[index] = false; index &+= Int(bitPattern: value) }
         }
         
