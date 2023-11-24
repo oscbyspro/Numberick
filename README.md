@@ -32,6 +32,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 - [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
+- [NBKPrimeSieve](Sources/NBKCoreKit/Models/NBKPrimeSieve.swift)
 - [NBKStaticBigInt](Sources/NBKCoreKit/Models/NBKStaticBigInt.swift)
 
 <a name="nbkdoublewidthkit"/>

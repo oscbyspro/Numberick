@@ -19,6 +19,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 - ``NBKChunkedInt``
 - ``NBKEndianness``
+- ``NBKPrimeSieve``
 - ``NBKStaticBigInt``
 
 ## NBKDoubleWidthKit
