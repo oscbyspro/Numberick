@@ -30,12 +30,23 @@
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
+    /// Generates a list of the first `count` number of primes.
+    public init(first count: PrimeCountLimit) {
+        self.init(through: count.rawValue)
+    }
+    
     /// Generates a list of all primes from zero through `limit`.
     public init(through limit: UInt) {
         self._limit = limit
         self._elements = []
         Self.primesByEratosthenes(through: limit, appending: &self._elements)
     }
+    
+    //*========================================================================*
+    // MARK: * Prime Count Limit
+    //*========================================================================*
+    
+    public enum PrimeCountLimit: UInt { case thousand = 7919, million = 15485863 }
 }
 
 //=----------------------------------------------------------------------------=

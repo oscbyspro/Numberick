@@ -25,37 +25,37 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func test1000X1() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 1))
         }
     }    
     
     func test1000X10() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 10))
         }
     }
     
     func test1000X100() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 100))
         }
     }
     
     func test1000X1000() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 1000))
         }
     }
     
     func test1000X10000() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 10000))
         }
     }
     
     func test1000X100000() {
-        for _ in 0 ... 1000 {
+        for _ in 0 ..< 1000 {
             NBK.blackHole(T(through: 100000))
         }
     }
@@ -63,6 +63,14 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: Tests x No Loop
     //=------------------------------------------------------------------------=
+    
+    func testNoLoopFirst1000() {
+        NBK.blackHole(T(first: .thousand))
+    }
+    
+    func testNoLoopFirst1000000() {
+        NBK.blackHole(T(first: .million))
+    }
     
     func testNoLoop1E6() {
         NBK.blackHole(T(through: 1000000))

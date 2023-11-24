@@ -22,7 +22,6 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: State
     //=------------------------------------------------------------------------=
     
-    // - TODO: Replace these with a 1-million-primes text file.
     static let primes: [UInt] = [
     0002, 0003, 0005, 0007, 0011, 0013, 0017, 0019, 0023, 0029,
     0031, 0037, 0041, 0043, 0047, 0053, 0059, 0061, 0067, 0071,
@@ -171,13 +170,36 @@ final class NBKPrimeSieveTests: XCTestCase {
         check(through: 10000, expectation: Self.primes.prefix(1229))
     }
     
+    func testPrimesThroughPrimeCountLimit() {
+        brr: do {
+            let result = T(first: .thousand)
+            XCTAssertEqual(result.elements.count,  1000)
+            XCTAssertEqual(result.elements.last!,  7919)
+            XCTAssertEqual(result.elements.last!,  result.limit)
+            check(result, limit: Self.primes[999], elements: Self.primes[...999])
+        }
+        
+        #if !DEBUG // fast in RELEASE, slow in DEBUG
+        brr: do {
+            let result = T(first: .million)
+            XCTAssertEqual(result.elements.count, 01000000)
+            XCTAssertEqual(result.elements.last!, 15485863)
+            XCTAssertEqual(result.elements.last!, result.limit)
+        }
+        #endif
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Assertions
     //=------------------------------------------------------------------------=
     
     func check(through limit: UInt, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        let result = T(through: limit)
-        XCTAssertEqual(result.limit,  limit, file:  file, line: line)
-        XCTAssertEqual(result.elements[...], expectation, file: file, line: line)
+        check(T(through: limit), limit: limit, elements: expectation, file: file, line: line)
+    }
+    
+    func check(_ sieve: T, limit: UInt, elements: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertEqual(sieve.limit,  limit, file: file, line: line)
+        XCTAssertEqual(sieve.elements[...], (elements), file: file,  line: line)
+        XCTAssertLessThanOrEqual(sieve.elements.last ?? 0000, limit, file: file, line: line)
     }
 }
