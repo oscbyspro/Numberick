@@ -65,27 +65,27 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testNoLoopFirst1000() {
-        NBK.blackHole(T(first: .thousand))
+        XCTAssertEqual(T(first: .thousand).elements.count, 1000)
     }
     
     func testNoLoopFirst1000000() {
-        NBK.blackHole(T(first: .million))
+        XCTAssertEqual(T(first:  .million).elements.count, 1000000)
     }
     
     func testNoLoop1E6() {
-        NBK.blackHole(T(through: 1000000))
+        XCTAssertEqual(T(through: 0001000000).elements.count, 00078498)
     }
     
     func testNoLoop1E7() {
-        NBK.blackHole(T(through: 10000000))
+        XCTAssertEqual(T(through: 0010000000).elements.count, 00664579)
     }
-
+    
     func testNoLoop1E8() {
-        NBK.blackHole(T(through: 100000000))
+        XCTAssertEqual(T(through: 0100000000).elements.count, 05761455)
     }
     
     func testNoLoop1E9() {
-        NBK.blackHole(T(through: 1000000000))
+        XCTAssertEqual(T(through: 1000000000).elements.count, 50847534)
     }
 }
 

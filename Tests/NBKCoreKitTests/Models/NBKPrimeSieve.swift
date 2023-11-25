@@ -179,7 +179,7 @@ final class NBKPrimeSieveTests: XCTestCase {
             check(result, limit: Self.primes[999], elements: Self.primes[...999])
         }
         
-        #if !DEBUG // fast in RELEASE, slow in DEBUG
+        #if !DEBUG // fast in RELEASE, too slow in DEBUG
         brr: do {
             let result = T(first: .million)
             XCTAssertEqual(result.elements.count, 01000000)

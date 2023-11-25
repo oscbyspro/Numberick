@@ -39,7 +39,7 @@
     public init(through limit: UInt) {
         self._limit = limit
         self._elements = []
-        Self.primesByEratosthenes(through: limit, appending: &self._elements)
+        Self.primesByEratosthenesBitSet(through: limit, appending: &self._elements)
     }
     
     //*========================================================================*
@@ -63,22 +63,23 @@ extension NBKPrimeSieve {
     ///
     /// [sieve]: https://en.wikipedia.org/wiki/sieve_of_eratosthenes
     ///
-    /// - Complexity: O(n × log(log(n)))
+    /// - Complexity: O(limit × log(log(limit)))
     ///
     /// - Note: 1 million takes 0.0s on MacBook Pro (13-inch, M1, 2020).
     ///
     /// - Note: 1 billion takes 3.6s on MacBook Pro (13-inch, M1, 2020).
     ///
-    @inlinable static func primesByEratosthenes(through limit: UInt, appending elements: inout some RangeReplaceableCollection<UInt>) {
+    static func primesByEratosthenes(through limit: UInt, appending elements: inout [UInt]) {
         //=--------------------------------------=
-        if  limit < 2 { return }
+        if  limit < 2 as UInt { return }
         //=--------------------------------------=
         // mark each number in: 3, 5, 7, 9, ...
         //=--------------------------------------=
         let count = Int(bitPattern:  (limit &- 1) &>> 1)
         var marks = Array(repeating: true, count: count) // UInt.max at Int.max - 1
         
-        var value = 3 as UInt; var index: Int; loop: while true { defer { value &+= 2 }
+        var value = 3 as UInt; loop: while true {
+            var index: Int; defer { value &+= 2 }
             
             let (first, overflow) = value.multipliedReportingOverflow(by: value)
             
@@ -98,7 +99,69 @@ extension NBKPrimeSieve {
         }
         
         for index in marks.indices where marks[index] {
-            elements.append(UInt(bitPattern: index) &<< 1 &+ 3)
+            elements.append(UInt(bitPattern: index) &<< 1 &+ 3) // UInt.max at Int.max - 1
+        }
+    }
+    
+    /// An adaptation of [the Sieve of Eratosthenes][sieve].
+    ///
+    /// [sieve]: https://en.wikipedia.org/wiki/sieve_of_eratosthenes
+    ///
+    /// - Complexity: O(limit × log(log(limit)))
+    ///
+    /// - Note: 1 million takes 0.0s on MacBook Pro (13-inch, M1, 2020).
+    ///
+    /// - Note: 1 billion takes 2.2s on MacBook Pro (13-inch, M1, 2020).
+    ///
+    static func primesByEratosthenesBitSet(through limit: UInt, appending elements: inout [UInt]) {
+        //=--------------------------------------=
+        if  limit < 2 as UInt { return }
+        //=--------------------------------------=
+        var value : UInt
+        let split = NBK.PBI.dividing(NBK.ZeroOrMore((limit &- 1) &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+        var marks = Array(repeating: UInt.max, count: Int(split.quotient + UInt(bit: !split.remainder.isZero)))
+        //=--------------------------------------=
+        // mark each number in: 3, 5, 7, 9, ...
+        //=--------------------------------------=
+        value = 3 as UInt; while true { var index: QR<UInt,UInt>; defer { value &+= 2 }
+            
+            let (first, overflow) = value.multipliedReportingOverflow(by: value)
+            
+            done: if  first > limit || overflow { break }
+                        
+            index = NBK.PBI.dividing(NBK.ZeroOrMore(value &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+                        
+            composite: if (marks[Int(bitPattern: index.quotient)] & (1 &<< index.remainder)).isZero { continue }
+                        
+            index = NBK.PBI.dividing(NBK.ZeroOrMore(first &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+            
+            composite: while index.quotient < UInt(bitPattern: marks.count) {
+                var mask = UInt.zero; while index.remainder < UInt.bitWidth { mask &+= 1 &<< index.remainder; index.remainder &+= value }
+                marks[Int(bitPattern: index.quotient)] &= mask.onesComplement()
+                index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+                index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+            }
+        }
+        //=--------------------------------------=
+        // add each un/marked number to the list
+        //=--------------------------------------=
+        unmarked: do {
+            elements.append(2 as UInt)
+        }
+        
+        value = 3 as UInt; loop: for var chunk in marks { var position = value
+
+            while !chunk.isZero {
+                let shift = UInt(bitPattern: chunk.trailingZeroBitCount)
+                if  position.addReportingOverflow(shift &<< 1) || position > limit { break loop }
+                
+                elements.append(position)
+                
+                if  position.addReportingOverflow(00000000002) || position > limit { break loop }
+                chunk >>= shift &+ 1 // smart shifting because it may exceed the bit width
+            }
+            
+            if (value).addReportingOverflow(UInt(bitPattern: UInt.bitWidth) &<< 1) { break loop }
         }
     }
 }
