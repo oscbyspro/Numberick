@@ -130,7 +130,7 @@ extension NBKPrimeSieve {
             done: if  first > limit || overflow { break }
                         
             index = NBK.PBI.dividing(NBK.ZeroOrMore(value &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-                        
+            
             composite: if (marks[Int(bitPattern: index.quotient)] & (1 &<< index.remainder)).isZero { continue }
                         
             index = NBK.PBI.dividing(NBK.ZeroOrMore(first &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
@@ -173,7 +173,7 @@ extension NBKPrimeSieve {
     ///
     /// - Note: 1 million takes 0.0s on MacBook Pro (13-inch, M1, 2020).
     ///
-    /// - Note: 1 billion takes 1.7s on MacBook Pro (13-inch, M1, 2020).
+    /// - Note: 1 billion takes 1.5s on MacBook Pro (13-inch, M1, 2020).
     ///
     static func primesByEratosthenesBitSetWheel(through limit: UInt, appending elements: inout [UInt]) {
         //=--------------------------------------=
@@ -194,22 +194,21 @@ extension NBKPrimeSieve {
         
         if  let value =  wheel.primes.dropFirst(1).first, value <= limit {
             var array = Array(repeating: UInt.max, count: Int(bitPattern: value))
-            sieve(&array, stride: value, from: (value) &>> 1 &- 1)
+            sieve(&array, from: value &>> 1 &- 1, stride:{ value })
             elements.append(value)
             
             for value in wheel.primes.dropFirst(2) where  value <= limit {
-                var after = Array(repeating: UInt.max, count: array.count * Int(bitPattern: value))
-                sieve(&after, stride: value, from: value &>> 1 &- 1)
-                sieve(&after, by: NBK.CyclicIterator(array)!)
-                
+                var after = Array(repeating: UInt.max, count: Int(bitPattern: value) * array.count)
+                sieve(&after, from: value &>> 1 &- 1, stride:{ value })
+                sieve(&after, pattern: NBK.CyclicIterator.init(array)!)
                 array = after
                 elements.append(value)
-            };  sieve(&marks, by: NBK.CyclicIterator(array)!)
+            };  sieve(&marks, pattern: NBK.CyclicIterator.init(array)!)
         }
         //=--------------------------------------=
         // mark each number in: 11, 13, 17, ...
         //=--------------------------------------=
-        value = 1 + outer.next(); while true { defer { value &+= outer.next() }; inner.reset()
+        value = 1 as UInt; while true { value &+= outer.next(); inner.reset()
             
             let (first, overflow) = value.multipliedReportingOverflow(by: value)
             
@@ -225,17 +224,7 @@ extension NBKPrimeSieve {
                 start += value * (inner).next()
             }
             
-            index = NBK.PBI.dividing(NBK.ZeroOrMore(start &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-            
-            composite: while index.quotient < UInt(bitPattern: marks.count) {
-                var mask = UInt.zero; while index.remainder < UInt.bitWidth { 
-                    mask &+= 1 &<< index.remainder; index.remainder &+= value * inner.next() &>> 1
-                }
-                
-                marks[Int(bitPattern: index.quotient)] &= mask.onesComplement()
-                index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-                index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-            }
+            sieve(&marks, from: start &>> 1 &- 1, stride:{ value &* inner.next() &>> 1 }) // the wheel is small
         }
         //=--------------------------------------=
         // add each marked number to the list
@@ -260,19 +249,28 @@ extension NBKPrimeSieve {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
 
-    @usableFromInline static func sieve(_ marks: inout [UInt], by cycle: NBK.CyclicIterator<[UInt]>) {
+    /// Sieves the `marks` with the given pattern `cycle`.
+    @usableFromInline static func sieve(_ marks: inout [UInt], pattern cycle: NBK.CyclicIterator<[UInt]>) {
         var cycle =  cycle
         for index in marks.indices {
             marks[index] &= cycle.next()
         }
     }
     
-    @usableFromInline static func sieve(_ marks: inout [UInt], stride value: UInt, from start: UInt) {
+    /// Sieves the `marks` from `start` with strides of `increment`.
+    ///
+    /// This method is hot, and uses wrapping arithmetic for performance reasons.
+    /// The overflow condition is in the requirements section.
+    ///
+    /// - Requires: `increment <= UInt.max - UInt.bitWidth + 1`.
+    ///
+    @usableFromInline static func sieve(_ marks: inout [UInt], from start: UInt, stride increment: () -> UInt) {
         var index: QR<UInt, UInt> = NBK.PBI.dividing(NBK.ZeroOrMore(start), by: NBK.PowerOf2(bitWidth: UInt.self))
         
         while index.quotient < UInt(bitPattern: marks.count) {
             var mask = UInt.zero; while index.remainder < UInt.bitWidth {
-                mask &+= 1 &<< index.remainder; index.remainder &+= value
+                mask &+= 1 &<< index.remainder
+                index.remainder &+= increment()
             }
             
             marks[Int(bitPattern: index.quotient)] &= mask.onesComplement()
@@ -280,25 +278,32 @@ extension NBKPrimeSieve {
             index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
         }
     }
+}
+
+//=----------------------------------------------------------------------------=
+// MARK: + Miscellaneous
+//=----------------------------------------------------------------------------=
+
+extension NBKPrimeSieve {
     
-    //*============================================================================*
+    //*========================================================================*
     // MARK: * Wheel
-    //*============================================================================*
+    //*========================================================================*
 
     @frozen @usableFromInline struct Wheel {
         
-        //=------------------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: State
-        //=------------------------------------------------------------------------=
-        
+        //=--------------------------------------------------------------------=
+
         @usableFromInline let primes: [UInt]
         @usableFromInline var circumference: UInt
         @usableFromInline var increments: [UInt]
         
-        //=------------------------------------------------------------------------=
+        //=--------------------------------------------------------------------=
         // MARK: Initializers
-        //=------------------------------------------------------------------------=
-        
+        //=--------------------------------------------------------------------=
+
         /// - TODO: Consider type-safe primes.
         @usableFromInline init(primes: [UInt]) {
             Swift.assert(primes.allSatisfy({ $0 >= 2 }))
