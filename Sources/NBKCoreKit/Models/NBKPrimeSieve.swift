@@ -117,30 +117,17 @@ extension NBKPrimeSieve {
         //=--------------------------------------=
         if  limit < 2 as UInt { return }
         //=--------------------------------------=
-        var value : UInt
-        let split = NBK.PBI.dividing(NBK.ZeroOrMore((limit &- 1) &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-        var marks = Array(repeating: UInt.max, count: Int(split.quotient + UInt(bit: !split.remainder.isZero)))
+        var marks = BitSet(minBitCount:(limit &- 1) &>> 1)
         //=--------------------------------------=
         // mark each number in: 3, 5, 7, 9, ...
         //=--------------------------------------=
-        value = 3 as UInt; while true { var index: QR<UInt,UInt>; defer { value &+= 2 }
+        var value = 3 as UInt; while true { defer { value &+= 2 }
             
-            let (first, overflow) = value.multipliedReportingOverflow(by: value)
+            let  (first, overflow) = value.multipliedReportingOverflow(by: value)
+            guard first <= (limit), !overflow else { break    }
+            guard marks.bit(value &>> 1 &- 1) else { continue }
             
-            done: if  first > limit || overflow { break }
-                        
-            index = NBK.PBI.dividing(NBK.ZeroOrMore(value &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-            
-            composite: if (marks[Int(bitPattern: index.quotient)] & (1 &<< index.remainder)).isZero { continue }
-                        
-            index = NBK.PBI.dividing(NBK.ZeroOrMore(first &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-            
-            composite: while index.quotient < UInt(bitPattern: marks.count) {
-                var mask = UInt.zero; while index.remainder < UInt.bitWidth { mask &+= 1 &<< index.remainder; index.remainder &+= value }
-                marks[Int(bitPattern: index.quotient)] &= mask.onesComplement()
-                index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-                index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-            }
+            marks.sieve(from: first &>> 1 &- 1, stride:{ value }) // OK
         }
         //=--------------------------------------=
         // add each un/marked number to the list
@@ -149,20 +136,7 @@ extension NBKPrimeSieve {
             elements.append(2 as UInt)
         }
         
-        value = 3 as UInt; loop: for var chunk in marks { var position = value
-
-            while !chunk.isZero {
-                let shift = UInt(bitPattern: chunk.trailingZeroBitCount)
-                if  position.addReportingOverflow(shift &<< 1) || position > limit { break loop }
-                
-                elements.append(position)
-                
-                if  position.addReportingOverflow(00000000002) || position > limit { break loop }
-                chunk >>= shift &+ 1 // smart shifting because it may exceed the bit width
-            }
-            
-            if (value).addReportingOverflow(UInt(bitPattern: UInt.bitWidth) &<< 1) { break loop }
-        }
+        parse(odd: marks.base, from: 3 as UInt, through: limit, appending: &elements)
     }
     
     /// An adaptation of [the Sieve of Eratosthenes][sieve].
@@ -179,12 +153,10 @@ extension NBKPrimeSieve {
         //=--------------------------------------=
         if  limit < 2 as UInt { return }
         //=--------------------------------------=
-        var value : UInt
-        var index = NBK.PBI.dividing(NBK.ZeroOrMore((limit &- 1) &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-        var marks = Array(repeating: UInt.max, count: Int(index.quotient + UInt(bit: !index.remainder.isZero)))
         let wheel = Wheel(primes:[2, 3, 5, 7])
         var outer = NBK.CyclicIterator(wheel.increments)!
         var inner = NBK.CyclicIterator(wheel.increments)!
+        var marks = BitSet.init(minBitCount:(limit &- 1) &>> 1)
         //=--------------------------------------=
         // mark each number in: 3, 5, 7, ...
         //=--------------------------------------=
@@ -192,31 +164,28 @@ extension NBKPrimeSieve {
             elements.append(2 as UInt)
         }
         
-        if  let value =  wheel.primes.dropFirst(1).first, value <= limit {
-            var array = Array(repeating: UInt.max, count: Int(bitPattern: value))
-            sieve(&array, from: value &>> 1 &- 1, stride:{ value })
-            elements.append(value)
+        if  let value = wheel.primes.dropFirst(1).first, value <= limit {
+            var combo = BitSet(Array(repeating: UInt.max, count: Int(bitPattern: value)))
+            combo.sieve(from: value &>> 1 &- 1, stride:{ value })
+            elements.append(((value)))
             
             for value in wheel.primes.dropFirst(2) where  value <= limit {
-                var after = Array(repeating: UInt.max, count: Int(bitPattern: value) * array.count)
-                sieve(&after, from: value &>> 1 &- 1, stride:{ value })
-                sieve(&after, pattern: NBK.CyclicIterator.init(array)!)
-                array = after
-                elements.append(value)
-            };  sieve(&marks, pattern: NBK.CyclicIterator.init(array)!)
+                var after = BitSet(Array(repeating: UInt.max, count: Int(bitPattern: value) * combo.base.count))
+                after.sieve(from: value &>> 1 &- 1, stride:{ value })
+                after.sieve(pattern: NBK.CyclicIterator(combo.base)!)
+                combo = after
+                
+                elements.append(((value)))
+            };  marks.sieve(pattern: NBK.CyclicIterator(combo.base)!)
         }
         //=--------------------------------------=
         // mark each number in: 11, 13, 17, ...
         //=--------------------------------------=
-        value = 1 as UInt; while true { value &+= outer.next(); inner.reset()
+        var value = 1 as UInt; while true { value &+= outer.next(); inner.reset()
             
-            let (first, overflow) = value.multipliedReportingOverflow(by: value)
-            
-            done: if  first > limit || overflow { break }
-            
-            index = NBK.PBI.dividing(NBK.ZeroOrMore(value &>> 1 &- 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-            
-            composite: if (marks[Int(bitPattern: index.quotient)] & (1 &<< index.remainder)).isZero { continue }
+            let  (first, overflow) = value.multipliedReportingOverflow(by: value)
+            guard first <= (limit), !overflow else { break    }
+            guard marks.bit(value &>> 1 &- 1) else { continue }
             
             var start  = value // some wheel position <= value * value
             start/**/ += value * (value / wheel.circumference) * wheel.circumference
@@ -224,12 +193,21 @@ extension NBKPrimeSieve {
                 start += value * (inner).next()
             }
             
-            sieve(&marks, from: start &>> 1 &- 1, stride:{ value &* inner.next() &>> 1 }) // the wheel is small
+            marks.sieve(from: start &>> 1 &- 1, stride:{ value &* inner.next() &>> 1 }) // OK
         }
         //=--------------------------------------=
         // add each marked number to the list
         //=--------------------------------------=
-        value = 3 as UInt; loop: for var chunk in marks { var position = value
+        parse(odd: marks.base, from: 3 as UInt, through: limit, appending: &elements)
+    }
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Utilities
+    //=------------------------------------------------------------------------=
+    
+    /// Parses the `marks` from  `start` through `limit` in increments of `2` and appends `elements`.
+    @usableFromInline static func parse(odd marks: [UInt], from start: UInt, through limit: UInt, appending elements: inout [UInt]) {
+        var value = start; loop: for var chunk in marks { var position = value
             
             while !chunk.isZero {
                 let shift = UInt(bitPattern: chunk.trailingZeroBitCount)
@@ -244,40 +222,6 @@ extension NBKPrimeSieve {
             if (value).addReportingOverflow(UInt(bitPattern: UInt.bitWidth) &<< 1) { break loop }
         }
     }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
-
-    /// Sieves the `marks` with the given pattern `cycle`.
-    @usableFromInline static func sieve(_ marks: inout [UInt], pattern cycle: NBK.CyclicIterator<[UInt]>) {
-        var cycle =  cycle
-        for index in marks.indices {
-            marks[index] &= cycle.next()
-        }
-    }
-    
-    /// Sieves the `marks` from `start` with strides of `increment`.
-    ///
-    /// This method is hot, and uses wrapping arithmetic for performance reasons.
-    /// The overflow condition is in the requirements section.
-    ///
-    /// - Requires: `increment <= UInt.max - UInt.bitWidth + 1`.
-    ///
-    @usableFromInline static func sieve(_ marks: inout [UInt], from start: UInt, stride increment: () -> UInt) {
-        var index: QR<UInt, UInt> = NBK.PBI.dividing(NBK.ZeroOrMore(start), by: NBK.PowerOf2(bitWidth: UInt.self))
-        
-        while index.quotient < UInt(bitPattern: marks.count) {
-            var mask = UInt.zero; while index.remainder < UInt.bitWidth {
-                mask &+= 1 &<< index.remainder
-                index.remainder &+= increment()
-            }
-            
-            marks[Int(bitPattern: index.quotient)] &= mask.onesComplement()
-            index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-            index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-        }
-    }
 }
 
 //=----------------------------------------------------------------------------=
@@ -285,6 +229,74 @@ extension NBKPrimeSieve {
 //=----------------------------------------------------------------------------=
 
 extension NBKPrimeSieve {
+    
+    //*========================================================================*
+    // MARK: * BitSet
+    //*========================================================================*
+    
+    @frozen @usableFromInline struct BitSet {
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline var base: [UInt]
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(_ base: [UInt]) {
+            self.base = base
+        }
+        
+        @inlinable init(minBitCount: UInt) {
+            let division = NBK.PBI.dividing(NBK.ZeroOrMore(minBitCount), by: NBK.PowerOf2(bitWidth: UInt.self))
+            let count = division.quotient &+ UInt(bit: !division.remainder.isZero)
+            self.base = Array(repeating:  UInt.max, count: Int(bitPattern: count))
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Accessors
+        //=--------------------------------------------------------------------=
+        
+        @inlinable func bit(_ index: UInt) -> Bool {
+            let index = NBK.PBI.dividing(NBK.ZeroOrMore(index), by: NBK.PowerOf2(bitWidth: UInt.self))
+            return self.base[Int(bitPattern:  index.quotient)] &>> index.remainder & 1 == 1 as UInt
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Transformations
+        //=--------------------------------------------------------------------=
+        
+        /// Sets each bit to `1`.
+        @inlinable mutating func reset() {
+            for index in self.base.indices { self.base[index] = UInt.max }
+        }
+        
+        /// Sieves the `marks` with the given pattern `cycle`.
+        @inlinable mutating func sieve(pattern cycle: NBK.CyclicIterator<[UInt]>) {
+            var cycle = cycle; for index in self.base.indices { self.base[index] &= cycle.next() }
+        }
+        
+        /// Sieves the `marks` from `start` with strides of `increment`.
+        ///
+        /// - Requires: `increment() <= UInt.max - UInt.bitWidth + 1`
+        /// 
+        @usableFromInline mutating func sieve(from start: UInt, stride increment: () -> UInt) {
+            var index: QR<UInt, UInt> = NBK.PBI.dividing(NBK.ZeroOrMore(start), by: NBK.PowerOf2(bitWidth: UInt.self))
+            while index.quotient < UInt(bitPattern: self.base.count) {
+                var chunk = UInt.zero; while index.remainder < UInt.bitWidth {
+                    chunk &+= 1 &<< index.remainder
+                    index.remainder &+= increment()
+                }
+                
+                self.base[Int(bitPattern:  index.quotient)] &= chunk.onesComplement()
+                index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+                index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+            }
+        }
+    }
     
     //*========================================================================*
     // MARK: * Wheel
