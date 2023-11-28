@@ -53,3 +53,20 @@ extension NBK {
         }
     }
 }
+
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Random Access Collection
+//=----------------------------------------------------------------------------=
+
+extension NBK.CyclicIterator where Base: RandomAccessCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    // TODO: Tests...
+    @inlinable public mutating func set(distance: UInt) where Base: RandomAccessCollection {
+        let  count = UInt(bitPattern: self.base.count)
+        self.index = self.base.index(self.base.startIndex, offsetBy: Int(bitPattern: distance % count))
+    }
+}

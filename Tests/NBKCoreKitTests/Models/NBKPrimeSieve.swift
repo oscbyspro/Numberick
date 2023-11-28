@@ -10,6 +10,7 @@
 import NBKCoreKit
 import XCTest
 
+// TODO: It's a mess........
 //*============================================================================*
 // MARK: * NBK x Prime Sieve
 //*============================================================================*
@@ -151,6 +152,24 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    // TODO: these values depend on T.increment...
+    func testIncrement() {
+        let sieve = T()
+        
+        XCTAssertEqual(sieve.limit, 1048575)
+        XCTAssertEqual(sieve.limit, T.increment * 1 - 1)
+        XCTAssertEqual(sieve.elements.last!, 1048573)
+        XCTAssertEqual(sieve.elements.count,   82025)
+        
+        sieve.increment()
+        
+        XCTAssertEqual(sieve.limit, 2097151)
+        XCTAssertEqual(sieve.limit, T.increment * 2 - 1)
+        XCTAssertEqual(sieve.elements.last!, 2097143)
+        XCTAssertEqual(sieve.elements.count,  155611)
+
+    }
+    
     func testPrimesThroughLowLimits() {
         check(through: 0, expectation: [          ][...])
         check(through: 1, expectation: [          ][...])
@@ -172,19 +191,19 @@ final class NBKPrimeSieveTests: XCTestCase {
     
     func testPrimesThroughPrimeCountLimit() {
         brr: do {
-            let result = T(first: .thousand)
-            XCTAssertEqual(result.elements.count,  1000)
-            XCTAssertEqual(result.elements.last!,  7919)
-            XCTAssertEqual(result.elements.last!,  result.limit)
-            check(result, limit: Self.primes[999], elements: Self.primes[...999])
+            let result = T(minCount: 1000)
+            XCTAssertEqual(result.elements[999], 7919)
+            XCTAssertGreaterThanOrEqual(result.elements.count, 1000)
+            XCTAssertGreaterThanOrEqual(result.limit, result.elements[999])
+            check(count: 1000, expectation: Self.primes[...999])
         }
         
         #if !DEBUG // fast in RELEASE, too slow in DEBUG
         brr: do {
-            let result = T(first: .million)
-            XCTAssertEqual(result.elements.count, 01000000)
-            XCTAssertEqual(result.elements.last!, 15485863)
-            XCTAssertEqual(result.elements.last!, result.limit)
+            let result = T(minCount: 1000000)
+            XCTAssertEqual(result.elements[999999], 15485863)
+            XCTAssertGreaterThanOrEqual(result.elements.count, 1000000)
+            XCTAssertGreaterThanOrEqual(result.limit, result.elements[999999])
         }
         #endif
     }
@@ -193,13 +212,21 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: Assertions
     //=------------------------------------------------------------------------=
     
-    func check(through limit: UInt, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        check(T(through: limit), limit: limit, elements: expectation, file: file, line: line)
+    func check(count: Int, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
+        let sieve  = T(minCount: count)
+        let prefix = sieve.elements.prefix(count)
+        
+        XCTAssertGreaterThanOrEqual(sieve.elements.count, count, file: file, line: line)
+        XCTAssertEqual(prefix, Self.primes.prefix(count), file:  file, line: line)
+        XCTAssertLessThanOrEqual(sieve.elements.last!,    sieve.limit, file: file, line: line)
     }
     
-    func check(_ sieve: T, limit: UInt, elements: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(sieve.limit,  limit, file: file, line: line)
-        XCTAssertEqual(sieve.elements[...], (elements), file: file,  line: line)
-        XCTAssertLessThanOrEqual(sieve.elements.last ?? 0000, limit, file: file, line: line)
+    func check(through limit: UInt, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
+        let sieve  = T(through: limit)
+        let prefix = sieve.elements.prefix(upTo: sieve.elements.reversed().drop(while:{ $0 > limit }).startIndex.base)
+        
+        XCTAssertGreaterThanOrEqual(sieve.limit,  limit,  file:  file, line: line)
+        XCTAssertEqual(prefix, expectation,  file: file,  line:  line)
+        XCTAssertGreaterThanOrEqual(sieve.elements.last!, limit, file: file, line: line)
     }
 }

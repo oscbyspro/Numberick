@@ -21,71 +21,62 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     typealias T = NBKPrimeSieve
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests
+    // MARK: Tests x No Loop x Min Count
     //=------------------------------------------------------------------------=
     
-    func test1000X1() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 1))
-        }
-    }    
-    
-    func test1000X10() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 10))
-        }
+    func testNoLoopMinCount1E0() {
+        let count = NBK.blackHoleIdentity(1)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 2)
     }
     
-    func test1000X100() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 100))
-        }
+    func testNoLoopMinCount1E1() {
+        let count = NBK.blackHoleIdentity(10)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 29)
     }
     
-    func test1000X1000() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 1000))
-        }
+    func testNoLoopMinCount1E2() {
+        let count = NBK.blackHoleIdentity(100)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 541)
     }
     
-    func test1000X10000() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 10000))
-        }
+    func testNoLoopMinCount1E3() {
+        let count = NBK.blackHoleIdentity(1_000)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 7919)
     }
     
-    func test1000X100000() {
-        for _ in 0 ..< 1000 {
-            NBK.blackHole(T(through: 100000))
-        }
+    func testNoLoopMinCount1E4() {
+        let count = NBK.blackHoleIdentity(10_000)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 104729)
+    }
+    
+    func testNoLoopMinCount1E5() {
+        let count = NBK.blackHoleIdentity(100_000)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 1299709)
+    }
+    
+    func testNoLoopMinCount1E6() {
+        let count = NBK.blackHoleIdentity(1_000_000)
+        XCTAssertEqual(T(minCount: count).elements[count - 1], 15485863)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x No Loop
+    // MARK: Tests x No Loop x Through
     //=------------------------------------------------------------------------=
-    
-    func testNoLoopFirst1000() {
-        XCTAssertEqual(T(first: .thousand).elements.count, 1000)
-    }
-    
-    func testNoLoopFirst1000000() {
-        XCTAssertEqual(T(first:  .million).elements.count, 1000000)
-    }
     
     func testNoLoop1E6() {
-        XCTAssertEqual(T(through: 0001000000).elements.count, 00078498)
+        XCTAssertGreaterThanOrEqual(T(through: 0001000000).elements.count, 00078498)
     }
     
     func testNoLoop1E7() {
-        XCTAssertEqual(T(through: 0010000000).elements.count, 00664579)
+        XCTAssertGreaterThanOrEqual(T(through: 0010000000).elements.count, 00664579)
     }
     
     func testNoLoop1E8() {
-        XCTAssertEqual(T(through: 0100000000).elements.count, 05761455)
+        XCTAssertGreaterThanOrEqual(T(through: 0100000000).elements.count, 05761455)
     }
     
     func testNoLoop1E9() {
-        XCTAssertEqual(T(through: 1000000000).elements.count, 50847534)
+        XCTAssertGreaterThanOrEqual(T(through: 1000000000).elements.count, 50847534)
     }
 }
 
