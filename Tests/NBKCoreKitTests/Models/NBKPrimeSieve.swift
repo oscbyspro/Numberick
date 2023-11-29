@@ -161,7 +161,9 @@ final class NBKPrimeSieveTests: XCTestCase {
         XCTAssertEqual(sieve.elements.last!, 1048573)
         XCTAssertEqual(sieve.elements.count,   82025)
         
+        print(sieve)
         sieve.increment()
+        print(sieve)
         
         XCTAssertEqual(sieve.limit, 2097151)
         XCTAssertEqual(sieve.limit, T.increment * 2 - 1)
@@ -191,7 +193,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     
     func testPrimesThroughPrimeCountLimit() {
         brr: do {
-            let result = T(minCount: 1000)
+            let result = T(first: 1000)
             XCTAssertEqual(result.elements[999], 7919)
             XCTAssertGreaterThanOrEqual(result.elements.count, 1000)
             XCTAssertGreaterThanOrEqual(result.limit, result.elements[999])
@@ -200,7 +202,7 @@ final class NBKPrimeSieveTests: XCTestCase {
         
         #if !DEBUG // fast in RELEASE, too slow in DEBUG
         brr: do {
-            let result = T(minCount: 1000000)
+            let result = T(first: 1000000)
             XCTAssertEqual(result.elements[999999], 15485863)
             XCTAssertGreaterThanOrEqual(result.elements.count, 1000000)
             XCTAssertGreaterThanOrEqual(result.limit, result.elements[999999])
@@ -213,7 +215,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func check(count: Int, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        let sieve  = T(minCount: count)
+        let sieve  = T(first: count)
         let prefix = sieve.elements.prefix(count)
         
         XCTAssertGreaterThanOrEqual(sieve.elements.count, count, file: file, line: line)

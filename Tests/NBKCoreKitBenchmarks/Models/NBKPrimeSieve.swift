@@ -21,42 +21,42 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     typealias T = NBKPrimeSieve
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x No Loop x Min Count
+    // MARK: Tests x No Loop x Min First
     //=------------------------------------------------------------------------=
     
-    func testNoLoopMinCount1E0() {
+    func testNoLoopFirst1E0() {
         let count = NBK.blackHoleIdentity(1)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 2)
+        XCTAssertEqual(T(first: count).elements[count - 1], 2)
     }
     
-    func testNoLoopMinCount1E1() {
+    func testNoLoopFirst1E1() {
         let count = NBK.blackHoleIdentity(10)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 29)
+        XCTAssertEqual(T(first: count).elements[count - 1], 29)
     }
     
-    func testNoLoopMinCount1E2() {
+    func testNoLoopFirst1E2() {
         let count = NBK.blackHoleIdentity(100)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 541)
+        XCTAssertEqual(T(first: count).elements[count - 1], 541)
     }
     
-    func testNoLoopMinCount1E3() {
+    func testNoLoopFirst1E3() {
         let count = NBK.blackHoleIdentity(1_000)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 7919)
+        XCTAssertEqual(T(first: count).elements[count - 1], 7919)
     }
     
-    func testNoLoopMinCount1E4() {
+    func testNoLoopFirst1E4() {
         let count = NBK.blackHoleIdentity(10_000)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 104729)
+        XCTAssertEqual(T(first: count).elements[count - 1], 104729)
     }
     
-    func testNoLoopMinCount1E5() {
+    func testNoLoopFirst1E5() {
         let count = NBK.blackHoleIdentity(100_000)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 1299709)
+        XCTAssertEqual(T(first: count).elements[count - 1], 1299709)
     }
     
-    func testNoLoopMinCount1E6() {
+    func testNoLoopFirst1E6() {
         let count = NBK.blackHoleIdentity(1_000_000)
-        XCTAssertEqual(T(minCount: count).elements[count - 1], 15485863)
+        XCTAssertEqual(T(first: count).elements[count - 1], 15485863)
     }
     
     //=------------------------------------------------------------------------=
