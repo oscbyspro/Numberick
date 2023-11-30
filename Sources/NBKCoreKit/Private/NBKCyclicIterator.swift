@@ -33,12 +33,23 @@ extension NBK {
             self.index = (base).startIndex
         }
         
+        @inlinable public init?(_ base: Base, spin: UInt) {
+            self.init(base)
+            let distance = Int(bitPattern: spin % UInt(bitPattern: self.base.count))
+            self.set(unchecked: base.index(self.index, offsetBy: distance))
+        }
+        
         //=--------------------------------------------------------------------=
         // MARK: Transformations
         //=--------------------------------------------------------------------=
         
         @inlinable public mutating func reset() {
-            self.index = self.base.startIndex
+            self.set(unchecked: self.base.startIndex)
+        }
+        
+        @inlinable public mutating func set(unchecked index: Base.Index) {
+            Swift.assert(index >= self.base.startIndex && index < self.base.endIndex)
+            self.index = index
         }
         
         @inlinable public mutating func next() -> Base.Element {
@@ -51,22 +62,5 @@ extension NBK {
 
             return self.base[self.index] as Base.Element
         }
-    }
-}
-
-//=----------------------------------------------------------------------------=
-// MARK: + where Base is Random Access Collection
-//=----------------------------------------------------------------------------=
-
-extension NBK.CyclicIterator where Base: RandomAccessCollection {
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Transformations
-    //=------------------------------------------------------------------------=
-    
-    // TODO: Tests...
-    @inlinable public mutating func reset(to distance: UInt) where Base: RandomAccessCollection {
-        let  count = UInt(bitPattern: self.base.count)
-        self.index = self.base.index( self.base.startIndex, offsetBy: Int(bitPattern: distance % count))
     }
 }
