@@ -65,8 +65,8 @@ extension NBK.CyclicIterator where Base: RandomAccessCollection {
     //=------------------------------------------------------------------------=
     
     // TODO: Tests...
-    @inlinable public mutating func set(distance: UInt) where Base: RandomAccessCollection {
+    @inlinable public mutating func reset(to distance: UInt) where Base: RandomAccessCollection {
         let  count = UInt(bitPattern: self.base.count)
-        self.index = self.base.index(self.base.startIndex, offsetBy: Int(bitPattern: distance % count))
+        self.index = self.base.index( self.base.startIndex, offsetBy: Int(bitPattern: distance % count))
     }
 }
