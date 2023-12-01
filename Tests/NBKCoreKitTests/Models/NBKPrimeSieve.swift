@@ -10,7 +10,6 @@
 import NBKCoreKit
 import XCTest
 
-// TODO: it's a mess........
 //*============================================================================*
 // MARK: * NBK x Prime Sieve
 //*============================================================================*
@@ -22,7 +21,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     //=------------------------------------------------------------------------=
     // MARK: State
     //=------------------------------------------------------------------------=
-    
+        
     static let primes: [UInt] = [
     0002, 0003, 0005, 0007, 0011, 0013, 0017, 0019, 0023, 0029,
     0031, 0037, 0041, 0043, 0047, 0053, 0059, 0061, 0067, 0071,
@@ -152,83 +151,72 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    // TODO: these values depend on T.increment...
-    func testIncrement() {
-        let sieve = T()
+    func test001KiB() {
+        let ((sieve)) = T(size: .KiB(001))
+        check(sieve, limit: 016383, count: 01900, last: 016381)
         
-        XCTAssertEqual(sieve.limit, 1048575)
-        XCTAssertEqual(sieve.limit, T.increment * 1 - 1)
-        XCTAssertEqual(sieve.elements.last!, 1048573)
-        XCTAssertEqual(sieve.elements.count,   82025)
-        
-        print(sieve)
         sieve.increment()
-        print(sieve)
+        check(sieve, limit: 032767, count: 03512, last: 032749)
         
-        XCTAssertEqual(sieve.limit, 2097151)
-        XCTAssertEqual(sieve.limit, T.increment * 2 - 1)
-        XCTAssertEqual(sieve.elements.last!, 2097143)
-        XCTAssertEqual(sieve.elements.count,  155611)
+        sieve.increment()
+        check(sieve, limit: 049151, count: 05051, last: 049139)
+        
+        sieve.increment()
+        check(sieve, limit: 065535, count: 06542, last: 065521)
+    }
+    
+    func test002KiB() {
+        let ((sieve)) = T(size: .KiB(002))
+        check(sieve, limit: 032767, count: 03512, last: 032749)
+        
+        sieve.increment()
+        check(sieve, limit: 065535, count: 06542, last: 065521)
+        
+        sieve.increment()
+        check(sieve, limit: 098303, count: 09439, last: 098299)
+        
+        sieve.increment()
+        check(sieve, limit: 131071, count: 12251, last: 131071)
+    }
+    
+    func test003KiB() {
+        let ((sieve)) = T(size: .KiB(003))
+        check(sieve, limit: 049151, count: 05051, last: 049139)
 
-    }
-    
-    func testPrimesThroughLowLimits() {
-        check(through: 0, expectation: [          ][...])
-        check(through: 1, expectation: [          ][...])
-        check(through: 2, expectation: [2         ][...])
-        check(through: 3, expectation: [2, 3      ][...])
-        check(through: 4, expectation: [2, 3      ][...])
-        check(through: 5, expectation: [2, 3, 5   ][...])
-        check(through: 6, expectation: [2, 3, 5   ][...])
-        check(through: 7, expectation: [2, 3, 5, 7][...])
-    }
-    
-    func testPrimesThroughPowersOf10() {
-        check(through: 00001, expectation: Self.primes.prefix(0000))
-        check(through: 00010, expectation: Self.primes.prefix(0004))
-        check(through: 00100, expectation: Self.primes.prefix(0025))
-        check(through: 01000, expectation: Self.primes.prefix(0168))
-        check(through: 10000, expectation: Self.primes.prefix(1229))
-    }
-    
-    func testPrimesThroughPrimeCountLimit() {
-        brr: do {
-            let result = T(first: 1000)
-            XCTAssertEqual(result.elements[999], 7919)
-            XCTAssertGreaterThanOrEqual(result.elements.count, 1000)
-            XCTAssertGreaterThanOrEqual(result.limit, result.elements[999])
-            check(count: 1000, expectation: Self.primes[...999])
-        }
+        sieve.increment()
+        check(sieve, limit: 098303, count: 09439, last: 098299)
         
-        #if !DEBUG // fast in RELEASE, too slow in DEBUG
-        brr: do {
-            let result = T(first: 1000000)
-            XCTAssertEqual(result.elements[999999], 15485863)
-            XCTAssertGreaterThanOrEqual(result.elements.count, 1000000)
-            XCTAssertGreaterThanOrEqual(result.limit, result.elements[999999])
-        }
-        #endif
+        sieve.increment()
+        check(sieve, limit: 147455, count: 13631, last: 147451)
+        
+        sieve.increment()
+        check(sieve, limit: 196607, count: 17704, last: 196597)
+    }
+    
+    func test004KiB() {
+        let ((sieve)) = T(size: .KiB(004))
+        check(sieve, limit: 065535, count: 06542, last: 065521)
+
+        sieve.increment()
+        check(sieve, limit: 131071, count: 12251, last: 131071)
+        
+        sieve.increment()
+        check(sieve, limit: 196607, count: 17704, last: 196597)
+        
+        sieve.increment()
+        check(sieve, limit: 262143, count: 23000, last: 262139)
     }
     
     //=------------------------------------------------------------------------=
-    // MARK: Assertions
+    // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    func check(count: Int, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        let sieve  = T(first: count)
-        let prefix = sieve.elements.prefix(count)
+    func check(_ sieve: T, limit: UInt, count: Int, last: UInt, file: StaticString = #file, line: UInt = #line) {
+        XCTAssertEqual(sieve.limit,          limit, file: file, line: line)
+        XCTAssertEqual(sieve.elements.count, count, file: file, line: line)
+        XCTAssertEqual(sieve.elements.last!, last,  file: file, line: line)
         
-        XCTAssertGreaterThanOrEqual(sieve.elements.count, count, file: file, line: line)
-        XCTAssertEqual(prefix, Self.primes.prefix(count), file:  file, line: line)
-        XCTAssertLessThanOrEqual(sieve.elements.last!,    sieve.limit, file: file, line: line)
-    }
-    
-    func check(through limit: UInt, expectation: ArraySlice<UInt>, file: StaticString = #file, line: UInt = #line) {
-        let sieve  = T(through: limit)
-        let prefix = sieve.elements.prefix(upTo: sieve.elements.reversed().drop(while:{ $0 > limit }).startIndex.base)
-        
-        XCTAssertGreaterThanOrEqual(sieve.limit,  limit,  file:  file, line: line)
-        XCTAssertEqual(prefix, expectation,  file: file,  line:  line)
-        XCTAssertGreaterThanOrEqual(sieve.elements.last!, limit, file: file, line: line)
+        let prefix =  Swift.min(sieve.elements.count, Self.primes.count)
+        XCTAssertEqual(sieve.elements.prefix(prefix), Self.primes.prefix(prefix), file: file, line: line)
     }
 }

@@ -21,62 +21,55 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     typealias T = NBKPrimeSieve
     
     //=------------------------------------------------------------------------=
-    // MARK: Tests x No Loop x Min First
+    // MARK: Tests
     //=------------------------------------------------------------------------=
     
-    func testNoLoopFirst1E0() {
-        let count = NBK.blackHoleIdentity(1)
-        XCTAssertEqual(T(first: count).elements[count - 1], 2)
+    func testLimit1E6() {
+        let ((sieve)) = T(size: .KiB(128))
+        
+        while sieve.limit < 1000000 {
+            ((sieve)).increment()
+        }
+                
+        XCTAssertEqual(sieve.limit,          2097151)
+        XCTAssertEqual(sieve.elements.last!, 2097143)
+        XCTAssertEqual(sieve.elements.count, 0155611)
     }
     
-    func testNoLoopFirst1E1() {
-        let count = NBK.blackHoleIdentity(10)
-        XCTAssertEqual(T(first: count).elements[count - 1], 29)
+    func testLimit1E7() {
+        let ((sieve)) = T(size: .KiB(128))
+        
+        while sieve.limit < 10000000 {
+            ((sieve)).increment()
+        }
+        
+        XCTAssertEqual(sieve.limit,          10485759)
+        XCTAssertEqual(sieve.elements.last!, 10485751)
+        XCTAssertEqual(sieve.elements.count, 00694716)
     }
     
-    func testNoLoopFirst1E2() {
-        let count = NBK.blackHoleIdentity(100)
-        XCTAssertEqual(T(first: count).elements[count - 1], 541)
+    func testLimit1E8() {
+        let ((sieve)) = T(size: .KiB(128))
+        
+        while sieve.limit < 100000000 {
+            ((sieve)).increment()
+        }
+        
+        XCTAssertEqual(sieve.limit,          100663295)
+        XCTAssertEqual(sieve.elements.last!, 100663291)
+        XCTAssertEqual(sieve.elements.count, 005797406)
     }
     
-    func testNoLoopFirst1E3() {
-        let count = NBK.blackHoleIdentity(1_000)
-        XCTAssertEqual(T(first: count).elements[count - 1], 7919)
-    }
-    
-    func testNoLoopFirst1E4() {
-        let count = NBK.blackHoleIdentity(10_000)
-        XCTAssertEqual(T(first: count).elements[count - 1], 104729)
-    }
-    
-    func testNoLoopFirst1E5() {
-        let count = NBK.blackHoleIdentity(100_000)
-        XCTAssertEqual(T(first: count).elements[count - 1], 1299709)
-    }
-    
-    func testNoLoopFirst1E6() {
-        let count = NBK.blackHoleIdentity(1_000_000)
-        XCTAssertEqual(T(first: count).elements[count - 1], 15485863)
-    }
-    
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x No Loop x Through
-    //=------------------------------------------------------------------------=
-    
-    func testNoLoop1E6() {
-        XCTAssertGreaterThanOrEqual(T(through: 0001000000).elements.count, 00078498)
-    }
-    
-    func testNoLoop1E7() {
-        XCTAssertGreaterThanOrEqual(T(through: 0010000000).elements.count, 00664579)
-    }
-    
-    func testNoLoop1E8() {
-        XCTAssertGreaterThanOrEqual(T(through: 0100000000).elements.count, 05761455)
-    }
-    
-    func testNoLoop1E9() {
-        XCTAssertGreaterThanOrEqual(T(through: 1000000000).elements.count, 50847534)
+    func testLimit1E9() {
+        let ((sieve)) = T(size: .KiB(128))
+        
+        while sieve.limit < 1000000000 {
+            ((sieve)).increment()
+        }
+        
+        XCTAssertEqual(sieve.limit,          1000341503)
+        XCTAssertEqual(sieve.elements.last!, 1000341499)
+        XCTAssertEqual(sieve.elements.count, 0050863957)
     }
 }
 

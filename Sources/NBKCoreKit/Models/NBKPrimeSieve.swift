@@ -12,10 +12,27 @@
 //*============================================================================*
 
 /// A generator of all prime `elements` through some `limit`.
+///
+/// ### Sieve all primes through some « limit »
+///
+/// ```swift
+/// let ((sieve)) = NBKPrimeSieve(size: .KiB(64))
+/// while sieve.limit < 1_000_000 {
+///     ((sieve)).increment()
+/// }
+/// ```
+///
+/// ### Sieve at least « count » number of primes
+///
+/// ```swift
+/// let ((sieve)) = NBKPrimeSieve(size: .KiB(64))
+/// while sieve.elements.count < 1_000_000 {
+///     ((sieve)).increment()
+/// }
+/// ```
+///
+///
 public final class NBKPrimeSieve: CustomStringConvertible {
-    
-    /// The number of elements sieved per `increment()`.
-    public static let increment = UInt(Cache.bitCount * 2)
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -27,7 +44,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     /// - Requires: `limit == page * increment &- 1`
     ///
-    /// - Requires: `elements.last! == last prime in 0 ... limit`
+    /// - Requires: `elements == all primes in 0 ... limit`
     ///
     @usableFromInline var state: State
     
@@ -37,54 +54,25 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     @usableFromInline var cache: Cache
     
+    /// A cyclical pattern used to skip small prime multiples.
     @usableFromInline let wheel: Wheel
     
+    /// A cyclical pattern used to cull small prime multiples.
     @usableFromInline let small: [UInt]
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
     //=------------------------------------------------------------------------=
     
-    /// Creates a new instance and sieves the first number page.
-    public init() {
-        self.cache = Cache()
-        self.wheel = Wheel(primes: [2, 3, 5, 7, 11])
+    /// Creates a new instance and sieves the first page.
+    ///
+    /// - Note: A page contains `1` odd number per bit in `size`.
+    ///
+    public init(size: Size) {
+        self.cache = Cache(size: size)
+        self.wheel = Wheel(primes: [2, 3, 5, 7])
         self.small = Self.pattern(primes: Array(wheel.primes[1...]))
         self.state = Self.makeInitialState(&cache, wheel, small)
-    }
-    
-    /// Generates a list of all primes from zero through `limit`.
-    ///
-    /// This initializer is equivalent to the following code snippet:
-    ///
-    /// ```swift
-    /// var sieve = NBKPrimeSieve()
-    /// while sieve.limit < limit {
-    ///     sieve.increment()
-    /// }
-    /// ```
-    ///
-    /// - Note: The list of primes may exceed the requested size.
-    ///
-    @inlinable public convenience init(through limit: UInt) {
-        self.init(); while self.limit < limit { self.increment() }
-    }
-    
-    /// Generates a list of the first `count` number of primes.
-    ///
-    /// This initializer is equivalent to the following code snippet:
-    ///
-    /// ```swift
-    /// var sieve = NBKPrimeSieve()
-    /// while sieve.elements.count < count {
-    ///     sieve.increment()
-    /// }
-    /// ```
-    ///
-    /// - Note: The list of primes may exceed the requested size.
-    ///
-    @inlinable public convenience init(first count: Int) {
-        self.init(); while self.elements.count < count { self.increment() }
     }
     
     //=------------------------------------------------------------------------=
@@ -101,12 +89,74 @@ public final class NBKPrimeSieve: CustomStringConvertible {
         self.state.elements
     }
     
+    /// The number of elements sieved per `increment()`.
+    @inlinable public var stride: UInt {
+        self.cache.count &<< 1 as UInt // OK, see size
+    }
+    
+    /// The number of bits in one number page.
+    @inlinable public var size: UInt {
+        self.cache.count
+    }
+    
     //=------------------------------------------------------------------------=
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
     public var description: String {
         "\(Self.self)(limit: \(self.limit), count: \(self.elements.count))"
+    }
+    
+    //*========================================================================*
+    // MARK: * Size
+    //*========================================================================*
+    
+    /// The size of the sieve.
+    ///
+    /// Larger sieves evaluate more numbers per page and use more memory.
+    ///
+    /// - Note: The first KiB yields all 1900 prime numbers through 16383.
+    ///
+    /// - Note: The CPU's L1 data cache is the sweet spot (128 KiB on Apple M1).
+    ///
+    /// ### Page Alignment
+    ///
+    /// The last page near will overflow unless the page ends at `UInt.max`.
+    ///
+    /// - Note: All values can be sieved when the page size is a power of two.
+    ///
+    @frozen public struct Size {
+
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        /// The number of words per page.
+        ///
+        /// It represents at most `Int.max` bits so the odd number stride fits.
+        ///
+        /// - Requires: `words * UInt.bitWidth <= Int.max`
+        ///
+        @usableFromInline let words: Int
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline init(@NBK.MoreThanZero words: Int) {
+            self.words = words
+            precondition(words <= (Int.max / UInt.bitWidth),
+            "number of elements per page must fit in UInt")
+        }
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        /// The size per page measured in KiB (i.e. 1024 B).
+        @inlinable public static func KiB(_ count: Int) -> Self {
+            Self(words: 8 * 1024 / UInt.bitWidth * count)
+        }
     }
 }
 
@@ -122,24 +172,26 @@ extension NBKPrimeSieve {
     
     /// Sieves the next page of ``NBKPrimeSieve/increment`` number of values.
     @inline(never) @inlinable public func increment() {
-        precondition(!self.limit.addingReportingOverflow(Self.increment).overflow)
+        precondition(!self.limit.addingReportingOverflow(self.stride).overflow)
         Swift.assert((self.cache.base).allSatisfy({ $0.onesComplement().isZero }))
-        Swift.assert((self.limit &+ 1) % Self.increment == 0, "limit must be aligned to end-of-page")
         //=--------------------------------------=
-        let start = self.limit &+ 00000000000002
-        let limit = self.limit &+ Self.increment
+        let start = self.limit &+ 00000000002
+        let limit = self.limit &+ self.stride
         var inner = NBK.CyclicIterator(self.wheel.increments)!
         //=--------------------------------------=
         // mark composites not hit by the wheel
         //=--------------------------------------=
-        let cycle = NBK.PBI.quotient(dividing: NBK.ZeroOrMore(start), by: NBK.PowerOf2(Self.increment))
-        self.cache.sieve(pattern: NBK.CyclicIterator(self.small, spin: cycle &* UInt(bitPattern: self.cache.base.count))!)
+        precull: do {
+            var pattern = NBK.CyclicIterator(self.small)!
+            pattern.set(iteration: 1  &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self)))
+            self.cache.sieve(pattern: pattern)
+        }
         //=--------------------------------------=
         // mark composites using prime elements
         //=--------------------------------------=
         for prime in self.elements.dropFirst(self.wheel.primes.count) {
             let square = prime.multipliedReportingOverflow(by: prime)
-            guard square .partialValue <= limit, !square .overflow else { break }
+            guard square.partialValue <= limit, !square.overflow else { break }
             
             var lowerBound  = start / prime
             Swift.assert(lowerBound < start / 2)
@@ -154,7 +206,7 @@ extension NBKPrimeSieve {
             Swift.assert(start <= product.partialValue)
             
             inner.set(unchecked: Int(bitPattern: self.wheel.indices[Int(bitPattern: multiple % self.wheel.circumference)]))
-            cache.sieve(from:(product.partialValue &- start) &>> 1 as UInt, stride:{ prime &* inner.next() &>> 1 }) // OK
+            cache.sieve(from: (product.partialValue &- start) &>> 1 as UInt,stride:{ prime &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
         Self.commit(&self.cache, to: &self.state)
@@ -164,12 +216,11 @@ extension NBKPrimeSieve {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
+    /// - Note: It wraps around, so preconditions should be checked prior to it.
     @inline(never) @inlinable static func commit(_ cache: inout Cache, to state: inout State) {
-        Swift.assert((state.limit &+ 1) % Self.increment == 0, "limit must be aligned to end-of-page")
-        
         for index in cache.base.indices {
             var chunk = cache.base[index]
-            var position = state.limit as UInt
+            var position = state.limit
             
             while !chunk.isZero {
                 let shift  = UInt(bitPattern: chunk.trailingZeroBitCount)
@@ -177,7 +228,7 @@ extension NBKPrimeSieve {
                 position &+= shift &<< 1 as UInt
                 chunk   &>>= 1 as UInt
                 position &+= 2 as UInt
-                state.elements .append(position)
+                state.elements.append(position)
             }
             
             cache.base[index] = chunk.onesComplement()
@@ -186,30 +237,29 @@ extension NBKPrimeSieve {
     }
     
     @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ small: [UInt]) -> State {
-        //=--------------------------------------=
         Swift.assert(cache.base.allSatisfy({ $0.onesComplement().isZero }))
         //=--------------------------------------=
-        let limit = Self.increment - 1 // is << UInt.max
+        let limit = cache.count * 2 - 1 // OK, see size
         var outer = NBK.CyclicIterator(wheel.increments)!
         var inner = NBK.CyclicIterator(wheel.increments)!
         var state = State(limit: UInt.max, elements: wheel.primes)
         //=--------------------------------------=
-        // mark each number in: 1, wheel
+        // mark each number in: 1, small
         //=--------------------------------------=
-        cache.base[0] = ~001 as UInt
+        cache.base[cache.base.startIndex] = ~1
         cache.sieve(pattern: NBK.CyclicIterator(small)!)
         //=--------------------------------------=
         // mark each number in: composites
         //=--------------------------------------=
-        var value = 1 as UInt &+ outer.next(); while value <= limit {
+        var value = 1 &+ outer.next(); while true {
             let square = value.multipliedReportingOverflow(by: value)
             guard square.partialValue <= limit, !square.overflow else { break }
             
             defer { value &+= outer.next() }
             guard cache[value &>> 1 as UInt] else { continue }
             
-            inner.set(unchecked: Int(bitPattern: wheel.indices[Int(bitPattern: value % wheel.circumference)]))
-            cache.sieve(from: square.partialValue &>> 1 as UInt,stride:{ value &* inner.next() &>> 1 }) // OK
+            inner.set(unchecked: (wheel).indices[Int(bitPattern: value % wheel.circumference)])
+            cache.sieve(from: square.partialValue &>> 1 as UInt, stride:{ value &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
         Self.commit(&cache, to: &state)
@@ -244,8 +294,7 @@ extension NBKPrimeSieve {
         //=--------------------------------------------------------------------=
         
         @inlinable init(limit: UInt, elements: [UInt]) {
-            self.limit = limit
-            self.elements = elements
+            self.limit = limit; self.elements = elements
         }
     }
 }
@@ -260,13 +309,11 @@ extension NBKPrimeSieve {
     // MARK: * Cache
     //*========================================================================*
     
+    /// ### Development
+    ///
+    /// The possibility of size overflow is preconditioned by the size model.
+    ///
     @frozen @usableFromInline struct Cache {
-        
-        /// The number of bits per page.
-        ///
-        /// - Note: The CPU's L2 data cache is the sweet spot.
-        ///
-        @usableFromInline static let bitCount: Int = 524288
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -278,15 +325,31 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init() {
-            self.base = Array(repeating:  UInt.max, count:  Self.bitCount / UInt.bitWidth)
-            Swift.assert(Self.bitCount == self.base.count * UInt.bitWidth)
+        /// Rounds the given `size` down to at least one machine word.
+        ///
+        /// ### On a 64-bit machine
+        ///
+        /// ```
+        /// bits: 000 ..< 064 -> 064
+        /// bits: 064 ..< 128 -> 064
+        /// bits: 128 ..< 192 -> 128
+        /// bits: 192 ..< 256 -> 192
+        /// ```
+        ///
+        @inlinable init(size: Size) {
+            self.base = Array(repeating: UInt.max, count: Int(size.words))
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Accessors
         //=--------------------------------------------------------------------=
-
+        
+        /// The number of bits in this collection.
+        @inlinable var count: UInt {
+            UInt(bitPattern: self.base.count) &* UInt(bitPattern: UInt.bitWidth)
+        }
+                
+        /// The bit at the given `index`.
         @inlinable subscript(index: UInt) -> Bool {
             let index = NBK.PBI.dividing(NBK.ZeroOrMore(index), by: NBK.PowerOf2(bitWidth: UInt.self))
             return self.base[Int(bitPattern: (index).quotient)] &>> index.remainder & 1 == 1 as UInt
@@ -333,6 +396,7 @@ extension NBKPrimeSieve {
     // MARK: * Wheel
     //*========================================================================*
     
+    /// A cyclical pattern used to skip small prime multiples.
     @frozen @usableFromInline struct Wheel {
         
         //=--------------------------------------------------------------------=
@@ -372,7 +436,7 @@ extension NBKPrimeSieve {
         ///     05, 05, 06, 06, 06, 06,
         ///     07, 07, 07, 07, 07, 07,
         ///
-        @usableFromInline var indices: [UInt]
+        @usableFromInline var indices: [Int]
         
         /// A collection of `increments` from `1`.
         ///
@@ -382,7 +446,7 @@ extension NBKPrimeSieve {
         ///
         @usableFromInline var increments: [UInt]
         
-        /// The from the start of one rotation to the start of the next rotation.
+        /// The distance traveled in one rotation.
         ///
         /// The [2, 3, 5] wheel uses the following value:
         ///
@@ -406,15 +470,15 @@ extension NBKPrimeSieve {
             self.indices = []
             self.circumference = primes.reduce(1, *)
             //=----------------------------------=
-            for value in 0 ..< circumference where primes.allSatisfy({ value % $0 != 0 as UInt }) {
-                if  let (last) = values.last {
-                    self.increments.append(value &- last)
+            for value in 0 ..< self.circumference where primes.allSatisfy({ value % $0 != 0 as UInt }) {
+                if  let last = self.values.last {
+                    self.increments.append(value - last)
                 }
                 
-                let (count) = Int(bitPattern: value &+ 1) &- self.values.count
+                let count = Int(bitPattern: 1 + value) - self.values.count
                 self.values .append(contentsOf: repeatElement(value, count: count))
-                self.indices.append(contentsOf: repeatElement(UInt(bitPattern: self.increments.count), count: count))
-            };  self.increments.append(self.circumference &- self.values.last! &+ self.values.first!)
+                self.indices.append(contentsOf: repeatElement(self.increments.count, count: count))
+            };  self.increments.append(self.circumference - self.values.last! + self.values.first!)
         }
     }
 }
@@ -431,11 +495,8 @@ extension NBKPrimeSieve {
     
     @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
         var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
-        var primeIndex = primes.startIndex
-        var next: (prime: UInt, product: UInt)
-        next.prime = primes[primeIndex]
-        next.product = next.prime
-        while primeIndex < primes.endIndex {
+        var next:(prime: UInt, product: UInt); next.prime = primes.first!; next.product = next.prime
+        var primeIndex = primes.startIndex; while primeIndex < primes.endIndex {
             //=----------------------------------=
             let current: (prime: UInt, product: UInt) = next
             var patternIndex = NBK.PBI.dividing(NBK.ZeroOrMore(current.prime &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
@@ -462,7 +523,7 @@ extension NBKPrimeSieve {
                 next.prime = primes[primeIndex]
                 next.product &*= next.prime
             }
-            //=----------------------------------=
+            
             var destination = current.product; while destination < next.product {
                 for source in 0 as UInt ..< current.product {
                     pattern[Int(bitPattern: destination)] &= pattern[Int(bitPattern: source)]

@@ -33,15 +33,18 @@ extension NBK {
             self.index = (base).startIndex
         }
         
-        @inlinable public init?(_ base: Base, spin: UInt) {
-            self.init(base)
-            let distance = Int(bitPattern: spin % UInt(bitPattern: self.base.count))
-            self.set(unchecked: base.index(self.index, offsetBy: distance))
-        }
-        
         //=--------------------------------------------------------------------=
         // MARK: Transformations
         //=--------------------------------------------------------------------=
+        
+        @inlinable public mutating func next() -> Base.Element {
+            defer {
+                self.base.formIndex(after: &self.index)
+                if  self.index == self.base.endIndex {
+                    self.reset()
+                }
+            };  return self.base[self.index] as Base.Element
+        }
         
         @inlinable public mutating func reset() {
             self.set(unchecked: self.base.startIndex)
@@ -51,16 +54,21 @@ extension NBK {
             Swift.assert(index >= self.base.startIndex && index < self.base.endIndex)
             self.index = index
         }
-        
-        @inlinable public mutating func next() -> Base.Element {
-            defer {
-                self.base.formIndex(after: &self.index)
-                if  self.index == self.base.endIndex {
-                    self.reset()
-                }
-            }
+    }
+}
 
-            return self.base[self.index] as Base.Element
-        }
+//=----------------------------------------------------------------------------=
+// MARK: + where Base is Random Access Collection
+//=----------------------------------------------------------------------------=
+
+extension NBK.CyclicIterator where Base: RandomAccessCollection {
+    
+    //=------------------------------------------------------------------------=
+    // MARK: Transformations
+    //=------------------------------------------------------------------------=
+    
+    @inlinable public mutating func set(iteration distance: UInt) {
+        let remainder = Int(bitPattern: (distance) % UInt(bitPattern: self.base.count))
+        self.set(unchecked: self.base.index(self.base.startIndex, offsetBy: remainder))
     }
 }
