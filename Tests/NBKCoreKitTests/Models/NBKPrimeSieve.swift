@@ -151,6 +151,30 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: Tests
     //=------------------------------------------------------------------------=
     
+    func testMinSize() {
+        let ((sieve)) = T(size: .words(1))
+        while sieve.limit < 0127 {
+            ((sieve)).increment()
+        }
+        
+        check(sieve, limit: 0127, count: 0031, last: 127)
+        while sieve.limit < 0255 {
+            ((sieve)).increment()
+        }
+        
+        check(sieve, limit: 0255, count: 0054, last: 251)
+        while sieve.limit < 0383 {
+            ((sieve)).increment()
+        }
+        
+        check(sieve, limit: 0383, count: 0076, last: 383)
+        while sieve.limit < 0511 {
+            ((sieve)).increment()
+        }
+        
+        check(sieve, limit: 0511, count: 0097, last: 509)
+    }
+    
     func testBit064() {
         let ((sieve)) = T(size:  .words( 0064  / UInt.bitWidth))
         check(sieve, limit: 0127, count: 0031, last: 127)
@@ -207,13 +231,8 @@ final class NBKPrimeSieveTests: XCTestCase {
         check(sieve, limit: 2047, count: 0309, last: 2039)
     }
     
-    //=------------------------------------------------------------------------=
-    // MARK: Tests x KiB
-    //=------------------------------------------------------------------------=
-    
     func testKiB001() {
         let ((sieve)) = T(size: .KiB(001))
-        XCTAssertEqual(sieve.stride,16384)
         check(sieve, limit: 016383, count: 01900, last: 016381)
         
         sieve.increment()
@@ -228,7 +247,6 @@ final class NBKPrimeSieveTests: XCTestCase {
     
     func testKiB002() {
         let ((sieve)) = T(size: .KiB(002))
-        XCTAssertEqual(sieve.stride,32768)
         check(sieve, limit: 032767, count: 03512, last: 032749)
         
         sieve.increment()
@@ -243,7 +261,6 @@ final class NBKPrimeSieveTests: XCTestCase {
     
     func testKiB003() {
         let ((sieve)) = T(size: .KiB(003))
-        XCTAssertEqual(sieve.stride,49152)
         check(sieve, limit: 049151, count: 05051, last: 049139)
 
         sieve.increment()
@@ -258,7 +275,6 @@ final class NBKPrimeSieveTests: XCTestCase {
     
     func testKiB004() {
         let ((sieve)) = T(size: .KiB(004))
-        XCTAssertEqual(sieve.stride,65536)
         check(sieve, limit: 065535, count: 06542, last: 065521)
 
         sieve.increment()
