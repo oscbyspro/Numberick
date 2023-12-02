@@ -54,11 +54,11 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     @usableFromInline var cache: Cache
     
-    /// A cyclical pattern used to skip small prime multiples.
+    /// A cyclical pattern used to skip multiples of small primes.
     @usableFromInline let wheel: Wheel
     
-    /// A cyclical pattern used to cull small prime multiples.
-    @usableFromInline let small: [UInt]
+    /// A cyclical pattern used to cull multiples of small primes.
+    @usableFromInline let small: Small
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -71,7 +71,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     public init(size: Size) {
         self.cache = Cache(size: size)
         self.wheel = Wheel(primes: [2, 3, 5, 7])
-        self.small = Self.pattern(primes: Array(wheel.primes[1...]))
+        self.small = Small(primes: Array(wheel.primes[1...]))
         self.state = Self.makeInitialState(&cache, wheel, small)
     }
     
@@ -92,11 +92,6 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     /// The number of elements sieved per `increment()`.
     @inlinable public var stride: UInt {
         self.cache.count &<< 1 as UInt // OK, see size
-    }
-    
-    /// The number of bits in one number page.
-    @inlinable public var size: UInt {
-        self.cache.count
     }
     
     //=------------------------------------------------------------------------=
@@ -135,7 +130,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
         ///
         /// It represents at most `Int.max` bits so the odd number stride fits.
         ///
-        /// - Requires: `words * UInt.bitWidth <= Int.max`
+        /// - Requires: `2 * UInt.bitWidth * words <= UInt.max`
         ///
         @usableFromInline let words: Int
         
@@ -146,7 +141,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
         @usableFromInline init(@NBK.MoreThanZero words: Int) {
             self.words = words
             precondition(words <= (Int.max / UInt.bitWidth),
-            "number of elements per page must fit in UInt")
+            "the prime sieve's increment must fit in UInt")
         }
         
         //=--------------------------------------------------------------------=
@@ -155,7 +150,12 @@ public final class NBKPrimeSieve: CustomStringConvertible {
         
         /// The size per page measured in KiB (i.e. 1024 B).
         @inlinable public static func KiB(_ count: Int) -> Self {
-            Self(words: 8 * 1024 / UInt.bitWidth * count)
+            Self(words: count * (8 * 1024 / UInt.bitWidth))
+        }
+        
+        /// The size per page measured in words.
+        @inlinable public static func words(_ count: Int) -> Self {
+            Self(words: count)
         }
     }
 }
@@ -182,7 +182,7 @@ extension NBKPrimeSieve {
         // mark composites not hit by the wheel
         //=--------------------------------------=
         precull: do {
-            var pattern = NBK.CyclicIterator(self.small)!
+            var pattern = NBK.CyclicIterator(self.small.pattern)!
             pattern.set(iteration: 1  &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self)))
             self.cache.sieve(pattern: pattern)
         }
@@ -236,7 +236,7 @@ extension NBKPrimeSieve {
         }
     }
     
-    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ small: [UInt]) -> State {
+    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ small: Small) -> State {
         Swift.assert(cache.base.allSatisfy({ $0.onesComplement().isZero }))
         //=--------------------------------------=
         let limit = cache.count * 2 - 1 // OK, see size
@@ -247,7 +247,7 @@ extension NBKPrimeSieve {
         // mark each number in: 1, small
         //=--------------------------------------=
         cache.base[cache.base.startIndex] = ~1
-        cache.sieve(pattern: NBK.CyclicIterator(small)!)
+        cache.sieve(pattern: NBK.CyclicIterator(small.pattern)!)
         //=--------------------------------------=
         // mark each number in: composites
         //=--------------------------------------=
@@ -311,7 +311,7 @@ extension NBKPrimeSieve {
     
     /// ### Development
     ///
-    /// The possibility of size overflow is preconditioned by the size model.
+    /// Size overflow is prevented by the size model's preconditions.
     ///
     @frozen @usableFromInline struct Cache {
         
@@ -325,19 +325,8 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        /// Rounds the given `size` down to at least one machine word.
-        ///
-        /// ### On a 64-bit machine
-        ///
-        /// ```
-        /// bits: 000 ..< 064 -> 064
-        /// bits: 064 ..< 128 -> 064
-        /// bits: 128 ..< 192 -> 128
-        /// bits: 192 ..< 256 -> 192
-        /// ```
-        ///
         @inlinable init(size: Size) {
-            self.base = Array(repeating: UInt.max, count: Int(size.words))
+            self.base = Array(repeating: UInt.max, count: size.words)
         }
         
         //=--------------------------------------------------------------------=
@@ -403,7 +392,7 @@ extension NBKPrimeSieve {
         // MARK: State
         //=--------------------------------------------------------------------=
         
-        /// The primes used to create this wheel.
+        /// The primes used to create this instance.
         @usableFromInline let primes: [UInt]
         
         /// Returns the next `value` from the `index`.
@@ -484,54 +473,90 @@ extension NBKPrimeSieve {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Miscellaneous
+// MARK: + Details x Small
 //=----------------------------------------------------------------------------=
 
 extension NBKPrimeSieve {
     
-    //=------------------------------------------------------------------------=
-    // MARK: Utilities
-    //=------------------------------------------------------------------------=
+    //*========================================================================*
+    // MARK: * Small
+    //*========================================================================*
     
-    @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
-        var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
-        var next:(prime: UInt, product: UInt); next.prime = primes.first!; next.product = next.prime
-        var primeIndex = primes.startIndex; while primeIndex < primes.endIndex {
-            //=----------------------------------=
-            let current: (prime: UInt, product: UInt) = next
-            var patternIndex = NBK.PBI.dividing(NBK.ZeroOrMore(current.prime &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
-            while patternIndex.quotient < current.prime {
-                var chunk = UInt.zero
-                
-                while patternIndex.remainder < UInt.bitWidth {
-                    chunk |= 1 &<< patternIndex.remainder
-                    patternIndex.remainder &+= current.prime
-                };  chunk.formOnesComplement()
-                
-                var destination = patternIndex.quotient; while destination < current.product {
-                    pattern[Int(bitPattern: destination)] &= chunk
-                    destination &+= current.prime
-                }
-                
-                patternIndex.quotient &+= NBK.PBI.quotient (dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-                patternIndex.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-            }
-            //=----------------------------------=
-            primes.formIndex(after: &primeIndex)
-            //=----------------------------------=
-            if  primeIndex < primes.endIndex {
-                next.prime = primes[primeIndex]
-                next.product &*= next.prime
-            }
-            
-            var destination = current.product; while destination < next.product {
-                for source in 0 as UInt ..< current.product {
-                    pattern[Int(bitPattern: destination)] &= pattern[Int(bitPattern: source)]
-                    destination += 1 as UInt
-                }
-            }
+    /// A cyclical pattern used to cull multiples of small primes.
+    ///
+    /// ### Development
+    ///
+    /// Consider multiple patterns formed by chunking:
+    ///
+    ///     [03, 67], [05, 61], [07, 59], 
+    ///     [11, 53], [13, 47], [17, 43],
+    ///     [19, 41], [23, 37], [29, 31],
+    ///
+    @frozen @usableFromInline struct Small {
+        
+        //=--------------------------------------------------------------------=
+        // MARK: State
+        //=--------------------------------------------------------------------=
+        
+        /// The primes used to create this instance.
+        @usableFromInline var primes:  [UInt]
+        
+        /// A cyclical pattern used to cull multiples of small primes.
+        @usableFromInline var pattern: [UInt]
+        
+        //=--------------------------------------------------------------------=
+        // MARK: Initializers
+        //=--------------------------------------------------------------------=
+        
+        @inlinable init(primes: [UInt]) {
+            self.primes  = primes
+            self.pattern = Self.pattern(primes: primes)
         }
         
-        return pattern as [UInt] as [UInt] as [UInt]
+        //=--------------------------------------------------------------------=
+        // MARK: Utilities
+        //=--------------------------------------------------------------------=
+        
+        @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
+            var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
+            var next:(prime: UInt, product: UInt); next.prime = primes.first!; next.product = next.prime
+            var primeIndex = primes.startIndex; while primeIndex < primes.endIndex {
+                //=----------------------------------=
+                let current: (prime: UInt, product: UInt) = next
+                var patternIndex = NBK.PBI.dividing(NBK.ZeroOrMore(current.prime &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+                while patternIndex.quotient < current.prime {
+                    var chunk = UInt.zero
+                    
+                    while patternIndex.remainder < UInt.bitWidth {
+                        chunk |= 1 &<< patternIndex.remainder
+                        patternIndex.remainder &+= current.prime
+                    };  chunk.formOnesComplement()
+                    
+                    var destination = patternIndex.quotient; while destination < current.product {
+                        pattern[Int(bitPattern: destination)] &= chunk
+                        destination &+= current.prime
+                    }
+                    
+                    patternIndex.quotient &+= NBK.PBI.quotient (dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+                    patternIndex.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+                }
+                //=----------------------------------=
+                primes.formIndex(after: &primeIndex)
+                //=----------------------------------=
+                if  primeIndex < primes.endIndex {
+                    next.prime = primes[primeIndex]
+                    next.product &*= next.prime
+                }
+                
+                var destination = current.product; while destination < next.product {
+                    for source in 0 as UInt ..< current.product {
+                        pattern[Int(bitPattern: destination)] &= pattern[Int(bitPattern: source)]
+                        destination += 1 as UInt
+                    }
+                }
+            }
+            
+            return pattern as [UInt] as [UInt] as [UInt]
+        }
     }
 }
