@@ -25,19 +25,19 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testLimit1E6() {
-        let ((sieve)) = T(size: .KiB(128))
+        let ((sieve)) = T(cache: .KiB(128), wheel: .x11, culls: .x31)
         
         while sieve.limit < 1000000 {
             ((sieve)).increment()
         }
-                
+        
         XCTAssertEqual(sieve.limit,          2097151)
         XCTAssertEqual(sieve.elements.last!, 2097143)
         XCTAssertEqual(sieve.elements.count, 0155611)
     }
     
     func testLimit1E7() {
-        let ((sieve)) = T(size: .KiB(128))
+        let ((sieve)) = T(cache: .KiB(128), wheel: .x11, culls: .x31)
         
         while sieve.limit < 10000000 {
             ((sieve)).increment()
@@ -49,7 +49,7 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     }
     
     func testLimit1E8() {
-        let ((sieve)) = T(size: .KiB(128))
+        let ((sieve)) = T(cache: .KiB(128), wheel: .x11, culls: .x31)
         
         while sieve.limit < 100000000 {
             ((sieve)).increment()
@@ -61,7 +61,7 @@ final class NBKPrimeSieveBenchmarks: XCTestCase {
     }
     
     func testLimit1E9() {
-        let ((sieve)) = T(size: .KiB(128))
+        let ((sieve)) = T(cache: .KiB(128), wheel: .x11, culls: .x31)
         
         while sieve.limit < 1000000000 {
             ((sieve)).increment()

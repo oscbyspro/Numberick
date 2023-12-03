@@ -31,7 +31,6 @@
 /// }
 /// ```
 ///
-///
 public final class NBKPrimeSieve: CustomStringConvertible {
     
     //=------------------------------------------------------------------------=
@@ -48,7 +47,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     @usableFromInline var state: State
     
-    /// A collection of bits represeted by a collection of words.
+    /// A finite sequence of odd numbers represented by a collection of bits.
     ///
     /// - Requires: Each bit must be set at the start and end of each access.
     ///
@@ -65,14 +64,22 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance and sieves the first page.
+    /// 
+    /// - Parameter cache: A collection of bits used to mark composite numbers.
     ///
-    /// - Note: A page contains `1` odd number per bit in `size`.
+    /// - Parameter wheel: A cyclical pattern used to skip multiples of small primes.
     ///
-    public init(size: Size) {
-        self.cache = Cache(size:  size)
-        self.wheel = Wheel(primes:[2, 3, 5, 7, 11])
-        self.culls = Culls(primes:[   3, 5, 7, 11, 13, 17, 19, 23, 29, 31])
-        self.state = Self.makeInitialState(&cache, wheel, culls)
+    /// - Parameter culls: A collection of cyclical patterns used to cull multiples of small primes.
+    ///
+    /// - Note: A page contains `1` odd number per bit in `cache`.
+    ///
+    /// - Note: The defaults strike balance between size and performance.
+    ///
+    public init(cache: Cache = .KiB(32), wheel: Wheel = .x07, culls: Culls = .x11) {
+        self.cache = cache
+        self.wheel = wheel
+        self.culls = culls
+        self.state = Self.makeInitialState(&self.cache, self.wheel, self.culls)
     }
     
     //=------------------------------------------------------------------------=
@@ -100,63 +107,6 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     
     public var description: String {
         "\(Self.self)(limit: \(self.limit), count: \(self.elements.count))"
-    }
-    
-    //*========================================================================*
-    // MARK: * Size
-    //*========================================================================*
-    
-    /// The size of the sieve.
-    ///
-    /// Larger sieves evaluate more numbers per page and use more memory.
-    ///
-    /// - Note: The first KiB yields all 1900 prime numbers through 16383.
-    ///
-    /// - Note: The CPU's L1 data cache is the sweet spot (128 KiB on Apple M1).
-    ///
-    /// ### Page Alignment
-    ///
-    /// The last page near will overflow unless the page ends at `UInt.max`.
-    ///
-    /// - Note: All values can be sieved when the page size is a power of two.
-    ///
-    @frozen public struct Size {
-
-        //=--------------------------------------------------------------------=
-        // MARK: State
-        //=--------------------------------------------------------------------=
-        
-        /// The number of words per page.
-        ///
-        /// It represents at most `Int.max` bits so the odd number stride fits.
-        ///
-        /// - Requires: `2 * UInt.bitWidth * words <= UInt.max`
-        ///
-        @usableFromInline let words: Int
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Initializers
-        //=--------------------------------------------------------------------=
-        
-        @usableFromInline init(@NBK.MoreThanZero words: Int) {
-            self.words = words
-            precondition(words <= (Int.max / UInt.bitWidth),
-            "the prime sieve's increment must fit in UInt")
-        }
-        
-        //=--------------------------------------------------------------------=
-        // MARK: Initializers
-        //=--------------------------------------------------------------------=
-        
-        /// The size per page measured in KiB (i.e. 1024 B).
-        @inlinable public static func KiB(_ count: Int) -> Self {
-            Self(words: count * (8 * 1024 / UInt.bitWidth))
-        }
-        
-        /// The size per page measured in words.
-        @inlinable public static func words(_ count: Int) -> Self {
-            Self(words: count)
-        }
     }
 }
 
@@ -241,6 +191,7 @@ extension NBKPrimeSieve {
     @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls) -> State {
         Swift.assert(wheel.primes.first == 000000000000000002)
         Swift.assert(culls.primes.first != 000000000000000002)
+        precondition(wheel.primes.last! <= culls.primes.last!, "must cull each element in wheel")
         Swift.assert(wheel.primes[1...].allSatisfy(culls.primes.contains))
         Swift.assert(cache.base.allSatisfy { $0.onesComplement().isZero })
         //=--------------------------------------=
@@ -322,11 +273,31 @@ extension NBKPrimeSieve {
     // MARK: * Cache
     //*========================================================================*
     
-    /// ### Development
+    /// A finite sequence of odd numbers represented by a collection of bits.
     ///
-    /// Size overflow is prevented by the size model's preconditions.
+    /// Larger sieves evaluate more numbers per page and use more memory.
     ///
-    @frozen @usableFromInline struct Cache {
+    /// - Note: The first KiB yields all 1900 prime numbers through 16383.
+    ///
+    /// - Note: The CPU's L1 data cache is the sweet spot (128 KiB on Apple M1).
+    ///
+    /// ### Alignment
+    ///
+    /// The last page will overflow unless the last page ends at `UInt.max`.
+    ///
+    /// - Note: All values can be sieved when its size is a power of two.
+    ///
+    @frozen public struct Cache {
+        
+        /// The size per page measured in KiB (i.e. 1024 B).
+        @inlinable public static func KiB(_ count: Int) -> Self {
+            Self(words: count * (8 * 1024 / UInt.bitWidth))
+        }
+        
+        /// The size per page measured in words.
+        @inlinable public static func words(_ count: Int) -> Self {
+            Self(words: count)
+        }
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -338,8 +309,16 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(size: Size) {
-            self.base = Array(repeating: UInt.max, count: size.words)
+        /// ### Development
+        ///
+        /// It fits at most `Int.max` bits so the odd number stride fits.
+        ///
+        /// - Requires: `2 * UInt.bitWidth * words <= UInt.max`
+        ///
+        @inlinable init(words: Int) {
+            precondition(words <= (Int.max / UInt.bitWidth),
+            "the prime sieve's increment must fit in UInt")
+            self.base = Array(repeating: UInt.max, count: words)
         }
         
         //=--------------------------------------------------------------------=
@@ -399,7 +378,32 @@ extension NBKPrimeSieve {
     //*========================================================================*
     
     /// A cyclical pattern used to skip small prime multiples.
-    @frozen @usableFromInline struct Wheel {
+    @frozen public struct Wheel {
+        
+        /// A wheel formed by the sequence: 2.
+        @inlinable public static var x02: Self {
+            Self(primes: [2])
+        }
+        
+        /// A wheel formed by the sequence: 2, 3.
+        @inlinable public static var x03: Self {
+            Self(primes: [2, 3])
+        }
+        
+        /// A wheel formed by the sequence: 2, 3, 5.
+        @inlinable public static var x05: Self {
+            Self(primes: [2, 3, 5])
+        }
+        
+        /// A wheel formed by the sequence: 2, 3, 5, 7.
+        @inlinable public static var x07: Self {
+            Self(primes: [2, 3, 5, 7])
+        }
+        
+        /// A wheel formed by the sequence: 2, 3, 5, 7, 11.
+        @inlinable public static var x11: Self {
+            Self(primes: [2, 3, 5, 7, 11])
+        }
         
         //=--------------------------------------------------------------------=
         // MARK: State
@@ -494,7 +498,42 @@ extension NBKPrimeSieve {
     //*========================================================================*
     
     /// A collection of cyclical patterns used to cull multiples of small primes.
-    @frozen @usableFromInline struct Culls {
+    @frozen public struct Culls {
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11.
+        @inlinable public static var x11: Self {
+            Self(primes: [3, 5, 7, 11])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13.
+        @inlinable public static var x13: Self {
+            Self(primes: [3, 5, 7, 11, 13])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17.
+        @inlinable public static var x17: Self {
+            Self(primes: [3, 5, 7, 11, 13, 17])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19.
+        @inlinable public static var x19: Self {
+            Self(primes: [3, 5, 7, 11, 13, 17, 19])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23.
+        @inlinable public static var x23: Self {
+            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29.
+        @inlinable public static var x29: Self {
+            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23, 29])
+        }
+        
+        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.
+        @inlinable public static var x31: Self {
+            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23, 29, 31])
+        }
         
         //=--------------------------------------------------------------------=
         // MARK: State
