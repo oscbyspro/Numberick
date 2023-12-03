@@ -57,8 +57,8 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     /// A cyclical pattern used to skip multiples of small primes.
     @usableFromInline let wheel: Wheel
     
-    /// A cyclical pattern used to cull multiples of small primes.
-    @usableFromInline let small: Small
+    /// A collection of cyclical patterns used to cull multiples of small primes.
+    @usableFromInline let culls: Culls
     
     //=------------------------------------------------------------------------=
     // MARK: Initializers
@@ -69,10 +69,10 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     /// - Note: A page contains `1` odd number per bit in `size`.
     ///
     public init(size: Size) {
-        self.cache = Cache(size: size)
-        self.wheel = Wheel(primes: [2, 3, 5, 7])
-        self.small = Small(primes: Array(wheel.primes[1...]))
-        self.state = Self.makeInitialState(&cache, wheel, small)
+        self.cache = Cache(size:  size)
+        self.wheel = Wheel(primes:[2, 3, 5, 7, 11])
+        self.culls = Culls(primes:[   3, 5, 7, 11, 13, 17, 19, 23, 29, 31])
+        self.state = Self.makeInitialState(&cache, wheel, culls)
     }
     
     //=------------------------------------------------------------------------=
@@ -181,15 +181,17 @@ extension NBKPrimeSieve {
         //=--------------------------------------=
         // mark composites not hit by the wheel
         //=--------------------------------------=
-        precull: do {
-            var pattern = NBK.CyclicIterator(self.small.pattern)!
-            pattern.set(iteration: 1  &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self)))
+        let iteration = 1 &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+        
+        for pattern in self.culls.patterns {
+            var pattern = NBK.CyclicIterator(pattern)!
+            pattern.set(iteration:  iteration)
             self.cache.sieve(pattern: pattern)
         }
         //=--------------------------------------=
         // mark composites using prime elements
         //=--------------------------------------=
-        for prime in self.elements.dropFirst(self.wheel.primes.count) {
+        for prime in self.elements.dropFirst(1 + self.culls.primes.count) {
             let square = prime.multipliedReportingOverflow(by: prime)
             guard square.partialValue <= limit, !square.overflow else { break }
             
@@ -236,18 +238,24 @@ extension NBKPrimeSieve {
         }
     }
     
-    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ small: Small) -> State {
-        Swift.assert(cache.base.allSatisfy({ $0.onesComplement().isZero }))
+    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls) -> State {
+        Swift.assert(wheel.primes.first == 000000000000000002)
+        Swift.assert(culls.primes.first != 000000000000000002)
+        Swift.assert(wheel.primes[1...].allSatisfy(culls.primes.contains))
+        Swift.assert(cache.base.allSatisfy { $0.onesComplement().isZero })
         //=--------------------------------------=
         let limit = cache.count * 2 - 1 // OK, see size
         var outer = NBK.CyclicIterator(wheel.increments)!
         var inner = NBK.CyclicIterator(wheel.increments)!
-        var state = State(limit: UInt.max, elements: wheel.primes)
+        var state = State(limit: UInt.max, elements: [])
         //=--------------------------------------=
-        // mark each number in: 1, small
+        // mark each number in: 1, culls
         //=--------------------------------------=
         cache.base[cache.base.startIndex] = ~1
-        cache.sieve(pattern: NBK.CyclicIterator(small.pattern)!)
+        
+        for pattern in culls.patterns {
+            cache.sieve(pattern: NBK.CyclicIterator(pattern)!)
+        }
         //=--------------------------------------=
         // mark each number in: composites
         //=--------------------------------------=
@@ -262,8 +270,13 @@ extension NBKPrimeSieve {
             cache.sieve(from: square.partialValue &>> 1 as UInt, stride:{ value &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
+        state.elements.append(0000000002)
+        state.elements.append(contentsOf: culls.primes)
+        
         Self.commit(&cache, to: &state)
-        return state as State as State
+        
+        state.elements.removeLast(state.elements.reversed().prefix(while:{ $0 > state.limit }).count) // arch, culls
+        return state as State as State as State as State
     }
 }
 
@@ -449,9 +462,7 @@ extension NBKPrimeSieve {
         
         @usableFromInline init(primes: [UInt]) {
             //=----------------------------------=
-            Swift.assert(primes.allSatisfy({ $0 >= 0000002 }))
-            Swift.assert(primes.allSatisfy({ $0 <= Int.max }))
-            Swift.assert(primes == primes.sorted())
+            Swift.assert(primes.allSatisfy({ $0 >= 2 }))
             //=----------------------------------=
             self.primes  = primes
             self.values  = []
@@ -473,49 +484,64 @@ extension NBKPrimeSieve {
 }
 
 //=----------------------------------------------------------------------------=
-// MARK: + Details x Small
+// MARK: + Details x Culls
 //=----------------------------------------------------------------------------=
 
 extension NBKPrimeSieve {
     
     //*========================================================================*
-    // MARK: * Small
+    // MARK: * Culls
     //*========================================================================*
     
-    /// A cyclical pattern used to cull multiples of small primes.
-    ///
-    /// ### Development
-    ///
-    /// Consider multiple patterns formed by chunking:
-    ///
-    ///     [03, 67], [05, 61], [07, 59], 
-    ///     [11, 53], [13, 47], [17, 43],
-    ///     [19, 41], [23, 37], [29, 31],
-    ///
-    @frozen @usableFromInline struct Small {
+    /// A collection of cyclical patterns used to cull multiples of small primes.
+    @frozen @usableFromInline struct Culls {
         
         //=--------------------------------------------------------------------=
         // MARK: State
         //=--------------------------------------------------------------------=
         
         /// The primes used to create this instance.
-        @usableFromInline var primes:  [UInt]
+        @usableFromInline var primes: [UInt]
         
-        /// A cyclical pattern used to cull multiples of small primes.
-        @usableFromInline var pattern: [UInt]
+        /// A collection of cyclical patterns used to cull multiples of small primes.
+        ///
+        /// The [3, ..., 31] instance uses the following value:
+        ///
+        ///     [03, 31], [05, 29], [07, 23], [11, 19], [13, 17]
+        ///
+        @usableFromInline var patterns: [[UInt]]
         
         //=--------------------------------------------------------------------=
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
         @inlinable init(primes: [UInt]) {
-            self.primes  = primes
-            self.pattern = Self.pattern(primes: primes)
+            self.primes   = primes
+            self.patterns = Culls.patterns(primes: self.primes)
         }
         
         //=--------------------------------------------------------------------=
         // MARK: Utilities
         //=--------------------------------------------------------------------=
+        
+        /// Patterns grow multiplicatively, so chunking reduces the memory cost.
+        @usableFromInline static func patterns(primes: [UInt]) -> [[UInt]] {
+            var patterns = [[UInt]]()
+            var lhsIndex = primes.startIndex
+            var rhsIndex = primes.index(before: primes.endIndex)
+            
+            while lhsIndex < rhsIndex {
+                patterns.append(self.pattern(primes: [primes[lhsIndex], primes[rhsIndex]]))
+                patterns.formIndex(after:  &lhsIndex)
+                patterns.formIndex(before: &rhsIndex)
+            }
+            
+            if  lhsIndex == rhsIndex {
+                patterns.append(self.pattern(primes: [primes[lhsIndex]]))
+            }
+            
+            return patterns as [[UInt]]
+        }
         
         @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
             var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
