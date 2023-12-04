@@ -73,7 +73,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     /// - Note: A page contains `1` odd number per bit in `cache`.
     ///
-    /// - Note: The defaults strike balance between size and performance.
+    /// - Note: The defaults strike a balance between size and performance.
     ///
     public init(cache: Cache = .KiB(32), wheel: Wheel = .x07, culls: Culls = .x11) {
         self.cache = cache
@@ -94,11 +94,6 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     /// A list of all primes from zero through `limit`.
     @inlinable public var elements: [UInt] {
         self.state.elements
-    }
-    
-    /// The number of elements sieved per `increment()`.
-    @inlinable public var stride: UInt {
-        self.cache.count &<< 1 as UInt // OK, see size
     }
     
     //=------------------------------------------------------------------------=
@@ -122,16 +117,15 @@ extension NBKPrimeSieve {
     
     /// Sieves the next page of ``NBKPrimeSieve/increment`` number of values.
     @inline(never) @inlinable public func increment() {
-        precondition(!self.limit.addingReportingOverflow(self.stride).overflow)
         Swift.assert((self.cache.base).allSatisfy({ $0.onesComplement().isZero }))
         //=--------------------------------------=
-        let start = self.limit &+ 00000000002
-        let limit = self.limit &+ self.stride
+        let start = self.limit &+ 0000000000000002
+        let limit = self.limit &+ self.cache.count * 2 as UInt // traps max sieve (!)
         var inner = NBK.CyclicIterator(self.wheel.increments)!
         //=--------------------------------------=
         // mark composites not hit by the wheel
         //=--------------------------------------=
-        let iteration = 1 &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+        let iteration = 1 &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1 as UInt), by: NBK.PowerOf2(bitWidth: UInt.self))
         
         for pattern in self.culls.patterns {
             var pattern = NBK.CyclicIterator(pattern)!
@@ -189,13 +183,13 @@ extension NBKPrimeSieve {
     }
     
     @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls) -> State {
-        Swift.assert(wheel.primes.first == 000000000000000002)
-        Swift.assert(culls.primes.first != 000000000000000002)
-        precondition(wheel.primes.last! <= culls.primes.last!, "must cull each element in wheel")
+        Swift.assert(wheel.primes.first == 00000000000000002)
+        Swift.assert(culls.primes.first != 00000000000000002)
+        precondition(wheel.primes.last! <= culls.primes.last!, "must cull multiples of each element in wheel")
         Swift.assert(wheel.primes[1...].allSatisfy(culls.primes.contains))
         Swift.assert(cache.base.allSatisfy { $0.onesComplement().isZero })
         //=--------------------------------------=
-        let limit = cache.count * 2 - 1 // OK, see size
+        let limit = cache.count &* 2 &- 1 // OK, see size
         var outer = NBK.CyclicIterator(wheel.increments)!
         var inner = NBK.CyclicIterator(wheel.increments)!
         var state = State(limit: UInt.max, elements: [])
@@ -311,13 +305,20 @@ extension NBKPrimeSieve {
         
         /// ### Development
         ///
-        /// It fits at most `Int.max` bits so the odd number stride fits.
+        /// The maximum number of bits is `Int.max + 1`. This is the number of bits
+        /// needed to represent each odd number in `0 ... UInt`. The maximum stride
+        /// is therefore not representable by `UInt`. But, the sieve is still valid
+        /// if there is proper overflow checking past setup.
         ///
-        /// - Requires: `2 * UInt.bitWidth * words <= UInt.max`
+        /// - Requires: `words > 0`
+        ///
+        /// - Requires: `words * UInt.bitWidth * 2 <= UInt.max + 1`
         ///
         @inlinable init(words: Int) {
-            precondition(words <= (Int.max / UInt.bitWidth),
-            "the prime sieve's increment must fit in UInt")
+            let limit = (UInt.max / UInt(UInt.bitWidth * 2)) + 1
+            Swift.assert(limit >= 1  &&  limit  &* UInt(UInt.bitWidth * 2) == 0 as UInt)
+            precondition(UInt(words) >=  00001, "prime sieve's stride must be greater than zero")
+            precondition(UInt(words) <=  limit, "prime sieve's stride must not exceed number of elements in UInt")
             self.base = Array(repeating: UInt.max, count: words)
         }
         
@@ -329,7 +330,7 @@ extension NBKPrimeSieve {
         @inlinable var count: UInt {
             UInt(bitPattern: self.base.count) &* UInt(bitPattern: UInt.bitWidth)
         }
-                
+        
         /// The bit at the given `index`.
         @inlinable subscript(index: UInt) -> Bool {
             let index = NBK.PBI.dividing(NBK.ZeroOrMore(index), by: NBK.PowerOf2(bitWidth: UInt.self))
