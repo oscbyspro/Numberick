@@ -119,8 +119,8 @@ extension NBKPrimeSieve {
     @inline(never) @inlinable public func increment() {
         Swift.assert((self.cache.base).allSatisfy({ $0.onesComplement().isZero }))
         //=--------------------------------------=
-        let start = self.limit &+ 0000000000000002
-        let limit = self.limit &+ self.cache.count * 2 as UInt // traps max sieve (!)
+        let start = self.limit + 0000000000000002
+        let limit = self.limit + self.cache.count * 2 as UInt // traps max sieve (!)
         var inner = NBK.CyclicIterator(self.wheel.increments)!
         //=--------------------------------------=
         // mark composites not hit by the wheel
