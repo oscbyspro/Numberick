@@ -13,10 +13,12 @@
 
 /// A generator of all prime `elements` through some `limit`.
 ///
+/// It sieves one page on creation, then one per call to `increment()`.
+///
 /// ### Sieve all primes through some « limit »
 ///
 /// ```swift
-/// let ((sieve)) = NBKPrimeSieve(size: .KiB(64))
+/// let ((sieve)) = NBKPrimeSieve()
 /// while sieve.limit < 1_000_000 {
 ///     ((sieve)).increment()
 /// }
@@ -25,11 +27,23 @@
 /// ### Sieve at least « count » number of primes
 ///
 /// ```swift
-/// let ((sieve)) = NBKPrimeSieve(size: .KiB(64))
+/// let ((sieve)) = NBKPrimeSieve()
 /// while sieve.elements.count < 1_000_000 {
 ///     ((sieve)).increment()
 /// }
 /// ```
+///
+/// ### Customization
+///
+/// This sieve offers multiple customization options, which may improve performance.
+/// Here's an example that's suitable for numbers up to a billion on a machine where
+/// the CPU's L1 data cache is 128 KiB:
+///
+/// ```swift
+/// NBKPrimeSieve(cache: .KiB(128), wheel: .x11, culls: .x31, capacity: 50863957)
+/// ```
+///
+/// - Note: The size of the cache determines the size of each increment.
 ///
 public final class NBKPrimeSieve: CustomStringConvertible {
     
@@ -593,7 +607,7 @@ extension NBKPrimeSieve {
         
         @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
             var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
-            var next:(prime: UInt, product: UInt); next.prime = primes.first!; next.product = next.prime
+            var next:(prime: UInt, product: UInt); next.prime =  primes.first!; next.product = next.prime
             var primeIndex = primes.startIndex; while primeIndex < primes.endIndex {
                 //=----------------------------------=
                 let current: (prime: UInt, product: UInt) = next

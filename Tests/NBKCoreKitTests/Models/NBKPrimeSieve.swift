@@ -321,10 +321,10 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testDescriptionDoesNotContainEveryPrimeBecauseThatWouldBeSilly() {
-        XCTAssertEqual(T(cache: .words(064 / UInt.bitWidth)).description, "\(T.self)(limit: 127, count: 31)")
-        XCTAssertEqual(T(cache: .words(128 / UInt.bitWidth)).description, "\(T.self)(limit: 255, count: 54)")
-        XCTAssertEqual(T(cache: .words(192 / UInt.bitWidth)).description, "\(T.self)(limit: 383, count: 76)")
-        XCTAssertEqual(T(cache: .words(256 / UInt.bitWidth)).description, "\(T.self)(limit: 511, count: 97)")
+        XCTAssertEqual(String(describing: T(cache: .words(064 / UInt.bitWidth))), "\(T.self)(limit: 127, count: 31)")
+        XCTAssertEqual(String(describing: T(cache: .words(128 / UInt.bitWidth))), "\(T.self)(limit: 255, count: 54)")
+        XCTAssertEqual(String(describing: T(cache: .words(192 / UInt.bitWidth))), "\(T.self)(limit: 383, count: 76)")
+        XCTAssertEqual(String(describing: T(cache: .words(256 / UInt.bitWidth))), "\(T.self)(limit: 511, count: 97)")
     }
     
     //=------------------------------------------------------------------------=
