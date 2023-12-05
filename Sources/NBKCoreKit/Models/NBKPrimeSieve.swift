@@ -71,15 +71,17 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     /// - Parameter culls: A collection of cyclical patterns used to cull multiples of small primes.
     ///
+    /// - Parameter capacity: The prime buffer's minimum capacity.
+    ///
     /// - Note: A page contains `1` odd number per bit in `cache`.
     ///
     /// - Note: The defaults strike a balance between size and performance.
     ///
-    public init(cache: Cache = .KiB(32), wheel: Wheel = .x07, culls: Culls = .x11) {
+    public init(cache: Cache = .KiB(32), wheel: Wheel = .x07, culls: Culls = .x11, capacity: Int? = nil) {
         self.cache = cache
         self.wheel = wheel
         self.culls = culls
-        self.state = Self.makeInitialState(&self.cache, self.wheel, self.culls)
+        self.state = Self.makeInitialState(&self.cache, self.wheel, self.culls, capacity)
     }
     
     //=------------------------------------------------------------------------=
@@ -117,10 +119,12 @@ extension NBKPrimeSieve {
     
     /// Sieves the next page of ``NBKPrimeSieve/increment`` number of values.
     @inline(never) @inlinable public func increment() {
-        Swift.assert((self.cache.base).allSatisfy({ $0.onesComplement().isZero }))
+        Swift.assert(self.cache.base.allSatisfy({ $0.onesComplement().isZero }))
+        //=--------------------------------------=
+        // trap overflow and max-on-setup-sieve
         //=--------------------------------------=
         let start = self.limit + 0000000000000002
-        let limit = self.limit + self.cache.count * 2 as UInt // traps max sieve (!)
+        let limit = self.limit + self.cache.count * 2 as UInt
         var inner = NBK.CyclicIterator(self.wheel.increments)!
         //=--------------------------------------=
         // mark composites not hit by the wheel
@@ -162,7 +166,7 @@ extension NBKPrimeSieve {
     // MARK: Utilities
     //=------------------------------------------------------------------------=
     
-    /// - Note: It wraps around, so preconditions should be checked prior to it.
+    /// - Important: It wraps around, so preconditions should be checked prior to it.
     @inline(never) @inlinable static func commit(_ cache: inout Cache, to state: inout State) {
         for index in cache.base.indices {
             var chunk = cache.base[index]
@@ -182,7 +186,7 @@ extension NBKPrimeSieve {
         }
     }
     
-    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls) -> State {
+    @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls, _ capacity: Int?) -> State {
         Swift.assert(wheel.primes.first == 00000000000000002)
         Swift.assert(culls.primes.first != 00000000000000002)
         precondition(wheel.primes.last! <= culls.primes.last!, "must cull multiples of each element in wheel")
@@ -193,6 +197,10 @@ extension NBKPrimeSieve {
         var outer = NBK.CyclicIterator(wheel.increments)!
         var inner = NBK.CyclicIterator(wheel.increments)!
         var state = State(limit: UInt.max, elements: [])
+        
+        if  let capacity {
+            state.elements.reserveCapacity(capacity)
+        }
         //=--------------------------------------=
         // mark each number in: 1, culls
         //=--------------------------------------=
@@ -220,8 +228,8 @@ extension NBKPrimeSieve {
         
         Self.commit(&cache, to: &state)
         
-        state.elements.removeLast(state.elements.reversed().prefix(while:{ $0 > state.limit }).count) // arch, culls
-        return state as State as State as State as State
+        state.elements.removeLast(state.elements.reversed().prefix(while:{ $0 > limit }).count) // if limit < culls
+        return state as State as State
     }
 }
 
@@ -564,7 +572,7 @@ extension NBKPrimeSieve {
         // MARK: Utilities
         //=--------------------------------------------------------------------=
         
-        /// Patterns grow multiplicatively, so chunking reduces the memory cost.
+        /// Patterns grow multiplicatively, so chunking reduces memory cost.
         @usableFromInline static func patterns(primes: [UInt]) -> [[UInt]] {
             var patterns = [[UInt]]()
             var lhsIndex = primes.startIndex
