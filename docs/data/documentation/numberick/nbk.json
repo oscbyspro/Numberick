@@ -142,6 +142,7 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/CyclicIterator",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/MaybeTwosComplement",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/SuccinctInt",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/TwinHeaded"
@@ -322,6 +323,40 @@
   "title" : "NBK",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk"
+},
+"doc://Numberick/documentation/Numberick/NBK/CyclicIterator": {
+  "abstract" : [
+    {
+      "text" : "A cyclic iterator of some collection.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CyclicIterator"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/CyclicIterator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CyclicIterator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBK.CyclicIterator",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/cycliciterator"
 },
 "doc://Numberick/documentation/Numberick/NBK/ISM": {
   "abstract" : [

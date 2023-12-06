@@ -1,0 +1,512 @@
+{
+  "abstract" : [
+    {
+      "text" : "A cyclical pattern used to skip small prime multiples.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Wheel"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Wheel"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "NBKPrimeSieve.Wheel"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@frozen"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Wheel"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x02",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x03",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x05",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x07",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x11"
+      ],
+      "title" : "Type Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbkprimesieve\/wheel"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve": {
+  "abstract" : [
+    {
+      "text" : "A generator of all prime ",
+      "type" : "text"
+    },
+    {
+      "code" : "elements",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " through some ",
+      "type" : "text"
+    },
+    {
+      "code" : "limit",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKPrimeSieve",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel": {
+  "abstract" : [
+    {
+      "text" : "A cyclical pattern used to skip small prime multiples.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Wheel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKPrimeSieve.Wheel",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel/x02": {
+  "abstract" : [
+    {
+      "text" : "A wheel formed by the sequence: 2.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x02"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x02",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x02",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x02"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel/x03": {
+  "abstract" : [
+    {
+      "text" : "A wheel formed by the sequence: 2, 3.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x03"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x03",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x03",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x03"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel/x05": {
+  "abstract" : [
+    {
+      "text" : "A wheel formed by the sequence: 2, 3, 5.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x05"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x05",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x05",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x05"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel/x07": {
+  "abstract" : [
+    {
+      "text" : "A wheel formed by the sequence: 2, 3, 5, 7.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x07"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x07",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x07",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x07"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Wheel/x11": {
+  "abstract" : [
+    {
+      "text" : "A wheel formed by the sequence: 2, 3, 5, 7, 11.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x11"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5WheelV",
+      "text" : "Wheel"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Wheel\/x11",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x11",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x11"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

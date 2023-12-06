@@ -183,6 +183,20 @@
                 {
                   "inlineContent" : [
                     {
+                      "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
                       "code" : "NBKStaticBigInt",
                       "type" : "codeVoice"
                     }
@@ -682,7 +696,8 @@
       "identifiers" : [
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKChunkedInt",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBKDoubleWidth",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKEndianness",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve"
       ],
       "title" : "Models"
     },
@@ -1340,6 +1355,56 @@
   "title" : "NBKFixedWidthInteger",
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbkfixedwidthinteger"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve": {
+  "abstract" : [
+    {
+      "text" : "A generator of all prime ",
+      "type" : "text"
+    },
+    {
+      "code" : "elements",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " through some ",
+      "type" : "text"
+    },
+    {
+      "code" : "limit",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKPrimeSieve",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve"
 },
 "doc://Numberick/documentation/Numberick/NBKSignedInteger": {
   "abstract" : [

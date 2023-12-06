@@ -205,7 +205,9 @@
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/modularMultiplicativeInverse(of:modulo:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/modularMultiplicativeInverse(sign:magnitude:modulo:)",
         "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/quotient(dividing:by:)",
-        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/remainder(dividing:by:)"
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/remainder(dividing:by:)",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/squareRootByNewtonsMethod(of:)-6dvmw",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/squareRootByNewtonsMethod(of:)-94yto"
       ],
       "title" : "Type Methods"
     }
@@ -3796,6 +3798,240 @@
   "type" : "topic",
   "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/remainder(dividing:by:)"
 },
+"doc://Numberick/documentation/Numberick/NBK/ProperBinaryInteger/squareRootByNewtonsMethod(of:)-6dvmw": {
+  "abstract" : [
+    {
+      "text" : "Returns the integer ",
+      "type" : "text"
+    },
+    {
+      "code" : "square root",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "power",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by using ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/en.wikipedia.org\/wiki\/newton%27s_method",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Integer",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKBinaryInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "squareRootByNewtonsMethod"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Integer"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Integer"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/squareRootByNewtonsMethod(of:)-6dvmw",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "squareRootByNewtonsMethod(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/squarerootbynewtonsmethod(of:)-6dvmw"
+},
+"doc://Numberick/documentation/Numberick/NBK/ProperBinaryInteger/squareRootByNewtonsMethod(of:)-94yto": {
+  "abstract" : [
+    {
+      "text" : "Returns the integer ",
+      "type" : "text"
+    },
+    {
+      "code" : "square root",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "power",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by using ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/en.wikipedia.org\/wiki\/newton%27s_method",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Integer",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "NBKUnsignedInteger",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "squareRootByNewtonsMethod"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Integer"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Integer"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBK\/ProperBinaryInteger\/squareRootByNewtonsMethod(of:)-94yto",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "squareRootByNewtonsMethod(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/squarerootbynewtonsmethod(of:)-94yto"
+},
 "doc://Numberick/documentation/Numberick/NBKBinaryInteger": {
   "abstract" : [
     {
@@ -3870,6 +4106,18 @@
   ],
   "type" : "link",
   "url" : "https:\/\/en.wikipedia.org\/wiki\/extended_euclidean_algorithm"
+},
+"https://en.wikipedia.org/wiki/newton%27s_method": {
+  "identifier" : "https:\/\/en.wikipedia.org\/wiki\/newton%27s_method",
+  "title" : "this algorithm",
+  "titleInlineContent" : [
+    {
+      "text" : "this algorithm",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/en.wikipedia.org\/wiki\/newton%27s_method"
 }
 }
 }

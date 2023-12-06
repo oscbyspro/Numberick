@@ -41,13 +41,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc",
-                        "title" : "static func * (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf",
+                        "title" : "static func * (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-53xcf",
-                        "title" : "static func * (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*(_:_:)-b5dc",
+                        "title" : "static func * (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -64,13 +64,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*=(_:_:)-3tidt",
-                        "title" : "static func *= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*=(_:_:)-1w6iv",
+                        "title" : "static func *= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*=(_:_:)-1w6iv",
-                        "title" : "static func *= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/*=(_:_:)-3tidt",
+                        "title" : "static func *= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -133,13 +133,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-9ygmi",
-                        "title" : "static func + (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-4wjjr",
+                        "title" : "static func + (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-4wjjr",
-                        "title" : "static func + (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/+(_:_:)-9ygmi",
+                        "title" : "static func + (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -202,13 +202,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-7p5xj",
-                        "title" : "static func - (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-6a96v",
+                        "title" : "static func - (Self, Self) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-6a96v",
-                        "title" : "static func - (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-(_:_:)-7p5xj",
+                        "title" : "static func - (Self, Self.Digit) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -248,13 +248,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
-                        "title" : "static func -= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
+                        "title" : "static func -= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
-                        "title" : "static func -= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
+                        "title" : "static func -= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -271,13 +271,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
-                        "title" : "static func -= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
+                        "title" : "static func -= (inout Self, Self.Digit)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-pept",
-                        "title" : "static func -= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/-=(_:_:)-100ot",
+                        "title" : "static func -= (inout Self, Self)",
                         "type" : "op"
                       }
                     ],
@@ -294,13 +294,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -317,13 +317,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
-                        "title" : "static func \/ (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
+                        "title" : "static func \/ (Self, Self.Digit) -> Self",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-99oep",
-                        "title" : "static func \/ (Self, Self.Digit) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/\/(_:_:)-2b670",
+                        "title" : "static func \/ (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -409,13 +409,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
-                        "title" : "static func % (Self, Self) -> Self",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
+                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-557x1",
-                        "title" : "static func % (Self, Self.Digit) -> Self.Digit",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_(_:_:)-7su4o",
+                        "title" : "static func % (Self, Self) -> Self",
                         "type" : "op"
                       }
                     ],
@@ -455,13 +455,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
-                        "title" : "static func %= (inout Self, Self.Digit)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
+                        "title" : "static func %= (inout Self, Self)",
                         "type" : "op"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-2zw2k",
-                        "title" : "static func %= (inout Self, Self)",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/_=(_:_:)-1uu5b",
+                        "title" : "static func %= (inout Self, Self.Digit)",
                         "type" : "op"
                       }
                     ],
@@ -902,13 +902,13 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
-                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-4qhwl",
+                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-4qhwl",
-                        "title" : "func quotientAndRemainder(dividingBy: Self) -> QR<Self, Self>",
+                        "path" : "\/documentation\/numberick\/nbkbinaryinteger\/quotientandremainder(dividingby:)-2rocc",
+                        "title" : "func quotientAndRemainder(dividingBy: Self.Digit) -> QR<Self, Self.Digit>",
                         "type" : "method"
                       },
                       {
@@ -1397,12 +1397,12 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/dividingfullwidthreportingoverflow(_:)-6na1u",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/dividingfullwidthreportingoverflow(_:)-2geg8",
                         "title" : "func dividingFullWidthReportingOverflow(HL<Self, Self.Magnitude>) -> PVO<QR<Self, Self>>",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/dividingfullwidthreportingoverflow(_:)-2geg8",
+                        "path" : "\/documentation\/numberick\/nbkfixedwidthinteger\/dividingfullwidthreportingoverflow(_:)-6na1u",
                         "title" : "func dividingFullWidthReportingOverflow(HL<Self, Self.Magnitude>) -> PVO<QR<Self, Self>>",
                         "type" : "method"
                       }
@@ -4393,6 +4393,157 @@
             "type" : "enum"
           },
           {
+            "children" : [
+              {
+                "title" : "Structures",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/cache\/kib(_:)",
+                    "title" : "static func KiB(Int) -> NBKPrimeSieve.Cache",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/cache\/words(_:)",
+                    "title" : "static func words(Int) -> NBKPrimeSieve.Cache",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/cache",
+                "title" : "NBKPrimeSieve.Cache",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x11",
+                    "title" : "static var x11: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x13",
+                    "title" : "static var x13: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x17",
+                    "title" : "static var x17: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x19",
+                    "title" : "static var x19: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x23",
+                    "title" : "static var x23: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x29",
+                    "title" : "static var x29: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x31",
+                    "title" : "static var x31: NBKPrimeSieve.Culls",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/culls",
+                "title" : "NBKPrimeSieve.Culls",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x02",
+                    "title" : "static var x02: NBKPrimeSieve.Wheel",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x03",
+                    "title" : "static var x03: NBKPrimeSieve.Wheel",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x05",
+                    "title" : "static var x05: NBKPrimeSieve.Wheel",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x07",
+                    "title" : "static var x07: NBKPrimeSieve.Wheel",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel\/x11",
+                    "title" : "static var x11: NBKPrimeSieve.Wheel",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/wheel",
+                "title" : "NBKPrimeSieve.Wheel",
+                "type" : "struct"
+              },
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/init(cache:wheel:culls:capacity:)",
+                "title" : "init(cache: NBKPrimeSieve.Cache, wheel: NBKPrimeSieve.Wheel, culls: NBKPrimeSieve.Culls, capacity: Int?)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/description",
+                "title" : "var description: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/elements",
+                "title" : "var elements: [UInt]",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/limit",
+                "title" : "var limit: UInt",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/numberick\/nbkprimesieve\/increment()",
+                "title" : "func increment()",
+                "type" : "method"
+              }
+            ],
+            "path" : "\/documentation\/numberick\/nbkprimesieve",
+            "title" : "NBKPrimeSieve",
+            "type" : "class"
+          },
+          {
             "title" : "Integers",
             "type" : "groupMarker"
           },
@@ -4499,6 +4650,46 @@
               {
                 "title" : "Structures",
                 "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/cycliciterator\/init(_:)",
+                    "title" : "init?(Base)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/cycliciterator\/next()",
+                    "title" : "func next() -> Base.Element",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/cycliciterator\/reset()",
+                    "title" : "func reset()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/cycliciterator\/set(iteration:)",
+                    "title" : "func set(iteration: UInt)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/cycliciterator\/set(unchecked:)",
+                    "title" : "func set(unchecked: Base.Index)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/numberick\/nbk\/cycliciterator",
+                "title" : "NBK.CyclicIterator",
+                "type" : "struct"
               },
               {
                 "children" : [
@@ -6797,6 +6988,16 @@
                   {
                     "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/remainder(dividing:by:)",
                     "title" : "static func remainder(dividing: NBK.ZeroOrMore<Integer>, by: NBK.PowerOf2<Integer>) -> Integer",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/squarerootbynewtonsmethod(of:)-6dvmw",
+                    "title" : "static func squareRootByNewtonsMethod(of: Integer) -> Integer",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/numberick\/nbk\/properbinaryinteger\/squarerootbynewtonsmethod(of:)-94yto",
+                    "title" : "static func squareRootByNewtonsMethod(of: Integer) -> Integer",
                     "type" : "method"
                   }
                 ],

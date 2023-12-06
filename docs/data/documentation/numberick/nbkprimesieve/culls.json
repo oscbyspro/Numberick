@@ -1,0 +1,622 @@
+{
+  "abstract" : [
+    {
+      "text" : "A collection of cyclical patterns used to cull multiples of small primes.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Numberick\/documentation\/Numberick",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "NBKCoreKit",
+    "externalID" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Culls"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Numberick",
+        "relatedModules" : [
+          "NBKCoreKit"
+        ]
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Culls"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "NBKPrimeSieve.Culls"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "iOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@frozen"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Culls"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x11",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x13",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x17",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x19",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x23",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x29",
+        "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x31"
+      ],
+      "title" : "Type Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/numberick\/nbkprimesieve\/culls"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Numberick/documentation/Numberick": {
+  "abstract" : [
+    {
+      "text" : "✨ An arithmagick overhaul in Swift.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Numberick",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve": {
+  "abstract" : [
+    {
+      "text" : "A generator of all prime ",
+      "type" : "text"
+    },
+    {
+      "code" : "elements",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " through some ",
+      "type" : "text"
+    },
+    {
+      "code" : "limit",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NBKPrimeSieve"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKPrimeSieve",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls": {
+  "abstract" : [
+    {
+      "text" : "A collection of cyclical patterns used to cull multiples of small primes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Culls"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NBKPrimeSieve.Culls",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x11": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x11"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x11",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x11",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x11"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x13": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x13"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x13",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x13",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x13"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x17": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x17"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x17",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x17",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x17"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x19": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x19"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x19",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x19",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x19"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x23": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x23"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x23",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x23",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x23"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x29": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x29"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x29",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x29",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x29"
+},
+"doc://Numberick/documentation/Numberick/NBKPrimeSieve/Culls/x31": {
+  "abstract" : [
+    {
+      "text" : "Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "x31"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC",
+      "text" : "NBKPrimeSieve"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10NBKCoreKit13NBKPrimeSieveC5CullsV",
+      "text" : "Culls"
+    }
+  ],
+  "identifier" : "doc:\/\/Numberick\/documentation\/Numberick\/NBKPrimeSieve\/Culls\/x31",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "x31",
+  "type" : "topic",
+  "url" : "\/documentation\/numberick\/nbkprimesieve\/culls\/x31"
+},
+"doc://Numberick/s8SendableP": {
+  "identifier" : "doc:\/\/Numberick\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}
