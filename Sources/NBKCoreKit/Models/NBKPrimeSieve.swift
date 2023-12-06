@@ -131,7 +131,10 @@ extension NBKPrimeSieve {
     // MARK: Transformations
     //=------------------------------------------------------------------------=
     
-    /// Sieves the next page of ``NBKPrimeSieve/increment`` number of values.
+    /// Sieves the next page of numbers.
+    ///
+    /// A page contains `1` odd number per bit in `cache`.
+    ///
     @inline(never) @inlinable public func increment() {
         Swift.assert(self.cache.base.allSatisfy({ $0.onesComplement().isZero }))
         //=--------------------------------------=
@@ -587,6 +590,9 @@ extension NBKPrimeSieve {
         //=--------------------------------------------------------------------=
         
         /// Patterns grow multiplicatively, so chunking reduces memory cost.
+        ///
+        ///     g([3, 5, 7, 11, 13]) -> [f([2, 13]), f([5, 11]), f([7])]
+        ///
         @usableFromInline static func patterns(primes: [UInt]) -> [[UInt]] {
             var patterns = [[UInt]]()
             var lhsIndex = primes.startIndex
@@ -605,6 +611,10 @@ extension NBKPrimeSieve {
             return patterns as [[UInt]]
         }
         
+        /// A cyclical pattern marking each odd multiple of prime in `primes`.
+        ///
+        /// - Note: The sieve culls even numbers by omission.
+        ///
         @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
             var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
             var next:(prime: UInt, product: UInt); next.prime =  primes.first!; next.product = next.prime

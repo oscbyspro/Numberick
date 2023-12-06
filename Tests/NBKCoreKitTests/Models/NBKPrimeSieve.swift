@@ -295,7 +295,7 @@ final class NBKPrimeSieveTests: XCTestCase {
         let/**/ cache: T.Cache =  T.Cache.words(256 / UInt.bitWidth)
         for/**/ wheel: T.Wheel in [.x02, .x03, .x05, .x07, .x11] {
             for culls: T.Culls in [.x11, .x13, .x17, .x19, .x23, .x29, .x31] {
-                let ((sieve))  =  T(cache: cache, wheel: wheel, culls: culls, capacity: 000309)
+                let ((sieve))  =  T(cache:  cache, wheel: wheel, culls: culls, capacity: 000309)
                 check(sieve, limit: 000511, count: 000097, last: 000509)
                 
                 sieve.increment()
