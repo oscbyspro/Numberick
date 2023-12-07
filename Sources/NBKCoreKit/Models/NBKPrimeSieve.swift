@@ -150,7 +150,7 @@ extension NBKPrimeSieve {
         
         for pattern in self.culls.patterns {
             var pattern = NBK.CyclicIterator(pattern)!
-            pattern.set(iteration:  iteration)
+            pattern.formIteration(iteration)
             self.cache.sieve(pattern: pattern)
         }
         //=--------------------------------------=
@@ -172,8 +172,8 @@ extension NBKPrimeSieve {
             guard product.partialValue <= limit, !product.overflow else { continue }
             Swift.assert(start <= product.partialValue)
             
-            inner.set(unchecked: Int(bitPattern: self.wheel.indices[Int(bitPattern: multiple % self.wheel.circumference)]))
-            cache.sieve(from: (product.partialValue &- start) &>> 1 as UInt,stride:{ prime &* inner.next() &>> 1 as UInt }) // OK
+            inner.setIndex(unchecked: Int(bitPattern: self.wheel.indices[Int(bitPattern: multiple % self.wheel.circumference)]))
+            cache.sieve(from: (product.partialValue &- start) &>> 1 as UInt, stride:{ prime &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
         Self.commit(&self.cache, to: &self.state)
@@ -236,7 +236,7 @@ extension NBKPrimeSieve {
             defer { value &+= outer.next() }
             guard cache[value &>> 1 as UInt] else { continue }
             
-            inner.set(unchecked: (wheel).indices[Int(bitPattern: value % wheel.circumference)])
+            inner.setIndex(unchecked: wheel.indices[Int(bitPattern: value % wheel.circumference)])
             cache.sieve(from: square.partialValue &>> 1 as UInt, stride:{ value &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
@@ -591,7 +591,7 @@ extension NBKPrimeSieve {
         
         /// Patterns grow multiplicatively, so chunking reduces memory cost.
         ///
-        ///     g([3, 5, 7, 11, 13]) -> [f([2, 13]), f([5, 11]), f([7])]
+        ///     g([3, 5, 7, 11, 13]) -> [f([3, 13]), f([5, 11]), f([7])]
         ///
         @usableFromInline static func patterns(primes: [UInt]) -> [[UInt]] {
             var patterns = [[UInt]]()
@@ -611,7 +611,7 @@ extension NBKPrimeSieve {
             return patterns as [[UInt]]
         }
         
-        /// A cyclical pattern marking each odd multiple of prime in `primes`.
+        /// A cyclical pattern marking odd multiples of each prime in `primes`.
         ///
         /// - Note: The sieve culls even numbers by omission.
         ///
