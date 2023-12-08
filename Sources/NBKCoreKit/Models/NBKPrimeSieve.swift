@@ -36,16 +36,29 @@
 /// ### Customization
 ///
 /// This sieve offers multiple customization options, which may improve performance.
-/// Here's an example that's suitable for numbers up to a billion on a machine where
-/// the CPU's L1 data cache is 128 KiB:
+/// Here's an example that's suitable for numbers up to a billion on a 64-bit machine
+/// where the CPU's L1 data cache is 128 KiB:
 ///
 /// ```swift
-/// NBKPrimeSieve(cache: .KiB(128), wheel: .x11, culls: .x31, capacity: 50863957)
+/// NBKPrimeSieve(cache: .KiB(128), wheel: .x11, culls: .x67, capacity: 50863957)
 /// ```
 ///
 /// - Note: The size of the cache determines the size of each increment.
 ///
 public final class NBKPrimeSieve: CustomStringConvertible {
+    
+    /// A collection of all the primes that fit in one byte.
+    ///
+    /// - Note: It contains `54` elements.
+    ///
+    @usableFromInline static let primes = [
+    0002, 0003, 0005, 0007, 0011, 0013, 0017, 0019,
+    0023, 0029, 0031, 0037, 0041, 0043, 0047, 0053,
+    0059, 0061, 0067, 0071, 0073, 0079, 0083, 0089,
+    0097, 0101, 0103, 0107, 0109, 0113, 0127, 0131,
+    0137, 0139, 0149, 0151, 0157, 0163, 0167, 0173,
+    0179, 0181, 0191, 0193, 0197, 0199, 0211, 0223,
+    0227, 0229, 0233, 0239, 0241, 0251] as [UInt8]
     
     //=------------------------------------------------------------------------=
     // MARK: State
@@ -78,6 +91,14 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     //=------------------------------------------------------------------------=
     
     /// Creates a new instance and sieves the first page.
+    ///
+    /// - Note: It uses the default arguments of the main initialization method.
+    ///
+    @inlinable public convenience init() {
+        self.init()!
+    }
+    
+    /// Creates a new instance and sieves the first page.
     /// 
     /// - Parameter cache: A collection of bits used to mark composite numbers.
     ///
@@ -87,11 +108,16 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     /// - Parameter capacity: The prime buffer's minimum capacity.
     ///
+    /// - Requires: Each element in `wheel` must exist in `culls`.
+    ///
     /// - Note: A page contains `1` odd number per bit in `cache`.
     ///
     /// - Note: The defaults strike a balance between size and performance.
     ///
-    public init(cache: Cache = .KiB(32), wheel: Wheel = .x07, culls: Culls = .x11, capacity: Int? = nil) {
+    public init?(cache: Cache = .KiB(4), wheel: Wheel = .x07, culls: Culls = .x11, capacity: Int? = nil) {
+        //=--------------------------------------=
+        guard wheel.primes.last! <= culls.primes.last! else { return nil }
+        //=--------------------------------------=
         self.cache = cache
         self.wheel = wheel
         self.culls = culls
@@ -147,12 +173,7 @@ extension NBKPrimeSieve {
         // mark composites not hit by the wheel
         //=--------------------------------------=
         let iteration = 1 &+ NBK.PBI.quotient(dividing: NBK.ZeroOrMore(self.limit &>> 1 as UInt), by: NBK.PowerOf2(bitWidth: UInt.self))
-        
-        for pattern in self.culls.patterns {
-            var pattern = NBK.CyclicIterator(pattern)!
-            pattern.formIteration(iteration)
-            self.cache.sieve(pattern: pattern)
-        }
+        self.cache.sieve(patterns: self.culls.patterns, iteration: iteration)
         //=--------------------------------------=
         // mark composites using prime elements
         //=--------------------------------------=
@@ -172,8 +193,8 @@ extension NBKPrimeSieve {
             guard product.partialValue <= limit, !product.overflow else { continue }
             Swift.assert(start <= product.partialValue)
             
-            inner.setIndex(unchecked: Int(bitPattern: self.wheel.indices[Int(bitPattern: multiple % self.wheel.circumference)]))
-            cache.sieve(from: (product.partialValue &- start) &>> 1 as UInt, stride:{ prime &* inner.next() &>> 1 as UInt }) // OK
+            inner.setIndex(unchecked: Int(bitPattern: self.wheel.indices[Int(bitPattern: multiple % self.wheel.circumference)] ))
+            self.cache.sieve(from: (product.partialValue &- start) &>> 1 as UInt, stride:{ prime &* inner.next() &>> 1 as UInt }) // OK
         }
         //=--------------------------------------=
         Self.commit(&self.cache, to: &self.state)
@@ -198,7 +219,7 @@ extension NBKPrimeSieve {
                 state.elements.append(position)
             }
             
-            cache.base[index] = chunk.onesComplement()
+            cache.base[index] = UInt.max
             state.limit &+= UInt(bitPattern: UInt.bitWidth) &<< 1 as UInt
         }
     }
@@ -206,7 +227,7 @@ extension NBKPrimeSieve {
     @inline(never) @inlinable static func makeInitialState(_ cache: inout Cache, _ wheel: Wheel, _ culls: Culls, _ capacity: Int?) -> State {
         Swift.assert(wheel.primes.first == 00000000000000002)
         Swift.assert(culls.primes.first != 00000000000000002)
-        precondition(wheel.primes.last! <= culls.primes.last!, "must cull multiples of each element in wheel")
+        Swift.assert(wheel.primes.last! <= culls.primes.last!, "must cull multiples of each element in wheel")
         Swift.assert(wheel.primes[1...].allSatisfy(culls.primes.contains))
         Swift.assert(cache.base.allSatisfy { $0.onesComplement().isZero })
         //=--------------------------------------=
@@ -222,10 +243,7 @@ extension NBKPrimeSieve {
         // mark each number in: 1, culls
         //=--------------------------------------=
         cache.base[cache.base.startIndex] = ~1
-        
-        for pattern in culls.patterns {
-            cache.sieve(pattern: NBK.CyclicIterator(pattern)!)
-        }
+        cache.sieve(patterns: culls.patterns)
         //=--------------------------------------=
         // mark each number in: composites
         //=--------------------------------------=
@@ -366,28 +384,37 @@ extension NBKPrimeSieve {
         // MARK: Transformations
         //=--------------------------------------------------------------------=
         
-        /// Sieves the `marks` with the given pattern `cycle`.
-        @inlinable mutating func sieve(pattern cycle: NBK.CyclicIterator<[UInt]>) {
-            var cycle = cycle; for index in self.base.indices { self.base[index] &= cycle.next() }
+        /// Sieves this instance using cyclical bit `patterns` from `iteration`.
+        @inlinable mutating func sieve(patterns: [[UInt]], iteration: UInt = 0) {
+            self.base.withUnsafeMutableBufferPointer { base in
+                for var pattern in patterns.lazy.map({ NBK.CyclicIterator($0)! }) {
+                    pattern.formIteration(iteration)
+                    for index in base.indices {
+                        base[index] &= pattern.next()
+                    }
+                }
+            }
         }
         
-        /// Sieves the `marks` from `start` with strides of `increment`.
+        /// Sieves this instance from `start` with strides of `increment`.
         ///
         /// - Requires: `increment() <= UInt.max - UInt.bitWidth + 1`
         ///
         @inlinable mutating func sieve(from start: UInt, stride increment: () -> UInt) {
-            var index = NBK.PBI.dividing(NBK.ZeroOrMore(start), by: NBK.PowerOf2(bitWidth: UInt.self))
-            while index.quotient < UInt(bitPattern: self.base.count) {
-                var chunk = UInt.zero
-                
-                while index.remainder < UInt.bitWidth {
-                    chunk &+= 1 &<< index.remainder
-                    index.remainder &+= increment()
+            self.base.withUnsafeMutableBufferPointer { base in
+                var ((index)): QR<UInt,UInt> = NBK.PBI.dividing(NBK.ZeroOrMore(start), by: NBK.PowerOf2(bitWidth: UInt.self))
+                while index.quotient < UInt(bitPattern: base.count) {
+                    var chunk = UInt.zero
+                    
+                    while index.remainder < UInt(bitPattern: UInt.bitWidth) {
+                        chunk &+= 1 &<< index.remainder
+                        index.remainder &+= increment()
+                    }
+                    
+                    base[Int(bitPattern: index.quotient)] &= chunk.onesComplement()
+                    index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
+                    index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
                 }
-                
-                self.base[Int(bitPattern:  index.quotient)] &= chunk.onesComplement()
-                index.quotient &+= NBK.PBI .quotient(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
-                index.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(index.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
             }
         }
     }
@@ -406,29 +433,44 @@ extension NBKPrimeSieve {
     /// A cyclical pattern used to skip small prime multiples.
     @frozen public struct Wheel {
         
-        /// A wheel formed by the sequence: 2.
+        /// A wheel formed by the sequence: `2`.
+        ///
+        /// - Note: It covers `2` elements in `1` increment.
+        ///
         @inlinable public static var x02: Self {
-            Self(primes: [2])
+            Self(primes: NBKPrimeSieve.primes[...0])
         }
         
-        /// A wheel formed by the sequence: 2, 3.
+        /// A wheel formed by the sequence: `2`, `3`.
+        ///
+        /// - Note: It covers `6` elements in `2` increments.
+        ///
         @inlinable public static var x03: Self {
-            Self(primes: [2, 3])
+            Self(primes: NBKPrimeSieve.primes[...1])
         }
         
-        /// A wheel formed by the sequence: 2, 3, 5.
+        /// A wheel formed by the sequence: `2`, `3`, `5`.
+        ///
+        /// - Note: It covers `30` elements in `8` increments.
+        ///
         @inlinable public static var x05: Self {
-            Self(primes: [2, 3, 5])
+            Self(primes: NBKPrimeSieve.primes[...2])
         }
         
-        /// A wheel formed by the sequence: 2, 3, 5, 7.
+        /// A wheel formed by the sequence: `2`, `3`, `5`, `7`.
+        ///
+        /// - Note: It covers `210` elements in `48` increments.
+        ///
         @inlinable public static var x07: Self {
-            Self(primes: [2, 3, 5, 7])
+            Self(primes: NBKPrimeSieve.primes[...3])
         }
         
-        /// A wheel formed by the sequence: 2, 3, 5, 7, 11.
+        /// A wheel formed by the sequence: `2`, `3`, `5`, `7`, `11`.
+        ///
+        /// - Note: It covers `2310` elements in `480` increments.
+        ///
         @inlinable public static var x11: Self {
-            Self(primes: [2, 3, 5, 7, 11])
+            Self(primes: NBKPrimeSieve.primes[...4])
         }
         
         //=--------------------------------------------------------------------=
@@ -490,6 +532,10 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
+        @inlinable init(primes: [UInt8].SubSequence) {
+            self.init(primes: primes.map(UInt.init(truncatingIfNeeded:)))
+        }
+        
         @usableFromInline init(primes: [UInt]) {
             //=----------------------------------=
             Swift.assert(primes.allSatisfy({ $0 >= 2 }))
@@ -508,7 +554,11 @@ extension NBKPrimeSieve {
                 let count = Int(bitPattern: 1 + value) - self.values.count
                 self.values .append(contentsOf: repeatElement(value, count: count))
                 self.indices.append(contentsOf: repeatElement(self.increments.count, count: count))
-            };  self.increments.append(self.circumference - self.values.last! + self.values.first!)
+            }
+            
+            let last  = self.values.last!  // default to zero if empty is allowed
+            let first = self.values.first! // default to zero if empty is allowed
+            self.increments.append(self.circumference  - last  + first)
         }
     }
 }
@@ -524,41 +574,81 @@ extension NBKPrimeSieve {
     //*========================================================================*
     
     /// A collection of cyclical patterns used to cull multiples of small primes.
+    ///
+    /// - Note: Even numbers are culled by omission, not by bit pattern.
+    ///
     @frozen public struct Culls {
         
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11.
+        /// Cyclical bit patterns for multiples of primes from `3` through `5`.
+        ///
+        /// - Note: It stores `15` elements and culls `2` primes in `1` loop.
+        ///
+        @inlinable public static var x05: Self {
+            Self(primes: NBKPrimeSieve.primes[1...02])
+        }
+        
+        /// Cyclical bit patterns for multiples of primes from `3` through `11`.
+        ///
+        /// - Note: It stores `68` elements and culls `4` primes in `2` loops.
+        ///
         @inlinable public static var x11: Self {
-            Self(primes: [3, 5, 7, 11])
+            Self(primes: NBKPrimeSieve.primes[1...04])
         }
         
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13.
-        @inlinable public static var x13: Self {
-            Self(primes: [3, 5, 7, 11, 13])
-        }
-        
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17.
+        /// Cyclical bit patterns for multiples of primes from `3` through `17`.
+        ///
+        /// - Note: It stores `193` elements and culls `6` primes in `3` loops.
+        ///
         @inlinable public static var x17: Self {
-            Self(primes: [3, 5, 7, 11, 13, 17])
+            Self(primes: NBKPrimeSieve.primes[1...06])
         }
         
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19.
-        @inlinable public static var x19: Self {
-            Self(primes: [3, 5, 7, 11, 13, 17, 19])
-        }
-        
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23.
+        /// Cyclical bit patterns for multiples of primes from `3` through `23`.
+        ///
+        /// - Note: It stores `426` elements and culls `8` primes in `4` loops.
+        ///
         @inlinable public static var x23: Self {
-            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23])
+            Self(primes: NBKPrimeSieve.primes[1...08])
         }
         
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29.
-        @inlinable public static var x29: Self {
-            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23, 29])
-        }
-        
-        /// Cyclical bit patterns for multiples of: 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.
+        /// Cyclical bit patterns for multiples of primes from `3` through `31`.
+        ///
+        /// - Note: It stores `829` elements and culls `10` primes in `5` loops.
+        ///
         @inlinable public static var x31: Self {
-            Self(primes: [3, 5, 7, 11, 13, 17, 19, 23, 29, 31])
+            Self(primes: NBKPrimeSieve.primes[1...10])
+        }
+        
+        /// Cyclical bit patterns for multiples of primes from `3` through `41`.
+        ///
+        /// - Note: It stores `1466` elements and culls `12` primes in `6` loops.
+        ///
+        @inlinable public static var x41: Self {
+            Self(primes: NBKPrimeSieve.primes[1...12])
+        }
+        
+        /// Cyclical bit patterns for multiples of primes from `3` through `47`.
+        ///
+        /// - Note: It stores `2383` elements and culls `14` primes in `7` loops.
+        ///
+        @inlinable public static var x47: Self {
+            Self(primes: NBKPrimeSieve.primes[1...14])
+        }
+        
+        /// Cyclical bit patterns for multiples of primes from `3` through `59`.
+        ///
+        /// - Note: It stores `3662` elements and culls `16` primes in `8` loops.
+        ///
+        @inlinable public static var x59: Self {
+            Self(primes: NBKPrimeSieve.primes[1...16])
+        }
+        
+        /// Cyclical bit patterns for multiples of primes from `3` through `67`.
+        ///
+        /// - Note: It stores `5373` elements and culls `18` primes in `9` loops.
+        ///
+        @inlinable public static var x67: Self {
+            Self(primes: NBKPrimeSieve.primes[1...18])
         }
         
         //=--------------------------------------------------------------------=
@@ -580,6 +670,10 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
+        @inlinable init(primes: [UInt8].SubSequence) {
+            self.init(primes: primes.map(UInt.init(truncatingIfNeeded:)))
+        }
+        
         @inlinable init(primes: [UInt]) {
             self.primes   = primes
             self.patterns = Culls.patterns(primes: self.primes)
@@ -591,9 +685,13 @@ extension NBKPrimeSieve {
         
         /// Patterns grow multiplicatively, so chunking reduces memory cost.
         ///
-        ///     g([3, 5, 7, 11, 13]) -> [f([3, 13]), f([5, 11]), f([7])]
+        ///     g([3, 5, 7, 11]) -> [f([3, 11]), f([5, 7])]
+        ///
+        /// - Requires: The number of primes should be even for performance reasons.
         ///
         @usableFromInline static func patterns(primes: [UInt]) -> [[UInt]] {
+            Swift.assert(primes.count.isEven)
+            
             var patterns = [[UInt]]()
             var lhsIndex = primes.startIndex
             var rhsIndex = primes.index(before: primes.endIndex)
@@ -602,10 +700,6 @@ extension NBKPrimeSieve {
                 patterns.append(self.pattern(primes: [primes[lhsIndex], primes[rhsIndex]]))
                 patterns.formIndex(after:  &lhsIndex)
                 patterns.formIndex(before: &rhsIndex)
-            }
-            
-            if  lhsIndex == rhsIndex {
-                patterns.append(self.pattern(primes: [primes[lhsIndex]]))
             }
             
             return patterns as [[UInt]]

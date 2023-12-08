@@ -152,7 +152,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     //=------------------------------------------------------------------------=
     
     func testMinSize() {
-        let ((sieve)) = T(cache: .words(1))
+        let ((sieve)) = T(cache: .words(1))!
         while sieve.limit < 000127 {
             ((sieve)).increment()
         }
@@ -176,7 +176,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testBit064() {
-        let ((sieve)) = T(cache:   .words( 000064  / UInt.bitWidth))
+        let ((sieve)) = T(cache:   .words( 000064  / UInt.bitWidth))!
         check(sieve, limit: 000127, count: 000031, last: 000127)
         
         sieve.increment()
@@ -190,7 +190,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testBit128() {
-        let ((sieve)) = T(cache:   .words( 000128  / UInt.bitWidth))
+        let ((sieve)) = T(cache:   .words( 000128  / UInt.bitWidth))!
         check(sieve, limit: 000255, count: 000054, last: 000251)
         
         sieve.increment()
@@ -204,7 +204,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testBit192() {
-        let ((sieve)) = T(cache:   .words( 000192  / UInt.bitWidth))
+        let ((sieve)) = T(cache:   .words( 000192  / UInt.bitWidth))!
         check(sieve, limit: 000383, count: 000076, last: 000383)
         
         sieve.increment()
@@ -218,7 +218,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testBit256() {
-        let ((sieve)) = T(cache:   .words( 000256  / UInt.bitWidth))
+        let ((sieve)) = T(cache:   .words( 000256  / UInt.bitWidth))!
         check(sieve, limit: 000511, count: 000097, last: 000509)
         
         sieve.increment()
@@ -232,7 +232,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testKiB001() {
-        let ((sieve)) = T(cache: .KiB(001))
+        let ((sieve)) = T(cache: .KiB(001))!
         check(sieve, limit: 016383, count: 001900, last: 016381)
         
         sieve.increment()
@@ -246,7 +246,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testKiB002() {
-        let ((sieve)) = T(cache: .KiB(002))
+        let ((sieve)) = T(cache: .KiB(002))!
         check(sieve, limit: 032767, count: 003512, last: 032749)
         
         sieve.increment()
@@ -260,7 +260,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testKiB003() {
-        let ((sieve)) = T(cache: .KiB(003))
+        let ((sieve)) = T(cache: .KiB(003))!
         check(sieve, limit: 049151, count: 005051, last: 049139)
 
         sieve.increment()
@@ -274,7 +274,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testKiB004() {
-        let ((sieve)) = T(cache: .KiB(004))
+        let ((sieve)) = T(cache: .KiB(004))!
         check(sieve, limit: 065535, count: 006542, last: 065521)
 
         sieve.increment()
@@ -291,11 +291,25 @@ final class NBKPrimeSieveTests: XCTestCase {
     // MARK: Test x Miscellaneous
     //=------------------------------------------------------------------------=
     
+    func testInit() {
+        let ((sieve)) = T()
+        check(sieve, limit: 065535, count: 006542, last: 065521)
+        
+        sieve.increment()
+        check(sieve, limit: 131071, count: 012251, last: 131071)
+        
+        sieve.increment()
+        check(sieve, limit: 196607, count: 017704, last: 196597)
+        
+        sieve.increment()
+        check(sieve, limit: 262143, count: 023000, last: 262139)
+    }
+    
     func testSettings() {
         let/**/ cache: T.Cache =  T.Cache.words(256 / UInt.bitWidth)
         for/**/ wheel: T.Wheel in [.x02, .x03, .x05, .x07, .x11] {
-            for culls: T.Culls in [.x11, .x13, .x17, .x19, .x23, .x29, .x31] {
-                let ((sieve))  =  T(cache:  cache, wheel: wheel, culls: culls, capacity: 000309)
+            for culls: T.Culls in [.x05, .x11, .x17, .x23, .x31, .x41, .x47, .x59, .x67] {
+                guard let sieve = T(cache:  cache, wheel: wheel, culls: culls, capacity: 000309) else { continue }
                 check(sieve, limit: 000511, count: 000097, last: 000509)
                 
                 sieve.increment()
@@ -311,7 +325,7 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testIncrementSuchThatSomeElementsHaveZeroCandidatesInSomePages() {
-        let ((sieve)) = T(cache: .words(0001), capacity: 006542)
+        let ((sieve)) = T(cache: .words(0001), capacity: 006542)!
         
         while sieve.limit < 065535 {
             ((sieve)).increment()
@@ -321,10 +335,10 @@ final class NBKPrimeSieveTests: XCTestCase {
     }
     
     func testDescriptionDoesNotContainEveryPrimeBecauseThatWouldBeSilly() {
-        XCTAssertEqual(String(describing: T(cache: .words(064 / UInt.bitWidth))), "\(T.self)(limit: 127, count: 31)")
-        XCTAssertEqual(String(describing: T(cache: .words(128 / UInt.bitWidth))), "\(T.self)(limit: 255, count: 54)")
-        XCTAssertEqual(String(describing: T(cache: .words(192 / UInt.bitWidth))), "\(T.self)(limit: 383, count: 76)")
-        XCTAssertEqual(String(describing: T(cache: .words(256 / UInt.bitWidth))), "\(T.self)(limit: 511, count: 97)")
+        XCTAssertEqual(String(describing: T(cache: .words(064 / UInt.bitWidth))!), "\(T.self)(limit: 127, count: 31)")
+        XCTAssertEqual(String(describing: T(cache: .words(128 / UInt.bitWidth))!), "\(T.self)(limit: 255, count: 54)")
+        XCTAssertEqual(String(describing: T(cache: .words(192 / UInt.bitWidth))!), "\(T.self)(limit: 383, count: 76)")
+        XCTAssertEqual(String(describing: T(cache: .words(256 / UInt.bitWidth))!), "\(T.self)(limit: 511, count: 97)")
     }
     
     //=------------------------------------------------------------------------=
