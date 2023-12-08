@@ -47,7 +47,7 @@
 ///
 public final class NBKPrimeSieve: CustomStringConvertible {
     
-    /// A collection of all the primes that fit in one byte.
+    /// A collection of all primes that fit in one byte.
     ///
     /// - Note: It contains `54` elements.
     ///
@@ -108,7 +108,7 @@ public final class NBKPrimeSieve: CustomStringConvertible {
     ///
     /// - Parameter capacity: The prime buffer's minimum capacity.
     ///
-    /// - Requires: Each element in `wheel` must exist in `culls`.
+    /// - Requires: The order of `wheel` must not exceed the order of `culls`.
     ///
     /// - Note: A page contains `1` odd number per bit in `cache`.
     ///
@@ -532,7 +532,7 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(primes: [UInt8].SubSequence) {
+        @inlinable init(primes: ArraySlice<UInt8>) {
             self.init(primes: primes.map(UInt.init(truncatingIfNeeded:)))
         }
         
@@ -670,7 +670,7 @@ extension NBKPrimeSieve {
         // MARK: Initializers
         //=--------------------------------------------------------------------=
         
-        @inlinable init(primes: [UInt8].SubSequence) {
+        @inlinable init(primes: ArraySlice<UInt8>) {
             self.init(primes: primes.map(UInt.init(truncatingIfNeeded:)))
         }
         
