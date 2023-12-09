@@ -707,24 +707,39 @@ extension NBKPrimeSieve {
         
         /// A cyclical pattern marking odd multiples of each prime in `primes`.
         ///
-        /// - Note: The sieve culls even numbers by omission.
+        /// The following illustrates the creation of a `[2,3]` pattern.
+        ///
+        ///     0) [--, --, --, --, --, --] // --
+        ///     1) [2A, --, --, --, --, --] // 2A
+        ///     2) [2A, 2B, --, --, --, --] // 2B
+        ///     3) [2A, 2B, 2A, 2B, 2A, 2B] // extend to 2 * 3
+        ///     4) [6A, 2B, 2A, 6D, 2A, 2B] // 6A, 6D
+        ///     5) [6A, 6B, 2A, 6D, 6E, 2B] // 6B, 6E
+        ///     6) [6A, 6B, 6C, 6D, 6E, 6F] // 6C, 6F
+        ///
+        /// The idea is to reuse words and subsequences whenever possible.
+        ///
+        /// - Important: The sieve culls even numbers by omission, so start with `[3,5]`.
         ///
         @usableFromInline static func pattern(primes: [UInt]) -> [UInt] {
-            var pattern = [UInt](repeating: UInt.max, count: Int(primes.reduce(1, *)))
-            var next:(prime: UInt, product: UInt); next.prime =  primes.first!; next.product = next.prime
+            var pattern = Array(repeating: UInt.max,  count: Int(primes.reduce(1, *)))
+            var next: (prime: UInt, product:  UInt);  next.prime = primes.first!; next.product = next.prime
             var primeIndex = primes.startIndex; while primeIndex < primes.endIndex {
-                //=----------------------------------=
+                //=------------------------------=
                 let current: (prime: UInt, product: UInt) = next
-                var patternIndex = NBK.PBI.dividing(NBK.ZeroOrMore(current.prime &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
+                var ((patternIndex)) = NBK.PBI.dividing(NBK.ZeroOrMore(current.prime &>> 1), by: NBK.PowerOf2(bitWidth: UInt.self))
                 while patternIndex.quotient < current.prime {
-                    var chunk = UInt.zero
-                    
+                    //=--------------------------=
+                    var chunk = 00000000 as UInt
                     while patternIndex.remainder < UInt.bitWidth {
-                        chunk |= 1 &<< patternIndex.remainder
+                        chunk &+= 001 &<< patternIndex.remainder
                         patternIndex.remainder &+= current.prime
                     };  chunk.formOnesComplement()
-                    
-                    var destination = patternIndex.quotient; while destination < current.product {
+                    //=--------------------------=
+                    // pattern: reuse words
+                    //=--------------------------=
+                    var ((destination)) = patternIndex.quotient
+                    while destination < current.product {
                         pattern[Int(bitPattern: destination)] &= chunk
                         destination &+= current.prime
                     }
@@ -732,15 +747,18 @@ extension NBKPrimeSieve {
                     patternIndex.quotient &+= NBK.PBI.quotient (dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
                     patternIndex.remainder  = NBK.PBI.remainder(dividing: NBK.ZeroOrMore(patternIndex.remainder), by: NBK.PowerOf2(bitWidth: UInt.self))
                 }
-                //=----------------------------------=
+                //=------------------------------=
                 primes.formIndex(after: &primeIndex)
-                //=----------------------------------=
+                //=------------------------------=
                 if  primeIndex < primes.endIndex {
                     next.prime = primes[primeIndex]
                     next.product &*= next.prime
                 }
-                
-                var destination = current.product; while destination < next.product {
+                //=------------------------------=
+                // pattern: reuse subsequences
+                //=------------------------------=
+                var ((destination)) = current.product
+                while destination < next.product {
                     for source in 0 as UInt ..< current.product {
                         pattern[Int(bitPattern: destination)] &= pattern[Int(bitPattern: source)]
                         destination += 1 as UInt
