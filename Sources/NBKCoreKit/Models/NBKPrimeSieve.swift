@@ -717,7 +717,7 @@ extension NBKPrimeSieve {
         ///     5) [6A, 6B, 2A, 6D, 6E, 2B] // 6B, 6E
         ///     6) [6A, 6B, 6C, 6D, 6E, 6F] // 6C, 6F
         ///
-        /// The idea is to reuse words and subsequences whenever possible.
+        /// The idea is to reuse elements and subsequences whenever possible.
         ///
         /// - Important: The sieve culls even numbers by omission, so start with `[3,5]`.
         ///
@@ -736,7 +736,7 @@ extension NBKPrimeSieve {
                         patternIndex.remainder &+= current.prime
                     };  chunk.formOnesComplement()
                     //=--------------------------=
-                    // pattern: reuse words
+                    // pattern: reuse elements
                     //=--------------------------=
                     var ((destination)) = patternIndex.quotient
                     while destination < current.product {
