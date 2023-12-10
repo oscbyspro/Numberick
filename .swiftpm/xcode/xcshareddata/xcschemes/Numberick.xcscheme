@@ -54,20 +54,6 @@
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NBKFlexibleWidthKit"
-               BuildableName = "NBKFlexibleWidthKit"
-               BlueprintName = "NBKFlexibleWidthKit"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
             <TestPlanReference
                reference = "container:.swiftpm/Numberick.xctestplan">
             </TestPlanReference>
@@ -89,9 +75,6 @@
          </TestPlanReference>
          <TestPlanReference
             reference = "container:.swiftpm/NBKDoubleWidthKit.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:.swiftpm/NBKFlexibleWidthKit.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

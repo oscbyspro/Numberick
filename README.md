@@ -118,15 +118,15 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 ## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
 
-👨‍💻🛠️🚧🧱🧱🏗️🧱🧱🚧⏳
+> [!IMPORTANT]
+> It's a work in progress. I may rework it at any time.
 
 ### Models
 
 - [NBKFibonacciXL](Sources/NBKFlexibleWidthKit/Models/NBKFibonacciXL.swift)
+- [UIntXL](Sources/NBKFlexibleWidthKit/Models/NBKFlexibleWidth.swift)
 
 ### Fibonacci
-
-This sequence is instrumental for testing big integers, and it's fun.
 
 ```swift
 NBKFibonacciXL(0) // (index: 0, element: 0, next: 1)
@@ -141,6 +141,7 @@ It uses a fast double-and-add algorithm:
 
 ```swift
 NBKFibonacciXL(10_000_000) // 2.3s on M1 MacBook Pro
+```
 
 But you can also step through it manually:
 
@@ -175,9 +176,10 @@ Add this package to your list of package dependencies.
 Choose target dependencies from the products in [Package.swift](Package.swift).
 
 ```swift
-.product(name: "Numberick",         package: "Numberick"),
-.product(name: "NBKCoreKit",        package: "Numberick"),
-.product(name: "NBKDoubleWidthKit", package: "Numberick"),
+.product(name: "Numberick",           package: "Numberick"),
+.product(name: "NBKCoreKit",          package: "Numberick"),
+.product(name: "NBKDoubleWidthKit",   package: "Numberick"),
+.product(name: "NBKFlexibleWidthKit", package: "Numberick"),
 ```
 
 ### Using [CocoaPods](http://cocoapods.org)

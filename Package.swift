@@ -61,7 +61,7 @@ let package = Package(
         //=--------------------------------------=
         .target(
         name: "Numberick",
-        dependencies: ["NBKCoreKit", "NBKDoubleWidthKit", "NBKFlexibleWidthKit"]),
+        dependencies: ["NBKCoreKit", "NBKDoubleWidthKit"]),
         //=--------------------------------------=
         // NBK x Core Kit
         //=--------------------------------------=
