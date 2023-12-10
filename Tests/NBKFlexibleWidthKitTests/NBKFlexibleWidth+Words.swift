@@ -176,19 +176,19 @@ _ words: [UInt], _ count: Int, _ integer: T,
 file: StaticString = #file, line: UInt = #line) {
     //=------------------------------------------=
     if  count == words.count {
-        let initialized = T.uninitialized(count: count, init:{ let _ = $0.initialize(from: words) })
+        let initialized = T.uninitialized(count: count, init:{ _ = $0.initialize(from: words) })
         XCTAssertEqual(initialized, integer, file: file, line: line)
     }
     
     brr: do {
         let capacity: Int = count
-        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).index })
+        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).1 })
         XCTAssertEqual(initialized, integer, file: file, line: line)
     }
     
     brr: do {
         let capacity: Int = count + 1
-        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).index })
+        let initialized = T.uninitialized(capacity: capacity, init:{ $1 = $0.initialize(from: words.prefix(count)).1 })
         XCTAssertEqual(initialized, integer, file: file, line: line)
     }
 }
