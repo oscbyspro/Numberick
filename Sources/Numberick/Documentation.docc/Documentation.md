@@ -19,6 +19,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 - ``NBKChunkedInt``
 - ``NBKEndianness``
+- ``NBKPrimeSieve``
 - ``NBKStaticBigInt``
 
 ## NBKDoubleWidthKit
@@ -112,7 +113,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``NBKDoubleWidth``
 - ``NBKEndianness``
 - ``NBKFlexibleWidth``
-- ``NBKSigned``
+- ``NBKPrimeSieve``
 - ``NBKStaticBigInt``
 
 ### Integers
@@ -123,7 +124,6 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``Int1024``
 - ``Int2048``
 - ``Int4096``
-- ``IntXL``
 
 - ``UInt128``
 - ``UInt256``
@@ -132,13 +132,6 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``UInt2048``
 - ``UInt4096``
 - ``UIntXL``
-
-- ``SInt``
-- ``SInt8``
-- ``SInt16``
-- ``SInt32``
-- ``SInt64``
-- ``SIntXL``
 
 ### Abbreviations
 

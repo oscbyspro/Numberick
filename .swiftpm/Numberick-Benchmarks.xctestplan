@@ -13,6 +13,12 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "NBKPrimeSieveBenchmarks\/testNoLoop1E6()",
+        "NBKPrimeSieveBenchmarks\/testNoLoop1E7()",
+        "NBKPrimeSieveBenchmarks\/testNoLoop1E8()",
+        "NBKPrimeSieveBenchmarks\/testNoLoop1E9()"
+      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "NBKCoreKitBenchmarks",

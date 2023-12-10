@@ -4,7 +4,7 @@
 
 | Package | Swift | iOS   | Mac Catalyst | macOS | tvOS  | watchOS |
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
-| 0.16.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
+| 0.17.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
 ## Table of Contents
 
@@ -33,6 +33,7 @@ A new protocol hierarchy that refines Swift's standard library.
 
 - [NBKChunkedInt](Sources/NBKCoreKit/Models/NBKChunkedInt.swift)
 - [NBKEndianness](Sources/NBKCoreKit/Models/NBKEndianness.swift)
+- [NBKPrimeSieve](Sources/NBKCoreKit/Models/NBKPrimeSieve.swift)
 - [NBKStaticBigInt](Sources/NBKCoreKit/Models/NBKStaticBigInt.swift)
 
 <a name="nbkdoublewidthkit"/>
@@ -136,12 +137,12 @@ NBKFibonacciXL(4) // (index: 4, element: 3, next: 5)
 NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 ```
 
-It uses a fast double-and-add algorithm to calculate silly numbers quickly.
+It uses a fast double-and-add algorithm:
 
 ```swift
 NBKFibonacciXL(10_000_000) // 2.3s on M1 MacBook Pro
-```
-Or you can step through it manually if that's your preferred cup of tea.
+
+But you can also step through it manually:
 
 ```swift
 public mutating func increment() { ... } // index + 1
@@ -168,7 +169,7 @@ Numberick contains several modules. Import some or all of them.
 Add this package to your list of package dependencies.
 
 ```swift
-.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.16.0")),
+.package(url: "https://github.com/oscbyspro/Numberick.git", .upToNextMinor(from: "0.17.0")),
 ```
 
 Choose target dependencies from the products in [Package.swift](Package.swift).
@@ -184,9 +185,9 @@ Choose target dependencies from the products in [Package.swift](Package.swift).
 Choose target dependencies from the pods listed in the root directory.
 
 ```rb
-pod "Numberick",                   "~> 0.16.0"
-pod "Numberick-NBKCoreKit",        "~> 0.16.0"
-pod "Numberick-NBKDoubleWidthKit", "~> 0.16.0"
+pod "Numberick",                   "~> 0.17.0"
+pod "Numberick-NBKCoreKit",        "~> 0.17.0"
+pod "Numberick-NBKDoubleWidthKit", "~> 0.17.0"
 ```
 
 <a name="acknowledgements"/>
