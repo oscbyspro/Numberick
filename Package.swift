@@ -48,6 +48,12 @@ let package = Package(
         .library(
         name: "NBKDoubleWidthKit",
         targets: ["NBKDoubleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Flexible Width Kit
+        //=--------------------------------------=
+        .library(
+        name: "NBKFlexibleWidthKit",
+        targets: ["NBKFlexibleWidthKit"]),
     ],
     targets: [
         //=--------------------------------------=
@@ -84,6 +90,20 @@ let package = Package(
         .testTarget(
         name: "NBKDoubleWidthKitTests",
         dependencies: ["NBKDoubleWidthKit"]),
+        //=--------------------------------------=
+        // NBK x Flexible Width Kit
+        //=--------------------------------------=
+        .target(
+        name: "NBKFlexibleWidthKit",
+        dependencies: ["NBKCoreKit"]),
+        
+        .testTarget(
+        name: "NBKFlexibleWidthKitBenchmarks",
+        dependencies: ["NBKFlexibleWidthKit"]),
+        
+        .testTarget(
+        name: "NBKFlexibleWidthKitTests",
+        dependencies: ["NBKFlexibleWidthKit"]),
     ]
 )
 

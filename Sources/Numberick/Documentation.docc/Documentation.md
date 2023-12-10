@@ -96,6 +96,41 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 
 - Note: You can use `StaticString` until `StaticBigInt` becomes available.
 
+> [!IMPORTANT]
+> It's a work in progress. I may rework it at any time.
+
+## NBKFlexibleWidthKit
+
+### Models
+
+- ``NBKFibonacciXL``
+- ``UIntXL``
+
+### Fibonacci
+
+```swift
+NBKFibonacciXL(0) // (index: 0, element: 0, next: 1)
+NBKFibonacciXL(1) // (index: 1, element: 1, next: 1)
+NBKFibonacciXL(2) // (index: 2, element: 1, next: 2)
+NBKFibonacciXL(3) // (index: 3, element: 2, next: 3)
+NBKFibonacciXL(4) // (index: 4, element: 3, next: 5)
+NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
+```
+
+It uses a fast double-and-add algorithm:
+
+```swift
+NBKFibonacciXL(10_000_000) // 2.3s on M1 MacBook Pro
+```
+
+But you can also step through it manually:
+
+```swift
+public mutating func increment() { ... } // index + 1
+public mutating func decrement() { ... } // index - 1
+public mutating func    double() { ... } // index * 2
+```
+
 ## Topics
 
 ### Protocols
@@ -112,6 +147,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``NBKChunkedInt``
 - ``NBKDoubleWidth``
 - ``NBKEndianness``
+- ``NBKFlexibleWidth``
 - ``NBKPrimeSieve``
 - ``NBKStaticBigInt``
 
@@ -130,6 +166,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 - ``UInt1024``
 - ``UInt2048``
 - ``UInt4096``
+- ``UIntXL``
 
 ### Abbreviations
 

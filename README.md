@@ -10,6 +10,7 @@
 
 * [NBKCoreKit](#nbkcorekit)
 * [NBKDoubleWidthKit](#nbkdoublewidthkit)
+* [NBKFlexibleWidthKit](#nbkflexiblewidthkit)
 * [Installation](#installation)
 * [Acknowledgements](#acknowledgements)
 
@@ -113,6 +114,43 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 > [!NOTE]
 > You can use `StaticString` until `StaticBigInt` becomes available.
 
+<a name="nbkflexiblewidthkit"/>
+
+## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
+
+> [!IMPORTANT]
+> It's a work in progress. I may rework it at any time.
+
+### Models
+
+- [NBKFibonacciXL](Sources/NBKFlexibleWidthKit/Models/NBKFibonacciXL.swift)
+- [UIntXL](Sources/NBKFlexibleWidthKit/Models/NBKFlexibleWidth.swift)
+
+### Fibonacci
+
+```swift
+NBKFibonacciXL(0) // (index: 0, element: 0, next: 1)
+NBKFibonacciXL(1) // (index: 1, element: 1, next: 1)
+NBKFibonacciXL(2) // (index: 2, element: 1, next: 2)
+NBKFibonacciXL(3) // (index: 3, element: 2, next: 3)
+NBKFibonacciXL(4) // (index: 4, element: 3, next: 5)
+NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
+```
+
+It uses a fast double-and-add algorithm:
+
+```swift
+NBKFibonacciXL(10_000_000) // 2.3s on M1 MacBook Pro
+```
+
+But you can also step through it manually:
+
+```swift
+public mutating func increment() { ... } // index + 1
+public mutating func decrement() { ... } // index - 1
+public mutating func    double() { ... } // index * 2
+```
+
 <a name="installation"/>
 
 ## Installation
@@ -138,9 +176,10 @@ Add this package to your list of package dependencies.
 Choose target dependencies from the products in [Package.swift](Package.swift).
 
 ```swift
-.product(name: "Numberick",         package: "Numberick"),
-.product(name: "NBKCoreKit",        package: "Numberick"),
-.product(name: "NBKDoubleWidthKit", package: "Numberick"),
+.product(name: "Numberick",           package: "Numberick"),
+.product(name: "NBKCoreKit",          package: "Numberick"),
+.product(name: "NBKDoubleWidthKit",   package: "Numberick"),
+.product(name: "NBKFlexibleWidthKit", package: "Numberick"),
 ```
 
 ### Using [CocoaPods](http://cocoapods.org)
@@ -163,15 +202,20 @@ This project is inspired by [**Int128**][Apple/Int128] and [**DoubleWidth**][App
 
 [NBK/D]: https://oscbyspro.github.io/Numberick/documentation/numberick
 [DBL/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkdoublewidth
+[FLX/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbkflexiblewidth
+[SIG/D]: https://oscbyspro.github.io/Numberick/documentation/numberick/nbksigned
 
 [COR/S]: Sources/NBKCoreKit
 [DBL/S]: Sources/NBKDoubleWidthKit
+[FLX/S]: Sources/NBKFlexibleWidthKit
 
 [COR/T]: Tests/NBKCoreKitTests
 [DBL/T]: Tests/NBKDoubleWidthKitTests
+[FLX/T]: Tests/NBKFlexibleWidthKitTests
 
 [COR/B]: Tests/NBKCoreKitBenchmarks
 [DBL/B]: Tests/NBKDoubleWidthKitBenchmarks
+[FLX/B]: Tests/NBKFlexibleWidthKitBenchmarks
 
 <!-- Links x Miscellaneous -->
 
