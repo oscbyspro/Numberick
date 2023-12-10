@@ -124,7 +124,7 @@ Int256(5) % Int(5), UInt256(5) % UInt(5)
 ### Models
 
 - [NBKFibonacciXL](Sources/NBKFlexibleWidthKit/Models/NBKFibonacciXL.swift)
-- [UIntXL](Sources/NBKFlexibleWidthKit/Models/NBKFlexibleWidth.swift)
+- [UIntXL](Sources/NBKFlexibleWidthKit/NBKFlexibleWidth.swift)
 
 ### Fibonacci
 
@@ -140,7 +140,7 @@ NBKFibonacciXL(5) // (index: 5, element: 5, next: 8)
 It uses a fast double-and-add algorithm:
 
 ```swift
-NBKFibonacciXL(10_000_000) // 2.3s on M1 MacBook Pro
+NBKFibonacciXL(10_000_000) // 2.3s on MacBook Pro, 13-inch, M1, 2020
 ```
 
 But you can also step through it manually:
