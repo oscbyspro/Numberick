@@ -77,14 +77,6 @@ import NBKCoreKit
 /// Int256(5) % Int(5), UInt256(5) % UInt(5)
 /// ```
 ///
-/// - Note: The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
-///
-/// ### ⭐️ Feature: StaticBigInt
-///
-/// `StaticBigInt` is disabled by default. You enable it in `Package.swift`.
-///
-/// - Note: You can use `StaticString` until `StaticBigInt` becomes available.
-///
 @frozen public struct NBKDoubleWidth<High>: ExpressibleByStringLiteral,
 NBKFixedWidthInteger, MutableCollection, RandomAccessCollection where
 High: NBKFixedWidthInteger,  High.Digit: NBKCoreInteger<UInt> {

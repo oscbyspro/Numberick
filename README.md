@@ -104,16 +104,6 @@ Int256(4) / Int(4), UInt256(4) / UInt(4)
 Int256(5) % Int(5), UInt256(5) % UInt(5)
 ```
 
-> [!NOTE]
-> The `Digit` type is `Int` when `Self` is signed, and `UInt` otherwise.
-
-### ⭐️ Feature: Swift.StaticBigInt
-
-`StaticBigInt` is disabled by default. You enable it in `Package.swift`.
-
-> [!NOTE]
-> You can use `StaticString` until `StaticBigInt` becomes available.
-
 <a name="nbkflexiblewidthkit"/>
 
 ## [NBKFlexibleWidthKit][FLX/D] ([Sources][FLX/S], [Tests][FLX/T], [Benchmarks][FLX/B])
@@ -146,9 +136,9 @@ NBKFibonacciXL(10_000_000) // 2.3s on MacBook Pro, 13-inch, M1, 2020
 But you can also step through it manually:
 
 ```swift
-public mutating func increment() { ... } // index + 1
-public mutating func decrement() { ... } // index - 1
-public mutating func    double() { ... } // index * 2
+mutating func increment() { ... } // index + 1
+mutating func decrement() { ... } // index - 1
+mutating func    double() { ... } // index * 2
 ```
 
 <a name="installation"/>
