@@ -6,6 +6,15 @@
 |:-------:|:-----:|:-----:|:------------:|:-----:|:-----:|:-------:|
 | 0.17.0  | 5.7   | 14.0  | 14.0         | 11.0  | 14.0  | 7.0     |
 
+> [!IMPORTANT]
+> The development of this project has moved elsewhere.
+ 
+> It turns out that I need \~(\~(x)) to equal x for all x.\
+> This is not possible with arbitrary unsigned integers at the moment.\
+> So I'm working on a novel abstraction that permits this.\
+> It unifies all sizes and brings recovery mechanisms to generic code.\
+> Also, I'm open to work.
+
 ## Table of Contents
 
 * [NBKCoreKit](#nbkcorekit)
